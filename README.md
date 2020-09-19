@@ -41,7 +41,7 @@ mvn test
 Code style is verified at each commit. To apply [Google Java Code Style](https://google.github.io/styleguide/javaguide.html) throughout the source code, use : 
 
 ```
-mvn git-code-format:format-code -DglobPattern=**/*
+mvn git-code-format:format-code
 ```
 
 ### API documentation generation
