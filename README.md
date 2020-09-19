@@ -1,6 +1,6 @@
 # SPAMD-UL
 
-**This is our project for course GLO-4003 at Laval University. We are team 4 : L'inquisition espagnol.**
+**This is our project for course GLO-4003 at Laval University. We are team 4 : L'inquisition espagnole.**
 
 **Requests supported by SPAMD-UL are specified on [this project's GitHub Pages](https://glo4003ul.github.io/a20-eq4/).**
 
