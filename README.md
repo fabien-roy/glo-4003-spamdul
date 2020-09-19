@@ -56,8 +56,6 @@ mvn git-code-format:format-code
 
 ### API documentation generation
 
-**TODO : This might not be used**
-
 As said above, all requests for this app are listed on our GitHubPages. We used RAML 1.0. To render documentation, you must install `npm` dependencies and start the script : 
 
 ```
