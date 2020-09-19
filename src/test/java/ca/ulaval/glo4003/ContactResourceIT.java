@@ -1,30 +1,25 @@
 package ca.ulaval.glo4003;
 
-import static io.restassured.RestAssured.get;
-
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import ca.ulaval.glo4003.Main;
+import static io.restassured.RestAssured.get;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ContactResourceIT {
 
   @Before
-  public void setUp()
-          throws Exception {
-    Thread t = new Thread() {
-      public void run() {
-        try {
-          Main.main(new String[] {});
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
+  public void setUp() {
+    Thread t = new Thread(() -> {
+      try {
+        Main.main(new String[] {});
+      } catch (Exception e) {
+        e.printStackTrace();
       }
-    };
+    });
     t.setDaemon(true);
     t.start();
   }

@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.domain.contact;
 
-
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -9,10 +8,10 @@ import java.util.stream.Collectors;
 import ca.ulaval.glo4003.api.contact.dto.ContactDto;
 
 public class ContactService {
-  private Logger logger = Logger.getLogger(ContactService.class.getName());
+  private final Logger logger = Logger.getLogger(ContactService.class.getName());
 
-  private ContactRepository contactRepository;
-  private ContactAssembler contactAssembler;
+  private final ContactRepository contactRepository;
+  private final ContactAssembler contactAssembler;
 
   public ContactService(ContactRepository contactRepository, ContactAssembler contactAssembler) {
     this.contactRepository = contactRepository;
@@ -38,19 +37,15 @@ public class ContactService {
     contactRepository.save(contact);
   }
 
-  public void updateContact(String id, ContactDto contactDto)
-          throws ContactNotFoundException {
+  public void updateContact(String id, ContactDto contactDto) throws ContactNotFoundException {
     logger.info(String.format("Update contact with id %s", id));
     Contact contact = contactAssembler.create(contactDto);
     contact.setId(id);
     contactRepository.update(contact);
   }
 
-
   public void deleteContact(String id) {
     logger.info(String.format("Delete contact with id %s", id));
     contactRepository.remove(id);
   }
-
-
 }

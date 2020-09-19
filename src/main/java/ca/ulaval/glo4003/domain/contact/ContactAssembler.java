@@ -4,10 +4,7 @@ import ca.ulaval.glo4003.api.contact.dto.ContactDto;
 
 public class ContactAssembler {
   public Contact create(ContactDto contactDto) {
-    Contact contact = new Contact();
-    contact.setAddress(contactDto.address);
-    contact.setTelephoneNumber(contactDto.telephoneNumber);
-    contact.setName(contactDto.name);
+    Contact contact = new Contact(contactDto.address, contactDto.telephoneNumber, contactDto.name);
     return contact;
   }
 

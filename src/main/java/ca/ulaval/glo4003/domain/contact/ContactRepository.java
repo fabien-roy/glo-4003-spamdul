@@ -7,8 +7,7 @@ public interface ContactRepository {
 
   Contact findById(String id);
 
-  void update(Contact contact)
-          throws ContactNotFoundException;
+  void update(Contact contact) throws ContactNotFoundException;
 
   void save(Contact contact);
 

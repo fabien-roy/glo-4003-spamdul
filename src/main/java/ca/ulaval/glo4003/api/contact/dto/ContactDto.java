@@ -8,11 +8,6 @@ public class ContactDto {
 
   @Override
   public String toString() {
-    return "ContactDto{" +
-            "id='" + id + '\'' +
-            ", telephoneNumber='" + telephoneNumber + '\'' +
-            ", address='" + address + '\'' +
-            ", name='" + name + '\'' +
-            '}';
+    return String.format("ContactDto{id='%s', telephoneNumber='%s', address='%s', name='%s'}", id, telephoneNumber, address, name);
   }
 }

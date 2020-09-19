@@ -15,8 +15,12 @@ import com.google.common.truth.Truth;
 
 import jersey.repackaged.com.google.common.collect.Lists;
 
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ContactServiceTest {
+  private static final String CONTACT_ID = "id";
 
   @Mock
   private Contact contact;
@@ -30,25 +34,60 @@ public class ContactServiceTest {
   private ContactService contactService;
 
   @Before
-  public void setUp()
-          throws Exception {
+  public void setUp() {
     contactService = new ContactService(contactRepository, contactAssembler);
   }
 
   @Test
-  public void givenContactsInRepository_whenFindAllContacts_thenReturnThose()
-          throws Exception {
-    // given
+  public void givenContactsInRepository_whenFindAllContacts_thenReturnThose() {
     BDDMockito.given(contactRepository.findAll()).willReturn(Lists.newArrayList(contact));
     BDDMockito.given(contactAssembler.create(contact)).willReturn(contactDto);
 
-    // when
     List<ContactDto> contactDtos = contactService.findAllContacts();
 
-    // then
     Truth.assertThat(contactDtos).contains(contactDto);
     Mockito.verify(contactRepository).findAll();
-    Mockito.verify(contactAssembler).create(org.mockito.Matchers.eq(contact));
+    Mockito.verify(contactAssembler).create(eq(contact));
   }
 
+  @Test
+  public void givenContactsInRepository_whenFindContact_thenReturnThem() {
+    BDDMockito.given(contactRepository.findById(CONTACT_ID)).willReturn(contact);
+    BDDMockito.given(contactAssembler.create(contact)).willReturn(contactDto);
+
+    ContactDto contactDto = contactService.findContact(CONTACT_ID);
+
+    Truth.assertThat(contactDto).isEqualTo(this.contactDto);
+    Mockito.verify(contactRepository).findById(CONTACT_ID);
+    Mockito.verify(contactAssembler).create(eq(contact));
+  }
+
+  @Test
+  public void whenAddContact_thenAddThem() {
+    BDDMockito.given(contactAssembler.create(contactDto)).willReturn(contact);
+
+    contactService.addContact(contactDto);
+
+    Mockito.verify(contact).setId(anyString());
+    Mockito.verify(contactRepository).save(eq(contact));
+    Mockito.verify(contactAssembler).create(eq(contactDto));
+  }
+
+  @Test
+  public void whenUpdateContact_thenUpdateThem() throws ContactNotFoundException {
+    BDDMockito.given(contactAssembler.create(contactDto)).willReturn(contact);
+
+    contactService.updateContact(CONTACT_ID, contactDto);
+
+    Mockito.verify(contact).setId(eq(CONTACT_ID));
+    Mockito.verify(contactRepository).update(eq(contact));
+    Mockito.verify(contactAssembler).create(eq(contactDto));
+  }
+
+  @Test
+  public void whenRemoveContact_thenRemoveThem() {
+    contactService.deleteContact(CONTACT_ID);
+
+    Mockito.verify(contactRepository).remove(eq(CONTACT_ID));
+  }
 }

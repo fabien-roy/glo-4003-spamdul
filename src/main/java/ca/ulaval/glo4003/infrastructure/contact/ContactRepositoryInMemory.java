@@ -11,8 +11,7 @@ import java.util.Map;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
 
 public class ContactRepositoryInMemory implements ContactRepository {
-
-  private Map<String, Contact> contacts = new HashMap<>();
+  private final Map<String, Contact> contacts = new HashMap<>();
 
   @Override
   public List<Contact> findAll() {
@@ -25,9 +24,9 @@ public class ContactRepositoryInMemory implements ContactRepository {
   }
 
   @Override
-  public void update(Contact contact)
-          throws ContactNotFoundException {
+  public void update(Contact contact) throws ContactNotFoundException {
     Contact foundContact = contacts.get(contact.getId());
+
     if (foundContact != null) {
       contacts.put(contact.getId(), contact);
     } else {

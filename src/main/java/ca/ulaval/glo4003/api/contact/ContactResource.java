@@ -32,8 +32,7 @@ public interface ContactResource {
 
   @PUT
   @Path("{id}")
-  void updateContact(@PathParam("id") String id,
-                     ContactDto contactDto);
+  void updateContact(@PathParam("id") String id, ContactDto contactDto);
 
   @DELETE
   @Path("{id}")
