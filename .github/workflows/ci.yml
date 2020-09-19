@@ -14,5 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Check style
+        run: mvn git-code-format:validate-code-format
       - name: Unit tests
         run: mvn test

@@ -1,8 +1,12 @@
 package ca.ulaval.glo4003.domain.contact;
 
-import java.util.List;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 
 import ca.ulaval.glo4003.api.contact.dto.ContactDto;
+import com.google.common.truth.Truth;
+import java.util.List;
+import jersey.repackaged.com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,25 +15,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.google.common.truth.Truth;
-
-import jersey.repackaged.com.google.common.collect.Lists;
-
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-
 @RunWith(MockitoJUnitRunner.class)
 public class ContactServiceTest {
   private static final String CONTACT_ID = "id";
 
-  @Mock
-  private Contact contact;
-  @Mock
-  private ContactDto contactDto;
-  @Mock
-  private ContactRepository contactRepository;
-  @Mock
-  private ContactAssembler contactAssembler;
+  @Mock private Contact contact;
+  @Mock private ContactDto contactDto;
+  @Mock private ContactRepository contactRepository;
+  @Mock private ContactAssembler contactAssembler;
 
   private ContactService contactService;
 

@@ -1,10 +1,13 @@
 package ca.ulaval.glo4003.api.contact;
 
-import java.util.List;
+import static org.mockito.Matchers.eq;
 
 import ca.ulaval.glo4003.api.contact.dto.ContactDto;
 import ca.ulaval.glo4003.domain.contact.ContactNotFoundException;
 import ca.ulaval.glo4003.domain.contact.ContactService;
+import com.google.common.truth.Truth;
+import java.util.List;
+import jersey.repackaged.com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,21 +16,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.google.common.truth.Truth;
-
-import jersey.repackaged.com.google.common.collect.Lists;
-
-import static org.mockito.Matchers.eq;
-
-
 @RunWith(MockitoJUnitRunner.class)
 public class ContactResourceImplTest {
   private static final String CONTACT_ID = "id";
 
-  @Mock
-  private ContactService contactService;
-  @Mock
-  private ContactDto contactDto;
+  @Mock private ContactService contactService;
+  @Mock private ContactDto contactDto;
 
   private ContactResource contactResource;
 

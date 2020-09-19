@@ -1,14 +1,11 @@
 package ca.ulaval.glo4003.api.contact;
 
-
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-
 import ca.ulaval.glo4003.api.contact.dto.ContactDto;
 import ca.ulaval.glo4003.domain.contact.ContactNotFoundException;
 import ca.ulaval.glo4003.domain.contact.ContactService;
-
 import java.util.List;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 public class ContactResourceImpl implements ContactResource {
   private final ContactService contactService;
@@ -37,7 +34,8 @@ public class ContactResourceImpl implements ContactResource {
     try {
       contactService.updateContact(id, contactDto);
     } catch (ContactNotFoundException e) {
-      throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build());
+      throw new WebApplicationException(
+          Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build());
     }
   }
 

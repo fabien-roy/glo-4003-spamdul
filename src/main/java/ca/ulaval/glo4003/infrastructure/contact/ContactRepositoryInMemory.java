@@ -2,20 +2,18 @@ package ca.ulaval.glo4003.infrastructure.contact;
 
 import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactNotFoundException;
-import jersey.repackaged.com.google.common.collect.Lists;
-
+import ca.ulaval.glo4003.domain.contact.ContactRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import ca.ulaval.glo4003.domain.contact.ContactRepository;
+import jersey.repackaged.com.google.common.collect.Lists;
 
 public class ContactRepositoryInMemory implements ContactRepository {
   private final Map<String, Contact> contacts = new HashMap<>();
 
   @Override
   public List<Contact> findAll() {
-      return Lists.newArrayList(contacts.values());
+    return Lists.newArrayList(contacts.values());
   }
 
   @Override

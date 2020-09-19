@@ -1,11 +1,10 @@
 package ca.ulaval.glo4003.domain.contact;
 
+import ca.ulaval.glo4003.api.contact.dto.ContactDto;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-
-import ca.ulaval.glo4003.api.contact.dto.ContactDto;
 
 public class ContactService {
   private final Logger logger = Logger.getLogger(ContactService.class.getName());
