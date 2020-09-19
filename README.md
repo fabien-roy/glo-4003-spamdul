@@ -24,7 +24,7 @@ To execute the application, use :
 mvn exec:java
 ```
 
-The app will be running on [http://localhost:8080](http://localhost:8080).
+The app will be running on [http://localhost:8080/api](http://localhost:8080/api).
 
 ### Run tests
 
