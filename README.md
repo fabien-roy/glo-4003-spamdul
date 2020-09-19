@@ -36,6 +36,16 @@ To run unit tests, use :
 mvn test
 ```
 
+### Report code coverage
+
+To report code coverage after testing the app, use : 
+
+```
+mvn jacoco:report
+```
+
+This will generate `target/site/jacoco/index.html`, which can be opened in any browser.
+
 ### Apply code style
 
 Code style is verified at each commit. To apply [Google Java Code Style](https://google.github.io/styleguide/javaguide.html) throughout the source code, use : 
