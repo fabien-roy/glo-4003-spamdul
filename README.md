@@ -33,7 +33,7 @@ Tests are located in `src/test/java/ca/ulaval/glo4003`. They are all checked pre
 To run unit tests, use :
 
 ```
-mvn surefire:test
+mvn test
 ```
 
 ### Apply code style
