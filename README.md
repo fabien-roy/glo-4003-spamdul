@@ -2,7 +2,7 @@
 
 **This is our project for course GLO-4003 at Laval University. We are team 4 : L'inquisition espagnol.**
 
-**Requests supported by SPAMD-UL are specified on [this project's GitHub Pages (TODO : Add link to GitHub Pages)](#).**
+**Requests supported by SPAMD-UL are specified on [this project's GitHub Pages](https://glo4003ul.github.io/a20-eq4/).**
 
 **Our project is hosted on [https://glo4003-a20-eq4.herokuapp.com (TODO : Add link to deployed app)](#).**
 
@@ -24,7 +24,7 @@ To execute the application, use :
 mvn exec:java
 ```
 
-The app will be running on [http://localhost:4567 (TODO : Verify if this link is good)](http://localhost:4567).
+The app will be running on [http://localhost:8080](http://localhost:8080).
 
 ### Run tests
 
