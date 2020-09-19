@@ -38,7 +38,7 @@ mvn surefire:test
 
 ### Apply code style
 
-Code style is verified pre-commit. To apply [Google Java Code Style](https://google.github.io/styleguide/javaguide.html) throughout the source code, use : 
+Code style is verified at compilation. To apply [Google Java Code Style](https://google.github.io/styleguide/javaguide.html) throughout the source code, use : 
 
 ```
 mvn git-code-format:format-code -DglobPattern=**/*
