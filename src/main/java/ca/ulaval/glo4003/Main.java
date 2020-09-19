@@ -29,7 +29,7 @@ import ca.ulaval.glo4003.http.CORSResponseFilter;
  */
 @SuppressWarnings("all")
 public class Main {
-  public static boolean isDev = true; // Would be a JVM argument or in a .property file
+  public static boolean isDev = true; // TODO : Would be a JVM argument or in a .property file
 
   public static void main(String[] args) throws Exception {
     ContactResource contactResource = createContactResource();
