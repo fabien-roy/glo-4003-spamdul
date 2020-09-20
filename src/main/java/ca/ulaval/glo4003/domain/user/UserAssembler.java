@@ -6,7 +6,11 @@ public class UserAssembler {
 
   public User create(UserDto userDto) {
     return new User(
-        userDto.name, userDto.birthDate, userDto.sex, userDto.age, userDto.communication);
+        userDto.name,
+        userDto.birthDate,
+        userDto.sex,
+        userDto.age,
+        userDto.preferredCommunicationMethod);
   }
 
   public UserDto create(User user) {
@@ -15,7 +19,7 @@ public class UserAssembler {
     userDto.birthDate = user.getBirthDate();
     userDto.sex = user.getSex();
     userDto.age = user.getAge();
-    userDto.communication = user.getCommunication();
+    userDto.preferredCommunicationMethod = user.getPreferredCommunicationMethod();
 
     return userDto;
   }

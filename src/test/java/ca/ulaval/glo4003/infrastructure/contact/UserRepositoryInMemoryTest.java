@@ -21,7 +21,7 @@ public class UserRepositoryInMemoryTest {
   }
 
   @Test
-  public void givenUser_whenAddingUser_thenAddUserInMemory() {
+  public void whenAddingUser_thenAddUserInMemory() {
     userRepositoryInMemory.save(user);
     List<User> users = new ArrayList<>(userRepositoryInMemory.getUsers().values());
     Truth.assertThat(users).contains(user);

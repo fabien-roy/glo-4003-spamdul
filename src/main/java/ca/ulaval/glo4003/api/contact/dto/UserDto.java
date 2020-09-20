@@ -5,12 +5,12 @@ public class UserDto {
   public String birthDate;
   public String sex;
   public int age;
-  public String communication;
+  public String preferredCommunicationMethod;
 
   @Override
   public String toString() {
     return String.format(
         "UserDto{name='%s', birthDate='%s', sex='%s', age='%s', communication='%'}",
-        name, birthDate, sex, age, communication);
+        name, birthDate, sex, age, preferredCommunicationMethod);
   }
 }

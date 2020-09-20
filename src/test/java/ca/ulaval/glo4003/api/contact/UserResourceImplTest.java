@@ -21,14 +21,14 @@ public class UserResourceImplTest {
   }
 
   @Test
-  public void whenAddingUser_ThenAddUserToService() {
+  public void whenAddingUser_ThenServiceShouldAddUser() {
     userResource.addUser(userDto);
 
     verify(userService).addUser(userDto);
   }
 
   @Test
-  public void whenGettingUser_ThenGetUserToService() {
+  public void whenGettingUser_ThenServiceShouldGetUser() {
     userResource.getUser(ANY_ID);
 
     verify(userService).getUser(ANY_ID);

@@ -6,14 +6,15 @@ public class User {
   private String birthDate;
   private String sex;
   private int age;
-  private String communication;
+  private String preferredCommunicationMethod;
 
-  public User(String name, String birthDate, String sex, int age, String communication) {
+  public User(
+      String name, String birthDate, String sex, int age, String preferredCommunicationMethod) {
     this.name = name;
     this.birthDate = birthDate;
     this.sex = sex;
     this.age = age;
-    this.communication = communication;
+    this.preferredCommunicationMethod = preferredCommunicationMethod;
   }
 
   public String getName() {
@@ -32,8 +33,8 @@ public class User {
     return age;
   }
 
-  public String getCommunication() {
-    return communication;
+  public String getPreferredCommunicationMethod() {
+    return preferredCommunicationMethod;
   }
 
   public void setId(int id) {
