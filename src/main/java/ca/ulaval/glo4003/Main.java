@@ -30,7 +30,7 @@ public class Main {
     ContactResource contactResource = createContactResource();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-    context.setContextPath("/api/ ");
+    context.setContextPath("/api/");
     ResourceConfig resourceConfig =
         ResourceConfig.forApplication(
             new Application() {
