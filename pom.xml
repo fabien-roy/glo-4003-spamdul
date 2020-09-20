@@ -4,19 +4,37 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>ca.ulaval.glo4003</groupId>
-	<artifactId>projet-de-base</artifactId>
+	<artifactId>spamd-ul</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>projet-de-base-ws</name>
+	<name>SPAMD-UL</name>
 
 	<properties>
+		<!-- Make build platform independent -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- general -->
+		<java.version>1.8</java.version>
+		<maven-compiler.version>3.5</maven-compiler.version>
+		<exec-maven.version>1.2.1</exec-maven.version>
+        <!-- TODO : Change main class -->
+		<main-class>ca.ulaval.glo4003.projet.base.ProjetBaseMain</main-class>
+		<!-- REST -->
 		<jetty.version>[9.3.24.v20180605,)</jetty.version>
 		<jersey.version>2.8</jersey.version>
+		<javax.ws.rs.version>2.1</javax.ws.rs.version>
+        <!-- Tests -->
+		<junit.version>4.12</junit.version>
+		<mockito.version>2.0.1-beta</mockito.version>
+		<rest-assured.version>4.0.0</rest-assured.version>
+		<hamcrest.version>1.3</hamcrest.version>
+		<google.truth.version>1.0</google.truth.version>
+		<javax.xml.bind.version>2.2.12</javax.xml.bind.version>
+		<javax.activation.version>1.1.1</javax.activation.version>
 	</properties>
 
 	<dependencies>
+		<!-- REST -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
@@ -60,55 +78,54 @@
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.1</version>
+			<version>${javax.ws.rs.version}</version>
 		</dependency>
-
-		<!-- Test dependencies -->
+		<!-- Tests -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-			<version>2.0.1-beta</version>
+			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
-			<version>4.0.0</version>
+			<version>${rest-assured.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>json-path</artifactId>
-			<version>4.0.0</version>
+			<version>${rest-assured.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-library</artifactId>
-			<version>1.3</version>
+			<version>${hamcrest.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.truth</groupId>
 			<artifactId>truth</artifactId>
-			<version>1.0</version>
+			<version>${google.truth.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
-			<version>2.2.12</version>
+			<version>${javax.xml.bind.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.activation</groupId>
 			<artifactId>activation</artifactId>
-			<version>1.1.1</version>
+			<version>${javax.activation.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -117,18 +134,18 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5</version>
+				<version>${maven-compiler.version}</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
+				<version>${exec-maven.version}</version>
 				<configuration>
-					<mainClass>ca.ulaval.glo4003.projet.base.ProjetBaseMain</mainClass>
+					<mainClass>${main-class}</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
