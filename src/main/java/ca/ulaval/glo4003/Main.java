@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.projet.base;
+package ca.ulaval.glo4003;
 
 import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.contact.ContactResourceImpl;
