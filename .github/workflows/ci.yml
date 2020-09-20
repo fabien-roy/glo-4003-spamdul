@@ -1,0 +1,22 @@
+name: SPAMD-UL CI
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check style
+        run: mvn git-code-format:validate-code-format
+      - name: Unit tests
+        run: mvn test
+      - name: Code coverage
+        run: mvn jacoco:report
