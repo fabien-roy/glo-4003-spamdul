@@ -13,7 +13,6 @@ public class ParkingStickerAssembler {
 
   public ParkingSticker assemble(ParkingStickerDto parkingStickerDto) {
     ReceptionMethods receptionMethod = ReceptionMethods.get(parkingStickerDto.receptionMethod);
-
     validateReceptionMethod(receptionMethod, parkingStickerDto.address);
 
     AccountId accountId = accountIdAssembler.assemble(parkingStickerDto.accountId);
@@ -25,8 +24,6 @@ public class ParkingStickerAssembler {
   private void validateReceptionMethod(ReceptionMethods receptionMethod, String address) {
     if (receptionMethod.equals(ReceptionMethods.POSTAL) && address == null) {
       throw new MissingAddressException();
-    } else if (receptionMethod.equals(ReceptionMethods.EMAIL) && address != null) {
-      throw new UnwantedAddressException();
     }
   }
 }
