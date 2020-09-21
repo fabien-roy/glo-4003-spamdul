@@ -51,10 +51,12 @@ public class ParkingStickerAssemblerTest {
     Truth.assertThat(parkingSticker.getParkingAreaCode().toString()).isEqualTo(PARKING_AREA);
   }
 
-  @Test
+  @Test(expected = InvalidReceptionMethodException.class)
   public void
-      givenInvalidReceptionMethodAndNoAddress_whenAssembling_thenThrowInvalidReceptionMethodException() {
-    // TODO
+      givenInvalidReceptionMethod_whenAssembling_thenThrowInvalidReceptionMethodException() {
+    parkingStickerDto = aParkingStickerDto().withReceptionMethod("InvalidReceptionMethod").build();
+
+    parkingStickerAssembler.assemble(parkingStickerDto);
   }
 
   @Test
