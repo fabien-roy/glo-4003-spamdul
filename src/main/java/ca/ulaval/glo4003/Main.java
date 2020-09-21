@@ -27,7 +27,7 @@ public class Main {
   public static boolean isDev = true; // TODO : Would be a JVM argument or in a .property file
 
   public static void main(String[] args) throws Exception {
-    ContactResource contactResource = createContactResource();
+    ContactResource contactResource = createContactResource(); // TODO : Remove demo Contact logic
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
