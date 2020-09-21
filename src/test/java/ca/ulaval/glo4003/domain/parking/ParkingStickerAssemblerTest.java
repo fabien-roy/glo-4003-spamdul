@@ -50,4 +50,27 @@ public class ParkingStickerAssemblerTest {
 
     Truth.assertThat(parkingSticker.getParkingAreaCode().toString()).isEqualTo(PARKING_AREA);
   }
+
+  @Test
+  public void
+      givenInvalidReceptionMethodAndNoAddress_whenAssembling_thenThrowInvalidReceptionMethodException() {
+    // TODO
+  }
+
+  @Test
+  public void
+      givenPostalReceptionMethodAndNoAddress_whenAssembling_thenThrowMissingAddressException() {
+    // TODO
+  }
+
+  @Test
+  public void
+      givenEmailReceptionMethodAndAddress_whenAssembling_thenThrowUnwantedAddressException() {
+    // TODO
+  }
+
+  @Test
+  public void whenAssembling_thenReturnParkingStickerWithReceptionMethod() {
+    // TODO (parametrized)
+  }
 }
