@@ -19,8 +19,4 @@ public class AccountRepositoryInMemory implements AccountRepository {
   public Account findById(AccountId accountId) {
     return users.get(accountId);
   }
-
-  public Map<AccountId, Account> getUsers() {
-    return users;
-  }
 }

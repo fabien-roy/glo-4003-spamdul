@@ -1,18 +1,20 @@
 package ca.ulaval.glo4003.infrastructure.account;
 
-import static org.mockito.Mockito.mock;
-
 import ca.ulaval.glo4003.domain.account.Account;
+import ca.ulaval.glo4003.domain.account.AccountRepository;
 import com.google.common.truth.Truth;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AccountRepositoryInMemoryTest {
-  private Account account = mock(Account.class);
+  @Mock
+  private Account account; // TODO : Use AccountBuilderInstead
 
-  private AccountRepositoryInMemory accountRepositoryInMemory;
+  private AccountRepository accountRepositoryInMemory;
 
   @Before
   public void setUp() {
@@ -20,19 +22,11 @@ public class AccountRepositoryInMemoryTest {
   }
 
   @Test
-  public void whenAddingAccount_thenAddAccountInMemory() {
+  public void whenSavingAccount_thenAccountCanBeFound() {
     accountRepositoryInMemory.save(account);
-    List<Account> accounts = new ArrayList<>(accountRepositoryInMemory.getUsers().values());
 
-    Truth.assertThat(accounts).contains(account);
-  }
+    Account foundAccount = accountRepositoryInMemory.findById(account.getId());
 
-  @Test
-  public void whenFindingAccount_thenReturnsAccountFromMemory() {
-    accountRepositoryInMemory.save(account);
-    Account accountFound = accountRepositoryInMemory.findById(account.getId());
-    List<Account> accounts = new ArrayList<>(accountRepositoryInMemory.getUsers().values());
-
-    Truth.assertThat(accounts).contains(accountFound);
+    Truth.assertThat(foundAccount).isSameInstanceAs(account);
   }
 }

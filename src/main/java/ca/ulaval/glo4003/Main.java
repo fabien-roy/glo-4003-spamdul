@@ -6,6 +6,9 @@ import ca.ulaval.glo4003.api.contact.UserResource;
 import ca.ulaval.glo4003.api.contact.UserResourceImplementation;
 import ca.ulaval.glo4003.domain.account.AccountFactory;
 import ca.ulaval.glo4003.domain.account.AccountNumberGenerator;
+import ca.ulaval.glo4003.api.parking.ParkingResource;
+import ca.ulaval.glo4003.api.parking.ParkingResourceImpl;
+import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
 import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
@@ -14,10 +17,12 @@ import ca.ulaval.glo4003.domain.contact.ContactService;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
 import ca.ulaval.glo4003.domain.user.UserService;
 import ca.ulaval.glo4003.domain.user.exception.InvalidUserExceptionMapper;
+import ca.ulaval.glo4003.domain.parking.*;
 import ca.ulaval.glo4003.http.CORSResponseFilter;
 import ca.ulaval.glo4003.infrastructure.account.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactDevDataFactory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactRepositoryInMemory;
+import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,14 +35,15 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
-/** RESTApi setup without using DI or spring */
 @SuppressWarnings("all")
 public class Main {
   public static boolean isDev = true; // TODO : Would be a JVM argument or in a .property file
 
   public static void main(String[] args) throws Exception {
+    // TODO : Move creation of resources elsewhere (custom injection)
     ContactResource contactResource = createContactResource(); // TODO : Remove demo Contact logic
     UserResource userResource = createUserResource();
+    ParkingResource parkingResource = createParkingResource();
     InvalidUserExceptionMapper invalidUserExceptionMapper = new InvalidUserExceptionMapper();
     // TODO : Add ParkingExceptionMapper
 
@@ -51,6 +57,7 @@ public class Main {
                 HashSet<Object> resources = new HashSet<>();
                 resources.add(contactResource);
                 resources.add(userResource);
+                resources.add(parkingResource);
                 resources.add(invalidUserExceptionMapper);
                 return resources;
               }
@@ -98,5 +105,29 @@ public class Main {
     UserService userService = new UserService(accountRepository, accountFactory, userAssembler);
 
     return new UserResourceImplementation(userService);
+  }
+
+  private static ParkingResource createParkingResource() {
+    AccountRepository accountRepository = new AccountRepositoryInMemory();
+    ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
+
+    // TODO : Dev mock data for account and parking area repository
+
+    AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
+    ParkingStickerAssembler parkingStickerAssembler =
+        new ParkingStickerAssembler(accountIdAssembler);
+    ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
+    ParkingStickerCodeGenerator parkingStickerCodeGenerator = new ParkingStickerCodeGenerator();
+    ParkingStickerFactory parkingStickerFactory =
+        new ParkingStickerFactory(parkingStickerCodeGenerator);
+    ParkingService parkingService =
+        new ParkingService(
+            parkingStickerAssembler,
+            parkingStickerCodeAssembler,
+            parkingStickerFactory,
+            accountRepository,
+            parkingAreaRepository);
+
+    return new ParkingResourceImpl(parkingService);
   }
 }
