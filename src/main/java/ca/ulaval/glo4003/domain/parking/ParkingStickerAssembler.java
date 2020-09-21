@@ -5,8 +5,8 @@ import ca.ulaval.glo4003.domain.account.AccountId;
 import java.util.UUID;
 
 public class ParkingStickerAssembler {
-  public ParkingSticker create(ParkingStickerDto parkingStickerDto) {
-    // TODO : ParkingStickerDto::create(ParkingStickerDto)
+  public ParkingSticker assemble(ParkingStickerDto parkingStickerDto) {
+    // TODO : ParkingStickerAssembler::assemble(ParkingStickerDto)
     return new ParkingSticker(new AccountId(UUID.randomUUID()), new ParkingAreaCode("TODO"));
   }
 }

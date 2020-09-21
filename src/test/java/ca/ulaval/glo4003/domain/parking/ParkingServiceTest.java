@@ -17,6 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ParkingServiceTest {
   @Mock private ParkingStickerDto parkingStickerDto;
   @Mock private ParkingStickerAssembler parkingStickerAssembler;
+  @Mock private ParkingStickerFactory parkingStickerFactory;
   @Mock private AccountRepository accountRepository;
   @Mock private ParkingAreaRepository parkingAreaRepository;
 
@@ -27,10 +28,15 @@ public class ParkingServiceTest {
   @Before
   public void setUp() {
     parkingService =
-        new ParkingService(parkingStickerAssembler, accountRepository, parkingAreaRepository);
+        new ParkingService(
+            parkingStickerAssembler,
+            parkingStickerFactory,
+            accountRepository,
+            parkingAreaRepository);
     parkingSticker = aParkingSticker().build();
 
-    BDDMockito.given(parkingStickerAssembler.create(parkingStickerDto)).willReturn(parkingSticker);
+    BDDMockito.given(parkingStickerAssembler.assemble(parkingStickerDto))
+        .willReturn(parkingSticker);
   }
 
   @Test
@@ -49,7 +55,9 @@ public class ParkingServiceTest {
 
   @Test
   public void whenAddParkingSticker_thenCreateParkingSticker() {
-    // TODO
+    parkingService.addParkingSticker(parkingStickerDto);
+
+    Mockito.verify(parkingStickerFactory).create(eq(parkingSticker));
   }
 
   @Test
