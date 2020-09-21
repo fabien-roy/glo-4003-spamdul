@@ -4,6 +4,7 @@ import static ca.ulaval.glo4003.domain.account.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerBuilder.aParkingSticker;
 import static org.mockito.Matchers.eq;
 
+import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
@@ -19,7 +20,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ParkingServiceTest {
   @Mock private ParkingStickerDto parkingStickerDto;
+  @Mock private ParkingStickerCodeDto parkingStickerCodeDto;
   @Mock private ParkingStickerAssembler parkingStickerAssembler;
+  @Mock private ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   @Mock private ParkingStickerFactory parkingStickerFactory;
   @Mock private AccountRepository accountRepository;
   @Mock private ParkingAreaRepository parkingAreaRepository;
@@ -34,6 +37,7 @@ public class ParkingServiceTest {
     parkingService =
         new ParkingService(
             parkingStickerAssembler,
+            parkingStickerCodeAssembler,
             parkingStickerFactory,
             accountRepository,
             parkingAreaRepository);
@@ -42,6 +46,8 @@ public class ParkingServiceTest {
 
     BDDMockito.given(parkingStickerAssembler.assemble(parkingStickerDto))
         .willReturn(parkingSticker);
+    BDDMockito.given(parkingStickerCodeAssembler.assemble(parkingSticker.getCode()))
+        .willReturn(parkingStickerCodeDto);
     BDDMockito.given(accountRepository.findById(parkingSticker.getAccountId())).willReturn(account);
     BDDMockito.given(parkingStickerFactory.create(parkingSticker)).willReturn(parkingSticker);
   }
@@ -83,6 +89,9 @@ public class ParkingServiceTest {
 
   @Test
   public void whenAddParkingSticker_thenReturnParkingStickerCode() {
-    // TODO
+    ParkingStickerCodeDto parkingStickerCodeDto =
+        parkingService.addParkingSticker(parkingStickerDto);
+
+    Truth.assertThat(parkingStickerCodeDto).isSameInstanceAs(this.parkingStickerCodeDto);
   }
 }

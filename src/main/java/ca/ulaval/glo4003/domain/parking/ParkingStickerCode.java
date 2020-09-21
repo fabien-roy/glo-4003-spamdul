@@ -6,4 +6,9 @@ public class ParkingStickerCode {
   public ParkingStickerCode(String code) {
     this.code = code;
   }
+
+  @Override
+  public String toString() {
+    return code;
+  }
 }
