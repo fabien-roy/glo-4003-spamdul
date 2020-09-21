@@ -1,7 +1,5 @@
 # Contributing to GLO-4003 (A2020) - Team 4 project
 
-**TODO : Verify everything here is true and used in the project**
-
 **Contributions are welcome!**
 
 ## Code of conduct
@@ -24,10 +22,10 @@ Milestones represent release numbers. For example, release 1 would be milestone 
 
 Issues must be placed on the [project board](https://github.com/GLO4003UL/a20-eq4/projects/1). There are 5 columns in this board : 
 
-- Maybe : Optional issues that are not prioritized in the current sprint
-- ToDo : Issues that must be done to deliver the current iteration
-- InProgress : Self-explanatory
-- InReview : Issues currently in review
+- To do : Issues that must be done to deliver the current iteration
+- In progress : Self-explanatory
+- Review in progress : Issues currently in review
+- Reviewer approved : Issues to be merged
 - Done : Closed issues (see : Definition of done)
 
 The person in charge of an issue is in charge of moving it across the project board.
