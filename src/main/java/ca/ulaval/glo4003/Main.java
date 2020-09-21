@@ -4,17 +4,19 @@ import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.contact.ContactResourceImpl;
 import ca.ulaval.glo4003.api.contact.UserResource;
 import ca.ulaval.glo4003.api.contact.UserResourceImpl;
+import ca.ulaval.glo4003.domain.account.AccountFactory;
+import ca.ulaval.glo4003.domain.account.AccountNumberGenerator;
+import ca.ulaval.glo4003.domain.account.AccountRepository;
 import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
 import ca.ulaval.glo4003.domain.contact.ContactService;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
-import ca.ulaval.glo4003.domain.user.UserRepository;
 import ca.ulaval.glo4003.domain.user.UserService;
 import ca.ulaval.glo4003.http.CORSResponseFilter;
+import ca.ulaval.glo4003.infrastructure.account.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactDevDataFactory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactRepositoryInMemory;
-import ca.ulaval.glo4003.infrastructure.user.UserRepositoryInMemory;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -84,9 +86,12 @@ public class Main {
   }
 
   private static UserResource createUserResource() {
-    UserRepository userRepository = new UserRepositoryInMemory();
+    AccountRepository accountRepository = new AccountRepositoryInMemory();
+    AccountNumberGenerator accountNumberGenerator = new AccountNumberGenerator();
     UserAssembler userAssembler = new UserAssembler();
-    UserService userService = new UserService(userRepository, userAssembler);
+    AccountFactory accountFactory = new AccountFactory(accountNumberGenerator, userAssembler);
+
+    UserService userService = new UserService(accountRepository, accountFactory, userAssembler);
 
     return new UserResourceImpl(userService);
   }

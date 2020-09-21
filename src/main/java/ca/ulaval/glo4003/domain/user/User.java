@@ -1,19 +1,28 @@
 package ca.ulaval.glo4003.domain.user;
 
+import ca.ulaval.glo4003.domain.user.userEnum.CommunicationMethod;
+import ca.ulaval.glo4003.domain.user.userEnum.Sex;
+
 public class User {
-  private int id;
   private String name;
-  private String birthDate;
-  private String sex;
+  private CustomDate birthDate;
+  private Sex sex;
   private int age;
-  private String preferredCommunicationMethod;
+  private CommunicationMethod preferredCommunicationMethod;
+  private String postalCode;
 
   public User(
-      String name, String birthDate, String sex, int age, String preferredCommunicationMethod) {
+      String name,
+      CustomDate birthDate,
+      Sex sex,
+      int age,
+      CommunicationMethod preferredCommunicationMethod,
+      String postalCode) {
     this.name = name;
     this.birthDate = birthDate;
     this.sex = sex;
     this.age = age;
+    this.postalCode = postalCode;
     this.preferredCommunicationMethod = preferredCommunicationMethod;
   }
 
@@ -21,11 +30,15 @@ public class User {
     return name;
   }
 
-  public String getBirthDate() {
+  public CustomDate getBirthDate() {
     return birthDate;
   }
 
-  public String getSex() {
+  public String getPostalCode() {
+    return postalCode;
+  }
+
+  public Sex getSex() {
     return sex;
   }
 
@@ -33,15 +46,7 @@ public class User {
     return age;
   }
 
-  public String getPreferredCommunicationMethod() {
+  public CommunicationMethod getPreferredCommunicationMethod() {
     return preferredCommunicationMethod;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public int getId() {
-    return id;
   }
 }

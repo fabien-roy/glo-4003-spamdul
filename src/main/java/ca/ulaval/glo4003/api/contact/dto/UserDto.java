@@ -4,13 +4,14 @@ public class UserDto {
   public String name;
   public String birthDate;
   public String sex;
-  public int age;
+  public Integer age;
   public String preferredCommunicationMethod;
+  public String postalCode;
 
   @Override
   public String toString() {
     return String.format(
-        "UserDto{name='%s', birthDate='%s', sex='%s', age='%s', communication='%'}",
-        name, birthDate, sex, age, preferredCommunicationMethod);
+        "UserDto{name='%s', birthDate='%s', sex='%s', age='%s', communication='%', postalCode='%s'}",
+        name, birthDate, sex, age, preferredCommunicationMethod, postalCode);
   }
 }

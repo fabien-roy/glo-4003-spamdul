@@ -4,6 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.api.contact.dto.UserDto;
+import ca.ulaval.glo4003.domain.account.AccountValidationError;
 import ca.ulaval.glo4003.domain.user.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class UserResourceImplTest {
   }
 
   @Test
-  public void whenAddingUser_ThenServiceShouldAddUser() {
+  public void whenAddingUser_ThenServiceShouldAddUser() throws AccountValidationError {
     userResource.addUser(userDto);
 
     verify(userService).addUser(userDto);
