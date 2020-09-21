@@ -71,15 +71,6 @@ public class ParkingStickerAssemblerTest {
     parkingStickerAssembler.assemble(parkingStickerDto);
   }
 
-  @Test(expected = UnwantedAddressException.class)
-  public void
-      givenEmailReceptionMethodAndAddress_whenAssembling_thenThrowUnwantedAddressException() {
-    parkingStickerDto =
-        aParkingStickerDto().withReceptionMethod(ReceptionMethods.EMAIL.toString()).build();
-
-    parkingStickerAssembler.assemble(parkingStickerDto);
-  }
-
   @Test
   public void whenAssembling_thenReturnParkingStickerWithReceptionMethod() {
     // TODO (parametrized)
