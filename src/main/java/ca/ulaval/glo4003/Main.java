@@ -2,13 +2,20 @@ package ca.ulaval.glo4003;
 
 import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.contact.ContactResourceImpl;
+import ca.ulaval.glo4003.api.parking.ParkingResource;
+import ca.ulaval.glo4003.api.parking.ParkingResourceImpl;
+import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
+import ca.ulaval.glo4003.domain.account.AccountRepository;
 import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
 import ca.ulaval.glo4003.domain.contact.ContactService;
+import ca.ulaval.glo4003.domain.parking.*;
 import ca.ulaval.glo4003.http.CORSResponseFilter;
+import ca.ulaval.glo4003.infrastructure.account.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactDevDataFactory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactRepositoryInMemory;
+import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +34,9 @@ public class Main {
   public static boolean isDev = true; // TODO : Would be a JVM argument or in a .property file
 
   public static void main(String[] args) throws Exception {
+    // TODO : Move creation of resources elsewhere (custom injection)
     ContactResource contactResource = createContactResource(); // TODO : Remove demo Contact logic
+    ParkingResource parkingResource = createParkingResource();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
@@ -38,6 +47,7 @@ public class Main {
               public Set<Object> getSingletons() {
                 HashSet<Object> resources = new HashSet<>();
                 resources.add(contactResource);
+                resources.add(parkingResource);
                 return resources;
               }
             });
@@ -73,5 +83,29 @@ public class Main {
     ContactService contactService = new ContactService(contactRepository, contactAssembler);
 
     return new ContactResourceImpl(contactService);
+  }
+
+  private static ParkingResource createParkingResource() {
+    AccountRepository accountRepository = new AccountRepositoryInMemory();
+    ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
+
+    // TODO : Dev mock data for account and parking area repository
+
+    AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
+    ParkingStickerAssembler parkingStickerAssembler =
+        new ParkingStickerAssembler(accountIdAssembler);
+    ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
+    ParkingStickerCodeGenerator parkingStickerCodeGenerator = new ParkingStickerCodeGenerator();
+    ParkingStickerFactory parkingStickerFactory =
+        new ParkingStickerFactory(parkingStickerCodeGenerator);
+    ParkingService parkingService =
+        new ParkingService(
+            parkingStickerAssembler,
+            parkingStickerCodeAssembler,
+            parkingStickerFactory,
+            accountRepository,
+            parkingAreaRepository);
+
+    return new ParkingResourceImpl(parkingService);
   }
 }
