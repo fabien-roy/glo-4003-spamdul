@@ -12,6 +12,10 @@ public class ParkingSticker {
     this.parkingAreaCode = parkingAreaCode;
   }
 
+  public ParkingStickerCode getCode() {
+    return code;
+  }
+
   public void setCode(ParkingStickerCode code) {
     this.code = code;
   }
