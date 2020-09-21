@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.domain.parking;
 import static ca.ulaval.glo4003.api.parking.helpers.ParkingStickerDtoBuilder.aParkingStickerDto;
 import static ca.ulaval.glo4003.domain.account.helpers.AccountObjectMother.createAccountId;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaObjectMother.createParkingAreaCode;
+import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerObjectMother.createReceptionMethod;
 
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.AccountId;
@@ -19,6 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ParkingStickerAssemblerTest {
   private static final AccountId ACCOUNT_ID = createAccountId();
   private static final String PARKING_AREA = createParkingAreaCode().toString();
+  private static final String RECEPTION_METHOD = createReceptionMethod().toString();
 
   @Mock private AccountIdAssembler accountIdAssembler;
 
@@ -73,6 +75,12 @@ public class ParkingStickerAssemblerTest {
 
   @Test
   public void whenAssembling_thenReturnParkingStickerWithReceptionMethod() {
-    // TODO (parametrized)
+    parkingStickerDto = aParkingStickerDto().withReceptionMethod(RECEPTION_METHOD).build();
+
+    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+
+    Truth.assertThat(parkingSticker.getReceptionMethod().toString()).isEqualTo(RECEPTION_METHOD);
   }
+
+  // TODO : Should we do something with the address?
 }
