@@ -23,6 +23,7 @@ public class AccountRepositoryInMemoryTest {
   public void whenAddingAccount_thenAddAccountInMemory() {
     accountRepositoryInMemory.save(account);
     List<Account> accounts = new ArrayList<>(accountRepositoryInMemory.getUsers().values());
+
     Truth.assertThat(accounts).contains(account);
   }
 
@@ -30,8 +31,8 @@ public class AccountRepositoryInMemoryTest {
   public void whenFindingAccount_thenReturnsAccountFromMemory() {
     accountRepositoryInMemory.save(account);
     Account accountFound = accountRepositoryInMemory.findById(account.getAccountId());
-
     List<Account> accounts = new ArrayList<>(accountRepositoryInMemory.getUsers().values());
+
     Truth.assertThat(accounts).contains(accountFound);
   }
 }
