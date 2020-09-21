@@ -18,6 +18,7 @@ public class ParkingServiceTest {
   @Mock private ParkingStickerDto parkingStickerDto;
   @Mock private ParkingStickerAssembler parkingStickerAssembler;
   @Mock private AccountRepository accountRepository;
+  @Mock private ParkingAreaRepository parkingAreaRepository;
 
   private ParkingSticker parkingSticker;
 
@@ -25,14 +26,15 @@ public class ParkingServiceTest {
 
   @Before
   public void setUp() {
-    parkingService = new ParkingService(parkingStickerAssembler, accountRepository);
+    parkingService =
+        new ParkingService(parkingStickerAssembler, accountRepository, parkingAreaRepository);
     parkingSticker = aParkingSticker().build();
+
+    BDDMockito.given(parkingStickerAssembler.create(parkingStickerDto)).willReturn(parkingSticker);
   }
 
   @Test
   public void whenAddParkingSticker_thenGetAccount() {
-    BDDMockito.given(parkingStickerAssembler.create(parkingStickerDto)).willReturn(parkingSticker);
-
     parkingService.addParkingSticker(parkingStickerDto);
 
     Mockito.verify(accountRepository).findById(eq(parkingSticker.getAccountId()));
@@ -40,7 +42,9 @@ public class ParkingServiceTest {
 
   @Test
   public void whenAddParkingSticker_thenGetParkingArea() {
-    // TODO
+    parkingService.addParkingSticker(parkingStickerDto);
+
+    Mockito.verify(parkingAreaRepository).findByCode(eq(parkingSticker.getParkingAreaCode()));
   }
 
   @Test
