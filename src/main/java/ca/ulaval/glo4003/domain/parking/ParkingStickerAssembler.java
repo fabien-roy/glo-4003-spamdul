@@ -7,6 +7,6 @@ import java.util.UUID;
 public class ParkingStickerAssembler {
   public ParkingSticker create(ParkingStickerDto parkingStickerDto) {
     // TODO : ParkingStickerDto::create(ParkingStickerDto)
-    return new ParkingSticker(new AccountId(UUID.randomUUID()));
+    return new ParkingSticker(new AccountId(UUID.randomUUID()), new ParkingAreaCode("TODO"));
   }
 }
