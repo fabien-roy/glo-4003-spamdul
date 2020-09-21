@@ -18,7 +18,7 @@ public class AccountFactoryTest {
 
   private UserDto createValidUserDto() {
     UserDto userDto = new UserDto();
-    userDto.sex = "M";
+    userDto.sex = "m";
     userDto.postalCode = "feffesfs";
     userDto.preferredCommunicationMethod = "postal";
     userDto.name = "Paul";

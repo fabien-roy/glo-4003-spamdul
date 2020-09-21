@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.api.contact;
 
+import ca.ulaval.glo4003.api.contact.dto.PostUserDto;
 import ca.ulaval.glo4003.api.contact.dto.UserDto;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -9,7 +10,7 @@ public interface UserResource {
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  void addUser(UserDto userDto);
+  PostUserDto addUser(UserDto userDto);
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)

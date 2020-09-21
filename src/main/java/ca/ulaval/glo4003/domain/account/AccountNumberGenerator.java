@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.domain.account;
 
-
 public class AccountNumberGenerator {
   private Integer userNextNumber = 0;
 

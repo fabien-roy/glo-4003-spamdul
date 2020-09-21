@@ -10,8 +10,9 @@ public class AccountRepositoryInMemory implements AccountRepository {
   private final Map<AccountId, Account> users = new HashMap<>();
 
   @Override
-  public void save(Account account) {
+  public AccountId save(Account account) {
     users.put(account.getAccountId(), account);
+    return account.getAccountId();
   }
 
   @Override

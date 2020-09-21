@@ -2,18 +2,19 @@ package ca.ulaval.glo4003.domain.user;
 
 import ca.ulaval.glo4003.api.contact.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.Account;
+import ca.ulaval.glo4003.domain.account.AccountValidationError;
 import ca.ulaval.glo4003.domain.user.userEnum.CommunicationMethod;
 import ca.ulaval.glo4003.domain.user.userEnum.Sex;
 
 public class UserAssembler {
 
-  public User create(UserDto userDto) {
+  public User create(UserDto userDto) throws AccountValidationError {
     return new User(
         userDto.name,
         new CustomDate(userDto.birthDate),
-        Sex.valueOf(userDto.sex.toUpperCase()),
+        Sex.get(userDto.sex),
         userDto.age,
-        CommunicationMethod.valueOf(userDto.preferredCommunicationMethod),
+        CommunicationMethod.get(userDto.preferredCommunicationMethod),
         userDto.postalCode);
   }
 

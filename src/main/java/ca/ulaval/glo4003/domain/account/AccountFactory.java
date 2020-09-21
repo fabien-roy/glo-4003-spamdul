@@ -39,21 +39,14 @@ public class AccountFactory {
   }
 
   private void validatePreferredCommunicationValue(UserDto userDto) throws AccountValidationError {
-    if (!userDto
-            .preferredCommunicationMethod
-            .toUpperCase()
-            .equals(CommunicationMethod.EMAIL.toString())
-        && !userDto
-            .preferredCommunicationMethod
-            .toUpperCase()
-            .equals(CommunicationMethod.POSTAL.toString())) {
+    if (!userDto.preferredCommunicationMethod.equals(CommunicationMethod.EMAIL.toString())
+        && !userDto.preferredCommunicationMethod.equals(CommunicationMethod.POSTAL.toString())) {
       throw new AccountValidationError();
     }
   }
 
   private void validateSexValue(UserDto userDto) throws AccountValidationError {
-    if (!userDto.sex.toUpperCase().equals(Sex.M.toString())
-        && !userDto.sex.toUpperCase().equals(Sex.MME.toString())) {
+    if (!userDto.sex.equals(Sex.M.toString()) && !userDto.sex.equals(Sex.MME.toString())) {
       throw new AccountValidationError();
     }
   }

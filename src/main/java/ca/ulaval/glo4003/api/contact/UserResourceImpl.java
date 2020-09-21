@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.api.contact;
 
+import ca.ulaval.glo4003.api.contact.dto.PostUserDto;
 import ca.ulaval.glo4003.api.contact.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.AccountValidationError;
 import ca.ulaval.glo4003.domain.user.UserService;
@@ -15,9 +16,9 @@ public class UserResourceImpl implements UserResource {
   }
 
   @Override
-  public void addUser(UserDto userDto) {
+  public PostUserDto addUser(UserDto userDto) {
     try {
-      userService.addUser(userDto);
+      return userService.addUser(userDto);
     } catch (AccountValidationError e) {
       throw new WebApplicationException(
           Response.status(HttpStatus.BAD_REQUEST_400).entity(e.getMessage()).build());

@@ -27,6 +27,8 @@ public class UserServiceTest {
   @Test
   public void whenAddingToRepository_thenAccountFactoryAndRepositoryIsCalled()
       throws AccountValidationError {
+    doReturn(new AccountId(ANY_ID)).when(accountRepository).save(any());
+
     userService.addUser(userDto);
 
     verify(accountFactory).createAccount(userDto);
