@@ -8,4 +8,9 @@ public class AccountId {
   public AccountId(UUID id) {
     this.id = id;
   }
+
+  @Override
+  public String toString() {
+    return id.toString();
+  }
 }
