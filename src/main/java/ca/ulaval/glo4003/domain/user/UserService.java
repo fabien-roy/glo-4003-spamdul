@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.user;
 
-import ca.ulaval.glo4003.api.contact.dto.PostUserDto;
+import ca.ulaval.glo4003.api.contact.dto.AccountIdDto;
 import ca.ulaval.glo4003.api.contact.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.*;
 
@@ -18,15 +18,15 @@ public class UserService {
     this.userAssembler = userAssembler;
   }
 
-  public PostUserDto addUser(UserDto userDto) throws AccountValidationError {
+  public AccountIdDto addUser(UserDto userDto) throws AccountValidationError {
     Account account = this.accountFactory.createAccount(userDto);
 
     AccountId accountId = this.accountRepository.save(account);
 
-    PostUserDto postUserDto = new PostUserDto();
-    postUserDto.accountId = accountId.toString();
+    AccountIdDto accountIdDto = new AccountIdDto();
+    accountIdDto.accountId = accountId.toString();
 
-    return postUserDto;
+    return accountIdDto;
   }
 
   public UserDto getUser(String accountId) {

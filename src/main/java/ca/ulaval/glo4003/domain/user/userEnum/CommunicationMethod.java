@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.user.userEnum;
 
-import ca.ulaval.glo4003.domain.account.AccountValidationError;
+import ca.ulaval.glo4003.domain.user.exception.InvalidCommunicationMethodAttributeException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,10 +22,10 @@ public enum CommunicationMethod {
     this.name = name;
   }
 
-  public static CommunicationMethod get(String name) throws AccountValidationError {
+  public static CommunicationMethod get(String name) {
     CommunicationMethod foundType = lookup.get(name);
 
-    if (foundType == null) throw new AccountValidationError();
+    if (foundType == null) throw new InvalidCommunicationMethodAttributeException();
 
     return foundType;
   }

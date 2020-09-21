@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.api.contact;
 
-import ca.ulaval.glo4003.api.contact.dto.PostUserDto;
+import ca.ulaval.glo4003.api.contact.dto.AccountIdDto;
 import ca.ulaval.glo4003.api.contact.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.AccountValidationError;
 import ca.ulaval.glo4003.domain.user.UserService;
@@ -16,7 +16,7 @@ public class UserResourceImpl implements UserResource {
   }
 
   @Override
-  public PostUserDto addUser(UserDto userDto) {
+  public AccountIdDto addUser(UserDto userDto) {
     try {
       return userService.addUser(userDto);
     } catch (AccountValidationError e) {

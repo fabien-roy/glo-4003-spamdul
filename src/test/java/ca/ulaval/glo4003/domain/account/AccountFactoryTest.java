@@ -5,6 +5,9 @@ import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.api.contact.dto.UserDto;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
+import ca.ulaval.glo4003.domain.user.exception.InvalidAgeException;
+import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
+import ca.ulaval.glo4003.domain.user.exception.InvalidPostalCodeException;
 import com.google.common.truth.Truth;
 import org.junit.Test;
 
@@ -28,48 +31,51 @@ public class AccountFactoryTest {
     return userDto;
   }
 
-  private void testAccountValidationError(UserDto userDto) {
+  private void testAccountValidationError(UserDto userDto) {}
+
+  @Test
+  public void whenNullUserName_thenTrowInvalidNameException() {
+    UserDto userDto = this.createValidUserDto();
+    userDto.name = null;
+
     try {
       this.accountFactory.createAccount(userDto);
       Truth.assertThat(false);
     } catch (Exception exception) {
-      if (exception instanceof AccountValidationError) {
+      if (exception instanceof InvalidNameException) {
         Truth.assertThat(true);
       }
     }
   }
 
   @Test
-  public void whenNullUserName_thenTrowAccountValidationError() {
+  public void whenInvalidAge_thenTrowInvalidAgeException() {
     UserDto userDto = this.createValidUserDto();
-    userDto.name = null;
+    userDto.age = 2;
 
-    this.testAccountValidationError(userDto);
+    try {
+      this.accountFactory.createAccount(userDto);
+      Truth.assertThat(false);
+    } catch (Exception exception) {
+      if (exception instanceof InvalidAgeException) {
+        Truth.assertThat(true);
+      }
+    }
   }
 
   @Test
-  public void whenInvalidCommunicationMethod_thenTrowAccountValidationError() {
-    UserDto userDto = this.createValidUserDto();
-    userDto.preferredCommunicationMethod = invalid;
-
-    this.testAccountValidationError(userDto);
-  }
-
-  @Test
-  public void whenInvalidSex_thenTrowAccountValidationError() {
-    UserDto userDto = this.createValidUserDto();
-    userDto.sex = invalid;
-
-    this.testAccountValidationError(userDto);
-  }
-
-  @Test
-  public void
-      givenCommunicationMethodPostalCode_whenPostalCodeNotThere_thenTrowAccountValidationError() {
+  public void givenNullPostalCode_whenCommunicationMethodIsPostal_thenInvalidPostalCodeException() {
     UserDto userDto = this.createValidUserDto();
     userDto.postalCode = null;
 
-    this.testAccountValidationError(userDto);
+    try {
+      this.accountFactory.createAccount(userDto);
+      Truth.assertThat(false);
+    } catch (Exception exception) {
+      if (exception instanceof InvalidPostalCodeException) {
+        Truth.assertThat(true);
+      }
+    }
   }
 
   @Test

@@ -1,12 +1,13 @@
 package ca.ulaval.glo4003.domain.user.userEnum;
 
-import ca.ulaval.glo4003.domain.account.AccountValidationError;
+import ca.ulaval.glo4003.domain.user.exception.InvalidSexAttributeException;
 import java.util.HashMap;
 import java.util.Map;
 
 public enum Sex {
   M("m"),
-  MME("mme");
+  F("f"),
+  X("x");
 
   String name;
   private static final Map<String, Sex> lookup = new HashMap<>();
@@ -21,10 +22,10 @@ public enum Sex {
     this.name = name;
   }
 
-  public static Sex get(String name) throws AccountValidationError {
+  public static Sex get(String name) {
     Sex foundType = lookup.get(name);
 
-    if (foundType == null) throw new AccountValidationError();
+    if (foundType == null) throw new InvalidSexAttributeException();
 
     return foundType;
   }
