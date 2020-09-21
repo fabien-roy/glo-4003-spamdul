@@ -30,7 +30,7 @@ public class AccountRepositoryInMemoryTest {
   @Test
   public void whenFindingAccount_thenReturnsAccountFromMemory() {
     accountRepositoryInMemory.save(account);
-    Account accountFound = accountRepositoryInMemory.findById(account.getAccountId());
+    Account accountFound = accountRepositoryInMemory.findById(account.getId());
     List<Account> accounts = new ArrayList<>(accountRepositoryInMemory.getUsers().values());
 
     Truth.assertThat(accounts).contains(accountFound);

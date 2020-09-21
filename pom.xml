@@ -24,6 +24,7 @@
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
         <!-- Tests -->
 		<junit.version>4.13</junit.version>
+		<javafaker.version>1.0.2</javafaker.version>
 		<mockito.version>2.0.2-beta</mockito.version>
 		<rest-assured.version>4.3.1</rest-assured.version>
 		<hamcrest.version>2.2</hamcrest.version>
@@ -101,6 +102,11 @@
 			<artifactId>mockito-all</artifactId>
 			<version>${mockito.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.javafaker</groupId>
+			<artifactId>javafaker</artifactId>
+			<version>${javafaker.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.rest-assured</groupId>

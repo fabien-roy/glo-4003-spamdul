@@ -11,8 +11,8 @@ public class AccountRepositoryInMemory implements AccountRepository {
 
   @Override
   public AccountId save(Account account) {
-    users.put(account.getAccountId(), account);
-    return account.getAccountId();
+    users.put(account.getId(), account);
+    return account.getId();
   }
 
   @Override

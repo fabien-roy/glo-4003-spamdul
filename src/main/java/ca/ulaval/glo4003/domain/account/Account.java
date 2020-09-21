@@ -3,16 +3,16 @@ package ca.ulaval.glo4003.domain.account;
 import ca.ulaval.glo4003.domain.user.User;
 
 public class Account {
-  private AccountId accountId;
+  private AccountId id;
   private User user;
 
-  public Account(AccountId accountId, User user) {
-    this.accountId = accountId;
+  public Account(AccountId id, User user) {
+    this.id = id;
     this.user = user;
   }
 
-  public AccountId getAccountId() {
-    return this.accountId;
+  public AccountId getId() {
+    return id;
   }
 
   public User getUser() {
