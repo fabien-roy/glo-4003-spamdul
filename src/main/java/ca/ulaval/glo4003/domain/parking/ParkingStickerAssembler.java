@@ -14,6 +14,9 @@ public class ParkingStickerAssembler {
   public ParkingSticker assemble(ParkingStickerDto parkingStickerDto) {
     AccountId accountId = accountIdAssembler.assemble(parkingStickerDto.accountId);
 
-    return new ParkingSticker(accountId, new ParkingAreaCode(parkingStickerDto.parkingArea));
+    return new ParkingSticker(
+        accountId,
+        new ParkingAreaCode(parkingStickerDto.parkingArea),
+        ReceptionMethods.get(parkingStickerDto.receptionMethod));
   }
 }

@@ -6,10 +6,13 @@ public class ParkingSticker {
   private ParkingStickerCode code;
   private final AccountId accountId;
   private final ParkingAreaCode parkingAreaCode;
+  private final ReceptionMethods receptionMethod;
 
-  public ParkingSticker(AccountId accountId, ParkingAreaCode parkingAreaCode) {
+  public ParkingSticker(
+      AccountId accountId, ParkingAreaCode parkingAreaCode, ReceptionMethods receptionMethod) {
     this.accountId = accountId;
     this.parkingAreaCode = parkingAreaCode;
+    this.receptionMethod = receptionMethod;
   }
 
   public ParkingStickerCode getCode() {
@@ -26,5 +29,9 @@ public class ParkingSticker {
 
   public ParkingAreaCode getParkingAreaCode() {
     return parkingAreaCode;
+  }
+
+  public ReceptionMethods getReceptionMethod() {
+    return receptionMethod;
   }
 }
