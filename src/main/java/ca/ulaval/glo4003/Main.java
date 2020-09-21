@@ -1,7 +1,12 @@
 package ca.ulaval.glo4003;
 
+import ca.ulaval.glo4003.api.Car.CarResourceImpl;
 import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.contact.ContactResourceImpl;
+import ca.ulaval.glo4003.domain.Account.AccountService;
+import ca.ulaval.glo4003.domain.car.CarAssembler;
+import ca.ulaval.glo4003.domain.car.CarService;
+import ca.ulaval.glo4003.domain.car.CarValidator;
 import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
@@ -28,6 +33,8 @@ public class Main {
 
   public static void main(String[] args) throws Exception {
     ContactResource contactResource = createContactResource();
+    AccountService accountService = createAccountService();
+    CarResourceImpl carResource = createCarResource(accountService);
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
@@ -73,5 +80,17 @@ public class Main {
     ContactService contactService = new ContactService(contactRepository, contactAssembler);
 
     return new ContactResourceImpl(contactService);
+  }
+
+  private static AccountService createAccountService() {
+    return new AccountService();
+  }
+
+  private static CarResourceImpl createCarResource(AccountService accountService) {
+    CarAssembler carAssembler = new CarAssembler();
+    CarValidator carValidator = new CarValidator();
+    CarService carService = new CarService(carAssembler, accountService);
+
+    return new CarResourceImpl(carService, carValidator);
   }
 }

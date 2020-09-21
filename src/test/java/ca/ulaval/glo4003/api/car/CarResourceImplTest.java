@@ -1,9 +1,12 @@
-package ca.ulaval.glo4003.api.contact;
+package ca.ulaval.glo4003.api.car;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 
-import ca.ulaval.glo4003.api.contact.dto.CarDTO;
+import ca.ulaval.glo4003.api.Car.CarResourceImpl;
+import ca.ulaval.glo4003.api.Car.dto.CarDTO;
+import ca.ulaval.glo4003.domain.car.CarService;
+import ca.ulaval.glo4003.domain.car.CarValidator;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +45,7 @@ public class CarResourceImplTest {
   public void whenAddingCar_thenAddCar() {
     carResource.addCar(ACCOUNT_ID, carDTO);
 
-    verify(carService).addCar(carDTO);
+    verify(carService).addCar(ACCOUNT_ID, carDTO);
   }
 
   @Test

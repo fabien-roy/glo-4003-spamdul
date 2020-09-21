@@ -1,12 +1,13 @@
-package ca.ulaval.glo4003.api.contact.dto;
+package ca.ulaval.glo4003.domain.car;
 
-public class CarDTO {
+public class Car {
+
   private String manufacturer;
   private String model;
   private int year;
   private String licensePlate;
 
-  public CarDTO(String manufacturer, String model, int year, String licensePlate) {
+  public Car(String manufacturer, String model, int year, String licensePlate) {
     this.manufacturer = manufacturer;
     this.model = model;
     this.year = year;

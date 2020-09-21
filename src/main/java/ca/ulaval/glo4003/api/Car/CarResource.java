@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.api.contact;
+package ca.ulaval.glo4003.api.Car;
 
-import ca.ulaval.glo4003.api.contact.dto.CarDTO;
+import ca.ulaval.glo4003.api.Car.dto.CarDTO;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
