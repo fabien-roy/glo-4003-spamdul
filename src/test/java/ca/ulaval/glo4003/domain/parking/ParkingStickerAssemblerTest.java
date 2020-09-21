@@ -59,16 +59,25 @@ public class ParkingStickerAssemblerTest {
     parkingStickerAssembler.assemble(parkingStickerDto);
   }
 
-  @Test
+  @Test(expected = MissingAddressException.class)
   public void
       givenPostalReceptionMethodAndNoAddress_whenAssembling_thenThrowMissingAddressException() {
-    // TODO
+    parkingStickerDto =
+        aParkingStickerDto()
+            .withReceptionMethod(ReceptionMethods.POSTAL.toString())
+            .withoutAddress()
+            .build();
+
+    parkingStickerAssembler.assemble(parkingStickerDto);
   }
 
-  @Test
+  @Test(expected = UnwantedAddressException.class)
   public void
       givenEmailReceptionMethodAndAddress_whenAssembling_thenThrowUnwantedAddressException() {
-    // TODO
+    parkingStickerDto =
+        aParkingStickerDto().withReceptionMethod(ReceptionMethods.EMAIL.toString()).build();
+
+    parkingStickerAssembler.assemble(parkingStickerDto);
   }
 
   @Test
