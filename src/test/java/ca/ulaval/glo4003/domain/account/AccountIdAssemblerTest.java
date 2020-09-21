@@ -23,13 +23,12 @@ public class AccountIdAssemblerTest {
   }
 
   @Test(expected = InvalidAccountIdException.class)
-  public void givenInvalidAccountId_whenAssembling_thenThrowInvalidAccountIdException()
-      throws InvalidAccountIdException {
+  public void givenInvalidAccountId_whenAssembling_thenThrowInvalidAccountIdException() {
     accountIdAssembler.assemble(INVALID_ACCOUNT_ID);
   }
 
   @Test
-  public void whenAssembling_thenReturnAccountId() throws InvalidAccountIdException {
+  public void whenAssembling_thenReturnAccountId() {
     AccountId accountId = accountIdAssembler.assemble(ACCOUNT_ID);
 
     Truth.assertThat(accountId.toString()).isEqualTo(ACCOUNT_ID);

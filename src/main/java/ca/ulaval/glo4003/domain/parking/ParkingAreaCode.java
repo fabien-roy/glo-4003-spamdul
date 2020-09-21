@@ -6,4 +6,9 @@ public class ParkingAreaCode {
   public ParkingAreaCode(String code) {
     this.code = code;
   }
+
+  @Override
+  public String toString() {
+    return code;
+  }
 }
