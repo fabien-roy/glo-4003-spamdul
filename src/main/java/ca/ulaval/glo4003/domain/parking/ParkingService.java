@@ -30,6 +30,7 @@ public class ParkingService {
     parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
     parkingSticker = parkingStickerFactory.create(parkingSticker);
     account.addParkingSticker(parkingSticker);
-    // TODO : Save account in repo
+    accountRepository.save(account);
+    // TODO : Return ParkingStickerCodeDto
   }
 }

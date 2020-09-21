@@ -4,4 +4,6 @@ public interface AccountRepository {
   AccountId save(Account account);
 
   Account findById(AccountId id);
+
+  void save(Account account);
 }
