@@ -4,6 +4,8 @@ import ca.ulaval.glo4003.api.contact.dto.AccountIdDto;
 import ca.ulaval.glo4003.api.contact.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.*;
 
+import java.util.UUID;
+
 public class UserService {
   private AccountRepository accountRepository;
   private AccountFactory accountFactory;
@@ -29,9 +31,10 @@ public class UserService {
     return accountIdDto;
   }
 
-  public UserDto getUser(String accountId) {
-    Account account = this.accountRepository.findById(new AccountId(accountId));
+  public UserDto getUser(String stringId) {
+    AccountId accountId = new AccountId(UUID.fromString(stringId)); // TODO : Use AccountIdAssembler
+    Account account = accountRepository.findById(accountId);
 
-    return this.userAssembler.create(account);
+    return userAssembler.create(account);
   }
 }

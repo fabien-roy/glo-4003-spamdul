@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.domain.user;
 
+import static ca.ulaval.glo4003.domain.account.helpers.AccountObjectMother.createAccountId;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -7,17 +8,28 @@ import ca.ulaval.glo4003.api.contact.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+// TODO : Remove any() usage in this class, control what mocks return instead
+// TODO : Use Builders instead of mocks for domain objects and DTOs
+@RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
+  @Mock
+  private Account account;
+  @Mock
+  private UserDto userDto;
+  @Mock
+  private AccountRepository accountRepository;
+  @Mock
+  private AccountFactory accountFactory;
+  @Mock
+  private UserAssembler userAssembler;
 
-  private Account account = mock(Account.class);
-  private UserDto userDto = mock(UserDto.class);
-  private AccountRepository accountRepository = mock(AccountRepository.class);
-  private AccountFactory accountFactory = mock(AccountFactory.class);
-  private UserAssembler userAssembler = mock(UserAssembler.class);
   private UserService userService;
 
-  private final String ANY_ID = "2";
+  private static final AccountId ACCOUNT_ID = createAccountId();
 
   @Before
   public void setUp() {
@@ -25,21 +37,20 @@ public class UserServiceTest {
   }
 
   @Test
-  public void whenAddingToRepository_thenAccountFactoryAndRepositoryIsCalled()
-      throws AccountValidationError {
-    doReturn(new AccountId(ANY_ID)).when(accountRepository).save(any());
+  public void whenAddingToRepository_thenAccountFactoryAndRepositoryIsCalled() {
+    doReturn(ACCOUNT_ID).when(accountRepository).save(any());
 
     userService.addUser(userDto);
 
     verify(accountFactory).createAccount(userDto);
-    verify(accountRepository).save(any());
+    verify(accountRepository).save(any()); // TODO : Remove any() usage
   }
 
   @Test
   public void whenGettingUserToRepository_thenAssemblerAndRepositoryIsCalled() {
     doReturn(account).when(accountRepository).findById(any());
 
-    userService.getUser(ANY_ID);
+    userService.getUser(ACCOUNT_ID.toString());
 
     verify(accountRepository).findById(any());
     verify(userAssembler).create(account);

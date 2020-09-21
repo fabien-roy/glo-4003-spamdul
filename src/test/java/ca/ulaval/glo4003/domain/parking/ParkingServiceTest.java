@@ -1,10 +1,13 @@
 package ca.ulaval.glo4003.domain.parking;
 
+import static ca.ulaval.glo4003.domain.account.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerBuilder.aParkingSticker;
 import static org.mockito.Matchers.eq;
 
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
+import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
+import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +25,7 @@ public class ParkingServiceTest {
   @Mock private ParkingAreaRepository parkingAreaRepository;
 
   private ParkingSticker parkingSticker;
+  private Account account;
 
   private ParkingService parkingService;
 
@@ -34,9 +38,12 @@ public class ParkingServiceTest {
             accountRepository,
             parkingAreaRepository);
     parkingSticker = aParkingSticker().build();
+    account = anAccount().build();
 
     BDDMockito.given(parkingStickerAssembler.assemble(parkingStickerDto))
         .willReturn(parkingSticker);
+    BDDMockito.given(accountRepository.findById(parkingSticker.getAccountId())).willReturn(account);
+    BDDMockito.given(parkingStickerFactory.create(parkingSticker)).willReturn(parkingSticker);
   }
 
   @Test
@@ -62,7 +69,9 @@ public class ParkingServiceTest {
 
   @Test
   public void whenAddParkingSticker_thenAddParkingStickerToAccount() {
-    // TODO
+    parkingService.addParkingSticker(parkingStickerDto);
+
+    Truth.assertThat(account.getParkingStickers()).contains(parkingSticker);
   }
 
   @Test
