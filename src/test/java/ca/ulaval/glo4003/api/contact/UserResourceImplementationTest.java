@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.domain.user.UserService;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UserResourceImplTest {
+public class UserResourceImplementationTest {
   private UserDto userDto = mock(UserDto.class);
   private UserService userService = mock(UserService.class);
   private UserResource userResource;
@@ -18,7 +18,7 @@ public class UserResourceImplTest {
 
   @Before
   public void setUp() {
-    userResource = new UserResourceImpl(userService);
+    userResource = new UserResourceImplementation(userService);
   }
 
   @Test

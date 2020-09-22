@@ -4,10 +4,10 @@ import ca.ulaval.glo4003.api.contact.dto.AccountIdDto;
 import ca.ulaval.glo4003.api.contact.dto.UserDto;
 import ca.ulaval.glo4003.domain.user.UserService;
 
-public class UserResourceImpl implements UserResource {
+public class UserResourceImplementation implements UserResource {
   private final UserService userService;
 
-  public UserResourceImpl(UserService userService) {
+  public UserResourceImplementation(UserService userService) {
     this.userService = userService;
   }
 

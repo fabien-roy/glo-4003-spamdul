@@ -3,7 +3,7 @@ package ca.ulaval.glo4003;
 import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.contact.ContactResourceImpl;
 import ca.ulaval.glo4003.api.contact.UserResource;
-import ca.ulaval.glo4003.api.contact.UserResourceImpl;
+import ca.ulaval.glo4003.api.contact.UserResourceImplementation;
 import ca.ulaval.glo4003.domain.account.AccountFactory;
 import ca.ulaval.glo4003.domain.account.AccountNumberGenerator;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
@@ -96,6 +96,6 @@ public class Main {
 
     UserService userService = new UserService(accountRepository, accountFactory, userAssembler);
 
-    return new UserResourceImpl(userService);
+    return new UserResourceImplementation(userService);
   }
 }
