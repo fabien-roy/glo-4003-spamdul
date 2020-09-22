@@ -7,16 +7,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AccountRepositoryInMemory implements AccountRepository {
-  private final Map<AccountId, Account> users = new HashMap<>();
+  private final Map<AccountId, Account> accounts = new HashMap<>();
 
   @Override
   public AccountId save(Account account) {
-    users.put(account.getId(), account);
+    accounts.put(account.getId(), account);
     return account.getId();
   }
 
   @Override
   public Account findById(AccountId accountId) {
-    return users.get(accountId);
+    return accounts.get(accountId);
+  }
+
+  @Override
+  public void update(Account account) {
+    // TODO : AccountRepositoryInMemory::update(Account)
   }
 }
