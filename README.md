@@ -1,5 +1,7 @@
 # SPAMD-UL
 
+[![SPAMD-UL CI](https://github.com/GLO4003UL/a20-eq4/workflows/SPAMD-UL%20CI/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22SPAMD-UL+CI%22)
+
 **This is our project for course GLO-4003 at Laval University. We are team 4 : L'inquisition espagnole.**
 
 **Requests supported by SPAMD-UL are specified on [this project's GitHub Pages](https://glo4003ul.github.io/a20-eq4/).**
