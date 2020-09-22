@@ -49,7 +49,7 @@ public class CarResourceImplTest {
   }
 
   @Test
-  public void givenValidCarDTO_whenAddingCar_shouldReturnOk() {
+  public void whenAddingCar_shouldReturnOk() {
     Response response = carResource.addCar(ACCOUNT_ID, carDTO);
 
     assertThat(response.getStatus()).isEqualTo(STATUS_OK);

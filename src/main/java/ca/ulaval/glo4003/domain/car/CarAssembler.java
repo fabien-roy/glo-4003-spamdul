@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.api.Car.dto.CarDTO;
 
 public class CarAssembler {
 
-  public Car createCar(CarDTO carDTO) {
+  public Car create(CarDTO carDTO) {
     return new Car(
         carDTO.getManufacturer(), carDTO.getModel(), carDTO.getYear(), carDTO.getLicensePlate());
   }

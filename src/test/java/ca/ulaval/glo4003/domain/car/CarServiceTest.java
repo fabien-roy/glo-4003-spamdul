@@ -28,7 +28,7 @@ public class CarServiceTest {
 
   @Before
   public void setup() {
-    when(carAssembler.createCar(carDTO)).thenReturn(car);
+    when(carAssembler.create(carDTO)).thenReturn(car);
     carService = new CarService(carAssembler, accountService);
   }
 
@@ -36,7 +36,7 @@ public class CarServiceTest {
   public void whenAddingCar_shouldAssembleCar() {
     carService.addCar(ACCOUNT_ID, carDTO);
 
-    verify(carAssembler).createCar(carDTO);
+    verify(carAssembler).create(carDTO);
   }
 
   @Test
