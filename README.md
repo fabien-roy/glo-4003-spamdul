@@ -2,6 +2,7 @@
 
 [![SPAMD-UL CI](https://github.com/GLO4003UL/a20-eq4/workflows/SPAMD-UL%20CI/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22SPAMD-UL+CI%22)
 [![SPAMD-UL CD](https://github.com/GLO4003UL/a20-eq4/workflows/SPAMD-UL%20CD/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22SPAMD-UL+CD%22)
+[![codecov](https://codecov.io/gh/GLO4003UL/a20-eq4/branch/develop/graph/badge.svg?token=1L5N0NP4T7)](https://codecov.io/gh/GLO4003UL/a20-eq4)
 
 **This is our project for course GLO-4003 at Laval University. We are team 4 : L'inquisition espagnole.**
 
