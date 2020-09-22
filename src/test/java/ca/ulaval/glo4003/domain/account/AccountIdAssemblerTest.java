@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.account;
 
-import static ca.ulaval.glo4003.domain.account.helpers.AccountObjectMother.createAccountId;
+import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccountId;
 
 import com.google.common.truth.Truth;
 import org.junit.Before;

@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.domain.parking;
 
 import static ca.ulaval.glo4003.api.parking.helpers.ParkingStickerDtoBuilder.aParkingStickerDto;
-import static ca.ulaval.glo4003.domain.account.helpers.AccountObjectMother.createAccountId;
-import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaObjectMother.createParkingAreaCode;
-import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerObjectMother.createReceptionMethod;
+import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccountId;
+import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaMother.createParkingAreaCode;
+import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createReceptionMethod;
 
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.AccountId;

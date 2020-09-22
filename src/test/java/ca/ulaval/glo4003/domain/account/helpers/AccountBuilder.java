@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.account.helpers;
 
-import static ca.ulaval.glo4003.domain.account.helpers.AccountObjectMother.createAccountId;
+import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccountId;
 
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountId;
