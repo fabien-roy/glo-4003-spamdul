@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.parking;
 
-import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerObjectMother.createParkingStickerCode;
+import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createParkingStickerCode;
 
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import com.google.common.truth.Truth;

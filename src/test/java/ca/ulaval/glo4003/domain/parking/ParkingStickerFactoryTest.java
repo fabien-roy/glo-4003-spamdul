@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.domain.parking;
 
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerBuilder.aParkingSticker;
-import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerObjectMother.createParkingStickerCode;
+import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createParkingStickerCode;
 
 import com.google.common.truth.Truth;
 import org.junit.Before;
