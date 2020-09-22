@@ -5,7 +5,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-class CarValidatorTest {
+public class CarValidatorTest {
+
+  private static int INVALID_YEAR = 3000;
+  private static String INVALID_LICENSE_PLATE = "C";
 
   private CarValidator carValidator;
 
@@ -22,5 +25,16 @@ class CarValidatorTest {
   }
 
   @Test
-  public void givenInvalidCarDTO_whenValidatingDTO_shouldThrowException() {}
+  public void givenCarDTOWithInvalidYear_whenValidatingDTO_shouldThrowException() {
+    CarDTO validDTO = new CarDTO("manufacturer", "model", INVALID_YEAR, "XXXXXX");
+
+    Assertions.assertThrows(InvalidCarException.class, () -> carValidator.validate(validDTO));
+  }
+
+  @Test
+  public void givenCarDTOWithInvalidLicensePlate_whenValidatingDTO_shouldThrowException() {
+    CarDTO validDTO = new CarDTO("manufacturer", "model", 2020, INVALID_LICENSE_PLATE);
+
+    Assertions.assertThrows(InvalidCarException.class, () -> carValidator.validate(validDTO));
+  }
 }
