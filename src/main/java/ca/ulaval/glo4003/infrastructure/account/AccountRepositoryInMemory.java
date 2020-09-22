@@ -12,7 +12,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
   }
 
   @Override
-  public void save(Account account) {
-    // TODO : AccountRepositoryInMemory::save(Account)
+  public void update(Account account) {
+    // TODO : AccountRepositoryInMemory::update(Account)
   }
 }

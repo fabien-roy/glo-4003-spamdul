@@ -81,10 +81,10 @@ public class ParkingServiceTest {
   }
 
   @Test
-  public void whenAddParkingSticker_thenSaveAccount() {
+  public void whenAddParkingSticker_thenUpdateAccount() {
     parkingService.addParkingSticker(parkingStickerDto);
 
-    Mockito.verify(accountRepository).save(eq(account));
+    Mockito.verify(accountRepository).update(eq(account));
   }
 
   @Test

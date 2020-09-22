@@ -29,12 +29,17 @@ public class ParkingService {
 
   public ParkingStickerCodeDto addParkingSticker(ParkingStickerDto parkingStickerDto) {
     logger.info(String.format("Add new parking sticker %s", parkingStickerDto));
+
     ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+
     Account account = accountRepository.findById(parkingSticker.getAccountId());
     parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
+
     parkingSticker = parkingStickerFactory.create(parkingSticker);
+
     account.addParkingSticker(parkingSticker);
-    accountRepository.save(account);
+    accountRepository.update(account);
+
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
   }
 }
