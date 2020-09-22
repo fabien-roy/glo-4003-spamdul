@@ -15,7 +15,7 @@ public class AccountFactory {
     this.userAssembler = userAssembler;
   }
 
-  public Account createAccount(UserDto userDto) throws AccountValidationError {
+  public Account createAccount(UserDto userDto) {
     this.validate(userDto);
 
     AccountId accountId = this.accountNumberGenerator.getUserNextNumber();

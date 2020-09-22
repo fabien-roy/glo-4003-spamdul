@@ -13,6 +13,7 @@ import ca.ulaval.glo4003.domain.contact.ContactRepository;
 import ca.ulaval.glo4003.domain.contact.ContactService;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
 import ca.ulaval.glo4003.domain.user.UserService;
+import ca.ulaval.glo4003.domain.user.exception.InvalidUserExceptionMapper;
 import ca.ulaval.glo4003.http.CORSResponseFilter;
 import ca.ulaval.glo4003.infrastructure.account.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactDevDataFactory;
@@ -37,6 +38,7 @@ public class Main {
   public static void main(String[] args) throws Exception {
     ContactResource contactResource = createContactResource();
     UserResource userResource = createUserResource();
+    InvalidUserExceptionMapper invalidUserExceptionMapper = new InvalidUserExceptionMapper();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
@@ -48,6 +50,7 @@ public class Main {
                 HashSet<Object> resources = new HashSet<>();
                 resources.add(contactResource);
                 resources.add(userResource);
+                resources.add(invalidUserExceptionMapper);
                 return resources;
               }
             });

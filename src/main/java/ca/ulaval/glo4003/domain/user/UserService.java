@@ -18,7 +18,7 @@ public class UserService {
     this.userAssembler = userAssembler;
   }
 
-  public AccountIdDto addUser(UserDto userDto) throws AccountValidationError {
+  public AccountIdDto addUser(UserDto userDto) {
     Account account = this.accountFactory.createAccount(userDto);
 
     AccountId accountId = this.accountRepository.save(account);
