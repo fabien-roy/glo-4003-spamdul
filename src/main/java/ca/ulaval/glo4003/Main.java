@@ -99,10 +99,12 @@ public class Main {
   private static UserResource createUserResource() {
     AccountRepository accountRepository = new AccountRepositoryInMemory();
     AccountIdGenerator accountIdGenerator = new AccountIdGenerator();
+    AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
     UserAssembler userAssembler = new UserAssembler();
     AccountFactory accountFactory = new AccountFactory(accountIdGenerator, userAssembler);
 
-    UserService userService = new UserService(accountRepository, accountFactory, userAssembler);
+    UserService userService =
+        new UserService(accountRepository, accountFactory, accountIdAssembler, userAssembler);
 
     return new UserResourceImplementation(userService);
   }

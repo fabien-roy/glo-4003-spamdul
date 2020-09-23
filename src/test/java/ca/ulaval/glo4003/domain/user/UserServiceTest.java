@@ -20,6 +20,7 @@ public class UserServiceTest {
   @Mock private UserDto userDto;
   @Mock private AccountRepository accountRepository;
   @Mock private AccountFactory accountFactory;
+  @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private UserAssembler userAssembler;
 
   private UserService userService;
@@ -28,7 +29,8 @@ public class UserServiceTest {
 
   @Before
   public void setUp() {
-    userService = new UserService(accountRepository, accountFactory, userAssembler);
+    userService =
+        new UserService(accountRepository, accountFactory, accountIdAssembler, userAssembler);
   }
 
   @Test

@@ -3,19 +3,21 @@ package ca.ulaval.glo4003.domain.user;
 import ca.ulaval.glo4003.api.contact.dto.AccountIdDto;
 import ca.ulaval.glo4003.api.contact.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.*;
-import java.util.UUID;
 
 public class UserService {
-  private AccountRepository accountRepository;
-  private AccountFactory accountFactory;
-  private UserAssembler userAssembler;
+  private final AccountRepository accountRepository;
+  private final AccountFactory accountFactory;
+  private final AccountIdAssembler accountIdAssembler;
+  private final UserAssembler userAssembler;
 
   public UserService(
       AccountRepository accountRepository,
       AccountFactory accountFactory,
+      AccountIdAssembler accountIdAssembler,
       UserAssembler userAssembler) {
     this.accountRepository = accountRepository;
     this.accountFactory = accountFactory;
+    this.accountIdAssembler = accountIdAssembler;
     this.userAssembler = userAssembler;
   }
 
@@ -31,7 +33,7 @@ public class UserService {
   }
 
   public UserDto getUser(String stringId) {
-    AccountId accountId = new AccountId(UUID.fromString(stringId)); // TODO : Use AccountIdAssembler
+    AccountId accountId = accountIdAssembler.assemble(stringId);
     Account account = accountRepository.findById(accountId);
 
     return userAssembler.create(account);
