@@ -29,7 +29,7 @@ public class UserResourceImplementationTest {
   }
 
   @Test
-  public void whenAddingUser_ThenReturnDtoFromService() {
+  public void whenAddingUser_ThenAddUserToService() {
     when(userService.addUser(userDto)).thenReturn(accountIdDto);
 
     AccountIdDto receivedAccountIdDto = userResource.addUser(userDto);
@@ -38,7 +38,7 @@ public class UserResourceImplementationTest {
   }
 
   @Test
-  public void whenGettingUser_ThenReturnDtoFromService() {
+  public void whenGettingUser_ThenGetUserFromService() {
     when(userService.getUser(ACCOUNT_ID)).thenReturn(userDto);
 
     UserDto receivedUserDto = userResource.getUser(ACCOUNT_ID);
