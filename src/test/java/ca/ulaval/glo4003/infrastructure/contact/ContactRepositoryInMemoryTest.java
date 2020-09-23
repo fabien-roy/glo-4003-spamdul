@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.infrastructure.contact;
 
 import ca.ulaval.glo4003.domain.contact.Contact;
-import ca.ulaval.glo4003.domain.contact.ContactNotFoundException;
+import ca.ulaval.glo4003.domain.contact.exception.ContactNotFoundException;
 import com.google.common.truth.Truth;
 import java.util.List;
 import org.junit.Before;

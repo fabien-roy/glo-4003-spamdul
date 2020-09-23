@@ -40,7 +40,7 @@ public class AccountFactoryTest {
   }
 
   @Test
-  public void whenCreatingAccount_thenUserAssemblerIsCalled() throws AccountValidationError {
+  public void whenCreatingAccount_thenUserAssemblerIsCalled() {
     UserDto userDto = this.createValidUserDto();
 
     this.accountFactory.createAccount(userDto);

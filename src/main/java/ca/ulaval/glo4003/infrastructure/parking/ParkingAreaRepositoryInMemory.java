@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.infrastructure.parking;
 import ca.ulaval.glo4003.domain.parking.ParkingArea;
 import ca.ulaval.glo4003.domain.parking.ParkingAreaCode;
 import ca.ulaval.glo4003.domain.parking.ParkingAreaRepository;
+import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingAreaException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,10 @@ public class ParkingAreaRepositoryInMemory implements ParkingAreaRepository {
 
   @Override
   public ParkingArea findByCode(ParkingAreaCode code) {
-    return parkingAreas.get(code);
+    ParkingArea foundParkingArea = parkingAreas.get(code);
+
+    if (foundParkingArea == null) throw new NotFoundParkingAreaException();
+
+    return foundParkingArea;
   }
 }

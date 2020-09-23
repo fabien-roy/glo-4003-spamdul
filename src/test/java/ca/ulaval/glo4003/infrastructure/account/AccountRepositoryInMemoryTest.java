@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.domain.account.helpers.AccountBuilder.anAccount;
 
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
-import ca.ulaval.glo4003.domain.account.NotFoundAccountException;
+import ca.ulaval.glo4003.domain.account.exception.NotFoundAccountException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

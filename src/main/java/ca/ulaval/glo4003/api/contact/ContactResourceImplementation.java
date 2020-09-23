@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.api.contact;
 
 import ca.ulaval.glo4003.api.contact.dto.ContactDto;
-import ca.ulaval.glo4003.domain.contact.ContactNotFoundException;
 import ca.ulaval.glo4003.domain.contact.ContactService;
+import ca.ulaval.glo4003.domain.contact.exception.ContactNotFoundException;
 import java.util.List;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;

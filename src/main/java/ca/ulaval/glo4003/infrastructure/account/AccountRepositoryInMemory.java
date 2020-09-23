@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.infrastructure.account;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountId;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
-import ca.ulaval.glo4003.domain.account.NotFoundAccountException;
+import ca.ulaval.glo4003.domain.account.exception.NotFoundAccountException;
 import java.util.HashMap;
 import java.util.Map;
 
