@@ -1,12 +1,13 @@
 package ca.ulaval.glo4003;
 
-import ca.ulaval.glo4003.api.Car.CarResourceImpl;
+import ca.ulaval.glo4003.api.car.CarResourceImpl;
 import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.contact.ContactResourceImpl;
 import ca.ulaval.glo4003.domain.Account.AccountService;
 import ca.ulaval.glo4003.domain.car.CarAssembler;
 import ca.ulaval.glo4003.domain.car.CarService;
 import ca.ulaval.glo4003.domain.car.CarValidator;
+import ca.ulaval.glo4003.domain.car.InvalidCarExceptionMapper;
 import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
@@ -33,8 +34,10 @@ public class Main {
 
   public static void main(String[] args) throws Exception {
     ContactResource contactResource = createContactResource();
+    // TODO : Not the real AccountService, this one is a stub
     AccountService accountService = createAccountService();
     CarResourceImpl carResource = createCarResource(accountService);
+    InvalidCarExceptionMapper invalidCarExceptionMapper = new InvalidCarExceptionMapper();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
@@ -45,6 +48,8 @@ public class Main {
               public Set<Object> getSingletons() {
                 HashSet<Object> resources = new HashSet<>();
                 resources.add(contactResource);
+                resources.add(carResource);
+                resources.add(invalidCarExceptionMapper);
                 return resources;
               }
             });

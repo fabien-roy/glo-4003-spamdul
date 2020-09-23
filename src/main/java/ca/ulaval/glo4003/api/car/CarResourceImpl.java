@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.api.Car;
+package ca.ulaval.glo4003.api.car;
 
-import ca.ulaval.glo4003.api.Car.dto.CarDTO;
+import ca.ulaval.glo4003.api.car.dto.CarDTO;
 import ca.ulaval.glo4003.domain.car.CarService;
 import ca.ulaval.glo4003.domain.car.CarValidator;
 import javax.ws.rs.core.Response;

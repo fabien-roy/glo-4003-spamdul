@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.api.Car.dto;
+package ca.ulaval.glo4003.api.car.dto;
 
 public class CarDTO {
   private String manufacturer;

@@ -3,8 +3,7 @@ package ca.ulaval.glo4003.api.car;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 
-import ca.ulaval.glo4003.api.Car.CarResourceImpl;
-import ca.ulaval.glo4003.api.Car.dto.CarDTO;
+import ca.ulaval.glo4003.api.car.dto.CarDTO;
 import ca.ulaval.glo4003.domain.car.CarService;
 import ca.ulaval.glo4003.domain.car.CarValidator;
 import javax.ws.rs.core.Response;

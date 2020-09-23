@@ -1,10 +1,7 @@
-package ca.ulaval.glo4003.api.Car;
+package ca.ulaval.glo4003.api.car;
 
-import ca.ulaval.glo4003.api.Car.dto.CarDTO;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import ca.ulaval.glo4003.api.car.dto.CarDTO;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
