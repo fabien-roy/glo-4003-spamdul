@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.domain.user;
 import ca.ulaval.glo4003.api.contact.dto.AccountIdDto;
 import ca.ulaval.glo4003.api.contact.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.*;
-
 import java.util.UUID;
 
 public class UserService {

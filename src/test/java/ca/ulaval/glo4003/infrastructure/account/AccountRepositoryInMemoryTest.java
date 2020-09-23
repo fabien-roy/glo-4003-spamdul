@@ -11,8 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccountRepositoryInMemoryTest {
-  @Mock
-  private Account account; // TODO : Use AccountBuilderInstead
+  @Mock private Account account; // TODO : Use AccountBuilderInstead
 
   private AccountRepository accountRepositoryInMemory;
 

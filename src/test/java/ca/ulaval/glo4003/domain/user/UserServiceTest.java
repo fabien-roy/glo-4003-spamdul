@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.user;
 
-import static ca.ulaval.glo4003.domain.account.helpers.AccountObjectMother.createAccountId;
+import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccountId;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -16,16 +16,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 // TODO : Use Builders instead of mocks for domain objects and DTOs
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
-  @Mock
-  private Account account;
-  @Mock
-  private UserDto userDto;
-  @Mock
-  private AccountRepository accountRepository;
-  @Mock
-  private AccountFactory accountFactory;
-  @Mock
-  private UserAssembler userAssembler;
+  @Mock private Account account;
+  @Mock private UserDto userDto;
+  @Mock private AccountRepository accountRepository;
+  @Mock private AccountFactory accountFactory;
+  @Mock private UserAssembler userAssembler;
 
   private UserService userService;
 

@@ -2,9 +2,8 @@ package ca.ulaval.glo4003.domain.account;
 
 import ca.ulaval.glo4003.domain.parking.ParkingSticker;
 import ca.ulaval.glo4003.domain.user.User;
-import jersey.repackaged.com.google.common.collect.Lists;
-
 import java.util.List;
+import jersey.repackaged.com.google.common.collect.Lists;
 
 public class Account {
   private AccountId id;
