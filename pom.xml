@@ -26,7 +26,7 @@
 		<junit.version>4.13</junit.version>
 		<mockito.version>2.0.1-beta</mockito.version>
 		<rest-assured.version>4.3.1</rest-assured.version>
-		<hamcrest.version>1.3</hamcrest.version>
+		<hamcrest.version>2.2</hamcrest.version>
 		<google.truth.version>1.0</google.truth.version>
 		<javax.xml.bind.version>2.2.12</javax.xml.bind.version>
 		<javax.activation.version>1.1.1</javax.activation.version>
