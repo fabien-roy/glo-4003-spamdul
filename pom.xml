@@ -28,7 +28,7 @@
 		<rest-assured.version>4.3.1</rest-assured.version>
 		<hamcrest.version>2.2</hamcrest.version>
 		<google.truth.version>1.0.1</google.truth.version>
-		<javax.xml.bind.version>2.2.12</javax.xml.bind.version>
+		<javax.xml.bind.version>2.3.1</javax.xml.bind.version>
 		<javax.activation.version>1.1.1</javax.activation.version>
 		<!-- Code coverage -->
 		<jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
