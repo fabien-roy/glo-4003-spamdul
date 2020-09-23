@@ -29,6 +29,11 @@ public class AccountRepositoryInMemoryTest {
     Truth.assertThat(foundAccount).isSameInstanceAs(account);
   }
 
+  @Test(expected = NotFoundAccountException.class)
+  public void givenNonExistentAccount_whenGettingAccount_thenThrowNotFoundAccountException() {
+    accountRepository.findById(account.getId());
+  }
+
   @Test
   public void whenUpdatingAccount_thenAccountIsUpdated() {
     accountRepository.save(account);

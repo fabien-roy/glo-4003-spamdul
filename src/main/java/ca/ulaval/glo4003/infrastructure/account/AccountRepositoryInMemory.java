@@ -18,15 +18,17 @@ public class AccountRepositoryInMemory implements AccountRepository {
 
   @Override
   public Account findById(AccountId accountId) {
-    return accounts.get(accountId);
+    Account foundAccount = accounts.get(accountId);
+
+    if (foundAccount == null) throw new NotFoundAccountException();
+
+    return foundAccount;
   }
 
   @Override
   public void update(Account account) {
     Account foundAccount = findById(account.getId());
 
-    if (foundAccount == null) throw new NotFoundAccountException();
-
-    accounts.put(account.getId(), account);
+    accounts.put(foundAccount.getId(), account);
   }
 }
