@@ -6,8 +6,8 @@ import ca.ulaval.glo4003.api.contact.dto.ContactDto;
 import ca.ulaval.glo4003.domain.contact.ContactNotFoundException;
 import ca.ulaval.glo4003.domain.contact.ContactService;
 import com.google.common.truth.Truth;
+import java.util.Collections;
 import java.util.List;
-import jersey.repackaged.com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +32,8 @@ public class ContactResourceImplTest {
 
   @Test
   public void whenFindAllContacts_thenFoundContactsFromService() {
-    BDDMockito.given(contactService.findAllContacts()).willReturn(Lists.newArrayList(contactDto));
+    BDDMockito.given(contactService.findAllContacts())
+        .willReturn(Collections.singletonList(contactDto));
 
     List<ContactDto> contactDtos = contactResource.getContacts();
 

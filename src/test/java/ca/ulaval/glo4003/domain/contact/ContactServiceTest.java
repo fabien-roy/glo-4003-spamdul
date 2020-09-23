@@ -5,8 +5,8 @@ import static org.mockito.Matchers.eq;
 
 import ca.ulaval.glo4003.api.contact.dto.ContactDto;
 import com.google.common.truth.Truth;
+import java.util.Collections;
 import java.util.List;
-import jersey.repackaged.com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +33,7 @@ public class ContactServiceTest {
 
   @Test
   public void givenContactsInRepository_whenFindAllContacts_thenReturnThose() {
-    BDDMockito.given(contactRepository.findAll()).willReturn(Lists.newArrayList(contact));
+    BDDMockito.given(contactRepository.findAll()).willReturn(Collections.singletonList(contact));
     BDDMockito.given(contactAssembler.create(contact)).willReturn(contactDto);
 
     List<ContactDto> contactDtos = contactService.findAllContacts();
