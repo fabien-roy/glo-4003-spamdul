@@ -17,7 +17,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ContactResourceImplTest {
+public class ContactResourceImplementationTest {
   private static final String CONTACT_ID = "id";
 
   @Mock private ContactService contactService;
@@ -27,7 +27,7 @@ public class ContactResourceImplTest {
 
   @Before
   public void setUp() {
-    contactResource = new ContactResourceImpl(contactService);
+    contactResource = new ContactResourceImplementation(contactService);
   }
 
   @Test

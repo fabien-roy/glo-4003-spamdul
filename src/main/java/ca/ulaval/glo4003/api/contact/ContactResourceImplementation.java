@@ -7,10 +7,10 @@ import java.util.List;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
-public class ContactResourceImpl implements ContactResource {
+public class ContactResourceImplementation implements ContactResource {
   private final ContactService contactService;
 
-  public ContactResourceImpl(ContactService contactService) {
+  public ContactResourceImplementation(ContactService contactService) {
     this.contactService = contactService;
   }
 

@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParkingResourceImplTest {
+public class ParkingResourceImplementationTest {
   @Mock private ParkingService parkingService;
   @Mock private ParkingStickerDto parkingStickerDto;
 
@@ -20,7 +20,7 @@ public class ParkingResourceImplTest {
 
   @Before
   public void setUp() {
-    parkingResource = new ParkingResourceImpl(parkingService);
+    parkingResource = new ParkingResourceImplementation(parkingService);
   }
 
   @Test
