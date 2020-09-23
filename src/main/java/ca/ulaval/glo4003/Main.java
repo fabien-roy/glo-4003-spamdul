@@ -92,10 +92,10 @@ public class Main {
   }
 
   private static CarResourceImpl createCarResource(AccountService accountService) {
-    CarAssembler carAssembler = new CarAssembler();
     CarValidator carValidator = new CarValidator();
+    CarAssembler carAssembler = new CarAssembler(carValidator);
     CarService carService = new CarService(carAssembler, accountService);
 
-    return new CarResourceImpl(carService, carValidator);
+    return new CarResourceImpl(carService);
   }
 }
