@@ -4,20 +4,20 @@ import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.contact.ContactResourceImpl;
 import ca.ulaval.glo4003.api.contact.UserResource;
 import ca.ulaval.glo4003.api.contact.UserResourceImplementation;
-import ca.ulaval.glo4003.domain.account.AccountFactory;
-import ca.ulaval.glo4003.domain.account.AccountNumberGenerator;
 import ca.ulaval.glo4003.api.parking.ParkingResource;
 import ca.ulaval.glo4003.api.parking.ParkingResourceImpl;
+import ca.ulaval.glo4003.domain.account.AccountFactory;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
+import ca.ulaval.glo4003.domain.account.AccountIdGenerator;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
 import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
 import ca.ulaval.glo4003.domain.contact.ContactService;
+import ca.ulaval.glo4003.domain.parking.*;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
 import ca.ulaval.glo4003.domain.user.UserService;
 import ca.ulaval.glo4003.domain.user.exception.InvalidUserExceptionMapper;
-import ca.ulaval.glo4003.domain.parking.*;
 import ca.ulaval.glo4003.http.CORSResponseFilter;
 import ca.ulaval.glo4003.infrastructure.account.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactDevDataFactory;
@@ -98,9 +98,9 @@ public class Main {
 
   private static UserResource createUserResource() {
     AccountRepository accountRepository = new AccountRepositoryInMemory();
-    AccountNumberGenerator accountNumberGenerator = new AccountNumberGenerator();
+    AccountIdGenerator accountIdGenerator = new AccountIdGenerator();
     UserAssembler userAssembler = new UserAssembler();
-    AccountFactory accountFactory = new AccountFactory(accountNumberGenerator, userAssembler);
+    AccountFactory accountFactory = new AccountFactory(accountIdGenerator, userAssembler);
 
     UserService userService = new UserService(accountRepository, accountFactory, userAssembler);
 
