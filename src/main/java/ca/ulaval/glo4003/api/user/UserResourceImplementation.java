@@ -13,7 +13,6 @@ public class UserResourceImplementation implements UserResource {
 
   @Override
   public AccountIdDto addUser(UserDto userDto) {
-
     return userService.addUser(userDto);
   }
 

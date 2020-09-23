@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.domain.parking.ParkingAreaCode;
 import java.util.List;
 import jersey.repackaged.com.google.common.collect.Lists;
 
-public class ParkingAreaDevDataFactory {
+public class ParkingAreaFakeFactory {
 
   public List<ParkingArea> createMockData() {
     List<ParkingArea> parkingAreas = Lists.newArrayList();

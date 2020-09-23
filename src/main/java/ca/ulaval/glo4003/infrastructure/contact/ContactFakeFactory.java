@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.domain.contact.Contact;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactDevDataFactory {
+public class ContactFakeFactory {
 
   public List<Contact> createMockData() {
     List<Contact> contacts = new ArrayList<>();

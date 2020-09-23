@@ -20,9 +20,9 @@ import ca.ulaval.glo4003.domain.user.UserService;
 import ca.ulaval.glo4003.domain.user.exception.InvalidUserExceptionMapper;
 import ca.ulaval.glo4003.http.CORSResponseFilter;
 import ca.ulaval.glo4003.infrastructure.account.AccountRepositoryInMemory;
-import ca.ulaval.glo4003.infrastructure.contact.ContactDevDataFactory;
+import ca.ulaval.glo4003.infrastructure.contact.ContactFakeFactory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactRepositoryInMemory;
-import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaDevDataFactory;
+import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaFakeFactory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import java.util.HashSet;
 import java.util.List;
@@ -86,8 +86,8 @@ public class Main {
     ContactRepository contactRepository = new ContactRepositoryInMemory();
 
     if (isDev) {
-      ContactDevDataFactory contactDevDataFactory = new ContactDevDataFactory();
-      List<Contact> contacts = contactDevDataFactory.createMockData();
+      ContactFakeFactory contactFakeFactory = new ContactFakeFactory();
+      List<Contact> contacts = contactFakeFactory.createMockData();
       contacts.stream().forEach(contactRepository::save);
     }
 
@@ -115,8 +115,8 @@ public class Main {
     ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
 
     if (isDev) {
-      ParkingAreaDevDataFactory parkingAreaDevDataFactory = new ParkingAreaDevDataFactory();
-      List<ParkingArea> parkingAreas = parkingAreaDevDataFactory.createMockData();
+      ParkingAreaFakeFactory parkingAreaFakeFactory = new ParkingAreaFakeFactory();
+      List<ParkingArea> parkingAreas = parkingAreaFakeFactory.createMockData();
       parkingAreas.stream().forEach(parkingAreaRepository::save);
     }
 
