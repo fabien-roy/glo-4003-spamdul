@@ -19,10 +19,6 @@ public class Account {
     return id;
   }
 
-  public void setId(AccountId id) {
-    this.id = id;
-  }
-
   public User getUser() {
     return user;
   }

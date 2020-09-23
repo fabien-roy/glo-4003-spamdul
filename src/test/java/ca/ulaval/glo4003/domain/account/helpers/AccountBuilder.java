@@ -16,6 +16,11 @@ public class AccountBuilder {
     return new AccountBuilder();
   }
 
+  public AccountBuilder withId(AccountId id) {
+    this.id = id;
+    return this;
+  }
+
   public Account build() {
     Account account = new Account(id, user);
     return account;
