@@ -10,6 +10,7 @@ public interface UserResource {
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
   AccountIdDto addUser(UserDto userDto);
 
   @GET

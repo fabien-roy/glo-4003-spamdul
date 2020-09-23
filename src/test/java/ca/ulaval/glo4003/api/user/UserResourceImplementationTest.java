@@ -1,20 +1,27 @@
 package ca.ulaval.glo4003.api.user;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccountId;
+import static org.mockito.Mockito.*;
 
+import ca.ulaval.glo4003.api.user.dto.AccountIdDto;
 import ca.ulaval.glo4003.api.user.dto.UserDto;
-import ca.ulaval.glo4003.domain.account.AccountValidationError;
 import ca.ulaval.glo4003.domain.user.UserService;
+import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class UserResourceImplementationTest {
-  private UserDto userDto = mock(UserDto.class);
-  private UserService userService = mock(UserService.class);
+  @Mock private UserDto userDto;
+  @Mock private AccountIdDto accountIdDto;
+  @Mock private UserService userService;
+
   private UserResource userResource;
 
-  private final String ANY_ID = "2";
+  private static final String ACCOUNT_ID = createAccountId().toString();
 
   @Before
   public void setUp() {
@@ -22,16 +29,20 @@ public class UserResourceImplementationTest {
   }
 
   @Test
-  public void whenAddingUser_ThenServiceShouldAddUser() throws AccountValidationError {
-    userResource.addUser(userDto);
+  public void whenAddingUser_ThenReturnDtoFromService() {
+    when(userService.addUser(userDto)).thenReturn(accountIdDto);
 
-    verify(userService).addUser(userDto);
+    AccountIdDto receivedAccountIdDto = userResource.addUser(userDto);
+
+    Truth.assertThat(receivedAccountIdDto).isSameInstanceAs(accountIdDto);
   }
 
   @Test
-  public void whenGettingUser_ThenServiceShouldGetUser() {
-    userResource.getUser(ANY_ID);
+  public void whenGettingUser_ThenReturnDtoFromService() {
+    when(userService.getUser(ACCOUNT_ID)).thenReturn(userDto);
 
-    verify(userService).getUser(ANY_ID);
+    UserDto receivedUserDto = userResource.getUser(ACCOUNT_ID);
+
+    Truth.assertThat(receivedUserDto).isSameInstanceAs(userDto);
   }
 }

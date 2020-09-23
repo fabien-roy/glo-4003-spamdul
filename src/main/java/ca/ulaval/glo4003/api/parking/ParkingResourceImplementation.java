@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.api.parking;
 
+import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.parking.ParkingService;
 
@@ -11,7 +12,7 @@ public class ParkingResourceImplementation implements ParkingResource {
   }
 
   @Override
-  public void addParkingSticker(ParkingStickerDto parkingStickerDto) {
-    parkingService.addParkingSticker(parkingStickerDto);
+  public ParkingStickerCodeDto addParkingSticker(ParkingStickerDto parkingStickerDto) {
+    return parkingService.addParkingSticker(parkingStickerDto);
   }
 }
