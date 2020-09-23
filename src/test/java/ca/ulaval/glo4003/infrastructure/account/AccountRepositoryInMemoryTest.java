@@ -12,36 +12,36 @@ import org.junit.Test;
 public class AccountRepositoryInMemoryTest {
   private Account account;
 
-  private AccountRepository accountRepositoryInMemory;
+  private AccountRepository accountRepository;
 
   @Before
   public void setUp() {
-    accountRepositoryInMemory = new AccountRepositoryInMemory();
+    accountRepository = new AccountRepositoryInMemory();
     account = anAccount().build();
   }
 
   @Test
   public void whenSavingAccount_thenAccountCanBeFound() {
-    accountRepositoryInMemory.save(account);
+    accountRepository.save(account);
 
-    Account foundAccount = accountRepositoryInMemory.findById(account.getId());
+    Account foundAccount = accountRepository.findById(account.getId());
 
     Truth.assertThat(foundAccount).isSameInstanceAs(account);
   }
 
   @Test
   public void whenUpdatingAccount_thenAccountIsUpdated() {
-    accountRepositoryInMemory.save(account);
+    accountRepository.save(account);
     Account updatedAccount = anAccount().withId(account.getId()).build();
 
-    accountRepositoryInMemory.update(updatedAccount);
-    Account foundAccount = accountRepositoryInMemory.findById(account.getId());
+    accountRepository.update(updatedAccount);
+    Account foundAccount = accountRepository.findById(account.getId());
 
     Truth.assertThat(foundAccount).isNotSameInstanceAs(account);
   }
 
   @Test(expected = NotFoundAccountException.class)
   public void givenNonExistentAccount_whenUpdatingAccount_thenThrowNotFoundAccountException() {
-    accountRepositoryInMemory.update(account);
+    accountRepository.update(account);
   }
 }

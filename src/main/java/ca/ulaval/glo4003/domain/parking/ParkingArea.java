@@ -6,4 +6,8 @@ public class ParkingArea {
   public ParkingArea(ParkingAreaCode code) {
     this.code = code;
   }
+
+  public ParkingAreaCode getCode() {
+    return code;
+  }
 }
