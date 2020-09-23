@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.domain.Account.AccountService;
 import ca.ulaval.glo4003.domain.car.CarAssembler;
 import ca.ulaval.glo4003.domain.car.CarService;
 import ca.ulaval.glo4003.domain.car.CarValidator;
-import ca.ulaval.glo4003.domain.car.InvalidCarExceptionMapper;
+import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarExceptionMapper;
 import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;

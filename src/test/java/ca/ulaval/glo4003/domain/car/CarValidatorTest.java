@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.domain.car;
 
 import ca.ulaval.glo4003.api.car.dto.CarDTO;
+import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
