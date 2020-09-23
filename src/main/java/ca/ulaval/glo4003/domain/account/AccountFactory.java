@@ -1,24 +1,23 @@
 package ca.ulaval.glo4003.domain.account;
 
-import ca.ulaval.glo4003.api.contact.dto.UserDto;
+import ca.ulaval.glo4003.api.user.dto.UserDto;
 import ca.ulaval.glo4003.domain.user.User;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
 import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
 
 public class AccountFactory {
-  private AccountNumberGenerator accountNumberGenerator;
+  private AccountIdGenerator accountIdGenerator;
   private UserAssembler userAssembler;
 
-  public AccountFactory(
-      AccountNumberGenerator accountNumberGenerator, UserAssembler userAssembler) {
-    this.accountNumberGenerator = accountNumberGenerator;
+  public AccountFactory(AccountIdGenerator accountIdGenerator, UserAssembler userAssembler) {
+    this.accountIdGenerator = accountIdGenerator;
     this.userAssembler = userAssembler;
   }
 
   public Account createAccount(UserDto userDto) {
     this.validate(userDto);
 
-    AccountId accountId = this.accountNumberGenerator.getUserNextNumber();
+    AccountId accountId = this.accountIdGenerator.generate();
     User user = this.userAssembler.create(userDto);
 
     return new Account(accountId, user);

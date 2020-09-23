@@ -4,6 +4,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 
 import ca.ulaval.glo4003.api.contact.dto.ContactDto;
+import ca.ulaval.glo4003.domain.contact.exception.ContactNotFoundException;
 import com.google.common.truth.Truth;
 import java.util.Collections;
 import java.util.List;

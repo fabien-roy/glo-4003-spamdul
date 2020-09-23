@@ -1,38 +1,52 @@
 package ca.ulaval.glo4003.infrastructure.account;
 
-import static org.mockito.Mockito.mock;
+import static ca.ulaval.glo4003.domain.account.helpers.AccountBuilder.anAccount;
 
 import ca.ulaval.glo4003.domain.account.Account;
+import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.account.exception.NotFoundAccountException;
 import com.google.common.truth.Truth;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
 public class AccountRepositoryInMemoryTest {
-  private Account account = mock(Account.class);
+  private Account account;
 
-  private AccountRepositoryInMemory accountRepositoryInMemory;
+  private AccountRepository accountRepository;
 
   @Before
   public void setUp() {
-    accountRepositoryInMemory = new AccountRepositoryInMemory();
+    accountRepository = new AccountRepositoryInMemory();
+    account = anAccount().build();
   }
 
   @Test
-  public void whenAddingAccount_thenAddAccountInMemory() {
-    accountRepositoryInMemory.save(account);
-    List<Account> accounts = new ArrayList<>(accountRepositoryInMemory.getUsers().values());
+  public void whenSavingAccount_thenAccountCanBeFound() {
+    accountRepository.save(account);
 
-    Truth.assertThat(accounts).contains(account);
+    Account foundAccount = accountRepository.findById(account.getId());
+
+    Truth.assertThat(foundAccount).isSameInstanceAs(account);
+  }
+
+  @Test(expected = NotFoundAccountException.class)
+  public void givenNonExistentAccount_whenGettingAccount_thenThrowNotFoundAccountException() {
+    accountRepository.findById(account.getId());
   }
 
   @Test
-  public void whenFindingAccount_thenReturnsAccountFromMemory() {
-    accountRepositoryInMemory.save(account);
-    Account accountFound = accountRepositoryInMemory.findById(account.getAccountId());
-    List<Account> accounts = new ArrayList<>(accountRepositoryInMemory.getUsers().values());
+  public void whenUpdatingAccount_thenAccountIsUpdated() {
+    accountRepository.save(account);
+    Account updatedAccount = anAccount().withId(account.getId()).build();
 
-    Truth.assertThat(accounts).contains(accountFound);
+    accountRepository.update(updatedAccount);
+    Account foundAccount = accountRepository.findById(account.getId());
+
+    Truth.assertThat(foundAccount).isNotSameInstanceAs(account);
+  }
+
+  @Test(expected = NotFoundAccountException.class)
+  public void givenNonExistentAccount_whenUpdatingAccount_thenThrowNotFoundAccountException() {
+    accountRepository.update(account);
   }
 }
