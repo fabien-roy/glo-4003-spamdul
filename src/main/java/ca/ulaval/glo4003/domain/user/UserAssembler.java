@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.domain.user;
 
 import ca.ulaval.glo4003.api.contact.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.Account;
-import ca.ulaval.glo4003.domain.user.userEnum.Sex;
 
 public class UserAssembler {
 

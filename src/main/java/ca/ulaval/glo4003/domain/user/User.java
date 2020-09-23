@@ -1,7 +1,5 @@
 package ca.ulaval.glo4003.domain.user;
 
-import ca.ulaval.glo4003.domain.user.userEnum.Sex;
-
 public class User {
   private String name;
   private CustomDate birthDate;

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.user.userEnum;
+package ca.ulaval.glo4003.domain.user;
 
 import ca.ulaval.glo4003.domain.user.exception.InvalidSexAttributeException;
 import java.util.HashMap;

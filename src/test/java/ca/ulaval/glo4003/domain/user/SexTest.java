@@ -1,22 +1,16 @@
-package ca.ulaval.glo4003.domain.user.userEnum;
+package ca.ulaval.glo4003.domain.user;
 
 import ca.ulaval.glo4003.domain.user.exception.InvalidSexAttributeException;
 import com.google.common.truth.Truth;
 import org.junit.Test;
 
+// TODO : Enums should not be tested. We should only tests via assemblers or factories.
 public class SexTest {
-  @Test
-  public void whenGettingEnumFromInvalidString_thenThrowInvalidCommunicationException() {
+  @Test(expected = InvalidSexAttributeException.class)
+  public void whenGettingEnumFromInvalidString_thenThrowInvalidSexAttributeException() {
     String invalidSex = "invalid";
 
-    try {
-      Sex.get(invalidSex);
-      Truth.assertThat(false);
-    } catch (Exception exception) {
-      if (exception instanceof InvalidSexAttributeException) {
-        Truth.assertThat(true);
-      }
-    }
+    Sex.get(invalidSex);
   }
 
   @Test
