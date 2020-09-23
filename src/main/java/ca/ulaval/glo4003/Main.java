@@ -22,6 +22,7 @@ import ca.ulaval.glo4003.http.CORSResponseFilter;
 import ca.ulaval.glo4003.infrastructure.account.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactDevDataFactory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactRepositoryInMemory;
+import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaDevDataFactory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import java.util.HashSet;
 import java.util.List;
@@ -113,7 +114,11 @@ public class Main {
     AccountRepository accountRepository = new AccountRepositoryInMemory();
     ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
 
-    // TODO : Dev mock data for account and parking area repository
+    if (isDev) {
+      ParkingAreaDevDataFactory parkingAreaDevDataFactory = new ParkingAreaDevDataFactory();
+      List<ParkingArea> parkingAreas = parkingAreaDevDataFactory.createMockData();
+      parkingAreas.stream().forEach(parkingAreaRepository::save);
+    }
 
     AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
     ParkingStickerAssembler parkingStickerAssembler =
