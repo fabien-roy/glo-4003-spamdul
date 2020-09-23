@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.api.contact.dto;
+package ca.ulaval.glo4003.api.interfaces.dto;
 
 public class RestErrorDto {
   public String error;

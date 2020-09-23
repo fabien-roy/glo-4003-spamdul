@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccou
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
-import ca.ulaval.glo4003.api.contact.dto.UserDto;
+import ca.ulaval.glo4003.api.user.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.*;
 import org.junit.Before;
 import org.junit.Test;

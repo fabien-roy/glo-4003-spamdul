@@ -2,10 +2,10 @@ package ca.ulaval.glo4003;
 
 import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.contact.ContactResourceImplementation;
-import ca.ulaval.glo4003.api.contact.UserResource;
-import ca.ulaval.glo4003.api.contact.UserResourceImplementation;
 import ca.ulaval.glo4003.api.parking.ParkingResource;
 import ca.ulaval.glo4003.api.parking.ParkingResourceImplementation;
+import ca.ulaval.glo4003.api.user.UserResource;
+import ca.ulaval.glo4003.api.user.UserResourceImplementation;
 import ca.ulaval.glo4003.domain.account.AccountFactory;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
 import ca.ulaval.glo4003.domain.account.AccountIdGenerator;

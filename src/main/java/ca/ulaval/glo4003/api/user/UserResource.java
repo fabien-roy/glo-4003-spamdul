@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.api.contact;
+package ca.ulaval.glo4003.api.user;
 
-import ca.ulaval.glo4003.api.contact.dto.AccountIdDto;
-import ca.ulaval.glo4003.api.contact.dto.UserDto;
+import ca.ulaval.glo4003.api.user.dto.AccountIdDto;
+import ca.ulaval.glo4003.api.user.dto.UserDto;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 

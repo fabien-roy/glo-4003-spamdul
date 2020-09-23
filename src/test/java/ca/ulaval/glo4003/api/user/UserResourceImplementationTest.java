@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.api.contact;
+package ca.ulaval.glo4003.api.user;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import ca.ulaval.glo4003.api.contact.dto.UserDto;
+import ca.ulaval.glo4003.api.user.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.AccountValidationError;
 import ca.ulaval.glo4003.domain.user.UserService;
 import org.junit.Before;

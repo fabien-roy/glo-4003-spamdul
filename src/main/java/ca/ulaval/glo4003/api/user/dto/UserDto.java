@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.api.contact.dto;
+package ca.ulaval.glo4003.api.user.dto;
 
 public class UserDto {
   public String name;
