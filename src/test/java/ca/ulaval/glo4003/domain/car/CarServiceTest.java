@@ -4,7 +4,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.api.car.dto.CarDTO;
-import ca.ulaval.glo4003.domain.Account.AccountService;
+import ca.ulaval.glo4003.domain.account.AccountService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

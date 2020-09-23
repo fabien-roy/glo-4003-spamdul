@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.Account;
+package ca.ulaval.glo4003.domain.account;
 
 import ca.ulaval.glo4003.domain.car.Car;
 

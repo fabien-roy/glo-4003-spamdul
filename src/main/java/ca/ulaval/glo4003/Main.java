@@ -3,7 +3,12 @@ package ca.ulaval.glo4003;
 import ca.ulaval.glo4003.api.car.CarResourceImpl;
 import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.contact.ContactResourceImpl;
-import ca.ulaval.glo4003.domain.Account.AccountService;
+import ca.ulaval.glo4003.api.contact.UserResource;
+import ca.ulaval.glo4003.api.contact.UserResourceImplementation;
+import ca.ulaval.glo4003.domain.account.AccountFactory;
+import ca.ulaval.glo4003.domain.account.AccountNumberGenerator;
+import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.account.AccountService;
 import ca.ulaval.glo4003.domain.car.CarAssembler;
 import ca.ulaval.glo4003.domain.car.CarService;
 import ca.ulaval.glo4003.domain.car.CarValidator;
@@ -12,7 +17,11 @@ import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
 import ca.ulaval.glo4003.domain.contact.ContactService;
+import ca.ulaval.glo4003.domain.user.UserAssembler;
+import ca.ulaval.glo4003.domain.user.UserService;
+import ca.ulaval.glo4003.domain.user.exception.InvalidUserExceptionMapper;
 import ca.ulaval.glo4003.http.CORSResponseFilter;
+import ca.ulaval.glo4003.infrastructure.account.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactDevDataFactory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactRepositoryInMemory;
 import java.util.HashSet;
@@ -34,6 +43,8 @@ public class Main {
 
   public static void main(String[] args) throws Exception {
     ContactResource contactResource = createContactResource();
+    UserResource userResource = createUserResource();
+    InvalidUserExceptionMapper invalidUserExceptionMapper = new InvalidUserExceptionMapper();
     // TODO : Not the real AccountService, this one is a stub
     AccountService accountService = createAccountService();
     CarResourceImpl carResource = createCarResource(accountService);
@@ -48,6 +59,8 @@ public class Main {
               public Set<Object> getSingletons() {
                 HashSet<Object> resources = new HashSet<>();
                 resources.add(contactResource);
+                resources.add(userResource);
+                resources.add(invalidUserExceptionMapper);
                 resources.add(carResource);
                 resources.add(invalidCarExceptionMapper);
                 return resources;
@@ -85,6 +98,17 @@ public class Main {
     ContactService contactService = new ContactService(contactRepository, contactAssembler);
 
     return new ContactResourceImpl(contactService);
+  }
+
+  private static UserResource createUserResource() {
+    AccountRepository accountRepository = new AccountRepositoryInMemory();
+    AccountNumberGenerator accountNumberGenerator = new AccountNumberGenerator();
+    UserAssembler userAssembler = new UserAssembler();
+    AccountFactory accountFactory = new AccountFactory(accountNumberGenerator, userAssembler);
+
+    UserService userService = new UserService(accountRepository, accountFactory, userAssembler);
+
+    return new UserResourceImplementation(userService);
   }
 
   private static AccountService createAccountService() {

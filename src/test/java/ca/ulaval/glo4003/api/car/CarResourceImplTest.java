@@ -30,14 +30,7 @@ public class CarResourceImplTest {
   @Before
   public void setup() {
     carDTO = new CarDTO("Toyota", "Corolla", 2002, "C4R1SK3WL");
-    carResource = new CarResourceImpl(carService, carValidator);
-  }
-
-  @Test
-  public void whenAddingCar_thenValidateCarDTO() {
-    carResource.addCar(ACCOUNT_ID, carDTO);
-
-    verify(carValidator).validate(carDTO);
+    carResource = new CarResourceImpl(carService);
   }
 
   @Test
