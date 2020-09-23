@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.infrastructure.contact;
 import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
 import ca.ulaval.glo4003.domain.contact.exception.ContactNotFoundException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
