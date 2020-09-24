@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.domain.car;
 
 import ca.ulaval.glo4003.api.car.dto.CarDTO;
-import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarException;
+import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarYearException;
+import ca.ulaval.glo4003.domain.car.exceptions.InvalidLicenseNumberException;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 
 public class CarValidatorTest {
 
@@ -18,24 +18,17 @@ public class CarValidatorTest {
     carValidator = new CarValidator();
   }
 
-  @Test
-  public void givenValidCarDTO_whenValidatingDTO_shouldNotThrowException() {
-    CarDTO validDTO = new CarDTO("manufacturer", "model", 2020, "XXXXXX");
-
-    // Assertions.assertDoesNotThrow(() -> carValidator.validate(validDTO));
-  }
-
-  @Test
+  @Test(expected = InvalidCarYearException.class)
   public void givenCarDTOWithInvalidYear_whenValidatingDTO_shouldThrowException() {
     CarDTO validDTO = new CarDTO("manufacturer", "model", INVALID_YEAR, "XXXXXX");
 
-    Assertions.assertThrows(InvalidCarException.class, () -> carValidator.validate(validDTO));
+    carValidator.validate(validDTO);
   }
 
-  @Test
+  @Test(expected = InvalidLicenseNumberException.class)
   public void givenCarDTOWithInvalidLicensePlate_whenValidatingDTO_shouldThrowException() {
     CarDTO validDTO = new CarDTO("manufacturer", "model", 2020, INVALID_LICENSE_PLATE);
 
-    Assertions.assertThrows(InvalidCarException.class, () -> carValidator.validate(validDTO));
+    carValidator.validate(validDTO);
   }
 }

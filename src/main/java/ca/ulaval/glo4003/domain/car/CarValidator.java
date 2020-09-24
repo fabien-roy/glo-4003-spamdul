@@ -1,7 +1,8 @@
 package ca.ulaval.glo4003.domain.car;
 
 import ca.ulaval.glo4003.api.car.dto.CarDTO;
-import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarException;
+import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarYearException;
+import ca.ulaval.glo4003.domain.car.exceptions.InvalidLicenseNumberException;
 import java.time.LocalDate;
 
 public class CarValidator {
@@ -16,16 +17,16 @@ public class CarValidator {
   private void validateLicensePlate(String licensePlate) {
     // TODO : Validate that the plate contains no illegal characters
     if (licensePlate.length() < 2 || licensePlate.length() > 7) {
-      throw new InvalidCarException("Invalid plate number", "Must be between 2 and 7 characters");
+      throw new InvalidLicenseNumberException(
+          "Invalid plate number", "Must be between 2 and 7 characters");
     }
   }
 
   private void validateYear(int year) {
     int currentYear = LocalDate.now().getYear();
     if (currentYear + 1 <= year) {
-      // TODO : validate that it works
-      String errorDescription = String.format("Must be before %s %d", currentYear);
-      throw new InvalidCarException("Year of model is invalid", errorDescription);
+      String errorDescription = String.format("Must be before %d", currentYear);
+      throw new InvalidCarYearException("Year of model is invalid", errorDescription);
     }
   }
 }

@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.car.exceptions;
 
-import ca.ulaval.glo4003.api.contact.dto.RestErrorDto;
+import ca.ulaval.glo4003.api.interfaces.dto.RestErrorDto;
 import javax.ws.rs.core.Response;
 
 public class InvalidCarException extends RuntimeException {
