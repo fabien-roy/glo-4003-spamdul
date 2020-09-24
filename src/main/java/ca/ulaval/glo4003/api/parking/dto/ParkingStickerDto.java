@@ -5,11 +5,12 @@ public class ParkingStickerDto {
   public String parkingArea;
   public String receptionMethod;
   public String address;
+  public String validDay;
 
   @Override
   public String toString() {
     return String.format(
-        "ParkingStickerDto{accountId='%s', parkingArea='%s', receptionMethod='%s', address='%s'}",
-        accountId, parkingArea, receptionMethod, address);
+        "ParkingStickerDto{accountId='%s', parkingArea='%s', receptionMethod='%s', address='%s', validDay='%s'}",
+        accountId, parkingArea, receptionMethod, address, validDay);
   }
 }

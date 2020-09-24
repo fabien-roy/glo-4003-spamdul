@@ -49,14 +49,14 @@ public class UserAssemblerTest {
   }
 
   @Test
-  public void givenName_whenAssembling_thenReturnUserWithName() {
+  public void whenAssembling_thenReturnUserWithName() {
     User user = userAssembler.assemble(userDto);
 
     Truth.assertThat(user.getName()).isEqualTo(NAME);
   }
 
   @Test
-  public void givenBirthDate_whenAssembling_thenReturnUserWithBirthDate() {
+  public void whenAssembling_thenReturnUserWithBirthDate() {
     User user = userAssembler.assemble(userDto);
 
     Truth.assertThat(user.getBirthDate()).isEqualTo(BIRTH_DATE);
@@ -71,7 +71,7 @@ public class UserAssemblerTest {
   }
 
   @Test
-  public void givenSex_whenAssembling_thenReturnUserWithSex() {
+  public void whenAssembling_thenReturnUserWithSex() {
     User user = userAssembler.assemble(userDto);
 
     Truth.assertThat(user.getSex()).isEqualTo(SEX);
@@ -85,21 +85,21 @@ public class UserAssemblerTest {
   }
 
   @Test
-  public void givenName_whenAssembling_thenReturnUserDtoWithName() {
+  public void whenAssembling_thenReturnUserDtoWithName() {
     UserDto userDto = userAssembler.assemble(user);
 
     Truth.assertThat(userDto.name).isEqualTo(NAME);
   }
 
   @Test
-  public void givenBirthDate_whenAssembling_thenReturnUserDtoWithBirthDate() {
+  public void whenAssembling_thenReturnUserDtoWithBirthDate() {
     UserDto userDto = userAssembler.assemble(user);
 
     Truth.assertThat(userDto.birthDate).isEqualTo(BIRTH_DATE.toString());
   }
 
   @Test
-  public void givenSex_whenAssembling_thenReturnUserDtoWithSex() {
+  public void whenAssembling_thenReturnUserDtoWithSex() {
     UserDto userDto = userAssembler.assemble(user);
 
     Truth.assertThat(userDto.sex).isEqualTo(SEX.toString());

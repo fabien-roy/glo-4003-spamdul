@@ -4,6 +4,7 @@ import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccou
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createAddress;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createReceptionMethod;
+import static ca.ulaval.glo4003.domain.time.helpers.DayMother.createDay;
 
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 
@@ -12,6 +13,7 @@ public class ParkingStickerDtoBuilder {
   private String parkingArea = createParkingAreaCode().toString();
   private String receptionMethod = createReceptionMethod().toString();
   private String address = createAddress();
+  private String validDay = createDay().toString();
 
   private ParkingStickerDtoBuilder() {}
 
@@ -34,8 +36,18 @@ public class ParkingStickerDtoBuilder {
     return this;
   }
 
+  public ParkingStickerDtoBuilder withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
   public ParkingStickerDtoBuilder withoutAddress() {
     this.address = null;
+    return this;
+  }
+
+  public ParkingStickerDtoBuilder withValidDay(String validDay) {
+    this.validDay = validDay;
     return this;
   }
 
@@ -45,6 +57,7 @@ public class ParkingStickerDtoBuilder {
     parkingStickerDto.parkingArea = parkingArea;
     parkingStickerDto.receptionMethod = receptionMethod;
     parkingStickerDto.address = address;
+    parkingStickerDto.validDay = validDay;
     return parkingStickerDto;
   }
 }
