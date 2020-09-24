@@ -24,17 +24,17 @@ uses:
     /{accountId}:
       get:
         description: Get the user with account with `accountId = {accountId}`
-          responses:
-            200:
-              description: Requested user
-              body:
-                application/json:
-                  type: types.User
-                  example: !include ./examples/users/get-users-response.json
-            400:
-              description: Error getting user with account id
-            404:
-              description: User not found
+        responses:
+          200:
+            description: Requested user
+            body:
+              application/json:
+                type: types.User
+                example: !include ./examples/user/get-users-response.json
+          400:
+            description: Error getting user with account id
+          404:
+            description: User not found
   /parkings:
     post:
       description: Add a new parking sticker
