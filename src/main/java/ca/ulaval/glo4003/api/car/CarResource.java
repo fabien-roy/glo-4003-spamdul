@@ -11,9 +11,4 @@ public interface CarResource {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   Response addCar(@PathParam("id") int accountId, CarDTO carDTO);
-
-  @POST
-  @Path("/test")
-  @Consumes(MediaType.APPLICATION_JSON)
-  Response test();
 }
