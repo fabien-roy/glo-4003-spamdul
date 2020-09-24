@@ -23,7 +23,8 @@
 		<jersey.version>2.31</jersey.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
         <!-- Tests -->
-		<junit.version>5.7.0</junit.version>
+		<junit.version>4.13</junit.version>
+		<javafaker.version>1.0.2</javafaker.version>
 		<mockito.version>2.0.2-beta</mockito.version>
 		<rest-assured.version>4.3.1</rest-assured.version>
 		<hamcrest.version>2.2</hamcrest.version>
@@ -90,29 +91,22 @@
 			<version>${javax.ws.rs.version}</version>
 		</dependency>
 		<!-- Tests -->
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>1.7.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
-            <version>5.7.0</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>${mockito.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.javafaker</groupId>
+			<artifactId>javafaker</artifactId>
+			<version>${javafaker.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.rest-assured</groupId>

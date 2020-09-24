@@ -1,20 +1,23 @@
 package ca.ulaval.glo4003.domain.user;
 
-import ca.ulaval.glo4003.api.contact.dto.AccountIdDto;
-import ca.ulaval.glo4003.api.contact.dto.UserDto;
+import ca.ulaval.glo4003.api.user.dto.AccountIdDto;
+import ca.ulaval.glo4003.api.user.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.*;
 
 public class UserService {
-  private AccountRepository accountRepository;
-  private AccountFactory accountFactory;
-  private UserAssembler userAssembler;
+  private final AccountRepository accountRepository;
+  private final AccountFactory accountFactory;
+  private final AccountIdAssembler accountIdAssembler;
+  private final UserAssembler userAssembler;
 
   public UserService(
       AccountRepository accountRepository,
       AccountFactory accountFactory,
+      AccountIdAssembler accountIdAssembler,
       UserAssembler userAssembler) {
     this.accountRepository = accountRepository;
     this.accountFactory = accountFactory;
+    this.accountIdAssembler = accountIdAssembler;
     this.userAssembler = userAssembler;
   }
 
@@ -29,9 +32,10 @@ public class UserService {
     return accountIdDto;
   }
 
-  public UserDto getUser(String accountId) {
-    Account account = this.accountRepository.findById(new AccountId(accountId));
+  public UserDto getUser(String stringId) {
+    AccountId accountId = accountIdAssembler.assemble(stringId);
+    Account account = accountRepository.findById(accountId);
 
-    return this.userAssembler.create(account);
+    return userAssembler.create(account);
   }
 }
