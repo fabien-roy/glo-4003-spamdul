@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.domain.account.AccountId;
 
 public class ParkingSticker {
   private ParkingStickerCode code;
+  private ParkingAccessDay parkingAccessDay;
   private final AccountId accountId;
   private final ParkingAreaCode parkingAreaCode;
   private final ReceptionMethods receptionMethod;
@@ -33,5 +34,13 @@ public class ParkingSticker {
 
   public ReceptionMethods getReceptionMethod() {
     return receptionMethod;
+  }
+
+  public void setParkingAccessDay(ParkingAccessDay parkingAccessDay) {
+    this.parkingAccessDay = parkingAccessDay;
+  }
+
+  public ParkingAccessDay getParkingStickerDate() {
+    return parkingAccessDay;
   }
 }

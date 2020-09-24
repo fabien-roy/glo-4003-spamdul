@@ -8,4 +8,10 @@ public class ParkingStickerCodeAssembler {
     parkingStickerCodeDto.code = parkingStickerCode.toString();
     return parkingStickerCodeDto;
   }
+
+  public ParkingStickerCode assemble(ParkingStickerCodeDto parkingStickerCodeDto) {
+    ParkingStickerCode parkingStickerCode =
+        new ParkingStickerCode(parkingStickerCodeDto.toString());
+    return parkingStickerCode;
+  }
 }

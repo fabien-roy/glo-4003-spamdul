@@ -88,6 +88,7 @@ public class Main {
   private static ParkingResource createParkingResource() {
     AccountRepository accountRepository = new AccountRepositoryInMemory();
     ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
+    ParkingStickerCodeRepository parkingStickerCodeRepository = new ParkingStickerCodeRepository();
 
     // TODO : Dev mock data for account and parking area repository
 
@@ -104,7 +105,8 @@ public class Main {
             parkingStickerCodeAssembler,
             parkingStickerFactory,
             accountRepository,
-            parkingAreaRepository);
+            parkingAreaRepository,
+            parkingStickerCodeRepository);
 
     return new ParkingResourceImpl(parkingService);
   }

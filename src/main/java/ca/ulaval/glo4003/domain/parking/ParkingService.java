@@ -13,18 +13,21 @@ public class ParkingService {
   private final ParkingStickerFactory parkingStickerFactory;
   private final AccountRepository accountRepository;
   private final ParkingAreaRepository parkingAreaRepository;
+  private final ParkingStickerCodeRepository parkingStickerCodeRepository;
 
   public ParkingService(
       ParkingStickerAssembler parkingStickerAssembler,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingStickerFactory parkingStickerFactory,
       AccountRepository accountRepository,
-      ParkingAreaRepository parkingAreaRepository) {
+      ParkingAreaRepository parkingAreaRepository,
+      ParkingStickerCodeRepository parkingStickerCodeRepository) {
     this.parkingStickerAssembler = parkingStickerAssembler;
     this.parkingStickerCodeAssembler = parkingStickerCodeAssembler;
     this.parkingStickerFactory = parkingStickerFactory;
     this.accountRepository = accountRepository;
     this.parkingAreaRepository = parkingAreaRepository;
+    this.parkingStickerCodeRepository = parkingStickerCodeRepository;
   }
 
   public ParkingStickerCodeDto addParkingSticker(ParkingStickerDto parkingStickerDto) {
@@ -41,5 +44,21 @@ public class ParkingService {
     accountRepository.update(account);
 
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
+  }
+
+  public void validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto)
+      throws NotFoundParkingStickerCodeException {
+    logger.info(String.format("Validate parking sticker code %s", parkingStickerCodeDto));
+
+    ParkingStickerCode parkingStickerCode =
+        parkingStickerCodeAssembler.assemble(parkingStickerCodeDto);
+
+    ParkingStickerCode foundParkingStickerCode =
+        parkingStickerCodeRepository.findById(parkingStickerCode);
+    // trouver le parking sticker lié et retour de la journée (personne)
+    // si la journée est dans le user, envoyé le parkingSticker day avec le user du parking sticker
+    // et voir ce que ça dit
+    // et valider de la journée d'entrée
+    // si la journée est dans le sticker valider la journée dans le sticker avec la journée
   }
 }
