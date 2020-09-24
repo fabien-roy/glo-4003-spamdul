@@ -1,6 +1,5 @@
-package ca.ulaval.glo4003.domain.user;
+package ca.ulaval.glo4003.domain.time;
 
-import ca.ulaval.glo4003.domain.time.CustomDate;
 import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
 import com.google.common.truth.Truth;
 import org.junit.Test;
@@ -25,4 +24,6 @@ public class CustomDateTest {
 
     Truth.assertThat(customDate.toString()).isEqualTo(date);
   }
+
+  // TODO : Only test toString
 }

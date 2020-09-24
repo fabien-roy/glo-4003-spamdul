@@ -5,8 +5,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class CustomDate {
-  private LocalDate localDate;
+  private final LocalDate localDate;
   private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+  public CustomDate(LocalDate localDate) {
+    this.localDate = localDate;
+  }
 
   public CustomDate(String localDate) {
     try {
@@ -18,6 +22,6 @@ public class CustomDate {
 
   @Override
   public String toString() {
-    return this.localDate.format(formatter);
+    return localDate.format(formatter);
   }
 }
