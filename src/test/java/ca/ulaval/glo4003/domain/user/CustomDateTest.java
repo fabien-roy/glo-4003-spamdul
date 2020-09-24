@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.domain.user;
 
+import ca.ulaval.glo4003.domain.time.CustomDate;
 import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
 import com.google.common.truth.Truth;
 import org.junit.Test;

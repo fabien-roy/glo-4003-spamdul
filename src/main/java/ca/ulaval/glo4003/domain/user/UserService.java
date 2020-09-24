@@ -36,6 +36,6 @@ public class UserService {
     AccountId accountId = accountIdAssembler.assemble(stringId);
     Account account = accountRepository.findById(accountId);
 
-    return userAssembler.create(account.getUser());
+    return userAssembler.assemble(account.getUser());
   }
 }

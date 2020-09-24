@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.user;
+package ca.ulaval.glo4003.domain.time;
 
 import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
 import java.time.LocalDate;
