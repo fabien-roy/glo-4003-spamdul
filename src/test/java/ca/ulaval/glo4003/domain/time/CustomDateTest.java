@@ -1,29 +1,21 @@
 package ca.ulaval.glo4003.domain.time;
 
-import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
 import com.google.common.truth.Truth;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 public class CustomDateTest {
-  @Test
-  public void whenCreatingCustomInvalidDate_thenTrowInvalidBirthDateException() {
-    try {
-      new CustomDate("0000-02");
-      Truth.assertThat(false);
-    } catch (Exception exception) {
-      if (exception instanceof InvalidBirthDateException) {
-        Truth.assertThat(true);
-      }
-    }
-  }
+  private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
   @Test
-  public void whenCreatingCustomValidDate_thenReturnsCustomDate() {
-    String date = "02-02-2010";
-    CustomDate customDate = new CustomDate(date);
+  public void whenConvertingToString_thenReturnsDateAsString() {
+    String expectedString = "02-02-2010";
+    LocalDate localDate = LocalDate.parse(expectedString, FORMATTER);
+    CustomDate customDate = new CustomDate(localDate);
 
-    Truth.assertThat(customDate.toString()).isEqualTo(date);
+    String actualString = customDate.toString();
+
+    Truth.assertThat(actualString).isEqualTo(expectedString);
   }
-
-  // TODO : Only test toString
 }
