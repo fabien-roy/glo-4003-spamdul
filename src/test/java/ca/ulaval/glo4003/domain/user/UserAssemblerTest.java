@@ -9,6 +9,8 @@ import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createSex;
 import ca.ulaval.glo4003.api.user.dto.UserDto;
 import ca.ulaval.glo4003.domain.time.CustomDate;
 import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
+import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
+import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidSexException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
@@ -60,7 +62,13 @@ public class UserAssemblerTest {
     Truth.assertThat(user.getBirthDate()).isEqualTo(BIRTH_DATE);
   }
 
-  // TODO : Test domain object invalid birth date
+  @Test(expected = InvalidBirthDateException.class)
+  public void givenInvalidBirthDate_whenAssembling_thenThrowInvalidBirthDateException() {
+    BDDMockito.when(customDateAssembler.assemble(BIRTH_DATE.toString()))
+        .thenThrow(new InvalidDateException());
+
+    userAssembler.assemble(userDto);
+  }
 
   @Test
   public void givenSex_whenAssembling_thenReturnUserWithSex() {
