@@ -1,0 +1,19 @@
+#%RAML 1.0 DataType
+type: object
+displayName: ParkingSticker
+uses:
+  types: ../../libraries/types.raml
+properties:
+  accountId:
+    type: types.AccountId
+  parkingArea:
+    type: types.ParkingAreaCode
+  receptionMethod:
+    type: types.ReceptionMethod
+  address:
+    type: string
+    description: Address to send sticker to, required if reception method is postal
+    required: false
+  validDay:
+    type: types.Day
+    description: Day of sticker validity
