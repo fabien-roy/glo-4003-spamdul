@@ -2,8 +2,15 @@ package ca.ulaval.glo4003.domain.user;
 
 import ca.ulaval.glo4003.api.user.dto.UserDto;
 import ca.ulaval.glo4003.domain.time.CustomDate;
+import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
 
 public class UserAssembler {
+  private final CustomDateAssembler customDateAssembler;
+
+  public UserAssembler(CustomDateAssembler customDateAssembler) {
+    this.customDateAssembler = customDateAssembler;
+  }
+
   public User assemble(UserDto userDto) {
     return new User(userDto.name, new CustomDate(userDto.birthDate), Sex.get(userDto.sex));
   }

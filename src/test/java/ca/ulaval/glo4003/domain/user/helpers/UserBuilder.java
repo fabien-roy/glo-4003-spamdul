@@ -24,6 +24,16 @@ public class UserBuilder {
     return this;
   }
 
+  public UserBuilder withBirthDate(CustomDate birthDate) {
+    this.birthDate = birthDate;
+    return this;
+  }
+
+  public UserBuilder withSex(Sex sex) {
+    this.sex = sex;
+    return this;
+  }
+
   public User build() {
     return new User(name, birthDate, sex);
   }

@@ -1,16 +1,30 @@
 package ca.ulaval.glo4003.domain.user;
 
 import static ca.ulaval.glo4003.api.user.helpers.UserDtoBuilder.aUserDto;
+import static ca.ulaval.glo4003.domain.time.helpers.CustomDateMother.createPastDate;
 import static ca.ulaval.glo4003.domain.user.helpers.UserBuilder.aUser;
 import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createName;
+import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createSex;
 
 import ca.ulaval.glo4003.api.user.dto.UserDto;
+import ca.ulaval.glo4003.domain.time.CustomDate;
+import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
+import ca.ulaval.glo4003.domain.user.exception.InvalidSexException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.BDDMockito;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class UserAssemblerTest {
   private static final String NAME = createName();
+  private static final CustomDate BIRTH_DATE = createPastDate();
+  private static final Sex SEX = createSex();
+
+  @Mock private CustomDateAssembler customDateAssembler;
 
   private UserAssembler userAssembler;
 
@@ -19,36 +33,67 @@ public class UserAssemblerTest {
 
   @Before
   public void setUp() {
-    userAssembler = new UserAssembler();
+    userAssembler = new UserAssembler(customDateAssembler);
+
+    user = aUser().withName(NAME).withBirthDate(BIRTH_DATE).withSex(SEX).build();
+    userDto =
+        aUserDto()
+            .withName(NAME)
+            .withBirthDate(BIRTH_DATE.toString())
+            .withSex(SEX.toString())
+            .build();
+
+    BDDMockito.when(customDateAssembler.assemble(BIRTH_DATE.toString())).thenReturn(BIRTH_DATE);
   }
 
   @Test
   public void givenName_whenAssembling_thenReturnUserWithName() {
-    userDto = aUserDto().withName(NAME).build();
-
     User user = userAssembler.assemble(userDto);
 
     Truth.assertThat(user.getName()).isEqualTo(NAME);
   }
 
-  // TODO : Test domain object birth date (pass to CustomDateAssembler)
+  @Test
+  public void givenBirthDate_whenAssembling_thenReturnUserWithBirthDate() {
+    User user = userAssembler.assemble(userDto);
+
+    Truth.assertThat(user.getBirthDate()).isEqualTo(BIRTH_DATE);
+  }
 
   // TODO : Test domain object invalid birth date
 
-  // TODO : Test domain object sex
+  @Test
+  public void givenSex_whenAssembling_thenReturnUserWithSex() {
+    User user = userAssembler.assemble(userDto);
 
-  // TODO : Test domain object invalid sex
+    Truth.assertThat(user.getSex()).isEqualTo(SEX);
+  }
+
+  @Test(expected = InvalidSexException.class)
+  public void givenInvalidSex_whenAssembling_thenThrowInvalidSexException() {
+    userDto.sex = "invalidSex";
+
+    userAssembler.assemble(userDto);
+  }
 
   @Test
   public void givenName_whenAssembling_thenReturnUserDtoWithName() {
-    user = aUser().withName(NAME).build();
-
     UserDto userDto = userAssembler.assemble(user);
 
     Truth.assertThat(userDto.name).isEqualTo(NAME);
   }
 
-  // TODO : Test dto birth date (pass to CustomDateAssembler)
+  @Test
+  public void givenBirthDate_whenAssembling_thenReturnUserDtoWithBirthDate() {
+    UserDto userDto = userAssembler.assemble(user);
 
-  // TODO : Test dto sex
+    Truth.assertThat(userDto.birthDate).isEqualTo(BIRTH_DATE.toString());
+  }
+
+  @Test
+  public void givenSex_whenAssembling_thenReturnUserDtoWithSex() {
+    UserDto userDto = userAssembler.assemble(user);
+
+    Truth.assertThat(userDto.sex).isEqualTo(SEX.toString());
+  }
 }

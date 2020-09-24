@@ -22,6 +22,16 @@ public class UserDtoBuilder {
     return this;
   }
 
+  public UserDtoBuilder withBirthDate(String birthDate) {
+    this.birthDate = birthDate;
+    return this;
+  }
+
+  public UserDtoBuilder withSex(String sex) {
+    this.sex = sex;
+    return this;
+  }
+
   public UserDto build() {
     UserDto userDto = new UserDto();
     userDto.name = name;

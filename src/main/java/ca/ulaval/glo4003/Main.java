@@ -15,6 +15,7 @@ import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
 import ca.ulaval.glo4003.domain.contact.ContactService;
 import ca.ulaval.glo4003.domain.parking.*;
+import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
 import ca.ulaval.glo4003.domain.user.UserService;
 import ca.ulaval.glo4003.domain.user.exception.InvalidUserExceptionMapper;
@@ -101,7 +102,8 @@ public class Main {
     AccountRepository accountRepository = new AccountRepositoryInMemory();
     AccountIdGenerator accountIdGenerator = new AccountIdGenerator();
     AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
-    UserAssembler userAssembler = new UserAssembler();
+    CustomDateAssembler customDateAssembler = new CustomDateAssembler();
+    UserAssembler userAssembler = new UserAssembler(customDateAssembler);
     AccountFactory accountFactory = new AccountFactory(accountIdGenerator, userAssembler);
 
     UserService userService =

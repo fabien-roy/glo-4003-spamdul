@@ -21,7 +21,25 @@ public class CustomDate {
   }
 
   @Override
+  public boolean equals(Object object) {
+    if (object == null || getClass() != object.getClass()) return false;
+
+    CustomDate customDate = (CustomDate) object;
+
+    return localDate.equals(customDate.toLocalDate());
+  }
+
+  @Override
+  public int hashCode() {
+    return localDate.hashCode();
+  }
+
+  @Override
   public String toString() {
     return localDate.format(formatter);
+  }
+
+  public LocalDate toLocalDate() {
+    return localDate;
   }
 }
