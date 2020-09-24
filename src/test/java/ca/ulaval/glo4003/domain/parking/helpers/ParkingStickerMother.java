@@ -14,8 +14,4 @@ public class ParkingStickerMother {
   public static ReceptionMethods createReceptionMethod() {
     return randomEnum(ReceptionMethods.class);
   }
-
-  public static String createAddress() {
-    return Faker.instance().address().fullAddress();
-  }
 }

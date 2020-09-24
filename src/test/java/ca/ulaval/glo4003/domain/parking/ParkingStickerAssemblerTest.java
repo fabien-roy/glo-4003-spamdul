@@ -2,16 +2,18 @@ package ca.ulaval.glo4003.domain.parking;
 
 import static ca.ulaval.glo4003.api.parking.helpers.ParkingStickerDtoBuilder.aParkingStickerDto;
 import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccountId;
+import static ca.ulaval.glo4003.domain.location.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaMother.createParkingAreaCode;
-import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createAddress;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createReceptionMethod;
 import static ca.ulaval.glo4003.domain.time.helpers.DayMother.createDay;
 
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.AccountId;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
+import ca.ulaval.glo4003.domain.location.PostalCode;
+import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.exception.InvalidReceptionMethodException;
-import ca.ulaval.glo4003.domain.parking.exception.MissingAddressException;
+import ca.ulaval.glo4003.domain.parking.exception.MissingPostalCodeException;
 import ca.ulaval.glo4003.domain.time.Days;
 import ca.ulaval.glo4003.domain.time.exception.InvalidDayException;
 import com.google.common.truth.Truth;
@@ -27,10 +29,11 @@ public class ParkingStickerAssemblerTest {
   private static final AccountId ACCOUNT_ID = createAccountId();
   private static final ParkingAreaCode PARKING_AREA = createParkingAreaCode();
   private static final ReceptionMethods RECEPTION_METHOD = createReceptionMethod();
-  private static final String ADDRESS = createAddress();
+  private static final PostalCode POSTAL_CODE = createPostalCode();
   private static final Days VALID_DAY = createDay();
 
   @Mock private AccountIdAssembler accountIdAssembler;
+  @Mock private PostalCodeAssembler postalCodeAssembler;
 
   private ParkingStickerDto parkingStickerDto;
 
@@ -38,16 +41,17 @@ public class ParkingStickerAssemblerTest {
 
   @Before
   public void setUp() {
-    parkingStickerAssembler = new ParkingStickerAssembler(accountIdAssembler);
+    parkingStickerAssembler = new ParkingStickerAssembler(accountIdAssembler, postalCodeAssembler);
 
     BDDMockito.given(accountIdAssembler.assemble(ACCOUNT_ID.toString())).willReturn(ACCOUNT_ID);
+    BDDMockito.given(postalCodeAssembler.assemble(POSTAL_CODE.toString())).willReturn(POSTAL_CODE);
 
     parkingStickerDto =
         aParkingStickerDto()
             .withAccountId(ACCOUNT_ID.toString())
             .withParkingArea(PARKING_AREA.toString())
             .withReceptionMethod(RECEPTION_METHOD.toString())
-            .withAddress(ADDRESS)
+            .withPostalCode(POSTAL_CODE.toString())
             .withValidDay(VALID_DAY.toString())
             .build();
   }
@@ -74,13 +78,13 @@ public class ParkingStickerAssemblerTest {
     parkingStickerAssembler.assemble(parkingStickerDto);
   }
 
-  @Test(expected = MissingAddressException.class)
+  @Test(expected = MissingPostalCodeException.class)
   public void
-      givenPostalReceptionMethodAndNoAddress_whenAssembling_thenThrowMissingAddressException() {
+      givenPostalReceptionMethodAndNoPostalCode_whenAssembling_thenThrowMissingPostalCodeException() {
     parkingStickerDto =
         aParkingStickerDto()
             .withReceptionMethod(ReceptionMethods.POSTAL.toString())
-            .withoutAddress()
+            .withoutPostalCode()
             .build();
 
     parkingStickerAssembler.assemble(parkingStickerDto);
@@ -94,10 +98,10 @@ public class ParkingStickerAssemblerTest {
   }
 
   @Test
-  public void whenAssembling_thenReturnParkingStickerWithAddress() {
+  public void whenAssembling_thenReturnParkingStickerWithPostalCode() {
     ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
 
-    Truth.assertThat(parkingSticker.getAddress()).isEqualTo(ADDRESS);
+    Truth.assertThat(parkingSticker.getPostalCode()).isEqualTo(POSTAL_CODE);
   }
 
   @Test

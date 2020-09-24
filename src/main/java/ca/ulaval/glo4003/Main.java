@@ -14,6 +14,7 @@ import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
 import ca.ulaval.glo4003.domain.contact.ContactService;
+import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.*;
 import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
@@ -123,8 +124,9 @@ public class Main {
     }
 
     AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
+    PostalCodeAssembler postalCodeAssembler = new PostalCodeAssembler();
     ParkingStickerAssembler parkingStickerAssembler =
-        new ParkingStickerAssembler(accountIdAssembler);
+        new ParkingStickerAssembler(accountIdAssembler, postalCodeAssembler);
     ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
     ParkingStickerCodeGenerator parkingStickerCodeGenerator = new ParkingStickerCodeGenerator();
     ParkingStickerFactory parkingStickerFactory =
