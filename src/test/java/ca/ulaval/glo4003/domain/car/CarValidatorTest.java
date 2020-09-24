@@ -8,8 +8,11 @@ import org.junit.Test;
 
 public class CarValidatorTest {
 
+  private static String VALID_LICENSE_PLATE = "B2C WW9";
+  private static int VALID_YEAR = 2010;
   private static int INVALID_YEAR = 3000;
-  private static String INVALID_LICENSE_PLATE = "C";
+  private static String INVALID_LICENSE_PLATE_LENGTH = "C";
+  private static String INVALID_LICENSE_PLATE_CHARACTERS = "C1V $W9";
 
   private CarValidator carValidator;
 
@@ -20,15 +23,25 @@ public class CarValidatorTest {
 
   @Test(expected = InvalidCarYearException.class)
   public void givenCarDTOWithInvalidYear_whenValidatingDTO_shouldThrowException() {
-    CarDTO validDTO = new CarDTO("manufacturer", "model", INVALID_YEAR, "XXXXXX");
+    CarDTO validDTO = new CarDTO("manufacturer", "model", INVALID_YEAR, VALID_LICENSE_PLATE);
 
     carValidator.validate(validDTO);
   }
 
   @Test(expected = InvalidLicenseNumberException.class)
-  public void givenCarDTOWithInvalidLicensePlate_whenValidatingDTO_shouldThrowException() {
-    CarDTO validDTO = new CarDTO("manufacturer", "model", 2020, INVALID_LICENSE_PLATE);
+  public void givenCarDTOWithInvalidLicensePlateLength_whenValidatingDTO_shouldThrowException() {
+    CarDTO invalidDTO =
+        new CarDTO("manufacturer", "model", VALID_YEAR, INVALID_LICENSE_PLATE_LENGTH);
 
-    carValidator.validate(validDTO);
+    carValidator.validate(invalidDTO);
+  }
+
+  @Test(expected = InvalidLicenseNumberException.class)
+  public void
+      givenCarDTOWithInvalidLicensePlateCharacters_whenValidatingDTO_shouldThrowException() {
+    CarDTO invalidDTO =
+        new CarDTO("manufacturer", "model", VALID_YEAR, INVALID_LICENSE_PLATE_CHARACTERS);
+
+    carValidator.validate(invalidDTO);
   }
 }

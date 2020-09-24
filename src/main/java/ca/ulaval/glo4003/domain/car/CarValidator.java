@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.api.car.dto.CarDTO;
 import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarYearException;
 import ca.ulaval.glo4003.domain.car.exceptions.InvalidLicenseNumberException;
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 public class CarValidator {
 
@@ -15,7 +16,13 @@ public class CarValidator {
   }
 
   private void validateLicensePlate(String licensePlate) {
-    // TODO : Validate that the plate contains no illegal characters
+    Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
+
+    if (regex.matcher(licensePlate).find()) {
+      throw new InvalidLicenseNumberException(
+          "Invalid plate number", "Must not contain special characters");
+    }
+
     if (licensePlate.length() < 2 || licensePlate.length() > 7) {
       throw new InvalidLicenseNumberException(
           "Invalid plate number", "Must be between 2 and 7 characters");
