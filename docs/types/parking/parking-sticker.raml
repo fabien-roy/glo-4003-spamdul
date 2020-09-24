@@ -11,8 +11,8 @@ properties:
   receptionMethod:
     type: types.ReceptionMethod
   address:
-    type: string
-    description: Address to send sticker to, required if reception method is postal
+    type: types.PostalCode
+    description: Canadian postal code to send sticker to, required if reception method is postal
     required: false
   validDay:
     type: types.Day
