@@ -9,6 +9,6 @@ public class InvalidCarExceptionMapper implements ExceptionMapper<InvalidCarExce
 
   @Override
   public Response toResponse(InvalidCarException exception) {
-    return Response.status(Response.Status.BAD_REQUEST.getStatusCode()).build();
+    return exception.getResponse(Response.Status.BAD_REQUEST.getStatusCode());
   }
 }

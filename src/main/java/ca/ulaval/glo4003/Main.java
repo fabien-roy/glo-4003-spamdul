@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003;
 
-import ca.ulaval.glo4003.api.car.CarResourceImpl;
+import ca.ulaval.glo4003.api.car.CarResourceImplementation;
 import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.contact.ContactResourceImpl;
 import ca.ulaval.glo4003.api.contact.UserResource;
@@ -47,7 +47,7 @@ public class Main {
     InvalidUserExceptionMapper invalidUserExceptionMapper = new InvalidUserExceptionMapper();
     // TODO : Not the real AccountService, this one is a stub
     AccountService accountService = createAccountService();
-    CarResourceImpl carResource = createCarResource(accountService);
+    CarResourceImplementation carResource = createCarResource(accountService);
     InvalidCarExceptionMapper invalidCarExceptionMapper = new InvalidCarExceptionMapper();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -115,11 +115,11 @@ public class Main {
     return new AccountService();
   }
 
-  private static CarResourceImpl createCarResource(AccountService accountService) {
+  private static CarResourceImplementation createCarResource(AccountService accountService) {
     CarValidator carValidator = new CarValidator();
     CarAssembler carAssembler = new CarAssembler(carValidator);
     CarService carService = new CarService(carAssembler, accountService);
 
-    return new CarResourceImpl(carService);
+    return new CarResourceImplementation(carService);
   }
 }

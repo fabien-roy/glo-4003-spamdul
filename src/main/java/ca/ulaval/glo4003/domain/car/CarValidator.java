@@ -14,16 +14,18 @@ public class CarValidator {
   }
 
   private void validateLicensePlate(String licensePlate) {
-    // TODO : redo error
+    // TODO : Validate that the plate contains no illegal characters
     if (licensePlate.length() < 2 || licensePlate.length() > 7) {
-      throw new InvalidCarException("Plaque d'immatriculation invalide", "");
+      throw new InvalidCarException("Invalid plate number", "Must be between 2 and 7 characters");
     }
   }
 
   private void validateYear(int year) {
-    if (LocalDate.now().getYear() + 1 <= year) {
-      // TODO : redo error
-      throw new InvalidCarException("Année de l'automobile invalide", "");
+    int currentYear = LocalDate.now().getYear();
+    if (currentYear + 1 <= year) {
+      // TODO : validate that it works
+      String errorDescription = String.format("Must be before %s %d", currentYear);
+      throw new InvalidCarException("Year of model is invalid", errorDescription);
     }
   }
 }

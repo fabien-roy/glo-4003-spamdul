@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CarResourceImplTest {
+public class CarResourceImplementationTest {
 
   private static final int ACCOUNT_ID = 777;
   private static final int STATUS_OK = 200;
@@ -25,12 +25,12 @@ public class CarResourceImplTest {
 
   private CarDTO carDTO;
 
-  private CarResourceImpl carResource;
+  private CarResourceImplementation carResource;
 
   @Before
   public void setup() {
     carDTO = new CarDTO("Toyota", "Corolla", 2002, "C4R1SK3WL");
-    carResource = new CarResourceImpl(carService);
+    carResource = new CarResourceImplementation(carService);
   }
 
   @Test
