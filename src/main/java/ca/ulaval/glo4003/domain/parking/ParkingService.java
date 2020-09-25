@@ -4,6 +4,8 @@ import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
+
+import javax.inject.Inject;
 import java.util.logging.Logger;
 
 public class ParkingService {
@@ -14,6 +16,7 @@ public class ParkingService {
   private final AccountRepository accountRepository;
   private final ParkingAreaRepository parkingAreaRepository;
 
+  @Inject
   public ParkingService(
       ParkingStickerAssembler parkingStickerAssembler,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,

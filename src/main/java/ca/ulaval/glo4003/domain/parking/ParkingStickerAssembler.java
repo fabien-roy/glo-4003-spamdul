@@ -5,9 +5,12 @@ import ca.ulaval.glo4003.domain.account.AccountId;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
 import ca.ulaval.glo4003.domain.parking.exception.MissingAddressException;
 
+import javax.inject.Inject;
+
 public class ParkingStickerAssembler {
   private final AccountIdAssembler accountIdAssembler;
 
+  @Inject
   public ParkingStickerAssembler(AccountIdAssembler accountIdAssembler) {
     this.accountIdAssembler = accountIdAssembler;
   }

@@ -28,6 +28,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.ws.rs.core.Application;
+
+import ca.ulaval.glo4003.serverConfiguration.ServerResourceConfig;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -43,29 +45,14 @@ public class Main {
   public static void main(String[] args) throws Exception {
     // TODO : Move creation of resources elsewhere (custom injection)
     ContactResource contactResource = createContactResource(); // TODO : Remove demo Contact logic
-    UserResource userResource = createUserResource();
-    ParkingResource parkingResource = createParkingResource();
     InvalidUserExceptionMapper invalidUserExceptionMapper = new InvalidUserExceptionMapper();
     // TODO : Add ParkingExceptionMapper
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
-    ResourceConfig resourceConfig =
-        ResourceConfig.forApplication(
-            new Application() {
-              @Override
-              public Set<Object> getSingletons() {
-                HashSet<Object> resources = new HashSet<>();
-                resources.add(contactResource);
-                resources.add(userResource);
-                resources.add(parkingResource);
-                resources.add(invalidUserExceptionMapper);
-                return resources;
-              }
-            });
-    resourceConfig.register(CORSResponseFilter.class);
 
-    ServletContainer servletContainer = new ServletContainer(resourceConfig);
+    ServerResourceConfig serverResourceConfig = new ServerResourceConfig();
+    ServletContainer servletContainer = new ServletContainer(serverResourceConfig);
     ServletHolder servletHolder = new ServletHolder(servletContainer);
     context.addServlet(servletHolder, "/*");
 
@@ -95,46 +82,5 @@ public class Main {
     ContactService contactService = new ContactService(contactRepository, contactAssembler);
 
     return new ContactResourceImplementation(contactService);
-  }
-
-  private static UserResource createUserResource() {
-    AccountRepository accountRepository = new AccountRepositoryInMemory();
-    AccountIdGenerator accountIdGenerator = new AccountIdGenerator();
-    AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
-    UserAssembler userAssembler = new UserAssembler();
-    AccountFactory accountFactory = new AccountFactory(accountIdGenerator, userAssembler);
-
-    UserService userService =
-        new UserService(accountRepository, accountFactory, accountIdAssembler, userAssembler);
-
-    return new UserResourceImplementation(userService);
-  }
-
-  private static ParkingResource createParkingResource() {
-    AccountRepository accountRepository = new AccountRepositoryInMemory();
-    ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
-
-    if (isDev) {
-      ParkingAreaFakeFactory parkingAreaFakeFactory = new ParkingAreaFakeFactory();
-      List<ParkingArea> parkingAreas = parkingAreaFakeFactory.createMockData();
-      parkingAreas.stream().forEach(parkingAreaRepository::save);
-    }
-
-    AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
-    ParkingStickerAssembler parkingStickerAssembler =
-        new ParkingStickerAssembler(accountIdAssembler);
-    ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
-    ParkingStickerCodeGenerator parkingStickerCodeGenerator = new ParkingStickerCodeGenerator();
-    ParkingStickerFactory parkingStickerFactory =
-        new ParkingStickerFactory(parkingStickerCodeGenerator);
-    ParkingService parkingService =
-        new ParkingService(
-            parkingStickerAssembler,
-            parkingStickerCodeAssembler,
-            parkingStickerFactory,
-            accountRepository,
-            parkingAreaRepository);
-
-    return new ParkingResourceImplementation(parkingService);
   }
 }
