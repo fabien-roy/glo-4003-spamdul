@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003;
 
+import ca.ulaval.glo4003.api.car.CarResourceImplementation;
 import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.contact.ContactResourceImplementation;
 import ca.ulaval.glo4003.api.parking.ParkingResource;
@@ -10,6 +11,11 @@ import ca.ulaval.glo4003.domain.account.AccountFactory;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
 import ca.ulaval.glo4003.domain.account.AccountIdGenerator;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.account.AccountService;
+import ca.ulaval.glo4003.domain.car.CarAssembler;
+import ca.ulaval.glo4003.domain.car.CarService;
+import ca.ulaval.glo4003.domain.car.CarValidator;
+import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarExceptionMapper;
 import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
@@ -57,6 +63,10 @@ public class Main {
     ParkingResource parkingResource = createParkingResource();
     InvalidUserExceptionMapper invalidUserExceptionMapper = new InvalidUserExceptionMapper();
     // TODO : Add ParkingExceptionMapper
+    // TODO : Not the real AccountService, this one is a stub
+    AccountService accountService = createAccountService();
+    CarResourceImplementation carResource = createCarResource(accountService);
+    InvalidCarExceptionMapper invalidCarExceptionMapper = new InvalidCarExceptionMapper();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
@@ -70,6 +80,8 @@ public class Main {
                 resources.add(userResource);
                 resources.add(parkingResource);
                 resources.add(invalidUserExceptionMapper);
+                resources.add(carResource);
+                resources.add(invalidCarExceptionMapper);
                 return resources;
               }
             });
@@ -138,6 +150,18 @@ public class Main {
         new UserService(accountRepository, accountFactory, accountIdAssembler, userAssembler);
 
     return new UserResourceImplementation(userService);
+  }
+
+  private static AccountService createAccountService() {
+    return new AccountService();
+  }
+
+  private static CarResourceImplementation createCarResource(AccountService accountService) {
+    CarValidator carValidator = new CarValidator();
+    CarAssembler carAssembler = new CarAssembler(carValidator);
+    CarService carService = new CarService(carAssembler, accountService);
+
+    return new CarResourceImplementation(carService);
   }
 
   private static ParkingResource createParkingResource() {
