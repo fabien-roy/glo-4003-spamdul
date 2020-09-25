@@ -13,11 +13,18 @@ import ca.ulaval.glo4003.domain.car.CarValidator;
 import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.*;
 import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
+import ca.ulaval.glo4003.domain.account.AccountFactory;
+import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
+import ca.ulaval.glo4003.domain.account.AccountIdGenerator;
+import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.parking.*;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
 import ca.ulaval.glo4003.infrastructure.account.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaFakeFactory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
+
 import ca.ulaval.glo4003.infrastructure.parking.ParkingStickerRepositoryInMemory;
+
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
 import java.util.List;
@@ -28,6 +35,7 @@ public class ApplicationBinder extends AbstractBinder {
         configureUser();
         configureParking();
         configureCar();
+
     }
 
     private void configureUser() {
@@ -57,6 +65,7 @@ public class ApplicationBinder extends AbstractBinder {
 
         bindAsContract(PostalCodeAssembler.class);
 
+
         bindAsContract(ParkingStickerAssembler.class);
         bindAsContract(ParkingStickerCodeAssembler.class);
         bindAsContract(ParkingStickerCodeGenerator.class);
@@ -66,12 +75,11 @@ public class ApplicationBinder extends AbstractBinder {
 
     }
 
+
     private void configureCar() {
         bind(CarResourceImplementation.class).to(ContactResource.class);
         bindAsContract(CarValidator.class);
         bindAsContract(CarAssembler.class);
         bindAsContract(CarService.class);
     }
-
-
 }

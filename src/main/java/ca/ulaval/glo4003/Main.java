@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @SuppressWarnings("all")
 public class Main {
-
     private static final boolean isDev =
             true; // TODO : Would be a JVM argument or in a .property file
     private static final int DEFAULT_PORT = 8080;
@@ -71,7 +70,6 @@ public class Main {
 
     private static Integer useDefaultPort() {
         System.out.println(String.format(MISSING_PORT_WARNING_MESSAGE, PORT_ENV_VAR, DEFAULT_PORT));
-
         return DEFAULT_PORT;
     }
 
@@ -89,4 +87,5 @@ public class Main {
 
         return new ContactResourceImplementation(contactService);
     }
+
 }
