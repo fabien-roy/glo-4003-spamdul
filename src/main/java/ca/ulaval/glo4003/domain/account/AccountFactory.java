@@ -5,10 +5,13 @@ import ca.ulaval.glo4003.domain.user.User;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
 import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
 
+import javax.inject.Inject;
+
 public class AccountFactory {
   private AccountIdGenerator accountIdGenerator;
   private UserAssembler userAssembler;
 
+  @Inject
   public AccountFactory(AccountIdGenerator accountIdGenerator, UserAssembler userAssembler) {
     this.accountIdGenerator = accountIdGenerator;
     this.userAssembler = userAssembler;
