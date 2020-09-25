@@ -46,14 +46,6 @@ public class ParkingSticker {
     return receptionMethod;
   }
 
-  public void setParkingAccessDay(ParkingAccessDay parkingAccessDay) {
-    this.parkingAccessDay = parkingAccessDay;
-  }
-
-  public ParkingAccessDay getParkingStickerDate() {
-    return parkingAccessDay;
-  }
-
   public PostalCode getPostalCode() {
     return postalCode;
   }

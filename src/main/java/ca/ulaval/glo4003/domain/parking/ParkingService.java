@@ -56,6 +56,7 @@ public class ParkingService {
 
     ParkingStickerCode foundParkingStickerCode =
         parkingStickerCodeRepository.findById(parkingStickerCode);
+
     // trouver le parking sticker lié et retour de la journée (personne)
     // si la journée est dans le user, envoyé le parkingSticker day avec le user du parking sticker
     // et voir ce que ça dit
