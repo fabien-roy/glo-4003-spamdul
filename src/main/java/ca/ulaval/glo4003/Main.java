@@ -20,7 +20,9 @@ import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
 import ca.ulaval.glo4003.domain.contact.ContactService;
+import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.*;
+import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
 import ca.ulaval.glo4003.domain.user.UserService;
 import ca.ulaval.glo4003.domain.user.exception.InvalidUserExceptionMapper;
@@ -32,6 +34,7 @@ import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaFakeFactory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 import org.eclipse.jetty.server.Handler;
@@ -44,7 +47,14 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 @SuppressWarnings("all")
 public class Main {
-  public static boolean isDev = true; // TODO : Would be a JVM argument or in a .property file
+  private static final boolean isDev =
+      true; // TODO : Would be a JVM argument or in a .property file
+  private static final int DEFAULT_PORT = 8080;
+  private static final String PORT_ENV_VAR = "PORT";
+  private static final String PROVIDED_PORT_MESSAGE = "INFO: Using the provided server port (%d).";
+  private static final String MISSING_PORT_WARNING_MESSAGE =
+      "INFO: The server port could not be found with '%s' env var. "
+          + "\nINFO: Using the default one (%d).";
 
   public static void main(String[] args) throws Exception {
     // TODO : Move creation of resources elsewhere (custom injection)
@@ -83,7 +93,7 @@ public class Main {
 
     ContextHandlerCollection contexts = new ContextHandlerCollection();
     contexts.setHandlers(new Handler[] {context});
-    Server server = new Server(8080);
+    Server server = new Server(retrievePortNumber());
     server.setHandler(contexts);
 
     try {
@@ -92,6 +102,25 @@ public class Main {
     } finally {
       server.destroy();
     }
+  }
+
+  private static Integer retrievePortNumber() {
+    return Optional.ofNullable(System.getenv(PORT_ENV_VAR))
+        .map(Main::useProvidedPort)
+        .orElseGet(Main::useDefaultPort);
+  }
+
+  private static Integer useProvidedPort(String providedPortValue) {
+    Integer providedPort = Integer.valueOf(providedPortValue);
+    System.out.println(String.format(PROVIDED_PORT_MESSAGE, providedPort));
+
+    return providedPort;
+  }
+
+  private static Integer useDefaultPort() {
+    System.out.println(String.format(MISSING_PORT_WARNING_MESSAGE, PORT_ENV_VAR, DEFAULT_PORT));
+
+    return DEFAULT_PORT;
   }
 
   private static ContactResource createContactResource() {
@@ -113,7 +142,8 @@ public class Main {
     AccountRepository accountRepository = new AccountRepositoryInMemory();
     AccountIdGenerator accountIdGenerator = new AccountIdGenerator();
     AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
-    UserAssembler userAssembler = new UserAssembler();
+    CustomDateAssembler customDateAssembler = new CustomDateAssembler();
+    UserAssembler userAssembler = new UserAssembler(customDateAssembler);
     AccountFactory accountFactory = new AccountFactory(accountIdGenerator, userAssembler);
 
     UserService userService =
@@ -145,8 +175,9 @@ public class Main {
     }
 
     AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
+    PostalCodeAssembler postalCodeAssembler = new PostalCodeAssembler();
     ParkingStickerAssembler parkingStickerAssembler =
-        new ParkingStickerAssembler(accountIdAssembler);
+        new ParkingStickerAssembler(accountIdAssembler, postalCodeAssembler);
     ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
     ParkingStickerCodeGenerator parkingStickerCodeGenerator = new ParkingStickerCodeGenerator();
     ParkingStickerFactory parkingStickerFactory =

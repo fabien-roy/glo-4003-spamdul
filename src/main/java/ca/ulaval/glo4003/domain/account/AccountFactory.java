@@ -18,7 +18,7 @@ public class AccountFactory {
     this.validate(userDto);
 
     AccountId accountId = this.accountIdGenerator.generate();
-    User user = this.userAssembler.create(userDto);
+    User user = this.userAssembler.assemble(userDto);
 
     return new Account(accountId, user);
   }

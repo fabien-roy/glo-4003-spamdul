@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.user;
 
-import ca.ulaval.glo4003.domain.user.exception.InvalidSexAttributeException;
+import ca.ulaval.glo4003.domain.user.exception.InvalidSexException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +25,7 @@ public enum Sex {
   public static Sex get(String name) {
     Sex foundType = lookup.get(name);
 
-    if (foundType == null) throw new InvalidSexAttributeException();
+    if (foundType == null) throw new InvalidSexException();
 
     return foundType;
   }
