@@ -249,6 +249,328 @@
 							"_postman_isSubFolder": true
 						},
 						{
+							"name": "Birth date",
+							"item": [
+								{
+									"name": "Invalid birth date (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "8ba96622-bad2-4986-ba35-92facbbf405b",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": null,\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid birth date (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7535a0ae-7c5f-47bd-8011-66c32b3a7c2d",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid birth date (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "45d91b47-f1b6-42bb-ae5e-3410a4f977b7",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": 1,\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid birth date (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0ebe1e4e-572f-4682-882a-a6da0e4efe0e",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": [{{request.user.birthDate}}],\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid birth date (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ed4f12ab-d9f6-48b0-8522-dd6b1a93841f",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {\n      \"birthDate\": {{request.user.birthDate}}\n  },\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid birth date (bad format)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "563921bb-3fd7-49f8-a3d6-d4735993685c",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": \"12-31-2000\",\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid birth date (future)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0d17464a-5129-42cf-aa20-60809a1ac517",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": \"01-01-2300\",\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
 							"name": "Valid user",
 							"event": [
 								{
@@ -256,8 +578,13 @@
 									"script": {
 										"id": "197e2f15-8e0b-40cf-a0df-664687b4946f",
 										"exec": [
-											"var jsonData = JSON.parse(responseBody);",
-											"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
+											"pm.test(\"Returns status 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Returns account id\", function () {",
+											"    pm.response.to.have.jsonBody(\"accountId\");",
+											"});"
 										],
 										"type": "text/javascript"
 									}
