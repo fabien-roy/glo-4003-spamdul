@@ -3,6 +3,8 @@ package ca.ulaval.glo4003.domain.parking;
 import ca.ulaval.glo4003.domain.account.AccountId;
 import ca.ulaval.glo4003.domain.location.PostalCode;
 import ca.ulaval.glo4003.domain.time.Days;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParkingSticker {
   private ParkingStickerCode code;
@@ -11,6 +13,7 @@ public class ParkingSticker {
   private final ReceptionMethods receptionMethod;
   private final PostalCode postalCode;
   private final Days validDay;
+  private List<ParkingSticker> parkingStickers = new ArrayList<>();
 
   public ParkingSticker(
       AccountId accountId,
@@ -51,5 +54,9 @@ public class ParkingSticker {
 
   public Days getValidDay() {
     return validDay;
+  }
+
+  public void addParkingSticker(ParkingSticker parkingSticker) {
+    parkingStickers.add(parkingSticker);
   }
 }

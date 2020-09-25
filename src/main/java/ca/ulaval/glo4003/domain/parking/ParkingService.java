@@ -13,18 +13,21 @@ public class ParkingService {
   private final ParkingStickerFactory parkingStickerFactory;
   private final AccountRepository accountRepository;
   private final ParkingAreaRepository parkingAreaRepository;
+  private final ParkingStickerRepository parkingStickerRepository;
 
   public ParkingService(
       ParkingStickerAssembler parkingStickerAssembler,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingStickerFactory parkingStickerFactory,
       AccountRepository accountRepository,
-      ParkingAreaRepository parkingAreaRepository) {
+      ParkingAreaRepository parkingAreaRepository,
+      ParkingStickerRepository parkingStickerRepository) {
     this.parkingStickerAssembler = parkingStickerAssembler;
     this.parkingStickerCodeAssembler = parkingStickerCodeAssembler;
     this.parkingStickerFactory = parkingStickerFactory;
     this.accountRepository = accountRepository;
     this.parkingAreaRepository = parkingAreaRepository;
+    this.parkingStickerRepository = parkingStickerRepository;
   }
 
   public ParkingStickerCodeDto addParkingSticker(ParkingStickerDto parkingStickerDto) {
@@ -37,8 +40,11 @@ public class ParkingService {
 
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
-    account.addParkingSticker(parkingSticker);
+    account.addParkingStickerCode(parkingSticker.getCode());
     accountRepository.update(account);
+
+    parkingSticker.addParkingSticker(parkingSticker);
+    parkingStickerRepository.save(parkingSticker);
 
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
   }

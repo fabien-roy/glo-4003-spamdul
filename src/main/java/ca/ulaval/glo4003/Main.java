@@ -32,6 +32,7 @@ import ca.ulaval.glo4003.infrastructure.contact.ContactFakeFactory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaFakeFactory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
+import ca.ulaval.glo4003.infrastructure.parking.ParkingStickerRepositoryInMemory;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -167,6 +168,7 @@ public class Main {
   private static ParkingResource createParkingResource() {
     AccountRepository accountRepository = new AccountRepositoryInMemory();
     ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
+    ParkingStickerRepository parkingStickerRepository = new ParkingStickerRepositoryInMemory();
 
     if (isDev) {
       ParkingAreaFakeFactory parkingAreaFakeFactory = new ParkingAreaFakeFactory();
@@ -188,7 +190,8 @@ public class Main {
             parkingStickerCodeAssembler,
             parkingStickerFactory,
             accountRepository,
-            parkingAreaRepository);
+            parkingAreaRepository,
+            parkingStickerRepository);
 
     return new ParkingResourceImplementation(parkingService);
   }
