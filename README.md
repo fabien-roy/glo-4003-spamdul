@@ -9,7 +9,7 @@
 
 **Requests supported by SPAMD-UL are specified on [this project's GitHub Pages](https://glo4003ul.github.io/a20-eq4/).**
 
-**Our project is hosted on [https://glo4003-a20-eq4.herokuapp.com/api/](https://glo4003-a20-eq4.herokuapp.com/api/).**
+**Our project is hosted on [https://glo4003-a20-eq4.herokuapp.com/api](https://glo4003-a20-eq4.herokuapp.com/api).**
 
 ## Project setup
 
