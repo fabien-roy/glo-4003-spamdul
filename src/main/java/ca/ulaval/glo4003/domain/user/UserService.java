@@ -4,12 +4,15 @@ import ca.ulaval.glo4003.api.user.dto.AccountIdDto;
 import ca.ulaval.glo4003.api.user.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.*;
 
+import javax.inject.Inject;
+
 public class UserService {
   private final AccountRepository accountRepository;
   private final AccountFactory accountFactory;
   private final AccountIdAssembler accountIdAssembler;
   private final UserAssembler userAssembler;
 
+  @Inject
   public UserService(
       AccountRepository accountRepository,
       AccountFactory accountFactory,
