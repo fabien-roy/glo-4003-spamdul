@@ -10,15 +10,13 @@ public class ParkingAreaFakeFactory {
   public List<ParkingArea> createMockData() {
     List<ParkingArea> parkingAreas = new ArrayList<>();
 
-    ParkingArea desjardins =
-        new ParkingArea(new ParkingAreaCode("1ef66d3c-fd39-11ea-adc1-0242ac120002"));
+    ParkingArea desjardins = new ParkingArea(new ParkingAreaCode("1"));
     parkingAreas.add(desjardins);
 
-    ParkingArea pouliot =
-        new ParkingArea(new ParkingAreaCode("1ef66fd0-fd39-11ea-adc1-0242ac120002"));
+    ParkingArea pouliot = new ParkingArea(new ParkingAreaCode("2"));
     parkingAreas.add(pouliot);
 
-    ParkingArea peps = new ParkingArea(new ParkingAreaCode("1ef670ca-fd39-11ea-adc1-0242ac120002"));
+    ParkingArea peps = new ParkingArea(new ParkingAreaCode("3"));
     parkingAreas.add(peps);
 
     return parkingAreas;

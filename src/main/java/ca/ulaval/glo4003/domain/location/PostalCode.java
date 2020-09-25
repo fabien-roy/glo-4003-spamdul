@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.domain.parking;
+package ca.ulaval.glo4003.domain.location;
 
-public class ParkingAreaCode {
+public class PostalCode {
   private String code;
 
-  public ParkingAreaCode(String code) {
+  public PostalCode(String code) {
     this.code = code;
   }
 
@@ -16,9 +16,9 @@ public class ParkingAreaCode {
   public boolean equals(Object object) {
     if (object == null || getClass() != object.getClass()) return false;
 
-    ParkingAreaCode parkingAreaCode = (ParkingAreaCode) object;
+    PostalCode postalCode = (PostalCode) object;
 
-    return code.equals(parkingAreaCode.toString());
+    return code.equals(postalCode.toString());
   }
 
   @Override

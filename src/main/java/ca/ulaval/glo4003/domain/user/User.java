@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.domain.user;
 
+import ca.ulaval.glo4003.domain.time.CustomDate;
+
 public class User {
   private String name;
   private CustomDate birthDate;
