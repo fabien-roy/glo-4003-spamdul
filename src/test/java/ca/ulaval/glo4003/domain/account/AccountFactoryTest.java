@@ -45,6 +45,6 @@ public class AccountFactoryTest {
 
     this.accountFactory.createAccount(userDto);
 
-    verify(userAssembler).create(userDto);
+    verify(userAssembler).assemble(userDto);
   }
 }

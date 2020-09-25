@@ -1,74 +1,55 @@
 #%RAML 1.0
 title: SPAMD-UL
-version: 0.0.1
+version: 0.0.2
 mediaType: application/json
 uses:
-    types: ./libraries/types.raml
-/telephony/contacts:
-    get:
-        description: List all contacts
-        responses:
-            200:
-                description: All contacts
-                body:
-                    application/json:
-                        type: types.Contact[]
-                        example: !include ./examples/contacts/get-contacts.json
-            400:
-                description: Error getting contacts
+  types: ./libraries/types.raml
+/api:
+  /users:
     post:
-        description: Add a new contact
-        body:
-          application/json:
-            type: types.Contact
-            example: !include ./examples/contacts/post-contact.json
+      description: Add a new user
+      body:
+        application/json:
+          type: types.User
+          example: !include examples/user/post-users-request.json
+      responses:
+        201:
+          description: Id for newly created account of user
+          body:
+            application/json:
+              type: types.AccountIdObject
+              example: !include examples/user/post-users-response.json
+        400:
+          description: Error adding user
+    /{accountId}:
+      get:
+        description: Get the user with account with `accountId = {accountId}`
         responses:
-          201:
-            description: Contact successfully added
-            headers:
-              location:
-                description: Path to newly created contact
-                type: string
-                example: /contacts/1
-          400:
-            description: Error while adding contact
-    /{contactId}:
-        description: Contact entity
-        uriParameters:
-              contactId:
-                type: string
-        get:
-            description: Get the contact with `id = {contactId}`
-            responses:
-                200:
-                    description: Requested contact
-                    body:
-                        application/json:
-                            type: types.Contact
-                            example: !include ./examples/contacts/get-contact.json
-                400:
-                    description: Error getting contact with contact id
-                404:
-                    description: Contact not found
-        put:
-            description: Update the contact with `id = {contactId}`
+          200:
+            description: Requested user
             body:
               application/json:
-                type: types.Contact
-                example: !include ./examples/contacts/put-contact.json
-            responses:
-                200:
-                    description: Contact successfully updated
-                400:
-                    description: Error updating contact with contact id
-                404:
-                    description: Contact not found
-        delete:
-            description: Delete the contact with `id = {contactId}`
-            responses:
-                200:
-                    description: Contact successfully deleted
-                400:
-                    description: Error deleting contact with contact id
-                404:
-                    description: Contact not found
+                type: types.User
+                example: !include ./examples/user/get-users-response.json
+          400:
+            description: Error getting user with account id
+          404:
+            description: User not found
+  /parkings:
+    post:
+      description: Add a new parking sticker
+      body:
+        application/json:
+          type: types.ParkingSticker
+          example: !include examples/parking/post-parkings-request.json
+      responses:
+        201:
+          description: Code for newly added parking sticker
+          body:
+            application/json:
+              type: types.ParkingStickerCodeObject
+              example: !include examples/parking/post-parkings-response.json
+        400:
+          description: Error adding parking sticker
+        404:
+          description: Account or parking area not found

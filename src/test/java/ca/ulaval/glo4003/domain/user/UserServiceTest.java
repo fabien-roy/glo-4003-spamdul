@@ -50,6 +50,6 @@ public class UserServiceTest {
     userService.getUser(ACCOUNT_ID.toString());
 
     verify(accountRepository).findById(any());
-    verify(userAssembler).create(account);
+    verify(userAssembler).assemble(account.getUser());
   }
 }
