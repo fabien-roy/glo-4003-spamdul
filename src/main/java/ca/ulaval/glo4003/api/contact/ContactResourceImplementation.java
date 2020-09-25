@@ -1,16 +1,16 @@
 package ca.ulaval.glo4003.api.contact;
 
 import ca.ulaval.glo4003.api.contact.dto.ContactDto;
-import ca.ulaval.glo4003.domain.contact.ContactNotFoundException;
 import ca.ulaval.glo4003.domain.contact.ContactService;
+import ca.ulaval.glo4003.domain.contact.exception.ContactNotFoundException;
 import java.util.List;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
-public class ContactResourceImpl implements ContactResource {
+public class ContactResourceImplementation implements ContactResource {
   private final ContactService contactService;
 
-  public ContactResourceImpl(ContactService contactService) {
+  public ContactResourceImplementation(ContactService contactService) {
     this.contactService = contactService;
   }
 

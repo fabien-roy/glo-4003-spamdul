@@ -1,13 +1,13 @@
 package ca.ulaval.glo4003.infrastructure.contact;
 
 import ca.ulaval.glo4003.domain.contact.Contact;
+import java.util.ArrayList;
 import java.util.List;
-import jersey.repackaged.com.google.common.collect.Lists;
 
-public class ContactDevDataFactory {
+public class ContactFakeFactory {
 
   public List<Contact> createMockData() {
-    List<Contact> contacts = Lists.newArrayList();
+    List<Contact> contacts = new ArrayList<>();
 
     Contact jobs = new Contact("514-999-0000", "California", "Steve Jobs");
     jobs.setId("1");

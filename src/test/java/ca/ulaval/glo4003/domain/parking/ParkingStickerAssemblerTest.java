@@ -8,6 +8,8 @@ import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.crea
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.AccountId;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
+import ca.ulaval.glo4003.domain.parking.exception.InvalidReceptionMethodException;
+import ca.ulaval.glo4003.domain.parking.exception.MissingAddressException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

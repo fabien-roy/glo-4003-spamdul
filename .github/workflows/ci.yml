@@ -20,3 +20,7 @@ jobs:
         run: mvn test
       - name: Code coverage
         run: mvn jacoco:report
+      - name: Upload to codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.domain.account;
 
 import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccountId;
 
+import ca.ulaval.glo4003.domain.account.exception.InvalidAccountIdException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

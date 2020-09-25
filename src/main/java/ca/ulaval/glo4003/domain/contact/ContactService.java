@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.domain.contact;
 
 import ca.ulaval.glo4003.api.contact.dto.ContactDto;
+import ca.ulaval.glo4003.domain.contact.exception.ContactNotFoundException;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;

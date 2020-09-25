@@ -3,11 +3,11 @@ package ca.ulaval.glo4003.api.contact;
 import static org.mockito.Matchers.eq;
 
 import ca.ulaval.glo4003.api.contact.dto.ContactDto;
-import ca.ulaval.glo4003.domain.contact.ContactNotFoundException;
 import ca.ulaval.glo4003.domain.contact.ContactService;
+import ca.ulaval.glo4003.domain.contact.exception.ContactNotFoundException;
 import com.google.common.truth.Truth;
+import java.util.Collections;
 import java.util.List;
-import jersey.repackaged.com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +17,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ContactResourceImplTest {
+public class ContactResourceImplementationTest {
   private static final String CONTACT_ID = "id";
 
   @Mock private ContactService contactService;
@@ -27,12 +27,13 @@ public class ContactResourceImplTest {
 
   @Before
   public void setUp() {
-    contactResource = new ContactResourceImpl(contactService);
+    contactResource = new ContactResourceImplementation(contactService);
   }
 
   @Test
   public void whenFindAllContacts_thenFoundContactsFromService() {
-    BDDMockito.given(contactService.findAllContacts()).willReturn(Lists.newArrayList(contactDto));
+    BDDMockito.given(contactService.findAllContacts())
+        .willReturn(Collections.singletonList(contactDto));
 
     List<ContactDto> contactDtos = contactResource.getContacts();
 

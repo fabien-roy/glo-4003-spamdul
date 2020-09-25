@@ -4,9 +4,11 @@ import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccou
 
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountId;
+import ca.ulaval.glo4003.domain.user.User;
 
 public class AccountBuilder {
-  private AccountId accountId = createAccountId();
+  private AccountId id = createAccountId();
+  private User user = null; // TODO : Use a new UserBuilder
 
   private AccountBuilder() {}
 
@@ -14,9 +16,13 @@ public class AccountBuilder {
     return new AccountBuilder();
   }
 
+  public AccountBuilder withId(AccountId id) {
+    this.id = id;
+    return this;
+  }
+
   public Account build() {
-    Account account = new Account();
-    account.setId(accountId);
+    Account account = new Account(id, user);
     return account;
   }
 }

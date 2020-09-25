@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.domain.parking;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.AccountId;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
+import ca.ulaval.glo4003.domain.parking.exception.MissingAddressException;
 
 public class ParkingStickerAssembler {
   private final AccountIdAssembler accountIdAssembler;
