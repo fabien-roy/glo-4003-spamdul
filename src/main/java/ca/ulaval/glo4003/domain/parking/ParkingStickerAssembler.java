@@ -10,6 +10,8 @@ import ca.ulaval.glo4003.domain.time.Days;
 
 import javax.inject.Inject;
 
+import javax.inject.Inject;
+
 public class ParkingStickerAssembler {
   private final AccountIdAssembler accountIdAssembler;
   private final PostalCodeAssembler postalCodeAssembler;
