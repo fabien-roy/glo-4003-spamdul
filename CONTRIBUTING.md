@@ -62,7 +62,7 @@ Issues are closed once all described tasks are confirmed done by the reviewers, 
 
 ### Code style
 
-We use [Google Java Code Style](https://google.github.io/styleguide/javaguide.html). It is checked pre-commit and during CI check. To format code, use `mvn git-code-format:format-code`.
+We use [Google Java Code Style](https://google.github.io/styleguide/javaguide.html). It is checked pre-commit and during CI check. To format code, use `mvn git-code-format:format-code -Dgcf.globPattern=**/*`.
 
 No comment should be in the source code. Some exceptions are small explanations. In those rare cases, comments are clear and tiny.
 
