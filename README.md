@@ -1,8 +1,8 @@
 # SPAMD-UL
 
-[![SPAMD-UL CI](https://github.com/GLO4003UL/a20-eq4/workflows/SPAMD-UL%20CI/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22SPAMD-UL+CI%22)
-[![SPAMD-UL CD](https://github.com/GLO4003UL/a20-eq4/workflows/SPAMD-UL%20CD/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22SPAMD-UL+CD%22)
-[![codecov](https://codecov.io/gh/GLO4003UL/a20-eq4/branch/develop/graph/badge.svg?token=1L5N0NP4T7)](https://codecov.io/gh/GLO4003UL/a20-eq4)
+[![Build](https://github.com/GLO4003UL/a20-eq4/workflows/Build/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22Build%22)
+[![Deploy](https://github.com/GLO4003UL/a20-eq4/workflows/Deploy/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22Deploy%22)
+[![Codecov](https://codecov.io/gh/GLO4003UL/a20-eq4/branch/develop/graph/badge.svg?token=1L5N0NP4T7)](https://codecov.io/gh/GLO4003UL/a20-eq4)
 [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
 
 **This is our project for course GLO-4003 at Laval University. We are team 4 : L'inquisition espagnole.**
