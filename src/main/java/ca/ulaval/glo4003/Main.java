@@ -21,6 +21,7 @@ import java.util.Optional;
 
 @SuppressWarnings("all")
 public class Main {
+
     private static final boolean isDev =
             true; // TODO : Would be a JVM argument or in a .property file
     private static final int DEFAULT_PORT = 8080;
