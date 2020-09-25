@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerCodeException;
 import java.util.logging.Logger;
 
 public class ParkingService {

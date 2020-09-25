@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.infrastructure.parking;
 
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
-import ca.ulaval.glo4003.domain.parking.NotFoundParkingStickerCodeException;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerCode;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerCodeRepository;
+import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerCodeException;
 import java.util.HashMap;
 import java.util.Map;
 
