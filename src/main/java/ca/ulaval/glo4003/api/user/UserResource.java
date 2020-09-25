@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.api.user.dto.UserDto;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-@Path("/user")
+@Path("/users")
 public interface UserResource {
 
   @POST
