@@ -4,7 +4,7 @@
   "description": "API description for SPAMD-UL (GLO-4003 project of team 4)",
   "main": "index.js",
   "dependencies": {
-    "raml2html": "^7.5.0"
+    "raml2html": "^7.6.0"
   },
   "devDependencies": {},
   "scripts": {
