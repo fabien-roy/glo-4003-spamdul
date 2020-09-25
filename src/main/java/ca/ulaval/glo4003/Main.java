@@ -6,7 +6,6 @@ import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
 import ca.ulaval.glo4003.domain.contact.ContactService;
-import ca.ulaval.glo4003.domain.user.exception.InvalidUserExceptionMapper;
 import ca.ulaval.glo4003.infrastructure.contact.ContactFakeFactory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactRepositoryInMemory;
 import java.util.List;
@@ -34,7 +33,6 @@ public class Main {
   public static void main(String[] args) throws Exception {
     // TODO : Move creation of resources elsewhere (custom injection)
     ContactResource contactResource = createContactResource(); // TODO : Remove demo Contact logic
-    InvalidUserExceptionMapper invalidUserExceptionMapper = new InvalidUserExceptionMapper();
     // TODO : Add ParkingExceptionMapper
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
