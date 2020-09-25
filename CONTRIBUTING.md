@@ -20,7 +20,7 @@ Milestones represent release numbers. For example, release 1 would be milestone 
 
 ### Project board
 
-Issues must be placed on the [project board](https://github.com/GLO4003UL/a20-eq4/projects/1). There are 5 columns in this board : 
+Issues must be placed on the [project board](https://github.com/GLO4003UL/a20-eq4/projects/2). There are 5 columns in this board : 
 
 - To do : Issues that must be done to deliver the current iteration
 - In progress : Self-explanatory
