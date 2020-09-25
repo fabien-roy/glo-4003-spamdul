@@ -9,6 +9,10 @@ import ca.ulaval.glo4003.domain.contact.ContactService;
 import ca.ulaval.glo4003.infrastructure.contact.ContactFakeFactory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactRepositoryInMemory;
 import ca.ulaval.glo4003.serverConfiguration.ServerResourceConfig;
+
+import java.util.List;
+import java.util.Optional;
+
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
