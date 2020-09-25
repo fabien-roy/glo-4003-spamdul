@@ -7,7 +7,48 @@
 	"item": [
 		{
 			"name": "Set up",
-			"item": [],
+			"item": [
+				{
+					"name": "Add user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5969cb67-4ad5-47fe-8472-1431dca4fe5e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"protocolProfileBehavior": {}
 		},
 		{
@@ -571,6 +612,283 @@
 							"_postman_isSubFolder": true
 						},
 						{
+							"name": "Sex",
+							"item": [
+								{
+									"name": "Invalid sex (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9a2489b0-c002-4cf5-abd3-e417a5748d6b",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid sex\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid sex\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": null\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid sex (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a6ed0c39-6451-4b1c-a2f9-a076cf813f39",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid sex\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid sex\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid sex (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dcf68c7e-e089-4213-8eb3-6a704066df0a",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid sex\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid sex\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid sex (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0a9d1dcb-89ed-4d20-b552-963552a974b0",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid sex\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid sex\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": [{{request.user.sex}}]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid sex (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2c83f32b-3abd-43cd-b8a4-b263b66cd808",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid sex\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid sex\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {\n      \"sex\": {{request.user.sex}}\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid sex (bad value)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "acc11832-e545-46ce-978b-5e621b53bf79",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid sex\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid sex\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": \"b\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
 							"name": "Valid user",
 							"event": [
 								{
@@ -610,6 +928,120 @@
 									"path": [
 										"api",
 										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Get user",
+					"item": [
+						{
+							"name": "Non existent account id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bebefe74-aec5-4b71-a9ce-c2b3744cd4b7",
+										"exec": [
+											"pm.test(\"Returns status 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Returns account not found\", function () {",
+											"    pm.expect(pm.response.json().error).to.equal(\"Account not found\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/users/dcbf4b65-c58e-40c4-b974-90c47bcd421a",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"dcbf4b65-c58e-40c4-b974-90c47bcd421a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "75cadb65-ed92-48fe-8b3a-8a7e6bfd9911",
+										"exec": [
+											"pm.test(\"Returns status 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Returns correct name\", function () {",
+											"    var name = postman.getEnvironmentVariable(\"request.user.name\");",
+											"    pm.expect(pm.response.json().name).to.equal(name)",
+											"});",
+											"",
+											"pm.test(\"Returns correct birth date\", function () {",
+											"    var birthDate = postman.getEnvironmentVariable(\"request.user.birthDate\");",
+											"    pm.expect(pm.response.json().birthDate).to.equal(birthDate)",
+											"});",
+											"",
+											"pm.test(\"Returns correct sex\", function () {",
+											"    var sex = postman.getEnvironmentVariable(\"request.user.sex\");",
+											"    pm.expect(pm.response.json().sex).to.equal(sex)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "358d0a4b-f566-45d6-862f-638c6742f0f9",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}"
 									]
 								}
 							},
