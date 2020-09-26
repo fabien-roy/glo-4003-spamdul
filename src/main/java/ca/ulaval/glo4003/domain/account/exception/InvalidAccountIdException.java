@@ -1,7 +1,10 @@
 package ca.ulaval.glo4003.domain.account.exception;
 
-public class InvalidAccountIdException extends RuntimeException {
+public class InvalidAccountIdException extends AccountException {
+  private static final String ERROR = "Invalid Account Id";
+  private static final String DESCRIPTION = "Account Id is invalid";
+
   public InvalidAccountIdException() {
-    super("Invalid account id");
+    super(ERROR, DESCRIPTION);
   }
 }
