@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003;
 
+import ca.ulaval.glo4003.api.car.CarResourceImplementation;
 import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.contact.ContactResourceImplementation;
 import ca.ulaval.glo4003.api.parking.ParkingResource;
@@ -10,6 +11,11 @@ import ca.ulaval.glo4003.domain.account.AccountFactory;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
 import ca.ulaval.glo4003.domain.account.AccountIdGenerator;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.account.AccountService;
+import ca.ulaval.glo4003.domain.car.CarAssembler;
+import ca.ulaval.glo4003.domain.car.CarService;
+import ca.ulaval.glo4003.domain.car.CarValidator;
+import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarExceptionMapper;
 import ca.ulaval.glo4003.domain.contact.Contact;
 import ca.ulaval.glo4003.domain.contact.ContactAssembler;
 import ca.ulaval.glo4003.domain.contact.ContactRepository;
@@ -26,6 +32,7 @@ import ca.ulaval.glo4003.infrastructure.contact.ContactFakeFactory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaFakeFactory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
+import ca.ulaval.glo4003.infrastructure.parking.ParkingStickerRepositoryInMemory;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -57,6 +64,10 @@ public class Main {
     ParkingResource parkingResource = createParkingResource();
     InvalidUserExceptionMapper invalidUserExceptionMapper = new InvalidUserExceptionMapper();
     // TODO : Add ParkingExceptionMapper
+    // TODO : Not the real AccountService, this one is a stub
+    AccountService accountService = createAccountService();
+    CarResourceImplementation carResource = createCarResource(accountService);
+    InvalidCarExceptionMapper invalidCarExceptionMapper = new InvalidCarExceptionMapper();
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
@@ -70,6 +81,8 @@ public class Main {
                 resources.add(userResource);
                 resources.add(parkingResource);
                 resources.add(invalidUserExceptionMapper);
+                resources.add(carResource);
+                resources.add(invalidCarExceptionMapper);
                 return resources;
               }
             });
@@ -140,9 +153,22 @@ public class Main {
     return new UserResourceImplementation(userService);
   }
 
+  private static AccountService createAccountService() {
+    return new AccountService();
+  }
+
+  private static CarResourceImplementation createCarResource(AccountService accountService) {
+    CarValidator carValidator = new CarValidator();
+    CarAssembler carAssembler = new CarAssembler(carValidator);
+    CarService carService = new CarService(carAssembler, accountService);
+
+    return new CarResourceImplementation(carService);
+  }
+
   private static ParkingResource createParkingResource() {
     AccountRepository accountRepository = new AccountRepositoryInMemory();
     ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
+    ParkingStickerRepository parkingStickerRepository = new ParkingStickerRepositoryInMemory();
 
     if (isDev) {
       ParkingAreaFakeFactory parkingAreaFakeFactory = new ParkingAreaFakeFactory();
@@ -164,7 +190,8 @@ public class Main {
             parkingStickerCodeAssembler,
             parkingStickerFactory,
             accountRepository,
-            parkingAreaRepository);
+            parkingAreaRepository,
+            parkingStickerRepository);
 
     return new ParkingResourceImplementation(parkingService);
   }

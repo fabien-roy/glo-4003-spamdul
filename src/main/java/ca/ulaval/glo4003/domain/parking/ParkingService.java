@@ -14,7 +14,7 @@ public class ParkingService {
   private final ParkingStickerFactory parkingStickerFactory;
   private final AccountRepository accountRepository;
   private final ParkingAreaRepository parkingAreaRepository;
-  private final ParkingStickerCodeRepository parkingStickerCodeRepository;
+  private final ParkingStickerRepository parkingStickerRepository;
 
   public ParkingService(
       ParkingStickerAssembler parkingStickerAssembler,
@@ -22,13 +22,13 @@ public class ParkingService {
       ParkingStickerFactory parkingStickerFactory,
       AccountRepository accountRepository,
       ParkingAreaRepository parkingAreaRepository,
-      ParkingStickerCodeRepository parkingStickerCodeRepository) {
+      ParkingStickerRepository parkingStickerRepository) {
     this.parkingStickerAssembler = parkingStickerAssembler;
     this.parkingStickerCodeAssembler = parkingStickerCodeAssembler;
     this.parkingStickerFactory = parkingStickerFactory;
     this.accountRepository = accountRepository;
     this.parkingAreaRepository = parkingAreaRepository;
-    this.parkingStickerCodeRepository = parkingStickerCodeRepository;
+    this.parkingStickerRepository = parkingStickerRepository;
   }
 
   public ParkingStickerCodeDto addParkingSticker(ParkingStickerDto parkingStickerDto) {
@@ -41,8 +41,11 @@ public class ParkingService {
 
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
-    account.addParkingSticker(parkingSticker);
+    account.addParkingStickerCode(parkingSticker.getCode());
     accountRepository.update(account);
+
+    parkingSticker.addParkingSticker(parkingSticker);
+    parkingStickerRepository.save(parkingSticker);
 
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
   }
@@ -54,13 +57,8 @@ public class ParkingService {
     ParkingStickerCode parkingStickerCode =
         parkingStickerCodeAssembler.assemble(parkingStickerCodeDto);
 
-    ParkingStickerCode foundParkingStickerCode =
-        parkingStickerCodeRepository.findById(parkingStickerCode);
+    ParkingSticker foundParkingSticker = parkingStickerRepository.findByCode(parkingStickerCode);
 
-    // trouver le parking sticker lié et retour de la journée (personne)
-    // si la journée est dans le user, envoyé le parkingSticker day avec le user du parking sticker
-    // et voir ce que ça dit
-    // et valider de la journée d'entrée
-    // si la journée est dans le sticker valider la journée dans le sticker avec la journée
+    foundParkingSticker.validateParkingStickerDay(foundParkingSticker.getValidDay());
   }
 }

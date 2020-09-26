@@ -56,7 +56,13 @@ This will generate `target/site/jacoco/index.html`, which can be opened in any b
 Code style is verified at each commit. To apply [Google Java Code Style](https://google.github.io/styleguide/javaguide.html) throughout the source code, use : 
 
 ```
-mvn git-code-format:format-code
+mvn git-code-format:format-code -Dgcf.globPattern=**/*
+```
+
+To simply check code style, use :
+
+```
+mvn git-code-format:validate-format-code -Dgcf.globPattern=**/*
 ```
 
 ### API documentation generation

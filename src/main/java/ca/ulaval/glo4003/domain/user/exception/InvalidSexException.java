@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.domain.user.exception;
 
 public class InvalidSexException extends InvalidUserException {
-  private static final String error = "Invalid sex";
-  private static final String description = "Sex should be m, f or x";
+  private static final String ERROR = "Invalid sex";
+  private static final String DESCRIPTION = "Sex should be m, f or x";
 
   public InvalidSexException() {
-    super(error, description);
+    super(ERROR, DESCRIPTION);
   }
 }
