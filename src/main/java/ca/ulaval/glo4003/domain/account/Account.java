@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.account;
 
-import ca.ulaval.glo4003.domain.parking.ParkingSticker;
+import ca.ulaval.glo4003.domain.parking.ParkingStickerCode;
 import ca.ulaval.glo4003.domain.user.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class Account {
   private AccountId id;
   private User user;
-  private List<ParkingSticker> parkingStickers = new ArrayList<>();
+  private List<ParkingStickerCode> parkingStickerCodes = new ArrayList<>();
 
   public Account(AccountId id, User user) {
     this.id = id;
@@ -23,11 +23,11 @@ public class Account {
     return user;
   }
 
-  public List<ParkingSticker> getParkingStickers() {
-    return parkingStickers;
+  public List<ParkingStickerCode> getParkingStickerCodes() {
+    return parkingStickerCodes;
   }
 
-  public void addParkingSticker(ParkingSticker parkingSticker) {
-    parkingStickers.add(parkingSticker);
+  public void addParkingStickerCode(ParkingStickerCode parkingStickerCode) {
+    parkingStickerCodes.add(parkingStickerCode);
   }
 }

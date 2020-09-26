@@ -26,6 +26,7 @@ public class ParkingServiceTest {
   @Mock private ParkingStickerFactory parkingStickerFactory;
   @Mock private AccountRepository accountRepository;
   @Mock private ParkingAreaRepository parkingAreaRepository;
+  @Mock private ParkingStickerRepository parkingStickerRepository;
 
   private ParkingSticker parkingSticker;
   private Account account;
@@ -40,7 +41,8 @@ public class ParkingServiceTest {
             parkingStickerCodeAssembler,
             parkingStickerFactory,
             accountRepository,
-            parkingAreaRepository);
+            parkingAreaRepository,
+            parkingStickerRepository);
     parkingSticker = aParkingSticker().build();
     account = anAccount().build();
 
@@ -74,10 +76,10 @@ public class ParkingServiceTest {
   }
 
   @Test
-  public void whenAddParkingSticker_thenAddParkingStickerToAccount() {
+  public void whenAddParkingSticker_thenAddParkingStickerCodeToAccount() {
     parkingService.addParkingSticker(parkingStickerDto);
 
-    Truth.assertThat(account.getParkingStickers()).contains(parkingSticker);
+    Truth.assertThat(account.getParkingStickerCodes()).contains(parkingSticker.getCode());
   }
 
   @Test
@@ -85,6 +87,13 @@ public class ParkingServiceTest {
     parkingService.addParkingSticker(parkingStickerDto);
 
     Mockito.verify(accountRepository).update(eq(account));
+  }
+
+  @Test
+  public void whenAddParkingSticker_thenAddParkingSticker() {
+    parkingService.addParkingSticker(parkingStickerDto);
+
+    Mockito.verify(parkingStickerRepository).save(eq(parkingSticker));
   }
 
   @Test
