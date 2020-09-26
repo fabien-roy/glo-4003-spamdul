@@ -1,0 +1,3929 @@
+{
+	"info": {
+		"_postman_id": "2706479d-fc3c-4c1a-9ee9-7775942065f1",
+		"name": "SPAMD-UL Integration tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Set up",
+			"item": [
+				{
+					"name": "Add user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5969cb67-4ad5-47fe-8472-1431dca4fe5e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Tests",
+			"item": [
+				{
+					"name": "Add user",
+					"item": [
+						{
+							"name": "Name",
+							"item": [
+								{
+									"name": "Invalid name (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "33b3245d-766e-467a-bdba-a6ae6aa87b51",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid name\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid name\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": null,\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid name (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bfcdb63a-5808-4d5f-810d-660b7f143cf2",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid name\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid name\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid name (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "cba7522b-0906-4cc5-a7dc-0b3d9bbc09f0",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid name\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid name\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": 1,\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid name (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "317abbaf-50f0-4a07-b73c-e2c2f39c6590",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid name\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid name\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": [{{request.user.name}}],\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid name (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "50f83a98-9960-48da-b16b-5a83f30da520",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid name\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid name\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {\n      \"name\": {{request.user.name}}\n  },\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Birth date",
+							"item": [
+								{
+									"name": "Invalid birth date (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "8ba96622-bad2-4986-ba35-92facbbf405b",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": null,\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid birth date (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7535a0ae-7c5f-47bd-8011-66c32b3a7c2d",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid birth date (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "45d91b47-f1b6-42bb-ae5e-3410a4f977b7",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": 1,\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid birth date (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0ebe1e4e-572f-4682-882a-a6da0e4efe0e",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": [{{request.user.birthDate}}],\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid birth date (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ed4f12ab-d9f6-48b0-8522-dd6b1a93841f",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {\n      \"birthDate\": {{request.user.birthDate}}\n  },\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid birth date (bad format)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "563921bb-3fd7-49f8-a3d6-d4735993685c",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": \"12-31-2000\",\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid birth date (future)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0d17464a-5129-42cf-aa20-60809a1ac517",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid birth date\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": \"01-01-2300\",\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Sex",
+							"item": [
+								{
+									"name": "Invalid sex (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9a2489b0-c002-4cf5-abd3-e417a5748d6b",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid sex\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid sex\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": null\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid sex (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a6ed0c39-6451-4b1c-a2f9-a076cf813f39",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid sex\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid sex\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid sex (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dcf68c7e-e089-4213-8eb3-6a704066df0a",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid sex\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid sex\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid sex (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0a9d1dcb-89ed-4d20-b552-963552a974b0",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid sex\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid sex\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": [{{request.user.sex}}]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid sex (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2c83f32b-3abd-43cd-b8a4-b263b66cd808",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid sex\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid sex\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {\n      \"sex\": {{request.user.sex}}\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid sex (bad value)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "acc11832-e545-46ce-978b-5e621b53bf79",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid sex\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid sex\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": \"b\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Valid user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "197e2f15-8e0b-40cf-a0df-664687b4946f",
+										"exec": [
+											"pm.test(\"Returns status 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Returns account id\", function () {",
+											"    pm.response.to.have.jsonBody(\"accountId\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Get user",
+					"item": [
+						{
+							"name": "Non existent account id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bebefe74-aec5-4b71-a9ce-c2b3744cd4b7",
+										"exec": [
+											"pm.test(\"Returns status 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Returns account not found\", function () {",
+											"    pm.expect(pm.response.json().error).to.equal(\"Account not found\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/users/dcbf4b65-c58e-40c4-b974-90c47bcd421a",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"dcbf4b65-c58e-40c4-b974-90c47bcd421a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "75cadb65-ed92-48fe-8b3a-8a7e6bfd9911",
+										"exec": [
+											"pm.test(\"Returns status 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Returns correct name\", function () {",
+											"    var name = postman.getEnvironmentVariable(\"request.user.name\");",
+											"    pm.expect(pm.response.json().name).to.equal(name)",
+											"});",
+											"",
+											"pm.test(\"Returns correct birth date\", function () {",
+											"    var birthDate = postman.getEnvironmentVariable(\"request.user.birthDate\");",
+											"    pm.expect(pm.response.json().birthDate).to.equal(birthDate)",
+											"});",
+											"",
+											"pm.test(\"Returns correct sex\", function () {",
+											"    var sex = postman.getEnvironmentVariable(\"request.user.sex\");",
+											"    pm.expect(pm.response.json().sex).to.equal(sex)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "358d0a4b-f566-45d6-862f-638c6742f0f9",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Add parking sticker",
+					"item": [
+						{
+							"name": "Account id",
+							"item": [
+								{
+									"name": "Invalid account id (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c91b8a74-8bfa-4176-ac5a-7f09d4389848",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": null,\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "76408673-8722-401e-88d8-c76c2fa7dbb3",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e5684651-d3ed-496d-8cc0-85d3363c65b9",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": 1,\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "d45bc006-2c17-433f-8383-ed4050256eeb",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": [\"{{param.accountId}}\"],\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e6d92567-0f85-44bd-9ca6-c5774c02f7ed",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": {\n      \"accountId\": \"{{param.accountId}}\"\n  },\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (bad format)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "cadeb23b-e74f-47c0-9fc1-9e36bd461998",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"badFormat\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (non existent)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bf848ecc-6ed0-4d12-9e52-1fdacc307c07",
+												"exec": [
+													"pm.test(\"Returns status 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Returns account not found\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Account not found\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"dcbf4b65-c58e-40c4-b974-90c47bcd421a\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Parking area",
+							"item": [
+								{
+									"name": "Invalid parking area (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "feee58e7-fcb8-454e-80f8-0a3f5f2114be",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid parking area code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking area code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": null,\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid parking area (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c95330a3-c8b5-486a-9539-0f262158ffab",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid parking area code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking area code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid parking area (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "243e9cf6-6ef3-4f6f-9b8c-be0d77cf495d",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid parking area code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking area code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": 2,\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid parking area (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b60b3757-c984-4d05-81ad-97865139fa98",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid parking area code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking area code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": [{{request.parkingSticker.parkingArea}}],\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid parking area (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bfe09b7f-625a-40b1-9b7f-44e385af8ba9",
+												"exec": [
+													"pm.test(\"Returns status 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid parking area code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking area code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {\n      \"parkingArea\": {{request.parkingSticker.parkingArea}}\n  },\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid parking area (non existent)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "28958d73-b1f2-4e1e-8433-f95efc1b6af1",
+												"exec": [
+													"pm.test(\"Returns status 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Returns parking area code not found\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Parking area code not found\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": \"nonExistent\",\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Reception method",
+							"item": [
+								{
+									"name": "Invalid reception method (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fff77d6f-3efd-4521-855c-771eb84d6f86",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid reception method\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": null,\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid reception method (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "aed284a4-5d10-4ccb-b6db-65044dc652eb",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid reception method\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid reception method (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5920fd24-8ca9-457d-a85f-5441be7ee20e",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid reception method\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": 1,\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid reception method (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ada32cf-80d1-4824-86e5-408e31d5bc56",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid reception method\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": [{{request.parkingSticker.receptionMethod}}],\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid reception method (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "eed6692d-79b4-4b8a-a9bb-d0112fdcd2a4",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid reception method\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {\n      \"receptionMethod\": {{request.parkingSticker.receptionMethod}}\n  },\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid reception method (bad value)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "67a12940-c35f-4550-ab5d-fa9e614dc71e",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid reception method\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": \"homingPigeon\",\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Postal code",
+							"item": [
+								{
+									"name": "Invalid postal code (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f3f9094c-211f-456a-aa04-b45466d326fe",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": null,\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid postal code (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1a1f6d9a-6ba9-49b6-8a30-07cf0bc2dcc5",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid postal code (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9c89e159-8f93-43c5-bd1a-8a4e5fe8c7c2",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": 1,\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid postal code (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5bbd0b53-ec8e-4143-a8d0-8dcd9dedd31d",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": [{{request.parkingSticker.postalCode}}],\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid postal code (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "80a5040c-1882-4fdb-9fb5-fb2d0acbbde3",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {\n      \"postalCode\": {{request.parkingSticker.postalCode}}\n  },\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid postal code (bad format)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3aee693c-5452-40b0-ae3b-dac7d39d1b1e",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": \"AAAAA\",\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Valid day",
+							"item": [
+								{
+									"name": "Invalid valid day (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7a10996d-25b5-415c-8ec0-ea58fb626b5a",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid day\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid day\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": null\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid valid day (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f13e7761-e68e-4179-b2bd-adcace1e6656",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid day\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid day\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid valid day (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "febb4b14-f1a9-45d0-b2a8-bacced23a27c",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid day\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid day\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid valid day (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "45d0569a-0a91-402e-94c0-8e6bb9648bb6",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid day\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid day\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": [{{request.parkingSticker.validDay}}]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid valid day (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "66b1b5c4-173e-430d-827a-0ae4bf4646a2",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid day\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid day\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {\n      \"validDay\": {{request.parkingSticker.validDay}}\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid valid day (bad value)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2a4a0b01-7f20-4f90-a739-b2880b8bee5f",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid day\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid day\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": \"funday\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Valid parking sticker",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a1f10956-aaa9-4f3a-b119-014329a51549",
+										"exec": [
+											"pm.test(\"Returns status 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Returns parking sticker code\", function () {",
+											"    pm.response.to.have.jsonBody(\"parkingStickerCode\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/parkings",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"parkings"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Add car",
+					"item": [
+						{
+							"name": "Account id",
+							"item": [
+								{
+									"name": "Invalid account id (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7b81f9ff-5588-4ba0-adb9-8b7bed91182a",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": null,\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "802ff0ae-dddb-47d4-ad28-a7f555984492",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0cf79e9f-6ec7-49e2-95ce-cb9f9d050d8b",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": 1,\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "544775b4-0af5-48c3-ac03-1130a46fab83",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": [\"{{param.accountId}}\"],\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "df75bd47-929a-4127-a741-1ce8d00884b0",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": {\n      \"accountId\": \"{{param.accountId}}\"\n  },\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (bad format)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "710f27db-d810-4ff7-a35d-6f6176836c4e",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"badFormat\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (non existent)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b4340aff-2c16-40c0-9193-54ba3ac4fea0",
+												"exec": [
+													"pm.test(\"Returns status 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Returns account not found\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Account not found\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"dcbf4b65-c58e-40c4-b974-90c47bcd421a\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Manufacturer",
+							"item": [
+								{
+									"name": "Invalid manufacturer (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "17f4a549-8274-4a96-baf1-8d9485610c13",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid manufacturer\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid manufacturer\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": null,\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid manufacturer (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4e3f56e1-b9fa-481f-9e9e-f34c069ccfef",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid manufacturer\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid manufacturer\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid manufacturer (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "cb03fd9c-e27a-428e-ab75-40ebc06000e3",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid manufacturer\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid manufacturer\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": 1,\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid manufacturer (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "d64a94ff-47c3-4dc3-872c-8ef7983b849b",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid manufacturer\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid manufacturer\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": [{{request.car.manufacturer}}],\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid manufacturer (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "19fe6b88-55ca-4332-9dc4-3af9462c1109",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid manufacturer\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid manufacturer\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {\n    \"manufacturer\": {{request.car.manufacturer}} \n  },\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Model",
+							"item": [
+								{
+									"name": "Invalid model (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b9de147d-d28d-432c-ab8d-0035888d4b77",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid model\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid model\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": null,\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid model (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ccde82f5-ebd7-4ba5-8583-eb9cdc36cb32",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid model\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid model\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid model (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "12a5bfc7-80ef-40bf-ba73-c3e302f6e7c7",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid model\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid model\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": 1,\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid model (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a0930bc4-1b09-4410-b23e-1952afc71650",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid model\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid model\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": [{{request.car.model}}],\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid model (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "defdef58-c9da-4830-ade7-43e13f1e494a",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid model\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid model\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {\n    \"model\": {{request.car.model}}  \n  },\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Year",
+							"item": [
+								{
+									"name": "Invalid year (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e2cedd0d-e1be-4a48-a5ec-88a87055a942",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid year\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": null,\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid year (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "eb397ba7-2f3b-43d9-ac1f-0943a8037065",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid year\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid year (string)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fc16a062-7e60-42cf-8128-37538ee36bb9",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid year\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": \"2006\",\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid year (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0319f1c6-19c6-4750-8f3b-2c226cc7a47f",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid year\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": [{{request.car.year}}],\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid year (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7bdcbb30-3454-4fde-a7d0-ccc5e8f26998",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid year\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {\n    \"year\": {{request.car.year}}  \n  },\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid year (future)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fac4b804-4e5e-4c8a-a78b-ce50861f9793",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid year\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": 2300,\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "License plate",
+							"item": [
+								{
+									"name": "Invalid license plate (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "40e2d4b4-55de-4e8d-a1a9-166542732235",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid license plate\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid license plate\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": null\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid license plate (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "391ab49d-190a-4297-bfb9-c7e715d73f0d",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid license plate\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid license plate\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid license plate (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c77ba4c6-60dd-4f7e-ab5a-66b2e5dc8458",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid license plate\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid license plate\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid license plate (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "deff0764-dbfc-4377-9fda-cb1aa4924921",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid license plate\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid license plate\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": [{{request.car.licensePlate}}]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid license plate (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4579d777-48c6-4124-bc76-abdd5e1df832",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid license plate\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid license plate\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {\n      \"licensePlate\": {{request.car.licensePlate}}\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid license plate (bad format)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "40c5a868-71ef-42c2-a2ea-cd8769a870ad",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid license plate\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid license plate\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": \"badFormat\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Valid car",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b367bc7b-ae2a-4b63-8370-c4d8d03f565f",
+										"exec": [
+											"pm.test(\"Returns status 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/cars",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"cars"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
