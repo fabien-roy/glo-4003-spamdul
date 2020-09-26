@@ -1217,7 +1217,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"accountId\": [{{param.accountId}}],\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"raw": "{\n  \"accountId\": [\"{{param.accountId}}\"],\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1262,7 +1262,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"accountId\": {\n      \"accountId\": {{param.accountId}}\n  },\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"raw": "{\n  \"accountId\": {\n      \"accountId\": \"{{param.accountId}}\"\n  },\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1339,8 +1339,8 @@
 													"    pm.response.to.have.status(404);",
 													"});",
 													"",
-													"pm.test(\"Returns invalid account id\", function () {",
-													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"pm.test(\"Returns account not found\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Account not found\")",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1567,8 +1567,8 @@
 											"script": {
 												"id": "bfe09b7f-625a-40b1-9b7f-44e385af8ba9",
 												"exec": [
-													"pm.test(\"Returns status 400\", function () {",
-													"    pm.response.to.have.status(400);",
+													"pm.test(\"Returns status 404\", function () {",
+													"    pm.response.to.have.status(404);",
 													"});",
 													"",
 													"pm.test(\"Returns invalid parking area code\", function () {",
@@ -2524,6 +2524,376 @@
 									"path": [
 										"api",
 										"parkings"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Add car",
+					"item": [
+						{
+							"name": "Account id",
+							"item": [
+								{
+									"name": "Invalid account id (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7b81f9ff-5588-4ba0-adb9-8b7bed91182a",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": null,\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "802ff0ae-dddb-47d4-ad28-a7f555984492",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0cf79e9f-6ec7-49e2-95ce-cb9f9d050d8b",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": 1,\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "544775b4-0af5-48c3-ac03-1130a46fab83",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": [\"{{param.accountId}}\"],\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "df75bd47-929a-4127-a741-1ce8d00884b0",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": {\n      \"accountId\": \"{{param.accountId}}\"\n  },\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (bad format)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "710f27db-d810-4ff7-a35d-6f6176836c4e",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid account id\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid account id\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"badFormat\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid account id (non existent)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b4340aff-2c16-40c0-9193-54ba3ac4fea0",
+												"exec": [
+													"pm.test(\"Returns status 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Returns account not found\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Account not found\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"dcbf4b65-c58e-40c4-b974-90c47bcd421a\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"cars"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Valid car",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b367bc7b-ae2a-4b63-8370-c4d8d03f565f",
+										"exec": [
+											"pm.test(\"Returns status 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/cars",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"cars"
 									]
 								}
 							},
