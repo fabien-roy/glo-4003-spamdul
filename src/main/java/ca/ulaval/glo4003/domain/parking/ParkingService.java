@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerCodeExce
 import ca.ulaval.glo4003.domain.time.Days;
 import java.time.LocalDate;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 
 public class ParkingService {
   private final Logger logger = Logger.getLogger(ParkingService.class.getName());
@@ -19,6 +20,7 @@ public class ParkingService {
   private final ParkingAreaRepository parkingAreaRepository;
   private final ParkingStickerRepository parkingStickerRepository;
 
+  @Inject
   public ParkingService(
       ParkingStickerAssembler parkingStickerAssembler,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
