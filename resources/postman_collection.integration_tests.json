@@ -130,7 +130,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": null,\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -175,7 +175,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": null,\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": 1,\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -220,7 +220,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": null,\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": [{{request.user.name}}],\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -265,7 +265,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": null,\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": {\n      \"name\": {{request.user.name}}\n  },\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1048,6 +1048,12 @@
 							"response": []
 						}
 					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Add parking sticker",
+					"item": [],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				}
