@@ -39,7 +39,8 @@ public class ApplicationBinder extends AbstractBinder {
   }
 
   private void configureAccount() {
-    bind(AccountRepositoryInMemory.class).to(AccountRepository.class);
+    AccountRepositoryInMemory accountRepositoryInMemory = new AccountRepositoryInMemory();
+    bind(accountRepositoryInMemory).to(AccountRepository.class);
 
     bindAsContract(AccountIdGenerator.class);
     bindAsContract(AccountIdAssembler.class);
@@ -49,8 +50,14 @@ public class ApplicationBinder extends AbstractBinder {
 
   private void configureParking() {
     bind(ParkingResourceImplementation.class).to(ParkingResource.class);
-    bind(ParkingAreaRepositoryInMemory.class).to(ParkingAreaRepository.class);
-    bind(ParkingStickerRepositoryInMemory.class).to(ParkingStickerRepository.class);
+
+    ParkingAreaRepositoryInMemory parkingAreaRepositoryInMemory =
+        new ParkingAreaRepositoryInMemory();
+    bind(parkingAreaRepositoryInMemory).to(ParkingAreaRepository.class);
+
+    ParkingStickerRepositoryInMemory parkingStickerRepositoryInMemory =
+        new ParkingStickerRepositoryInMemory();
+    bind(parkingStickerRepositoryInMemory).to(ParkingStickerRepository.class);
 
     bindAsContract(ParkingStickerAssembler.class);
     bindAsContract(ParkingStickerCodeAssembler.class);
