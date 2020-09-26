@@ -20,6 +20,6 @@ public class AccountId {
 
     AccountId accountId = (AccountId) object;
 
-    return id.equals(accountId.toString());
+    return id.equals(accountId);
   }
 }
