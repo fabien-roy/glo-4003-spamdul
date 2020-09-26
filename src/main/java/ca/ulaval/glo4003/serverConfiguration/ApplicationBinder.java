@@ -18,29 +18,28 @@ import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
 public class ApplicationBinder extends AbstractBinder {
-    @Override
-    protected void configure() {
-        configureUser();
-        configureParking();
-        configureCar();
+  @Override
+  protected void configure() {
+    configureUser();
+    configureParking();
+    configureCar();
+  }
 
-    }
+  private void configureUser() {
+    // bindAsContract(UserResource.class);
+    bind(UserResourceImplementation.class).to(UserResource.class);
 
-    private void configureUser() {
-        //bindAsContract(UserResource.class);
-        bind(UserResourceImplementation.class).to(UserResource.class);
+    bindAsContract(UserAssembler.class);
 
-        bindAsContract(UserAssembler.class);
+    bindAsContract(CustomDateAssembler.class);
+    bindAsContract(AccountIdGenerator.class);
+    bindAsContract(AccountIdAssembler.class);
+    bindAsContract(AccountFactory.class);
+    bindAsContract(AccountService.class);
 
-        bindAsContract(CustomDateAssembler.class);
-        bindAsContract(AccountIdGenerator.class);
-        bindAsContract(AccountIdAssembler.class);
-        bindAsContract(AccountFactory.class);
-        bindAsContract(AccountService.class);
-
-        //bindAsContract(AccountRepository.class);
-        bind(AccountRepositoryInMemory.class).to(AccountRepository.class);
-    }
+    // bindAsContract(AccountRepository.class);
+    bind(AccountRepositoryInMemory.class).to(AccountRepository.class);
+  }
 
   private void configureParking() {
     // bindAsContract(ParkingResource.class);
@@ -53,13 +52,12 @@ public class ApplicationBinder extends AbstractBinder {
     bindAsContract(ParkingStickerCodeAssembler.class);
     bindAsContract(ParkingStickerCodeGenerator.class);
     bindAsContract(ParkingStickerFactory.class);
+  }
 
-        }
-    private void configureCar() {
-        bind(CarResourceImplementation.class).to(ContactResource.class);
-        bindAsContract(CarValidator.class);
-        bindAsContract(CarAssembler.class);
-        bindAsContract(CarService.class);
-    }
-
+  private void configureCar() {
+    bind(CarResourceImplementation.class).to(ContactResource.class);
+    bindAsContract(CarValidator.class);
+    bindAsContract(CarAssembler.class);
+    bindAsContract(CarService.class);
+  }
 }
