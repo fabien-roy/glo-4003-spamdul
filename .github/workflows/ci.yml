@@ -1,4 +1,4 @@
-name: SPAMD-UL CI
+name: Build
 on:
   push:
     branches:
