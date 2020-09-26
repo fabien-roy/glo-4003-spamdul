@@ -20,6 +20,6 @@ jobs:
           mvn clean heroku:deploy
       - uses: matt-ball/newman-action@master
       - name: Integration tests
-         with:
-           collection: resources/postman_collection.integration_tests.json
-           environment: resources/postman_environment.json
+        with:
+          collection: resources/postman_collection.integration_tests.json
+          environment: resources/postman_environment.json
