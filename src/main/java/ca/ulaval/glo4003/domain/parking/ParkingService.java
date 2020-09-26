@@ -44,13 +44,12 @@ public class ParkingService {
     account.addParkingStickerCode(parkingSticker.getCode());
     accountRepository.update(account);
 
-    parkingSticker.addParkingSticker(parkingSticker);
     parkingStickerRepository.save(parkingSticker);
 
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
   }
 
-  public void validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto)
+  public String validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto)
       throws NotFoundParkingStickerCodeException {
     logger.info(String.format("Validate parking sticker code %s", parkingStickerCodeDto));
 
@@ -59,6 +58,6 @@ public class ParkingService {
 
     ParkingSticker foundParkingSticker = parkingStickerRepository.findByCode(parkingStickerCode);
 
-    foundParkingSticker.validateParkingStickerDay(foundParkingSticker.getValidDay());
+    return foundParkingSticker.validateParkingStickerDay();
   }
 }

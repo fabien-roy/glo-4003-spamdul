@@ -1,4 +1,4 @@
-name: SPAMD-UL CD
+name: Deploy
 on:
   push:
     branches:

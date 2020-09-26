@@ -6,18 +6,14 @@ import ca.ulaval.glo4003.domain.account.AccountId;
 import ca.ulaval.glo4003.domain.location.PostalCode;
 import ca.ulaval.glo4003.domain.parking.exception.InvalidParkingStickerDayException;
 import ca.ulaval.glo4003.domain.time.Days;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ParkingSticker {
   private ParkingStickerCode code;
-  private ParkingAccessDay parkingAccessDay;
   private final AccountId accountId;
   private final ParkingAreaCode parkingAreaCode;
   private final ReceptionMethods receptionMethod;
   private final PostalCode postalCode;
   private final Days validDay;
-  private List<ParkingSticker> parkingStickers = new ArrayList<>();
 
   public ParkingSticker(
       AccountId accountId,
@@ -60,14 +56,14 @@ public class ParkingSticker {
     return validDay;
   }
 
-  public void addParkingSticker(ParkingSticker parkingSticker) {
-    parkingStickers.add(parkingSticker);
-  }
-
-  public void validateParkingStickerDay(Days day) {
+  public String validateParkingStickerDay() {
+    Days validDay = getValidDay();
     Days randomDay = getRandomDay();
-    if (day != randomDay) {
+
+    if (validDay != randomDay) {
       throw new InvalidParkingStickerDayException();
     }
+
+    return "Access accepted";
   }
 }

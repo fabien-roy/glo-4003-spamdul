@@ -15,4 +15,9 @@ public class ParkingResourceImplementation implements ParkingResource {
   public ParkingStickerCodeDto addParkingSticker(ParkingStickerDto parkingStickerDto) {
     return parkingService.addParkingSticker(parkingStickerDto);
   }
+
+  @Override
+  public String validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto) {
+    return parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+  }
 }
