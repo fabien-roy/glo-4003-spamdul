@@ -1931,6 +1931,283 @@
 							"_postman_isSubFolder": true
 						},
 						{
+							"name": "Postal code",
+							"item": [
+								{
+									"name": "Invalid postal code (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f3f9094c-211f-456a-aa04-b45466d326fe",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": null,\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid postal code (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1a1f6d9a-6ba9-49b6-8a30-07cf0bc2dcc5",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid postal code (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9c89e159-8f93-43c5-bd1a-8a4e5fe8c7c2",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": 1,\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid postal code (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5bbd0b53-ec8e-4143-a8d0-8dcd9dedd31d",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": [{{request.parkingSticker.postalCode}}],\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid postal code (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "80a5040c-1882-4fdb-9fb5-fb2d0acbbde3",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {\n      \"postalCode\": {{request.parkingSticker.postalCode}}\n  },\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid postal code (bad format)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3aee693c-5452-40b0-ae3b-dac7d39d1b1e",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": \"AAAAA\",\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
 							"name": "Valid parking sticker",
 							"event": [
 								{
