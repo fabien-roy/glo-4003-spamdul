@@ -39,8 +39,4 @@ public enum Days {
 
     return foundDay;
   }
-
-  public static Days getToday(String dayOfWeek) {
-    return MONDAY;
-  }
 }
