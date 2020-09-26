@@ -1654,6 +1654,283 @@
 							"_postman_isSubFolder": true
 						},
 						{
+							"name": "Reception method",
+							"item": [
+								{
+									"name": "Invalid reception method (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fff77d6f-3efd-4521-855c-771eb84d6f86",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid reception method\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": null,\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid reception method (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "aed284a4-5d10-4ccb-b6db-65044dc652eb",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid reception method\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid reception method (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5920fd24-8ca9-457d-a85f-5441be7ee20e",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid reception method\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": 1,\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid reception method (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ada32cf-80d1-4824-86e5-408e31d5bc56",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid reception method\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": [{{request.parkingSticker.receptionMethod}}],\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid reception method (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "eed6692d-79b4-4b8a-a9bb-d0112fdcd2a4",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid reception method\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {\n      \"receptionMethod\": {{request.parkingSticker.receptionMethod}}\n  },\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid reception method (bad value)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "67a12940-c35f-4550-ab5d-fa9e614dc71e",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid reception method\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": \"homingPigeon\",\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkings"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
 							"name": "Valid parking sticker",
 							"event": [
 								{
