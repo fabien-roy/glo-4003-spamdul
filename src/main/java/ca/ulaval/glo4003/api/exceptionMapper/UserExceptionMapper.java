@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.api.exceptionMapper.userException;
+package ca.ulaval.glo4003.api.exceptionMapper;
 
 import ca.ulaval.glo4003.domain.user.exception.InvalidUserException;
 import javax.ws.rs.core.MediaType;
@@ -7,7 +7,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class InvalidUserExceptionMapper implements ExceptionMapper<InvalidUserException> {
+public class UserExceptionMapper implements ExceptionMapper<InvalidUserException> {
 
   public static class InvalidUserExceptionResponse {
     public String error;
@@ -16,11 +16,13 @@ public class InvalidUserExceptionMapper implements ExceptionMapper<InvalidUserEx
 
   @Override
   public Response toResponse(InvalidUserException exception) {
+    Response.Status responseStatus = Response.Status.BAD_REQUEST;
+
     InvalidUserExceptionResponse invalidUserExceptionResponse = new InvalidUserExceptionResponse();
     invalidUserExceptionResponse.error = exception.error;
     invalidUserExceptionResponse.description = exception.description;
 
-    return Response.status(Response.Status.BAD_REQUEST)
+    return Response.status(responseStatus)
         .entity(invalidUserExceptionResponse)
         .type(MediaType.APPLICATION_JSON)
         .build();

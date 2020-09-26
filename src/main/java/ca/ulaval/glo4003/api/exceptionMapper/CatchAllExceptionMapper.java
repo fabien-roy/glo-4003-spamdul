@@ -18,11 +18,13 @@ public class CatchAllExceptionMapper implements ExceptionMapper<Exception> {
 
   @Override
   public Response toResponse(Exception e) {
+    Response.Status responseStatus = Response.Status.INTERNAL_SERVER_ERROR;
+
     CatchAllExceptionResponse catchAllExceptionResponse = new CatchAllExceptionResponse();
     catchAllExceptionResponse.error = ERROR;
     catchAllExceptionResponse.description = DESCRIPTION;
 
-    return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+    return Response.status(responseStatus)
         .entity(catchAllExceptionResponse)
         .type(MediaType.APPLICATION_JSON)
         .build();
