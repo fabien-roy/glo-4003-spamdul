@@ -13,4 +13,13 @@ public class AccountId {
   public String toString() {
     return id.toString();
   }
+
+  @Override
+  public boolean equals(Object object) {
+    if (object == null || getClass() != object.getClass()) return false;
+
+    AccountId accountId = (AccountId) object;
+
+    return id.equals(accountId.toString());
+  }
 }
