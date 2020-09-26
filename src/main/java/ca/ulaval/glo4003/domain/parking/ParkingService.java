@@ -43,7 +43,6 @@ public class ParkingService {
     account.addParkingStickerCode(parkingSticker.getCode());
     accountRepository.update(account);
 
-    parkingSticker.addParkingSticker(parkingSticker);
     parkingStickerRepository.save(parkingSticker);
 
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
