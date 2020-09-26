@@ -53,3 +53,17 @@ uses:
           description: Error adding parking sticker
         404:
           description: Account or parking area not found
+  /cars:
+    post:
+      description: Add a new car
+      body:
+        application/json:
+          type: types.Car
+          example: !include examples/car/post-cars-request.json
+      responses:
+        201:
+          description: Car successfully added
+        400:
+          description: Error adding car
+        404:
+          description: Account not found
