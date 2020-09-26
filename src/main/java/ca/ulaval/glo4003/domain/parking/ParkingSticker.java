@@ -1,10 +1,7 @@
 package ca.ulaval.glo4003.domain.parking;
 
-import static ca.ulaval.glo4003.domain.time.Days.getRandomDay;
-
 import ca.ulaval.glo4003.domain.account.AccountId;
 import ca.ulaval.glo4003.domain.location.PostalCode;
-import ca.ulaval.glo4003.domain.parking.exception.InvalidParkingStickerDayException;
 import ca.ulaval.glo4003.domain.time.Days;
 
 public class ParkingSticker {
@@ -56,14 +53,13 @@ public class ParkingSticker {
     return validDay;
   }
 
-  public String validateParkingStickerDay() {
+  public boolean validateParkingStickerDay(Days day) {
     Days validDay = getValidDay();
-    Days randomDay = getRandomDay();
 
-    if (validDay != randomDay) {
-      throw new InvalidParkingStickerDayException();
+    if (validDay != day) {
+      return false;
     }
 
-    return "Access accepted";
+    return true;
   }
 }

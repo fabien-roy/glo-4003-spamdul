@@ -8,7 +8,9 @@ import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.parking.exception.InvalidParkingStickerDayException;
 import com.google.common.truth.Truth;
+import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,9 +31,9 @@ public class ParkingServiceTest {
   @Mock private ParkingStickerRepository parkingStickerRepository;
 
   private ParkingSticker parkingSticker;
-  private Account account;
-
+  private ParkingStickerCode parkingStickerCode;
   private ParkingService parkingService;
+  private Account account;
 
   @Before
   public void setUp() {
@@ -43,7 +45,10 @@ public class ParkingServiceTest {
             accountRepository,
             parkingAreaRepository,
             parkingStickerRepository);
-    parkingSticker = aParkingSticker().build();
+    LocalDate date = LocalDate.now();
+    String dayOfWeek = date.getDayOfWeek().toString();
+    parkingSticker = aParkingSticker().withValidDay(dayOfWeek).build();
+    parkingStickerCode = parkingSticker.getCode();
     account = anAccount().build();
 
     BDDMockito.given(parkingStickerAssembler.assemble(parkingStickerDto))
@@ -52,6 +57,10 @@ public class ParkingServiceTest {
         .willReturn(parkingStickerCodeDto);
     BDDMockito.given(accountRepository.findById(parkingSticker.getAccountId())).willReturn(account);
     BDDMockito.given(parkingStickerFactory.create(parkingSticker)).willReturn(parkingSticker);
+    BDDMockito.given(parkingStickerCodeAssembler.assemble(parkingStickerCodeDto))
+        .willReturn(parkingStickerCode);
+    BDDMockito.given(parkingStickerRepository.findByCode(parkingStickerCode))
+        .willReturn(parkingSticker);
   }
 
   @Test
@@ -102,5 +111,38 @@ public class ParkingServiceTest {
         parkingService.addParkingSticker(parkingStickerDto);
 
     Truth.assertThat(parkingStickerCodeDto).isSameInstanceAs(this.parkingStickerCodeDto);
+  }
+
+  @Test
+  public void
+      givenParkingStickerCode_whenValidateParkingStickerCode_thenParkingStickerCodeAssemblerIsCalled() {
+    parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+
+    Mockito.verify(parkingStickerCodeAssembler).assemble(eq(parkingStickerCodeDto));
+  }
+
+  @Test
+  public void
+      givenParkingStickerCode_whenValidateParkingStickerCode_thenParkingStickerRepositoryIsCalled() {
+    parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+
+    Mockito.verify(parkingStickerRepository).findByCode(eq(parkingStickerCode));
+  }
+
+  @Test
+  public void
+      givenValidParkingStickerCode_whenValidateParkingStickerCode_thenAccessGrantedMessageIsReturned() {
+    Truth.assertThat(parkingService.validateParkingStickerCode(parkingStickerCodeDto))
+        .isEqualTo("Access granted");
+  }
+
+  @Test(expected = InvalidParkingStickerDayException.class)
+  public void
+      givenInvalidParkingStickerCode_whenValidateParkingStickerCode_thenThrowInvalidParkingStickerDayException() {
+    ParkingSticker invalidParkingStickerDay = aParkingSticker().withValidDay("friday").build();
+    BDDMockito.given(parkingStickerRepository.findByCode(parkingStickerCode))
+        .willReturn(invalidParkingStickerDay);
+
+    parkingService.validateParkingStickerCode(parkingStickerCodeDto);
   }
 }

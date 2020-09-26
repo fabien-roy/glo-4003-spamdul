@@ -4,7 +4,10 @@ import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.parking.exception.InvalidParkingStickerDayException;
 import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerCodeException;
+import ca.ulaval.glo4003.domain.time.Days;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 public class ParkingService {
@@ -58,6 +61,12 @@ public class ParkingService {
 
     ParkingSticker foundParkingSticker = parkingStickerRepository.findByCode(parkingStickerCode);
 
-    return foundParkingSticker.validateParkingStickerDay();
+    LocalDate date = LocalDate.now();
+    String dayOfWeek = date.getDayOfWeek().toString();
+
+    if (!foundParkingSticker.validateParkingStickerDay(Days.get(dayOfWeek)))
+      throw new InvalidParkingStickerDayException();
+
+    return "Access granted";
   }
 }
