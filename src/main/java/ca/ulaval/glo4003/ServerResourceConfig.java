@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.serverConfiguration;
+package ca.ulaval.glo4003;
 
 import ca.ulaval.glo4003.http.CORSResponseFilter;
 import org.glassfish.jersey.server.ResourceConfig;

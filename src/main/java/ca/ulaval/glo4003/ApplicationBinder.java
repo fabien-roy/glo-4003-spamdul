@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.serverConfiguration;
+package ca.ulaval.glo4003;
 
+import ca.ulaval.glo4003.api.car.CarResource;
 import ca.ulaval.glo4003.api.car.CarResourceImplementation;
-import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.parking.ParkingResource;
 import ca.ulaval.glo4003.api.parking.ParkingResourceImplementation;
 import ca.ulaval.glo4003.api.user.UserResource;
@@ -18,6 +18,7 @@ import ca.ulaval.glo4003.domain.user.UserService;
 import ca.ulaval.glo4003.infrastructure.account.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingStickerRepositoryInMemory;
+import javax.inject.Singleton;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
 public class ApplicationBinder extends AbstractBinder {
@@ -39,8 +40,7 @@ public class ApplicationBinder extends AbstractBinder {
   }
 
   private void configureAccount() {
-    AccountRepositoryInMemory accountRepositoryInMemory = new AccountRepositoryInMemory();
-    bind(accountRepositoryInMemory).to(AccountRepository.class);
+    bind(AccountRepositoryInMemory.class).to(AccountRepository.class).in(Singleton.class);
 
     bindAsContract(AccountIdGenerator.class);
     bindAsContract(AccountIdAssembler.class);
@@ -51,13 +51,10 @@ public class ApplicationBinder extends AbstractBinder {
   private void configureParking() {
     bind(ParkingResourceImplementation.class).to(ParkingResource.class);
 
-    ParkingAreaRepositoryInMemory parkingAreaRepositoryInMemory =
-        new ParkingAreaRepositoryInMemory();
-    bind(parkingAreaRepositoryInMemory).to(ParkingAreaRepository.class);
-
-    ParkingStickerRepositoryInMemory parkingStickerRepositoryInMemory =
-        new ParkingStickerRepositoryInMemory();
-    bind(parkingStickerRepositoryInMemory).to(ParkingStickerRepository.class);
+    bind(ParkingAreaRepositoryInMemory.class).to(ParkingAreaRepository.class).in(Singleton.class);
+    bind(ParkingStickerRepositoryInMemory.class)
+        .to(ParkingStickerRepository.class)
+        .in(Singleton.class);
 
     bindAsContract(ParkingStickerAssembler.class);
     bindAsContract(ParkingStickerCodeAssembler.class);
@@ -68,7 +65,7 @@ public class ApplicationBinder extends AbstractBinder {
   }
 
   private void configureCar() {
-    bind(CarResourceImplementation.class).to(ContactResource.class);
+    bind(CarResourceImplementation.class).to(CarResource.class);
 
     bindAsContract(CarValidator.class);
     bindAsContract(CarAssembler.class);
