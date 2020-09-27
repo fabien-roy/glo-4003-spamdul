@@ -11,6 +11,7 @@ import ca.ulaval.glo4003.domain.time.CustomDate;
 import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
 import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
+import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidSexException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
@@ -55,6 +56,13 @@ public class UserAssemblerTest {
     Truth.assertThat(user.getName()).isEqualTo(NAME);
   }
 
+  @Test(expected = InvalidNameException.class)
+  public void givenNullName_whenAssembling_thenThrowInvalidNameException() {
+    userDto = aUserDto().withName(null).build();
+
+    userAssembler.assemble(userDto);
+  }
+
   @Test
   public void whenAssembling_thenReturnUserWithBirthDate() {
     User user = userAssembler.assemble(userDto);
@@ -66,6 +74,13 @@ public class UserAssemblerTest {
   public void givenInvalidBirthDate_whenAssembling_thenThrowInvalidBirthDateException() {
     BDDMockito.when(customDateAssembler.assemble(BIRTH_DATE.toString()))
         .thenThrow(new InvalidDateException());
+
+    userAssembler.assemble(userDto);
+  }
+
+  @Test(expected = InvalidBirthDateException.class)
+  public void givenNullBirthDate_whenAssembling_thenThrowInvalidBirthDateException() {
+    userDto = aUserDto().withBirthDate(null).build();
 
     userAssembler.assemble(userDto);
   }

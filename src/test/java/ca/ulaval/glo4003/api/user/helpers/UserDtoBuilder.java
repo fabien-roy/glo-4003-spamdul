@@ -22,11 +22,6 @@ public class UserDtoBuilder {
     return this;
   }
 
-  public UserDtoBuilder withoutName() {
-    this.name = null;
-    return this;
-  }
-
   public UserDtoBuilder withBirthDate(String birthDate) {
     this.birthDate = birthDate;
     return this;
