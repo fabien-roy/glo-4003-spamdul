@@ -10,7 +10,7 @@ public class LicensePlateAssembler {
     if (licensePlate.length() < 2 || licensePlate.length() > 7) {
       throw new InvalidLicensePlateException();
     }
-    if (!PATTERN.matcher(licensePlate).matches()) {
+    if (PATTERN.matcher(licensePlate).matches()) {
       throw new InvalidLicensePlateException();
     }
 
