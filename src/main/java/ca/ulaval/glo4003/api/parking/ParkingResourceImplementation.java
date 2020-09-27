@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.api.parking;
 import ca.ulaval.glo4003.api.parking.dto.AccessStatusDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
+import ca.ulaval.glo4003.domain.parking.AccessStatus;
 import ca.ulaval.glo4003.domain.parking.ParkingService;
 import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
@@ -32,7 +33,7 @@ public class ParkingResourceImplementation implements ParkingResource {
         parkingService.validateParkingStickerCode(parkingStickerCodeDto);
 
     Response.Status status;
-    if (accessStatusDto.accessStatus == "Access refused") {
+    if (accessStatusDto.accessStatus.equals(AccessStatus.ACCESS_REFUSED.toString())) {
       status = (Response.Status.FORBIDDEN);
     } else {
       status = (Response.Status.ACCEPTED);

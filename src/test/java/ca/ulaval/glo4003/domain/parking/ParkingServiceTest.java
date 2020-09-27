@@ -135,7 +135,7 @@ public class ParkingServiceTest {
       givenValidParkingStickerCode_whenValidateParkingStickerCode_thenAccessGrantedResponseIsReturned() {
     parkingService.validateParkingStickerCode(parkingStickerCodeDto);
 
-    Mockito.verify(parkingAccessDayAssembler).assemble(eq("Access granted"));
+    Mockito.verify(parkingAccessDayAssembler).assemble(eq(AccessStatus.ACCESS_GRANTED.toString()));
   }
 
   @Test
@@ -147,6 +147,6 @@ public class ParkingServiceTest {
 
     parkingService.validateParkingStickerCode(parkingStickerCodeDto);
 
-    Mockito.verify(parkingAccessDayAssembler).assemble(eq("Access refused"));
+    Mockito.verify(parkingAccessDayAssembler).assemble(eq(AccessStatus.ACCESS_REFUSED.toString()));
   }
 }

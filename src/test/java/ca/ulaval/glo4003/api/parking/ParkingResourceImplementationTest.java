@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.api.parking.dto.AccessStatusDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
+import ca.ulaval.glo4003.domain.parking.AccessStatus;
 import ca.ulaval.glo4003.domain.parking.ParkingAccessDayAssembler;
 import ca.ulaval.glo4003.domain.parking.ParkingService;
 import com.google.common.truth.Truth;
@@ -24,10 +25,12 @@ public class ParkingResourceImplementationTest {
   @Mock private AccessStatusDto accessStatusDto;
 
   private ParkingResource parkingResource;
+  private ParkingAccessDayAssembler parkingAccessDayAssembler;
 
   @Before
   public void setUp() {
     parkingResource = new ParkingResourceImplementation(parkingService);
+    parkingAccessDayAssembler = new ParkingAccessDayAssembler();
   }
 
   @Test
@@ -52,7 +55,7 @@ public class ParkingResourceImplementationTest {
   @Test
   public void whenValidateParkingStickerCode_thenValidateParkingStickerCodeToService() {
     when(parkingService.validateParkingStickerCode(parkingStickerCodeDto))
-        .thenReturn(accessStatusDto);
+        .thenReturn(parkingAccessDayAssembler.assemble(AccessStatus.ACCESS_GRANTED.toString()));
 
     parkingResource.validateParkingStickerCode(parkingStickerCodeDto);
 
@@ -64,7 +67,7 @@ public class ParkingResourceImplementationTest {
   public void
       givenParkingStickerCodeValidAccessDay_whenValidateParkingStickerCode_thenRespondWithAcceptedStatus() {
     when(parkingService.validateParkingStickerCode(parkingStickerCodeDto))
-        .thenReturn(accessStatusDto);
+        .thenReturn(parkingAccessDayAssembler.assemble(AccessStatus.ACCESS_GRANTED.toString()));
 
     Response response = parkingResource.validateParkingStickerCode(parkingStickerCodeDto);
 
@@ -74,9 +77,8 @@ public class ParkingResourceImplementationTest {
   @Test
   public void
       givenParkingStickerCodeInvalidAccessDay_whenValidateParkingStickerCode_thenRespondWithForbiddenStatus() {
-    ParkingAccessDayAssembler parkingAccessDayAssembler = new ParkingAccessDayAssembler();
     when(parkingService.validateParkingStickerCode(parkingStickerCodeDto))
-        .thenReturn(parkingAccessDayAssembler.assemble("Access refused"));
+        .thenReturn(parkingAccessDayAssembler.assemble(AccessStatus.ACCESS_REFUSED.toString()));
 
     Response response = parkingResource.validateParkingStickerCode(parkingStickerCodeDto);
 

@@ -70,8 +70,8 @@ public class ParkingService {
     String dayOfWeek = date.getDayOfWeek().toString();
 
     if (!foundParkingSticker.validateParkingStickerDay(Days.get(dayOfWeek)))
-      return parkingAccessDayAssembler.assemble("Access refused");
+      return parkingAccessDayAssembler.assemble(AccessStatus.ACCESS_REFUSED.toString());
 
-    return parkingAccessDayAssembler.assemble("Access granted");
+    return parkingAccessDayAssembler.assemble(AccessStatus.ACCESS_GRANTED.toString());
   }
 }
