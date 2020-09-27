@@ -83,6 +83,13 @@ public class ParkingServiceTest {
   }
 
   @Test
+  public void whenAddParkingSticker_thenAddZonePriceBillToAccount() {
+    parkingService.addParkingSticker(parkingStickerDto);
+
+    Truth.assertThat(account.getBill().getMoneyToPay()).isNotEqualTo(0f);
+  }
+
+  @Test
   public void whenAddParkingSticker_thenUpdateAccount() {
     parkingService.addParkingSticker(parkingStickerDto);
 

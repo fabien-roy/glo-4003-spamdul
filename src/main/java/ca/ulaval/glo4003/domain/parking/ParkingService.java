@@ -38,11 +38,20 @@ public class ParkingService {
     ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
 
     Account account = accountRepository.findById(parkingSticker.getAccountId());
-    parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
+    parkingAreaRepository.findByCode(
+        parkingSticker
+            .getParkingAreaCode()); // TODO should remove because it will failed if not in the csv
+    // for the price
 
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
     account.addParkingStickerCode(parkingSticker.getCode());
+    account
+        .getBill()
+        .calculateZonePriceWithCommunicationType(
+            parkingSticker.getReceptionMethod(),
+            parkingSticker.getParkingAreaCode().toString(),
+            "1j/sem/session");
     accountRepository.update(account);
 
     parkingStickerRepository.save(parkingSticker);
