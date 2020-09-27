@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.domain.user.exception;
 
-public class InvalidNameException extends InvalidUserException {
-  private static final String error = "Invalid name";
-  private static final String description = "Name can't be empty";
+public class InvalidNameException extends UserException {
+  private static final String NAME = "Invalid name";
+  private static final String DESCRIPTION = "Name can't be empty";
 
   public InvalidNameException() {
-    super(error, description);
+    super(NAME, DESCRIPTION);
   }
 }

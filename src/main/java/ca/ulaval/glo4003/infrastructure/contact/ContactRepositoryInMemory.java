@@ -28,7 +28,7 @@ public class ContactRepositoryInMemory implements ContactRepository {
     if (foundContact != null) {
       contacts.put(contact.getId(), contact);
     } else {
-      throw new ContactNotFoundException("Contact not found, cannot be updated");
+      throw new ContactNotFoundException();
     }
   }
 

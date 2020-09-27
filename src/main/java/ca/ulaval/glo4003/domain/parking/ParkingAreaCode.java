@@ -11,4 +11,18 @@ public class ParkingAreaCode {
   public String toString() {
     return code;
   }
+
+  @Override
+  public boolean equals(Object object) {
+    if (object == null || getClass() != object.getClass()) return false;
+
+    ParkingAreaCode parkingAreaCode = (ParkingAreaCode) object;
+
+    return code.equals(parkingAreaCode.toString());
+  }
+
+  @Override
+  public int hashCode() {
+    return code.hashCode();
+  }
 }

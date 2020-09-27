@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.domain.user;
 import ca.ulaval.glo4003.api.user.dto.AccountIdDto;
 import ca.ulaval.glo4003.api.user.dto.UserDto;
 import ca.ulaval.glo4003.domain.account.*;
+import javax.inject.Inject;
 
 public class UserService {
   private final AccountRepository accountRepository;
@@ -10,6 +11,7 @@ public class UserService {
   private final AccountIdAssembler accountIdAssembler;
   private final UserAssembler userAssembler;
 
+  @Inject
   public UserService(
       AccountRepository accountRepository,
       AccountFactory accountFactory,
@@ -22,20 +24,18 @@ public class UserService {
   }
 
   public AccountIdDto addUser(UserDto userDto) {
-    Account account = this.accountFactory.createAccount(userDto);
+    User user = userAssembler.assemble(userDto);
+    Account account = accountFactory.createAccount(user);
 
-    AccountId accountId = this.accountRepository.save(account);
+    AccountId accountId = accountRepository.save(account);
 
-    AccountIdDto accountIdDto = new AccountIdDto();
-    accountIdDto.accountId = accountId.toString();
-
-    return accountIdDto;
+    return accountIdAssembler.assemble(accountId);
   }
 
   public UserDto getUser(String stringId) {
     AccountId accountId = accountIdAssembler.assemble(stringId);
     Account account = accountRepository.findById(accountId);
 
-    return userAssembler.create(account);
+    return userAssembler.assemble(account.getUser());
   }
 }

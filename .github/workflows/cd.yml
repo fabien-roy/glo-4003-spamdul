@@ -1,4 +1,4 @@
-name: SPAMD-UL CD
+name: Deploy
 on:
   push:
     branches:
@@ -14,3 +14,8 @@ jobs:
         run: mvn clean install &&
           HEROKU_API_KEY=${{ secrets.HEROKU_API_KEY }}
           mvn clean heroku:deploy
+      - name: Integration tests
+        uses: matt-ball/newman-action@master
+        with:
+          collection: resources/postman_collection.integration_tests.json
+          environment: resources/postman_environment.json
