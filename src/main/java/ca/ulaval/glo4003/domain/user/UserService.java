@@ -24,14 +24,12 @@ public class UserService {
   }
 
   public AccountIdDto addUser(UserDto userDto) {
-    Account account = this.accountFactory.createAccount(userDto);
+    User user = userAssembler.assemble(userDto);
+    Account account = accountFactory.createAccount(user);
 
-    AccountId accountId = this.accountRepository.save(account);
+    AccountId accountId = accountRepository.save(account);
 
-    AccountIdDto accountIdDto = new AccountIdDto();
-    accountIdDto.accountId = accountId.toString();
-
-    return accountIdDto;
+    return accountIdAssembler.assemble(accountId);
   }
 
   public UserDto getUser(String stringId) {
