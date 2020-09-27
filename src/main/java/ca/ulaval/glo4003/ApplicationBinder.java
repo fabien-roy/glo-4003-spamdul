@@ -21,7 +21,7 @@ import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingStickerRepositoryInMemory;
 import java.util.List;
 import javax.inject.Singleton;
-import org.glassfish.hk2.utilities.binding.AbstractBinder;
+import org.glassfish.jersey.internal.inject.AbstractBinder;
 
 public class ApplicationBinder extends AbstractBinder {
   private static final boolean IS_DEV = true;
