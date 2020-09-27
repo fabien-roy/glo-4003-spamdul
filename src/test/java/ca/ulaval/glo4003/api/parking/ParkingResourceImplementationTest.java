@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.parking.ParkingService;
 import com.google.common.truth.Truth;
+import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,9 +30,18 @@ public class ParkingResourceImplementationTest {
   public void whenAddParkingSticker_thenAddParkingStickerToService() {
     when(parkingService.addParkingSticker(parkingStickerDto)).thenReturn(parkingStickerCodeDto);
 
-    ParkingStickerCodeDto receivedParkingStickerCodeDto =
-        parkingResource.addParkingSticker(parkingStickerDto);
+    Response response = parkingResource.addParkingSticker(parkingStickerDto);
+    ParkingStickerCodeDto parkingStickerCodeDto = (ParkingStickerCodeDto) response.getEntity();
 
-    Truth.assertThat(receivedParkingStickerCodeDto).isSameInstanceAs(parkingStickerCodeDto);
+    Truth.assertThat(parkingStickerCodeDto.code).isSameInstanceAs(parkingStickerCodeDto.code);
+  }
+
+  @Test
+  public void whenAddParkingSticker_thenRespondWithCreatedStatus() {
+    when(parkingService.addParkingSticker(parkingStickerDto)).thenReturn(parkingStickerCodeDto);
+
+    Response response = parkingResource.addParkingSticker(parkingStickerDto);
+
+    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
   }
 }
