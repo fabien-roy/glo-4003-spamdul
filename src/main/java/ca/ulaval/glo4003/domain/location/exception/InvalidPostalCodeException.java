@@ -1,8 +1,10 @@
 package ca.ulaval.glo4003.domain.location.exception;
 
-public class InvalidPostalCodeException extends RuntimeException {
-  public String error = "Invalid postal code";
-  public String description = "Postal code is invalid";
+public class InvalidPostalCodeException extends LocationException {
+  public static final String ERROR = "Invalid postal code";
+  public static final String DESCRIPTION = "Postal code is invalid";
 
-  public InvalidPostalCodeException() {}
+  public InvalidPostalCodeException() {
+    super(ERROR, DESCRIPTION);
+  }
 }

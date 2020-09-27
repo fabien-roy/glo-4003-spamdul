@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.domain.contact.ContactRepository;
 import ca.ulaval.glo4003.domain.contact.ContactService;
 import ca.ulaval.glo4003.infrastructure.contact.ContactFakeFactory;
 import ca.ulaval.glo4003.infrastructure.contact.ContactRepositoryInMemory;
-import ca.ulaval.glo4003.serverConfiguration.ServerResourceConfig;
 import java.util.List;
 import java.util.Optional;
 import org.eclipse.jetty.server.Handler;
@@ -20,8 +19,7 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 @SuppressWarnings("all")
 public class Main {
-  private static final boolean isDev =
-      true; // TODO : Would be a JVM argument or in a .property file
+  private static final boolean isDev = true;
   private static final int DEFAULT_PORT = 8080;
   private static final String PORT_ENV_VAR = "PORT";
   private static final String PROVIDED_PORT_MESSAGE = "INFO: Using the provided server port (%d).";
@@ -30,7 +28,6 @@ public class Main {
           + "\nINFO: Using the default one (%d).";
 
   public static void main(String[] args) throws Exception {
-    // TODO : Move creation of resources elsewhere (custom injection)
     ContactResource contactResource = createContactResource(); // TODO : Remove demo Contact logic
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);

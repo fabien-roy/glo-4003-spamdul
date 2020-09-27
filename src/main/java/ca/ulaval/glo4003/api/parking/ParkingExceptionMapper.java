@@ -1,5 +1,6 @@
-package ca.ulaval.glo4003.api.exceptionMapper;
+package ca.ulaval.glo4003.api.parking;
 
+import ca.ulaval.glo4003.api.interfaces.dto.ErrorDto;
 import ca.ulaval.glo4003.domain.parking.exception.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -8,11 +9,6 @@ import javax.ws.rs.ext.Provider;
 
 @Provider
 public class ParkingExceptionMapper implements ExceptionMapper<ParkingException> {
-
-  public static class ParkingExceptionResponse {
-    public String error;
-    public String description;
-  }
 
   @Override
   public Response toResponse(ParkingException exception) {
@@ -27,16 +23,16 @@ public class ParkingExceptionMapper implements ExceptionMapper<ParkingException>
     if (exception instanceof NotFoundParkingAreaException) {
       responseStatus = Response.Status.NOT_FOUND;
     }
-    if (exception instanceof NotFoundParkingStickerCodeException) {
+    if (exception instanceof NotFoundParkingStickerException) {
       responseStatus = Response.Status.NOT_FOUND;
     }
 
-    ParkingExceptionResponse parkingExceptionResponse = new ParkingExceptionResponse();
-    parkingExceptionResponse.error = exception.error;
-    parkingExceptionResponse.description = exception.description;
+    ErrorDto errorDto = new ErrorDto();
+    errorDto.error = exception.error;
+    errorDto.description = exception.description;
 
     return Response.status(responseStatus)
-        .entity(parkingExceptionResponse)
+        .entity(errorDto)
         .type(MediaType.APPLICATION_JSON)
         .build();
   }
