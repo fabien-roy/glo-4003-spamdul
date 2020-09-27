@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class BillTest {
-  private String zone = "Zone1";
-  private String time = "1j/sem/session";
-  Bill bill;
+  private static final String zone = "Zone1";
+  private static final String time = "1j/sem/session";
+  private Bill bill;
 
   @Before
   public void setup() {
