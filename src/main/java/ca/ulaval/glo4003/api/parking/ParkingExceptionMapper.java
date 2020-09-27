@@ -23,7 +23,7 @@ public class ParkingExceptionMapper implements ExceptionMapper<ParkingException>
     if (exception instanceof NotFoundParkingAreaException) {
       responseStatus = Response.Status.NOT_FOUND;
     }
-    if (exception instanceof NotFoundParkingStickerCodeException) {
+    if (exception instanceof NotFoundParkingStickerException) {
       responseStatus = Response.Status.NOT_FOUND;
     }
 
