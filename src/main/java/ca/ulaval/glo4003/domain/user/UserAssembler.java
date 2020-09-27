@@ -27,6 +27,8 @@ public class UserAssembler {
       throw new InvalidBirthDateException();
     }
 
+    if (birthDate.isFuture()) throw new InvalidBirthDateException();
+
     return new User(userDto.name, birthDate, Sex.get(userDto.sex));
   }
 

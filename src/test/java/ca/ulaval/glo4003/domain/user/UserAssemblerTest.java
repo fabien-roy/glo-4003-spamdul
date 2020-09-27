@@ -5,6 +5,7 @@ import static ca.ulaval.glo4003.domain.time.helpers.CustomDateMother.createPastD
 import static ca.ulaval.glo4003.domain.user.helpers.UserBuilder.aUser;
 import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createName;
 import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createSex;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.api.user.dto.UserDto;
 import ca.ulaval.glo4003.domain.time.CustomDate;
@@ -17,7 +18,6 @@ import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -27,6 +27,7 @@ public class UserAssemblerTest {
   private static final CustomDate BIRTH_DATE = createPastDate();
   private static final Sex SEX = createSex();
 
+  @Mock private CustomDate futureBirthDate;
   @Mock private CustomDateAssembler customDateAssembler;
 
   private UserAssembler userAssembler;
@@ -46,7 +47,8 @@ public class UserAssemblerTest {
             .withSex(SEX.toString())
             .build();
 
-    BDDMockito.when(customDateAssembler.assemble(BIRTH_DATE.toString())).thenReturn(BIRTH_DATE);
+    when(futureBirthDate.isFuture()).thenReturn(true);
+    when(customDateAssembler.assemble(BIRTH_DATE.toString())).thenReturn(BIRTH_DATE);
   }
 
   @Test
@@ -72,8 +74,7 @@ public class UserAssemblerTest {
 
   @Test(expected = InvalidBirthDateException.class)
   public void givenInvalidBirthDate_whenAssembling_thenThrowInvalidBirthDateException() {
-    BDDMockito.when(customDateAssembler.assemble(BIRTH_DATE.toString()))
-        .thenThrow(new InvalidDateException());
+    when(customDateAssembler.assemble(BIRTH_DATE.toString())).thenThrow(new InvalidDateException());
 
     userAssembler.assemble(userDto);
   }
@@ -81,6 +82,13 @@ public class UserAssemblerTest {
   @Test(expected = InvalidBirthDateException.class)
   public void givenNullBirthDate_whenAssembling_thenThrowInvalidBirthDateException() {
     userDto = aUserDto().withBirthDate(null).build();
+
+    userAssembler.assemble(userDto);
+  }
+
+  @Test(expected = InvalidBirthDateException.class)
+  public void givenFutureBirthDate_whenAssembling_thenThrowInvalidBirthDateException() {
+    when(customDateAssembler.assemble(BIRTH_DATE.toString())).thenReturn(futureBirthDate);
 
     userAssembler.assemble(userDto);
   }
