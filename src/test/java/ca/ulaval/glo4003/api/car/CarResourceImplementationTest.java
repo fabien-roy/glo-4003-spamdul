@@ -15,8 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class CarResourceImplementationTest {
 
-  private static final int ACCOUNT_ID = 777;
-
   @Mock private CarService carService;
 
   private CarDto carDTO;
@@ -31,14 +29,14 @@ public class CarResourceImplementationTest {
 
   @Test
   public void whenAddingCar_thenAddCar() {
-    carResource.addCar(ACCOUNT_ID, carDTO);
+    carResource.addCar(carDTO);
 
-    verify(carService).addCar(ACCOUNT_ID, carDTO);
+    verify(carService).addCar(carDTO);
   }
 
   @Test
   public void whenAddingCar_thenRespondWithCreatedStatus() {
-    Response response = carResource.addCar(ACCOUNT_ID, carDTO);
+    Response response = carResource.addCar(carDTO);
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
   }
