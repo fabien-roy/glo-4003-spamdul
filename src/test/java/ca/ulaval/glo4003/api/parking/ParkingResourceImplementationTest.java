@@ -33,7 +33,8 @@ public class ParkingResourceImplementationTest {
     Response response = parkingResource.addParkingSticker(parkingStickerDto);
     ParkingStickerCodeDto parkingStickerCodeDto = (ParkingStickerCodeDto) response.getEntity();
 
-    Truth.assertThat(parkingStickerCodeDto.code).isSameInstanceAs(parkingStickerCodeDto.code);
+    Truth.assertThat(parkingStickerCodeDto.parkingStickerCode)
+        .isEqualTo(parkingStickerCodeDto.parkingStickerCode);
   }
 
   @Test

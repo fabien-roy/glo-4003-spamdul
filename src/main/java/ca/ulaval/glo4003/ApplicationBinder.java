@@ -16,12 +16,16 @@ import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
 import ca.ulaval.glo4003.domain.user.UserService;
 import ca.ulaval.glo4003.infrastructure.account.AccountRepositoryInMemory;
+import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaFakeFactory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingStickerRepositoryInMemory;
+import java.util.List;
 import javax.inject.Singleton;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
 public class ApplicationBinder extends AbstractBinder {
+  private static final boolean IS_DEV = true;
+
   @Override
   protected void configure() {
     configureUser();
@@ -51,7 +55,7 @@ public class ApplicationBinder extends AbstractBinder {
   private void configureParking() {
     bind(ParkingResourceImplementation.class).to(ParkingResource.class);
 
-    bind(ParkingAreaRepositoryInMemory.class).to(ParkingAreaRepository.class).in(Singleton.class);
+    bind(createParkingAreaRepository()).to(ParkingAreaRepository.class);
     bind(ParkingStickerRepositoryInMemory.class)
         .to(ParkingStickerRepository.class)
         .in(Singleton.class);
@@ -63,6 +67,18 @@ public class ApplicationBinder extends AbstractBinder {
     bindAsContract(ParkingStickerFactory.class);
     bindAsContract(ParkingService.class);
     bindAsContract(ParkingStickerFactory.class);
+  }
+
+  private ParkingAreaRepository createParkingAreaRepository() {
+    ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
+
+    if (IS_DEV) {
+      ParkingAreaFakeFactory parkingAreaFakeFactory = new ParkingAreaFakeFactory();
+      List<ParkingArea> parkingAreas = parkingAreaFakeFactory.createMockData();
+      parkingAreas.forEach(parkingAreaRepository::save);
+    }
+
+    return parkingAreaRepository;
   }
 
   private void configureCar() {
