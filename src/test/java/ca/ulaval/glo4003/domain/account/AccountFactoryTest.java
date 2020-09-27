@@ -1,50 +1,58 @@
 package ca.ulaval.glo4003.domain.account;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static ca.ulaval.glo4003.api.user.helpers.UserDtoBuilder.aUserDto;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.api.user.dto.UserDto;
+import ca.ulaval.glo4003.domain.user.User;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
 import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
 import com.google.common.truth.Truth;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AccountFactoryTest {
-  AccountIdGenerator accountIdGenerator = mock(AccountIdGenerator.class);
-  UserAssembler userAssembler = mock(UserAssembler.class);
+  @Mock private AccountIdGenerator accountIdGenerator;
+  @Mock private UserAssembler userAssembler;
+  @Mock private AccountId accountId;
+  @Mock private User user;
 
-  AccountFactory accountFactory = new AccountFactory(accountIdGenerator, userAssembler);
+  private AccountFactory accountFactory;
 
-  private UserDto createValidUserDto() {
-    UserDto userDto = new UserDto();
-    userDto.sex = "m";
-    userDto.name = "Paul";
-    userDto.birthDate = "02-02-1990";
+  private UserDto userDto;
 
-    return userDto;
+  @Before
+  public void setUp() {
+    accountFactory = new AccountFactory(accountIdGenerator, userAssembler);
+
+    userDto = aUserDto().build();
+
+    when(userAssembler.assemble(userDto)).thenReturn(user);
+    when(accountIdGenerator.generate()).thenReturn(accountId);
   }
 
-  @Test
+  @Test(expected = InvalidNameException.class)
   public void whenNullUserName_thenTrowInvalidNameException() {
-    UserDto userDto = this.createValidUserDto();
-    userDto.name = null;
+    userDto = aUserDto().withoutName().build();
 
-    try {
-      this.accountFactory.createAccount(userDto);
-      Truth.assertThat(false);
-    } catch (Exception exception) {
-      if (exception instanceof InvalidNameException) {
-        Truth.assertThat(true);
-      }
-    }
+    accountFactory.createAccount(userDto);
   }
 
   @Test
-  public void whenCreatingAccount_thenUserAssemblerIsCalled() {
-    UserDto userDto = this.createValidUserDto();
+  public void whenCreatingAccount_thenAccountHasAccountId() {
+    Account account = accountFactory.createAccount(userDto);
 
-    this.accountFactory.createAccount(userDto);
+    Truth.assertThat(account.getId()).isSameInstanceAs(accountId);
+  }
 
-    verify(userAssembler).assemble(userDto);
+  @Test
+  public void whenCreatingAccount_thenAccountHasUser() {
+    Account account = accountFactory.createAccount(userDto);
+
+    Truth.assertThat(account.getUser()).isSameInstanceAs(user);
   }
 }

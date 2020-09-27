@@ -7,8 +7,8 @@ import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
 import javax.inject.Inject;
 
 public class AccountFactory {
-  private AccountIdGenerator accountIdGenerator;
-  private UserAssembler userAssembler;
+  private final AccountIdGenerator accountIdGenerator;
+  private final UserAssembler userAssembler;
 
   @Inject
   public AccountFactory(AccountIdGenerator accountIdGenerator, UserAssembler userAssembler) {
@@ -19,8 +19,8 @@ public class AccountFactory {
   public Account createAccount(UserDto userDto) {
     this.validate(userDto);
 
-    AccountId accountId = this.accountIdGenerator.generate();
-    User user = this.userAssembler.assemble(userDto);
+    User user = userAssembler.assemble(userDto);
+    AccountId accountId = accountIdGenerator.generate();
 
     return new Account(accountId, user);
   }
