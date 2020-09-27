@@ -1567,8 +1567,8 @@
 											"script": {
 												"id": "4b2acf3e-8d2d-4987-a3df-78dbe2debf47",
 												"exec": [
-													"pm.test(\"Returns status 404\", function () {",
-													"    pm.response.to.have.status(404);",
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
 													"});",
 													"",
 													"pm.test(\"Returns invalid parking area code\", function () {",
@@ -1616,8 +1616,8 @@
 													"    pm.response.to.have.status(404);",
 													"});",
 													"",
-													"pm.test(\"Returns parking area code not found\", function () {",
-													"    pm.expect(pm.response.json().error).to.equal(\"Parking area code not found\")",
+													"pm.test(\"Returns parking area not found\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Parking area not found\")",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1945,8 +1945,8 @@
 													"    pm.response.to.have.status(400);",
 													"});",
 													"",
-													"pm.test(\"Returns invalid postal code\", function () {",
-													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"pm.test(\"Returns missing postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Missing property : postalCode\")",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1990,8 +1990,8 @@
 													"    pm.response.to.have.status(400);",
 													"});",
 													"",
-													"pm.test(\"Returns invalid postal code\", function () {",
-													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"pm.test(\"Returns missing postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Missing property : postalCode\")",
 													"});"
 												],
 												"type": "text/javascript"
