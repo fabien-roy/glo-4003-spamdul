@@ -28,6 +28,11 @@ public class AccountIdAssemblerTest {
     accountIdAssembler.assemble(INVALID_ACCOUNT_ID);
   }
 
+  @Test(expected = InvalidAccountIdException.class)
+  public void givenNullAccountId_whenAssembling_thenThrowInvalidAccountIdException() {
+    accountIdAssembler.assemble(null);
+  }
+
   @Test
   public void whenAssembling_thenReturnAccountId() {
     AccountId accountId = accountIdAssembler.assemble(ACCOUNT_ID);

@@ -5,6 +5,8 @@ import java.util.UUID;
 
 public class AccountIdAssembler {
   public AccountId assemble(String accountId) {
+    if (accountId == null) throw new InvalidAccountIdException();
+
     UUID assembledId;
 
     try {
