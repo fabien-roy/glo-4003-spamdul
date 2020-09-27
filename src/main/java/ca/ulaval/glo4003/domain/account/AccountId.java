@@ -14,12 +14,21 @@ public class AccountId {
     return id.toString();
   }
 
+  public UUID toUUID() {
+    return id;
+  }
+
   @Override
   public boolean equals(Object object) {
     if (object == null || getClass() != object.getClass()) return false;
 
     AccountId accountId = (AccountId) object;
 
-    return id.equals(accountId);
+    return id.equals(accountId.toUUID());
+  }
+
+  @Override
+  public int hashCode() {
+    return id.hashCode();
   }
 }
