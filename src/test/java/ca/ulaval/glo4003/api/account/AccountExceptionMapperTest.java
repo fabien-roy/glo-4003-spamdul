@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class AccountExceptionMapperTest {
 
-  AccountExceptionMapper accountExceptionMapper;
+  private AccountExceptionMapper accountExceptionMapper;
 
   @Before
   public void setUp() {
