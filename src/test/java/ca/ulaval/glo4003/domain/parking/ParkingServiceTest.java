@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
-import ca.ulaval.glo4003.domain.parking.exception.AccessNotAllowedException;
 import com.google.common.truth.Truth;
 import java.time.LocalDate;
 import org.junit.Before;
@@ -24,6 +23,7 @@ public class ParkingServiceTest {
   @Mock private ParkingStickerDto parkingStickerDto;
   @Mock private ParkingStickerCodeDto parkingStickerCodeDto;
   @Mock private ParkingStickerAssembler parkingStickerAssembler;
+  @Mock private ParkingAccessDayAssembler parkingAccessDayAssembler;
   @Mock private ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   @Mock private ParkingStickerFactory parkingStickerFactory;
   @Mock private AccountRepository accountRepository;
@@ -44,7 +44,8 @@ public class ParkingServiceTest {
             parkingStickerFactory,
             accountRepository,
             parkingAreaRepository,
-            parkingStickerRepository);
+            parkingStickerRepository,
+            parkingAccessDayAssembler);
     LocalDate date = LocalDate.now();
     String dayOfWeek = date.getDayOfWeek().toString();
     parkingSticker = aParkingSticker().withValidDay(dayOfWeek).build();
@@ -131,18 +132,21 @@ public class ParkingServiceTest {
 
   @Test
   public void
-      givenValidParkingStickerCode_whenValidateParkingStickerCode_thenAccessGrantedMessageIsReturned() {
-    Truth.assertThat(parkingService.validateParkingStickerCode(parkingStickerCodeDto))
-        .isEqualTo("Access granted");
+      givenValidParkingStickerCode_whenValidateParkingStickerCode_thenAccessGrantedResponseIsReturned() {
+    parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+
+    Mockito.verify(parkingAccessDayAssembler).assemble(eq("Access granted"));
   }
 
-  @Test(expected = AccessNotAllowedException.class)
+  @Test
   public void
-      givenInvalidParkingStickerCode_whenValidateParkingStickerCode_thenThrowInvalidParkingStickerDayException() {
+      givenInvalidParkingStickerCode_whenValidateParkingStickerCode_thenAccessRefusedResponseIsReturned() {
     ParkingSticker invalidParkingStickerDay = aParkingSticker().withValidDay("friday").build();
     BDDMockito.given(parkingStickerRepository.findByCode(parkingStickerCode))
         .willReturn(invalidParkingStickerDay);
 
     parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+
+    Mockito.verify(parkingAccessDayAssembler).assemble(eq("Access refused"));
   }
 }

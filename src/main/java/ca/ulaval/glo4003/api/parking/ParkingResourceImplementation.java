@@ -30,9 +30,14 @@ public class ParkingResourceImplementation implements ParkingResource {
   public Response validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto) {
     AccessStatusDto accessStatusDto =
         parkingService.validateParkingStickerCode(parkingStickerCodeDto);
-    return Response.status(Response.Status.ACCEPTED)
-        .entity(accessStatusDto)
-        .type(MediaType.APPLICATION_JSON)
-        .build();
+
+    Response.Status status;
+    if (accessStatusDto.accessStatus == "Access refused") {
+      status = (Response.Status.FORBIDDEN);
+    } else {
+      status = (Response.Status.ACCEPTED);
+    }
+
+    return Response.status(status).entity(accessStatusDto).type(MediaType.APPLICATION_JSON).build();
   }
 }

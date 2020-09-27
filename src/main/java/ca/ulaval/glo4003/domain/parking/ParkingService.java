@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
-import ca.ulaval.glo4003.domain.parking.exception.AccessNotAllowedException;
 import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerException;
 import ca.ulaval.glo4003.domain.time.Days;
 import java.time.LocalDate;
@@ -16,6 +15,7 @@ public class ParkingService {
   private final Logger logger = Logger.getLogger(ParkingService.class.getName());
   private final ParkingStickerAssembler parkingStickerAssembler;
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
+  private final ParkingAccessDayAssembler parkingAccessDayAssembler;
   private final ParkingStickerFactory parkingStickerFactory;
   private final AccountRepository accountRepository;
   private final ParkingAreaRepository parkingAreaRepository;
@@ -28,9 +28,11 @@ public class ParkingService {
       ParkingStickerFactory parkingStickerFactory,
       AccountRepository accountRepository,
       ParkingAreaRepository parkingAreaRepository,
-      ParkingStickerRepository parkingStickerRepository) {
+      ParkingStickerRepository parkingStickerRepository,
+      ParkingAccessDayAssembler parkingAccessDayAssembler) {
     this.parkingStickerAssembler = parkingStickerAssembler;
     this.parkingStickerCodeAssembler = parkingStickerCodeAssembler;
+    this.parkingAccessDayAssembler = parkingAccessDayAssembler;
     this.parkingStickerFactory = parkingStickerFactory;
     this.accountRepository = accountRepository;
     this.parkingAreaRepository = parkingAreaRepository;
@@ -68,8 +70,8 @@ public class ParkingService {
     String dayOfWeek = date.getDayOfWeek().toString();
 
     if (!foundParkingSticker.validateParkingStickerDay(Days.get(dayOfWeek)))
-      throw new AccessNotAllowedException();
+      return parkingAccessDayAssembler.assemble("Access refused");
 
-    return parkingStickerAssembler.assemble("Access granted");
+    return parkingAccessDayAssembler.assemble("Access granted");
   }
 }
