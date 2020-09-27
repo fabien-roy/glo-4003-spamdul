@@ -62,7 +62,7 @@ mvn git-code-format:format-code -Dgcf.globPattern=**/*
 To simply check code style, use :
 
 ```
-mvn git-code-format:validate-format-code -Dgcf.globPattern=**/*
+mvn git-code-format:validate-code-format -Dgcf.globPattern=**/*
 ```
 
 ### API documentation generation
