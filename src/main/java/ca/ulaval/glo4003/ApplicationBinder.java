@@ -56,6 +56,7 @@ public class ApplicationBinder extends AbstractBinder {
         .to(ParkingStickerRepository.class)
         .in(Singleton.class);
 
+    bindAsContract(ParkingAreaCodeAssembler.class);
     bindAsContract(ParkingStickerAssembler.class);
     bindAsContract(ParkingStickerCodeAssembler.class);
     bindAsContract(ParkingStickerCodeGenerator.class);
