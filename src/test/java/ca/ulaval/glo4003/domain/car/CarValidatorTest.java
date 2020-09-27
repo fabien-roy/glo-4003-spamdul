@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.car;
 
-import ca.ulaval.glo4003.api.car.dto.CarDTO;
+import ca.ulaval.glo4003.api.car.dto.CarDto;
 import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarYearException;
 import ca.ulaval.glo4003.domain.car.exceptions.InvalidLicensePlateException;
 import org.junit.Before;
@@ -23,15 +23,15 @@ public class CarValidatorTest {
 
   @Test(expected = InvalidCarYearException.class)
   public void givenCarDTOWithInvalidYear_whenValidatingDTO_shouldThrowException() {
-    CarDTO validDTO = new CarDTO("manufacturer", "model", INVALID_YEAR, VALID_LICENSE_PLATE);
+    CarDto validDTO = new CarDto("manufacturer", "model", INVALID_YEAR, VALID_LICENSE_PLATE);
 
     carValidator.validate(validDTO);
   }
 
   @Test(expected = InvalidLicensePlateException.class)
   public void givenCarDTOWithInvalidLicensePlateLength_whenValidatingDTO_shouldThrowException() {
-    CarDTO invalidDTO =
-        new CarDTO("manufacturer", "model", VALID_YEAR, INVALID_LICENSE_PLATE_LENGTH);
+    CarDto invalidDTO =
+        new CarDto("manufacturer", "model", VALID_YEAR, INVALID_LICENSE_PLATE_LENGTH);
 
     carValidator.validate(invalidDTO);
   }
@@ -39,8 +39,8 @@ public class CarValidatorTest {
   @Test(expected = InvalidLicensePlateException.class)
   public void
       givenCarDTOWithInvalidLicensePlateCharacters_whenValidatingDTO_shouldThrowException() {
-    CarDTO invalidDTO =
-        new CarDTO("manufacturer", "model", VALID_YEAR, INVALID_LICENSE_PLATE_CHARACTERS);
+    CarDto invalidDTO =
+        new CarDto("manufacturer", "model", VALID_YEAR, INVALID_LICENSE_PLATE_CHARACTERS);
 
     carValidator.validate(invalidDTO);
   }

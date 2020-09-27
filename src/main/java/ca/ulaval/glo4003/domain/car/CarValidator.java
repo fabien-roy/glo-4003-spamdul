@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.car;
 
-import ca.ulaval.glo4003.api.car.dto.CarDTO;
+import ca.ulaval.glo4003.api.car.dto.CarDto;
 import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarYearException;
 import ca.ulaval.glo4003.domain.car.exceptions.InvalidLicensePlateException;
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ public class CarValidator {
 
   public CarValidator() {}
 
-  public void validate(CarDTO carDTO) {
+  public void validate(CarDto carDTO) {
     validateLicensePlate(carDTO.getLicensePlate());
     validateYear(carDTO.getYear());
   }

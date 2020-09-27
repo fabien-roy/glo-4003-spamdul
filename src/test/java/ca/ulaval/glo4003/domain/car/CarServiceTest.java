@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.domain.car;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.api.car.dto.CarDTO;
+import ca.ulaval.glo4003.api.car.dto.CarDto;
 import ca.ulaval.glo4003.domain.account.AccountService;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class CarServiceTest {
 
   @Mock private AccountService accountService;
 
-  @Mock private CarDTO carDTO;
+  @Mock private CarDto carDTO;
 
   @Mock private Car car;
 

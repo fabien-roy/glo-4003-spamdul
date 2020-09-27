@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.car;
 
-import ca.ulaval.glo4003.api.car.dto.CarDTO;
+import ca.ulaval.glo4003.api.car.dto.CarDto;
 import ca.ulaval.glo4003.domain.account.AccountService;
 import javax.inject.Inject;
 
@@ -15,7 +15,7 @@ public class CarService {
     this.accountService = accountService;
   }
 
-  public void addCar(int accountId, CarDTO carDTO) {
+  public void addCar(int accountId, CarDto carDTO) {
     Car car = carAssembler.create(carDTO);
 
     accountService.addCarToAccount(accountId, car);

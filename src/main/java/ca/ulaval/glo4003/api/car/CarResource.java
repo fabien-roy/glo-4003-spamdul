@@ -1,14 +1,14 @@
 package ca.ulaval.glo4003.api.car;
 
-import ca.ulaval.glo4003.api.car.dto.CarDTO;
+import ca.ulaval.glo4003.api.car.dto.CarDto;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/cars")
+@Path("/car")
 public interface CarResource {
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  Response addCar(@PathParam("id") int accountId, CarDTO carDTO);
+  Response addCar(@PathParam("id") int accountId, CarDto carDTO);
 }

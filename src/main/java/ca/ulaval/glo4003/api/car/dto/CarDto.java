@@ -1,12 +1,12 @@
 package ca.ulaval.glo4003.api.car.dto;
 
-public class CarDTO {
+public class CarDto {
   private String manufacturer;
   private String model;
   private int year;
   private String licensePlate;
 
-  public CarDTO(String manufacturer, String model, int year, String licensePlate) {
+  public CarDto(String manufacturer, String model, int year, String licensePlate) {
     this.manufacturer = manufacturer;
     this.model = model;
     this.year = year;

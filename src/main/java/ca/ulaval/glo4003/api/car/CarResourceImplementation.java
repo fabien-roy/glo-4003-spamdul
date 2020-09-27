@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.api.car;
 
-import ca.ulaval.glo4003.api.car.dto.CarDTO;
+import ca.ulaval.glo4003.api.car.dto.CarDto;
 import ca.ulaval.glo4003.domain.car.CarService;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
@@ -15,7 +15,7 @@ public class CarResourceImplementation implements CarResource {
   }
 
   @Override
-  public Response addCar(int userId, CarDTO carDTO) {
+  public Response addCar(int userId, CarDto carDTO) {
     carService.addCar(userId, carDTO);
     return Response.status(Response.Status.CREATED).build();
   }

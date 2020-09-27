@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.domain.car;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 
-import ca.ulaval.glo4003.api.car.dto.CarDTO;
+import ca.ulaval.glo4003.api.car.dto.CarDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,12 +19,12 @@ public class CarAssemblerTest {
   private static final String LICENSE_PLATE = "SPEED";
 
   private CarAssembler carAssembler;
-  private CarDTO carDTO;
+  private CarDto carDTO;
   @Mock private CarValidator carValidator;
 
   @Before
   public void setup() {
-    carDTO = new CarDTO(MANUFACTURER, MODEL, YEAR, LICENSE_PLATE);
+    carDTO = new CarDto(MANUFACTURER, MODEL, YEAR, LICENSE_PLATE);
 
     carAssembler = new CarAssembler(carValidator);
   }
