@@ -54,12 +54,6 @@ public class ParkingSticker {
   }
 
   public boolean validateParkingStickerDay(Days day) {
-    Days validDay = getValidDay();
-
-    if (validDay != day) {
-      return false;
-    }
-
-    return true;
+    return getValidDay().equals(day);
   }
 }

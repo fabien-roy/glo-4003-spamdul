@@ -33,7 +33,7 @@ public class ParkingResourceImplementation implements ParkingResource {
         parkingService.validateParkingStickerCode(parkingStickerCodeDto);
 
     Response.Status status;
-    if (accessStatusDto.accessStatus.equals(AccessStatus.ACCESS_REFUSED.toString())) {
+    if (AccessStatus.ACCESS_REFUSED.toString().equals(accessStatusDto.accessStatus)) {
       status = (Response.Status.FORBIDDEN);
     } else {
       status = (Response.Status.ACCEPTED);

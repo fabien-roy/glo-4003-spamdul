@@ -8,18 +8,18 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParkingAccessDayAssemblerTest {
+public class AccessStatusAssemblerTest {
 
-  private ParkingAccessDayAssembler parkingAccessDayAssembler;
+  private AccessStatusAssembler accessStatusAssembler;
 
   @Before
   public void setUp() {
-    parkingAccessDayAssembler = new ParkingAccessDayAssembler();
+    accessStatusAssembler = new AccessStatusAssembler();
   }
 
   @Test
   public void whenAssembling_thenReturnAccessStatusDTO() {
-    AccessStatusDto accessStatusDto = parkingAccessDayAssembler.assemble("Access granted");
+    AccessStatusDto accessStatusDto = accessStatusAssembler.assemble("Access granted");
 
     Truth.assertThat(accessStatusDto.accessStatus).isEqualTo("Access granted");
   }

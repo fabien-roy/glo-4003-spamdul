@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.domain.parking;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createParkingStickerCode;
 
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
+import ca.ulaval.glo4003.domain.parking.exception.InvalidParkingStickerCodeException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,10 +22,18 @@ public class ParkingStickerCodeAssemblerTest {
   }
 
   @Test
-  public void whenAssembling_thenReturnParkingCode() {
+  public void whenAssembling_thenReturnParkingCodeDto() {
     ParkingStickerCodeDto parkingStickerCodeDto =
         parkingStickerCodeAssembler.assemble(PARKING_STICKER_CODE);
 
     Truth.assertThat(parkingStickerCodeDto.code).isEqualTo(PARKING_STICKER_CODE.toString());
+  }
+
+  @Test(expected = InvalidParkingStickerCodeException.class)
+  public void givenNullParkingStickerCode_whenAssembling_thenThrowInvalidParkingStickerCode() {
+    ParkingStickerCodeDto parkingStickerCodeDto = new ParkingStickerCodeDto();
+    parkingStickerCodeDto.code = null;
+
+    parkingStickerCodeAssembler.assemble(parkingStickerCodeDto);
   }
 }

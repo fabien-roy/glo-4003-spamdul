@@ -23,7 +23,7 @@ public class ParkingServiceTest {
   @Mock private ParkingStickerDto parkingStickerDto;
   @Mock private ParkingStickerCodeDto parkingStickerCodeDto;
   @Mock private ParkingStickerAssembler parkingStickerAssembler;
-  @Mock private ParkingAccessDayAssembler parkingAccessDayAssembler;
+  @Mock private AccessStatusAssembler accessStatusAssembler;
   @Mock private ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   @Mock private ParkingStickerFactory parkingStickerFactory;
   @Mock private AccountRepository accountRepository;
@@ -45,7 +45,7 @@ public class ParkingServiceTest {
             accountRepository,
             parkingAreaRepository,
             parkingStickerRepository,
-            parkingAccessDayAssembler);
+            accessStatusAssembler);
     LocalDate date = LocalDate.now();
     String dayOfWeek = date.getDayOfWeek().toString();
     parkingSticker = aParkingSticker().withValidDay(dayOfWeek).build();
@@ -135,7 +135,7 @@ public class ParkingServiceTest {
       givenValidParkingStickerCode_whenValidateParkingStickerCode_thenAccessGrantedResponseIsReturned() {
     parkingService.validateParkingStickerCode(parkingStickerCodeDto);
 
-    Mockito.verify(parkingAccessDayAssembler).assemble(eq(AccessStatus.ACCESS_GRANTED.toString()));
+    Mockito.verify(accessStatusAssembler).assemble(eq(AccessStatus.ACCESS_GRANTED.toString()));
   }
 
   @Test
@@ -147,6 +147,6 @@ public class ParkingServiceTest {
 
     parkingService.validateParkingStickerCode(parkingStickerCodeDto);
 
-    Mockito.verify(parkingAccessDayAssembler).assemble(eq(AccessStatus.ACCESS_REFUSED.toString()));
+    Mockito.verify(accessStatusAssembler).assemble(eq(AccessStatus.ACCESS_REFUSED.toString()));
   }
 }

@@ -15,7 +15,7 @@ public class ParkingService {
   private final Logger logger = Logger.getLogger(ParkingService.class.getName());
   private final ParkingStickerAssembler parkingStickerAssembler;
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
-  private final ParkingAccessDayAssembler parkingAccessDayAssembler;
+  private final AccessStatusAssembler accessStatusAssembler;
   private final ParkingStickerFactory parkingStickerFactory;
   private final AccountRepository accountRepository;
   private final ParkingAreaRepository parkingAreaRepository;
@@ -29,10 +29,10 @@ public class ParkingService {
       AccountRepository accountRepository,
       ParkingAreaRepository parkingAreaRepository,
       ParkingStickerRepository parkingStickerRepository,
-      ParkingAccessDayAssembler parkingAccessDayAssembler) {
+      AccessStatusAssembler accessStatusAssembler) {
     this.parkingStickerAssembler = parkingStickerAssembler;
     this.parkingStickerCodeAssembler = parkingStickerCodeAssembler;
-    this.parkingAccessDayAssembler = parkingAccessDayAssembler;
+    this.accessStatusAssembler = accessStatusAssembler;
     this.parkingStickerFactory = parkingStickerFactory;
     this.accountRepository = accountRepository;
     this.parkingAreaRepository = parkingAreaRepository;
@@ -70,8 +70,8 @@ public class ParkingService {
     String dayOfWeek = date.getDayOfWeek().toString();
 
     if (!foundParkingSticker.validateParkingStickerDay(Days.get(dayOfWeek)))
-      return parkingAccessDayAssembler.assemble(AccessStatus.ACCESS_REFUSED.toString());
+      return accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED.toString());
 
-    return parkingAccessDayAssembler.assemble(AccessStatus.ACCESS_GRANTED.toString());
+    return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED.toString());
   }
 }
