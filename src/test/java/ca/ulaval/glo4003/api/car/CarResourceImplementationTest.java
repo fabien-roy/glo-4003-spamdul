@@ -5,7 +5,6 @@ import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.api.car.dto.CarDTO;
 import ca.ulaval.glo4003.domain.car.CarService;
-import ca.ulaval.glo4003.domain.car.CarValidator;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,20 +16,17 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class CarResourceImplementationTest {
 
   private static final int ACCOUNT_ID = 777;
-  private static final int STATUS_OK = 200;
 
   @Mock private CarService carService;
 
-  @Mock private CarValidator carValidator;
-
   private CarDTO carDTO;
 
-  private CarResourceImplementation carResource;
+  private CarResource carResource;
 
   @Before
   public void setup() {
-    carDTO = new CarDTO("Toyota", "Corolla", 2002, "C4R1SK3WL");
     carResource = new CarResourceImplementation(carService);
+    carDTO = new CarDTO("Toyota", "Corolla", 2002, "C4R1SK3WL");
   }
 
   @Test
@@ -41,9 +37,9 @@ public class CarResourceImplementationTest {
   }
 
   @Test
-  public void whenAddingCar_shouldReturnOk() {
+  public void whenAddingCar_thenRespondWithCreatedStatus() {
     Response response = carResource.addCar(ACCOUNT_ID, carDTO);
 
-    assertThat(response.getStatus()).isEqualTo(STATUS_OK);
+    assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
   }
 }

@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.api.interfaces.dto;
 
-public class RestErrorDto {
+public class ErrorDto {
   public String error;
   public String description;
 

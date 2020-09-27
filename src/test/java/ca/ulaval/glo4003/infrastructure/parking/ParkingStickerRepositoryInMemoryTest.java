@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerBuilder.aPa
 
 import ca.ulaval.glo4003.domain.parking.ParkingSticker;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerRepository;
-import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerCodeException;
+import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class ParkingStickerRepositoryInMemoryTest {
     Truth.assertThat(foundParkingSticker).isSameInstanceAs(parkingSticker);
   }
 
-  @Test(expected = NotFoundParkingStickerCodeException.class)
+  @Test(expected = NotFoundParkingStickerException.class)
   public void
       givenNonExistentParkingStickerCode_whenGettingParkingSticker_thenThrowNotFoundParkingStickerCodeException() {
     parkingStickerRepository.findByCode(parkingSticker.getCode());
