@@ -9,7 +9,6 @@ import ca.ulaval.glo4003.api.user.UserResourceImplementation;
 import ca.ulaval.glo4003.domain.account.*;
 import ca.ulaval.glo4003.domain.car.CarAssembler;
 import ca.ulaval.glo4003.domain.car.CarService;
-import ca.ulaval.glo4003.domain.car.CarValidator;
 import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.*;
 import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
@@ -84,7 +83,6 @@ public class ApplicationBinder extends AbstractBinder {
   private void configureCar() {
     bind(CarResourceImplementation.class).to(CarResource.class);
 
-    bindAsContract(CarValidator.class);
     bindAsContract(CarAssembler.class);
     bindAsContract(CarService.class);
   }

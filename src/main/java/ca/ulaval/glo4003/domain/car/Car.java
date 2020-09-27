@@ -1,13 +1,15 @@
 package ca.ulaval.glo4003.domain.car;
 
+import ca.ulaval.glo4003.domain.car.LicensePlate.LicensePlate;
+
 public class Car {
 
   private String manufacturer;
   private String model;
   private int year;
-  private String licensePlate;
+  private LicensePlate licensePlate;
 
-  public Car(String manufacturer, String model, int year, String licensePlate) {
+  public Car(String manufacturer, String model, int year, LicensePlate licensePlate) {
     this.manufacturer = manufacturer;
     this.model = model;
     this.year = year;
@@ -26,7 +28,7 @@ public class Car {
     return year;
   }
 
-  public String getLicensePlate() {
+  public LicensePlate getLicensePlate() {
     return licensePlate;
   }
 }
