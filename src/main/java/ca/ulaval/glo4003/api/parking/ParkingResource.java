@@ -16,5 +16,5 @@ public interface ParkingResource {
 
   @GET
   @Consumes(MediaType.APPLICATION_JSON)
-  String validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto);
+  Response validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto);
 }

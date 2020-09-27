@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.api.parking;
 
+import ca.ulaval.glo4003.api.parking.dto.AccessStatusDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.parking.ParkingService;
@@ -26,7 +27,12 @@ public class ParkingResourceImplementation implements ParkingResource {
   }
 
   @Override
-  public String validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto) {
-    return parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+  public Response validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto) {
+    AccessStatusDto accessStatusDto =
+        parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+    return Response.status(Response.Status.ACCEPTED)
+        .entity(accessStatusDto)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
   }
 }

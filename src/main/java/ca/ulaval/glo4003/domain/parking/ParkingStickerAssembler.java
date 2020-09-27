@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.domain.parking;
 
+import ca.ulaval.glo4003.api.parking.dto.AccessStatusDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.AccountId;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
@@ -39,5 +40,11 @@ public class ParkingStickerAssembler {
     if (receptionMethod.equals(ReceptionMethods.POSTAL) && postalCode == null) {
       throw new MissingPostalCodeException();
     }
+  }
+
+  public AccessStatusDto assemble(String status) {
+    AccessStatusDto accessStatusDto = new AccessStatusDto();
+    accessStatusDto.accessStatus = status;
+    return accessStatusDto;
   }
 }
