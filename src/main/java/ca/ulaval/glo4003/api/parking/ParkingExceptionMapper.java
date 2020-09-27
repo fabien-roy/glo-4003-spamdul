@@ -14,16 +14,15 @@ public class ParkingExceptionMapper implements ExceptionMapper<ParkingException>
   public Response toResponse(ParkingException exception) {
     Response.Status responseStatus = Response.Status.INTERNAL_SERVER_ERROR;
 
-    if (exception instanceof InvalidReceptionMethodException) {
+    if (exception instanceof InvalidParkingAreaCodeException) {
       responseStatus = Response.Status.BAD_REQUEST;
-    }
-    if (exception instanceof MissingPostalCodeException) {
+    } else if (exception instanceof InvalidReceptionMethodException) {
       responseStatus = Response.Status.BAD_REQUEST;
-    }
-    if (exception instanceof NotFoundParkingAreaException) {
+    } else if (exception instanceof MissingPostalCodeException) {
+      responseStatus = Response.Status.BAD_REQUEST;
+    } else if (exception instanceof NotFoundParkingAreaException) {
       responseStatus = Response.Status.NOT_FOUND;
-    }
-    if (exception instanceof NotFoundParkingStickerException) {
+    } else if (exception instanceof NotFoundParkingStickerException) {
       responseStatus = Response.Status.NOT_FOUND;
     }
 

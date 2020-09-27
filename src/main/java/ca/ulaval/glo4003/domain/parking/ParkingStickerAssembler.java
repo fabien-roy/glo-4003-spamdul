@@ -11,12 +11,16 @@ import javax.inject.Inject;
 
 public class ParkingStickerAssembler {
   private final AccountIdAssembler accountIdAssembler;
+  private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   private final PostalCodeAssembler postalCodeAssembler;
 
   @Inject
   public ParkingStickerAssembler(
-      AccountIdAssembler accountIdAssembler, PostalCodeAssembler postalCodeAssembler) {
+      AccountIdAssembler accountIdAssembler,
+      ParkingAreaCodeAssembler parkingAreaCodeAssembler,
+      PostalCodeAssembler postalCodeAssembler) {
     this.accountIdAssembler = accountIdAssembler;
+    this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
     this.postalCodeAssembler = postalCodeAssembler;
   }
 
@@ -25,11 +29,13 @@ public class ParkingStickerAssembler {
     validateReceptionMethod(receptionMethod, parkingStickerDto.postalCode);
 
     AccountId accountId = accountIdAssembler.assemble(parkingStickerDto.accountId);
+    ParkingAreaCode parkingAreaCode =
+        parkingAreaCodeAssembler.assemble(parkingStickerDto.parkingArea);
     PostalCode postalCode = postalCodeAssembler.assemble(parkingStickerDto.postalCode);
 
     return new ParkingSticker(
         accountId,
-        new ParkingAreaCode(parkingStickerDto.parkingArea),
+        parkingAreaCode,
         receptionMethod,
         postalCode,
         Days.get(parkingStickerDto.validDay));
