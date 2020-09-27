@@ -1,18 +1,18 @@
-package ca.ulaval.glo4003.api.contact;
+package ca.ulaval.glo4003.api.location;
 
 import ca.ulaval.glo4003.api.interfaces.dto.ErrorDto;
-import ca.ulaval.glo4003.domain.contact.exception.ContactException;
+import ca.ulaval.glo4003.domain.location.exception.LocationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class ContactExceptionMapper implements ExceptionMapper<ContactException> {
+public class LocationExceptionMapper implements ExceptionMapper<LocationException> {
 
   @Override
-  public Response toResponse(ContactException exception) {
-    Response.Status responseStatus = Response.Status.NOT_FOUND;
+  public Response toResponse(LocationException exception) {
+    Response.Status responseStatus = Response.Status.BAD_REQUEST;
 
     ErrorDto errorDto = new ErrorDto();
     errorDto.error = exception.error;
