@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
-import ca.ulaval.glo4003.domain.parking.exception.InvalidParkingStickerAccessDayException;
+import ca.ulaval.glo4003.domain.parking.exception.AccessNotAllowedException;
 import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerException;
 import ca.ulaval.glo4003.domain.time.Days;
 import java.time.LocalDate;
@@ -68,7 +68,7 @@ public class ParkingService {
     String dayOfWeek = date.getDayOfWeek().toString();
 
     if (!foundParkingSticker.validateParkingStickerDay(Days.get(dayOfWeek)))
-      throw new InvalidParkingStickerAccessDayException();
+      throw new AccessNotAllowedException();
 
     return parkingStickerAssembler.assemble("Access granted");
   }

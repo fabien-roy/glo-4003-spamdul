@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
-import ca.ulaval.glo4003.domain.parking.exception.InvalidParkingStickerAccessDayException;
+import ca.ulaval.glo4003.domain.parking.exception.AccessNotAllowedException;
 import com.google.common.truth.Truth;
 import java.time.LocalDate;
 import org.junit.Before;
@@ -136,7 +136,7 @@ public class ParkingServiceTest {
         .isEqualTo("Access granted");
   }
 
-  @Test(expected = InvalidParkingStickerAccessDayException.class)
+  @Test(expected = AccessNotAllowedException.class)
   public void
       givenInvalidParkingStickerCode_whenValidateParkingStickerCode_thenThrowInvalidParkingStickerDayException() {
     ParkingSticker invalidParkingStickerDay = aParkingSticker().withValidDay("friday").build();
