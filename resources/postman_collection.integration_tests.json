@@ -49,7 +49,7 @@
 					"response": []
 				},
 				{
-					"name": "Add parking sticker",
+					"name": "Add parking sticker (granted for day)",
 					"event": [
 						{
 							"listen": "test",
@@ -58,6 +58,90 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6f658fb1-dae5-48f1-92d0-ec2b95728911",
+								"exec": [
+									"var d = new Date();",
+									"var weekday = new Array(7);",
+									"weekday[0] = \"sunday\";",
+									"weekday[1] = \"monday\";",
+									"weekday[2] = \"tuesday\";",
+									"weekday[3] = \"wednesday\";",
+									"weekday[4] = \"thursday\";",
+									"weekday[5] = \"friday\";",
+									"weekday[6] = \"saturday\";",
+									"",
+									"postman.setEnvironmentVariable(\"request.parkingSticker.validDay\", weekday[d.getDay()]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/parkings",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"parkings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add parking sticker (refused for day)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ff9ccb7d-194f-48c5-a6f5-e05c9dbc950c",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.refusedParkingStickerCode\", jsonData.parkingStickerCode);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1644a21e-b0f0-48d1-bc71-97d10e08d877",
+								"exec": [
+									"var d = new Date();",
+									"var weekday = new Array(7);",
+									"weekday[0] = \"sunday\";",
+									"weekday[1] = \"monday\";",
+									"weekday[2] = \"tuesday\";",
+									"weekday[3] = \"wednesday\";",
+									"weekday[4] = \"thursday\";",
+									"weekday[5] = \"friday\";",
+									"weekday[6] = \"saturday\";",
+									"",
+									"var invalidWeekday = d.getDay();",
+									"if (invalidWeekday === 6) {",
+									"    invalidWeekday = 0;",
+									"}",
+									"postman.setEnvironmentVariable(\"request.parkingSticker.validDay\", weekday[invalidWeekday]);"
 								],
 								"type": "text/javascript"
 							}
@@ -2600,14 +2684,89 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{host}}/api/parkings/dcbf4b65-c58e-40c4-b974-90c47bcd421a",
+									"raw": "{{host}}/api/parkings/dcbf4b65-c58e-40c4-b974-90c47bcd421a/validate",
 									"host": [
 										"{{host}}"
 									],
 									"path": [
 										"api",
 										"parkings",
-										"dcbf4b65-c58e-40c4-b974-90c47bcd421a"
+										"dcbf4b65-c58e-40c4-b974-90c47bcd421a",
+										"validate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid parking sticker code (granted for day)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "88ae0417-ac26-48aa-8f96-df11aa70c124",
+										"exec": [
+											"pm.test(\"Returns status 202\", function () {",
+											"    pm.response.to.have.status(202);",
+											"});",
+											"",
+											"pm.test(\"Returns access status granted\", function () {",
+											"    pm.expect(pm.response.json().accessStatus).to.equal(\"Access granted\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/parkings/{{param.parkingStickerCode}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"parkings",
+										"{{param.parkingStickerCode}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid parking sticker code (granted for day) Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0927e0e7-0d37-4863-9060-b27d7a0651c7",
+										"exec": [
+											"pm.test(\"Returns status 403\", function () {",
+											"    pm.response.to.have.status(403);",
+											"});",
+											"",
+											"pm.test(\"Returns access status granted\", function () {",
+											"    pm.expect(pm.response.json().accessStatus).to.equal(\"Access refused\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/parkings/{{param.refusedParkingStickerCode}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"parkings",
+										"{{param.refusedParkingStickerCode}}"
 									]
 								}
 							},
