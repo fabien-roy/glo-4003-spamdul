@@ -5,8 +5,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.api.car.dto.CarDto;
-import ca.ulaval.glo4003.domain.car.LicensePlate.LicensePlate;
-import ca.ulaval.glo4003.domain.car.LicensePlate.LicensePlateAssembler;
 import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarYearException;
 import org.junit.Before;
 import org.junit.Test;

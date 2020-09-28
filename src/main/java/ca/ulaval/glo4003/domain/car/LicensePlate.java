@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.car.LicensePlate;
+package ca.ulaval.glo4003.domain.car;
 
 public class LicensePlate {
   private String licensePlate;

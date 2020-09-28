@@ -1,7 +1,5 @@
 package ca.ulaval.glo4003.domain.car;
 
-import ca.ulaval.glo4003.domain.car.LicensePlate.LicensePlate;
-
 public class Car {
 
   private String manufacturer;

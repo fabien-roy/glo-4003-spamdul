@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.car.LicensePlate;
+package ca.ulaval.glo4003.domain.car;
 
 import static com.google.common.truth.Truth.assertThat;
 
