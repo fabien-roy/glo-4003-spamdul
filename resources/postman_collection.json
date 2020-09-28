@@ -158,14 +158,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/parkings/{{param.parkingStickerCode}}",
+					"raw": "{{host}}/api/parkings/{{param.parkingStickerCode}}/validate",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"api",
 						"parkings",
-						"{{param.parkingStickerCode}}"
+						"{{param.parkingStickerCode}}",
+						"validate"
 					]
 				}
 			},

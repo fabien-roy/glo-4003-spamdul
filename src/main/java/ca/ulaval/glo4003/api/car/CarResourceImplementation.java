@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 
 public class CarResourceImplementation implements CarResource {
 
-  private CarService carService;
+  private final CarService carService;
 
   @Inject
   public CarResourceImplementation(CarService carService) {

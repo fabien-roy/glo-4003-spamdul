@@ -29,9 +29,9 @@ public class ApplicationBinder extends AbstractBinder {
   @Override
   protected void configure() {
     configureUser();
+    configureAccount();
     configureParking();
     configureCar();
-    configureAccount();
     configureLocation();
     configureTime();
   }
@@ -54,19 +54,19 @@ public class ApplicationBinder extends AbstractBinder {
 
   private void configureParking() {
     bind(ParkingResourceImplementation.class).to(ParkingResource.class);
+
     bind(createParkingAreaRepository()).to(ParkingAreaRepository.class);
     bind(ParkingStickerRepositoryInMemory.class)
         .to(ParkingStickerRepository.class)
         .in(Singleton.class);
 
+    bindAsContract(ParkingStickerCodeGenerator.class);
     bindAsContract(ParkingAreaCodeAssembler.class);
     bindAsContract(ParkingStickerAssembler.class);
     bindAsContract(ParkingStickerCodeAssembler.class);
     bindAsContract(AccessStatusAssembler.class);
-    bindAsContract(ParkingStickerCodeGenerator.class);
     bindAsContract(ParkingStickerFactory.class);
     bindAsContract(ParkingService.class);
-    bindAsContract(ParkingStickerFactory.class);
   }
 
   private ParkingAreaRepository createParkingAreaRepository() {

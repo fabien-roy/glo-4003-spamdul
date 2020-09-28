@@ -56,7 +56,7 @@ public class ParkingResourceImplementationTest {
 
   @Test
   public void whenValidateParkingStickerCode_thenValidateParkingStickerCodeToService() {
-    Response response = parkingResource.validateParkingStickerCode(parkingStickerCode);
+    Response response = parkingResource.validateParkingSticker(parkingStickerCode);
     AccessStatusDto receivedAccessStatusDto = (AccessStatusDto) response.getEntity();
 
     Truth.assertThat(receivedAccessStatusDto.accessStatus).isEqualTo(accessStatusDto.accessStatus);
@@ -69,7 +69,7 @@ public class ParkingResourceImplementationTest {
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_GRANTED.toString()).build();
     when(parkingService.validateParkingStickerCode(parkingStickerCode)).thenReturn(accessStatusDto);
 
-    Response response = parkingResource.validateParkingStickerCode(parkingStickerCode);
+    Response response = parkingResource.validateParkingSticker(parkingStickerCode);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.ACCEPTED.getStatusCode());
   }
@@ -81,7 +81,7 @@ public class ParkingResourceImplementationTest {
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_REFUSED.toString()).build();
     when(parkingService.validateParkingStickerCode(parkingStickerCode)).thenReturn(accessStatusDto);
 
-    Response response = parkingResource.validateParkingStickerCode(parkingStickerCode);
+    Response response = parkingResource.validateParkingSticker(parkingStickerCode);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.FORBIDDEN.getStatusCode());
   }
