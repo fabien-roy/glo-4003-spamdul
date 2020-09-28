@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.domain.bill.exceptions.InvalidTimeException;
 import ca.ulaval.glo4003.domain.bill.exceptions.InvalidZoneException;
 import ca.ulaval.glo4003.domain.file.FileHelper;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CSVBillingZoneHelper {
@@ -19,6 +20,17 @@ public class CSVBillingZoneHelper {
     List<List<String>> csvData = fileHelper.getCsvFileInJavaFormat(csvFraisZonePath);
     int columnNumber = findColumnNumberForZonePrice(time, csvData.get(0));
     return findPriceForSpecificColumnNumberAndZone(columnNumber, zone, csvData);
+  }
+
+  public List<String> getAllZones() {
+    List<String> zones = new ArrayList<>();
+    List<List<String>> csvData = fileHelper.getCsvFileInJavaFormat(csvFraisZonePath);
+
+    for (int i = 1; i < csvData.size(); i++) {
+      zones.add(csvData.get(i).get(0));
+    }
+
+    return zones;
   }
 
   private float findPriceForSpecificColumnNumberAndZone(

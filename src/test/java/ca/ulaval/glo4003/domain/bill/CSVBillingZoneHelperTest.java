@@ -43,6 +43,12 @@ public class CSVBillingZoneHelperTest {
     Truth.assertThat(price).isEqualTo(103f);
   }
 
+  @Test
+  public void whenGettingAllZones_thenReturnAllZones() {
+    List<String> zones = csvBillingZoneHelper.getAllZones();
+    Truth.assertThat(zones).contains(defaultZone);
+  }
+
   @Test(expected = InvalidTimeException.class)
   public void whenBillingAZoneForAnInvalidTime_thenThrowInvalidTimeException() {
     csvBillingZoneHelper.getZonePrice(defaultZone, "invalid");
