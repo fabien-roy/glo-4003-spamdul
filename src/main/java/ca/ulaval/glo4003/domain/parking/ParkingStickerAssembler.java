@@ -7,20 +7,18 @@ import ca.ulaval.glo4003.domain.location.PostalCode;
 import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.exception.MissingPostalCodeException;
 import ca.ulaval.glo4003.domain.time.Days;
-import javax.inject.Inject;
 
 public class ParkingStickerAssembler {
-  private final AccountIdAssembler accountIdAssembler;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
+  private final AccountIdAssembler accountIdAssembler;
   private final PostalCodeAssembler postalCodeAssembler;
 
-  @Inject
   public ParkingStickerAssembler(
-      AccountIdAssembler accountIdAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
+      AccountIdAssembler accountIdAssembler,
       PostalCodeAssembler postalCodeAssembler) {
-    this.accountIdAssembler = accountIdAssembler;
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
+    this.accountIdAssembler = accountIdAssembler;
     this.postalCodeAssembler = postalCodeAssembler;
   }
 
