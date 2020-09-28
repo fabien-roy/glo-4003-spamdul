@@ -34,9 +34,9 @@ public class ParkingResourceImplementation implements ParkingResource {
 
     Response.Status status;
     if (AccessStatus.ACCESS_REFUSED.toString().equals(accessStatusDto.accessStatus)) {
-      status = (Response.Status.FORBIDDEN);
+      status = Response.Status.FORBIDDEN;
     } else {
-      status = (Response.Status.ACCEPTED);
+      status = Response.Status.ACCEPTED;
     }
 
     return Response.status(status).entity(accessStatusDto).type(MediaType.APPLICATION_JSON).build();

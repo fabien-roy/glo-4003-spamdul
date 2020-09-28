@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.domain.parking;
 
+import static ca.ulaval.glo4003.domain.parking.AccessStatus.ACCESS_GRANTED;
+
 import ca.ulaval.glo4003.api.parking.dto.AccessStatusDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;
@@ -19,8 +21,8 @@ public class AccessStatusAssemblerTest {
 
   @Test
   public void whenAssembling_thenReturnAccessStatusDTO() {
-    AccessStatusDto accessStatusDto = accessStatusAssembler.assemble("Access granted");
+    AccessStatusDto accessStatusDto = accessStatusAssembler.assemble(ACCESS_GRANTED.toString());
 
-    Truth.assertThat(accessStatusDto.accessStatus).isEqualTo("Access granted");
+    Truth.assertThat(accessStatusDto.accessStatus).isEqualTo(ACCESS_GRANTED.toString());
   }
 }

@@ -33,7 +33,7 @@ public class ParkingStickerCodeAssemblerTest {
   @Test(expected = InvalidParkingStickerCodeException.class)
   public void givenNullParkingStickerCode_whenAssembling_thenThrowInvalidParkingStickerCode() {
     ParkingStickerCodeDto parkingStickerCodeDto = new ParkingStickerCodeDto();
-    parkingStickerCodeDto.code = null;
+    parkingStickerCodeDto.parkingStickerCode = null;
 
     parkingStickerCodeAssembler.assemble(parkingStickerCodeDto);
   }

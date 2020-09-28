@@ -5,7 +5,7 @@ import java.util.Map;
 
 public enum AccessStatus {
   ACCESS_GRANTED("Access granted"),
-  ACCESS_REFUSED("Access_refused");
+  ACCESS_REFUSED("Access refused");
 
   private String status;
   private static final Map<String, AccessStatus> lookup = new HashMap<>();
