@@ -26,7 +26,8 @@ public class ParkingStickerCodeAssemblerTest {
     ParkingStickerCodeDto parkingStickerCodeDto =
         parkingStickerCodeAssembler.assemble(PARKING_STICKER_CODE);
 
-    Truth.assertThat(parkingStickerCodeDto.code).isEqualTo(PARKING_STICKER_CODE.toString());
+    Truth.assertThat(parkingStickerCodeDto.parkingStickerCode)
+        .isEqualTo(PARKING_STICKER_CODE.toString());
   }
 
   @Test(expected = InvalidParkingStickerCodeException.class)

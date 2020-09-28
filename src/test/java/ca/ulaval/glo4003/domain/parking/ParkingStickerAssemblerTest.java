@@ -6,6 +6,7 @@ import static ca.ulaval.glo4003.domain.location.helpers.PostalCodeMother.createP
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createReceptionMethod;
 import static ca.ulaval.glo4003.domain.time.helpers.DayMother.createDay;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.AccountId;
@@ -20,7 +21,6 @@ import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -33,6 +33,7 @@ public class ParkingStickerAssemblerTest {
   private static final Days VALID_DAY = createDay();
 
   @Mock private AccountIdAssembler accountIdAssembler;
+  @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   @Mock private PostalCodeAssembler postalCodeAssembler;
 
   private ParkingStickerDto parkingStickerDto;
@@ -41,10 +42,13 @@ public class ParkingStickerAssemblerTest {
 
   @Before
   public void setUp() {
-    parkingStickerAssembler = new ParkingStickerAssembler(accountIdAssembler, postalCodeAssembler);
+    parkingStickerAssembler =
+        new ParkingStickerAssembler(
+            accountIdAssembler, parkingAreaCodeAssembler, postalCodeAssembler);
 
-    BDDMockito.given(accountIdAssembler.assemble(ACCOUNT_ID.toString())).willReturn(ACCOUNT_ID);
-    BDDMockito.given(postalCodeAssembler.assemble(POSTAL_CODE.toString())).willReturn(POSTAL_CODE);
+    when(accountIdAssembler.assemble(ACCOUNT_ID.toString())).thenReturn(ACCOUNT_ID);
+    when(parkingAreaCodeAssembler.assemble(PARKING_AREA.toString())).thenReturn(PARKING_AREA);
+    when(postalCodeAssembler.assemble(POSTAL_CODE.toString())).thenReturn(POSTAL_CODE);
 
     parkingStickerDto =
         aParkingStickerDto()

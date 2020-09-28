@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.domain.parking.exception.InvalidParkingStickerCodeExcep
 public class ParkingStickerCodeAssembler {
   public ParkingStickerCodeDto assemble(ParkingStickerCode parkingStickerCode) {
     ParkingStickerCodeDto parkingStickerCodeDto = new ParkingStickerCodeDto();
-    parkingStickerCodeDto.code = parkingStickerCode.toString();
+    parkingStickerCodeDto.parkingStickerCode = parkingStickerCode.toString();
     return parkingStickerCodeDto;
   }
 
