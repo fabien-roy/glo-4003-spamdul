@@ -6,8 +6,8 @@ import javax.inject.Inject;
 
 public class CarService {
 
-  private CarAssembler carAssembler;
-  private AccountService accountService;
+  private final CarAssembler carAssembler;
+  private final AccountService accountService;
 
   @Inject
   public CarService(CarAssembler carAssembler, AccountService accountService) {
