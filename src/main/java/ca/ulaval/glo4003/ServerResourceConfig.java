@@ -11,7 +11,7 @@ public class ServerResourceConfig extends ResourceConfig {
 
     ApplicationResourceConfig applicationResourceConfig = new ApplicationResourceConfig();
     register(applicationResourceConfig.createCarResource());
-    register(applicationResourceConfig.createContactResource());
+    register(applicationResourceConfig.createContactResource()); // TODO : Remove Contact
     register(applicationResourceConfig.createUserResource());
     register(applicationResourceConfig.createParkingResource());
   }

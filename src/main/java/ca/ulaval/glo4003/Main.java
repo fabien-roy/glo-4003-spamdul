@@ -1,14 +1,5 @@
 package ca.ulaval.glo4003;
 
-import ca.ulaval.glo4003.api.contact.ContactResource;
-import ca.ulaval.glo4003.api.contact.ContactResourceImplementation;
-import ca.ulaval.glo4003.domain.contact.Contact;
-import ca.ulaval.glo4003.domain.contact.ContactAssembler;
-import ca.ulaval.glo4003.domain.contact.ContactRepository;
-import ca.ulaval.glo4003.domain.contact.ContactService;
-import ca.ulaval.glo4003.infrastructure.contact.ContactFakeFactory;
-import ca.ulaval.glo4003.infrastructure.contact.ContactRepositoryInMemory;
-import java.util.List;
 import java.util.Optional;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -28,8 +19,6 @@ public class Main {
           + "\nINFO: Using the default one (%d).";
 
   public static void main(String[] args) throws Exception {
-    ContactResource contactResource = createContactResource(); // TODO : Remove demo Contact logic
-
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
 
@@ -67,20 +56,5 @@ public class Main {
   private static Integer useDefaultPort() {
     System.out.println(String.format(MISSING_PORT_WARNING_MESSAGE, PORT_ENV_VAR, DEFAULT_PORT));
     return DEFAULT_PORT;
-  }
-
-  private static ContactResource createContactResource() {
-    ContactRepository contactRepository = new ContactRepositoryInMemory();
-
-    if (isDev) {
-      ContactFakeFactory contactFakeFactory = new ContactFakeFactory();
-      List<Contact> contacts = contactFakeFactory.createMockData();
-      contacts.stream().forEach(contactRepository::save);
-    }
-
-    ContactAssembler contactAssembler = new ContactAssembler();
-    ContactService contactService = new ContactService(contactRepository, contactAssembler);
-
-    return new ContactResourceImplementation(contactService);
   }
 }
