@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.api.parking;
 
-import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -16,5 +15,6 @@ public interface ParkingResource {
 
   @GET
   @Consumes(MediaType.APPLICATION_JSON)
-  Response validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto);
+  @Path("{parkingStickerCode}")
+  Response validateParkingStickerCode(@PathParam("parkingStickerCode") String parkingStickerCode);
 }

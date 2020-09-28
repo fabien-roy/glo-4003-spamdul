@@ -129,6 +129,49 @@
 			"response": []
 		},
 		{
+			"name": "Validate parking sticker",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "38d14fa5-7bc5-49f5-86e3-f40c943f96db",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/parkings/{{param.parkingStickerCode}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"parkings",
+						"{{param.parkingStickerCode}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Add car",
 			"event": [
 				{

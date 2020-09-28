@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.domain.parking;
 import static ca.ulaval.glo4003.domain.account.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerBuilder.aParkingSticker;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
@@ -13,7 +14,6 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -52,16 +52,14 @@ public class ParkingServiceTest {
     parkingStickerCode = parkingSticker.getCode();
     account = anAccount().build();
 
-    BDDMockito.given(parkingStickerAssembler.assemble(parkingStickerDto))
-        .willReturn(parkingSticker);
-    BDDMockito.given(parkingStickerCodeAssembler.assemble(parkingSticker.getCode()))
-        .willReturn(parkingStickerCodeDto);
-    BDDMockito.given(accountRepository.findById(parkingSticker.getAccountId())).willReturn(account);
-    BDDMockito.given(parkingStickerFactory.create(parkingSticker)).willReturn(parkingSticker);
-    BDDMockito.given(parkingStickerCodeAssembler.assemble(parkingStickerCodeDto))
-        .willReturn(parkingStickerCode);
-    BDDMockito.given(parkingStickerRepository.findByCode(parkingStickerCode))
-        .willReturn(parkingSticker);
+    when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
+    when(parkingStickerCodeAssembler.assemble(parkingSticker.getCode()))
+        .thenReturn(parkingStickerCodeDto);
+    when(accountRepository.findById(parkingSticker.getAccountId())).thenReturn(account);
+    when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
+    when(parkingStickerCodeAssembler.assemble(parkingStickerCode.toString()))
+        .thenReturn(parkingStickerCode);
+    when(parkingStickerRepository.findByCode(parkingStickerCode)).thenReturn(parkingSticker);
   }
 
   @Test
@@ -117,15 +115,15 @@ public class ParkingServiceTest {
   @Test
   public void
       givenParkingStickerCode_whenValidateParkingStickerCode_thenParkingStickerCodeAssemblerIsCalled() {
-    parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+    parkingService.validateParkingStickerCode(parkingStickerCode.toString());
 
-    Mockito.verify(parkingStickerCodeAssembler).assemble(eq(parkingStickerCodeDto));
+    Mockito.verify(parkingStickerCodeAssembler).assemble(eq(parkingStickerCode.toString()));
   }
 
   @Test
   public void
       givenParkingStickerCode_whenValidateParkingStickerCode_thenParkingStickerRepositoryIsCalled() {
-    parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+    parkingService.validateParkingStickerCode(parkingStickerCode.toString());
 
     Mockito.verify(parkingStickerRepository).findByCode(eq(parkingStickerCode));
   }
@@ -133,7 +131,7 @@ public class ParkingServiceTest {
   @Test
   public void
       givenValidParkingStickerCode_whenValidateParkingStickerCode_thenAccessGrantedResponseIsReturned() {
-    parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+    parkingService.validateParkingStickerCode(parkingStickerCode.toString());
 
     Mockito.verify(accessStatusAssembler).assemble(eq(AccessStatus.ACCESS_GRANTED.toString()));
   }
@@ -141,11 +139,12 @@ public class ParkingServiceTest {
   @Test
   public void
       givenInvalidParkingStickerCode_whenValidateParkingStickerCode_thenAccessRefusedResponseIsReturned() {
-    ParkingSticker invalidParkingStickerDay = aParkingSticker().withValidDay("friday").build();
-    BDDMockito.given(parkingStickerRepository.findByCode(parkingStickerCode))
-        .willReturn(invalidParkingStickerDay);
+    ParkingSticker invalidParkingStickerDay =
+        aParkingSticker().withValidDay("friday").build(); // TODO : Do not hardcore "friday"
+    when(parkingStickerRepository.findByCode(parkingStickerCode))
+        .thenReturn(invalidParkingStickerDay);
 
-    parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+    parkingService.validateParkingStickerCode(parkingStickerCode.toString());
 
     Mockito.verify(accessStatusAssembler).assemble(eq(AccessStatus.ACCESS_REFUSED.toString()));
   }
