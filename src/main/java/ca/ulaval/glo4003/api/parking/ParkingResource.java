@@ -14,7 +14,7 @@ public interface ParkingResource {
   Response addParkingSticker(ParkingStickerDto parkingStickerDto);
 
   @GET
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Path("{parkingStickerCode}/validate")
-  Response validateParkingSticker(@PathParam("parkingStickerCode") String parkingStickerCode);
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("{code}/validate")
+  Response validateParkingSticker(@PathParam("code") String parkingStickerCode);
 }
