@@ -1,9 +1,6 @@
 package ca.ulaval.glo4003.injection.account;
 
-import ca.ulaval.glo4003.domain.account.AccountFactory;
-import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
-import ca.ulaval.glo4003.domain.account.AccountIdGenerator;
-import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.account.*;
 import ca.ulaval.glo4003.infrastructure.account.AccountRepositoryInMemory;
 
 public class AccountResourceConfig {
@@ -26,5 +23,9 @@ public class AccountResourceConfig {
 
   public AccountIdAssembler createAccountIdAssembler() {
     return new AccountIdAssembler();
+  }
+
+  public AccountService createAccountService() {
+    return new AccountService();
   }
 }

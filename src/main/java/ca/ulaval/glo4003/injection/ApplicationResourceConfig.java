@@ -1,9 +1,11 @@
 package ca.ulaval.glo4003.injection;
 
+import ca.ulaval.glo4003.api.car.CarResource;
 import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.parking.ParkingResource;
 import ca.ulaval.glo4003.api.user.UserResource;
 import ca.ulaval.glo4003.injection.account.AccountResourceConfig;
+import ca.ulaval.glo4003.injection.car.CarResourceConfig;
 import ca.ulaval.glo4003.injection.contact.ContactResourceConfig;
 import ca.ulaval.glo4003.injection.location.LocationResourceConfig;
 import ca.ulaval.glo4003.injection.parking.ParkingResourceConfig;
@@ -15,6 +17,7 @@ public class ApplicationResourceConfig {
   private static final boolean IS_DEV = true;
 
   private final AccountResourceConfig accountResourceConfig;
+  private final CarResourceConfig carResourceConfig;
   private final ContactResourceConfig contactResourceConfig;
   private final LocationResourceConfig locationResourceConfig;
   private final ParkingResourceConfig parkingResourceConfig;
@@ -23,11 +26,16 @@ public class ApplicationResourceConfig {
 
   public ApplicationResourceConfig() {
     accountResourceConfig = new AccountResourceConfig();
+    carResourceConfig = new CarResourceConfig();
     contactResourceConfig = new ContactResourceConfig();
     locationResourceConfig = new LocationResourceConfig();
     parkingResourceConfig = new ParkingResourceConfig();
     userResourceConfig = new UserResourceConfig();
     timeResourceConfig = new TimeResourceConfig();
+  }
+
+  public CarResource createCarResource() {
+    return carResourceConfig.createCarResource(accountResourceConfig.createAccountService());
   }
 
   public ContactResource createContactResource() {

@@ -10,6 +10,7 @@ public class ServerResourceConfig extends ResourceConfig {
     register(CORSResponseFilter.class);
 
     ApplicationResourceConfig applicationResourceConfig = new ApplicationResourceConfig();
+    register(applicationResourceConfig.createCarResource());
     register(applicationResourceConfig.createContactResource());
     register(applicationResourceConfig.createUserResource());
     register(applicationResourceConfig.createParkingResource());
