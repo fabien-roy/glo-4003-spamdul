@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.domain.car;
 
+import static ca.ulaval.glo4003.api.car.helpers.CarBuilderDtoBuilder.aCarDto;
+import static ca.ulaval.glo4003.domain.car.helpers.CarBuilder.aCar;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -14,27 +16,22 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class CarServiceTest {
 
-  private static final String AN_ACCOUNT_ID = "1";
-  private static final String A_MANUFACTURER = "Kia";
-  private static final String A_MODEL = "THEBEST";
-  private static final int A_YEAR = 1920;
-  private static final String A_LICENSE_PLATE = "HMMMMM";
+  @Mock private CarAssembler carAssembler;
+  @Mock private AccountService accountService;
 
   private CarService carService;
 
-  @Mock private CarAssembler carAssembler;
-
-  @Mock private AccountService accountService;
-
   private CarDto carDto;
-
-  @Mock private Car car;
+  private Car car;
 
   @Before
   public void setup() {
-    carDto = new CarDto(AN_ACCOUNT_ID, A_MANUFACTURER, A_MODEL, A_YEAR, A_LICENSE_PLATE);
-    when(carAssembler.create(carDto)).thenReturn(car);
     carService = new CarService(carAssembler, accountService);
+
+    carDto = aCarDto().build();
+    car = aCar().build();
+
+    when(carAssembler.create(carDto)).thenReturn(car);
   }
 
   @Test
@@ -48,6 +45,6 @@ public class CarServiceTest {
   public void whenAddingCar_shouldAddCarToAccount() {
     carService.addCar(carDto);
 
-    verify(accountService).addCarToAccount(AN_ACCOUNT_ID, car);
+    verify(accountService).addCarToAccount(carDto.accountId, car);
   }
 }

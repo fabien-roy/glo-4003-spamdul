@@ -1,11 +1,12 @@
 package ca.ulaval.glo4003.domain.car;
 
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.verify;
+import static ca.ulaval.glo4003.api.car.helpers.CarBuilderDtoBuilder.aCarDto;
+import static ca.ulaval.glo4003.domain.car.helpers.LicensePlateMother.createLicensePlate;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.api.car.dto.CarDto;
 import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarYearException;
+import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,13 +16,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class CarAssemblerTest {
 
-  private static final String ACCOUNT_ID = "1";
-  private static final String MANUFACTURER = "Toyota";
-  private static final String MODEL = "Camry";
-  private static final int YEAR = 1300;
+  private static final LicensePlate LICENSE_PLATE = createLicensePlate();
   private static final int INVALID_YEAR = 100000;
-  private static final String LICENSE_PLATE = "SPEED";
-  private LicensePlate licensePlate;
 
   private CarAssembler carAssembler;
   private CarDto carDto;
@@ -29,35 +25,45 @@ public class CarAssemblerTest {
 
   @Before
   public void setup() {
-    licensePlate = new LicensePlate(LICENSE_PLATE);
-    carDto = new CarDto(ACCOUNT_ID, MANUFACTURER, MODEL, YEAR, LICENSE_PLATE);
-
-    when(licensePlateAssembler.assemble(LICENSE_PLATE)).thenReturn(licensePlate);
-
     carAssembler = new CarAssembler(licensePlateAssembler);
+
+    carDto = aCarDto().withLicensePlate(LICENSE_PLATE.toString()).build();
+
+    when(licensePlateAssembler.assemble(LICENSE_PLATE.toString())).thenReturn(LICENSE_PLATE);
   }
 
   @Test
-  public void whenCreatingCar_shouldCallLicensePlateAssembler() {
-    carAssembler.create(carDto);
-
-    verify(licensePlateAssembler).assemble(carDto.licensePlate);
-  }
-
-  @Test
-  public void whenCreatingCar_shouldReturnACar() {
+  public void whenAssembling_shouldCarWithManufacturer() {
     Car car = carAssembler.create(carDto);
 
-    assertThat(car.getManufacturer().equals(MANUFACTURER));
-    assertThat(car.getModel().equals(MODEL));
-    assertThat(car.getYear() == YEAR);
-    assertThat(car.getLicensePlate().equals(licensePlate));
+    Truth.assertThat(car.getManufacturer()).isEqualTo(carDto.manufacturer);
+  }
+
+  @Test
+  public void whenAssembling_shouldCarWithModel() {
+    Car car = carAssembler.create(carDto);
+
+    Truth.assertThat(car.getModel()).isEqualTo(carDto.model);
+  }
+
+  @Test
+  public void whenAssembling_shouldCarWithYear() {
+    Car car = carAssembler.create(carDto);
+
+    Truth.assertThat(car.getYear()).isEqualTo(carDto.year);
+  }
+
+  @Test
+  public void whenAssembling_shouldCarWithLicensePlate() {
+    Car car = carAssembler.create(carDto);
+
+    Truth.assertThat(car.getLicensePlate().toString()).isEqualTo(carDto.licensePlate);
   }
 
   @Test(expected = InvalidCarYearException.class)
   public void givenCarWithInvalidYear_whenAssembling_shouldThrowInvalidYearException() {
-    CarDto invalidCarDto = new CarDto(ACCOUNT_ID, MANUFACTURER, MODEL, INVALID_YEAR, LICENSE_PLATE);
+    CarDto carDto = aCarDto().withYear(INVALID_YEAR).build();
 
-    carAssembler.create(invalidCarDto);
+    carAssembler.create(carDto);
   }
 }

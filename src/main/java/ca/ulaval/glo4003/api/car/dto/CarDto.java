@@ -7,12 +7,10 @@ public class CarDto {
   public int year;
   public String licensePlate;
 
-  public CarDto(
-      String accountId, String manufacturer, String model, int year, String licensePlate) {
-    this.accountId = accountId;
-    this.manufacturer = manufacturer;
-    this.model = model;
-    this.year = year;
-    this.licensePlate = licensePlate;
+  @Override
+  public String toString() {
+    return String.format(
+        "CarDto{accountId='%s', manufacturer='%s', model='%s', year='%d', licensePlate='%s'}",
+        accountId, manufacturer, model, year, licensePlate);
   }
 }
