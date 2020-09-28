@@ -4,7 +4,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.domain.bill.exceptions.InvalidTimeException;
 import ca.ulaval.glo4003.domain.bill.exceptions.InvalidZoneException;
-import ca.ulaval.glo4003.domain.file.FileHelper;
+import ca.ulaval.glo4003.domain.file.CsvHelper;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,17 +24,17 @@ public class CSVBillingZoneHelperTest {
   private final String csvFraisZonePath =
       ".\\src\\main\\java\\ca\\ulaval\\glo4003\\document\\frais-zone.csv";
   private final List<List<String>> csvFile = new ArrayList<>();
-  @Mock private FileHelper fileHelper;
+  @Mock private CsvHelper csvHelper;
 
   @Before
   public void setup() {
     csvBillingZoneHelper = new CSVBillingZoneHelper();
-    csvBillingZoneHelper.setFileHelper(fileHelper);
+    csvBillingZoneHelper.setCsvHelper(csvHelper);
 
     csvFile.add(Arrays.asList("name", defaultTime));
     csvFile.add(Arrays.asList(defaultZone, String.valueOf(price)));
 
-    when(fileHelper.getCsvFileInJavaFormat(csvFraisZonePath)).thenReturn(csvFile);
+    when(csvHelper.getCsvFileInJavaFormat(csvFraisZonePath)).thenReturn(csvFile);
   }
 
   @Test

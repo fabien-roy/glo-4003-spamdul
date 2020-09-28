@@ -27,7 +27,7 @@ public class Bill {
     this.csvBillingZoneHelper = csvBillingZoneHelper;
   }
 
-  public float getMoneyToPay() {
+  public float getAmountDue() {
     return moneyToPay;
   }
 }
