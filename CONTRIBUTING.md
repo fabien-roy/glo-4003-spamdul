@@ -78,9 +78,9 @@ Unit tests must have sections Arrange-Act-Assert separated by one blank line. Se
 
 ## Contributors
 
-- Olivier Gingras
-- Philippe Jones
-- Fabien Roy
-- Raphaël Bouchard
-- Laurence Provost
-- Jean-Christophe Bourgault
+- Olivier Gingras (olgin2)
+- Philippe Jones (ArcadeGamer)
+- Fabien Roy (ExiledNarwal28)
+- Raphaël Bouchard (raphaelbouch)
+- Laurence Provost (Lapro15)
+- Jean-Christophe Bourgault (JCBoorgo)
