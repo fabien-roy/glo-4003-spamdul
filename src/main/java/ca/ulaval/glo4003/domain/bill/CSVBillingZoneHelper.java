@@ -2,53 +2,37 @@ package ca.ulaval.glo4003.domain.bill;
 
 import ca.ulaval.glo4003.domain.bill.exceptions.InvalidTimeException;
 import ca.ulaval.glo4003.domain.bill.exceptions.InvalidZoneException;
-import ca.ulaval.glo4003.domain.file.exceptions.InvalidFileException;
+import ca.ulaval.glo4003.domain.file.FileHelper;
 import java.io.*;
+import java.util.List;
 
 public class CSVBillingZoneHelper {
   private final String csvFraisZonePath =
       ".\\src\\main\\java\\ca\\ulaval\\glo4003\\document\\frais-zone.csv";
-  private boolean isCsvFirstLine;
-  private int csvColumnNumber;
+  FileHelper fileHelper = new FileHelper();
 
   public float getZonePrice(String zone, String time) {
-    try {
-      return getZoneValueForSpecificTime(zone, time);
-    } catch (IOException ignored) {
-      throw new InvalidFileException();
-    }
+    List<List<String>> csvData = fileHelper.getCsvFileInJavaFormat(csvFraisZonePath);
+    int columnNumber = findColumnNumberForZonePrice(time, csvData.get(0));
+    return findPriceForSpecificColumnNumberAndZone(columnNumber, zone, csvData);
   }
 
-  private float getZoneValueForSpecificTime(String zone, String time) throws IOException {
-    String line;
-    isCsvFirstLine = true;
-    File file = new File(csvFraisZonePath);
-    BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-
-    while ((line = bufferedReader.readLine()) != null) {
-      String[] rowValues = line.split(",");
-      if (isCsvFirstLine) {
-        csvColumnNumber = getColumnNumberFromFirstLine(time, rowValues);
-        isCsvFirstLine = false;
-      } else {
-        if (rowValues[0].equals(zone)) {
-          return Float.parseFloat(rowValues[csvColumnNumber]);
-        }
+  private float findPriceForSpecificColumnNumberAndZone(
+      int columnNumber, String zone, List<List<String>> csvData) {
+    for (int i = 1; i < csvData.size(); i++) {
+      if (csvData.get(i).get(0).equals(zone)) {
+        return Float.parseFloat(csvData.get(i).get(columnNumber));
       }
     }
 
     throw new InvalidZoneException();
   }
 
-  private int getColumnNumberFromFirstLine(String time, String[] data) {
-    csvColumnNumber = 0;
-
-    for (String csvTime : data) {
-      if (csvTime.equals(time)) {
-        return csvColumnNumber;
+  private int findColumnNumberForZonePrice(String time, List<String> titleRow) {
+    for (int i = 0; i < titleRow.size(); i++) {
+      if (titleRow.get(i).equals(time)) {
+        return i;
       }
-
-      csvColumnNumber++;
     }
 
     throw new InvalidTimeException();
