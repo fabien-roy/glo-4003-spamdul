@@ -57,19 +57,17 @@ public class ParkingService {
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
   }
 
-  public AccessStatusDto validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto)
+  public AccessStatusDto validateParkingStickerCode(String stringCode)
       throws NotFoundParkingStickerException {
-    logger.info(String.format("Validate parking sticker code %s", parkingStickerCodeDto));
+    logger.info(String.format("Validate parking sticker code %s", stringCode));
 
-    ParkingStickerCode parkingStickerCode =
-        parkingStickerCodeAssembler.assemble(parkingStickerCodeDto);
-
-    ParkingSticker foundParkingSticker = parkingStickerRepository.findByCode(parkingStickerCode);
+    ParkingStickerCode parkingStickerCode = parkingStickerCodeAssembler.assemble(stringCode);
+    ParkingSticker parkingSticker = parkingStickerRepository.findByCode(parkingStickerCode);
 
     LocalDate date = LocalDate.now();
     String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
 
-    if (!foundParkingSticker.validateParkingStickerDay(Days.get(dayOfWeek)))
+    if (!parkingSticker.validateParkingStickerDay(Days.get(dayOfWeek)))
       return accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED.toString());
 
     return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED.toString());

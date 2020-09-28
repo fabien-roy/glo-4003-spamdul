@@ -11,9 +11,12 @@ public class ParkingStickerCodeAssembler {
   }
 
   public ParkingStickerCode assemble(ParkingStickerCodeDto parkingStickerCodeDto) {
-    if (parkingStickerCodeDto.parkingStickerCode == null)
-      throw new InvalidParkingStickerCodeException();
+    return assemble(parkingStickerCodeDto.parkingStickerCode);
+  }
 
-    return new ParkingStickerCode(parkingStickerCodeDto.parkingStickerCode);
+  public ParkingStickerCode assemble(String parkingStickerCode) {
+    if (parkingStickerCode == null) throw new InvalidParkingStickerCodeException();
+
+    return new ParkingStickerCode(parkingStickerCode);
   }
 }

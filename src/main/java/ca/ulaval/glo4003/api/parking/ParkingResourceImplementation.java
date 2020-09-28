@@ -28,9 +28,8 @@ public class ParkingResourceImplementation implements ParkingResource {
   }
 
   @Override
-  public Response validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto) {
-    AccessStatusDto accessStatusDto =
-        parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+  public Response validateParkingStickerCode(String parkingStickerCode) {
+    AccessStatusDto accessStatusDto = parkingService.validateParkingStickerCode(parkingStickerCode);
 
     Response.Status status;
     if (AccessStatus.ACCESS_REFUSED.toString().equals(accessStatusDto.accessStatus)) {

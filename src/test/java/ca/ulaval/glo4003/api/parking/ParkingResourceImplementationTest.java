@@ -1,12 +1,13 @@
 package ca.ulaval.glo4003.api.parking;
 
+import static ca.ulaval.glo4003.api.parking.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
+import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createParkingStickerCode;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.api.parking.dto.AccessStatusDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.parking.AccessStatus;
-import ca.ulaval.glo4003.domain.parking.AccessStatusAssembler;
 import ca.ulaval.glo4003.domain.parking.ParkingService;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
@@ -14,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -22,21 +22,24 @@ public class ParkingResourceImplementationTest {
   @Mock private ParkingService parkingService;
   @Mock private ParkingStickerDto parkingStickerDto;
   @Mock private ParkingStickerCodeDto parkingStickerCodeDto;
-  @Mock private AccessStatusDto accessStatusDto;
 
   private ParkingResource parkingResource;
-  private AccessStatusAssembler accessStatusAssembler;
+
+  private String parkingStickerCode = createParkingStickerCode().toString();
+  private AccessStatusDto accessStatusDto;
 
   @Before
   public void setUp() {
     parkingResource = new ParkingResourceImplementation(parkingService);
-    accessStatusAssembler = new AccessStatusAssembler();
+
+    accessStatusDto = anAccessStatusDto().build();
+
+    when(parkingService.addParkingSticker(parkingStickerDto)).thenReturn(parkingStickerCodeDto);
+    when(parkingService.validateParkingStickerCode(parkingStickerCode)).thenReturn(accessStatusDto);
   }
 
   @Test
   public void whenAddParkingSticker_thenAddParkingStickerToService() {
-    when(parkingService.addParkingSticker(parkingStickerDto)).thenReturn(parkingStickerCodeDto);
-
     Response response = parkingResource.addParkingSticker(parkingStickerDto);
     ParkingStickerCodeDto parkingStickerCodeDto = (ParkingStickerCodeDto) response.getEntity();
 
@@ -46,8 +49,6 @@ public class ParkingResourceImplementationTest {
 
   @Test
   public void whenAddParkingSticker_thenRespondWithCreatedStatus() {
-    when(parkingService.addParkingSticker(parkingStickerDto)).thenReturn(parkingStickerCodeDto);
-
     Response response = parkingResource.addParkingSticker(parkingStickerDto);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
@@ -55,22 +56,20 @@ public class ParkingResourceImplementationTest {
 
   @Test
   public void whenValidateParkingStickerCode_thenValidateParkingStickerCodeToService() {
-    when(parkingService.validateParkingStickerCode(parkingStickerCodeDto))
-        .thenReturn(accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED.toString()));
+    Response response = parkingResource.validateParkingStickerCode(parkingStickerCode);
+    AccessStatusDto receivedAccessStatusDto = (AccessStatusDto) response.getEntity();
 
-    parkingResource.validateParkingStickerCode(parkingStickerCodeDto);
-
-    Mockito.verify(parkingService).validateParkingStickerCode(parkingStickerCodeDto);
-    Truth.assertThat(accessStatusDto.accessStatus).isSameInstanceAs(accessStatusDto.accessStatus);
+    Truth.assertThat(receivedAccessStatusDto.accessStatus).isEqualTo(accessStatusDto.accessStatus);
   }
 
   @Test
   public void
       givenParkingStickerCodeValidAccessDay_whenValidateParkingStickerCode_thenRespondWithAcceptedStatus() {
-    when(parkingService.validateParkingStickerCode(parkingStickerCodeDto))
-        .thenReturn(accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED.toString()));
+    accessStatusDto =
+        anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_GRANTED.toString()).build();
+    when(parkingService.validateParkingStickerCode(parkingStickerCode)).thenReturn(accessStatusDto);
 
-    Response response = parkingResource.validateParkingStickerCode(parkingStickerCodeDto);
+    Response response = parkingResource.validateParkingStickerCode(parkingStickerCode);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.ACCEPTED.getStatusCode());
   }
@@ -78,10 +77,11 @@ public class ParkingResourceImplementationTest {
   @Test
   public void
       givenParkingStickerCodeInvalidAccessDay_whenValidateParkingStickerCode_thenRespondWithForbiddenStatus() {
-    when(parkingService.validateParkingStickerCode(parkingStickerCodeDto))
-        .thenReturn(accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED.toString()));
+    accessStatusDto =
+        anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_REFUSED.toString()).build();
+    when(parkingService.validateParkingStickerCode(parkingStickerCode)).thenReturn(accessStatusDto);
 
-    Response response = parkingResource.validateParkingStickerCode(parkingStickerCodeDto);
+    Response response = parkingResource.validateParkingStickerCode(parkingStickerCode);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.FORBIDDEN.getStatusCode());
   }
