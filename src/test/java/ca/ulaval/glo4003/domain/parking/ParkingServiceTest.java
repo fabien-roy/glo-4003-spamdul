@@ -29,6 +29,7 @@ public class ParkingServiceTest {
   @Mock private AccountRepository accountRepository;
   @Mock private ParkingAreaRepository parkingAreaRepository;
   @Mock private ParkingStickerRepository parkingStickerRepository;
+  @Mock private Account mockedAccount;
 
   private ParkingSticker parkingSticker;
   private ParkingStickerCode parkingStickerCode;
@@ -84,17 +85,12 @@ public class ParkingServiceTest {
   }
 
   @Test
-  public void whenAddParkingSticker_thenAddParkingStickerCodeToAccount() {
+  public void whenAddParkingSticker_thenAddParkingStickerToAccount() {
+    when(accountRepository.findById(parkingSticker.getAccountId())).thenReturn(mockedAccount);
+
     parkingService.addParkingSticker(parkingStickerDto);
 
-    Truth.assertThat(account.getParkingStickerCodes()).contains(parkingSticker.getCode());
-  }
-
-  @Test
-  public void whenAddParkingSticker_thenAddZonePriceBillToAccount() {
-    parkingService.addParkingSticker(parkingStickerDto);
-
-    Truth.assertThat(account.getBill().getMoneyToPay()).isNotEqualTo(0f);
+    Mockito.verify(mockedAccount).addParkingSticker(parkingSticker);
   }
 
   @Test

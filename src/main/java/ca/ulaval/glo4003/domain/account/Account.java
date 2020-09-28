@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.domain.account;
 
 import ca.ulaval.glo4003.domain.bill.Bill;
+import ca.ulaval.glo4003.domain.parking.ParkingSticker;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerCode;
 import ca.ulaval.glo4003.domain.user.User;
 import java.util.ArrayList;
@@ -29,11 +30,24 @@ public class Account {
     return user;
   }
 
+  public void setParkingStickerCodes(List<ParkingStickerCode> parkingStickerCodes) {
+    this.parkingStickerCodes = parkingStickerCodes;
+  }
+
+  public void setBill(Bill bill) {
+    this.bill = bill;
+  }
+
   public List<ParkingStickerCode> getParkingStickerCodes() {
     return parkingStickerCodes;
   }
 
-  public void addParkingStickerCode(ParkingStickerCode parkingStickerCode) {
-    parkingStickerCodes.add(parkingStickerCode);
+  public void addParkingSticker(ParkingSticker parkingSticker) {
+    parkingStickerCodes.add(parkingSticker.getCode());
+
+    bill.calculateZonePriceWithCommunicationType(
+        parkingSticker.getReceptionMethod(),
+        parkingSticker.getParkingAreaCode().toString(),
+        "1j/sem/session");
   }
 }
