@@ -53,6 +53,20 @@ uses:
           description: Error adding parking sticker
         404:
           description: Account or parking area not found
+    /{parkingStickerCode}:
+      get:
+        description: Validate the parking sticker with code with `parkingStickerCode = {parkingStickerCode}` for current day
+        responses:
+          200:
+            description: Access status of parking sticker code
+            body:
+              application/json:
+                type: types.AccessStatusObject
+                example: !include ./examples/parking/get-parkings-response.json
+          400:
+            description: Error getting parking sticker with code
+          404:
+            description: Parking sticker not found
   /cars:
     post:
       description: Add a new car
