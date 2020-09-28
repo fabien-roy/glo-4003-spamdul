@@ -22,7 +22,7 @@
 		<jersey-hk2.version>2.32</jersey-hk2.version>
 		<!-- REST -->
 		<jetty.version>9.4.31.v20200723</jetty.version>
-		<jersey.version>2.31</jersey.version>
+		<jersey.version>2.32</jersey.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
         <!-- Tests -->
 		<junit.version>4.13</junit.version>
