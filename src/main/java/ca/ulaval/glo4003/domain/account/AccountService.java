@@ -1,10 +1,22 @@
 package ca.ulaval.glo4003.domain.account;
 
 import ca.ulaval.glo4003.domain.car.Car;
+import javax.inject.Inject;
 
 public class AccountService {
 
-  public void addCarToAccount(Car car) {
-    // TODO : This is a stub (see issue #55)
+  private AccountIdAssembler accountIdAssembler;
+  private AccountRepository accountRepository;
+
+  @Inject
+  public AccountService(
+      AccountIdAssembler accountIdAssembler, AccountRepository accountRepository) {
+    this.accountIdAssembler = accountIdAssembler;
+    this.accountRepository = accountRepository;
+  }
+
+  public void addCarToAccount(String id, Car car) {
+    AccountId accountId = accountIdAssembler.assemble(id);
+    accountRepository.findById(accountId).addCar(car);
   }
 }

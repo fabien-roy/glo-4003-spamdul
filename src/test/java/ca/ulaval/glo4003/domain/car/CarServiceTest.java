@@ -14,6 +14,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class CarServiceTest {
 
+  private static final String ACCOUNT_ID = "1";
+
   private CarService carService;
 
   @Mock private CarAssembler carAssembler;
@@ -41,6 +43,6 @@ public class CarServiceTest {
   public void whenAddingCar_shouldAddCarToAccount() {
     carService.addCar(carDTO);
 
-    verify(accountService).addCarToAccount(car);
+    verify(accountService).addCarToAccount(ACCOUNT_ID, car);
   }
 }

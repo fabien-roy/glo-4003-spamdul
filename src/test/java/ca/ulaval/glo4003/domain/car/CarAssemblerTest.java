@@ -17,6 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class CarAssemblerTest {
 
+  private static final String ACCOUNT_ID = "1";
   private static final String MANUFACTURER = "Toyota";
   private static final String MODEL = "Camry";
   private static final int YEAR = 1300;
@@ -31,7 +32,7 @@ public class CarAssemblerTest {
   @Before
   public void setup() {
     licensePlate = new LicensePlate(LICENSE_PLATE);
-    carDto = new CarDto(MANUFACTURER, MODEL, YEAR, LICENSE_PLATE);
+    carDto = new CarDto(ACCOUNT_ID, MANUFACTURER, MODEL, YEAR, LICENSE_PLATE);
 
     when(licensePlateAssembler.assemble(LICENSE_PLATE)).thenReturn(licensePlate);
 
@@ -57,7 +58,7 @@ public class CarAssemblerTest {
 
   @Test(expected = InvalidCarYearException.class)
   public void givenCarWithInvalidYear_whenAssembling_shouldThrowInvalidYearException() {
-    CarDto invalidCarDto = new CarDto(MANUFACTURER, MODEL, INVALID_YEAR, LICENSE_PLATE);
+    CarDto invalidCarDto = new CarDto(ACCOUNT_ID, MANUFACTURER, MODEL, INVALID_YEAR, LICENSE_PLATE);
 
     carAssembler.create(invalidCarDto);
   }
