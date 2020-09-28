@@ -49,7 +49,7 @@ public class ParkingService {
 
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
-    account.addParkingStickerCode(parkingSticker.getCode());
+    account.addParkingSticker(parkingSticker);
     accountRepository.update(account);
 
     parkingStickerRepository.save(parkingSticker);
