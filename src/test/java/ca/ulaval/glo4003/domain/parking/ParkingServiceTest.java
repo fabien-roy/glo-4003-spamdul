@@ -47,7 +47,7 @@ public class ParkingServiceTest {
             parkingStickerRepository,
             accessStatusAssembler);
     LocalDate date = LocalDate.now();
-    String dayOfWeek = date.getDayOfWeek().toString();
+    String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
     parkingSticker = aParkingSticker().withValidDay(dayOfWeek).build();
     parkingStickerCode = parkingSticker.getCode();
     account = anAccount().build();

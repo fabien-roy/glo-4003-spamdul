@@ -67,7 +67,7 @@ public class ParkingService {
     ParkingSticker foundParkingSticker = parkingStickerRepository.findByCode(parkingStickerCode);
 
     LocalDate date = LocalDate.now();
-    String dayOfWeek = date.getDayOfWeek().toString();
+    String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
 
     if (!foundParkingSticker.validateParkingStickerDay(Days.get(dayOfWeek)))
       return accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED.toString());
