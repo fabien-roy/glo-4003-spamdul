@@ -1,7 +1,9 @@
 package ca.ulaval.glo4003.api.parking;
 
+import ca.ulaval.glo4003.api.parking.dto.AccessStatusDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
+import ca.ulaval.glo4003.domain.parking.AccessStatus;
 import ca.ulaval.glo4003.domain.parking.ParkingService;
 import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
@@ -23,5 +25,20 @@ public class ParkingResourceImplementation implements ParkingResource {
         .entity(parkingStickerCodeDto)
         .type(MediaType.APPLICATION_JSON)
         .build();
+  }
+
+  @Override
+  public Response validateParkingStickerCode(ParkingStickerCodeDto parkingStickerCodeDto) {
+    AccessStatusDto accessStatusDto =
+        parkingService.validateParkingStickerCode(parkingStickerCodeDto);
+
+    Response.Status status;
+    if (AccessStatus.ACCESS_REFUSED.toString().equals(accessStatusDto.accessStatus)) {
+      status = Response.Status.FORBIDDEN;
+    } else {
+      status = Response.Status.ACCEPTED;
+    }
+
+    return Response.status(status).entity(accessStatusDto).type(MediaType.APPLICATION_JSON).build();
   }
 }

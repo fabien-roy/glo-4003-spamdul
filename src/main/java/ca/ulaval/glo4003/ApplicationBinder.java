@@ -54,7 +54,6 @@ public class ApplicationBinder extends AbstractBinder {
 
   private void configureParking() {
     bind(ParkingResourceImplementation.class).to(ParkingResource.class);
-
     bind(createParkingAreaRepository()).to(ParkingAreaRepository.class);
     bind(ParkingStickerRepositoryInMemory.class)
         .to(ParkingStickerRepository.class)

@@ -24,6 +24,8 @@ public class ParkingExceptionMapper implements ExceptionMapper<ParkingException>
       responseStatus = Response.Status.NOT_FOUND;
     } else if (exception instanceof NotFoundParkingStickerException) {
       responseStatus = Response.Status.NOT_FOUND;
+    } else if (exception instanceof InvalidParkingStickerCodeException) {
+      responseStatus = Response.Status.BAD_REQUEST;
     }
 
     ErrorDto errorDto = new ErrorDto();

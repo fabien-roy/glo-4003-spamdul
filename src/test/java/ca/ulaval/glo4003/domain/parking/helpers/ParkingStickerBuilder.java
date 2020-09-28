@@ -34,4 +34,9 @@ public class ParkingStickerBuilder {
     parkingSticker.setCode(parkingStickerCode);
     return parkingSticker;
   }
+
+  public ParkingStickerBuilder withValidDay(String validDay) {
+    this.validDay = Days.get(validDay);
+    return this;
+  }
 }
