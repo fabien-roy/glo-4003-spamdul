@@ -14,7 +14,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class CarServiceTest {
 
-  private static final String ACCOUNT_ID = "1";
+  private static final String AN_ACCOUNT_ID = "1";
+  private static final String A_MANUFACTURER = "Kia";
+  private static final String A_MODEL = "THEBEST";
+  private static final int A_YEAR = 1920;
+  private static final String A_LICENSE_PLATE = "HMMMMM";
 
   private CarService carService;
 
@@ -22,12 +26,13 @@ public class CarServiceTest {
 
   @Mock private AccountService accountService;
 
-  @Mock private CarDto carDTO;
+  private CarDto carDTO;
 
   @Mock private Car car;
 
   @Before
   public void setup() {
+    carDTO = new CarDto(AN_ACCOUNT_ID, A_MANUFACTURER, A_MODEL, A_YEAR, A_LICENSE_PLATE);
     when(carAssembler.create(carDTO)).thenReturn(car);
     carService = new CarService(carAssembler, accountService);
   }
@@ -43,6 +48,6 @@ public class CarServiceTest {
   public void whenAddingCar_shouldAddCarToAccount() {
     carService.addCar(carDTO);
 
-    verify(accountService).addCarToAccount(ACCOUNT_ID, car);
+    verify(accountService).addCarToAccount(AN_ACCOUNT_ID, car);
   }
 }
