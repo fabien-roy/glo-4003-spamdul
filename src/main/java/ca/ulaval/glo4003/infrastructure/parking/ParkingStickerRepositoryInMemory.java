@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.infrastructure.parking;
 import ca.ulaval.glo4003.domain.parking.ParkingSticker;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerCode;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerRepository;
-import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerCodeException;
+import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,11 +16,10 @@ public class ParkingStickerRepositoryInMemory implements ParkingStickerRepositor
   }
 
   @Override
-  public ParkingSticker findByCode(ParkingStickerCode code)
-      throws NotFoundParkingStickerCodeException {
+  public ParkingSticker findByCode(ParkingStickerCode code) throws NotFoundParkingStickerException {
     ParkingSticker foundParkingSticker = parkingStickers.get(code);
 
-    if (foundParkingSticker == null) throw new NotFoundParkingStickerCodeException();
+    if (foundParkingSticker == null) throw new NotFoundParkingStickerException();
 
     return foundParkingSticker;
   }

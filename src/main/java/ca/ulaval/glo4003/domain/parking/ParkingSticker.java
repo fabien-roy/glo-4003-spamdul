@@ -52,4 +52,8 @@ public class ParkingSticker {
   public Days getValidDay() {
     return validDay;
   }
+
+  public boolean validateParkingStickerDay(Days day) {
+    return getValidDay().equals(day);
+  }
 }

@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.api.user.dto.AccountIdDto;
 import ca.ulaval.glo4003.api.user.dto.UserDto;
 import ca.ulaval.glo4003.domain.user.UserService;
 import com.google.common.truth.Truth;
+import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,20 +30,42 @@ public class UserResourceImplementationTest {
   }
 
   @Test
-  public void whenAddingUser_ThenAddUserToService() {
+  public void whenAddingUser_thenAddUserToService() {
     when(userService.addUser(userDto)).thenReturn(accountIdDto);
 
-    AccountIdDto receivedAccountIdDto = userResource.addUser(userDto);
+    Response response = userResource.addUser(userDto);
+    AccountIdDto respondedAccountIdDto = (AccountIdDto) response.getEntity();
 
-    Truth.assertThat(receivedAccountIdDto).isSameInstanceAs(accountIdDto);
+    Truth.assertThat(respondedAccountIdDto.accountId).isEqualTo(accountIdDto.accountId);
+  }
+
+  @Test
+  public void whenAddingUser_thenResponseCreatedStatus() {
+    when(userService.addUser(userDto)).thenReturn(accountIdDto);
+
+    Response response = userResource.addUser(userDto);
+
+    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
   }
 
   @Test
   public void whenGettingUser_ThenGetUserFromService() {
     when(userService.getUser(ACCOUNT_ID)).thenReturn(userDto);
 
-    UserDto receivedUserDto = userResource.getUser(ACCOUNT_ID);
+    Response response = userResource.getUser(ACCOUNT_ID);
+    UserDto respondedUserDto = (UserDto) response.getEntity();
 
-    Truth.assertThat(receivedUserDto).isSameInstanceAs(userDto);
+    Truth.assertThat(respondedUserDto.name).isEqualTo(userDto.name);
+    Truth.assertThat(respondedUserDto.birthDate).isEqualTo(userDto.birthDate);
+    Truth.assertThat(respondedUserDto.sex).isEqualTo(userDto.sex);
+  }
+
+  @Test
+  public void whenGettingUser_thenResponseOkStatus() {
+    when(userService.addUser(userDto)).thenReturn(accountIdDto);
+
+    Response response = userResource.getUser(ACCOUNT_ID);
+
+    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }
 }

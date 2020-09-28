@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.domain.bill;
 
-import ca.ulaval.glo4003.domain.bill.exceptions.InvalidFileException;
 import ca.ulaval.glo4003.domain.bill.exceptions.InvalidTimeException;
 import ca.ulaval.glo4003.domain.bill.exceptions.InvalidZoneException;
+import ca.ulaval.glo4003.domain.file.exceptions.InvalidFileException;
 import java.io.*;
 
 public class CSVBillingZoneHelper {

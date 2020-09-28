@@ -5,10 +5,13 @@ import ca.ulaval.glo4003.domain.time.CustomDate;
 import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
 import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
+import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
+import javax.inject.Inject;
 
 public class UserAssembler {
   private final CustomDateAssembler customDateAssembler;
 
+  @Inject
   public UserAssembler(CustomDateAssembler customDateAssembler) {
     this.customDateAssembler = customDateAssembler;
   }
@@ -16,11 +19,15 @@ public class UserAssembler {
   public User assemble(UserDto userDto) {
     CustomDate birthDate;
 
+    validateNotNull(userDto);
+
     try {
       birthDate = customDateAssembler.assemble(userDto.birthDate);
     } catch (InvalidDateException exception) {
       throw new InvalidBirthDateException();
     }
+
+    if (birthDate.isFuture()) throw new InvalidBirthDateException();
 
     return new User(userDto.name, birthDate, Sex.get(userDto.sex));
   }
@@ -32,5 +39,13 @@ public class UserAssembler {
     userDto.sex = user.getSex().name().toLowerCase();
 
     return userDto;
+  }
+
+  private void validateNotNull(UserDto userDto) {
+    if (userDto.name == null) {
+      throw new InvalidNameException();
+    } else if (userDto.birthDate == null) {
+      throw new InvalidBirthDateException();
+    }
   }
 }

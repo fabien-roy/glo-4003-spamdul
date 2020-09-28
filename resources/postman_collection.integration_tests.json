@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2706479d-fc3c-4c1a-9ee9-7775942065f1",
+		"_postman_id": "4082aa5c-2f2c-4c3f-9d78-ca09e3466165",
 		"name": "SPAMD-UL Integration tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5969cb67-4ad5-47fe-8472-1431dca4fe5e",
+								"id": "b26b0739-931e-4826-a3fc-bc431d2d3cfa",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
@@ -47,6 +47,46 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add parking sticker",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "feb9ec51-9a3a-4675-baf5-daa3342c1850",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/parkings",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"parkings"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -66,7 +106,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "33b3245d-766e-467a-bdba-a6ae6aa87b51",
+												"id": "a44dddb6-9ecb-467e-8f9e-fbe4be0db1cd",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -111,7 +151,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "bfcdb63a-5808-4d5f-810d-660b7f143cf2",
+												"id": "d2b69e0b-564e-431f-8fcd-e0cfe204b1dc",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -156,7 +196,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "cba7522b-0906-4cc5-a7dc-0b3d9bbc09f0",
+												"id": "fc91dc69-6693-460f-ac68-7fd4e8bed8f1",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -201,7 +241,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "317abbaf-50f0-4a07-b73c-e2c2f39c6590",
+												"id": "490f1535-d0eb-4c5c-b7a8-530ed543e208",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -246,7 +286,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "50f83a98-9960-48da-b16b-5a83f30da520",
+												"id": "075e5d9e-7c54-4c1a-9da8-667df7d471ae",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -298,7 +338,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "8ba96622-bad2-4986-ba35-92facbbf405b",
+												"id": "75c08231-a317-4b7e-bd69-befd3ad595e7",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -343,7 +383,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "7535a0ae-7c5f-47bd-8011-66c32b3a7c2d",
+												"id": "aa192c8d-d783-4fd0-b2c7-8a065224b8fb",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -388,7 +428,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "45d91b47-f1b6-42bb-ae5e-3410a4f977b7",
+												"id": "2b6bf78e-802a-4b84-a1c4-f00d49431629",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -433,7 +473,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "0ebe1e4e-572f-4682-882a-a6da0e4efe0e",
+												"id": "f539d6fe-bebe-484f-aeb6-b4919eeb4c3c",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -478,7 +518,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "ed4f12ab-d9f6-48b0-8522-dd6b1a93841f",
+												"id": "6f1a2061-fd10-42ed-9141-ef7cb2caf2ad",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -523,7 +563,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "563921bb-3fd7-49f8-a3d6-d4735993685c",
+												"id": "8daf02d5-5ffc-41ba-9fd8-b9d81d0b5cab",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -568,7 +608,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "0d17464a-5129-42cf-aa20-60809a1ac517",
+												"id": "17046e4a-d66e-4c00-8e94-dd89203b82d1",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -620,7 +660,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "9a2489b0-c002-4cf5-abd3-e417a5748d6b",
+												"id": "11b6cf60-dfab-4ae5-9bcc-be72d2dd47e6",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -665,7 +705,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "a6ed0c39-6451-4b1c-a2f9-a076cf813f39",
+												"id": "8457e4b9-9742-4186-8239-36393147d5e9",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -710,7 +750,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "dcf68c7e-e089-4213-8eb3-6a704066df0a",
+												"id": "54292893-d194-4257-b3b7-d64cf4b5559e",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -755,7 +795,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "0a9d1dcb-89ed-4d20-b552-963552a974b0",
+												"id": "4b53b96a-13b8-4d47-926f-194d349bab49",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -800,7 +840,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2c83f32b-3abd-43cd-b8a4-b263b66cd808",
+												"id": "f4a47033-af51-4e51-ab1d-54b11c7a284b",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -845,7 +885,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "acc11832-e545-46ce-978b-5e621b53bf79",
+												"id": "bd7e06d3-ea0b-4b91-8438-70cd02f7b056",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -894,7 +934,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "197e2f15-8e0b-40cf-a0df-664687b4946f",
+										"id": "b002997b-2fb0-4453-9dba-0554a08a8278",
 										"exec": [
 											"pm.test(\"Returns status 201\", function () {",
 											"    pm.response.to.have.status(201);",
@@ -946,7 +986,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "bebefe74-aec5-4b71-a9ce-c2b3744cd4b7",
+										"id": "11d45971-27c0-4ec7-9f59-6c65bb27c830",
 										"exec": [
 											"pm.test(\"Returns status 404\", function () {",
 											"    pm.response.to.have.status(404);",
@@ -983,7 +1023,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "75cadb65-ed92-48fe-8b3a-8a7e6bfd9911",
+										"id": "8c8bd166-c863-49e5-8285-1e8cafa2c06a",
 										"exec": [
 											"pm.test(\"Returns status 200\", function () {",
 											"    pm.response.to.have.status(200);",
@@ -991,17 +1031,17 @@
 											"",
 											"pm.test(\"Returns correct name\", function () {",
 											"    var name = postman.getEnvironmentVariable(\"request.user.name\");",
-											"    pm.expect(pm.response.json().name).to.equal(name)",
+											"    pm.expect(name).to.contain(pm.response.json().name)",
 											"});",
 											"",
 											"pm.test(\"Returns correct birth date\", function () {",
 											"    var birthDate = postman.getEnvironmentVariable(\"request.user.birthDate\");",
-											"    pm.expect(pm.response.json().birthDate).to.equal(birthDate)",
+											"    pm.expect(birthDate).to.contain(pm.response.json().birthDate)",
 											"});",
 											"",
 											"pm.test(\"Returns correct sex\", function () {",
 											"    var sex = postman.getEnvironmentVariable(\"request.user.sex\");",
-											"    pm.expect(pm.response.json().sex).to.equal(sex)",
+											"    pm.expect(sex).to.contain(pm.response.json().sex)",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1010,7 +1050,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "358d0a4b-f566-45d6-862f-638c6742f0f9",
+										"id": "ef6a3e4a-e32e-4a57-9953-c24d01ddab12",
 										"exec": [
 											""
 										],
@@ -1063,7 +1103,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c91b8a74-8bfa-4176-ac5a-7f09d4389848",
+												"id": "611a5000-54e6-44dd-8098-202df34b4ea0",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1108,7 +1148,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "76408673-8722-401e-88d8-c76c2fa7dbb3",
+												"id": "df9dc03e-dfb9-436a-80d2-688e6a567ff7",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1153,7 +1193,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e5684651-d3ed-496d-8cc0-85d3363c65b9",
+												"id": "f10ce369-31a2-47d0-8790-e3f8b862841a",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1198,7 +1238,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "d45bc006-2c17-433f-8383-ed4050256eeb",
+												"id": "7dd655a1-917f-4186-807e-8ae5800aeea9",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1243,7 +1283,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e6d92567-0f85-44bd-9ca6-c5774c02f7ed",
+												"id": "245ecd01-2cfd-4bdc-b642-09ed042b34ff",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1288,7 +1328,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "cadeb23b-e74f-47c0-9fc1-9e36bd461998",
+												"id": "449d9516-9823-4c90-bfde-69bd7cac1fcf",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1333,7 +1373,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "bf848ecc-6ed0-4d12-9e52-1fdacc307c07",
+												"id": "61f4729e-ca4e-49b9-8273-93f1065a67dd",
 												"exec": [
 													"pm.test(\"Returns status 404\", function () {",
 													"    pm.response.to.have.status(404);",
@@ -1385,7 +1425,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "feee58e7-fcb8-454e-80f8-0a3f5f2114be",
+												"id": "7cbe6f03-cac3-4d35-9f04-05f1087bffd0",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1430,7 +1470,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c95330a3-c8b5-486a-9539-0f262158ffab",
+												"id": "b9d4b2dc-70f1-4ab2-b2b4-c3ea54450e03",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1475,7 +1515,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "243e9cf6-6ef3-4f6f-9b8c-be0d77cf495d",
+												"id": "98773119-3dc1-4474-8b32-af85673dc594",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1520,7 +1560,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "b60b3757-c984-4d05-81ad-97865139fa98",
+												"id": "51a880c2-00d4-4ffd-b844-8795ea7249aa",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1565,10 +1605,10 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "bfe09b7f-625a-40b1-9b7f-44e385af8ba9",
+												"id": "4b2acf3e-8d2d-4987-a3df-78dbe2debf47",
 												"exec": [
-													"pm.test(\"Returns status 404\", function () {",
-													"    pm.response.to.have.status(404);",
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
 													"});",
 													"",
 													"pm.test(\"Returns invalid parking area code\", function () {",
@@ -1610,14 +1650,14 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "28958d73-b1f2-4e1e-8433-f95efc1b6af1",
+												"id": "61f8f5e1-14a1-4d56-ad5a-48656ae74f09",
 												"exec": [
 													"pm.test(\"Returns status 404\", function () {",
 													"    pm.response.to.have.status(404);",
 													"});",
 													"",
-													"pm.test(\"Returns parking area code not found\", function () {",
-													"    pm.expect(pm.response.json().error).to.equal(\"Parking area code not found\")",
+													"pm.test(\"Returns parking area not found\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Parking area not found\")",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1662,7 +1702,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "fff77d6f-3efd-4521-855c-771eb84d6f86",
+												"id": "efb87961-b227-40bb-a814-3a3d377a8e4e",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1707,7 +1747,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "aed284a4-5d10-4ccb-b6db-65044dc652eb",
+												"id": "3d5e9776-1ab6-4244-a1df-1148879c8d80",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1752,7 +1792,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "5920fd24-8ca9-457d-a85f-5441be7ee20e",
+												"id": "2970a03b-69b6-4eb8-a6a5-2cbab2298410",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1797,7 +1837,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2ada32cf-80d1-4824-86e5-408e31d5bc56",
+												"id": "867db610-c4ec-493e-bcca-e2fa3b09ebe5",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1842,7 +1882,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "eed6692d-79b4-4b8a-a9bb-d0112fdcd2a4",
+												"id": "041e47ef-512c-4ff2-9eda-860bebef2bc9",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1887,7 +1927,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "67a12940-c35f-4550-ab5d-fa9e614dc71e",
+												"id": "aba36034-5fbb-4243-bfe3-0332deedb4d0",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -1939,14 +1979,14 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "f3f9094c-211f-456a-aa04-b45466d326fe",
+												"id": "1956010c-a49f-4827-96ac-b098ecd56e60",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
 													"});",
 													"",
-													"pm.test(\"Returns invalid postal code\", function () {",
-													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"pm.test(\"Returns missing postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Missing property : postalCode\")",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1984,14 +2024,14 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "1a1f6d9a-6ba9-49b6-8a30-07cf0bc2dcc5",
+												"id": "2cd4fe8a-e5bc-410a-bacc-e88eef47a948",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
 													"});",
 													"",
-													"pm.test(\"Returns invalid postal code\", function () {",
-													"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+													"pm.test(\"Returns missing postal code\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Missing property : postalCode\")",
 													"});"
 												],
 												"type": "text/javascript"
@@ -2029,7 +2069,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "9c89e159-8f93-43c5-bd1a-8a4e5fe8c7c2",
+												"id": "ab9cb7f8-0dd6-45c7-98fb-d9a8882a268a",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2074,7 +2114,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "5bbd0b53-ec8e-4143-a8d0-8dcd9dedd31d",
+												"id": "b1b5032c-e892-4674-bebd-3bed76cd7564",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2119,7 +2159,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "80a5040c-1882-4fdb-9fb5-fb2d0acbbde3",
+												"id": "9eb1bf4b-c4ae-4ebd-9395-166a15b554b0",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2164,7 +2204,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "3aee693c-5452-40b0-ae3b-dac7d39d1b1e",
+												"id": "1dc53ba0-fdd1-4e45-8d19-5cc55d6d2647",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2216,7 +2256,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "7a10996d-25b5-415c-8ec0-ea58fb626b5a",
+												"id": "768cfd23-f169-430b-ac67-6acbecf60973",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2261,7 +2301,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "f13e7761-e68e-4179-b2bd-adcace1e6656",
+												"id": "cd98cf22-4ac6-45a4-bbdd-2c5311bbfaa6",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2306,7 +2346,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "febb4b14-f1a9-45d0-b2a8-bacced23a27c",
+												"id": "723beb11-bb27-4f52-8b5a-00f40eb46371",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2351,7 +2391,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "45d0569a-0a91-402e-94c0-8e6bb9648bb6",
+												"id": "e799f978-0500-4f00-8218-bc5c7e6003cb",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2396,7 +2436,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "66b1b5c4-173e-430d-827a-0ae4bf4646a2",
+												"id": "c4ef45d3-e96f-4ee2-8046-e6c0e98e8c31",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2441,7 +2481,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2a4a0b01-7f20-4f90-a739-b2880b8bee5f",
+												"id": "0160a4fb-e0cc-42b9-836e-e03aed727d61",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2490,7 +2530,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a1f10956-aaa9-4f3a-b119-014329a51549",
+										"id": "1ef75f31-3cc6-446e-95a4-15b800b69c6f",
 										"exec": [
 											"pm.test(\"Returns status 201\", function () {",
 											"    pm.response.to.have.status(201);",
@@ -2534,6 +2574,50 @@
 					"_postman_isSubFolder": true
 				},
 				{
+					"name": "Validate parking sticker",
+					"item": [
+						{
+							"name": "Non existent parking sticker code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8aa1c1fa-9471-4c14-beee-74ab8ce5bc20",
+										"exec": [
+											"pm.test(\"Returns status 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Returns parking sticker not found\", function () {",
+											"    pm.expect(pm.response.json().error).to.equal(\"Parking sticker not found\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/parkings/dcbf4b65-c58e-40c4-b974-90c47bcd421a",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"parkings",
+										"dcbf4b65-c58e-40c4-b974-90c47bcd421a"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "Add car",
 					"item": [
 						{
@@ -2545,7 +2629,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "7b81f9ff-5588-4ba0-adb9-8b7bed91182a",
+												"id": "5212e0bf-7d48-45c3-a4e3-04c14a7168fc",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2590,7 +2674,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "802ff0ae-dddb-47d4-ad28-a7f555984492",
+												"id": "cf1c71ad-a879-4155-ada3-834818cdf745",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2635,7 +2719,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "0cf79e9f-6ec7-49e2-95ce-cb9f9d050d8b",
+												"id": "9d9bfee2-208a-4907-bc0b-f483350d47ff",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2680,7 +2764,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "544775b4-0af5-48c3-ac03-1130a46fab83",
+												"id": "94c4be9b-b4e8-41d2-9ef3-7ab5624e1133",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2725,7 +2809,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "df75bd47-929a-4127-a741-1ce8d00884b0",
+												"id": "09ad0fc6-d75c-4c5c-a9ce-3bb71b914513",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2770,7 +2854,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "710f27db-d810-4ff7-a35d-6f6176836c4e",
+												"id": "50f54bf2-ad65-486f-aa9d-a93f1343efba",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2815,7 +2899,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "b4340aff-2c16-40c0-9193-54ba3ac4fea0",
+												"id": "21c22d85-f0a8-433c-83f2-385cac33827e",
 												"exec": [
 													"pm.test(\"Returns status 404\", function () {",
 													"    pm.response.to.have.status(404);",
@@ -2867,7 +2951,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "17f4a549-8274-4a96-baf1-8d9485610c13",
+												"id": "59d42b2f-e210-4e21-84f0-1e1e3a077147",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2912,7 +2996,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "4e3f56e1-b9fa-481f-9e9e-f34c069ccfef",
+												"id": "30346160-c63a-45e7-9672-30a2cfd4024b",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -2957,7 +3041,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "cb03fd9c-e27a-428e-ab75-40ebc06000e3",
+												"id": "467a062a-f5d6-4404-a434-43560f365496",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3002,7 +3086,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "d64a94ff-47c3-4dc3-872c-8ef7983b849b",
+												"id": "90b2cd8d-6722-418c-8938-c06e3a116384",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3047,7 +3131,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "19fe6b88-55ca-4332-9dc4-3af9462c1109",
+												"id": "80e102e5-fef2-431a-9b2d-8b0fe6f5d346",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3099,7 +3183,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "b9de147d-d28d-432c-ab8d-0035888d4b77",
+												"id": "99e14ae3-366b-41d3-a6b1-32971cab7fb8",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3144,7 +3228,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "ccde82f5-ebd7-4ba5-8583-eb9cdc36cb32",
+												"id": "53c6d553-3ea3-4ba9-8ed6-c08a5e7f61f2",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3189,7 +3273,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "12a5bfc7-80ef-40bf-ba73-c3e302f6e7c7",
+												"id": "0199df4d-e7c8-4623-9fa7-3cf13ce3d062",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3234,7 +3318,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "a0930bc4-1b09-4410-b23e-1952afc71650",
+												"id": "08d4f048-741d-4d6e-8e37-5544f1d8b4ef",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3279,7 +3363,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "defdef58-c9da-4830-ade7-43e13f1e494a",
+												"id": "efce0feb-e3f0-4240-8852-b2da3fc56977",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3331,7 +3415,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e2cedd0d-e1be-4a48-a5ec-88a87055a942",
+												"id": "cf87366d-2198-46a2-8148-acaf5e624d12",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3376,7 +3460,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "eb397ba7-2f3b-43d9-ac1f-0943a8037065",
+												"id": "bad9c624-29d7-4f85-8398-68baefaa8ff4",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3421,7 +3505,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "fc16a062-7e60-42cf-8128-37538ee36bb9",
+												"id": "9d590e97-56d4-4ad0-9912-f44d8e6abb8a",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3466,7 +3550,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "0319f1c6-19c6-4750-8f3b-2c226cc7a47f",
+												"id": "0dea895e-83fe-4920-b4aa-b685b9101eb9",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3511,7 +3595,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "7bdcbb30-3454-4fde-a7d0-ccc5e8f26998",
+												"id": "dd0c903e-37d8-47ba-9302-bae87fc20a06",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3556,7 +3640,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "fac4b804-4e5e-4c8a-a78b-ce50861f9793",
+												"id": "2e979762-3180-49c6-88fe-618b7a63b684",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3608,7 +3692,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "40e2d4b4-55de-4e8d-a1a9-166542732235",
+												"id": "e69c989c-86d0-49ac-8d93-6fff349f648f",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3653,7 +3737,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "391ab49d-190a-4297-bfb9-c7e715d73f0d",
+												"id": "3edc116b-33d6-4838-97c6-b37422dce9fe",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3698,7 +3782,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c77ba4c6-60dd-4f7e-ab5a-66b2e5dc8458",
+												"id": "66da482e-a481-48a7-9b1a-2903038ff309",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3743,7 +3827,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "deff0764-dbfc-4377-9fda-cb1aa4924921",
+												"id": "da4fbfae-c178-4870-8e6d-f3c198906aa1",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3788,7 +3872,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "4579d777-48c6-4124-bc76-abdd5e1df832",
+												"id": "acc6ec60-d7c7-47ce-b6b1-7b9a4c5a5455",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3833,7 +3917,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "40c5a868-71ef-42c2-a2ea-cd8769a870ad",
+												"id": "9156473e-d384-476d-81df-b0ba7c519576",
 												"exec": [
 													"pm.test(\"Returns status 400\", function () {",
 													"    pm.response.to.have.status(400);",
@@ -3882,7 +3966,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "b367bc7b-ae2a-4b63-8370-c4d8d03f565f",
+										"id": "35a09245-04e4-45f7-a666-7f75a9dd616a",
 										"exec": [
 											"pm.test(\"Returns status 201\", function () {",
 											"    pm.response.to.have.status(201);",
