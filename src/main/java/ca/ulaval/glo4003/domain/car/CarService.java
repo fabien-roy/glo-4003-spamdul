@@ -15,9 +15,9 @@ public class CarService {
     this.accountService = accountService;
   }
 
-  public void addCar(CarDto carDTO) {
-    Car car = carAssembler.create(carDTO);
+  public void addCar(CarDto carDto) {
+    Car car = carAssembler.create(carDto);
 
-    accountService.addCarToAccount(carDTO.accountId, car);
+    accountService.addCarToAccount(carDto.accountId, car);
   }
 }

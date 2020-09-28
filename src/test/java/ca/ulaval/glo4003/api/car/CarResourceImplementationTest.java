@@ -23,26 +23,26 @@ public class CarResourceImplementationTest {
 
   @Mock private CarService carService;
 
-  private CarDto carDTO;
+  private CarDto carDto;
 
   private CarResource carResource;
 
   @Before
   public void setup() {
     carResource = new CarResourceImplementation(carService);
-    carDTO = new CarDto(ACCOUNT_ID, MANUFACTURER, MODEL, YEAR, LICENSE_PLATE);
+    carDto = new CarDto(ACCOUNT_ID, MANUFACTURER, MODEL, YEAR, LICENSE_PLATE);
   }
 
   @Test
   public void whenAddingCar_thenAddCar() {
-    carResource.addCar(carDTO);
+    carResource.addCar(carDto);
 
-    verify(carService).addCar(carDTO);
+    verify(carService).addCar(carDto);
   }
 
   @Test
   public void whenAddingCar_thenRespondWithCreatedStatus() {
-    Response response = carResource.addCar(carDTO);
+    Response response = carResource.addCar(carDto);
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
   }

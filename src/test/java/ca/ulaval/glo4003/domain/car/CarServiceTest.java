@@ -26,27 +26,27 @@ public class CarServiceTest {
 
   @Mock private AccountService accountService;
 
-  private CarDto carDTO;
+  private CarDto carDto;
 
   @Mock private Car car;
 
   @Before
   public void setup() {
-    carDTO = new CarDto(AN_ACCOUNT_ID, A_MANUFACTURER, A_MODEL, A_YEAR, A_LICENSE_PLATE);
-    when(carAssembler.create(carDTO)).thenReturn(car);
+    carDto = new CarDto(AN_ACCOUNT_ID, A_MANUFACTURER, A_MODEL, A_YEAR, A_LICENSE_PLATE);
+    when(carAssembler.create(carDto)).thenReturn(car);
     carService = new CarService(carAssembler, accountService);
   }
 
   @Test
   public void whenAddingCar_shouldAssembleCar() {
-    carService.addCar(carDTO);
+    carService.addCar(carDto);
 
-    verify(carAssembler).create(carDTO);
+    verify(carAssembler).create(carDto);
   }
 
   @Test
   public void whenAddingCar_shouldAddCarToAccount() {
-    carService.addCar(carDTO);
+    carService.addCar(carDto);
 
     verify(accountService).addCarToAccount(AN_ACCOUNT_ID, car);
   }

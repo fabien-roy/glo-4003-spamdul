@@ -10,5 +10,5 @@ public interface CarResource {
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  Response addCar(CarDto carDTO);
+  Response addCar(CarDto carDto);
 }
