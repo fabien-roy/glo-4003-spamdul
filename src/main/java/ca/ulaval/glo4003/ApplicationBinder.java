@@ -62,6 +62,7 @@ public class ApplicationBinder extends AbstractBinder {
     bindAsContract(ParkingAreaCodeAssembler.class);
     bindAsContract(ParkingStickerAssembler.class);
     bindAsContract(ParkingStickerCodeAssembler.class);
+    bindAsContract(AccessStatusAssembler.class);
     bindAsContract(ParkingStickerCodeGenerator.class);
     bindAsContract(ParkingStickerFactory.class);
     bindAsContract(ParkingService.class);
