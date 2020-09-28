@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.domain.car;
 
+import static ca.ulaval.glo4003.domain.car.helpers.LicensePlateMother.createLicensePlate;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.domain.car.exceptions.InvalidLicensePlateException;
@@ -10,7 +11,7 @@ public class LicensePlateAssemblerTest {
 
   private static final String LICENSE_PLATE_WITH_SPECIAL_CHARS = "@121!!!...";
   private static final String LICENSE_PLATE_WITH_INVALID_LENGTH = "B";
-  private static final String VALID_LICENSE_PLATE = "SPEAD";
+  private static final LicensePlate LICENSE_PLATE = createLicensePlate();
 
   private LicensePlateAssembler licensePlateAssembler;
 
@@ -21,9 +22,9 @@ public class LicensePlateAssemblerTest {
 
   @Test
   public void whenAssemblingLicensePlate_shouldReturnLicensePlate() {
-    LicensePlate licensePlate = licensePlateAssembler.assemble(VALID_LICENSE_PLATE);
+    LicensePlate licensePlate = licensePlateAssembler.assemble(LICENSE_PLATE.toString());
 
-    assertThat(licensePlate.equals(new LicensePlate(VALID_LICENSE_PLATE)));
+    assertThat(licensePlate.equals(LICENSE_PLATE));
   }
 
   @Test(expected = InvalidLicensePlateException.class)
