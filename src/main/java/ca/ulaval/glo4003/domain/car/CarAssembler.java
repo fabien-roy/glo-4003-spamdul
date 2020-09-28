@@ -8,20 +8,20 @@ import javax.inject.Inject;
 
 public class CarAssembler {
 
-  private LicensePlateAssembler licensePlateAssembler;
+  private final LicensePlateAssembler licensePlateAssembler;
 
   @Inject
   public CarAssembler(LicensePlateAssembler licensePlateAssembler) {
     this.licensePlateAssembler = licensePlateAssembler;
   }
 
-  public Car create(CarDto carDTO) {
-    validateYear(carDTO.year);
+  public Car create(CarDto carDto) {
+    validateYear(carDto.year);
     return new Car(
-        carDTO.manufacturer,
-        carDTO.model,
-        carDTO.year,
-        licensePlateAssembler.assemble(carDTO.licensePlate));
+        carDto.manufacturer,
+        carDto.model,
+        carDto.year,
+        licensePlateAssembler.assemble(carDto.licensePlate));
   }
 
   private void validateYear(int year) {

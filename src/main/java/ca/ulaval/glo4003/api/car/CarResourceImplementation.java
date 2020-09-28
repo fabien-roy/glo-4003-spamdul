@@ -15,8 +15,8 @@ public class CarResourceImplementation implements CarResource {
   }
 
   @Override
-  public Response addCar(CarDto carDTO) {
-    carService.addCar(carDTO);
+  public Response addCar(CarDto carDto) {
+    carService.addCar(carDto);
     return Response.status(Response.Status.CREATED).build();
   }
 }
