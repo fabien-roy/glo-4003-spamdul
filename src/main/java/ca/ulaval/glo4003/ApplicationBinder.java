@@ -21,7 +21,7 @@ import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingStickerRepositoryInMemory;
 import java.util.List;
 import javax.inject.Singleton;
-import org.glassfish.hk2.utilities.binding.AbstractBinder;
+import org.glassfish.jersey.internal.inject.AbstractBinder;
 
 public class ApplicationBinder extends AbstractBinder {
   private static final boolean IS_DEV = true;
@@ -54,7 +54,6 @@ public class ApplicationBinder extends AbstractBinder {
 
   private void configureParking() {
     bind(ParkingResourceImplementation.class).to(ParkingResource.class);
-
     bind(createParkingAreaRepository()).to(ParkingAreaRepository.class);
     bind(ParkingStickerRepositoryInMemory.class)
         .to(ParkingStickerRepository.class)
@@ -63,6 +62,7 @@ public class ApplicationBinder extends AbstractBinder {
     bindAsContract(ParkingAreaCodeAssembler.class);
     bindAsContract(ParkingStickerAssembler.class);
     bindAsContract(ParkingStickerCodeAssembler.class);
+    bindAsContract(AccessStatusAssembler.class);
     bindAsContract(ParkingStickerCodeGenerator.class);
     bindAsContract(ParkingStickerFactory.class);
     bindAsContract(ParkingService.class);

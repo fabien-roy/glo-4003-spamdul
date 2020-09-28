@@ -28,6 +28,11 @@ public class ParkingStickerBuilder {
     return new ParkingStickerBuilder();
   }
 
+  public ParkingStickerBuilder withValidDay(String validDay) {
+    this.validDay = Days.get(validDay);
+    return this;
+  }
+
   public ParkingSticker build() {
     ParkingSticker parkingSticker =
         new ParkingSticker(accountId, parkingAreaCode, receptionMethod, postalCode, validDay);
