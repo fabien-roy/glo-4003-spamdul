@@ -6,6 +6,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
 @SuppressWarnings("all")
@@ -22,7 +23,7 @@ public class Main {
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/api/");
 
-    ServerResourceConfig serverResourceConfig = new ServerResourceConfig();
+    ResourceConfig serverResourceConfig = ServerResourceConfig.getApplicationResourceConfig();
     ServletContainer servletContainer = new ServletContainer(serverResourceConfig);
     ServletHolder servletHolder = new ServletHolder(servletContainer);
     context.addServlet(servletHolder, "/*");

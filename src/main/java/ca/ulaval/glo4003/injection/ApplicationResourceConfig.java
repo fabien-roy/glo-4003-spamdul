@@ -16,23 +16,13 @@ public class ApplicationResourceConfig {
 
   private static final boolean IS_DEV = true;
 
-  private final AccountResourceConfig accountResourceConfig;
-  private final CarResourceConfig carResourceConfig;
-  private final ContactResourceConfig contactResourceConfig;
-  private final LocationResourceConfig locationResourceConfig;
-  private final ParkingResourceConfig parkingResourceConfig;
-  private final TimeResourceConfig timeResourceConfig;
-  private final UserResourceConfig userResourceConfig;
-
-  public ApplicationResourceConfig() {
-    accountResourceConfig = new AccountResourceConfig();
-    carResourceConfig = new CarResourceConfig();
-    contactResourceConfig = new ContactResourceConfig();
-    locationResourceConfig = new LocationResourceConfig();
-    parkingResourceConfig = new ParkingResourceConfig();
-    userResourceConfig = new UserResourceConfig();
-    timeResourceConfig = new TimeResourceConfig();
-  }
+  private final AccountResourceConfig accountResourceConfig = new AccountResourceConfig();
+  private final CarResourceConfig carResourceConfig = new CarResourceConfig();
+  private final ContactResourceConfig contactResourceConfig = new ContactResourceConfig();
+  private final LocationResourceConfig locationResourceConfig = new LocationResourceConfig();
+  private final ParkingResourceConfig parkingResourceConfig = new ParkingResourceConfig();
+  private final TimeResourceConfig timeResourceConfig = new TimeResourceConfig();
+  private final UserResourceConfig userResourceConfig = new UserResourceConfig();
 
   public CarResource createCarResource() {
     return carResourceConfig.createCarResource(accountResourceConfig.createAccountService());
