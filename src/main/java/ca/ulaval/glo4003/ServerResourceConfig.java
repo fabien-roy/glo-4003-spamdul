@@ -12,5 +12,6 @@ public class ServerResourceConfig extends ResourceConfig {
     ApplicationResourceConfig applicationResourceConfig = new ApplicationResourceConfig();
     register(applicationResourceConfig.createContactResource());
     register(applicationResourceConfig.createUserResource());
+    register(applicationResourceConfig.createParkingResource());
   }
 }
