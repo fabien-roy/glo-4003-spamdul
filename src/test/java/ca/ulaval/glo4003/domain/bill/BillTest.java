@@ -1,25 +1,33 @@
 package ca.ulaval.glo4003.domain.bill;
 
+import static org.mockito.Mockito.verify;
+
 import ca.ulaval.glo4003.domain.parking.ReceptionMethods;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class BillTest {
   private static final String zone = "Zone1";
   private static final String time = "1j/sem/session";
   private Bill bill;
+  @Mock private CSVBillingZoneHelper csvBillingZoneHelper;
 
   @Before
   public void setup() {
     bill = new Bill();
+    bill.setCsvBillingZoneHelper(csvBillingZoneHelper);
   }
 
   @Test
   public void whenCalculatingTheZonePrice_thenAddThisPriceToMoneyToPay() {
     bill.calculateZonePriceWithCommunicationType(ReceptionMethods.POSTAL, zone, time);
 
-    Truth.assertThat(bill.getMoneyToPay()).isGreaterThan(0f);
+    verify(csvBillingZoneHelper).getZonePrice(zone, time);
   }
 
   @Test

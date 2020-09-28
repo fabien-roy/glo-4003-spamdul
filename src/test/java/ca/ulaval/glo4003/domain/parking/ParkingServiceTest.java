@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.domain.parking;
 
-import static ca.ulaval.glo4003.domain.account.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerBuilder.aParkingSticker;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
@@ -29,12 +28,11 @@ public class ParkingServiceTest {
   @Mock private AccountRepository accountRepository;
   @Mock private ParkingAreaRepository parkingAreaRepository;
   @Mock private ParkingStickerRepository parkingStickerRepository;
-  @Mock private Account mockedAccount;
+  @Mock private Account account;
 
   private ParkingSticker parkingSticker;
   private ParkingStickerCode parkingStickerCode;
   private ParkingService parkingService;
-  private Account account;
 
   @Before
   public void setUp() {
@@ -51,7 +49,6 @@ public class ParkingServiceTest {
     String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
     parkingSticker = aParkingSticker().withValidDay(dayOfWeek).build();
     parkingStickerCode = parkingSticker.getCode();
-    account = anAccount().build();
 
     when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
     when(parkingStickerCodeAssembler.assemble(parkingSticker.getCode()))
@@ -86,11 +83,11 @@ public class ParkingServiceTest {
 
   @Test
   public void whenAddParkingSticker_thenAddParkingStickerToAccount() {
-    when(accountRepository.findById(parkingSticker.getAccountId())).thenReturn(mockedAccount);
+    when(accountRepository.findById(parkingSticker.getAccountId())).thenReturn(account);
 
     parkingService.addParkingSticker(parkingStickerDto);
 
-    Mockito.verify(mockedAccount).addParkingSticker(parkingSticker);
+    Mockito.verify(account).addParkingSticker(parkingSticker);
   }
 
   @Test

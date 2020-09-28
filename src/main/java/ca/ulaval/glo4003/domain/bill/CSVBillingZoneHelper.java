@@ -11,6 +11,10 @@ public class CSVBillingZoneHelper {
       ".\\src\\main\\java\\ca\\ulaval\\glo4003\\document\\frais-zone.csv";
   FileHelper fileHelper = new FileHelper();
 
+  public void setFileHelper(FileHelper fileHelper) {
+    this.fileHelper = fileHelper;
+  }
+
   public float getZonePrice(String zone, String time) {
     List<List<String>> csvData = fileHelper.getCsvFileInJavaFormat(csvFraisZonePath);
     int columnNumber = findColumnNumberForZonePrice(time, csvData.get(0));

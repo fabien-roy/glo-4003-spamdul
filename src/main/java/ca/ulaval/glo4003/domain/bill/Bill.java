@@ -23,6 +23,10 @@ public class Bill {
     }
   }
 
+  public void setCsvBillingZoneHelper(CSVBillingZoneHelper csvBillingZoneHelper) {
+    this.csvBillingZoneHelper = csvBillingZoneHelper;
+  }
+
   public float getMoneyToPay() {
     return moneyToPay;
   }
