@@ -44,7 +44,7 @@ public class ParkingStickerAssemblerTest {
   public void setUp() {
     parkingStickerAssembler =
         new ParkingStickerAssembler(
-            accountIdAssembler, parkingAreaCodeAssembler, postalCodeAssembler);
+            parkingAreaCodeAssembler, accountIdAssembler, postalCodeAssembler);
 
     when(accountIdAssembler.assemble(ACCOUNT_ID.toString())).thenReturn(ACCOUNT_ID);
     when(parkingAreaCodeAssembler.assemble(PARKING_AREA.toString())).thenReturn(PARKING_AREA);

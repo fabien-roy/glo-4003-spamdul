@@ -6,12 +6,10 @@ import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
 import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
-import javax.inject.Inject;
 
 public class UserAssembler {
   private final CustomDateAssembler customDateAssembler;
 
-  @Inject
   public UserAssembler(CustomDateAssembler customDateAssembler) {
     this.customDateAssembler = customDateAssembler;
   }
