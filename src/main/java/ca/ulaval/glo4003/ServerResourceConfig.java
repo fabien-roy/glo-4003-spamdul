@@ -24,6 +24,11 @@ public class ServerResourceConfig extends ResourceConfig {
                 resources.add(applicationResourceConfig.createParkingResource());
                 return resources;
               }
+
+              @Override
+              public Set<Class<?>> getClasses() {
+                return new HashSet<>(applicationResourceConfig.getExceptionMappers());
+              }
             });
 
     resourceConfig.register(CORSResponseFilter.class);
