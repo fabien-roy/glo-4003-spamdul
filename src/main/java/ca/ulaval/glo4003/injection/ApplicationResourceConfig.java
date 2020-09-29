@@ -16,6 +16,7 @@ import ca.ulaval.glo4003.api.user.UserExceptionMapper;
 import ca.ulaval.glo4003.api.user.UserResource;
 import ca.ulaval.glo4003.injection.account.AccountResourceConfig;
 import ca.ulaval.glo4003.injection.car.CarResourceConfig;
+import ca.ulaval.glo4003.injection.communication.CommunicationResourceConfig;
 import ca.ulaval.glo4003.injection.contact.ContactResourceConfig;
 import ca.ulaval.glo4003.injection.location.LocationResourceConfig;
 import ca.ulaval.glo4003.injection.parking.ParkingResourceConfig;
@@ -31,6 +32,8 @@ public class ApplicationResourceConfig {
 
   private final AccountResourceConfig accountResourceConfig = new AccountResourceConfig();
   private final CarResourceConfig carResourceConfig = new CarResourceConfig();
+  private final CommunicationResourceConfig communicationResourceConfig =
+      new CommunicationResourceConfig();
   private final ContactResourceConfig contactResourceConfig = new ContactResourceConfig();
   private final LocationResourceConfig locationResourceConfig = new LocationResourceConfig();
   private final ParkingResourceConfig parkingResourceConfig = new ParkingResourceConfig();
@@ -50,6 +53,7 @@ public class ApplicationResourceConfig {
         IS_DEV,
         accountResourceConfig.createAccountIdAssembler(),
         locationResourceConfig.createPostalCodeAssembler(),
+        communicationResourceConfig.createEmailAddressAssembler(),
         accountResourceConfig.getAccountRepository());
   }
 

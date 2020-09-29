@@ -20,6 +20,8 @@ public class ParkingExceptionMapper implements ExceptionMapper<ParkingException>
       responseStatus = Response.Status.BAD_REQUEST;
     } else if (exception instanceof MissingPostalCodeException) {
       responseStatus = Response.Status.BAD_REQUEST;
+    } else if (exception instanceof MissingEmailException) {
+      responseStatus = Response.Status.BAD_REQUEST;
     } else if (exception instanceof NotFoundParkingAreaException) {
       responseStatus = Response.Status.NOT_FOUND;
     } else if (exception instanceof NotFoundParkingStickerException) {

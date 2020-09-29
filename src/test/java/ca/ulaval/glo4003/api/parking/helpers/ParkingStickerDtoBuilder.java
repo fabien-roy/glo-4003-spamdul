@@ -48,11 +48,6 @@ public class ParkingStickerDtoBuilder {
     return this;
   }
 
-  public ParkingStickerDtoBuilder withoutPostalCode() {
-    this.postalCode = null;
-    return this;
-  }
-
   public ParkingStickerDtoBuilder withValidDay(String validDay) {
     this.validDay = validDay;
     return this;
