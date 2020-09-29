@@ -3,9 +3,9 @@ package ca.ulaval.glo4003.domain.parking;
 import ca.ulaval.glo4003.api.parking.dto.AccessStatusDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
-import ca.ulaval.glo4003.domain.Email.EmailSender;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.communication.EmailSender;
 import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerException;
 import ca.ulaval.glo4003.domain.time.Days;
 import java.time.LocalDate;
@@ -68,6 +68,8 @@ public class ParkingService {
     accountRepository.update(account);
 
     parkingStickerRepository.save(parkingSticker);
+
+    // TODO : This is where we should notify observers (mail service) of new parking sticker
 
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
   }

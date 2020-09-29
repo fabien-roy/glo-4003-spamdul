@@ -1,9 +1,12 @@
 package ca.ulaval.glo4003.domain.account;
 
+import static ca.ulaval.glo4003.domain.account.helpers.AccountBuilder.anAccount;
+import static ca.ulaval.glo4003.domain.car.helpers.CarBuilder.aCar;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.domain.car.Car;
+import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,40 +16,42 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class AccountServiceTest {
 
-  private static final String AN_ACCOUNT_ID = "000";
-  private AccountService accountService;
   @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private AccountRepository accountRepository;
-  @Mock private AccountId accountId;
-  @Mock private Car car;
-  @Mock private Account account;
+
+  private AccountService accountService;
+  private Account account;
+  private Car car;
 
   @Before
   public void setup() {
     accountService = new AccountService(accountIdAssembler, accountRepository);
 
-    when(accountIdAssembler.assemble(AN_ACCOUNT_ID)).thenReturn(accountId);
-    when(accountRepository.findById(accountId)).thenReturn(account);
+    account = anAccount().build();
+    car = aCar().build();
+
+    when(accountIdAssembler.assemble(account.getId().toString())).thenReturn(account.getId());
+    when(accountRepository.findById(account.getId())).thenReturn(account);
   }
 
   @Test
   public void whenAddingCar_shouldAssembleAccountId() {
-    accountService.addCarToAccount(AN_ACCOUNT_ID, car);
+    accountService.addCarToAccount(account.getId().toString(), car);
 
-    verify(accountIdAssembler).assemble(AN_ACCOUNT_ID);
-  }
-
-  @Test
-  public void whenAddingCar_shouldFindCorrespondingAccountInRepository() {
-    accountService.addCarToAccount(AN_ACCOUNT_ID, car);
-
-    verify(accountRepository).findById(accountId);
+    verify(accountIdAssembler).assemble(account.getId().toString());
   }
 
   @Test
   public void whenAddingCar_shouldAddCarToAccount() {
-    accountService.addCarToAccount(AN_ACCOUNT_ID, car);
+    accountService.addCarToAccount(account.getId().toString(), car);
 
-    verify(account).addCar(car);
+    Truth.assertThat(account.getCars()).contains(car);
+  }
+
+  @Test
+  public void whenAddingCar_shouldSaveAccountToRepository() {
+    accountService.addCarToAccount(account.getId().toString(), car);
+
+    verify(accountRepository).save(account);
   }
 }

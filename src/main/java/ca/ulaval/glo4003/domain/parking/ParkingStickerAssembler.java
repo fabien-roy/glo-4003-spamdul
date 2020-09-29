@@ -1,13 +1,13 @@
 package ca.ulaval.glo4003.domain.parking;
 
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
-import ca.ulaval.glo4003.domain.Email.EmailAddress;
-import ca.ulaval.glo4003.domain.Email.EmailAddressAssembler;
 import ca.ulaval.glo4003.domain.account.AccountId;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
+import ca.ulaval.glo4003.domain.communication.EmailAddress;
+import ca.ulaval.glo4003.domain.communication.EmailAddressAssembler;
 import ca.ulaval.glo4003.domain.location.PostalCode;
 import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
-import ca.ulaval.glo4003.domain.parking.exception.MissingEmailAddressException;
+import ca.ulaval.glo4003.domain.parking.exception.MissingEmailException;
 import ca.ulaval.glo4003.domain.parking.exception.MissingPostalCodeException;
 import ca.ulaval.glo4003.domain.time.Days;
 
@@ -29,38 +29,40 @@ public class ParkingStickerAssembler {
   }
 
   public ParkingSticker assemble(ParkingStickerDto parkingStickerDto) {
-    ReceptionMethods receptionMethod = ReceptionMethods.get(parkingStickerDto.receptionMethod);
-    validateReceptionMethod(
-        receptionMethod, parkingStickerDto.postalCode, parkingStickerDto.emailAddress);
-
     AccountId accountId = accountIdAssembler.assemble(parkingStickerDto.accountId);
     ParkingAreaCode parkingAreaCode =
         parkingAreaCodeAssembler.assemble(parkingStickerDto.parkingArea);
 
-    PostalCode postalCode = null; // TODO value should not be null (new empty postalCode?)
-    EmailAddress emailAddress = null; // TODO value should not be null (new empty emailAddress?)
-    if (parkingStickerDto.receptionMethod.equals(ReceptionMethods.EMAIL.toString())) {
-      emailAddress = emailAddressAssembler.assemble(parkingStickerDto.emailAddress);
-    } else if (parkingStickerDto.receptionMethod.equals(ReceptionMethods.POSTAL.toString())) {
-      postalCode = postalCodeAssembler.assemble(parkingStickerDto.postalCode);
-    }
+    ReceptionMethods receptionMethod = ReceptionMethods.get(parkingStickerDto.receptionMethod);
 
-    return new ParkingSticker(
-        accountId,
-        parkingAreaCode,
-        receptionMethod,
-        postalCode,
-        emailAddress,
-        Days.get(parkingStickerDto.validDay));
-  }
+    switch (receptionMethod) {
+      case POSTAL:
+        if (parkingStickerDto.postalCode == null) {
+          throw new MissingPostalCodeException();
+        } else {
+          PostalCode postalCode = postalCodeAssembler.assemble(parkingStickerDto.postalCode);
 
-  private void validateReceptionMethod(
-      ReceptionMethods receptionMethod, String postalCode, String emailAddress) {
-    if (receptionMethod.equals(ReceptionMethods.POSTAL) && postalCode == null) {
-      throw new MissingPostalCodeException();
-    }
-    if (receptionMethod.equals(ReceptionMethods.EMAIL) && emailAddress == null) {
-      throw new MissingEmailAddressException();
+          return new ParkingSticker(
+              accountId,
+              parkingAreaCode,
+              receptionMethod,
+              postalCode,
+              Days.get(parkingStickerDto.validDay));
+        }
+      default:
+      case EMAIL:
+        if (parkingStickerDto.email == null) {
+          throw new MissingEmailException();
+        } else {
+          EmailAddress emailAddress = emailAddressAssembler.assemble(parkingStickerDto.email);
+
+          return new ParkingSticker(
+              accountId,
+              parkingAreaCode,
+              receptionMethod,
+              emailAddress,
+              Days.get(parkingStickerDto.validDay));
+        }
     }
   }
 }
