@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.api.account.AccountExceptionMapper;
 import ca.ulaval.glo4003.api.bill.BillExceptionMapper;
 import ca.ulaval.glo4003.api.car.CarExceptionMapper;
 import ca.ulaval.glo4003.api.car.CarResource;
+import ca.ulaval.glo4003.api.communication.CommunicationExceptionMapper;
 import ca.ulaval.glo4003.api.contact.ContactExceptionMapper;
 import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.file.FileExceptionMapper;
@@ -71,6 +72,7 @@ public class ApplicationResourceConfig {
         AccountExceptionMapper.class,
         BillExceptionMapper.class,
         CarExceptionMapper.class,
+        CommunicationExceptionMapper.class,
         ContactExceptionMapper.class,
         FileExceptionMapper.class,
         LocationExceptionMapper.class,
