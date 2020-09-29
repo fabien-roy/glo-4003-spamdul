@@ -2055,7 +2055,7 @@
 							"_postman_isSubFolder": true
 						},
 						{
-							"name": "Postal code",
+							"name": "Postal code (with postal reception method)",
 							"item": [
 								{
 									"name": "Invalid postal code (null)",
@@ -2082,7 +2082,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": null,\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": null,\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2127,7 +2127,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2172,7 +2172,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": 1,\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": 1,\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2217,7 +2217,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": [{{request.parkingSticker.postalCode}}],\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": [{{request.parkingSticker.postalCode}}],\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2262,7 +2262,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {\n      \"postalCode\": {{request.parkingSticker.postalCode}}\n  },\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {\n      \"postalCode\": {{request.parkingSticker.postalCode}}\n  },\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2307,7 +2307,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": \"AAAAA\",\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+											"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": \"AAAAA\",\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2326,6 +2326,28 @@
 										}
 									},
 									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "18ca483a-9fe0-47e0-9f68-07c54c3648af",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "40eb5e04-d72d-4add-aea0-355b1edd394a",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
 								}
 							],
 							"protocolProfileBehavior": {},
@@ -2609,7 +2631,7 @@
 							"_postman_isSubFolder": true
 						},
 						{
-							"name": "Valid parking sticker",
+							"name": "Valid parking sticker (postal)",
 							"event": [
 								{
 									"listen": "test",
@@ -2633,7 +2655,52 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+									"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/parkings",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"parkings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Valid parking sticker (email)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bd63a4bf-96f4-4ca7-a6b3-85f8590e236c",
+										"exec": [
+											"pm.test(\"Returns status 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Returns parking sticker code\", function () {",
+											"    pm.response.to.have.jsonBody(\"parkingStickerCode\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": {{request.parkingSticker.email}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
 									"options": {
 										"raw": {
 											"language": "json"
