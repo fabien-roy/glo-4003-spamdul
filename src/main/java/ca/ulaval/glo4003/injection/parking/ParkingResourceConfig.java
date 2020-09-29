@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
 import ca.ulaval.glo4003.domain.bill.CSVBillingZoneHelper;
 import ca.ulaval.glo4003.domain.communication.EmailAddressAssembler;
+import ca.ulaval.glo4003.domain.communication.EmailSender;
 import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.*;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
@@ -30,6 +31,7 @@ public class ParkingResourceConfig {
       AccountIdAssembler accountIdAssembler,
       PostalCodeAssembler postalCodeAssembler,
       EmailAddressAssembler emailAddressAssembler,
+      EmailSender emailSender,
       AccountRepository accountRepository) {
     if (isDev) {
       CSVBillingZoneHelper csvBillingZoneHelper = new CSVBillingZoneHelper();
@@ -62,7 +64,8 @@ public class ParkingResourceConfig {
             accountRepository,
             parkingAreaRepository,
             parkingStickerRepository,
-            accessStatusAssembler);
+            accessStatusAssembler,
+            emailSender);
 
     return new ParkingResourceImplementation(parkingService);
   }

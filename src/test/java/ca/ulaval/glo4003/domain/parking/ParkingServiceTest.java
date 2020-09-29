@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.domain.parking;
 
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerBuilder.aParkingSticker;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -8,6 +9,7 @@ import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.communication.EmailSender;
 import com.google.common.truth.Truth;
 import java.time.LocalDate;
 import org.junit.Before;
@@ -28,6 +30,7 @@ public class ParkingServiceTest {
   @Mock private AccountRepository accountRepository;
   @Mock private ParkingAreaRepository parkingAreaRepository;
   @Mock private ParkingStickerRepository parkingStickerRepository;
+  @Mock private EmailSender emailSender;
   @Mock private Account account;
 
   private ParkingSticker parkingSticker;
@@ -44,7 +47,8 @@ public class ParkingServiceTest {
             accountRepository,
             parkingAreaRepository,
             parkingStickerRepository,
-            accessStatusAssembler);
+            accessStatusAssembler,
+            emailSender);
     LocalDate date = LocalDate.now();
     String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
     parkingSticker = aParkingSticker().withValidDay(dayOfWeek).build();
@@ -110,6 +114,19 @@ public class ParkingServiceTest {
         parkingService.addParkingSticker(parkingStickerDto);
 
     Truth.assertThat(parkingStickerCodeDto).isSameInstanceAs(this.parkingStickerCodeDto);
+  }
+
+  @Test
+  public void givenReceptionMethodIsMail_whenAddParkingSticker_thenMailSenderIsCalled() {
+    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethods.EMAIL).build();
+    when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
+    when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
+    when(accountRepository.findById(parkingSticker.getAccountId())).thenReturn(account);
+
+    parkingService.addParkingSticker(parkingStickerDto);
+
+    Mockito.verify(emailSender)
+        .sendEmail(eq(parkingSticker.getEmailAddress().toString()), anyString(), anyString());
   }
 
   @Test

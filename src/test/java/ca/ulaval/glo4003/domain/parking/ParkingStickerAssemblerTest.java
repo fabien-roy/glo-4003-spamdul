@@ -117,6 +117,19 @@ public class ParkingStickerAssemblerTest {
   }
 
   @Test
+  public void givenEmailReceptionMethod_whenAssembling_thenReturnParkingStickerWithEmailAddress() {
+    parkingStickerDto =
+        aParkingStickerDto()
+            .withReceptionMethod(ReceptionMethods.EMAIL.toString())
+            .withEmail(EMAIL_ADDRESS.toString())
+            .build();
+
+    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+
+    Truth.assertThat(parkingSticker.getEmailAddress()).isEqualTo(EMAIL_ADDRESS);
+  }
+
+  @Test
   public void whenAssembling_thenReturnParkingStickerWithReceptionMethod() {
     ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
 

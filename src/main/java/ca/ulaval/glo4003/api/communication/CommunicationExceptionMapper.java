@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.api.communication;
 
 import ca.ulaval.glo4003.api.interfaces.dto.ErrorDto;
 import ca.ulaval.glo4003.domain.communication.exception.CommunicationException;
+import ca.ulaval.glo4003.domain.communication.exception.EmailSendingFailedException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -13,6 +14,10 @@ public class CommunicationExceptionMapper implements ExceptionMapper<Communicati
   @Override
   public Response toResponse(CommunicationException exception) {
     Response.Status responseStatus = Response.Status.BAD_REQUEST;
+
+    if (exception instanceof EmailSendingFailedException) {
+      responseStatus = Response.Status.INTERNAL_SERVER_ERROR;
+    }
 
     ErrorDto errorDto = new ErrorDto();
     errorDto.error = exception.error;

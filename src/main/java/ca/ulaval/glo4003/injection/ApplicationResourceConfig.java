@@ -47,6 +47,7 @@ public class ApplicationResourceConfig {
         accountResourceConfig.createAccountIdAssembler(),
         locationResourceConfig.createPostalCodeAssembler(),
         communicationResourceConfig.createEmailAddressAssembler(),
+        communicationResourceConfig.createEmailSender(),
         accountResourceConfig.getAccountRepository());
   }
 
