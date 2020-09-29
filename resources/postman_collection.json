@@ -25,7 +25,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+					"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -213,6 +213,50 @@
 			"response": []
 		},
 		{
+			"name": "Check offenses for parking sticker",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "724457cf-34b6-4933-be70-bb18e37a3845",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/parkings/{{param.parkingStickerCode}}/offenses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"parkings",
+						"{{param.parkingStickerCode}}",
+						"offenses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Add car",
 			"event": [
 				{
@@ -246,6 +290,48 @@
 					"path": [
 						"api",
 						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get offenses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af792843-ba93-47af-9979-3a8dcae7ffd7",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/offenses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"offenses"
 					]
 				}
 			},
