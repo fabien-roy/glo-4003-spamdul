@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Check style
-        run: mvn git-code-format:validate-code-format
+        run: mvn git-parkingStickerCode-format:validate-parkingStickerCode-format
       - name: Unit tests
         run: mvn test
       - name: Code coverage

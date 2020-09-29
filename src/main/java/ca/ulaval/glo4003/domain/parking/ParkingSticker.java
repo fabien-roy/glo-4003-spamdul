@@ -56,4 +56,8 @@ public class ParkingSticker {
   public boolean validateParkingStickerDay(Days day) {
     return getValidDay().equals(day);
   }
+
+  public boolean validateParkingStickerAreaCode(ParkingAreaCode parkingAreaCode) {
+    return getParkingAreaCode().equals(parkingAreaCode);
+  }
 }
