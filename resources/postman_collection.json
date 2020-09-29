@@ -220,8 +220,7 @@
 					"script": {
 						"id": "30f8a431-4113-4ad4-85b7-338f77d14d26",
 						"exec": [
-							"var jsonData = JSON.parse(responseBody);",
-							"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
+							""
 						],
 						"type": "text/javascript"
 					}
