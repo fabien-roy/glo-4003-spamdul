@@ -17,10 +17,10 @@ public class TimeOfDay {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    TimeOfDay timeOfDay = (TimeOfDay) o;
+  public boolean equals(Object object) {
+    if (this == object) return true;
+    if (object == null || getClass() != object.getClass()) return false;
+    TimeOfDay timeOfDay = (TimeOfDay) object;
     return localTime.equals(timeOfDay.localTime);
   }
 

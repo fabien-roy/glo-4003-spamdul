@@ -57,7 +57,7 @@ public class ParkingService {
 
   public AccessStatusDto validateParkingStickerCode(String stringCode)
       throws NotFoundParkingStickerException {
-    logger.info(String.format("Validate parking sticker parkingStickerCode %s", stringCode));
+    logger.info(String.format("Validate parking sticker code %s", stringCode));
 
     ParkingStickerCode parkingStickerCode = parkingStickerCodeAssembler.assemble(stringCode);
     ParkingSticker parkingSticker = parkingStickerRepository.findByCode(parkingStickerCode);
