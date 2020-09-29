@@ -2,6 +2,8 @@ package ca.ulaval.glo4003.injection.parking;
 
 import ca.ulaval.glo4003.api.parking.ParkingResource;
 import ca.ulaval.glo4003.api.parking.ParkingResourceImplementation;
+import ca.ulaval.glo4003.domain.Email.EmailAddressAssembler;
+import ca.ulaval.glo4003.domain.Email.EmailSender;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
 import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
@@ -27,7 +29,9 @@ public class ParkingResourceConfig {
       boolean isDev,
       AccountIdAssembler accountIdAssembler,
       PostalCodeAssembler postalCodeAssembler,
-      AccountRepository accountRepository) {
+      EmailAddressAssembler emailAddressAssembler,
+      AccountRepository accountRepository,
+      EmailSender emailSender) {
     if (isDev) {
       ParkingAreaFakeFactory parkingAreaFakeFactory = new ParkingAreaFakeFactory();
       List<ParkingArea> parkingAreas = parkingAreaFakeFactory.createMockData();
@@ -37,7 +41,10 @@ public class ParkingResourceConfig {
     ParkingAreaCodeAssembler parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
     ParkingStickerAssembler parkingStickerAssembler =
         new ParkingStickerAssembler(
-            parkingAreaCodeAssembler, accountIdAssembler, postalCodeAssembler);
+            parkingAreaCodeAssembler,
+            accountIdAssembler,
+            postalCodeAssembler,
+            emailAddressAssembler);
     ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
     AccessStatusAssembler accessStatusAssembler = new AccessStatusAssembler();
 
@@ -52,7 +59,8 @@ public class ParkingResourceConfig {
             accountRepository,
             parkingAreaRepository,
             parkingStickerRepository,
-            accessStatusAssembler);
+            accessStatusAssembler,
+            emailSender);
 
     return new ParkingResourceImplementation(parkingService);
   }
