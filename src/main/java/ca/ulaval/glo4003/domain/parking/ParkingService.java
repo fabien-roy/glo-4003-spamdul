@@ -52,6 +52,8 @@ public class ParkingService {
 
     parkingStickerRepository.save(parkingSticker);
 
+    // TODO : This is where we should notify observers (mail service) of new parking sticker
+
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
   }
 
