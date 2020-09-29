@@ -15,6 +15,7 @@ public class OffenseResourceConfig {
       ParkingAreaCodeAssembler parkingAreaCodeAssembler) {
     OffenseValidationAssembler offenseValidationAssembler =
         new OffenseValidationAssembler(parkingStickerCodeAssembler, parkingAreaCodeAssembler);
+
     return new OffenseResourceImplementation(
         new OffenseService(parkingStickerRepository, offenseValidationAssembler));
   }

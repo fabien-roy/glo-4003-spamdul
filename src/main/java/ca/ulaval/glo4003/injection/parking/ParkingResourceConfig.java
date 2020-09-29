@@ -19,11 +19,15 @@ public class ParkingResourceConfig {
   private final ParkingStickerCodeGenerator parkingStickerCodeGenerator;
   private final ParkingAreaRepository parkingAreaRepository;
   private final ParkingStickerRepository parkingStickerRepository;
+  private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
+  private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
   public ParkingResourceConfig() {
     parkingStickerCodeGenerator = new ParkingStickerCodeGenerator();
     parkingAreaRepository = new ParkingAreaRepositoryInMemory();
     parkingStickerRepository = new ParkingStickerRepositoryInMemory();
+    parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
+    parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
   }
 
   public ParkingResource createParkingResource(
@@ -38,7 +42,7 @@ public class ParkingResourceConfig {
       List<String> zones = csvBillingZoneHelper.getAllZones();
       List<ParkingArea> parkingAreas =
           zones.stream()
-              .map(string -> new ParkingArea(new ParkingAreaCode(string)))
+              .map(zone -> new ParkingArea(new ParkingAreaCode(zone)))
               .collect(Collectors.toList());
       parkingAreas.forEach(parkingAreaRepository::save);
     }
@@ -68,5 +72,17 @@ public class ParkingResourceConfig {
             emailSender);
 
     return new ParkingResourceImplementation(parkingService);
+  }
+
+  public ParkingStickerRepository getParkingStickerRepository() {
+    return parkingStickerRepository;
+  }
+
+  public ParkingStickerCodeAssembler getParkingStickerCodeAssembler() {
+    return parkingStickerCodeAssembler;
+  }
+
+  public ParkingAreaCodeAssembler getParkingAreaCodeAssembler() {
+    return parkingAreaCodeAssembler;
   }
 }
