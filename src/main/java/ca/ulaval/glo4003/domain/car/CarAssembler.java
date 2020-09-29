@@ -3,13 +3,11 @@ package ca.ulaval.glo4003.domain.car;
 import ca.ulaval.glo4003.api.car.dto.CarDto;
 import ca.ulaval.glo4003.domain.car.exceptions.InvalidCarYearException;
 import java.time.LocalDate;
-import javax.inject.Inject;
 
 public class CarAssembler {
 
   private final LicensePlateAssembler licensePlateAssembler;
 
-  @Inject
   public CarAssembler(LicensePlateAssembler licensePlateAssembler) {
     this.licensePlateAssembler = licensePlateAssembler;
   }
