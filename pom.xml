@@ -26,8 +26,6 @@
 		<junit.version>4.13</junit.version>
 		<javafaker.version>1.0.2</javafaker.version>
 		<mockito.version>2.0.2-beta</mockito.version>
-		<!-- TODO : Check if REST assured is used -->
-		<rest-assured.version>4.3.1</rest-assured.version>
 		<hamcrest.version>2.2</hamcrest.version>
 		<google.truth.version>1.0.1</google.truth.version>
 		<javax.xml.bind.version>2.3.1</javax.xml.bind.version>
@@ -108,18 +106,6 @@
 			<groupId>com.github.javafaker</groupId>
 			<artifactId>javafaker</artifactId>
 			<version>${javafaker.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<version>${rest-assured.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>json-path</artifactId>
-			<version>${rest-assured.version}</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>

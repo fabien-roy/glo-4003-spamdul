@@ -19,7 +19,6 @@ public class ServerResourceConfig extends ResourceConfig {
               public Set<Object> getSingletons() {
                 HashSet<Object> resources = new HashSet<>();
                 resources.add(applicationResourceConfig.createCarResource());
-                resources.add(applicationResourceConfig.createContactResource());
                 resources.add(applicationResourceConfig.createUserResource());
                 resources.add(applicationResourceConfig.createParkingResource());
                 return resources;
