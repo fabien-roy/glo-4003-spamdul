@@ -14,7 +14,6 @@ import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
 import ca.ulaval.glo4003.domain.time.Days;
 import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
 import ca.ulaval.glo4003.domain.time.exception.InvalidDayException;
-import ca.ulaval.glo4003.domain.user.exception.InvalidAccessDayException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidSexException;
@@ -129,13 +128,6 @@ public class UserAssemblerTest {
   @Test(expected = InvalidDayException.class)
   public void givenInvalidAccessDay_whenAssembling_thenReturnInvalidAccessDayException() {
     userDto.accessDay = "invalidAccessDay";
-
-    userAssembler.assemble(userDto);
-  }
-
-  @Test(expected = InvalidAccessDayException.class)
-  public void givenNullAccessDay_whenAssembling_thenThrowInvalidAccessDayException() {
-    userDto = aUserDto().withAccessDay(null).build();
 
     userAssembler.assemble(userDto);
   }

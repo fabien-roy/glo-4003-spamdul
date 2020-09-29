@@ -20,6 +20,7 @@ public class UserAssembler {
 
   public User assemble(UserDto userDto) {
     CustomDate birthDate;
+    Days accessDay;
 
     validateNotNull(userDto);
 
@@ -31,7 +32,13 @@ public class UserAssembler {
 
     if (birthDate.isFuture()) throw new InvalidBirthDateException();
 
-    return new User(userDto.name, birthDate, Sex.get(userDto.sex), Days.get(userDto.accessDay));
+    try {
+      accessDay = Days.get(userDto.accessDay);
+    } catch (InvalidAccessDayException exception) {
+      throw new InvalidAccessDayException();
+    }
+
+    return new User(userDto.name, birthDate, Sex.get(userDto.sex), accessDay);
   }
 
   public UserDto assemble(User user) {
@@ -49,8 +56,6 @@ public class UserAssembler {
       throw new InvalidNameException();
     } else if (userDto.birthDate == null) {
       throw new InvalidBirthDateException();
-    } else if (userDto.accessDay == null) {
-      throw new InvalidAccessDayException();
     }
   }
 }
