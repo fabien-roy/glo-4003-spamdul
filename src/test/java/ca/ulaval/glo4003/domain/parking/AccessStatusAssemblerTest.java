@@ -20,7 +20,7 @@ public class AccessStatusAssemblerTest {
   }
 
   @Test
-  public void whenAssembling_thenReturnAccessStatusDTO() {
+  public void whenAssembling_thenReturnAccessStatusDto() {
     AccessStatusDto accessStatusDto = accessStatusAssembler.assemble(ACCESS_GRANTED.toString());
 
     Truth.assertThat(accessStatusDto.accessStatus).isEqualTo(ACCESS_GRANTED.toString());

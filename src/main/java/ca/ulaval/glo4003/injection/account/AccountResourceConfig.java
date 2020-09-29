@@ -26,6 +26,8 @@ public class AccountResourceConfig {
   }
 
   public AccountService createAccountService() {
-    return new AccountService();
+    AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
+
+    return new AccountService(accountIdAssembler, accountRepository);
   }
 }
