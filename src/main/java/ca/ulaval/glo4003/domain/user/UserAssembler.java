@@ -3,7 +3,9 @@ package ca.ulaval.glo4003.domain.user;
 import ca.ulaval.glo4003.api.user.dto.UserDto;
 import ca.ulaval.glo4003.domain.time.CustomDate;
 import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
+import ca.ulaval.glo4003.domain.time.Days;
 import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
+import ca.ulaval.glo4003.domain.user.exception.InvalidAccessDayException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
 
@@ -16,6 +18,7 @@ public class UserAssembler {
 
   public User assemble(UserDto userDto) {
     CustomDate birthDate;
+    Days accessDay;
 
     validateNotNull(userDto);
 
@@ -27,7 +30,13 @@ public class UserAssembler {
 
     if (birthDate.isFuture()) throw new InvalidBirthDateException();
 
-    return new User(userDto.name, birthDate, Sex.get(userDto.sex));
+    try {
+      accessDay = Days.get(userDto.accessDay);
+    } catch (InvalidAccessDayException exception) {
+      throw new InvalidAccessDayException();
+    }
+
+    return new User(userDto.name, birthDate, Sex.get(userDto.sex), accessDay);
   }
 
   public UserDto assemble(User user) {
@@ -35,6 +44,7 @@ public class UserAssembler {
     userDto.name = user.getName();
     userDto.birthDate = user.getBirthDate().toString();
     userDto.sex = user.getSex().name().toLowerCase();
+    userDto.accessDay = user.getAccessDay().toString();
 
     return userDto;
   }

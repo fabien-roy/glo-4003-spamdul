@@ -1,8 +1,7 @@
 package ca.ulaval.glo4003.api.user.helpers;
 
 import static ca.ulaval.glo4003.domain.time.helpers.CustomDateMother.createPastDate;
-import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createName;
-import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createSex;
+import static ca.ulaval.glo4003.domain.user.helpers.UserMother.*;
 
 import ca.ulaval.glo4003.api.user.dto.UserDto;
 
@@ -10,6 +9,7 @@ public class UserDtoBuilder {
   private String name = createName();
   private String birthDate = createPastDate().toString();
   private String sex = createSex().toString();
+  private String accessDay = createAccessDay().toString();
 
   private UserDtoBuilder() {}
 
@@ -32,11 +32,17 @@ public class UserDtoBuilder {
     return this;
   }
 
+  public UserDtoBuilder withAccessDay(String accessDay) {
+    this.accessDay = accessDay;
+    return this;
+  }
+
   public UserDto build() {
     UserDto userDto = new UserDto();
     userDto.name = name;
     userDto.birthDate = birthDate;
     userDto.sex = sex;
+    userDto.accessDay = accessDay;
     return userDto;
   }
 }
