@@ -1,12 +1,14 @@
 package ca.ulaval.glo4003.domain.parking.helpers;
 
 import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccountId;
+import static ca.ulaval.glo4003.domain.communication.helpers.EmailAddressMother.createEmailAddress;
 import static ca.ulaval.glo4003.domain.location.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.*;
 import static ca.ulaval.glo4003.domain.time.helpers.DayMother.createDay;
 
 import ca.ulaval.glo4003.domain.account.AccountId;
+import ca.ulaval.glo4003.domain.communication.EmailAddress;
 import ca.ulaval.glo4003.domain.location.PostalCode;
 import ca.ulaval.glo4003.domain.parking.ParkingAreaCode;
 import ca.ulaval.glo4003.domain.parking.ParkingSticker;
@@ -20,6 +22,7 @@ public class ParkingStickerBuilder {
   private ParkingAreaCode parkingAreaCode = createParkingAreaCode();
   private ReceptionMethods receptionMethod = createReceptionMethod();
   private PostalCode postalCode = createPostalCode();
+  private EmailAddress emailAddress = createEmailAddress();
   private Days validDay = createDay();
 
   private ParkingStickerBuilder() {}
@@ -33,9 +36,26 @@ public class ParkingStickerBuilder {
     return this;
   }
 
+  public ParkingStickerBuilder withReceptionMethod(ReceptionMethods receptionMethod) {
+    this.receptionMethod = receptionMethod;
+    return this;
+  }
+
   public ParkingSticker build() {
-    ParkingSticker parkingSticker =
-        new ParkingSticker(accountId, parkingAreaCode, receptionMethod, postalCode, validDay);
+    ParkingSticker parkingSticker;
+
+    switch (receptionMethod) {
+      case POSTAL:
+        parkingSticker =
+            new ParkingSticker(accountId, parkingAreaCode, receptionMethod, postalCode, validDay);
+        break;
+      default:
+      case EMAIL:
+        parkingSticker =
+            new ParkingSticker(accountId, parkingAreaCode, receptionMethod, emailAddress, validDay);
+        break;
+    }
+
     parkingSticker.setCode(parkingStickerCode);
     return parkingSticker;
   }

@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.api.parking.helpers;
 
 import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccountId;
+import static ca.ulaval.glo4003.domain.communication.helpers.EmailAddressMother.createEmailAddress;
 import static ca.ulaval.glo4003.domain.location.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createReceptionMethod;
@@ -13,6 +14,7 @@ public class ParkingStickerDtoBuilder {
   private String parkingArea = createParkingAreaCode().toString();
   private String receptionMethod = createReceptionMethod().toString();
   private String postalCode = createPostalCode().toString();
+  private String email = createEmailAddress().toString();
   private String validDay = createDay().toString();
 
   private ParkingStickerDtoBuilder() {}
@@ -41,8 +43,8 @@ public class ParkingStickerDtoBuilder {
     return this;
   }
 
-  public ParkingStickerDtoBuilder withoutPostalCode() {
-    this.postalCode = null;
+  public ParkingStickerDtoBuilder withEmail(String email) {
+    this.email = email;
     return this;
   }
 
@@ -57,6 +59,7 @@ public class ParkingStickerDtoBuilder {
     parkingStickerDto.parkingArea = parkingArea;
     parkingStickerDto.receptionMethod = receptionMethod;
     parkingStickerDto.postalCode = postalCode;
+    parkingStickerDto.email = email;
     parkingStickerDto.validDay = validDay;
     return parkingStickerDto;
   }

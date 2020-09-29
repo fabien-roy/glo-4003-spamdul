@@ -5,12 +5,16 @@ import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.domain.account.Account;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.communication.EmailSender;
 import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerException;
 import ca.ulaval.glo4003.domain.time.Days;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 
 public class ParkingService {
+  private static final String SENDING_PARKING_STICKER_EMAIL_SUBJECT = "Votre vignette SPAMD-UL";
+  private static final String SENDING_PARKING_STICKER_EMAIL_MESSAGE =
+      "Votre code de vignette SPAMD-UL est %s";
   private final Logger logger = Logger.getLogger(ParkingService.class.getName());
   private final ParkingStickerAssembler parkingStickerAssembler;
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
@@ -19,6 +23,7 @@ public class ParkingService {
   private final AccountRepository accountRepository;
   private final ParkingAreaRepository parkingAreaRepository;
   private final ParkingStickerRepository parkingStickerRepository;
+  private final EmailSender emailSender;
 
   public ParkingService(
       ParkingStickerAssembler parkingStickerAssembler,
@@ -27,7 +32,8 @@ public class ParkingService {
       AccountRepository accountRepository,
       ParkingAreaRepository parkingAreaRepository,
       ParkingStickerRepository parkingStickerRepository,
-      AccessStatusAssembler accessStatusAssembler) {
+      AccessStatusAssembler accessStatusAssembler,
+      EmailSender emailSender) {
     this.parkingStickerAssembler = parkingStickerAssembler;
     this.parkingStickerCodeAssembler = parkingStickerCodeAssembler;
     this.accessStatusAssembler = accessStatusAssembler;
@@ -35,6 +41,7 @@ public class ParkingService {
     this.accountRepository = accountRepository;
     this.parkingAreaRepository = parkingAreaRepository;
     this.parkingStickerRepository = parkingStickerRepository;
+    this.emailSender = emailSender;
   }
 
   public ParkingStickerCodeDto addParkingSticker(ParkingStickerDto parkingStickerDto) {
@@ -47,10 +54,22 @@ public class ParkingService {
 
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
+    if (parkingSticker.getReceptionMethod().equals(ReceptionMethods.EMAIL)) {
+      emailSender.sendEmail(
+          parkingSticker.getEmailAddress().toString(),
+          SENDING_PARKING_STICKER_EMAIL_SUBJECT,
+          String.format(
+              SENDING_PARKING_STICKER_EMAIL_MESSAGE, parkingSticker.getCode().toString()));
+    } else if (parkingSticker.getReceptionMethod().equals(ReceptionMethods.POSTAL)) {
+
+    }
+
     account.addParkingSticker(parkingSticker);
     accountRepository.update(account);
 
     parkingStickerRepository.save(parkingSticker);
+
+    // TODO : This is where we should notify observers (mail service) of new parking sticker
 
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
   }

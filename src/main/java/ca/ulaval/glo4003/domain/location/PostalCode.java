@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.domain.location;
 
 public class PostalCode {
-  private String code;
+  private final String code;
 
   public PostalCode(String code) {
     this.code = code;

@@ -5,21 +5,21 @@ import ca.ulaval.glo4003.domain.parking.ReceptionMethods;
 public class Bill {
   CSVBillingZoneHelper csvBillingZoneHelper = new CSVBillingZoneHelper();
 
-  private float moneyToPay;
+  private float amountDue;
 
   public Bill() {
-    moneyToPay = 0;
+    amountDue = 0;
   }
 
   public void calculateZonePriceWithCommunicationType(
       ReceptionMethods receptionMethods, String zone, String time) {
-    moneyToPay += csvBillingZoneHelper.getZonePrice(zone, time);
+    amountDue += csvBillingZoneHelper.getZonePrice(zone, time);
     addPriceForCommunicationMethod(receptionMethods);
   }
 
   public void addPriceForCommunicationMethod(ReceptionMethods receptionMethod) {
     if (receptionMethod.equals(ReceptionMethods.POSTAL)) {
-      moneyToPay += 5;
+      amountDue += 5;
     }
   }
 
@@ -27,7 +27,7 @@ public class Bill {
     this.csvBillingZoneHelper = csvBillingZoneHelper;
   }
 
-  public float getMoneyToPay() {
-    return moneyToPay;
+  public float getAmountDue() {
+    return amountDue;
   }
 }

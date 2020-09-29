@@ -89,7 +89,7 @@
 			"response": []
 		},
 		{
-			"name": "Add parking sticker",
+			"name": "Add parking sticker (postal)",
 			"event": [
 				{
 					"listen": "test",
@@ -108,7 +108,47 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+					"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/parkings",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"parkings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add parking sticker (email)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11cfbda3-8f7a-44d1-a11e-e8a16dd4d290",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": {{request.parkingSticker.email}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -180,8 +220,7 @@
 					"script": {
 						"id": "30f8a431-4113-4ad4-85b7-338f77d14d26",
 						"exec": [
-							"var jsonData = JSON.parse(responseBody);",
-							"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
+							""
 						],
 						"type": "text/javascript"
 					}
