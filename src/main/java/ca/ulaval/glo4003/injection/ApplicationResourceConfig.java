@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.api.contact.ContactResource;
 import ca.ulaval.glo4003.api.file.FileExceptionMapper;
 import ca.ulaval.glo4003.api.interfaces.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.api.location.LocationExceptionMapper;
+import ca.ulaval.glo4003.api.offense.OffenseResource;
 import ca.ulaval.glo4003.api.parking.ParkingExceptionMapper;
 import ca.ulaval.glo4003.api.parking.ParkingResource;
 import ca.ulaval.glo4003.api.time.TimeExceptionMapper;
@@ -18,6 +19,7 @@ import ca.ulaval.glo4003.injection.account.AccountResourceConfig;
 import ca.ulaval.glo4003.injection.car.CarResourceConfig;
 import ca.ulaval.glo4003.injection.contact.ContactResourceConfig;
 import ca.ulaval.glo4003.injection.location.LocationResourceConfig;
+import ca.ulaval.glo4003.injection.offense.OffenseResourceConfig;
 import ca.ulaval.glo4003.injection.parking.ParkingResourceConfig;
 import ca.ulaval.glo4003.injection.time.TimeResourceConfig;
 import ca.ulaval.glo4003.injection.user.UserResourceConfig;
@@ -36,6 +38,7 @@ public class ApplicationResourceConfig {
   private final ParkingResourceConfig parkingResourceConfig = new ParkingResourceConfig();
   private final TimeResourceConfig timeResourceConfig = new TimeResourceConfig();
   private final UserResourceConfig userResourceConfig = new UserResourceConfig();
+  private final OffenseResourceConfig offenseResourceConfig = new OffenseResourceConfig();
 
   public CarResource createCarResource() {
     return carResourceConfig.createCarResource(accountResourceConfig.createAccountService());
@@ -59,6 +62,13 @@ public class ApplicationResourceConfig {
         accountResourceConfig.createAccountFactory(),
         accountResourceConfig.createAccountIdAssembler(),
         timeResourceConfig.createCustomDateAssembler());
+  }
+
+  public OffenseResource createOffenseResource() {
+    return offenseResourceConfig.createOffenseResource(
+        parkingResourceConfig.getParkingStickerRepository(),
+        parkingResourceConfig.getParkingStickerCodeAssembler(),
+        parkingResourceConfig.getParkingAreaCodeAssembler());
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {

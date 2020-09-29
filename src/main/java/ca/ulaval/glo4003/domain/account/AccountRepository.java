@@ -6,6 +6,4 @@ public interface AccountRepository {
   Account findById(AccountId id);
 
   void update(Account account);
-
-  // TODO add here or somewhere else a way to match a StickerID to its Account
 }

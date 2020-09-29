@@ -16,11 +16,15 @@ public class ParkingResourceConfig {
   private final ParkingStickerCodeGenerator parkingStickerCodeGenerator;
   private final ParkingAreaRepository parkingAreaRepository;
   private final ParkingStickerRepository parkingStickerRepository;
+  private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
+  private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
   public ParkingResourceConfig() {
     parkingStickerCodeGenerator = new ParkingStickerCodeGenerator();
     parkingAreaRepository = new ParkingAreaRepositoryInMemory();
     parkingStickerRepository = new ParkingStickerRepositoryInMemory();
+    parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
+    parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
   }
 
   public ParkingResource createParkingResource(
@@ -34,11 +38,9 @@ public class ParkingResourceConfig {
       parkingAreas.forEach(parkingAreaRepository::save);
     }
 
-    ParkingAreaCodeAssembler parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
     ParkingStickerAssembler parkingStickerAssembler =
         new ParkingStickerAssembler(
             parkingAreaCodeAssembler, accountIdAssembler, postalCodeAssembler);
-    ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
     AccessStatusAssembler accessStatusAssembler = new AccessStatusAssembler();
 
     ParkingStickerFactory parkingStickerFactory =
@@ -55,5 +57,17 @@ public class ParkingResourceConfig {
             accessStatusAssembler);
 
     return new ParkingResourceImplementation(parkingService);
+  }
+
+  public ParkingStickerRepository getParkingStickerRepository() {
+    return parkingStickerRepository;
+  }
+
+  public ParkingStickerCodeAssembler getParkingStickerCodeAssembler() {
+    return parkingStickerCodeAssembler;
+  }
+
+  public ParkingAreaCodeAssembler getParkingAreaCodeAssembler() {
+    return parkingAreaCodeAssembler;
   }
 }

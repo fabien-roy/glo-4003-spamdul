@@ -1,29 +1,29 @@
 package ca.ulaval.glo4003.domain.offense;
 
-import ca.ulaval.glo4003.domain.account.AccountId;
+import java.util.Objects;
 
 public class Offense {
-  private String stickerCode;
-  private AccountId accountId;
   private String reasonText;
   private String reasonCode;
   private int amount;
 
-  public Offense(
-      String stickerCode, AccountId accountId, String reasonText, String reasonCode, int amount) {
-    this.stickerCode = stickerCode;
-    this.accountId = accountId;
+  public Offense(String reasonText, String reasonCode, int amount) {
     this.reasonText = reasonText;
     this.reasonCode = reasonCode;
     this.amount = amount;
   }
 
-  public String getStickerCode() {
-    return stickerCode;
+  @Override
+  public boolean equals(Object object) {
+    if (this == object) return true;
+    if (object == null || getClass() != object.getClass()) return false;
+    Offense offense = (Offense) object;
+    return reasonCode.equals(offense.reasonCode);
   }
 
-  public AccountId getAccountId() {
-    return accountId;
+  @Override
+  public int hashCode() {
+    return Objects.hash(reasonCode);
   }
 
   public String getReasonText() {
