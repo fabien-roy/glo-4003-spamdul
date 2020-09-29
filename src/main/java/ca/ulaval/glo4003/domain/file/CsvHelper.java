@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FileHelper {
+public class CsvHelper {
 
   public List<List<String>> getCsvFileInJavaFormat(String path) {
     try {

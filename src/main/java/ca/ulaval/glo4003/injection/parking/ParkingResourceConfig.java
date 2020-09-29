@@ -4,12 +4,13 @@ import ca.ulaval.glo4003.api.parking.ParkingResource;
 import ca.ulaval.glo4003.api.parking.ParkingResourceImplementation;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.bill.CSVBillingZoneHelper;
 import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.*;
-import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaFakeFactory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingStickerRepositoryInMemory;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ParkingResourceConfig {
 
@@ -29,8 +30,12 @@ public class ParkingResourceConfig {
       PostalCodeAssembler postalCodeAssembler,
       AccountRepository accountRepository) {
     if (isDev) {
-      ParkingAreaFakeFactory parkingAreaFakeFactory = new ParkingAreaFakeFactory();
-      List<ParkingArea> parkingAreas = parkingAreaFakeFactory.createMockData();
+      CSVBillingZoneHelper csvBillingZoneHelper = new CSVBillingZoneHelper();
+      List<String> zones = csvBillingZoneHelper.getAllZones();
+      List<ParkingArea> parkingAreas =
+          zones.stream()
+              .map(string -> new ParkingArea(new ParkingAreaCode(string)))
+              .collect(Collectors.toList());
       parkingAreas.forEach(parkingAreaRepository::save);
     }
 
