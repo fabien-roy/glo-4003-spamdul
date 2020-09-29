@@ -31,6 +31,12 @@ public class OffenseDtoBuilder {
   }
 
   public OffenseDto build() {
-    return new OffenseDto(this.reasonText, this.reasonCode, this.amount);
+    OffenseDto offenseDto = new OffenseDto();
+
+    offenseDto.reasonText = reasonText;
+    offenseDto.reasonCode = reasonCode;
+    offenseDto.amount = amount;
+
+    return offenseDto;
   }
 }

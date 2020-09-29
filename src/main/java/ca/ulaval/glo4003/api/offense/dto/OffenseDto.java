@@ -5,12 +5,6 @@ public class OffenseDto {
   public String reasonCode;
   public int amount;
 
-  public OffenseDto(String reasonText, String reasonCode, int amount) {
-    this.reasonText = reasonText;
-    this.reasonCode = reasonCode;
-    this.amount = amount;
-  }
-
   @Override
   public String toString() {
     return String.format(

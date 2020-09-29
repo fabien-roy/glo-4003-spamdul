@@ -3,6 +3,8 @@ package ca.ulaval.glo4003.api.offense;
 import ca.ulaval.glo4003.api.offense.dto.OffenseDto;
 import ca.ulaval.glo4003.api.offense.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.domain.offense.OffenseService;
+import java.util.List;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -15,9 +17,10 @@ public class OffenseResourceImplementation implements OffenseResource {
 
   @Override
   public Response getAllOffenses() {
-    OffenseDto[] offenses = offenseService.getAllOffenses().toArray(new OffenseDto[0]);
+    List<OffenseDto> offenses = offenseService.getAllOffenses();
+    GenericEntity<List<OffenseDto>> entities = new GenericEntity<List<OffenseDto>>(offenses) {};
     return Response.status(Response.Status.OK)
-        .entity(offenses)
+        .entity(entities)
         .type(MediaType.APPLICATION_JSON)
         .build();
   }

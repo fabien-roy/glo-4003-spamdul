@@ -6,7 +6,13 @@ import java.util.List;
 
 public class OffenseAssembler {
   public OffenseDto assemble(Offense offense) {
-    return new OffenseDto(offense.getReasonText(), offense.getReasonCode(), offense.getAmount());
+    OffenseDto offenseDto = new OffenseDto();
+
+    offenseDto.reasonText = offense.getReasonText();
+    offenseDto.reasonCode = offense.getReasonCode();
+    offenseDto.amount = offense.getAmount();
+
+    return offenseDto;
   }
 
   public List<OffenseDto> assembleMany(List<Offense> offenses) {
