@@ -1,6 +1,6 @@
 #%RAML 1.0
 title: SPAMD-UL
-version: 0.0.2
+version: 0.0.3
 mediaType: application/json
 uses:
   types: ./libraries/types.raml
@@ -41,7 +41,9 @@ uses:
       body:
         application/json:
           type: types.ParkingSticker
-          example: !include examples/parking/post-parkings-request.json
+          examples:
+            postal: !include examples/parking/post-parkings-request-postal.json
+            email: !include examples/parking/post-parkings-request-email.json
       responses:
         201:
           description: Code for newly added parking sticker
