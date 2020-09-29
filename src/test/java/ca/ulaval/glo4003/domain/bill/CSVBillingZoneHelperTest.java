@@ -21,8 +21,7 @@ public class CSVBillingZoneHelperTest {
   private static final String defaultZone = "Zone1";
   private static final String defaultTime = "1j/sem/session";
   private static final float price = 103;
-  private final String csvFraisZonePath =
-      ".\\src\\main\\java\\ca\\ulaval\\glo4003\\document\\frais-zone.csv";
+  private static final String CSV_FILE = "data/frais-zone.csv";
   private final List<List<String>> csvFile = new ArrayList<>();
   @Mock private CsvHelper csvHelper;
 
@@ -34,7 +33,7 @@ public class CSVBillingZoneHelperTest {
     csvFile.add(Arrays.asList("name", defaultTime));
     csvFile.add(Arrays.asList(defaultZone, String.valueOf(price)));
 
-    when(csvHelper.getCsvFileInJavaFormat(csvFraisZonePath)).thenReturn(csvFile);
+    when(csvHelper.getCsvFileInJavaFormat(CSV_FILE)).thenReturn(csvFile);
   }
 
   @Test

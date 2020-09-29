@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.domain.parking;
 
 import ca.ulaval.glo4003.domain.account.AccountId;
+import ca.ulaval.glo4003.domain.communication.EmailAddress;
 import ca.ulaval.glo4003.domain.location.PostalCode;
 import ca.ulaval.glo4003.domain.time.Days;
 
@@ -9,7 +10,8 @@ public class ParkingSticker {
   private final AccountId accountId;
   private final ParkingAreaCode parkingAreaCode;
   private final ReceptionMethods receptionMethod;
-  private final PostalCode postalCode;
+  private PostalCode postalCode;
+  private EmailAddress emailAddress;
   private final Days validDay;
 
   public ParkingSticker(
@@ -22,6 +24,19 @@ public class ParkingSticker {
     this.parkingAreaCode = parkingAreaCode;
     this.receptionMethod = receptionMethod;
     this.postalCode = postalCode;
+    this.validDay = validDay;
+  }
+
+  public ParkingSticker(
+      AccountId accountId,
+      ParkingAreaCode parkingAreaCode,
+      ReceptionMethods receptionMethod,
+      EmailAddress emailAddress,
+      Days validDay) {
+    this.accountId = accountId;
+    this.parkingAreaCode = parkingAreaCode;
+    this.receptionMethod = receptionMethod;
+    this.emailAddress = emailAddress;
     this.validDay = validDay;
   }
 
@@ -47,6 +62,10 @@ public class ParkingSticker {
 
   public PostalCode getPostalCode() {
     return postalCode;
+  }
+
+  public EmailAddress getEmailAddress() {
+    return emailAddress;
   }
 
   public Days getValidDay() {

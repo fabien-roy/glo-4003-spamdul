@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CSVBillingZoneHelper {
   private final String csvFraisZonePath =
-      ".\\src\\main\\java\\ca\\ulaval\\glo4003\\document\\frais-zone.csv";
+      "data/frais-zone.csv"; // TODO : Make sure this works on all OS
   CsvHelper csvHelper = new CsvHelper();
 
   public void setCsvHelper(CsvHelper csvHelper) {
