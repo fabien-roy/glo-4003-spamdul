@@ -13,7 +13,7 @@ import ca.ulaval.glo4003.domain.time.CustomDate;
 import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
 import ca.ulaval.glo4003.domain.time.Days;
 import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
-import ca.ulaval.glo4003.domain.time.exception.InvalidDayException;
+import ca.ulaval.glo4003.domain.user.exception.InvalidAccessDayException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidSexException;
@@ -125,7 +125,7 @@ public class UserAssemblerTest {
     Truth.assertThat(user.getAccessDay()).isEqualTo(ACCESS_DAY);
   }
 
-  @Test(expected = InvalidDayException.class)
+  @Test(expected = InvalidAccessDayException.class)
   public void givenInvalidAccessDay_whenAssembling_thenReturnInvalidAccessDayException() {
     userDto.accessDay = "invalidAccessDay";
 
