@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.domain.offense;
+package ca.ulaval.glo4003.offenses.domain;
 
-import ca.ulaval.glo4003.domain.offense.exceptions.InvalidOffenseCodeException;
+import ca.ulaval.glo4003.offenses.exceptions.InvalidOffenseCodeException;
 import java.util.HashMap;
 import java.util.Map;
 

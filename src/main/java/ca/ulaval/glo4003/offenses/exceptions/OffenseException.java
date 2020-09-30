@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.offense.exceptions;
+package ca.ulaval.glo4003.offenses.exceptions;
 
 public abstract class OffenseException extends RuntimeException {
   public final String error;

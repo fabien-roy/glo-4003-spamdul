@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.api.offense.helpers;
+package ca.ulaval.glo4003.offenses.helpers;
 
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createParkingStickerCode;

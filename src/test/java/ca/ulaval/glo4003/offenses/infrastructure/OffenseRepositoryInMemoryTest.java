@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.infrastructure.offense;
+package ca.ulaval.glo4003.offenses.infrastructure;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -6,7 +6,6 @@ import ca.ulaval.glo4003.offenses.domain.Offense;
 import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
 import ca.ulaval.glo4003.offenses.domain.OffenseRepository;
 import ca.ulaval.glo4003.offenses.exceptions.OffenseNotFoundException;
-import ca.ulaval.glo4003.offenses.infrastructure.OffenseRepositoryInMemory;
 import org.junit.Before;
 import org.junit.Test;
 

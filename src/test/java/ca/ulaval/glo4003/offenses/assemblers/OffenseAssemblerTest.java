@@ -4,7 +4,6 @@ import static ca.ulaval.glo4003.offenses.helpers.OffenseBuilder.anOffense;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseMother.*;
 
 import ca.ulaval.glo4003.offenses.api.dto.OffenseDto;
-import ca.ulaval.glo4003.offenses.assemblers.OffenseAssembler;
 import ca.ulaval.glo4003.offenses.domain.Offense;
 import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
 import com.google.common.truth.Truth;

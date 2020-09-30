@@ -1,7 +1,9 @@
-package ca.ulaval.glo4003.domain.offense;
+package ca.ulaval.glo4003.offenses.assemblers;
 
 import ca.ulaval.glo4003.offenses.api.dto.InfractionDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseDto;
+import ca.ulaval.glo4003.offenses.domain.Offense;
+import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
 import java.util.ArrayList;
 import java.util.List;
 

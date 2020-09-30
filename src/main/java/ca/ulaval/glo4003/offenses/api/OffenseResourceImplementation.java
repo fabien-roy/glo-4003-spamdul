@@ -1,8 +1,8 @@
-package ca.ulaval.glo4003.api.offense;
+package ca.ulaval.glo4003.offenses.api;
 
-import ca.ulaval.glo4003.api.offense.dto.OffenseDto;
-import ca.ulaval.glo4003.api.offense.dto.OffenseValidationDto;
-import ca.ulaval.glo4003.domain.offense.OffenseService;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseDto;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
+import ca.ulaval.glo4003.offenses.services.OffenseService;
 import java.util.List;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;

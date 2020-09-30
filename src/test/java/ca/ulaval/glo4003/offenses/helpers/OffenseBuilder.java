@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.domain.offense.helpers;
+package ca.ulaval.glo4003.offenses.helpers;
 
-import static ca.ulaval.glo4003.domain.offense.helpers.OffenseMother.*;
+import static ca.ulaval.glo4003.offenses.helpers.OffenseMother.*;
 
 import ca.ulaval.glo4003.offenses.domain.Offense;
 import ca.ulaval.glo4003.offenses.domain.OffenseCodes;

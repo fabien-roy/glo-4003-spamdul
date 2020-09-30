@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.infrastructure.offense;
+package ca.ulaval.glo4003.offenses.infrastructure;
 
-import ca.ulaval.glo4003.domain.offense.Offense;
-import ca.ulaval.glo4003.domain.offense.OffenseCodes;
-import ca.ulaval.glo4003.domain.offense.OffenseRepository;
-import ca.ulaval.glo4003.domain.offense.exceptions.OffenseNotFoundException;
+import ca.ulaval.glo4003.offenses.domain.Offense;
+import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
+import ca.ulaval.glo4003.offenses.domain.OffenseRepository;
+import ca.ulaval.glo4003.offenses.exceptions.OffenseNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 

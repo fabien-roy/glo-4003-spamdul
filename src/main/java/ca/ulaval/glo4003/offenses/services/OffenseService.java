@@ -1,11 +1,17 @@
-package ca.ulaval.glo4003.domain.offense;
+package ca.ulaval.glo4003.offenses.services;
 
-import ca.ulaval.glo4003.offenses.api.dto.OffenseDto;
-import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.domain.parking.ParkingSticker;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerRepository;
 import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerException;
-import ca.ulaval.glo4003.infrastructure.offense.OffenseRepositoryInMemory;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseDto;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
+import ca.ulaval.glo4003.offenses.assemblers.OffenseAssembler;
+import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
+import ca.ulaval.glo4003.offenses.domain.Offense;
+import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
+import ca.ulaval.glo4003.offenses.domain.OffenseRepository;
+import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
+import ca.ulaval.glo4003.offenses.infrastructure.OffenseRepositoryInMemory;
 import java.util.ArrayList;
 import java.util.List;
 

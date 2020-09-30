@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.offense.helpers;
+package ca.ulaval.glo4003.offenses.helpers;
 
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 

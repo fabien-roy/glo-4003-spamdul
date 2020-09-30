@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.offense;
+package ca.ulaval.glo4003.offenses.domain;
 
 import java.util.Objects;
 

@@ -1,13 +1,13 @@
-package ca.ulaval.glo4003.domain.offense.helpers;
+package ca.ulaval.glo4003.offenses.helpers;
 
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createParkingStickerCode;
 import static ca.ulaval.glo4003.domain.time.helpers.TimeOfDayMother.createTimeOfDay;
 
-import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
 import ca.ulaval.glo4003.domain.parking.ParkingAreaCode;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerCode;
 import ca.ulaval.glo4003.domain.time.TimeOfDay;
+import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
 
 public class OffenseValidationBuilder {
   private ParkingStickerCode parkingStickerCode = createParkingStickerCode();

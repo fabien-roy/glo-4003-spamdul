@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.api.offense;
+package ca.ulaval.glo4003.offenses.api;
 
-import ca.ulaval.glo4003.api.offense.dto.OffenseValidationDto;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

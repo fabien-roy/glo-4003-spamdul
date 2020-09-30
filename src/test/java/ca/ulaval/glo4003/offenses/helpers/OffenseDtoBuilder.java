@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.api.offense.helpers;
+package ca.ulaval.glo4003.offenses.helpers;
 
-import static ca.ulaval.glo4003.domain.offense.helpers.OffenseMother.*;
+import static ca.ulaval.glo4003.offenses.helpers.OffenseMother.*;
 
 import ca.ulaval.glo4003.offenses.api.dto.OffenseDto;
-import ca.ulaval.glo4003.domain.offense.OffenseCodes;
+import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
 
 public class OffenseDtoBuilder {
   private String description = createReasonText();
