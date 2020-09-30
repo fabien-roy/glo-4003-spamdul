@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.offenses;
 
-import ca.ulaval.glo4003.domain.time.TimeOfDayAssembler;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.offenses.api.OffenseResourceImplementation;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseAssembler;
@@ -12,6 +11,7 @@ import ca.ulaval.glo4003.offenses.services.OffenseService;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
+import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import java.util.List;
 
 public class OffenseResourceConfig {

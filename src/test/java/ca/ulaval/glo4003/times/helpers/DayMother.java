@@ -1,8 +1,8 @@
-package ca.ulaval.glo4003.domain.time.helpers;
+package ca.ulaval.glo4003.times.helpers;
 
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 
-import ca.ulaval.glo4003.domain.time.Days;
+import ca.ulaval.glo4003.times.domain.Days;
 
 public class DayMother {
   public static Days createDay() {

@@ -1,6 +1,7 @@
-package ca.ulaval.glo4003.domain.time;
+package ca.ulaval.glo4003.times.assemblers;
 
-import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
+import ca.ulaval.glo4003.times.domain.CustomDate;
+import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

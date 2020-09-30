@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.domain.time.helpers;
+package ca.ulaval.glo4003.times.helpers;
 
-import ca.ulaval.glo4003.domain.time.CustomDate;
+import ca.ulaval.glo4003.times.domain.CustomDate;
 import com.github.javafaker.Faker;
 import java.time.LocalDate;
 import java.time.ZoneId;

@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.api.user.helpers;
 
-import static ca.ulaval.glo4003.domain.time.helpers.CustomDateMother.createPastDate;
 import static ca.ulaval.glo4003.domain.user.helpers.UserMother.*;
+import static ca.ulaval.glo4003.times.helpers.CustomDateMother.createPastDate;
 
 import ca.ulaval.glo4003.api.user.dto.UserDto;
 

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.time;
+package ca.ulaval.glo4003.times.domain;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;

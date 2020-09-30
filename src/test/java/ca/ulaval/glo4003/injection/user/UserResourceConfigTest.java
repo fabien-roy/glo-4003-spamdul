@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.api.user.UserResource;
-import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
+import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

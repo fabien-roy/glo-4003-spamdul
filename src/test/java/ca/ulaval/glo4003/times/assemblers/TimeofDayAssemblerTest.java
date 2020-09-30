@@ -1,8 +1,9 @@
-package ca.ulaval.glo4003.domain.time;
+package ca.ulaval.glo4003.times.assemblers;
 
-import static ca.ulaval.glo4003.domain.time.helpers.TimeOfDayMother.createTimeOfDay;
+import static ca.ulaval.glo4003.times.helpers.TimeOfDayMother.createTimeOfDay;
 
-import ca.ulaval.glo4003.domain.time.exception.InvalidTimeOfDayException;
+import ca.ulaval.glo4003.times.domain.TimeOfDay;
+import ca.ulaval.glo4003.times.exceptions.InvalidTimeOfDayException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.domain.time;
+package ca.ulaval.glo4003.times.domain;
 
-import ca.ulaval.glo4003.domain.time.exception.InvalidDayException;
+import ca.ulaval.glo4003.times.exceptions.InvalidDayException;
 import java.util.HashMap;
 import java.util.Map;
 

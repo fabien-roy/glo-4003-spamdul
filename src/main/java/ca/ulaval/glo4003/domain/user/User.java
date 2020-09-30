@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.domain.user;
 
-import ca.ulaval.glo4003.domain.time.CustomDate;
-import ca.ulaval.glo4003.domain.time.Days;
+import ca.ulaval.glo4003.times.domain.CustomDate;
+import ca.ulaval.glo4003.times.domain.Days;
 
 public class User {
   private String name;

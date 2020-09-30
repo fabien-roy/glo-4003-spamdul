@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.parkings.services;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
-import ca.ulaval.glo4003.domain.time.Days;
 import ca.ulaval.glo4003.parkings.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
@@ -12,6 +11,7 @@ import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
+import ca.ulaval.glo4003.times.domain.Days;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 

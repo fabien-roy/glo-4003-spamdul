@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.time.exception;
+package ca.ulaval.glo4003.times.exceptions;
 
 public class InvalidDayException extends TimeException {
   private static final String ERROR = "Invalid day";

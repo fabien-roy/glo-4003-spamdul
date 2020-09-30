@@ -2,19 +2,19 @@ package ca.ulaval.glo4003.parkings.helpers;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.communications.helpers.EmailAddressMother.createEmailAddress;
-import static ca.ulaval.glo4003.domain.time.helpers.DayMother.createDay;
 import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.*;
+import static ca.ulaval.glo4003.times.helpers.DayMother.createDay;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
-import ca.ulaval.glo4003.domain.time.Days;
 import ca.ulaval.glo4003.locations.domain.PostalCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
+import ca.ulaval.glo4003.times.domain.Days;
 
 public class ParkingStickerBuilder {
   private ParkingStickerCode parkingStickerCode = createParkingStickerCode();

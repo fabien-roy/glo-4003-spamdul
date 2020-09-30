@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.domain.time.helpers;
+package ca.ulaval.glo4003.times.helpers;
 
-import ca.ulaval.glo4003.domain.time.TimeOfDay;
+import ca.ulaval.glo4003.times.domain.TimeOfDay;
 import java.time.LocalTime;
 
 public class TimeOfDayMother {

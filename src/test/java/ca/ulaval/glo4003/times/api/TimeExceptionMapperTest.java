@@ -1,10 +1,8 @@
-package ca.ulaval.glo4003.api.time;
+package ca.ulaval.glo4003.times.api;
 
-import static org.junit.Assert.*;
-
-import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
-import ca.ulaval.glo4003.domain.time.exception.InvalidDayException;
-import ca.ulaval.glo4003.domain.time.exception.TimeException;
+import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
+import ca.ulaval.glo4003.times.exceptions.InvalidDayException;
+import ca.ulaval.glo4003.times.exceptions.TimeException;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;

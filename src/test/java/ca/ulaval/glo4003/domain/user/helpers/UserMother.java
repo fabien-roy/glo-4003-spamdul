@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.domain.user.helpers;
 
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 
-import ca.ulaval.glo4003.domain.time.Days;
 import ca.ulaval.glo4003.domain.user.Sex;
+import ca.ulaval.glo4003.times.domain.Days;
 import com.github.javafaker.Faker;
 
 public class UserMother {

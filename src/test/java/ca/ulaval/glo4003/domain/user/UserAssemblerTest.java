@@ -1,22 +1,22 @@
 package ca.ulaval.glo4003.domain.user;
 
 import static ca.ulaval.glo4003.api.user.helpers.UserDtoBuilder.aUserDto;
-import static ca.ulaval.glo4003.domain.time.helpers.CustomDateMother.createPastDate;
 import static ca.ulaval.glo4003.domain.user.helpers.UserBuilder.aUser;
 import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createAccessDay;
 import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createName;
 import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createSex;
+import static ca.ulaval.glo4003.times.helpers.CustomDateMother.createPastDate;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.api.user.dto.UserDto;
-import ca.ulaval.glo4003.domain.time.CustomDate;
-import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
-import ca.ulaval.glo4003.domain.time.Days;
-import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidAccessDayException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidSexException;
+import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
+import ca.ulaval.glo4003.times.domain.CustomDate;
+import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

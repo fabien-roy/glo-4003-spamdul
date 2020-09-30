@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.time.exception;
+package ca.ulaval.glo4003.times.exceptions;
 
 public abstract class TimeException extends RuntimeException {
   public String error;

@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.domain.time;
+package ca.ulaval.glo4003.times.domain;
 
-import static ca.ulaval.glo4003.domain.time.helpers.CustomDateMother.createFutureDate;
-import static ca.ulaval.glo4003.domain.time.helpers.CustomDateMother.createPastDate;
+import static ca.ulaval.glo4003.times.helpers.CustomDateMother.createFutureDate;
+import static ca.ulaval.glo4003.times.helpers.CustomDateMother.createPastDate;
 
 import com.google.common.truth.Truth;
 import java.time.LocalDate;

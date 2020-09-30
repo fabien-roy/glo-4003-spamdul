@@ -1,13 +1,13 @@
 package ca.ulaval.glo4003.offenses.assemblers;
 
-import ca.ulaval.glo4003.domain.time.TimeOfDay;
-import ca.ulaval.glo4003.domain.time.TimeOfDayAssembler;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
+import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
+import ca.ulaval.glo4003.times.domain.TimeOfDay;
 
 public class OffenseValidationAssembler {
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;

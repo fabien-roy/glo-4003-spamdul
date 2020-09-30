@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.injection.time;
+package ca.ulaval.glo4003.times;
 
-import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
-import ca.ulaval.glo4003.domain.time.TimeOfDayAssembler;
+import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
+import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 
 public class TimeResourceConfig {
 

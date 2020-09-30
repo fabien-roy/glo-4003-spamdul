@@ -1,8 +1,9 @@
-package ca.ulaval.glo4003.domain.time;
+package ca.ulaval.glo4003.times.assemblers;
 
-import static ca.ulaval.glo4003.domain.time.helpers.CustomDateMother.createPastDate;
+import static ca.ulaval.glo4003.times.helpers.CustomDateMother.createPastDate;
 
-import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
+import ca.ulaval.glo4003.times.domain.CustomDate;
+import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
