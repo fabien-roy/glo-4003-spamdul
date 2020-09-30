@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.offenses.services;
 
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationBuilder.anOffenseValidation;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.offenses.api.dto.OffenseDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
@@ -12,12 +12,10 @@ import ca.ulaval.glo4003.offenses.domain.*;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
-import com.google.common.truth.Truth;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -29,10 +27,15 @@ public class OffenseServiceTest {
   @Mock private OffenseAssembler offenseAssembler;
   @Mock private OffenseValidationDto offenseValidationDto;
   @Mock private ParkingSticker parkingSticker;
+  @Mock private OffenseRepository offenseRepository;
 
   private OffenseService offenseService;
   private OffenseValidation offenseValidation;
-  private OffenseRepository offenseRepository;
+
+  private Offense zone01offense = new Offense("test", OffenseCodes.ZONE_01, 0);
+  private Offense vig01offense = new Offense("test", OffenseCodes.VIG_01, 0);
+  private Offense vig02offense = new Offense("test", OffenseCodes.VIG_02, 0);
+  private Offense noneoffense = new Offense("vignette invalide", OffenseCodes.VIG_02, 45);
 
   @Before
   public void setUp() {
@@ -50,6 +53,9 @@ public class OffenseServiceTest {
         .thenReturn(false);
     when(parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode()))
         .thenReturn(parkingSticker);
+    when(offenseRepository.findByCode(OffenseCodes.ZONE_01)).thenReturn(zone01offense);
+    when(offenseRepository.findByCode(OffenseCodes.VIG_01)).thenReturn(vig01offense);
+    when(offenseRepository.findByCode(OffenseCodes.VIG_02)).thenReturn(vig02offense);
   }
 
   @Test
@@ -67,20 +73,22 @@ public class OffenseServiceTest {
         .thenThrow(new NotFoundParkingStickerException());
     Offense offense = new Offense("vignette invalide", OffenseCodes.VIG_02, 45);
 
-    OffenseDto offenseDto = offenseService.validateOffense(offenseValidationDto);
+    offenseService.validateOffense(offenseValidationDto);
 
-    Truth.assertThat(offenseDto.code).isEqualTo(offense.getCode().toString());
+    Mockito.verify(offenseAssembler).assemble(vig02offense);
   }
 
   @Test
   public void givenValidOffenseValidationDto_whenValidatingOffense_thenNoOffenseIsReturned() {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(true);
-    Offense offense = new Offense("Aucune infraction signalée", OffenseCodes.NONE, 0);
 
-    OffenseDto offenseDto = offenseService.validateOffense(offenseValidationDto);
+    offenseService.validateOffense(offenseValidationDto);
 
-    Truth.assertThat(offenseDto.code).isEqualTo(offense.getCode().toString());
+    ArgumentCaptor<Offense> argumentCaptor = ArgumentCaptor.forClass(Offense.class);
+    Mockito.verify(offenseAssembler).assemble(argumentCaptor.capture());
+    Offense capturedArgument = argumentCaptor.getValue();
+    assertThat(capturedArgument.getCode()).isEqualTo(OffenseCodes.NONE);
   }
 
   @Test
@@ -90,31 +98,8 @@ public class OffenseServiceTest {
         .thenReturn(false);
     Offense offense = new Offense("mauvaise zone", OffenseCodes.ZONE_01, 55);
 
-    OffenseDto offenseDto = offenseService.validateOffense(offenseValidationDto);
+    offenseService.validateOffense(offenseValidationDto);
 
-    Truth.assertThat(offenseDto.code).isEqualTo(offense.getCode().toString());
-  }
-
-  @Test
-  public void whenGettingAllOffenses_thenAllPossibleOffensesAreReturned() {
-    ArrayList<Offense> offenses = new ArrayList<>();
-    offenses.add(new Offense("mauvaise zone", OffenseCodes.ZONE_01, 55));
-    offenses.add(new Offense("vignette pas admissible pour la journée", OffenseCodes.VIG_01, 22));
-    offenses.add(new Offense("vignette invalide", OffenseCodes.VIG_02, 45));
-    offenses.add(new Offense("temps dépassé", OffenseCodes.TEMPS_01, 47));
-    offenses.add(
-        new Offense("stationnement réservé pour voiture électrique", OffenseCodes.ZONE_02, 55));
-    offenses.add(new Offense("pas de vignette", OffenseCodes.VIG_03, 55));
-    offenses.add(
-        new Offense("la vignette et la plaque ne sont pas associées", OffenseCodes.VIG_04, 42));
-    offenses.add(
-        new Offense(
-            "stationnement réservé pour voiture électrique branchée", OffenseCodes.ZONE_03, 55));
-
-    List<OffenseDto> offenseDtoList = offenseService.getAllOffenses();
-
-    for (int i = 0; i < offenses.size(); i++) {
-      Truth.assertThat(offenseDtoList.get(i).code).isEqualTo(offenses.get(i).getCode().toString());
-    }
+    Mockito.verify(offenseAssembler).assemble(zone01offense);
   }
 }

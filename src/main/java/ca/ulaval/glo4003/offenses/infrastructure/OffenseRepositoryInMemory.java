@@ -4,7 +4,9 @@ import ca.ulaval.glo4003.offenses.domain.Offense;
 import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
 import ca.ulaval.glo4003.offenses.domain.OffenseRepository;
 import ca.ulaval.glo4003.offenses.exceptions.OffenseNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class OffenseRepositoryInMemory implements OffenseRepository {
@@ -23,5 +25,10 @@ public class OffenseRepositoryInMemory implements OffenseRepository {
     if (foundOffense == null) throw new OffenseNotFoundException();
 
     return foundOffense;
+  }
+
+  @Override
+  public List<Offense> getAll() {
+    return new ArrayList<>(offenses.values());
   }
 }

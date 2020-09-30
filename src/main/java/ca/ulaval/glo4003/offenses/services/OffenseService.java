@@ -8,11 +8,9 @@ import ca.ulaval.glo4003.offenses.domain.Offense;
 import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
 import ca.ulaval.glo4003.offenses.domain.OffenseRepository;
 import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
-import ca.ulaval.glo4003.offenses.infrastructure.OffenseRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class OffenseService {
@@ -28,29 +26,12 @@ public class OffenseService {
       OffenseRepository offenseRepository) {
     this.parkingStickerRepository = parkingStickerRepository;
     this.offenseValidationAssembler = offenseValidationAssembler;
-    this.offenseAssembler = new OffenseAssembler();
-    this.offenseRepository = new OffenseRepositoryInMemory();
+    this.offenseAssembler = offenseAssembler;
+    this.offenseRepository = offenseRepository;
   }
 
   public List<OffenseDto> getAllOffenses() {
-    // TODO This is all hard-coded for now, eventually there should be file thingies going on
-    // instead
-    ArrayList<Offense> offenses = new ArrayList<>();
-    // Those will be reused far more often
-    offenses.add(createWrongZoneOffense());
-    offenses.add(createWrongDayOffense());
-    offenses.add(createInvalidStickerOffense());
-    // Those have to be treated "manually" by the officer
-    offenses.add(new Offense("temps dépassé", OffenseCodes.TEMPS_01, 47));
-    offenses.add(
-        new Offense("stationnement réservé pour voiture électrique", OffenseCodes.ZONE_02, 55));
-    offenses.add(new Offense("pas de vignette", OffenseCodes.VIG_03, 55));
-    offenses.add(
-        new Offense("la vignette et la plaque ne sont pas associées", OffenseCodes.VIG_04, 42));
-    offenses.add(
-        new Offense(
-            "stationnement réservé pour voiture électrique branchée", OffenseCodes.ZONE_03, 55));
-    return offenseAssembler.assembleOffenseDtos(offenses);
+    return offenseAssembler.assembleOffenseDtos(offenseRepository.getAll());
   }
 
   public OffenseDto validateOffense(OffenseValidationDto offenseValidationDto) {
@@ -77,14 +58,14 @@ public class OffenseService {
   }
 
   private Offense createWrongZoneOffense() {
-    return new Offense("mauvaise zone", OffenseCodes.ZONE_01, 55);
+    return offenseRepository.findByCode(OffenseCodes.ZONE_01);
   }
 
   private Offense createWrongDayOffense() {
-    return new Offense("vignette pas admissible pour la journée", OffenseCodes.VIG_01, 22);
+    return offenseRepository.findByCode(OffenseCodes.VIG_01);
   }
 
   private Offense createInvalidStickerOffense() {
-    return new Offense("vignette invalide", OffenseCodes.VIG_02, 45);
+    return offenseRepository.findByCode(OffenseCodes.VIG_02);
   }
 }
