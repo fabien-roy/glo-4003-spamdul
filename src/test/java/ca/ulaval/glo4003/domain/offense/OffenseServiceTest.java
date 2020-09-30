@@ -4,11 +4,14 @@ import static ca.ulaval.glo4003.domain.offense.helpers.OffenseValidationBuilder.
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.api.offense.dto.OffenseDto;
 import ca.ulaval.glo4003.api.offense.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.domain.parking.ParkingSticker;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerRepository;
 import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerException;
+import com.google.common.truth.Truth;
 import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +39,7 @@ public class OffenseServiceTest {
             offenseValidationAssembler,
             offenseAssembler,
             offenseRepository);
+
     offenseValidation = anOffenseValidation().build();
 
     when(offenseValidationAssembler.assemble(offenseValidationDto)).thenReturn(offenseValidation);
@@ -60,9 +64,9 @@ public class OffenseServiceTest {
         .thenThrow(new NotFoundParkingStickerException());
     Offense offense = new Offense("vignette invalide", "VIG_02", 45);
 
-    offenseService.isOffenseNeeded(offenseValidationDto);
+    OffenseDto offenseDto = offenseService.isOffenseNeeded(offenseValidationDto);
 
-    Mockito.verify(offenseAssembler).assemble(eq(offense));
+    Truth.assertThat(offenseDto.reasonCode).isEqualTo(offense.getReasonCode());
   }
 
   @Test
@@ -71,9 +75,9 @@ public class OffenseServiceTest {
         .thenReturn(true);
     Offense offense = new Offense("Aucune infraction signalée", "000", 0);
 
-    offenseService.isOffenseNeeded(offenseValidationDto);
+    OffenseDto offenseDto = offenseService.isOffenseNeeded(offenseValidationDto);
 
-    Mockito.verify(offenseAssembler).assemble(eq(offense));
+    Truth.assertThat(offenseDto.reasonCode).isEqualTo(offense.getReasonCode());
   }
 
   @Test
@@ -83,13 +87,13 @@ public class OffenseServiceTest {
         .thenReturn(false);
     Offense offense = new Offense("mauvaise zone", "ZONE_01", 55);
 
-    offenseService.isOffenseNeeded(offenseValidationDto);
+    OffenseDto offenseDto = offenseService.isOffenseNeeded(offenseValidationDto);
 
-    Mockito.verify(offenseAssembler).assemble(eq(offense));
+    Truth.assertThat(offenseDto.reasonCode).isEqualTo(offense.getReasonCode());
   }
 
   @Test
-  public void whenGettingAllOffenses_thenAllOffensesAreReturned() {
+  public void whenGettingAllOffenses_thenAllPossibleOffensesAreReturned() {
     ArrayList<Offense> offenses = new ArrayList<>();
     offenses.add(new Offense("mauvaise zone", "ZONE_01", 55));
     offenses.add(new Offense("vignette pas admissible pour la journée", "VIG_01", 22));
@@ -101,8 +105,10 @@ public class OffenseServiceTest {
     offenses.add(
         new Offense("stationnement réservé pour voiture électrique branchée", "ZONE_03", 55));
 
-    offenseService.getAllOffenses();
+    List<OffenseDto> offenseDtoList = offenseService.getAllOffenses();
 
-    Mockito.verify(offenseAssembler).assembleMany(offenses);
+    for (int i = 0; i < offenses.size(); i++) {
+      Truth.assertThat(offenseDtoList.get(i).reasonCode).isEqualTo(offenses.get(i).getReasonCode());
+    }
   }
 }

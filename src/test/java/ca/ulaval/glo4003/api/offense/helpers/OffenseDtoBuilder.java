@@ -33,9 +33,9 @@ public class OffenseDtoBuilder {
   public OffenseDto build() {
     OffenseDto offenseDto = new OffenseDto();
 
-    offenseDto.infraction = reasonText;
-    offenseDto.code = reasonCode;
-    offenseDto.montant = amount;
+    offenseDto.reasonText = reasonText;
+    offenseDto.reasonCode = reasonCode;
+    offenseDto.amount = amount;
 
     return offenseDto;
   }
