@@ -21,6 +21,7 @@ public class ServerResourceConfig extends ResourceConfig {
                 resources.add(applicationResourceConfig.createCarResource());
                 resources.add(applicationResourceConfig.createUserResource());
                 resources.add(applicationResourceConfig.createParkingResource());
+                resources.add(applicationResourceConfig.createOffenseResource());
                 return resources;
               }
 
