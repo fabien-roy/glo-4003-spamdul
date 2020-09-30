@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.api.offense.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.domain.parking.ParkingSticker;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerRepository;
 import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerException;
+import ca.ulaval.glo4003.infrastructure.offense.OffenseRepositoryInMemory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +13,17 @@ public class OffenseService {
   private final ParkingStickerRepository parkingStickerRepository;
   private final OffenseValidationAssembler offenseValidationAssembler;
   private final OffenseAssembler offenseAssembler;
+  private final OffenseRepository offenseRepository;
 
   public OffenseService(
       ParkingStickerRepository parkingStickerRepository,
       OffenseValidationAssembler offenseValidationAssembler,
-      OffenseAssembler offenseAssembler) {
+      OffenseAssembler offenseAssembler,
+      OffenseRepository offenseRepository) {
     this.parkingStickerRepository = parkingStickerRepository;
     this.offenseValidationAssembler = offenseValidationAssembler;
-    this.offenseAssembler = offenseAssembler;
+    this.offenseAssembler = new OffenseAssembler();
+    this.offenseRepository = new OffenseRepositoryInMemory();
   }
 
   public List<OffenseDto> getAllOffenses() {

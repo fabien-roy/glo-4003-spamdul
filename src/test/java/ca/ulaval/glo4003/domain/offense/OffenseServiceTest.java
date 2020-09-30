@@ -26,11 +26,16 @@ public class OffenseServiceTest {
 
   private OffenseService offenseService;
   private OffenseValidation offenseValidation;
+  private OffenseRepository offenseRepository;
 
   @Before
   public void setUp() {
     offenseService =
-        new OffenseService(parkingStickerRepository, offenseValidationAssembler, offenseAssembler);
+        new OffenseService(
+            parkingStickerRepository,
+            offenseValidationAssembler,
+            offenseAssembler,
+            offenseRepository);
     offenseValidation = anOffenseValidation().build();
 
     when(offenseValidationAssembler.assemble(offenseValidationDto)).thenReturn(offenseValidation);
