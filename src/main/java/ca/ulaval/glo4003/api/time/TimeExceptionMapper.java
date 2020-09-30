@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.api.time;
 
-import ca.ulaval.glo4003.api.interfaces.dto.ErrorDto;
 import ca.ulaval.glo4003.domain.time.exception.TimeException;
+import ca.ulaval.glo4003.interfaces.api.dto.ErrorDto;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

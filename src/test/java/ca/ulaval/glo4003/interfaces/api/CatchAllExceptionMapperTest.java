@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.api.interfaces;
+package ca.ulaval.glo4003.interfaces.api;
 
 import com.google.common.truth.Truth;
 import javax.ws.rs.WebApplicationException;

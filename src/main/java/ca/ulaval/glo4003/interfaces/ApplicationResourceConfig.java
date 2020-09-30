@@ -1,8 +1,7 @@
-package ca.ulaval.glo4003.injection;
+package ca.ulaval.glo4003.interfaces;
 
 import ca.ulaval.glo4003.accounts.AccountResourceConfig;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
-import ca.ulaval.glo4003.api.interfaces.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.api.location.LocationExceptionMapper;
 import ca.ulaval.glo4003.api.offense.OffenseResource;
 import ca.ulaval.glo4003.api.parking.ParkingExceptionMapper;
@@ -22,6 +21,7 @@ import ca.ulaval.glo4003.injection.offense.OffenseResourceConfig;
 import ca.ulaval.glo4003.injection.parking.ParkingResourceConfig;
 import ca.ulaval.glo4003.injection.time.TimeResourceConfig;
 import ca.ulaval.glo4003.injection.user.UserResourceConfig;
+import ca.ulaval.glo4003.interfaces.api.CatchAllExceptionMapper;
 import java.util.Arrays;
 import java.util.List;
 import javax.ws.rs.ext.ExceptionMapper;

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.api.interfaces.dto;
+package ca.ulaval.glo4003.interfaces.api.dto;
 
 public class ErrorDto {
   public String error;
