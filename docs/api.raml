@@ -1,0 +1,116 @@
+#%RAML 1.0
+title: SPAMD-UL
+version: 0.1.0
+mediaType: application/json
+uses:
+  types: ./libraries/types.raml
+/api:
+  /users:
+    post:
+      description: Add a new user
+      body:
+        application/json:
+          type: types.User
+          example: !include examples/user/post-users-request.json
+      responses:
+        201:
+          description: Id for newly created account of user
+          body:
+            application/json:
+              type: types.AccountIdObject
+              example: !include examples/user/post-users-response.json
+        400:
+          description: Error adding user
+    /{accountId}:
+      get:
+        description: Get the user with account with `accountId = {accountId}`
+        responses:
+          200:
+            description: Requested user
+            body:
+              application/json:
+                type: types.User
+                example: !include ./examples/user/get-users-response.json
+          400:
+            description: Error getting user
+          404:
+            description: User not found
+  /parkings:
+    post:
+      description: Add a new parking sticker
+      body:
+        application/json:
+          type: types.ParkingSticker
+          examples:
+            postal: !include examples/parking/post-parkings-request-postal.json
+            email: !include examples/parking/post-parkings-request-email.json
+      responses:
+        201:
+          description: Code for newly added parking sticker
+          body:
+            application/json:
+              type: types.ParkingStickerCodeObject
+              example: !include examples/parking/post-parkings-response.json
+        400:
+          description: Error adding parking sticker
+        404:
+          description: Account or parking area not found
+    /{parkingStickerCode}:
+      /validate:
+        get:
+          description: Validate the parking sticker with code with `parkingStickerCode = {parkingStickerCode}` for current day
+          responses:
+            200:
+              description: Access status of parking sticker code
+              body:
+                application/json:
+                  type: types.AccessStatusObject
+                  example: !include examples/parking/get-parkings-validate-response.json
+            400:
+              description: Error validating parking sticker
+            404:
+              description: Parking sticker not found
+  /offenses:
+    get:
+      description: Collection of all possible offenses
+      responses:
+        200:
+          description: All offenses
+          body:
+            application/json:
+              type: types.Offense[]
+              example: !include examples/offense/get-offenses-response.json
+        400:
+          description: Error getting offenses
+    /validate:
+      get:
+        description: Check offenses for the parking sticker
+        body:
+          application/json:
+            type: types.OffenseValidation
+            example: !include examples/offense/get-offenses-validate-request.json
+        responses:
+          200:
+            description: Offense of parking sticker code
+            body:
+              application/json:
+                type: types.Offense
+                example: !include examples/offense/get-offenses-validate-response.json
+          400:
+            description: Error getting offenses for parking sticker
+          404:
+            description: Parking sticker not found
+  /cars:
+    post:
+      description: Add a new car
+      body:
+        application/json:
+          type: types.Car
+          example: !include examples/car/post-cars-request.json
+      responses:
+        201:
+          description: Car successfully added
+        400:
+          description: Error adding car
+        404:
+          description: Account not found

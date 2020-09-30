@@ -1,0 +1,12 @@
+[
+  {
+    "description": "mauvaise zone",
+    "code": "ZONE_01",
+    "amount": 55
+  },
+  {
+    "description": "vignette pas admissible pour la journée",
+    "code": "VIG_01",
+    "amount": 22
+  }
+]
