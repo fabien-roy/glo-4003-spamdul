@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.offenses.domain;
 
-import ca.ulaval.glo4003.domain.parking.ParkingAreaCode;
-import ca.ulaval.glo4003.domain.parking.ParkingStickerCode;
 import ca.ulaval.glo4003.domain.time.TimeOfDay;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
+import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import com.google.common.truth.Truth;
 import java.time.LocalTime;
 import org.junit.Before;

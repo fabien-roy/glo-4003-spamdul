@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.offenses;
 
-import ca.ulaval.glo4003.domain.parking.ParkingStickerRepository;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
+import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

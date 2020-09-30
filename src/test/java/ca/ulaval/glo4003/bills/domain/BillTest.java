@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.bills.domain;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.bills.filesystem.CSVBillingZoneHelper;
-import ca.ulaval.glo4003.domain.parking.ReceptionMethods;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

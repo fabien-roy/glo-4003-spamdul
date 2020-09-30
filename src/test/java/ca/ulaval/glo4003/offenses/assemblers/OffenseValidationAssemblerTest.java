@@ -1,19 +1,19 @@
 package ca.ulaval.glo4003.offenses.assemblers;
 
-import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaMother.createParkingAreaCode;
-import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createParkingStickerCode;
 import static ca.ulaval.glo4003.domain.time.helpers.TimeOfDayMother.createTimeOfDay;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationDtoBuilder.anOffenseValidationDto;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingStickerCode;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.domain.parking.ParkingAreaCode;
-import ca.ulaval.glo4003.domain.parking.ParkingAreaCodeAssembler;
-import ca.ulaval.glo4003.domain.parking.ParkingStickerCode;
-import ca.ulaval.glo4003.domain.parking.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.domain.time.TimeOfDay;
 import ca.ulaval.glo4003.domain.time.TimeOfDayAssembler;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
+import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

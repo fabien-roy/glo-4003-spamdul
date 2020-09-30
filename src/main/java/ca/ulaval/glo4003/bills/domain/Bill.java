@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.bills.domain;
 
 import ca.ulaval.glo4003.bills.filesystem.CSVBillingZoneHelper;
-import ca.ulaval.glo4003.domain.parking.ReceptionMethods;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
 
 public class Bill {
   CSVBillingZoneHelper csvBillingZoneHelper = new CSVBillingZoneHelper();

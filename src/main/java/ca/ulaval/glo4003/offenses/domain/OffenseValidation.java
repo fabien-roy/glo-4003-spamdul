@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.offenses.domain;
 
-import ca.ulaval.glo4003.domain.parking.ParkingAreaCode;
-import ca.ulaval.glo4003.domain.parking.ParkingStickerCode;
 import ca.ulaval.glo4003.domain.time.TimeOfDay;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
+import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 
 public class OffenseValidation {
   private final ParkingStickerCode parkingStickerCode;
