@@ -1,6 +1,6 @@
 #%RAML 1.0
 title: SPAMD-UL
-version: 0.0.3
+version: 0.1.0
 mediaType: application/json
 uses:
   types: ./libraries/types.raml
@@ -32,7 +32,7 @@ uses:
                 type: types.User
                 example: !include ./examples/user/get-users-response.json
           400:
-            description: Error getting user with account id
+            description: Error getting user
           404:
             description: User not found
   /parkings:
@@ -65,11 +65,41 @@ uses:
               body:
                 application/json:
                   type: types.AccessStatusObject
-                  example: !include ./examples/parking/get-parkings-response.json
+                  example: !include examples/parking/get-parkings-validate-response.json
             400:
-              description: Error getting parking sticker with code
+              description: Error validating parking sticker
             404:
               description: Parking sticker not found
+  /offenses:
+    get:
+      description: Collection of all possible offenses
+      responses:
+        200:
+          description: All offenses
+          body:
+            application/json:
+              type: types.Offense[]
+              example: !include examples/offense/get-offenses-response.json
+        400:
+          description: Error getting offenses
+    /validate:
+      get:
+        description: Check offenses for the parking sticker
+        body:
+          application/json:
+            type: types.OffenseValidation
+            example: !include ./examples/parking/get-parkings-offenses-request.json
+        responses:
+          200:
+            description: Offense of parking sticker code
+            body:
+              application/json:
+                type: types.Offense
+                example: !include examples/parking/get-parkings-offenses-response.json
+          400:
+            description: Error getting offenses for parking sticker
+          404:
+            description: Parking sticker not found
   /cars:
     post:
       description: Add a new car
