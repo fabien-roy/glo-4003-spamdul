@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.bills.filesystem.CSVBillingZoneHelper;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
+import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.api.ParkingResource;
 import ca.ulaval.glo4003.parkings.api.ParkingResourceImplementation;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
@@ -41,6 +42,7 @@ public class ParkingInjector {
       PostalCodeAssembler postalCodeAssembler,
       EmailAddressAssembler emailAddressAssembler,
       EmailSender emailSender,
+      PostalSender postalSender,
       AccountRepository accountRepository) {
     if (isDev) {
       CSVBillingZoneHelper csvBillingZoneHelper = new CSVBillingZoneHelper();
@@ -74,7 +76,8 @@ public class ParkingInjector {
             parkingAreaRepository,
             parkingStickerRepository,
             accessStatusAssembler,
-            emailSender);
+            emailSender,
+            postalSender);
 
     return new ParkingResourceImplementation(parkingService);
   }

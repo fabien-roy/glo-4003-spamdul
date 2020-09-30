@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
+import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.api.ParkingResource;
 import com.google.common.truth.Truth;
 import org.junit.Before;
@@ -21,6 +22,7 @@ public class ParkingInjectorTest {
   @Mock private EmailAddressAssembler emailAddressAssembler;
   @Mock private EmailSender emailSender;
   @Mock private AccountRepository accountRepository;
+  @Mock private PostalSender postalSender;
 
   private ParkingInjector parkingInjector;
 
@@ -38,6 +40,7 @@ public class ParkingInjectorTest {
             postalCodeAssembler,
             emailAddressAssembler,
             emailSender,
+            postalSender,
             accountRepository);
 
     Truth.assertThat(parkingResource).isNotNull();
