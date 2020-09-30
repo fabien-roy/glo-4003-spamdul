@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.infrastructure.communication;
+package ca.ulaval.glo4003.communications.smtp;
 
-import ca.ulaval.glo4003.domain.communication.EmailSender;
-import ca.ulaval.glo4003.domain.communication.exception.EmailSendingFailedException;
+import ca.ulaval.glo4003.communications.domain.EmailSender;
+import ca.ulaval.glo4003.communications.exceptions.EmailSendingFailedException;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

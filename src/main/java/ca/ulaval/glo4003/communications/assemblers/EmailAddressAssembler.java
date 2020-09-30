@@ -1,6 +1,7 @@
-package ca.ulaval.glo4003.domain.communication;
+package ca.ulaval.glo4003.communications.assemblers;
 
-import ca.ulaval.glo4003.domain.communication.exception.InvalidEmailAddressException;
+import ca.ulaval.glo4003.communications.domain.EmailAddress;
+import ca.ulaval.glo4003.communications.exceptions.InvalidEmailAddressException;
 import java.util.regex.Pattern;
 
 public class EmailAddressAssembler {

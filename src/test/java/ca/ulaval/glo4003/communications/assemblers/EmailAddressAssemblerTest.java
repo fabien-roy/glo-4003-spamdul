@@ -1,8 +1,9 @@
-package ca.ulaval.glo4003.domain.communication;
+package ca.ulaval.glo4003.communications.assemblers;
 
-import static ca.ulaval.glo4003.domain.communication.helpers.EmailAddressMother.createEmailAddress;
+import static ca.ulaval.glo4003.communications.helpers.EmailAddressMother.createEmailAddress;
 
-import ca.ulaval.glo4003.domain.communication.exception.InvalidEmailAddressException;
+import ca.ulaval.glo4003.communications.domain.EmailAddress;
+import ca.ulaval.glo4003.communications.exceptions.InvalidEmailAddressException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

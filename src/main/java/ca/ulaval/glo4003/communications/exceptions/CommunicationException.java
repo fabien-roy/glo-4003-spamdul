@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.communication.exception;
+package ca.ulaval.glo4003.communications.exceptions;
 
 public abstract class CommunicationException extends RuntimeException {
   public String error;

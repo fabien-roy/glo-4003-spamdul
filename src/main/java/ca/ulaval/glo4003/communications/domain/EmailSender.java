@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.communication;
+package ca.ulaval.glo4003.communications.domain;
 
 public interface EmailSender {
 

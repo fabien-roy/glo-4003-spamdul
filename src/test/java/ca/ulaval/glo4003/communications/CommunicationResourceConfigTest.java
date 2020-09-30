@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.injection.communication;
+package ca.ulaval.glo4003.communications;
 
-import ca.ulaval.glo4003.domain.communication.EmailAddressAssembler;
-import ca.ulaval.glo4003.domain.communication.EmailSender;
+import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
+import ca.ulaval.glo4003.communications.domain.EmailSender;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

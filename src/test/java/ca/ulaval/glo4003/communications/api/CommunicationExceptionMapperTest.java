@@ -1,8 +1,8 @@
-package ca.ulaval.glo4003.api.communication;
+package ca.ulaval.glo4003.communications.api;
 
-import ca.ulaval.glo4003.domain.communication.exception.CommunicationException;
-import ca.ulaval.glo4003.domain.communication.exception.EmailSendingFailedException;
-import ca.ulaval.glo4003.domain.communication.exception.InvalidEmailAddressException;
+import ca.ulaval.glo4003.communications.exceptions.CommunicationException;
+import ca.ulaval.glo4003.communications.exceptions.EmailSendingFailedException;
+import ca.ulaval.glo4003.communications.exceptions.InvalidEmailAddressException;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;

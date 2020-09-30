@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
-import ca.ulaval.glo4003.domain.communication.EmailSender;
+import ca.ulaval.glo4003.communications.domain.EmailSender;
 import com.google.common.truth.Truth;
 import java.time.LocalDate;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.communication.exception;
+package ca.ulaval.glo4003.communications.exceptions;
 
 public class InvalidEmailAddressException extends CommunicationException {
   public static final String ERROR = "Invalid email address";

@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.domain.communication.helpers;
+package ca.ulaval.glo4003.communications.helpers;
 
-import ca.ulaval.glo4003.domain.communication.EmailAddress;
+import ca.ulaval.glo4003.communications.domain.EmailAddress;
 import com.github.javafaker.Faker;
 
 public class EmailAddressMother {
