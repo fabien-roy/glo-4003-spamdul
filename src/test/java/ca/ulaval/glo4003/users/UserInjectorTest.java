@@ -13,24 +13,24 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserResourceConfigTest {
+public class UserInjectorTest {
 
   @Mock private AccountRepository accountRepository;
   @Mock private AccountFactory accountFactory;
   @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private CustomDateAssembler customDateAssembler;
 
-  private UserResourceConfig userResourceConfig;
+  private UserInjector userInjector;
 
   @Before
   public void setUp() {
-    userResourceConfig = new UserResourceConfig();
+    userInjector = new UserInjector();
   }
 
   @Test
   public void whenCreatingUserResource_thenReturnIt() {
     UserResource userResource =
-        userResourceConfig.createUserResource(
+        userInjector.createUserResource(
             accountRepository, accountFactory, accountIdAssembler, customDateAssembler);
 
     Truth.assertThat(userResource).isNotNull();

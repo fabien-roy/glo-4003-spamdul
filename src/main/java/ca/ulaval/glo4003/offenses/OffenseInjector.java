@@ -14,14 +14,14 @@ import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import java.util.List;
 
-public class OffenseResourceConfig {
+public class OffenseInjector {
   private OffenseRepositoryInMemory offenseRepositoryInMemory;
   private final OffenseAssembler offenseAssembler;
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   private final TimeOfDayAssembler timeOfDayAssembler;
 
-  public OffenseResourceConfig() {
+  public OffenseInjector() {
     offenseRepositoryInMemory = new OffenseRepositoryInMemory();
     offenseAssembler = new OffenseAssembler();
     parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();

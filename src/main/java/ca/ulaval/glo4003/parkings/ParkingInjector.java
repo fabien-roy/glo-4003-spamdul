@@ -19,7 +19,7 @@ import ca.ulaval.glo4003.parkings.services.ParkingService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ParkingResourceConfig {
+public class ParkingInjector {
 
   private final ParkingStickerCodeGenerator parkingStickerCodeGenerator;
   private final ParkingAreaRepository parkingAreaRepository;
@@ -27,7 +27,7 @@ public class ParkingResourceConfig {
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
-  public ParkingResourceConfig() {
+  public ParkingInjector() {
     parkingStickerCodeGenerator = new ParkingStickerCodeGenerator();
     parkingAreaRepository = new ParkingAreaRepositoryInMemory();
     parkingStickerRepository = new ParkingStickerRepositoryInMemory();

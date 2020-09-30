@@ -5,18 +5,18 @@ import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TimeResourceConfigTest {
+public class TimeInjectorTest {
 
-  private TimeResourceConfig timeResourceConfig;
+  private TimeInjector timeInjector;
 
   @Before
   public void setUp() {
-    timeResourceConfig = new TimeResourceConfig();
+    timeInjector = new TimeInjector();
   }
 
   @Test
   public void whenCreatingCustomDateAssembler_thenReturnIt() {
-    CustomDateAssembler customDateAssembler = timeResourceConfig.createCustomDateAssembler();
+    CustomDateAssembler customDateAssembler = timeInjector.createCustomDateAssembler();
 
     Truth.assertThat(customDateAssembler).isNotNull();
   }

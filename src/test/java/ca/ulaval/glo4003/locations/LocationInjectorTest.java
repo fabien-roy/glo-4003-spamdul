@@ -5,18 +5,18 @@ import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LocationResourceConfigTest {
+public class LocationInjectorTest {
 
-  private LocationResourceConfig locationResourceConfig;
+  private LocationInjector locationInjector;
 
   @Before
   public void setUp() {
-    locationResourceConfig = new LocationResourceConfig();
+    locationInjector = new LocationInjector();
   }
 
   @Test
   public void whenCreatingPostalCodeAssembler_thenReturnIt() {
-    PostalCodeAssembler postalCodeAssembler = locationResourceConfig.createPostalCodeAssembler();
+    PostalCodeAssembler postalCodeAssembler = locationInjector.createPostalCodeAssembler();
 
     Truth.assertThat(postalCodeAssembler).isNotNull();
   }

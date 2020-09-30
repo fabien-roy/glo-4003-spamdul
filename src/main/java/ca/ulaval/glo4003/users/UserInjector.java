@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.users.api.UserResourceImplementation;
 import ca.ulaval.glo4003.users.assemblers.UserAssembler;
 import ca.ulaval.glo4003.users.services.UserService;
 
-public class UserResourceConfig {
+public class UserInjector {
 
   public UserResource createUserResource(
       AccountRepository accountRepository,

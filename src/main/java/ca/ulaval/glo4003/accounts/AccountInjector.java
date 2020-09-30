@@ -7,12 +7,12 @@ import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.infrastructure.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 
-public class AccountResourceConfig {
+public class AccountInjector {
 
   private final AccountRepository accountRepository;
   private final AccountIdGenerator accountIdGenerator;
 
-  public AccountResourceConfig() {
+  public AccountInjector() {
     accountRepository = new AccountRepositoryInMemory();
     accountIdGenerator = new AccountIdGenerator();
   }

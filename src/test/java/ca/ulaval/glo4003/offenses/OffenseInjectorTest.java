@@ -10,20 +10,20 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class OffenseResourceConfigTest {
+public class OffenseInjectorTest {
 
   @Mock private ParkingStickerRepository parkingStickerRepository;
-  private OffenseResourceConfig offenseResourceConfig;
+  private OffenseInjector offenseInjector;
 
   @Before
   public void setUp() {
-    offenseResourceConfig = new OffenseResourceConfig();
+    offenseInjector = new OffenseInjector();
   }
 
   @Test
   public void whenCreatingOffenseResource_thenReturnIt() {
     OffenseResource offenseResource =
-        offenseResourceConfig.createOffenseResource(parkingStickerRepository);
+        offenseInjector.createOffenseResource(parkingStickerRepository);
 
     Truth.assertThat(offenseResource).isNotNull();
   }

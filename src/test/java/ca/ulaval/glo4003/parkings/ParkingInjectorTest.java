@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParkingResourceConfigTest {
+public class ParkingInjectorTest {
 
   @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private PostalCodeAssembler postalCodeAssembler;
@@ -22,17 +22,17 @@ public class ParkingResourceConfigTest {
   @Mock private EmailSender emailSender;
   @Mock private AccountRepository accountRepository;
 
-  private ParkingResourceConfig parkingResourceConfig;
+  private ParkingInjector parkingInjector;
 
   @Before
   public void setUp() {
-    parkingResourceConfig = new ParkingResourceConfig();
+    parkingInjector = new ParkingInjector();
   }
 
   @Test
   public void whenCreatingParkingResource_thenReturnIt() {
     ParkingResource parkingResource =
-        parkingResourceConfig.createParkingResource(
+        parkingInjector.createParkingResource(
             false,
             accountIdAssembler,
             postalCodeAssembler,

@@ -8,47 +8,47 @@ import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AccountResourceConfigTest {
+public class AccountInjectorTest {
 
-  private AccountResourceConfig accountResourceConfig;
+  private AccountInjector accountInjector;
 
   @Before
   public void setUp() {
-    accountResourceConfig = new AccountResourceConfig();
+    accountInjector = new AccountInjector();
   }
 
   @Test
   public void whenGettingAccountRepository_thenReturnIt() {
-    AccountRepository accountRepository = accountResourceConfig.getAccountRepository();
+    AccountRepository accountRepository = accountInjector.getAccountRepository();
 
     Truth.assertThat(accountRepository).isNotNull();
   }
 
   @Test
   public void whenGettingAccountRepository_thenReturnTheSame() {
-    AccountRepository firstAccountRepository = accountResourceConfig.getAccountRepository();
-    AccountRepository secondAccountRepository = accountResourceConfig.getAccountRepository();
+    AccountRepository firstAccountRepository = accountInjector.getAccountRepository();
+    AccountRepository secondAccountRepository = accountInjector.getAccountRepository();
 
     Truth.assertThat(firstAccountRepository).isSameInstanceAs(secondAccountRepository);
   }
 
   @Test
   public void whenCreatingAccountFactory_thenReturnIt() {
-    AccountFactory accountFactory = accountResourceConfig.createAccountFactory();
+    AccountFactory accountFactory = accountInjector.createAccountFactory();
 
     Truth.assertThat(accountFactory).isNotNull();
   }
 
   @Test
   public void whenCreatingAccountIdAssembler_thenReturnIt() {
-    AccountIdAssembler accountIdAssembler = accountResourceConfig.createAccountIdAssembler();
+    AccountIdAssembler accountIdAssembler = accountInjector.createAccountIdAssembler();
 
     Truth.assertThat(accountIdAssembler).isNotNull();
   }
 
   @Test
   public void whenCreatingAccountService_thenReturnIt() {
-    AccountService accountService = accountResourceConfig.createAccountService();
+    AccountService accountService = accountInjector.createAccountService();
 
     Truth.assertThat(accountService).isNotNull();
   }

@@ -6,26 +6,26 @@ import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CommunicationResourceConfigTest {
+public class CommunicationInjectorTest {
 
-  private CommunicationResourceConfig communicationResourceConfig;
+  private CommunicationInjector communicationInjector;
 
   @Before
   public void setUp() {
-    communicationResourceConfig = new CommunicationResourceConfig();
+    communicationInjector = new CommunicationInjector();
   }
 
   @Test
   public void whenCreatingEmailAddressAssembler_thenReturnIt() {
     EmailAddressAssembler emailAddressAssembler =
-        communicationResourceConfig.createEmailAddressAssembler();
+        communicationInjector.createEmailAddressAssembler();
 
     Truth.assertThat(emailAddressAssembler).isNotNull();
   }
 
   @Test
   public void whenCreatingEmailSender_thenReturnIt() {
-    EmailSender emailSender = communicationResourceConfig.createEmailSender();
+    EmailSender emailSender = communicationInjector.createEmailSender();
 
     Truth.assertThat(emailSender).isNotNull();
   }

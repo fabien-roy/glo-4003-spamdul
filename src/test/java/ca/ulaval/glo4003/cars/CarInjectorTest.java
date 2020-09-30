@@ -10,20 +10,20 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CarResourceConfigTest {
+public class CarInjectorTest {
 
   @Mock private AccountService accountService;
 
-  private CarResourceConfig carResourceConfig;
+  private CarInjector carInjector;
 
   @Before
   public void setUp() {
-    carResourceConfig = new CarResourceConfig();
+    carInjector = new CarInjector();
   }
 
   @Test
   public void whenCreatingCarResource_thenReturnIt() {
-    CarResource carResource = carResourceConfig.createCarResource(accountService);
+    CarResource carResource = carInjector.createCarResource(accountService);
 
     Truth.assertThat(carResource).isNotNull();
   }

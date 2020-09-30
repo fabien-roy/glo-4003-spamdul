@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.cars.assemblers.CarAssembler;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.services.CarService;
 
-public class CarResourceConfig {
+public class CarInjector {
 
   public CarResource createCarResource(AccountService accountService) {
     LicensePlateAssembler licensePlateAssembler = new LicensePlateAssembler();
