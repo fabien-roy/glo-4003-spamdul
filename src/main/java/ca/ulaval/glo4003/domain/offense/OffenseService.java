@@ -12,13 +12,16 @@ public class OffenseService {
   private final ParkingStickerRepository parkingStickerRepository;
   private final OffenseValidationAssembler offenseValidationAssembler;
   private final OffenseAssembler offenseAssembler;
+  private final OffenseRepository offenseRepository;
 
   public OffenseService(
       ParkingStickerRepository parkingStickerRepository,
-      OffenseValidationAssembler offenseValidationAssembler) {
+      OffenseValidationAssembler offenseValidationAssembler,
+      OffenseRepository offenseRepository) {
     this.parkingStickerRepository = parkingStickerRepository;
     this.offenseValidationAssembler = offenseValidationAssembler;
     this.offenseAssembler = new OffenseAssembler();
+    this.offenseRepository = offenseRepository;
   }
 
   public List<OffenseDto> getAllOffenses() {
