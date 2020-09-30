@@ -88,14 +88,14 @@ uses:
         body:
           application/json:
             type: types.OffenseValidation
-            example: !include ./examples/parking/get-parkings-offenses-request.json
+            example: !include examples/offense/get-offenses-validate-request.json
         responses:
           200:
             description: Offense of parking sticker code
             body:
               application/json:
                 type: types.Offense
-                example: !include examples/parking/get-parkings-offenses-response.json
+                example: !include examples/offense/get-offenses-validate-response.json
           400:
             description: Error getting offenses for parking sticker
           404:
