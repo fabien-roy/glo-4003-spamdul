@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.api.offense.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.domain.parking.ParkingSticker;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerRepository;
 import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerException;
+import ca.ulaval.glo4003.infrastructure.offense.OffenseRepositoryInMemory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +18,12 @@ public class OffenseService {
   public OffenseService(
       ParkingStickerRepository parkingStickerRepository,
       OffenseValidationAssembler offenseValidationAssembler,
+      OffenseAssembler offenseAssembler,
       OffenseRepository offenseRepository) {
     this.parkingStickerRepository = parkingStickerRepository;
     this.offenseValidationAssembler = offenseValidationAssembler;
     this.offenseAssembler = new OffenseAssembler();
-    this.offenseRepository = offenseRepository;
+    this.offenseRepository = new OffenseRepositoryInMemory();
   }
 
   public List<OffenseDto> getAllOffenses() {
@@ -43,7 +45,6 @@ public class OffenseService {
   }
 
   public OffenseDto isOffenseNeeded(OffenseValidationDto offenseValidationDto) {
-    // TODO On fait comment pour check si la vignette a accès pour la journée?
     ParkingSticker parkingSticker;
 
     OffenseValidation offenseValidation = offenseValidationAssembler.assemble(offenseValidationDto);
