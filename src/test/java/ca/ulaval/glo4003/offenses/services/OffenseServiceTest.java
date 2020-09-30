@@ -1,14 +1,18 @@
-package ca.ulaval.glo4003.domain.offense;
+package ca.ulaval.glo4003.offenses.services;
 
-import static ca.ulaval.glo4003.domain.offense.helpers.OffenseValidationBuilder.anOffenseValidation;
+import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationBuilder.anOffenseValidation;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.api.offense.dto.OffenseDto;
-import ca.ulaval.glo4003.api.offense.dto.OffenseValidationDto;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseDto;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.domain.parking.ParkingSticker;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerRepository;
 import ca.ulaval.glo4003.domain.parking.exception.NotFoundParkingStickerException;
+import ca.ulaval.glo4003.offenses.assemblers.OffenseAssembler;
+import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
+import ca.ulaval.glo4003.offenses.domain.*;
+import ca.ulaval.glo4003.offenses.services.OffenseService;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.List;

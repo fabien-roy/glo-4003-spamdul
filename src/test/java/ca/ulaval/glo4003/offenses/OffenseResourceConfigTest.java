@@ -1,6 +1,7 @@
-package ca.ulaval.glo4003.injection.offense;
+package ca.ulaval.glo4003.offenses;
 
-import ca.ulaval.glo4003.api.offense.OffenseResource;
+import ca.ulaval.glo4003.offenses.OffenseResourceConfig;
+import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerRepository;
 import com.google.common.truth.Truth;
 import org.junit.Before;

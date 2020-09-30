@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.api.offense.helpers;
 
 import static ca.ulaval.glo4003.domain.offense.helpers.OffenseMother.*;
 
-import ca.ulaval.glo4003.api.offense.dto.OffenseDto;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseDto;
 import ca.ulaval.glo4003.domain.offense.OffenseCodes;
 
 public class OffenseDtoBuilder {

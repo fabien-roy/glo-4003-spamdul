@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.domain.offense.helpers;
 
 import static ca.ulaval.glo4003.domain.offense.helpers.OffenseMother.*;
 
-import ca.ulaval.glo4003.domain.offense.Offense;
-import ca.ulaval.glo4003.domain.offense.OffenseCodes;
+import ca.ulaval.glo4003.offenses.domain.Offense;
+import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
 
 public class OffenseBuilder {
   private String description = createReasonText();

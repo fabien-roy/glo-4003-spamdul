@@ -1,7 +1,9 @@
-package ca.ulaval.glo4003.domain.offense;
+package ca.ulaval.glo4003.offenses.domain;
 
-import static ca.ulaval.glo4003.domain.offense.helpers.OffenseBuilder.anOffense;
+import static ca.ulaval.glo4003.offenses.helpers.OffenseBuilder.anOffense;
 
+import ca.ulaval.glo4003.offenses.domain.Offense;
+import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

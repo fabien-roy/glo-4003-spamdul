@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.domain.offense.helpers;
 
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 
-import ca.ulaval.glo4003.domain.offense.OffenseCodes;
+import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
 import com.github.javafaker.Faker;
 
 public class OffenseMother {

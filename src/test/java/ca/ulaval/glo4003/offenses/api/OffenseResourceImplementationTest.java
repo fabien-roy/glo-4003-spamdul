@@ -1,10 +1,12 @@
-package ca.ulaval.glo4003.api.offense;
+package ca.ulaval.glo4003.offenses.api;
 
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.api.offense.dto.OffenseDto;
-import ca.ulaval.glo4003.api.offense.dto.OffenseValidationDto;
-import ca.ulaval.glo4003.domain.offense.OffenseService;
+import ca.ulaval.glo4003.offenses.api.OffenseResource;
+import ca.ulaval.glo4003.offenses.api.OffenseResourceImplementation;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseDto;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
+import ca.ulaval.glo4003.offenses.services.OffenseService;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.offense;
 
-import ca.ulaval.glo4003.api.offense.dto.OffenseValidationDto;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.domain.parking.ParkingAreaCode;
 import ca.ulaval.glo4003.domain.parking.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerCode;

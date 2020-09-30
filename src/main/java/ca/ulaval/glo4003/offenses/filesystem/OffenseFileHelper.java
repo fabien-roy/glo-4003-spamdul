@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.offense;
 
-import ca.ulaval.glo4003.api.offense.dto.InfractionDto;
+import ca.ulaval.glo4003.offenses.api.dto.InfractionDto;
 import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
 import ca.ulaval.glo4003.files.filesystem.JsonHelper;
 import com.fasterxml.jackson.core.type.TypeReference;

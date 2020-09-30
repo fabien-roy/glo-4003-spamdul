@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.injection.offense;
 
-import ca.ulaval.glo4003.api.offense.OffenseResource;
-import ca.ulaval.glo4003.api.offense.OffenseResourceImplementation;
+import ca.ulaval.glo4003.offenses.api.OffenseResource;
+import ca.ulaval.glo4003.offenses.api.OffenseResourceImplementation;
 import ca.ulaval.glo4003.domain.offense.*;
 import ca.ulaval.glo4003.domain.parking.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerCodeAssembler;

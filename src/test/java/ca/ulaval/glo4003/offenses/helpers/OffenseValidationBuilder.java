@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaMother.createP
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createParkingStickerCode;
 import static ca.ulaval.glo4003.domain.time.helpers.TimeOfDayMother.createTimeOfDay;
 
-import ca.ulaval.glo4003.domain.offense.OffenseValidation;
+import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
 import ca.ulaval.glo4003.domain.parking.ParkingAreaCode;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerCode;
 import ca.ulaval.glo4003.domain.time.TimeOfDay;
