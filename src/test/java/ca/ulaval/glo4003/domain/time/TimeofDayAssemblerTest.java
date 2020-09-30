@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.domain.time;
 
 import static ca.ulaval.glo4003.domain.time.helpers.TimeOfDayMother.createTimeOfDay;
 
-import ca.ulaval.glo4003.domain.time.exception.InvalidTimeException;
+import ca.ulaval.glo4003.domain.time.exception.InvalidTimeOfDayException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,10 +27,13 @@ public class TimeofDayAssemblerTest {
     Truth.assertThat(timeOfDay).isEqualTo(TIME);
   }
 
-  @Test(expected = InvalidTimeException.class)
-  public void givenInvalidTime_whenAssembling_thenThrowInvalidTimeException() {
-    String invalidTime = "invalidTime";
+  @Test(expected = InvalidTimeOfDayException.class)
+  public void givenInvalidTime_whenAssembling_thenThrowInvalidTimeOfDayException() {
+    timeOfDayAssembler.assemble("invalidTime");
+  }
 
-    timeOfDayAssembler.assemble(invalidTime);
+  @Test(expected = InvalidTimeOfDayException.class)
+  public void givenNullTime_whenAssembling_thenThrowInvalidTimeOfDayException() {
+    timeOfDayAssembler.assemble(null);
   }
 }
