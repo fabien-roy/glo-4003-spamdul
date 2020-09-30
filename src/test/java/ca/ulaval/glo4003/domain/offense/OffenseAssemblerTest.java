@@ -44,23 +44,23 @@ public class OffenseAssemblerTest {
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithReasonText() {
-    OffenseDto offenseDto = offenseAssembler.assemble(this.offense);
+    OffenseDto offense = offenseAssembler.assemble(this.offense);
 
-    Truth.assertThat(offenseDto.reasonText).isEqualTo(REASON_TEXT);
+    Truth.assertThat(offense.infraction).isEqualTo(REASON_TEXT);
   }
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithReasonCode() {
-    OffenseDto offenseDto = offenseAssembler.assemble(this.offense);
+    OffenseDto offense = offenseAssembler.assemble(this.offense);
 
-    Truth.assertThat(offenseDto.reasonCode).isEqualTo(REASON_CODE);
+    Truth.assertThat(offense.code).isEqualTo(REASON_CODE);
   }
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithAmount() {
-    OffenseDto offenseDto = offenseAssembler.assemble(this.offense);
+    OffenseDto offense = offenseAssembler.assemble(this.offense);
 
-    Truth.assertThat(offenseDto.amount).isEqualTo(AMOUNT);
+    Truth.assertThat(offense.montant).isEqualTo(AMOUNT);
   }
 
   @Test
@@ -69,8 +69,8 @@ public class OffenseAssemblerTest {
     manyOffenses.add(offense);
     manyOffenses.add(offense);
 
-    List<OffenseDto> assembledOffenseDtos = offenseAssembler.assembleMany(manyOffenses);
+    List<OffenseDto> assembledOffenses = offenseAssembler.assembleMany(manyOffenses);
 
-    Truth.assertThat(assembledOffenseDtos.size()).isEqualTo(2);
+    Truth.assertThat(assembledOffenses.size()).isEqualTo(2);
   }
 }
