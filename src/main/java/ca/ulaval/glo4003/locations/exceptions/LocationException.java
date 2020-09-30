@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.location.exception;
+package ca.ulaval.glo4003.locations.exceptions;
 
 public abstract class LocationException extends RuntimeException {
   public String error;

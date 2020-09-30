@@ -1,6 +1,7 @@
-package ca.ulaval.glo4003.domain.location;
+package ca.ulaval.glo4003.locations.assemblers;
 
-import ca.ulaval.glo4003.domain.location.exception.InvalidPostalCodeException;
+import ca.ulaval.glo4003.locations.domain.PostalCode;
+import ca.ulaval.glo4003.locations.exceptions.InvalidPostalCodeException;
 import java.util.regex.Pattern;
 
 public class PostalCodeAssembler {

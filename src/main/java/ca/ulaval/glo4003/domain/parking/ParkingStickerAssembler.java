@@ -5,11 +5,11 @@ import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
-import ca.ulaval.glo4003.domain.location.PostalCode;
-import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.exception.MissingEmailException;
 import ca.ulaval.glo4003.domain.parking.exception.MissingPostalCodeException;
 import ca.ulaval.glo4003.domain.time.Days;
+import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
+import ca.ulaval.glo4003.locations.domain.PostalCode;
 
 public class ParkingStickerAssembler {
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;

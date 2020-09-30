@@ -7,10 +7,10 @@ import ca.ulaval.glo4003.api.parking.ParkingResourceImplementation;
 import ca.ulaval.glo4003.bills.filesystem.CSVBillingZoneHelper;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
-import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.*;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingStickerRepositoryInMemory;
+import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003;
 
-import ca.ulaval.glo4003.interfaces.ApplicationResourceConfig;
 import ca.ulaval.glo4003.interfaces.http.CORSResponseFilter;
 import java.util.HashSet;
 import java.util.Set;

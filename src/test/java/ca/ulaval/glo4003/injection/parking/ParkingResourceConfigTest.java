@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.api.parking.ParkingResource;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
-import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
+import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

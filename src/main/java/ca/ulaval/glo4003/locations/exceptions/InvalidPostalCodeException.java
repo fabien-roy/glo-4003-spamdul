@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.location.exception;
+package ca.ulaval.glo4003.locations.exceptions;
 
 public class InvalidPostalCodeException extends LocationException {
   public static final String ERROR = "Invalid postal code";

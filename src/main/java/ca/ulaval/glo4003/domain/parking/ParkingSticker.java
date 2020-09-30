@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.domain.parking;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
-import ca.ulaval.glo4003.domain.location.PostalCode;
 import ca.ulaval.glo4003.domain.time.Days;
+import ca.ulaval.glo4003.locations.domain.PostalCode;
 
 public class ParkingSticker {
   private ParkingStickerCode code;

@@ -1,8 +1,9 @@
-package ca.ulaval.glo4003.domain.location;
+package ca.ulaval.glo4003.locations.assemblers;
 
-import static ca.ulaval.glo4003.domain.location.helpers.PostalCodeMother.createPostalCode;
+import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalCode;
 
-import ca.ulaval.glo4003.domain.location.exception.InvalidPostalCodeException;
+import ca.ulaval.glo4003.locations.domain.PostalCode;
+import ca.ulaval.glo4003.locations.exceptions.InvalidPostalCodeException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

@@ -2,10 +2,10 @@ package ca.ulaval.glo4003.api.parking.helpers;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.communications.helpers.EmailAddressMother.createEmailAddress;
-import static ca.ulaval.glo4003.domain.location.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.createReceptionMethod;
 import static ca.ulaval.glo4003.domain.time.helpers.DayMother.createDay;
+import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalCode;
 
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
 
