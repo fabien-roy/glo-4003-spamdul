@@ -3,13 +3,13 @@ package ca.ulaval.glo4003.domain.offense;
 import java.util.Objects;
 
 public class Offense {
-  private String reasonText;
-  private String reasonCode;
-  private int amount;
+  private String description;
+  private OffenseCodes code;
+  private double amount;
 
-  public Offense(String reasonText, String reasonCode, int amount) {
-    this.reasonText = reasonText;
-    this.reasonCode = reasonCode;
+  public Offense(String description, OffenseCodes code, double amount) {
+    this.description = description;
+    this.code = code;
     this.amount = amount;
   }
 
@@ -18,23 +18,23 @@ public class Offense {
     if (this == object) return true;
     if (object == null || getClass() != object.getClass()) return false;
     Offense offense = (Offense) object;
-    return reasonCode.equals(offense.reasonCode);
+    return code.equals(offense.code);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(reasonCode);
+    return Objects.hash(code);
   }
 
-  public String getReasonText() {
-    return reasonText;
+  public String getDescription() {
+    return description;
   }
 
-  public String getReasonCode() {
-    return reasonCode;
+  public OffenseCodes getCode() {
+    return code;
   }
 
-  public int getAmount() {
+  public double getAmount() {
     return amount;
   }
 }

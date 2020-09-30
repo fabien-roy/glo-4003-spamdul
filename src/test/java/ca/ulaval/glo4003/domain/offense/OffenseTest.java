@@ -15,17 +15,21 @@ public class OffenseTest {
   @Before
   public void setUp() {
     offense =
-        anOffense().withReasonText("A reason").withReasonCode("Code-1").withAmount(666).build();
+        anOffense()
+            .withReasonText("A reason")
+            .withReasonCode(OffenseCodes.ZONE_02)
+            .withAmount(666)
+            .build();
   }
 
   @Test
   public void givenOffense_whenGettingReasonText_thenReasonTextIsReturned() {
-    Truth.assertThat(offense.getReasonText()).isEqualTo("A reason");
+    Truth.assertThat(offense.getDescription()).isEqualTo("A reason");
   }
 
   @Test
   public void givenOffense_whenGettingReasonCode_thenReasonCodeIsReturned() {
-    Truth.assertThat(offense.getReasonCode()).isEqualTo("Code-1");
+    Truth.assertThat(offense.getCode()).isEqualTo(OffenseCodes.ZONE_02);
   }
 
   @Test

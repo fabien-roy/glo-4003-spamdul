@@ -35,13 +35,16 @@ public class OffenseService {
     offenses.add(createWrongDayOffense());
     offenses.add(createInvalidStickerOffense());
     // Those have to be treated "manually" by the officer
-    offenses.add(new Offense("temps dépassé", "TEMPS_01", 47));
-    offenses.add(new Offense("stationnement réservé pour voiture électrique", "ZONE_02", 55));
-    offenses.add(new Offense("pas de vignette", "VIG_03", 55));
-    offenses.add(new Offense("la vignette et la plaque ne sont pas associées", "VIG_04", 42));
+    offenses.add(new Offense("temps dépassé", OffenseCodes.TEMPS_01, 47));
     offenses.add(
-        new Offense("stationnement réservé pour voiture électrique branchée", "ZONE_03", 55));
-    return offenseAssembler.assembleMany(offenses);
+        new Offense("stationnement réservé pour voiture électrique", OffenseCodes.ZONE_02, 55));
+    offenses.add(new Offense("pas de vignette", OffenseCodes.VIG_03, 55));
+    offenses.add(
+        new Offense("la vignette et la plaque ne sont pas associées", OffenseCodes.VIG_04, 42));
+    offenses.add(
+        new Offense(
+            "stationnement réservé pour voiture électrique branchée", OffenseCodes.ZONE_03, 55));
+    return offenseAssembler.assembleOffenseDtos(offenses);
   }
 
   public OffenseDto isOffenseNeeded(OffenseValidationDto offenseValidationDto) {
@@ -64,18 +67,18 @@ public class OffenseService {
   }
 
   private Offense createNoOffense() {
-    return new Offense("Aucune infraction signalée", "000", 0);
+    return new Offense("Aucune infraction signalée", OffenseCodes.NONE, 0);
   }
 
   private Offense createWrongZoneOffense() {
-    return new Offense("mauvaise zone", "ZONE_01", 55);
+    return new Offense("mauvaise zone", OffenseCodes.ZONE_01, 55);
   }
 
   private Offense createWrongDayOffense() {
-    return new Offense("vignette pas admissible pour la journée", "VIG_01", 22);
+    return new Offense("vignette pas admissible pour la journée", OffenseCodes.VIG_01, 22);
   }
 
   private Offense createInvalidStickerOffense() {
-    return new Offense("vignette invalide", "VIG_02", 45);
+    return new Offense("vignette invalide", OffenseCodes.VIG_02, 45);
   }
 }

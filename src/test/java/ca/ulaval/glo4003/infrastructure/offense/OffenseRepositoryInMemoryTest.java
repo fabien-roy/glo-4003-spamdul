@@ -12,8 +12,8 @@ import org.junit.Test;
 public class OffenseRepositoryInMemoryTest {
 
   private static final String A_REASON = "Not enough chips";
-  private static final String A_CODE = OffenseCodes.VIG_01.toString();
-  private static final int AN_AMOUNT = 420;
+  private static final OffenseCodes A_CODE = OffenseCodes.VIG_01;
+  private static final double AN_AMOUNT = 420;
 
   private OffenseRepository offenseRepository;
 
@@ -28,7 +28,7 @@ public class OffenseRepositoryInMemoryTest {
 
     offenseRepository.save(offense);
 
-    assertThat(offenseRepository.findByCode(OffenseCodes.get(A_CODE)) == offense);
+    assertThat(offenseRepository.findByCode(A_CODE) == offense);
   }
 
   @Test(expected = OffenseNotFoundException.class)

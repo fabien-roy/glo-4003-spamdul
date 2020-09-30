@@ -1,5 +1,8 @@
 package ca.ulaval.glo4003.domain.offense.helpers;
 
+import static ca.ulaval.glo4003.interfaces.Randomizer.randomEnum;
+
+import ca.ulaval.glo4003.domain.offense.OffenseCodes;
 import com.github.javafaker.Faker;
 
 public class OffenseMother {
@@ -7,11 +10,11 @@ public class OffenseMother {
     return Faker.instance().superhero().descriptor();
   }
 
-  public static String createReasonCode() {
-    return Faker.instance().pokemon().name();
+  public static OffenseCodes createReasonCode() {
+    return randomEnum(OffenseCodes.class);
   }
 
-  public static int createAmount() {
+  public static double createAmount() {
     return Faker.instance().number().numberBetween(1, 200);
   }
 }

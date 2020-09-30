@@ -44,7 +44,7 @@ public class OffenseResourceImplementationTest {
   public void whenCheckingIfOffenseNeeded_thenResponseOkStatus() {
     when(offenseService.isOffenseNeeded(offenseValidationDto)).thenReturn(offenseDto);
 
-    Response response = offenseResource.isOffenseNeeded(offenseValidationDto);
+    Response response = offenseResource.validateOffense(offenseValidationDto);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }

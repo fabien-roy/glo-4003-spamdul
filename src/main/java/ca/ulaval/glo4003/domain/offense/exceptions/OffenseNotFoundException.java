@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.offense.exceptions;
 
-public class OffenseNotFoundException extends InvalidOffenseException {
+public class OffenseNotFoundException extends OffenseException {
 
   private static final String ERROR = "Offense not found";
   private static final String DESCRIPTION =

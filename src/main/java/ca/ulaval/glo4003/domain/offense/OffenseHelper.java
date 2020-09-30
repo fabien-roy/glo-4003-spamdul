@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.offense;
 
-import ca.ulaval.glo4003.api.offense.dto.OffenseFileDTO;
+import ca.ulaval.glo4003.api.offense.dto.InfractionDto;
 import ca.ulaval.glo4003.domain.file.JsonHelper;
 import ca.ulaval.glo4003.domain.file.exceptions.InvalidFileException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -16,8 +16,8 @@ public class OffenseHelper {
   public List<Offense> getAllOffenses() {
     try {
       String jsonFile = jsonHelper.getFileToString();
-      return offenseAssembler.assembleManyOffense(
-          objectMapper.readValue(jsonFile, new TypeReference<List<OffenseFileDTO>>() {}));
+      return offenseAssembler.assembleOffenses(
+          objectMapper.readValue(jsonFile, new TypeReference<List<InfractionDto>>() {}));
     } catch (IOException ioException) {
       throw new InvalidFileException();
     }

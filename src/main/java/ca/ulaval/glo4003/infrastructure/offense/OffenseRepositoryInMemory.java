@@ -13,7 +13,7 @@ public class OffenseRepositoryInMemory implements OffenseRepository {
 
   @Override
   public void save(Offense offense) {
-    offenses.put(OffenseCodes.get(offense.getReasonCode()), offense);
+    offenses.put(offense.getCode(), offense);
   }
 
   @Override

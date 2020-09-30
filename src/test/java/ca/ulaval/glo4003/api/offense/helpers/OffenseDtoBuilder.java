@@ -3,11 +3,12 @@ package ca.ulaval.glo4003.api.offense.helpers;
 import static ca.ulaval.glo4003.domain.offense.helpers.OffenseMother.*;
 
 import ca.ulaval.glo4003.api.offense.dto.OffenseDto;
+import ca.ulaval.glo4003.domain.offense.OffenseCodes;
 
 public class OffenseDtoBuilder {
-  private String reasonText = createReasonText();
-  private String reasonCode = createReasonCode();
-  private int amount = createAmount();
+  private String description = createReasonText();
+  private OffenseCodes code = createReasonCode();
+  private double amount = createAmount();
 
   private OffenseDtoBuilder() {}
 
@@ -15,17 +16,17 @@ public class OffenseDtoBuilder {
     return new OffenseDtoBuilder();
   }
 
-  public OffenseDtoBuilder withReasonText(String reasonText) {
-    this.reasonText = reasonText;
+  public OffenseDtoBuilder withReasonText(String description) {
+    this.description = description;
     return this;
   }
 
-  public OffenseDtoBuilder withReasonCode(String reasonCode) {
-    this.reasonCode = reasonCode;
+  public OffenseDtoBuilder withReasonCode(OffenseCodes code) {
+    this.code = code;
     return this;
   }
 
-  public OffenseDtoBuilder withAmount(int amount) {
+  public OffenseDtoBuilder withAmount(double amount) {
     this.amount = amount;
     return this;
   }
@@ -33,8 +34,8 @@ public class OffenseDtoBuilder {
   public OffenseDto build() {
     OffenseDto offenseDto = new OffenseDto();
 
-    offenseDto.reasonText = reasonText;
-    offenseDto.reasonCode = reasonCode;
+    offenseDto.description = description;
+    offenseDto.code = code.toString();
     offenseDto.amount = amount;
 
     return offenseDto;

@@ -3,11 +3,12 @@ package ca.ulaval.glo4003.domain.offense.helpers;
 import static ca.ulaval.glo4003.domain.offense.helpers.OffenseMother.*;
 
 import ca.ulaval.glo4003.domain.offense.Offense;
+import ca.ulaval.glo4003.domain.offense.OffenseCodes;
 
 public class OffenseBuilder {
-  private String reasonText = createReasonText();
-  private String reasonCode = createReasonCode();
-  private int amount = createAmount();
+  private String description = createReasonText();
+  private OffenseCodes code = createReasonCode();
+  private double amount = createAmount();
 
   private OffenseBuilder() {}
 
@@ -16,21 +17,21 @@ public class OffenseBuilder {
   }
 
   public OffenseBuilder withReasonText(String reasonText) {
-    this.reasonText = reasonText;
+    this.description = reasonText;
     return this;
   }
 
-  public OffenseBuilder withReasonCode(String reasonCode) {
-    this.reasonCode = reasonCode;
+  public OffenseBuilder withReasonCode(OffenseCodes reasonCode) {
+    this.code = reasonCode;
     return this;
   }
 
-  public OffenseBuilder withAmount(int amount) {
+  public OffenseBuilder withAmount(double amount) {
     this.amount = amount;
     return this;
   }
 
   public Offense build() {
-    return new Offense(reasonText, reasonCode, amount);
+    return new Offense(description, code, amount);
   }
 }

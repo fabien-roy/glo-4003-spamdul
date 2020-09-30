@@ -62,22 +62,22 @@ public class OffenseServiceTest {
       givenValidOffenseValidationDto_whenCheckingIfOffenseNeeded_thenInvalidStickerOffenseIsReturned() {
     when(parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode()))
         .thenThrow(new NotFoundParkingStickerException());
-    Offense offense = new Offense("vignette invalide", "VIG_02", 45);
+    Offense offense = new Offense("vignette invalide", OffenseCodes.VIG_02, 45);
 
     OffenseDto offenseDto = offenseService.isOffenseNeeded(offenseValidationDto);
 
-    Truth.assertThat(offenseDto.reasonCode).isEqualTo(offense.getReasonCode());
+    Truth.assertThat(offenseDto.code).isEqualTo(offense.getCode().toString());
   }
 
   @Test
   public void givenValidOffenseValidationDto_whenCheckingIfOffenseNeeded_thenNoOffenseIsReturned() {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(true);
-    Offense offense = new Offense("Aucune infraction signalée", "000", 0);
+    Offense offense = new Offense("Aucune infraction signalée", OffenseCodes.NONE, 0);
 
     OffenseDto offenseDto = offenseService.isOffenseNeeded(offenseValidationDto);
 
-    Truth.assertThat(offenseDto.reasonCode).isEqualTo(offense.getReasonCode());
+    Truth.assertThat(offenseDto.code).isEqualTo(offense.getCode().toString());
   }
 
   @Test
@@ -85,30 +85,33 @@ public class OffenseServiceTest {
       givenValidOffenseValidationDto_whenCheckingIfOffenseNeeded_thenWrongZoneOffenseIsReturned() {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(false);
-    Offense offense = new Offense("mauvaise zone", "ZONE_01", 55);
+    Offense offense = new Offense("mauvaise zone", OffenseCodes.ZONE_01, 55);
 
     OffenseDto offenseDto = offenseService.isOffenseNeeded(offenseValidationDto);
 
-    Truth.assertThat(offenseDto.reasonCode).isEqualTo(offense.getReasonCode());
+    Truth.assertThat(offenseDto.code).isEqualTo(offense.getCode().toString());
   }
 
   @Test
   public void whenGettingAllOffenses_thenAllPossibleOffensesAreReturned() {
     ArrayList<Offense> offenses = new ArrayList<>();
-    offenses.add(new Offense("mauvaise zone", "ZONE_01", 55));
-    offenses.add(new Offense("vignette pas admissible pour la journée", "VIG_01", 22));
-    offenses.add(new Offense("vignette invalide", "VIG_02", 45));
-    offenses.add(new Offense("temps dépassé", "TEMPS_01", 47));
-    offenses.add(new Offense("stationnement réservé pour voiture électrique", "ZONE_02", 55));
-    offenses.add(new Offense("pas de vignette", "VIG_03", 55));
-    offenses.add(new Offense("la vignette et la plaque ne sont pas associées", "VIG_04", 42));
+    offenses.add(new Offense("mauvaise zone", OffenseCodes.ZONE_01, 55));
+    offenses.add(new Offense("vignette pas admissible pour la journée", OffenseCodes.VIG_01, 22));
+    offenses.add(new Offense("vignette invalide", OffenseCodes.VIG_02, 45));
+    offenses.add(new Offense("temps dépassé", OffenseCodes.TEMPS_01, 47));
     offenses.add(
-        new Offense("stationnement réservé pour voiture électrique branchée", "ZONE_03", 55));
+        new Offense("stationnement réservé pour voiture électrique", OffenseCodes.ZONE_02, 55));
+    offenses.add(new Offense("pas de vignette", OffenseCodes.VIG_03, 55));
+    offenses.add(
+        new Offense("la vignette et la plaque ne sont pas associées", OffenseCodes.VIG_04, 42));
+    offenses.add(
+        new Offense(
+            "stationnement réservé pour voiture électrique branchée", OffenseCodes.ZONE_03, 55));
 
     List<OffenseDto> offenseDtoList = offenseService.getAllOffenses();
 
     for (int i = 0; i < offenses.size(); i++) {
-      Truth.assertThat(offenseDtoList.get(i).reasonCode).isEqualTo(offenses.get(i).getReasonCode());
+      Truth.assertThat(offenseDtoList.get(i).code).isEqualTo(offenses.get(i).getCode().toString());
     }
   }
 }

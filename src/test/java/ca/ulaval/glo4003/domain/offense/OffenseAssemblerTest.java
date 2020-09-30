@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.domain.offense;
 
-import static ca.ulaval.glo4003.api.offense.helpers.OffenseDtoBuilder.anOffenseDto;
 import static ca.ulaval.glo4003.domain.offense.helpers.OffenseBuilder.anOffense;
 import static ca.ulaval.glo4003.domain.offense.helpers.OffenseMother.*;
 
@@ -16,11 +15,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class OffenseAssemblerTest {
   private static final String REASON_TEXT = createReasonText();
-  private static final String REASON_CODE = createReasonCode();
-  private static final int AMOUNT = createAmount();
+  private static final OffenseCodes REASON_CODE = createReasonCode();
+  private static final double AMOUNT = createAmount();
 
   private Offense offense;
-  private OffenseDto offenseDto;
 
   private OffenseAssembler offenseAssembler;
 
@@ -34,26 +32,20 @@ public class OffenseAssemblerTest {
             .withReasonCode(REASON_CODE)
             .withAmount(AMOUNT)
             .build();
-    offenseDto =
-        anOffenseDto()
-            .withReasonText(REASON_TEXT)
-            .withReasonCode(REASON_CODE)
-            .withAmount(AMOUNT)
-            .build();
   }
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithReasonText() {
     OffenseDto offense = offenseAssembler.assemble(this.offense);
 
-    Truth.assertThat(offense.reasonText).isEqualTo(REASON_TEXT);
+    Truth.assertThat(offense.description).isEqualTo(REASON_TEXT);
   }
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithReasonCode() {
     OffenseDto offense = offenseAssembler.assemble(this.offense);
 
-    Truth.assertThat(offense.reasonCode).isEqualTo(REASON_CODE);
+    Truth.assertThat(offense.code).isEqualTo(REASON_CODE.toString());
   }
 
   @Test
@@ -69,7 +61,7 @@ public class OffenseAssemblerTest {
     manyOffenses.add(offense);
     manyOffenses.add(offense);
 
-    List<OffenseDto> assembledOffenses = offenseAssembler.assembleMany(manyOffenses);
+    List<OffenseDto> assembledOffenses = offenseAssembler.assembleOffenseDtos(manyOffenses);
 
     Truth.assertThat(assembledOffenses.size()).isEqualTo(2);
   }
