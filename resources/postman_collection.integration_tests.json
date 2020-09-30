@@ -28,7 +28,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+							"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -209,7 +209,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": null,\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": null,\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -254,7 +254,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -299,7 +299,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": 1,\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": 1,\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -344,7 +344,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": [{{request.user.name}}],\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": [{{request.user.name}}],\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -389,7 +389,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {\n      \"name\": {{request.user.name}}\n  },\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": {\n      \"name\": {{request.user.name}}\n  },\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -441,7 +441,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": null,\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": null,\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -486,7 +486,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -531,7 +531,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": 1,\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": 1,\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -576,7 +576,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": [{{request.user.birthDate}}],\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": [{{request.user.birthDate}}],\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -621,7 +621,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {\n      \"birthDate\": {{request.user.birthDate}}\n  },\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {\n      \"birthDate\": {{request.user.birthDate}}\n  },\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -666,7 +666,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": \"12-31-2000\",\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": \"12-31-2000\",\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -711,7 +711,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": \"01-01-2300\",\n  \"sex\": {{request.user.sex}}\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": \"01-01-2300\",\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -763,7 +763,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": null\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": null,\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -808,7 +808,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}}\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -853,7 +853,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": 1\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": 1,\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -898,7 +898,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": [{{request.user.sex}}]\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": [{{request.user.sex}}],\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -943,7 +943,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {\n      \"sex\": {{request.user.sex}}\n  }\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {\n      \"sex\": {{request.user.sex}}\n  },\n  \"accessDay\": {{request.user.accessDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -988,7 +988,284 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": \"b\"\n}",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": \"b\",\n  \"accessDay\": {{request.user.accessDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Access day",
+							"item": [
+								{
+									"name": "Invalid access day (null)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "509e5d3c-cd63-474d-b7f2-d9599eece174",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid access day\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid access day\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": null\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid access day (missing)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "068f9518-1342-45de-840b-ae1ca23b8cf2",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid access day\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid access day\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid access day (number)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0a728e1c-14e2-4dd7-b082-72700e102b74",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid access day\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid access day\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid access day (array)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "d708e774-b346-4d14-982d-465e2f298938",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid access day\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid access day\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": [{{request.user.accessDay}}]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid access day (object)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1fc1e316-a282-4458-8f87-5eb2f3a44d26",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid access day\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid access day\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {\n      \"accessDay\": {{request.user.accessDay}}\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid access day (bad value)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5b106d79-2599-45bf-a895-16114c48d891",
+												"exec": [
+													"pm.test(\"Returns status 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Returns invalid access day\", function () {",
+													"    pm.expect(pm.response.json().error).to.equal(\"Invalid access day\")",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": \"funday\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1037,7 +1314,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+									"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
 									"options": {
 										"raw": {
 											"language": "json"
