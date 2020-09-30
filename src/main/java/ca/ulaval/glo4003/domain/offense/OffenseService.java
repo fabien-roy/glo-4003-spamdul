@@ -15,10 +15,11 @@ public class OffenseService {
 
   public OffenseService(
       ParkingStickerRepository parkingStickerRepository,
-      OffenseValidationAssembler offenseValidationAssembler) {
+      OffenseValidationAssembler offenseValidationAssembler,
+      OffenseAssembler offenseAssembler) {
     this.parkingStickerRepository = parkingStickerRepository;
     this.offenseValidationAssembler = offenseValidationAssembler;
-    this.offenseAssembler = new OffenseAssembler();
+    this.offenseAssembler = offenseAssembler;
   }
 
   public List<OffenseDto> getAllOffenses() {
@@ -40,7 +41,6 @@ public class OffenseService {
   }
 
   public OffenseDto isOffenseNeeded(OffenseValidationDto offenseValidationDto) {
-    // TODO On fait comment pour check si la vignette a accès pour la journée?
     ParkingSticker parkingSticker;
 
     OffenseValidation offenseValidation = offenseValidationAssembler.assemble(offenseValidationDto);

@@ -14,6 +14,6 @@ public interface OffenseResource {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("/offense")
+  @Path("/validate")
   Response isOffenseNeeded(OffenseValidationDto OffenseValidationDto);
 }

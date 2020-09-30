@@ -66,9 +66,7 @@ public class ApplicationResourceConfig {
 
   public OffenseResource createOffenseResource() {
     return offenseResourceConfig.createOffenseResource(
-        parkingResourceConfig.getParkingStickerRepository(),
-        parkingResourceConfig.getParkingStickerCodeAssembler(),
-        parkingResourceConfig.getParkingAreaCodeAssembler());
+        parkingResourceConfig.getParkingStickerRepository());
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
