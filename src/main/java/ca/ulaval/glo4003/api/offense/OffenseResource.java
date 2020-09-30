@@ -13,7 +13,8 @@ public interface OffenseResource {
   Response getAllOffenses();
 
   @GET
+  @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("/validate")
+  @Path("validate")
   Response validateOffense(OffenseValidationDto OffenseValidationDto);
 }

@@ -5033,7 +5033,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": [{{param.parkingStickerCode}}],\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+											"raw": "{\n    \"parkingStickerCode\": [\"{{param.parkingStickerCode}}\"],\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5082,7 +5082,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {\n        \"parkingStickerCode\": {{param.parkingStickerCode}}\n    },\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+											"raw": "{\n    \"parkingStickerCode\": {\n        \"parkingStickerCode\": \"{{param.parkingStickerCode}}\"\n    },\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5187,7 +5187,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": null,\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": null,\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5236,7 +5236,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5285,7 +5285,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": 1,\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": 1,\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5334,7 +5334,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": [{{request.offenseValidation.parkingArea}}],\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": [{{request.offenseValidation.parkingArea}}],\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5383,7 +5383,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": {\n        \"parkingArea\": {{request.offenseValidation.parkingArea}}\n    },\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {\n        \"parkingArea\": {{request.offenseValidation.parkingArea}}\n    },\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5432,7 +5432,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": {\n        \"parkingArea\": {{request.offenseValidation.parkingArea}}\n    },\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {\n        \"parkingArea\": {{request.offenseValidation.parkingArea}}\n    },\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5488,7 +5488,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": null\n}",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": null\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5537,7 +5537,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": {{request.offenseValidation.parkingArea}}\n}",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5586,7 +5586,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": 1\n}",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": 1\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5635,7 +5635,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": [{{request.offenseValidation.timeOfDay}}]\n}",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": [{{request.offenseValidation.timeOfDay}}]\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5684,7 +5684,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {\n        \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n    }\n}",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {\n        \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n    }\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5733,7 +5733,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": \"120000\"\n}",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": \"120000\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5782,7 +5782,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+									"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
 									"options": {
 										"raw": {
 											"language": "json"

@@ -315,7 +315,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"parkingStickerCode\": {{param.parkingStickerCode}},\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+					"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
 					"options": {
 						"raw": {
 							"language": "json"
