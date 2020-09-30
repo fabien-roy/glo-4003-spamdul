@@ -1,14 +1,14 @@
 package ca.ulaval.glo4003.accounts.services;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
-import static ca.ulaval.glo4003.domain.car.helpers.CarBuilder.aCar;
+import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.domain.car.Car;
+import ca.ulaval.glo4003.cars.domain.Car;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

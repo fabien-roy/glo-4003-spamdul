@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.time.helpers;
 
-import static ca.ulaval.glo4003.helpers.Randomizer.randomEnum;
+import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 
 import ca.ulaval.glo4003.domain.time.Days;
 

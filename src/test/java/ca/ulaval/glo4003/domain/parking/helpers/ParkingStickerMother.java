@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.parking.helpers;
 
-import static ca.ulaval.glo4003.helpers.Randomizer.randomEnum;
+import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 
 import ca.ulaval.glo4003.domain.parking.ParkingStickerCode;
 import ca.ulaval.glo4003.domain.parking.ReceptionMethods;

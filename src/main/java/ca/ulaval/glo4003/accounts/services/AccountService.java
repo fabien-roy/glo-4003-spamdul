@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.domain.car.Car;
+import ca.ulaval.glo4003.cars.domain.Car;
 
 public class AccountService {
 
