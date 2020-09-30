@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.locations;
+package ca.ulaval.glo4003.locations.console;
 
 import ca.ulaval.glo4003.locations.domain.PostalCode;
 import ca.ulaval.glo4003.locations.domain.PostalSender;
