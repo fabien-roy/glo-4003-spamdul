@@ -6,13 +6,13 @@ import java.util.Map;
 
 public enum OffenseCodes {
   ZONE_01("ZONE_01"),
-  VIG_01(""),
-  TEMPS_01(""),
-  ZONE_02(""),
-  VIG_02(""),
-  VIG_03(""),
-  VIG_04(""),
-  ZONE_03("");
+  VIG_01("VIG_01"),
+  TEMPS_01("TEMPS_01"),
+  ZONE_02("ZONE_02"),
+  VIG_02("VIG_02"),
+  VIG_03("VIG_03"),
+  VIG_04("VIG_04"),
+  ZONE_03("ZONE_03");
 
   String code;
   private static final Map<String, OffenseCodes> lookup = new HashMap<>();

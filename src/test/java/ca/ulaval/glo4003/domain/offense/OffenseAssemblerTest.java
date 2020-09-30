@@ -46,21 +46,21 @@ public class OffenseAssemblerTest {
   public void whenAssembling_thenReturnOffenseDtoWithReasonText() {
     OffenseDto offense = offenseAssembler.assemble(this.offense);
 
-    Truth.assertThat(offense.reasonText).isEqualTo(REASON_TEXT);
+    Truth.assertThat(offense.infraction).isEqualTo(REASON_TEXT);
   }
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithReasonCode() {
     OffenseDto offense = offenseAssembler.assemble(this.offense);
 
-    Truth.assertThat(offense.reasonCode).isEqualTo(REASON_CODE);
+    Truth.assertThat(offense.code).isEqualTo(REASON_CODE);
   }
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithAmount() {
     OffenseDto offense = offenseAssembler.assemble(this.offense);
 
-    Truth.assertThat(offense.amount).isEqualTo(AMOUNT);
+    Truth.assertThat(offense.montant).isEqualTo(AMOUNT);
   }
 
   @Test
