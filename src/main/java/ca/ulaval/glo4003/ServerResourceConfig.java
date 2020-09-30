@@ -1,15 +1,13 @@
 package ca.ulaval.glo4003;
 
-import ca.ulaval.glo4003.http.CORSResponseFilter;
-import ca.ulaval.glo4003.injection.ApplicationResourceConfig;
+import ca.ulaval.glo4003.interfaces.http.CORSResponseFilter;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 import org.glassfish.jersey.server.ResourceConfig;
 
-public class ServerResourceConfig extends ResourceConfig {
-  private static final ApplicationResourceConfig applicationResourceConfig =
-      new ApplicationResourceConfig();
+public class ServerResourceConfig {
+  private static final ApplicationInjector APPLICATION_INJECTOR = new ApplicationInjector();
 
   public static ResourceConfig getApplicationResourceConfig() {
     ResourceConfig resourceConfig =
@@ -18,16 +16,16 @@ public class ServerResourceConfig extends ResourceConfig {
               @Override
               public Set<Object> getSingletons() {
                 HashSet<Object> resources = new HashSet<>();
-                resources.add(applicationResourceConfig.createCarResource());
-                resources.add(applicationResourceConfig.createUserResource());
-                resources.add(applicationResourceConfig.createParkingResource());
-                resources.add(applicationResourceConfig.createOffenseResource());
+                resources.add(APPLICATION_INJECTOR.createCarResource());
+                resources.add(APPLICATION_INJECTOR.createUserResource());
+                resources.add(APPLICATION_INJECTOR.createParkingResource());
+                resources.add(APPLICATION_INJECTOR.createOffenseResource());
                 return resources;
               }
 
               @Override
               public Set<Class<?>> getClasses() {
-                return new HashSet<>(applicationResourceConfig.getExceptionMappers());
+                return new HashSet<>(APPLICATION_INJECTOR.getExceptionMappers());
               }
             });
 
