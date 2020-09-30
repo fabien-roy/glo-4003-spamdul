@@ -30,39 +30,39 @@ public class ApplicationInjector {
 
   private static final boolean IS_DEV = true;
 
-  private final AccountInjector accountInjector = new AccountInjector();
-  private final CarInjector carInjector = new CarInjector();
-  private final CommunicationInjector communicationInjector = new CommunicationInjector();
-  private final LocationInjector locationInjector = new LocationInjector();
-  private final ParkingInjector parkingInjector = new ParkingInjector();
-  private final TimeInjector timeInjector = new TimeInjector();
-  private final UserInjector userInjector = new UserInjector();
-  private final OffenseInjector offenseInjector = new OffenseInjector();
+  private static final AccountInjector ACCOUNT_INJECTOR = new AccountInjector();
+  private static final CarInjector CAR_INJECTOR = new CarInjector();
+  private static final CommunicationInjector COMMUNICATION_INJECTOR = new CommunicationInjector();
+  private static final LocationInjector LOCATION_INJECTOR = new LocationInjector();
+  private static final ParkingInjector PARKING_INJECTOR = new ParkingInjector();
+  private static final TimeInjector TIME_INJECTOR = new TimeInjector();
+  private static final UserInjector USER_INJECTOR = new UserInjector();
+  private static final OffenseInjector OFFENSE_INJECTOR = new OffenseInjector();
 
   public CarResource createCarResource() {
-    return carInjector.createCarResource(accountInjector.createAccountService());
+    return CAR_INJECTOR.createCarResource(ACCOUNT_INJECTOR.createAccountService());
   }
 
   public ParkingResource createParkingResource() {
-    return parkingInjector.createParkingResource(
+    return PARKING_INJECTOR.createParkingResource(
         IS_DEV,
-        accountInjector.createAccountIdAssembler(),
-        locationInjector.createPostalCodeAssembler(),
-        communicationInjector.createEmailAddressAssembler(),
-        communicationInjector.createEmailSender(),
-        accountInjector.getAccountRepository());
+        ACCOUNT_INJECTOR.createAccountIdAssembler(),
+        LOCATION_INJECTOR.createPostalCodeAssembler(),
+        COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
+        COMMUNICATION_INJECTOR.createEmailSender(),
+        ACCOUNT_INJECTOR.getAccountRepository());
   }
 
   public UserResource createUserResource() {
-    return userInjector.createUserResource(
-        accountInjector.getAccountRepository(),
-        accountInjector.createAccountFactory(),
-        accountInjector.createAccountIdAssembler(),
-        timeInjector.createCustomDateAssembler());
+    return USER_INJECTOR.createUserResource(
+        ACCOUNT_INJECTOR.getAccountRepository(),
+        ACCOUNT_INJECTOR.createAccountFactory(),
+        ACCOUNT_INJECTOR.createAccountIdAssembler(),
+        TIME_INJECTOR.createCustomDateAssembler());
   }
 
   public OffenseResource createOffenseResource() {
-    return offenseInjector.createOffenseResource(parkingInjector.getParkingStickerRepository());
+    return OFFENSE_INJECTOR.createOffenseResource(PARKING_INJECTOR.getParkingStickerRepository());
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
