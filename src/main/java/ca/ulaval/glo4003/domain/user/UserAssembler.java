@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.domain.time.CustomDate;
 import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
 import ca.ulaval.glo4003.domain.time.Days;
 import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
+import ca.ulaval.glo4003.domain.time.exception.InvalidDayException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidAccessDayException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
@@ -32,7 +33,7 @@ public class UserAssembler {
 
     try {
       accessDay = Days.get(userDto.accessDay);
-    } catch (InvalidAccessDayException exception) {
+    } catch (InvalidDayException exception) {
       throw new InvalidAccessDayException();
     }
 
