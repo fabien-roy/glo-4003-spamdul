@@ -1,0 +1,40 @@
+package ca.ulaval.glo4003.domain.offense;
+
+import ca.ulaval.glo4003.domain.offense.exceptions.OffenseCodeNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
+
+public enum OffenseCodes {
+  ZONE_01("ZONE_01"),
+  VIG_01(""),
+  TEMPS_01(""),
+  ZONE_02(""),
+  VIG_02(""),
+  VIG_03(""),
+  VIG_04(""),
+  ZONE_03("");
+
+  String code;
+  private static final Map<String, OffenseCodes> lookup = new HashMap<>();
+
+  static {
+    for (OffenseCodes code : OffenseCodes.values()) {
+      lookup.put(code.toString(), code);
+    }
+  }
+
+  OffenseCodes(String code) {
+    this.code = code;
+  }
+
+  public static OffenseCodes get(String code) {
+    OffenseCodes foundType = lookup.get(code);
+    if (foundType == null) throw new OffenseCodeNotFoundException();
+    return foundType;
+  }
+
+  @Override
+  public String toString() {
+    return code;
+  }
+}
