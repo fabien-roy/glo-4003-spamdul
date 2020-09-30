@@ -27,7 +27,7 @@ public class OffenseResourceImplementation implements OffenseResource {
 
   @Override
   public Response validateOffense(OffenseValidationDto offenseValidationDto) {
-    OffenseDto offense = offenseService.isOffenseNeeded(offenseValidationDto);
+    OffenseDto offense = offenseService.validateOffense(offenseValidationDto);
     return Response.status(Response.Status.OK)
         .entity(offense)
         .type(MediaType.APPLICATION_JSON)

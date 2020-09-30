@@ -51,7 +51,7 @@ public class OffenseServiceTest {
 
   @Test
   public void whenCheckingIfOffenseNeeded_thenParkingStickerRepositoryIsCalled() {
-    offenseService.isOffenseNeeded(offenseValidationDto);
+    offenseService.validateOffense(offenseValidationDto);
 
     Mockito.verify(parkingStickerRepository)
         .findByCode(eq(offenseValidation.getParkingStickerCode()));
@@ -59,35 +59,35 @@ public class OffenseServiceTest {
 
   @Test
   public void
-      givenValidOffenseValidationDto_whenCheckingIfOffenseNeeded_thenInvalidStickerOffenseIsReturned() {
+      givenValidOffenseValidationDto_whenValidatingOffense_thenInvalidStickerOffenseIsReturned() {
     when(parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode()))
         .thenThrow(new NotFoundParkingStickerException());
     Offense offense = new Offense("vignette invalide", OffenseCodes.VIG_02, 45);
 
-    OffenseDto offenseDto = offenseService.isOffenseNeeded(offenseValidationDto);
+    OffenseDto offenseDto = offenseService.validateOffense(offenseValidationDto);
 
     Truth.assertThat(offenseDto.code).isEqualTo(offense.getCode().toString());
   }
 
   @Test
-  public void givenValidOffenseValidationDto_whenCheckingIfOffenseNeeded_thenNoOffenseIsReturned() {
+  public void givenValidOffenseValidationDto_whenValidatingOffense_thenNoOffenseIsReturned() {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(true);
     Offense offense = new Offense("Aucune infraction signalée", OffenseCodes.NONE, 0);
 
-    OffenseDto offenseDto = offenseService.isOffenseNeeded(offenseValidationDto);
+    OffenseDto offenseDto = offenseService.validateOffense(offenseValidationDto);
 
     Truth.assertThat(offenseDto.code).isEqualTo(offense.getCode().toString());
   }
 
   @Test
   public void
-      givenValidOffenseValidationDto_whenCheckingIfOffenseNeeded_thenWrongZoneOffenseIsReturned() {
+      givenValidOffenseValidationDto_whenValidatingOffense_thenWrongZoneOffenseIsReturned() {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(false);
     Offense offense = new Offense("mauvaise zone", OffenseCodes.ZONE_01, 55);
 
-    OffenseDto offenseDto = offenseService.isOffenseNeeded(offenseValidationDto);
+    OffenseDto offenseDto = offenseService.validateOffense(offenseValidationDto);
 
     Truth.assertThat(offenseDto.code).isEqualTo(offense.getCode().toString());
   }

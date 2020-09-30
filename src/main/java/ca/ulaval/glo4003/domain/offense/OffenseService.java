@@ -47,7 +47,7 @@ public class OffenseService {
     return offenseAssembler.assembleOffenseDtos(offenses);
   }
 
-  public OffenseDto isOffenseNeeded(OffenseValidationDto offenseValidationDto) {
+  public OffenseDto validateOffense(OffenseValidationDto offenseValidationDto) {
     ParkingSticker parkingSticker;
 
     OffenseValidation offenseValidation = offenseValidationAssembler.assemble(offenseValidationDto);

@@ -41,8 +41,8 @@ public class OffenseResourceImplementationTest {
   }
 
   @Test
-  public void whenCheckingIfOffenseNeeded_thenResponseOkStatus() {
-    when(offenseService.isOffenseNeeded(offenseValidationDto)).thenReturn(offenseDto);
+  public void whenValidatingOffense_thenResponseOkStatus() {
+    when(offenseService.validateOffense(offenseValidationDto)).thenReturn(offenseDto);
 
     Response response = offenseResource.validateOffense(offenseValidationDto);
 
