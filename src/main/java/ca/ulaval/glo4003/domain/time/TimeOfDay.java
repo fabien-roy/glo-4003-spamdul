@@ -7,9 +7,9 @@ import java.util.Objects;
 public class TimeOfDay {
   private final LocalTime localTime;
 
-  public TimeOfDay(String time) {
+  public TimeOfDay(LocalTime localTime) {
     // String format is hh:mm:ss
-    this.localTime = LocalTime.parse(time, DateTimeFormatter.ISO_LOCAL_TIME);
+    this.localTime = localTime;
   }
 
   public String toString() {

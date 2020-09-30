@@ -8,9 +8,9 @@ public class OffenseAssembler {
   public OffenseDto assemble(Offense offense) {
     OffenseDto offenseDto = new OffenseDto();
 
-    offenseDto.reasonText = offense.getReasonText();
-    offenseDto.reasonCode = offense.getReasonCode();
-    offenseDto.amount = offense.getAmount();
+    offenseDto.infraction = offense.getReasonText();
+    offenseDto.code = offense.getReasonCode();
+    offenseDto.montant = offense.getAmount();
 
     return offenseDto;
   }
