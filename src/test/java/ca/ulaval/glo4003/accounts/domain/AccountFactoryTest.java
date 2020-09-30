@@ -1,11 +1,11 @@
 package ca.ulaval.glo4003.accounts.domain;
 
-import static ca.ulaval.glo4003.api.user.helpers.UserDtoBuilder.aUserDto;
-import static ca.ulaval.glo4003.domain.user.helpers.UserBuilder.aUser;
+import static ca.ulaval.glo4003.users.helpers.UserBuilder.aUser;
+import static ca.ulaval.glo4003.users.helpers.UserDtoBuilder.aUserDto;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.api.user.dto.UserDto;
-import ca.ulaval.glo4003.domain.user.User;
+import ca.ulaval.glo4003.users.api.dto.UserDto;
+import ca.ulaval.glo4003.users.domain.User;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

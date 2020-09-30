@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.exceptions.InvalidAccountIdException;
-import ca.ulaval.glo4003.api.user.dto.AccountIdDto;
+import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

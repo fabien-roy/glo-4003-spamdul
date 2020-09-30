@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.accounts.domain;
 
-import ca.ulaval.glo4003.domain.user.User;
+import ca.ulaval.glo4003.users.domain.User;
 
 public class AccountFactory {
   private final AccountIdGenerator accountIdGenerator;
