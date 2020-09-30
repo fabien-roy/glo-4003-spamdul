@@ -50,6 +50,7 @@ public class ApplicationInjector {
         LOCATION_INJECTOR.createPostalCodeAssembler(),
         COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
         COMMUNICATION_INJECTOR.createEmailSender(),
+        LOCATION_INJECTOR.createPostalCodeSender(),
         ACCOUNT_INJECTOR.getAccountRepository());
   }
 

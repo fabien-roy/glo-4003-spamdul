@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.parkings.services;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
+import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
@@ -19,6 +20,8 @@ public class ParkingService {
   private static final String SENDING_PARKING_STICKER_EMAIL_SUBJECT = "Votre vignette SPAMD-UL";
   private static final String SENDING_PARKING_STICKER_EMAIL_MESSAGE =
       "Votre code de vignette SPAMD-UL est %s";
+  private static final String SENDING_PARKING_STICKER_POSTAL_MESSAGE =
+      "Votre code de vignette SPAMD-UL est %s";
   private final Logger logger = Logger.getLogger(ParkingService.class.getName());
   private final ParkingStickerAssembler parkingStickerAssembler;
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
@@ -28,6 +31,7 @@ public class ParkingService {
   private final ParkingAreaRepository parkingAreaRepository;
   private final ParkingStickerRepository parkingStickerRepository;
   private final EmailSender emailSender;
+  private final PostalSender postalSender;
 
   public ParkingService(
       ParkingStickerAssembler parkingStickerAssembler,
@@ -37,7 +41,8 @@ public class ParkingService {
       ParkingAreaRepository parkingAreaRepository,
       ParkingStickerRepository parkingStickerRepository,
       AccessStatusAssembler accessStatusAssembler,
-      EmailSender emailSender) {
+      EmailSender emailSender,
+      PostalSender postalSender) {
     this.parkingStickerAssembler = parkingStickerAssembler;
     this.parkingStickerCodeAssembler = parkingStickerCodeAssembler;
     this.accessStatusAssembler = accessStatusAssembler;
@@ -46,6 +51,7 @@ public class ParkingService {
     this.parkingAreaRepository = parkingAreaRepository;
     this.parkingStickerRepository = parkingStickerRepository;
     this.emailSender = emailSender;
+    this.postalSender = postalSender;
   }
 
   public ParkingStickerCodeDto addParkingSticker(ParkingStickerDto parkingStickerDto) {
@@ -65,7 +71,10 @@ public class ParkingService {
           String.format(
               SENDING_PARKING_STICKER_EMAIL_MESSAGE, parkingSticker.getCode().toString()));
     } else if (parkingSticker.getReceptionMethod().equals(ReceptionMethods.POSTAL)) {
-
+      postalSender.sendPostal(
+          parkingSticker.getPostalCode(),
+          String.format(
+              SENDING_PARKING_STICKER_POSTAL_MESSAGE, parkingSticker.getCode().toString()));
     }
 
     account.addParkingSticker(parkingSticker);

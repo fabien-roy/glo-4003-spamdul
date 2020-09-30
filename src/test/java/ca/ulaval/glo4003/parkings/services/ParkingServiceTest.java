@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
+import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
@@ -35,6 +36,7 @@ public class ParkingServiceTest {
   @Mock private ParkingAreaRepository parkingAreaRepository;
   @Mock private ParkingStickerRepository parkingStickerRepository;
   @Mock private EmailSender emailSender;
+  @Mock private PostalSender postalSender;
   @Mock private Account account;
 
   private ParkingSticker parkingSticker;
@@ -52,7 +54,8 @@ public class ParkingServiceTest {
             parkingAreaRepository,
             parkingStickerRepository,
             accessStatusAssembler,
-            emailSender);
+            emailSender,
+            postalSender);
     LocalDate date = LocalDate.now();
     String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
     parkingSticker = aParkingSticker().withValidDay(dayOfWeek).build();
@@ -131,6 +134,18 @@ public class ParkingServiceTest {
 
     Mockito.verify(emailSender)
         .sendEmail(eq(parkingSticker.getEmailAddress().toString()), anyString(), anyString());
+  }
+
+  @Test
+  public void givenReceptionMethodPostal_whenAddParkingSticker_thenPostalSenderIsCalled() {
+    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethods.POSTAL).build();
+    when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
+    when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
+    when(accountRepository.findById(parkingSticker.getAccountId())).thenReturn(account);
+
+    parkingService.addParkingSticker(parkingStickerDto);
+
+    Mockito.verify(postalSender).sendPostal(eq(parkingSticker.getPostalCode()), anyString());
   }
 
   @Test
