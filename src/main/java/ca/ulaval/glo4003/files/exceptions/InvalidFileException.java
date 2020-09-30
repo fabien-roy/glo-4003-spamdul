@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.file.exceptions;
+package ca.ulaval.glo4003.files.exceptions;
 
 public class InvalidFileException extends FileException {
   private static final String ERROR = "Invalid File";

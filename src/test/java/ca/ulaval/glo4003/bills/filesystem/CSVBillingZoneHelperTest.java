@@ -4,7 +4,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.bills.exceptions.InvalidTimeException;
 import ca.ulaval.glo4003.bills.exceptions.InvalidZoneException;
-import ca.ulaval.glo4003.domain.file.CsvHelper;
+import ca.ulaval.glo4003.files.filesystem.CsvHelper;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.Arrays;

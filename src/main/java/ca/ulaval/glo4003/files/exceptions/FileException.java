@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.file.exceptions;
+package ca.ulaval.glo4003.files.exceptions;
 
 public class FileException extends RuntimeException {
   public final String error;

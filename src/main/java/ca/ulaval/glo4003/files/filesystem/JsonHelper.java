@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.domain.file;
+package ca.ulaval.glo4003.files.filesystem;
 
-import ca.ulaval.glo4003.domain.file.exceptions.InvalidFileException;
+import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;

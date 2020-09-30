@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.api.file;
+package ca.ulaval.glo4003.files.api;
 
-import ca.ulaval.glo4003.domain.file.exceptions.FileException;
-import ca.ulaval.glo4003.domain.file.exceptions.InvalidFileException;
+import ca.ulaval.glo4003.files.exceptions.FileException;
+import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;

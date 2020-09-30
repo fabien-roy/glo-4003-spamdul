@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.domain.offense;
 
 import ca.ulaval.glo4003.api.offense.dto.InfractionDto;
-import ca.ulaval.glo4003.domain.file.JsonHelper;
-import ca.ulaval.glo4003.domain.file.exceptions.InvalidFileException;
+import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
+import ca.ulaval.glo4003.files.filesystem.JsonHelper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;

@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.api.file;
+package ca.ulaval.glo4003.files.api;
 
 import ca.ulaval.glo4003.api.interfaces.dto.ErrorDto;
-import ca.ulaval.glo4003.domain.file.exceptions.FileException;
+import ca.ulaval.glo4003.files.exceptions.FileException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
