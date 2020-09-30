@@ -20,10 +20,6 @@ public class Account {
     this.user = user;
   }
 
-  public Bill getBill() {
-    return bill;
-  }
-
   public AccountId getId() {
     return id;
   }
@@ -42,6 +38,14 @@ public class Account {
 
   public List<ParkingStickerCode> getParkingStickerCodes() {
     return parkingStickerCodes;
+  }
+
+  public List<Car> getCars() {
+    return cars;
+  }
+
+  public Bill getBill() {
+    return bill;
   }
 
   public void addParkingSticker(ParkingSticker parkingSticker) {

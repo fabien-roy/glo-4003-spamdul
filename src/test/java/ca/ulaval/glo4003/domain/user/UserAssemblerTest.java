@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.domain.user;
 import static ca.ulaval.glo4003.api.user.helpers.UserDtoBuilder.aUserDto;
 import static ca.ulaval.glo4003.domain.time.helpers.CustomDateMother.createPastDate;
 import static ca.ulaval.glo4003.domain.user.helpers.UserBuilder.aUser;
+import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createAccessDay;
 import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createName;
 import static ca.ulaval.glo4003.domain.user.helpers.UserMother.createSex;
 import static org.mockito.Mockito.when;
@@ -10,7 +11,9 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.api.user.dto.UserDto;
 import ca.ulaval.glo4003.domain.time.CustomDate;
 import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
+import ca.ulaval.glo4003.domain.time.Days;
 import ca.ulaval.glo4003.domain.time.exception.InvalidDateException;
+import ca.ulaval.glo4003.domain.time.exception.InvalidDayException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidBirthDateException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidNameException;
 import ca.ulaval.glo4003.domain.user.exception.InvalidSexException;
@@ -26,6 +29,7 @@ public class UserAssemblerTest {
   private static final String NAME = createName();
   private static final CustomDate BIRTH_DATE = createPastDate();
   private static final Sex SEX = createSex();
+  private static final Days ACCESS_DAY = createAccessDay();
 
   @Mock private CustomDate futureBirthDate;
   @Mock private CustomDateAssembler customDateAssembler;
@@ -39,12 +43,19 @@ public class UserAssemblerTest {
   public void setUp() {
     userAssembler = new UserAssembler(customDateAssembler);
 
-    user = aUser().withName(NAME).withBirthDate(BIRTH_DATE).withSex(SEX).build();
+    user =
+        aUser()
+            .withName(NAME)
+            .withBirthDate(BIRTH_DATE)
+            .withSex(SEX)
+            .withAccessDay(ACCESS_DAY)
+            .build();
     userDto =
         aUserDto()
             .withName(NAME)
             .withBirthDate(BIRTH_DATE.toString())
             .withSex(SEX.toString())
+            .withAccessDay(ACCESS_DAY.toString())
             .build();
 
     when(futureBirthDate.isFuture()).thenReturn(true);
@@ -108,6 +119,20 @@ public class UserAssemblerTest {
   }
 
   @Test
+  public void whenAssembling_thenReturnUserWithAccessDay() {
+    User user = userAssembler.assemble(userDto);
+
+    Truth.assertThat(user.getAccessDay()).isEqualTo(ACCESS_DAY);
+  }
+
+  @Test(expected = InvalidDayException.class)
+  public void givenInvalidAccessDay_whenAssembling_thenReturnInvalidAccessDayException() {
+    userDto.accessDay = "invalidAccessDay";
+
+    userAssembler.assemble(userDto);
+  }
+
+  @Test
   public void whenAssembling_thenReturnUserDtoWithName() {
     UserDto userDto = userAssembler.assemble(user);
 
@@ -126,5 +151,12 @@ public class UserAssemblerTest {
     UserDto userDto = userAssembler.assemble(user);
 
     Truth.assertThat(userDto.sex).isEqualTo(SEX.toString());
+  }
+
+  @Test
+  public void whenAssembling_thenReturnUserDtoWithAccessDay() {
+    UserDto userDto = userAssembler.assemble(user);
+
+    Truth.assertThat(userDto.accessDay).isEqualTo(ACCESS_DAY.toString());
   }
 }

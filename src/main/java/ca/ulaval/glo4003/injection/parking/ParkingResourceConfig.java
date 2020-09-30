@@ -4,12 +4,15 @@ import ca.ulaval.glo4003.api.parking.ParkingResource;
 import ca.ulaval.glo4003.api.parking.ParkingResourceImplementation;
 import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
 import ca.ulaval.glo4003.domain.account.AccountRepository;
+import ca.ulaval.glo4003.domain.bill.CSVBillingZoneHelper;
+import ca.ulaval.glo4003.domain.communication.EmailAddressAssembler;
+import ca.ulaval.glo4003.domain.communication.EmailSender;
 import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
 import ca.ulaval.glo4003.domain.parking.*;
-import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaFakeFactory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.infrastructure.parking.ParkingStickerRepositoryInMemory;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ParkingResourceConfig {
 
@@ -31,16 +34,27 @@ public class ParkingResourceConfig {
       boolean isDev,
       AccountIdAssembler accountIdAssembler,
       PostalCodeAssembler postalCodeAssembler,
+      EmailAddressAssembler emailAddressAssembler,
+      EmailSender emailSender,
       AccountRepository accountRepository) {
     if (isDev) {
-      ParkingAreaFakeFactory parkingAreaFakeFactory = new ParkingAreaFakeFactory();
-      List<ParkingArea> parkingAreas = parkingAreaFakeFactory.createMockData();
+      CSVBillingZoneHelper csvBillingZoneHelper = new CSVBillingZoneHelper();
+      List<String> zones = csvBillingZoneHelper.getAllZones();
+      List<ParkingArea> parkingAreas =
+          zones.stream()
+              .map(zone -> new ParkingArea(new ParkingAreaCode(zone)))
+              .collect(Collectors.toList());
       parkingAreas.forEach(parkingAreaRepository::save);
     }
 
+    ParkingAreaCodeAssembler parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
     ParkingStickerAssembler parkingStickerAssembler =
         new ParkingStickerAssembler(
-            parkingAreaCodeAssembler, accountIdAssembler, postalCodeAssembler);
+            parkingAreaCodeAssembler,
+            accountIdAssembler,
+            postalCodeAssembler,
+            emailAddressAssembler);
+    ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
     AccessStatusAssembler accessStatusAssembler = new AccessStatusAssembler();
 
     ParkingStickerFactory parkingStickerFactory =
@@ -54,7 +68,8 @@ public class ParkingResourceConfig {
             accountRepository,
             parkingAreaRepository,
             parkingStickerRepository,
-            accessStatusAssembler);
+            accessStatusAssembler,
+            emailSender);
 
     return new ParkingResourceImplementation(parkingService);
   }

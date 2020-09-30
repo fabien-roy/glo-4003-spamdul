@@ -34,13 +34,13 @@ public class BillTest {
   public void whenAddingPriceForPostalCode_thenAddFiveToMoneyToPay() {
     bill.addPriceForCommunicationMethod(ReceptionMethods.POSTAL);
 
-    Truth.assertThat(bill.getMoneyToPay()).isEqualTo(5f);
+    Truth.assertThat(bill.getAmountDue()).isEqualTo(5f);
   }
 
   @Test
   public void whenAddingPriceForMail_thenAdd0ToMoneyToPay() {
     bill.addPriceForCommunicationMethod(ReceptionMethods.EMAIL);
 
-    Truth.assertThat(bill.getMoneyToPay()).isEqualTo(0f);
+    Truth.assertThat(bill.getAmountDue()).isEqualTo(0f);
   }
 }

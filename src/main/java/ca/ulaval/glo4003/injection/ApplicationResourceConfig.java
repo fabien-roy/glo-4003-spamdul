@@ -4,8 +4,7 @@ import ca.ulaval.glo4003.api.account.AccountExceptionMapper;
 import ca.ulaval.glo4003.api.bill.BillExceptionMapper;
 import ca.ulaval.glo4003.api.car.CarExceptionMapper;
 import ca.ulaval.glo4003.api.car.CarResource;
-import ca.ulaval.glo4003.api.contact.ContactExceptionMapper;
-import ca.ulaval.glo4003.api.contact.ContactResource;
+import ca.ulaval.glo4003.api.communication.CommunicationExceptionMapper;
 import ca.ulaval.glo4003.api.file.FileExceptionMapper;
 import ca.ulaval.glo4003.api.interfaces.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.api.location.LocationExceptionMapper;
@@ -17,7 +16,7 @@ import ca.ulaval.glo4003.api.user.UserExceptionMapper;
 import ca.ulaval.glo4003.api.user.UserResource;
 import ca.ulaval.glo4003.injection.account.AccountResourceConfig;
 import ca.ulaval.glo4003.injection.car.CarResourceConfig;
-import ca.ulaval.glo4003.injection.contact.ContactResourceConfig;
+import ca.ulaval.glo4003.injection.communication.CommunicationResourceConfig;
 import ca.ulaval.glo4003.injection.location.LocationResourceConfig;
 import ca.ulaval.glo4003.injection.offense.OffenseResourceConfig;
 import ca.ulaval.glo4003.injection.parking.ParkingResourceConfig;
@@ -33,7 +32,8 @@ public class ApplicationResourceConfig {
 
   private final AccountResourceConfig accountResourceConfig = new AccountResourceConfig();
   private final CarResourceConfig carResourceConfig = new CarResourceConfig();
-  private final ContactResourceConfig contactResourceConfig = new ContactResourceConfig();
+  private final CommunicationResourceConfig communicationResourceConfig =
+      new CommunicationResourceConfig();
   private final LocationResourceConfig locationResourceConfig = new LocationResourceConfig();
   private final ParkingResourceConfig parkingResourceConfig = new ParkingResourceConfig();
   private final TimeResourceConfig timeResourceConfig = new TimeResourceConfig();
@@ -44,15 +44,13 @@ public class ApplicationResourceConfig {
     return carResourceConfig.createCarResource(accountResourceConfig.createAccountService());
   }
 
-  public ContactResource createContactResource() {
-    return contactResourceConfig.createContactResource(IS_DEV);
-  }
-
   public ParkingResource createParkingResource() {
     return parkingResourceConfig.createParkingResource(
         IS_DEV,
         accountResourceConfig.createAccountIdAssembler(),
         locationResourceConfig.createPostalCodeAssembler(),
+        communicationResourceConfig.createEmailAddressAssembler(),
+        communicationResourceConfig.createEmailSender(),
         accountResourceConfig.getAccountRepository());
   }
 
@@ -75,7 +73,7 @@ public class ApplicationResourceConfig {
         AccountExceptionMapper.class,
         BillExceptionMapper.class,
         CarExceptionMapper.class,
-        ContactExceptionMapper.class,
+        CommunicationExceptionMapper.class,
         FileExceptionMapper.class,
         LocationExceptionMapper.class,
         ParkingExceptionMapper.class,

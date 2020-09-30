@@ -43,6 +43,15 @@ public class ParkingExceptionMapperTest {
   }
 
   @Test
+  public void givenMissingEmailException_whenResponding_thenStatusIsBadRequest() {
+    ParkingException parkingException = new MissingEmailException();
+
+    Response response = parkingExceptionMapper.toResponse(parkingException);
+
+    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+  }
+
+  @Test
   public void givenNotFoundParkingAreaException_whenResponding_thenStatusIsNotFound() {
     ParkingException parkingException = new NotFoundParkingAreaException();
 
