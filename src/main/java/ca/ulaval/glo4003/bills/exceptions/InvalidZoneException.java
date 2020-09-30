@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.bill.exceptions;
+package ca.ulaval.glo4003.bills.exceptions;
 
 public class InvalidZoneException extends BillException {
   private static final String ERROR = "Invalid Zone";

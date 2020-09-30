@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.domain.bill;
+package ca.ulaval.glo4003.bills.filesystem;
 
-import ca.ulaval.glo4003.domain.bill.exceptions.InvalidTimeException;
-import ca.ulaval.glo4003.domain.bill.exceptions.InvalidZoneException;
+import ca.ulaval.glo4003.bills.exceptions.InvalidTimeException;
+import ca.ulaval.glo4003.bills.exceptions.InvalidZoneException;
 import ca.ulaval.glo4003.domain.file.CsvHelper;
 import java.util.ArrayList;
 import java.util.List;

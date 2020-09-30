@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.injection;
 
 import ca.ulaval.glo4003.accounts.AccountResourceConfig;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
-import ca.ulaval.glo4003.api.bill.BillExceptionMapper;
 import ca.ulaval.glo4003.api.car.CarExceptionMapper;
 import ca.ulaval.glo4003.api.car.CarResource;
 import ca.ulaval.glo4003.api.communication.CommunicationExceptionMapper;
@@ -15,6 +14,7 @@ import ca.ulaval.glo4003.api.parking.ParkingResource;
 import ca.ulaval.glo4003.api.time.TimeExceptionMapper;
 import ca.ulaval.glo4003.api.user.UserExceptionMapper;
 import ca.ulaval.glo4003.api.user.UserResource;
+import ca.ulaval.glo4003.bills.api.BillExceptionMapper;
 import ca.ulaval.glo4003.injection.car.CarResourceConfig;
 import ca.ulaval.glo4003.injection.communication.CommunicationResourceConfig;
 import ca.ulaval.glo4003.injection.location.LocationResourceConfig;

@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.api.bill;
+package ca.ulaval.glo4003.bills.api;
 
 import ca.ulaval.glo4003.api.interfaces.dto.ErrorDto;
-import ca.ulaval.glo4003.domain.bill.exceptions.BillException;
+import ca.ulaval.glo4003.bills.exceptions.BillException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

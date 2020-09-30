@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.domain.bill;
+package ca.ulaval.glo4003.bills.filesystem;
 
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.domain.bill.exceptions.InvalidTimeException;
-import ca.ulaval.glo4003.domain.bill.exceptions.InvalidZoneException;
+import ca.ulaval.glo4003.bills.exceptions.InvalidTimeException;
+import ca.ulaval.glo4003.bills.exceptions.InvalidZoneException;
 import ca.ulaval.glo4003.domain.file.CsvHelper;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;

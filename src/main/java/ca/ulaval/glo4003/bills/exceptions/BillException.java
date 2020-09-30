@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.domain.bill.exceptions;
+package ca.ulaval.glo4003.bills.exceptions;
 
 public class BillException extends RuntimeException {
   public final String error;

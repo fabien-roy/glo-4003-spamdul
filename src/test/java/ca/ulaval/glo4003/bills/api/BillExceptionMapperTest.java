@@ -1,8 +1,8 @@
-package ca.ulaval.glo4003.api.bill;
+package ca.ulaval.glo4003.bills.api;
 
-import ca.ulaval.glo4003.domain.bill.exceptions.BillException;
-import ca.ulaval.glo4003.domain.bill.exceptions.InvalidTimeException;
-import ca.ulaval.glo4003.domain.bill.exceptions.InvalidZoneException;
+import ca.ulaval.glo4003.bills.exceptions.BillException;
+import ca.ulaval.glo4003.bills.exceptions.InvalidTimeException;
+import ca.ulaval.glo4003.bills.exceptions.InvalidZoneException;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;

@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.api.parking.ParkingResource;
 import ca.ulaval.glo4003.api.parking.ParkingResourceImplementation;
-import ca.ulaval.glo4003.domain.bill.CSVBillingZoneHelper;
+import ca.ulaval.glo4003.bills.filesystem.CSVBillingZoneHelper;
 import ca.ulaval.glo4003.domain.communication.EmailAddressAssembler;
 import ca.ulaval.glo4003.domain.communication.EmailSender;
 import ca.ulaval.glo4003.domain.location.PostalCodeAssembler;
