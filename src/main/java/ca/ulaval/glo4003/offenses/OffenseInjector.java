@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.offenses.api.OffenseResourceImplementation;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
 import ca.ulaval.glo4003.offenses.domain.Offense;
+import ca.ulaval.glo4003.offenses.domain.OffenseRepository;
 import ca.ulaval.glo4003.offenses.filesystem.OffenseFileHelper;
 import ca.ulaval.glo4003.offenses.infrastructure.OffenseRepositoryInMemory;
 import ca.ulaval.glo4003.offenses.services.OffenseService;
@@ -15,14 +16,14 @@ import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import java.util.List;
 
 public class OffenseInjector {
-  private OffenseRepositoryInMemory offenseRepositoryInMemory;
+  private final OffenseRepository offenseRepository;
   private final OffenseAssembler offenseAssembler;
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   private final TimeOfDayAssembler timeOfDayAssembler;
 
   public OffenseInjector() {
-    offenseRepositoryInMemory = new OffenseRepositoryInMemory();
+    offenseRepository = new OffenseRepositoryInMemory();
     offenseAssembler = new OffenseAssembler();
     parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
     parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
@@ -40,14 +41,13 @@ public class OffenseInjector {
             parkingStickerRepository,
             offenseValidationAssembler,
             offenseAssembler,
-            offenseRepositoryInMemory);
+            offenseRepository);
 
-    offenseRepositoryInMemory = new OffenseRepositoryInMemory();
     OffenseFileHelper offenseFileHelper = new OffenseFileHelper();
     List<Offense> offenses = offenseFileHelper.getAllOffenses();
 
     for (Offense offense : offenses) {
-      offenseRepositoryInMemory.save(offense);
+      offenseRepository.save(offense);
     }
 
     return new OffenseResourceImplementation(offenseService);
