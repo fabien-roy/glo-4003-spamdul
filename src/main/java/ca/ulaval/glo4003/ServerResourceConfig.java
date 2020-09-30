@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 import org.glassfish.jersey.server.ResourceConfig;
 
-public class ServerResourceConfig extends ResourceConfig {
+public class ServerResourceConfig {
   private static final ApplicationInjector APPLICATION_INJECTOR = new ApplicationInjector();
 
   public static ResourceConfig getApplicationResourceConfig() {
