@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.domain.parking.ParkingAreaCode;
 import ca.ulaval.glo4003.domain.parking.ParkingStickerCode;
 import ca.ulaval.glo4003.domain.time.TimeOfDay;
 import com.google.common.truth.Truth;
+import java.time.LocalTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ public class OffenseValidationTest {
         new OffenseValidation(
             new ParkingStickerCode("a-parking-code"),
             new ParkingAreaCode("2"),
-            new TimeOfDay("10:30"));
+            new TimeOfDay(LocalTime.parse("10:30")));
   }
 
   @Test
@@ -38,6 +39,7 @@ public class OffenseValidationTest {
 
   @Test
   public void givenOffenseValidation_whenGettingTimeOfDay_thenTimeOfDayIsReturned() {
-    Truth.assertThat(offenseValidation.getTimeOfDay()).isEqualTo(new TimeOfDay("10:30"));
+    Truth.assertThat(offenseValidation.getTimeOfDay())
+        .isEqualTo(new TimeOfDay(LocalTime.parse("10:30")));
   }
 }
