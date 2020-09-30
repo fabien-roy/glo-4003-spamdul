@@ -5,10 +5,10 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.accounts.domain.Account;
+import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
-import ca.ulaval.glo4003.domain.account.Account;
-import ca.ulaval.glo4003.domain.account.AccountRepository;
 import ca.ulaval.glo4003.domain.communication.EmailSender;
 import com.google.common.truth.Truth;
 import java.time.LocalDate;

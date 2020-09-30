@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.domain.parking;
 
+import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.api.parking.helpers.ParkingStickerDtoBuilder.aParkingStickerDto;
-import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.domain.communication.helpers.EmailAddressMother.createEmailAddress;
 import static ca.ulaval.glo4003.domain.location.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.domain.parking.helpers.ParkingAreaMother.createParkingAreaCode;
@@ -9,9 +9,9 @@ import static ca.ulaval.glo4003.domain.parking.helpers.ParkingStickerMother.crea
 import static ca.ulaval.glo4003.domain.time.helpers.DayMother.createDay;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.api.parking.dto.ParkingStickerDto;
-import ca.ulaval.glo4003.domain.account.AccountId;
-import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
 import ca.ulaval.glo4003.domain.communication.EmailAddress;
 import ca.ulaval.glo4003.domain.communication.EmailAddressAssembler;
 import ca.ulaval.glo4003.domain.location.PostalCode;

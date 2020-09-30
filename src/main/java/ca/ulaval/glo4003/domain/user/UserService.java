@@ -1,8 +1,12 @@
 package ca.ulaval.glo4003.domain.user;
 
+import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.domain.Account;
+import ca.ulaval.glo4003.accounts.domain.AccountFactory;
+import ca.ulaval.glo4003.accounts.domain.AccountId;
+import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.api.user.dto.AccountIdDto;
 import ca.ulaval.glo4003.api.user.dto.UserDto;
-import ca.ulaval.glo4003.domain.account.*;
 
 public class UserService {
   private final AccountRepository accountRepository;

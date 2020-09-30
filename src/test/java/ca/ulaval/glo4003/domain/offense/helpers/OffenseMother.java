@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.offense.helpers;
 
-import static ca.ulaval.glo4003.interfaces.Randomizer.randomEnum;
+import static ca.ulaval.glo4003.helpers.Randomizer.randomEnum;
 
 import ca.ulaval.glo4003.domain.offense.OffenseCodes;
 import com.github.javafaker.Faker;

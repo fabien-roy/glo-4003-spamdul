@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.injection.user;
 
+import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.domain.AccountFactory;
+import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.api.user.UserResource;
 import ca.ulaval.glo4003.api.user.UserResourceImplementation;
-import ca.ulaval.glo4003.domain.account.AccountFactory;
-import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
-import ca.ulaval.glo4003.domain.account.AccountRepository;
 import ca.ulaval.glo4003.domain.time.CustomDateAssembler;
 import ca.ulaval.glo4003.domain.user.UserAssembler;
 import ca.ulaval.glo4003.domain.user.UserService;

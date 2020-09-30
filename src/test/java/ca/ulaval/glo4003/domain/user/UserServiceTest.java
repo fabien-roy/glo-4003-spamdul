@@ -1,16 +1,16 @@
 package ca.ulaval.glo4003.domain.user;
 
+import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.api.user.helpers.UserDtoBuilder.aUserDto;
-import static ca.ulaval.glo4003.domain.account.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.domain.user.helpers.UserBuilder.aUser;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.domain.Account;
+import ca.ulaval.glo4003.accounts.domain.AccountFactory;
+import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.api.user.dto.AccountIdDto;
 import ca.ulaval.glo4003.api.user.dto.UserDto;
-import ca.ulaval.glo4003.domain.account.Account;
-import ca.ulaval.glo4003.domain.account.AccountFactory;
-import ca.ulaval.glo4003.domain.account.AccountIdAssembler;
-import ca.ulaval.glo4003.domain.account.AccountRepository;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

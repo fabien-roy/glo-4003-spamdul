@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.api.car.helpers;
 
-import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccountId;
+import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.domain.car.helpers.CarMother.*;
 import static ca.ulaval.glo4003.domain.car.helpers.LicensePlateMother.createLicensePlate;
 

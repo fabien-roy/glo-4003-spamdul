@@ -5,8 +5,8 @@ import static ca.ulaval.glo4003.domain.car.helpers.CarBuilder.aCar;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.api.car.dto.CarDto;
-import ca.ulaval.glo4003.domain.account.AccountService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

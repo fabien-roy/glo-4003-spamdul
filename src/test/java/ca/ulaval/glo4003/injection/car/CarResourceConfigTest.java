@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.injection.car;
 
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.api.car.CarResource;
-import ca.ulaval.glo4003.domain.account.AccountService;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

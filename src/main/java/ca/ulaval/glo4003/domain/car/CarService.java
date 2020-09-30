@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.domain.car;
 
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.api.car.dto.CarDto;
-import ca.ulaval.glo4003.domain.account.AccountService;
 
 public class CarService {
 

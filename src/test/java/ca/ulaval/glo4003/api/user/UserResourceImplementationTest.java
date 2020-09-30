@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.api.user;
 
-import static ca.ulaval.glo4003.domain.account.helpers.AccountMother.createAccountId;
+import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.api.user.dto.AccountIdDto;

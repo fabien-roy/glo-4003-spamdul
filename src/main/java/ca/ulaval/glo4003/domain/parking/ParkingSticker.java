@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.domain.parking;
 
-import ca.ulaval.glo4003.domain.account.AccountId;
+import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.domain.communication.EmailAddress;
 import ca.ulaval.glo4003.domain.location.PostalCode;
 import ca.ulaval.glo4003.domain.time.Days;
