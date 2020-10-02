@@ -11,7 +11,6 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 @SuppressWarnings("all")
 public class Main {
-  private static final boolean isDev = true;
   private static final int DEFAULT_PORT = 8080;
   private static final String PORT_ENV_VAR = "PORT";
   private static final String PROVIDED_PORT_MESSAGE = "INFO: Using the provided server port (%d).";
