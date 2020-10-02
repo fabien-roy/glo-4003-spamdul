@@ -40,6 +40,7 @@ public class ParkingServiceTest {
   @Mock private Account account;
 
   private ParkingSticker parkingSticker;
+  private ParkingSticker parkingStickerNotValidToday;
   private ParkingStickerCode parkingStickerCode;
   private ParkingService parkingService;
 
@@ -56,9 +57,12 @@ public class ParkingServiceTest {
             accessStatusAssembler,
             emailSender,
             postalSender);
+
     LocalDate date = LocalDate.now();
     String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
+    String notDayOfWeek = date.getDayOfWeek().plus(1).toString().toLowerCase();
     parkingSticker = aParkingSticker().withValidDay(dayOfWeek).build();
+    parkingStickerNotValidToday = aParkingSticker().withValidDay(notDayOfWeek).build();
     parkingStickerCode = parkingSticker.getCode();
 
     when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
@@ -175,10 +179,8 @@ public class ParkingServiceTest {
   @Test
   public void
       givenInvalidParkingStickerCode_whenValidateParkingStickerCode_thenAccessRefusedResponseIsReturned() {
-    ParkingSticker invalidParkingStickerDay =
-        aParkingSticker().withValidDay("friday").build(); // TODO : Do not hardcore "friday"
     when(parkingStickerRepository.findByCode(parkingStickerCode))
-        .thenReturn(invalidParkingStickerDay);
+        .thenReturn(parkingStickerNotValidToday);
 
     parkingService.validateParkingStickerCode(parkingStickerCode.toString());
 
