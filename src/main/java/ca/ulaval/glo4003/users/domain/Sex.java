@@ -9,7 +9,7 @@ public enum Sex {
   F("f"),
   X("x");
 
-  String name;
+  String sex;
   private static final Map<String, Sex> lookup = new HashMap<>();
 
   static {
@@ -18,12 +18,12 @@ public enum Sex {
     }
   }
 
-  Sex(String name) {
-    this.name = name;
+  Sex(String sex) {
+    this.sex = sex;
   }
 
-  public static Sex get(String name) {
-    Sex foundType = lookup.get(name);
+  public static Sex get(String sex) {
+    Sex foundType = lookup.get(sex.toLowerCase());
 
     if (foundType == null) throw new InvalidSexException();
 
@@ -32,6 +32,6 @@ public enum Sex {
 
   @Override
   public String toString() {
-    return name;
+    return sex;
   }
 }
