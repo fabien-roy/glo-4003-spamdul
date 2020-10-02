@@ -183,6 +183,16 @@ public class ParkingStickerAssemblerTest {
     Truth.assertThat(parkingSticker.getValidDay()).isEqualTo(VALID_DAY);
   }
 
+  @Test
+  public void givenUpperCaseValidDay_whenAssembling_thenReturnParkingStickerWithValidDay() {
+    parkingStickerDto =
+        aParkingStickerDto().withValidDay(VALID_DAY.toString().toUpperCase()).build();
+
+    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+
+    Truth.assertThat(parkingSticker.getValidDay()).isEqualTo(VALID_DAY);
+  }
+
   @Test(expected = InvalidDayException.class)
   public void givenInvalidValidDay_whenAssembling_thenThrowInvalidDayException() {
     parkingStickerDto = aParkingStickerDto().withValidDay("invalidDay").build();

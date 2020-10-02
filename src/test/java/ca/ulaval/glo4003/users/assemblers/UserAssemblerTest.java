@@ -127,6 +127,15 @@ public class UserAssemblerTest {
     Truth.assertThat(user.getAccessDay()).isEqualTo(ACCESS_DAY);
   }
 
+  @Test
+  public void givenUpperCaseAccessDay_whenAssembling_thenReturnUserWithAccessDay() {
+    userDto.accessDay = ACCESS_DAY.toString().toUpperCase();
+
+    User user = userAssembler.assemble(userDto);
+
+    Truth.assertThat(user.getAccessDay()).isEqualTo(ACCESS_DAY);
+  }
+
   @Test(expected = InvalidAccessDayException.class)
   public void givenInvalidAccessDay_whenAssembling_thenReturnInvalidAccessDayException() {
     userDto.accessDay = "invalidAccessDay";
