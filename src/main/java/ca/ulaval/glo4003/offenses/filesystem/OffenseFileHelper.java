@@ -18,7 +18,7 @@ public class OffenseFileHelper {
   public List<Offense> getAllOffenses() {
     try {
       String jsonFile = jsonHelper.getFileToString();
-      return offenseAssembler.assembleOffenses(
+      return offenseAssembler.assembleManyFromInfractionDtos(
           objectMapper.readValue(jsonFile, new TypeReference<List<InfractionDto>>() {}));
     } catch (IOException ioException) {
       throw new InvalidFileException();

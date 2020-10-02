@@ -18,7 +18,7 @@ public class OffenseAssembler {
     return offenseDto;
   }
 
-  public List<OffenseDto> assembleOffenseDtos(List<Offense> offenses) {
+  public List<OffenseDto> assembleMany(List<Offense> offenses) {
     List<OffenseDto> assembledOffenses = new ArrayList<>();
     for (Offense offense : offenses) {
       assembledOffenses.add(this.assemble(offense));
@@ -26,15 +26,15 @@ public class OffenseAssembler {
     return assembledOffenses;
   }
 
-  public List<Offense> assembleOffenses(List<InfractionDto> offenses) {
+  public List<Offense> assembleManyFromInfractionDtos(List<InfractionDto> offenses) {
     List<Offense> assembledOffenses = new ArrayList<>();
     for (InfractionDto infractionDto : offenses) {
-      assembledOffenses.add(assembleOffense(infractionDto));
+      assembledOffenses.add(assembleFromInfractionDto(infractionDto));
     }
     return assembledOffenses;
   }
 
-  public Offense assembleOffense(InfractionDto infractionDto) {
+  public Offense assembleFromInfractionDto(InfractionDto infractionDto) {
     return new Offense(
         infractionDto.infraction, OffenseCodes.get(infractionDto.code), infractionDto.montant);
   }
