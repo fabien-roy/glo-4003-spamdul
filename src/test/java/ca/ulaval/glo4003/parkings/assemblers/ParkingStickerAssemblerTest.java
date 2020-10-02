@@ -133,11 +133,7 @@ public class ParkingStickerAssemblerTest {
   }
 
   @Test
-  public void
-      givenUpperCaseReceptioNMethod_whenAssembling_thenReturnParkingStickerWithReceptionMethod() {
-    parkingStickerDto =
-        aParkingStickerDto().withReceptionMethod(RECEPTION_METHOD.toString().toUpperCase()).build();
-
+  public void whenAssembling_thenReturnParkingStickerWithReceptionMethod() {
     ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
 
     Truth.assertThat(parkingSticker.getReceptionMethod()).isEqualTo(RECEPTION_METHOD);
@@ -146,6 +142,9 @@ public class ParkingStickerAssemblerTest {
   @Test
   public void
       givenUpperCaseReceptionMethod_whenAssembling_thenReturnParkingStickerWithReceptionMethod() {
+    parkingStickerDto =
+        aParkingStickerDto().withReceptionMethod(RECEPTION_METHOD.toString().toUpperCase()).build();
+
     ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
 
     Truth.assertThat(parkingSticker.getReceptionMethod()).isEqualTo(RECEPTION_METHOD);
