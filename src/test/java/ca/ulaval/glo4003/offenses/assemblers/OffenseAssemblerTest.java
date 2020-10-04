@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.offenses.assemblers;
 
 import static ca.ulaval.glo4003.offenses.helpers.InfractionDtoBuilder.anInfractionDto;
-import static ca.ulaval.glo4003.offenses.helpers.OffenseBuilder.anOffense;
-import static ca.ulaval.glo4003.offenses.helpers.OffenseMother.createOffenseCode;
+import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeBuilder.anOffenseType;
+import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
 
 import ca.ulaval.glo4003.offenses.api.dto.InfractionDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
@@ -26,7 +26,7 @@ public class OffenseAssemblerTest {
   public void setUp() {
     offenseAssembler = new OffenseAssembler();
 
-    offense = anOffense().build();
+    offense = anOffenseType().build();
     infractionDto = anInfractionDto().build();
   }
 

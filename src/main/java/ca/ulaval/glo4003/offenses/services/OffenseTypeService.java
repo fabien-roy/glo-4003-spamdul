@@ -13,13 +13,13 @@ import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
 import java.util.List;
 
-public class OffenseService {
+public class OffenseTypeService {
   private final ParkingStickerRepository parkingStickerRepository;
   private final OffenseValidationAssembler offenseValidationAssembler;
   private final OffenseAssembler offenseAssembler;
   private final OffenseRepository offenseRepository;
 
-  public OffenseService(
+  public OffenseTypeService(
       ParkingStickerRepository parkingStickerRepository,
       OffenseValidationAssembler offenseValidationAssembler,
       OffenseAssembler offenseAssembler,
@@ -30,7 +30,7 @@ public class OffenseService {
     this.offenseRepository = offenseRepository;
   }
 
-  public List<OffenseTypeDto> getAllOffenses() {
+  public List<OffenseTypeDto> getAllOffenseTypes() {
     return offenseAssembler.assembleMany(offenseRepository.getAll());
   }
 

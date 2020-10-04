@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
-import ca.ulaval.glo4003.offenses.services.OffenseService;
+import ca.ulaval.glo4003.offenses.services.OffenseTypeService;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
@@ -17,7 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OffenseResourceImplementationTest {
-  @Mock OffenseService offenseService;
+  @Mock OffenseTypeService offenseTypeService;
 
   private OffenseResource offenseResource;
 
@@ -26,9 +26,9 @@ public class OffenseResourceImplementationTest {
 
   @Before
   public void setUp() {
-    offenseResource = new OffenseResourceImplementation(offenseService);
+    offenseResource = new OffenseResourceImplementation(offenseTypeService);
 
-    when(offenseService.validateOffense(offenseValidationDto)).thenReturn(offenseTypeDto);
+    when(offenseTypeService.validateOffense(offenseValidationDto)).thenReturn(offenseTypeDto);
   }
 
   @Test

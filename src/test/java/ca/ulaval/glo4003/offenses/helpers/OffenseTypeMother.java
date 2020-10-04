@@ -5,7 +5,7 @@ import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
 import com.github.javafaker.Faker;
 
-public class OffenseMother {
+public class OffenseTypeMother {
   public static String createDescription() {
     return Faker.instance().superhero().descriptor();
   }

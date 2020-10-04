@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeDtoBuilder.anOffense
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
-import ca.ulaval.glo4003.offenses.services.OffenseService;
+import ca.ulaval.glo4003.offenses.services.OffenseTypeService;
 import com.google.common.truth.Truth;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OffenseTypeResourceImplementationTest {
-  @Mock OffenseService offenseService;
+  @Mock OffenseTypeService offenseTypeService;
 
   private OffenseTypeResource offenseResource;
 
@@ -26,9 +26,9 @@ public class OffenseTypeResourceImplementationTest {
 
   @Before
   public void setUp() {
-    offenseResource = new OffenseTypeResourceImplementation(offenseService);
+    offenseResource = new OffenseTypeResourceImplementation(offenseTypeService);
 
-    when(offenseService.getAllOffenses()).thenReturn(offenseTypeDtos);
+    when(offenseTypeService.getAllOffenseTypes()).thenReturn(offenseTypeDtos);
   }
 
   @Test

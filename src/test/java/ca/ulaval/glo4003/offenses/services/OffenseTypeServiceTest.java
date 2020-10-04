@@ -1,10 +1,14 @@
 package ca.ulaval.glo4003.offenses.services;
 
+import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeBuilder.anOffenseType;
+import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeDtoBuilder.anOffenseTypeDto;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationBuilder.anOffenseValidation;
+import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationDtoBuilder.anOffenseValidationDto;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
@@ -12,6 +16,9 @@ import ca.ulaval.glo4003.offenses.domain.*;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
+import com.google.common.truth.Truth;
+import java.util.Collections;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,33 +27,38 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+// TODO : Some tests here smell bad
 @RunWith(MockitoJUnitRunner.class)
-public class OffenseServiceTest {
+public class OffenseTypeServiceTest {
   @Mock private ParkingStickerRepository parkingStickerRepository;
   @Mock private OffenseValidationAssembler offenseValidationAssembler;
   @Mock private OffenseAssembler offenseAssembler;
-  @Mock private OffenseValidationDto offenseValidationDto;
-  @Mock private ParkingSticker parkingSticker;
   @Mock private OffenseRepository offenseRepository;
+  @Mock ParkingSticker parkingSticker;
 
-  private OffenseService offenseService;
-  private OffenseValidation offenseValidation;
+  private OffenseTypeService offenseTypeService;
 
-  private Offense zone01offense = new Offense("test", OffenseCodes.ZONE_01, 0);
-  private Offense vig01offense = new Offense("test", OffenseCodes.VIG_01, 0);
-  private Offense vig02offense = new Offense("test", OffenseCodes.VIG_02, 0);
-  private Offense noneoffense = new Offense("vignette invalide", OffenseCodes.VIG_02, 45);
+  private final Offense offenseType = anOffenseType().build();
+  private final List<Offense> offenseTypes = Collections.singletonList(offenseType);
+  private final OffenseTypeDto offenseTypeDto = anOffenseTypeDto().build();
+  private final List<OffenseTypeDto> offenseTypeDtos = Collections.singletonList(offenseTypeDto);
+  private final OffenseValidation offenseValidation = anOffenseValidation().build();
+  private final OffenseValidationDto offenseValidationDto = anOffenseValidationDto().build();
+  private final Offense zone01offense = anOffenseType().withCode(OffenseCodes.ZONE_01).build();
+  private final Offense vig01offense = anOffenseType().withCode(OffenseCodes.VIG_01).build();
+  private final Offense vig02offense = anOffenseType().withCode(OffenseCodes.VIG_02).build();
 
   @Before
   public void setUp() {
-    offenseService =
-        new OffenseService(
+    offenseTypeService =
+        new OffenseTypeService(
             parkingStickerRepository,
             offenseValidationAssembler,
             offenseAssembler,
             offenseRepository);
 
-    offenseValidation = anOffenseValidation().build();
+    when(offenseRepository.getAll()).thenReturn(offenseTypes);
+    when(offenseAssembler.assembleMany(offenseTypes)).thenReturn(offenseTypeDtos);
 
     when(offenseValidationAssembler.assemble(offenseValidationDto)).thenReturn(offenseValidation);
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
@@ -59,8 +71,15 @@ public class OffenseServiceTest {
   }
 
   @Test
+  public void whenGettingAllOffenseTypes_thenReturnAllOffenseTypes() {
+    List<OffenseTypeDto> receivedOffenseTypeDtos = offenseTypeService.getAllOffenseTypes();
+
+    Truth.assertThat(receivedOffenseTypeDtos).isSameInstanceAs(offenseTypeDtos);
+  }
+
+  @Test
   public void whenCheckingIfOffenseNeeded_thenParkingStickerRepositoryIsCalled() {
-    offenseService.validateOffense(offenseValidationDto);
+    offenseTypeService.validateOffense(offenseValidationDto);
 
     Mockito.verify(parkingStickerRepository)
         .findByCode(eq(offenseValidation.getParkingStickerCode()));
@@ -71,9 +90,8 @@ public class OffenseServiceTest {
       givenValidOffenseValidationDto_whenValidatingOffense_thenInvalidStickerOffenseIsReturned() {
     when(parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode()))
         .thenThrow(new NotFoundParkingStickerException());
-    Offense offense = new Offense("vignette invalide", OffenseCodes.VIG_02, 45);
 
-    offenseService.validateOffense(offenseValidationDto);
+    offenseTypeService.validateOffense(offenseValidationDto);
 
     Mockito.verify(offenseAssembler).assemble(vig02offense);
   }
@@ -83,7 +101,7 @@ public class OffenseServiceTest {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(true);
 
-    offenseService.validateOffense(offenseValidationDto);
+    offenseTypeService.validateOffense(offenseValidationDto);
 
     ArgumentCaptor<Offense> argumentCaptor = ArgumentCaptor.forClass(Offense.class);
     Mockito.verify(offenseAssembler).assemble(argumentCaptor.capture());
@@ -96,9 +114,8 @@ public class OffenseServiceTest {
       givenValidOffenseValidationDto_whenValidatingOffense_thenWrongZoneOffenseIsReturned() {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(false);
-    Offense offense = new Offense("mauvaise zone", OffenseCodes.ZONE_01, 55);
 
-    offenseService.validateOffense(offenseValidationDto);
+    offenseTypeService.validateOffense(offenseValidationDto);
 
     Mockito.verify(offenseAssembler).assemble(zone01offense);
   }

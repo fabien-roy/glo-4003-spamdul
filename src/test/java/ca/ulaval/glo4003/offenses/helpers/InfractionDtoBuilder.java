@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.offenses.helpers;
 
-import static ca.ulaval.glo4003.offenses.helpers.OffenseMother.*;
+import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.*;
 
 import ca.ulaval.glo4003.offenses.api.dto.InfractionDto;
 
