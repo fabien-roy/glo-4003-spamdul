@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.offenses.services;
 
-import ca.ulaval.glo4003.offenses.api.dto.OffenseDto;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
@@ -30,11 +30,11 @@ public class OffenseService {
     this.offenseRepository = offenseRepository;
   }
 
-  public List<OffenseDto> getAllOffenses() {
+  public List<OffenseTypeDto> getAllOffenses() {
     return offenseAssembler.assembleMany(offenseRepository.getAll());
   }
 
-  public OffenseDto validateOffense(OffenseValidationDto offenseValidationDto) {
+  public OffenseTypeDto validateOffense(OffenseValidationDto offenseValidationDto) {
     ParkingSticker parkingSticker;
 
     OffenseValidation offenseValidation = offenseValidationAssembler.assemble(offenseValidationDto);

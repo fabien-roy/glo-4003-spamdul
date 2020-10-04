@@ -1,7 +1,11 @@
 package ca.ulaval.glo4003.offenses;
 
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
+import ca.ulaval.glo4003.offenses.api.OffenseTypeResource;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
+import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +17,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class OffenseInjectorTest {
 
   @Mock private ParkingStickerRepository parkingStickerRepository;
+  @Mock private ParkingStickerCodeAssembler parkingStickerCodeAssembler;
+  @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
+  @Mock private TimeOfDayAssembler timeOfDayAssembler;
+
   private OffenseInjector offenseInjector;
 
   @Before
@@ -23,8 +31,24 @@ public class OffenseInjectorTest {
   @Test
   public void whenCreatingOffenseResource_thenReturnIt() {
     OffenseResource offenseResource =
-        offenseInjector.createOffenseResource(parkingStickerRepository);
+        offenseInjector.createOffenseResource(
+            parkingStickerRepository,
+            parkingStickerCodeAssembler,
+            parkingAreaCodeAssembler,
+            timeOfDayAssembler);
 
     Truth.assertThat(offenseResource).isNotNull();
+  }
+
+  @Test
+  public void whenCreatingOffenseTypeResource_thenReturnIt() {
+    OffenseTypeResource offenseTypeResource =
+        offenseInjector.createOffenseTypeResource(
+            parkingStickerRepository,
+            parkingStickerCodeAssembler,
+            parkingAreaCodeAssembler,
+            timeOfDayAssembler);
+
+    Truth.assertThat(offenseTypeResource).isNotNull();
   }
 }

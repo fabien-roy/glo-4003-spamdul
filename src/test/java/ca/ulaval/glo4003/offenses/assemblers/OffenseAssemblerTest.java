@@ -5,7 +5,7 @@ import static ca.ulaval.glo4003.offenses.helpers.OffenseBuilder.anOffense;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseMother.createOffenseCode;
 
 import ca.ulaval.glo4003.offenses.api.dto.InfractionDto;
-import ca.ulaval.glo4003.offenses.api.dto.OffenseDto;
+import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.domain.Offense;
 import com.google.common.truth.Truth;
 import java.util.Collections;
@@ -32,32 +32,32 @@ public class OffenseAssemblerTest {
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithDescription() {
-    OffenseDto offenseDto = offenseAssembler.assemble(offense);
+    OffenseTypeDto offenseTypeDto = offenseAssembler.assemble(offense);
 
-    Truth.assertThat(offenseDto.description).isEqualTo(offense.getDescription());
+    Truth.assertThat(offenseTypeDto.description).isEqualTo(offense.getDescription());
   }
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithCode() {
-    OffenseDto offenseDto = offenseAssembler.assemble(offense);
+    OffenseTypeDto offenseTypeDto = offenseAssembler.assemble(offense);
 
-    Truth.assertThat(offenseDto.code).isEqualTo(offense.getCode().toString());
+    Truth.assertThat(offenseTypeDto.code).isEqualTo(offense.getCode().toString());
   }
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithAmount() {
-    OffenseDto offenseDto = offenseAssembler.assemble(offense);
+    OffenseTypeDto offenseTypeDto = offenseAssembler.assemble(offense);
 
-    Truth.assertThat(offenseDto.amount).isEqualTo(offense.getAmount());
+    Truth.assertThat(offenseTypeDto.amount).isEqualTo(offense.getAmount());
   }
 
   @Test
   public void whenAssemblingMany_thenReturnManyOffenseDto() {
     List<Offense> offenses = Collections.nCopies(2, offense);
 
-    List<OffenseDto> offenseDtos = offenseAssembler.assembleMany(offenses);
+    List<OffenseTypeDto> offenseTypeDtos = offenseAssembler.assembleMany(offenses);
 
-    Truth.assertThat(offenseDtos.size()).isEqualTo(2);
+    Truth.assertThat(offenseTypeDtos.size()).isEqualTo(2);
   }
 
   @Test

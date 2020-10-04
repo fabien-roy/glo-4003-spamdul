@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.offenses.api.dto;
 
-public class OffenseDto {
+public class OffenseTypeDto {
   public String description;
   public String code;
   public double amount;

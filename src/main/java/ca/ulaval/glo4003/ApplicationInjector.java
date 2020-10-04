@@ -14,6 +14,7 @@ import ca.ulaval.glo4003.locations.LocationInjector;
 import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
 import ca.ulaval.glo4003.offenses.OffenseInjector;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
+import ca.ulaval.glo4003.offenses.api.OffenseTypeResource;
 import ca.ulaval.glo4003.parkings.ParkingInjector;
 import ca.ulaval.glo4003.parkings.api.ParkingExceptionMapper;
 import ca.ulaval.glo4003.parkings.api.ParkingResource;
@@ -63,7 +64,19 @@ public class ApplicationInjector {
   }
 
   public OffenseResource createOffenseResource() {
-    return OFFENSE_INJECTOR.createOffenseResource(PARKING_INJECTOR.getParkingStickerRepository());
+    return OFFENSE_INJECTOR.createOffenseResource(
+        PARKING_INJECTOR.getParkingStickerRepository(),
+        PARKING_INJECTOR.createParkingStickerCodeAssembler(),
+        PARKING_INJECTOR.createParkingAreaCodeAssembler(),
+        TIME_INJECTOR.createTimeOfDayAssembler());
+  }
+
+  public OffenseTypeResource createOffenseTypeResource() {
+    return OFFENSE_INJECTOR.createOffenseTypeResource(
+        PARKING_INJECTOR.getParkingStickerRepository(),
+        PARKING_INJECTOR.createParkingStickerCodeAssembler(),
+        PARKING_INJECTOR.createParkingAreaCodeAssembler(),
+        TIME_INJECTOR.createTimeOfDayAssembler());
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
