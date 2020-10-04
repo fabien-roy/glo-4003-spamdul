@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeBuilder.anOffenseTyp
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
+import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
 import ca.ulaval.glo4003.offenses.exceptions.OffenseTypeNotFoundException;
@@ -23,7 +23,7 @@ public class OffenseTypeRepositoryInMemoryTest {
 
   @Test(expected = OffenseTypeNotFoundException.class)
   public void givenNonExistentCode_whenFindingByCode_thenThrowOffenseTypeNotFoundException() {
-    OffenseCodes nonExistentCode = createOffenseCode();
+    OffenseCode nonExistentCode = createOffenseCode();
 
     offenseTypeRepository.findByCode(nonExistentCode);
   }

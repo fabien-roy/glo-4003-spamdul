@@ -2,12 +2,12 @@ package ca.ulaval.glo4003.offenses.helpers;
 
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.*;
 
-import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
+import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 
 public class OffenseTypeBuilder {
   private String description = createDescription();
-  private OffenseCodes code = createOffenseCode();
+  private OffenseCode code = createOffenseCode();
   private double amount = createAmount();
 
   private OffenseTypeBuilder() {}
@@ -16,7 +16,7 @@ public class OffenseTypeBuilder {
     return new OffenseTypeBuilder();
   }
 
-  public OffenseTypeBuilder withCode(OffenseCodes code) {
+  public OffenseTypeBuilder withCode(OffenseCode code) {
     this.code = code;
     return this;
   }

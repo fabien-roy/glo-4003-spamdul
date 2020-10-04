@@ -3,11 +3,11 @@ package ca.ulaval.glo4003.offenses.domain;
 import java.util.Objects;
 
 public class OffenseType {
-  private String description;
-  private OffenseCodes code;
-  private double amount;
+  private final String description;
+  private final OffenseCode code;
+  private final double amount;
 
-  public OffenseType(String description, OffenseCodes code, double amount) {
+  public OffenseType(String description, OffenseCode code, double amount) {
     this.description = description;
     this.code = code;
     this.amount = amount;
@@ -30,7 +30,7 @@ public class OffenseType {
     return description;
   }
 
-  public OffenseCodes getCode() {
+  public OffenseCode getCode() {
     return code;
   }
 

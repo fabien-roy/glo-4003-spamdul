@@ -6,9 +6,11 @@ import ca.ulaval.glo4003.offenses.api.OffenseResourceImplementation;
 import ca.ulaval.glo4003.offenses.api.OffenseTypeResource;
 import ca.ulaval.glo4003.offenses.api.OffenseTypeResourceImplementation;
 import ca.ulaval.glo4003.offenses.assemblers.InfractionAssembler;
+import ca.ulaval.glo4003.offenses.assemblers.OffenseCodeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
+import ca.ulaval.glo4003.offenses.domain.OffenseTypeFactory;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
 import ca.ulaval.glo4003.offenses.filesystem.InfractionFileHelper;
 import ca.ulaval.glo4003.offenses.filesystem.dto.InfractionDto;
@@ -64,7 +66,8 @@ public class OffenseInjector {
     InfractionFileHelper infractionFileHelper = new InfractionFileHelper(jsonHelper);
     List<InfractionDto> infractions = infractionFileHelper.readInfractions();
 
-    InfractionAssembler infractionAssembler = new InfractionAssembler();
+    OffenseCodeAssembler offenseCodeAssembler = new OffenseCodeAssembler();
+    InfractionAssembler infractionAssembler = new InfractionAssembler(offenseCodeAssembler);
     List<OffenseType> offenseTypes = infractionAssembler.assembleMany(infractions);
 
     for (OffenseType offenseType : offenseTypes) {
@@ -81,12 +84,15 @@ public class OffenseInjector {
         createOffenseValidationAssembler(
             parkingStickerCodeAssembler, parkingAreaCodeAssembler, timeOfDayAssembler);
     OffenseTypeAssembler offenseTypeAssembler = new OffenseTypeAssembler();
+    OffenseTypeFactory offenseTypeFactory =
+        new OffenseTypeFactory(offenseTypeRepository, createOffenseCodeAssembler());
 
     return new OffenseTypeService(
         parkingStickerRepository,
         offenseValidationAssembler,
         offenseTypeAssembler,
-        offenseTypeRepository);
+        offenseTypeRepository,
+        offenseTypeFactory);
   }
 
   private OffenseValidationAssembler createOffenseValidationAssembler(
@@ -95,5 +101,9 @@ public class OffenseInjector {
       TimeOfDayAssembler timeOfDayAssembler) {
     return new OffenseValidationAssembler(
         parkingStickerCodeAssembler, parkingAreaCodeAssembler, timeOfDayAssembler);
+  }
+
+  private OffenseCodeAssembler createOffenseCodeAssembler() {
+    return new OffenseCodeAssembler();
   }
 }

@@ -2,7 +2,9 @@ package ca.ulaval.glo4003.offenses.assemblers;
 
 import static ca.ulaval.glo4003.offenses.helpers.InfractionDtoBuilder.anInfractionDto;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
+import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.filesystem.dto.InfractionDto;
 import com.google.common.truth.Truth;
@@ -10,16 +12,25 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class InfractionAssemblerTest {
+
+  @Mock OffenseCodeAssembler offenseCodeAssembler;
 
   private InfractionAssembler infractionAssembler;
 
-  private InfractionDto infractionDto = anInfractionDto().build();
+  private final OffenseCode offenseCode = createOffenseCode();
+  private final InfractionDto infractionDto = anInfractionDto().build();
 
   @Before
   public void setUp() {
-    infractionAssembler = new InfractionAssembler();
+    infractionAssembler = new InfractionAssembler(offenseCodeAssembler);
+
+    when(offenseCodeAssembler.assemble(infractionDto.code)).thenReturn(offenseCode);
   }
 
   @Test
@@ -33,17 +44,7 @@ public class InfractionAssemblerTest {
   public void whenAssembling_thenReturnOffenseWithCode() {
     OffenseType offenseType = infractionAssembler.assemble(infractionDto);
 
-    Truth.assertThat(offenseType.getCode().toString()).isEqualTo(infractionDto.code);
-  }
-
-  @Test
-  public void givenLowerCaseCode_whenAssembling_thenReturnOffenseWithCode() {
-    String lowerCaseCode = createOffenseCode().toString().toLowerCase();
-    infractionDto = anInfractionDto().withCode(lowerCaseCode).build();
-
-    OffenseType offenseType = infractionAssembler.assemble(infractionDto);
-
-    Truth.assertThat(offenseType.getCode().toString()).isEqualTo(infractionDto.code.toUpperCase());
+    Truth.assertThat(offenseType.getCode()).isEqualTo(offenseCode);
   }
 
   @Test

@@ -29,6 +29,7 @@ public class OffenseTypeServiceTest {
   @Mock private OffenseValidationAssembler offenseValidationAssembler;
   @Mock private OffenseTypeAssembler offenseTypeAssembler;
   @Mock private OffenseTypeRepository offenseTypeRepository;
+  @Mock private OffenseTypeFactory offenseTypeFactory;
   @Mock ParkingSticker parkingSticker;
 
   private OffenseTypeService offenseTypeService;
@@ -39,10 +40,8 @@ public class OffenseTypeServiceTest {
   private final List<OffenseTypeDto> offenseTypeDtos = Collections.singletonList(offenseTypeDto);
   private final OffenseValidation offenseValidation = anOffenseValidation().build();
   private final OffenseValidationDto offenseValidationDto = anOffenseValidationDto().build();
-  private final OffenseType wrongZoneOffenseType =
-      anOffenseType().withCode(OffenseCodes.ZONE_01).build();
-  private final OffenseType invalidStickerOffenseType =
-      anOffenseType().withCode(OffenseCodes.VIG_02).build();
+  private final OffenseType wrongZoneOffenseType = anOffenseType().build();
+  private final OffenseType invalidStickerOffenseType = anOffenseType().build();
   private final OffenseTypeDto wrongZoneOffenseTypeDto = anOffenseTypeDto().build();
   private final OffenseTypeDto invalidStickerOffenseTypeDto = anOffenseTypeDto().build();
 
@@ -53,7 +52,8 @@ public class OffenseTypeServiceTest {
             parkingStickerRepository,
             offenseValidationAssembler,
             offenseTypeAssembler,
-            offenseTypeRepository);
+            offenseTypeRepository,
+            offenseTypeFactory);
 
     when(offenseTypeRepository.getAll()).thenReturn(offenseTypes);
     when(offenseTypeAssembler.assembleMany(offenseTypes)).thenReturn(offenseTypeDtos);
@@ -63,12 +63,12 @@ public class OffenseTypeServiceTest {
         .thenReturn(false);
     when(parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode()))
         .thenReturn(parkingSticker);
-    when(offenseTypeRepository.findByCode(OffenseCodes.ZONE_01)).thenReturn(wrongZoneOffenseType);
-    when(offenseTypeRepository.findByCode(OffenseCodes.VIG_02))
-        .thenReturn(invalidStickerOffenseType);
-    when(offenseTypeAssembler.assemble(wrongZoneOffenseType)).thenReturn(wrongZoneOffenseTypeDto);
-    when(offenseTypeAssembler.assemble(invalidStickerOffenseType))
-        .thenReturn(invalidStickerOffenseTypeDto);
+    when(offenseTypeFactory.createWrongZoneOffense()).thenReturn(wrongZoneOffenseType);
+    when(offenseTypeFactory.createInvalidStickerOffense()).thenReturn(invalidStickerOffenseType);
+    when(offenseTypeAssembler.assembleMany(Collections.singletonList(wrongZoneOffenseType)))
+        .thenReturn(Collections.singletonList(wrongZoneOffenseTypeDto));
+    when(offenseTypeAssembler.assembleMany(Collections.singletonList(invalidStickerOffenseType)))
+        .thenReturn(Collections.singletonList(invalidStickerOffenseTypeDto));
   }
 
   @Test

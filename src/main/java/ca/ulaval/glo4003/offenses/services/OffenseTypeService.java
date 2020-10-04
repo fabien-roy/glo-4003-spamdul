@@ -4,8 +4,8 @@ import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
-import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
+import ca.ulaval.glo4003.offenses.domain.OffenseTypeFactory;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
 import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
@@ -19,16 +19,19 @@ public class OffenseTypeService {
   private final OffenseValidationAssembler offenseValidationAssembler;
   private final OffenseTypeAssembler offenseTypeAssembler;
   private final OffenseTypeRepository offenseTypeRepository;
+  private final OffenseTypeFactory offenseTypeFactory;
 
   public OffenseTypeService(
       ParkingStickerRepository parkingStickerRepository,
       OffenseValidationAssembler offenseValidationAssembler,
       OffenseTypeAssembler offenseTypeAssembler,
-      OffenseTypeRepository offenseTypeRepository) {
+      OffenseTypeRepository offenseTypeRepository,
+      OffenseTypeFactory offenseTypeFactory) {
     this.parkingStickerRepository = parkingStickerRepository;
     this.offenseValidationAssembler = offenseValidationAssembler;
     this.offenseTypeAssembler = offenseTypeAssembler;
     this.offenseTypeRepository = offenseTypeRepository;
+    this.offenseTypeFactory = offenseTypeFactory;
   }
 
   public List<OffenseTypeDto> getAllOffenseTypes() {
@@ -40,35 +43,20 @@ public class OffenseTypeService {
 
     OffenseValidation offenseValidation = offenseValidationAssembler.assemble(offenseValidationDto);
 
-    List<OffenseTypeDto> offenseTypeDtos = new ArrayList<>();
+    List<OffenseType> offenseTypes = new ArrayList<>();
 
     try {
       parkingSticker =
           parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode());
     } catch (NotFoundParkingStickerException e) {
-      OffenseTypeDto invalidStickerOffense =
-          offenseTypeAssembler.assemble(getInvalidStickerOffense());
-      offenseTypeDtos.add(invalidStickerOffense);
+      offenseTypes.add(offenseTypeFactory.createInvalidStickerOffense());
     }
 
     if (parkingSticker != null
         && !parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode())) {
-      OffenseTypeDto wrongZoneOffense = offenseTypeAssembler.assemble(getWrongZoneOffense());
-      offenseTypeDtos.add(wrongZoneOffense);
+      offenseTypes.add(offenseTypeFactory.createWrongZoneOffense());
     }
 
-    return offenseTypeDtos;
-  }
-
-  private OffenseType getWrongZoneOffense() {
-    return offenseTypeRepository.findByCode(OffenseCodes.ZONE_01);
-  }
-
-  private OffenseType getWrongDayOffense() {
-    return offenseTypeRepository.findByCode(OffenseCodes.VIG_01);
-  }
-
-  private OffenseType getInvalidStickerOffense() {
-    return offenseTypeRepository.findByCode(OffenseCodes.VIG_02);
+    return offenseTypeAssembler.assembleMany(offenseTypes);
   }
 }

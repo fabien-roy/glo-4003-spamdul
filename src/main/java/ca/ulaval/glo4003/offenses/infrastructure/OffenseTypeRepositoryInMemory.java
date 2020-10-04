@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.offenses.infrastructure;
 
-import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
+import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
 import ca.ulaval.glo4003.offenses.exceptions.OffenseTypeNotFoundException;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class OffenseTypeRepositoryInMemory implements OffenseTypeRepository {
 
-  private final Map<OffenseCodes, OffenseType> offenses = new HashMap<>();
+  private final Map<OffenseCode, OffenseType> offenses = new HashMap<>();
 
   @Override
   public void save(OffenseType offenseType) {
@@ -19,8 +19,8 @@ public class OffenseTypeRepositoryInMemory implements OffenseTypeRepository {
   }
 
   @Override
-  public OffenseType findByCode(OffenseCodes offenseCodes) {
-    OffenseType foundOffenseType = offenses.get(offenseCodes);
+  public OffenseType findByCode(OffenseCode offenseCode) {
+    OffenseType foundOffenseType = offenses.get(offenseCode);
 
     if (foundOffenseType == null) throw new OffenseTypeNotFoundException();
 

@@ -6,7 +6,7 @@ public interface OffenseTypeRepository {
 
   void save(OffenseType offenseType);
 
-  OffenseType findByCode(OffenseCodes offenseCodes);
+  OffenseType findByCode(OffenseCode offenseCodes);
 
   List<OffenseType> getAll();
 }
