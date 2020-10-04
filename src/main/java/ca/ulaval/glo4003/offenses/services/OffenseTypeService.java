@@ -11,6 +11,7 @@ import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OffenseTypeService {
@@ -34,38 +35,40 @@ public class OffenseTypeService {
     return offenseTypeAssembler.assembleMany(offenseTypeRepository.getAll());
   }
 
-  public OffenseTypeDto validateOffense(OffenseValidationDto offenseValidationDto) {
-    ParkingSticker parkingSticker;
+  public List<OffenseTypeDto> validateOffense(OffenseValidationDto offenseValidationDto) {
+    ParkingSticker parkingSticker = null;
 
     OffenseValidation offenseValidation = offenseValidationAssembler.assemble(offenseValidationDto);
+
+    List<OffenseTypeDto> offenseTypeDtos = new ArrayList<>();
 
     try {
       parkingSticker =
           parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode());
     } catch (NotFoundParkingStickerException e) {
-      return offenseTypeAssembler.assemble(createInvalidStickerOffense());
+      OffenseTypeDto invalidStickerOffense =
+          offenseTypeAssembler.assemble(getInvalidStickerOffense());
+      offenseTypeDtos.add(invalidStickerOffense);
     }
 
-    if (!parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode())) {
-      return offenseTypeAssembler.assemble(createWrongZoneOffense());
+    if (parkingSticker != null
+        && !parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode())) {
+      OffenseTypeDto wrongZoneOffense = offenseTypeAssembler.assemble(getWrongZoneOffense());
+      offenseTypeDtos.add(wrongZoneOffense);
     }
 
-    return offenseTypeAssembler.assemble(createNoOffense());
+    return offenseTypeDtos;
   }
 
-  private OffenseType createNoOffense() {
-    return new OffenseType("Aucune infraction signalée", OffenseCodes.NONE, 0);
-  }
-
-  private OffenseType createWrongZoneOffense() {
+  private OffenseType getWrongZoneOffense() {
     return offenseTypeRepository.findByCode(OffenseCodes.ZONE_01);
   }
 
-  private OffenseType createWrongDayOffense() {
+  private OffenseType getWrongDayOffense() {
     return offenseTypeRepository.findByCode(OffenseCodes.VIG_01);
   }
 
-  private OffenseType createInvalidStickerOffense() {
+  private OffenseType getInvalidStickerOffense() {
     return offenseTypeRepository.findByCode(OffenseCodes.VIG_02);
   }
 }

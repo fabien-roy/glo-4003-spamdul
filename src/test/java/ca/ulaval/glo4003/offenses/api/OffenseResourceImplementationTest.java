@@ -8,6 +8,8 @@ import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.services.OffenseTypeService;
 import com.google.common.truth.Truth;
+import java.util.Collections;
+import java.util.List;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,12 +25,13 @@ public class OffenseResourceImplementationTest {
 
   private final OffenseValidationDto offenseValidationDto = anOffenseValidationDto().build();
   private final OffenseTypeDto offenseTypeDto = anOffenseTypeDto().build();
+  private final List<OffenseTypeDto> offenseTypeDtos = Collections.singletonList(offenseTypeDto);
 
   @Before
   public void setUp() {
     offenseResource = new OffenseResourceImplementation(offenseTypeService);
 
-    when(offenseTypeService.validateOffense(offenseValidationDto)).thenReturn(offenseTypeDto);
+    when(offenseTypeService.validateOffense(offenseValidationDto)).thenReturn(offenseTypeDtos);
   }
 
   @Test
@@ -41,8 +44,8 @@ public class OffenseResourceImplementationTest {
   @Test
   public void whenValidatingOffense_thenRespondOffenseTypeDto() {
     Response response = offenseResource.validateOffense(offenseValidationDto);
-    OffenseTypeDto receivedOffenseTypeDto = (OffenseTypeDto) response.getEntity();
+    List<OffenseTypeDto> receivedOffenseTypeDtos = (List<OffenseTypeDto>) response.getEntity();
 
-    Truth.assertThat(receivedOffenseTypeDto).isSameInstanceAs(offenseTypeDto);
+    Truth.assertThat(receivedOffenseTypeDtos).isSameInstanceAs(offenseTypeDtos);
   }
 }
