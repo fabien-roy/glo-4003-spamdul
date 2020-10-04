@@ -113,6 +113,15 @@ public class UserAssemblerTest {
     Truth.assertThat(user.getSex()).isEqualTo(SEX);
   }
 
+  @Test
+  public void givenUpperCaseSex_whenAssembling_thenReturnUserWithSex() {
+    userDto.sex = SEX.toString().toUpperCase();
+
+    User user = userAssembler.assemble(userDto);
+
+    Truth.assertThat(user.getSex()).isEqualTo(SEX);
+  }
+
   @Test(expected = InvalidSexException.class)
   public void givenInvalidSex_whenAssembling_thenThrowInvalidSexException() {
     userDto.sex = "invalidSex";
@@ -122,6 +131,15 @@ public class UserAssemblerTest {
 
   @Test
   public void whenAssembling_thenReturnUserWithAccessDay() {
+    User user = userAssembler.assemble(userDto);
+
+    Truth.assertThat(user.getAccessDay()).isEqualTo(ACCESS_DAY);
+  }
+
+  @Test
+  public void givenUpperCaseAccessDay_whenAssembling_thenReturnUserWithAccessDay() {
+    userDto.accessDay = ACCESS_DAY.toString().toUpperCase();
+
     User user = userAssembler.assemble(userDto);
 
     Truth.assertThat(user.getAccessDay()).isEqualTo(ACCESS_DAY);

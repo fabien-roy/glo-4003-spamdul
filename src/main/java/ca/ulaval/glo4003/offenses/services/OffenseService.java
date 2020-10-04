@@ -31,7 +31,7 @@ public class OffenseService {
   }
 
   public List<OffenseDto> getAllOffenses() {
-    return offenseAssembler.assembleOffenseDtos(offenseRepository.getAll());
+    return offenseAssembler.assembleMany(offenseRepository.getAll());
   }
 
   public OffenseDto validateOffense(OffenseValidationDto offenseValidationDto) {

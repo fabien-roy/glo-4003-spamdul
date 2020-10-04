@@ -6,11 +6,11 @@ import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
 import com.github.javafaker.Faker;
 
 public class OffenseMother {
-  public static String createReasonText() {
+  public static String createDescription() {
     return Faker.instance().superhero().descriptor();
   }
 
-  public static OffenseCodes createReasonCode() {
+  public static OffenseCodes createOffenseCode() {
     return randomEnum(OffenseCodes.class);
   }
 

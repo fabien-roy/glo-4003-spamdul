@@ -26,8 +26,8 @@ public enum ReceptionMethods {
     return method;
   }
 
-  public static ReceptionMethods get(String type) {
-    ReceptionMethods foundMethod = lookup.get(type);
+  public static ReceptionMethods get(String method) {
+    ReceptionMethods foundMethod = lookup.get(method.toLowerCase());
 
     if (foundMethod == null) throw new InvalidReceptionMethodException();
 

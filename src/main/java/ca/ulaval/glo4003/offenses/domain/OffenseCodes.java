@@ -29,8 +29,10 @@ public enum OffenseCodes {
   }
 
   public static OffenseCodes get(String code) {
-    OffenseCodes foundType = lookup.get(code);
+    OffenseCodes foundType = lookup.get(code.toUpperCase());
+
     if (foundType == null) throw new InvalidOffenseCodeException();
+
     return foundType;
   }
 
