@@ -33,7 +33,7 @@ public class OffenseTypeServiceTest {
   @Mock private ParkingStickerRepository parkingStickerRepository;
   @Mock private OffenseValidationAssembler offenseValidationAssembler;
   @Mock private OffenseAssembler offenseAssembler;
-  @Mock private OffenseRepository offenseRepository;
+  @Mock private OffenseTypeRepository offenseTypeRepository;
   @Mock ParkingSticker parkingSticker;
 
   private OffenseTypeService offenseTypeService;
@@ -55,9 +55,9 @@ public class OffenseTypeServiceTest {
             parkingStickerRepository,
             offenseValidationAssembler,
             offenseAssembler,
-            offenseRepository);
+            offenseTypeRepository);
 
-    when(offenseRepository.getAll()).thenReturn(offenseTypes);
+    when(offenseTypeRepository.getAll()).thenReturn(offenseTypes);
     when(offenseAssembler.assembleMany(offenseTypes)).thenReturn(offenseTypeDtos);
 
     when(offenseValidationAssembler.assemble(offenseValidationDto)).thenReturn(offenseValidation);
@@ -65,9 +65,9 @@ public class OffenseTypeServiceTest {
         .thenReturn(false);
     when(parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode()))
         .thenReturn(parkingSticker);
-    when(offenseRepository.findByCode(OffenseCodes.ZONE_01)).thenReturn(zone01offense);
-    when(offenseRepository.findByCode(OffenseCodes.VIG_01)).thenReturn(vig01offense);
-    when(offenseRepository.findByCode(OffenseCodes.VIG_02)).thenReturn(vig02offense);
+    when(offenseTypeRepository.findByCode(OffenseCodes.ZONE_01)).thenReturn(zone01offense);
+    when(offenseTypeRepository.findByCode(OffenseCodes.VIG_01)).thenReturn(vig01offense);
+    when(offenseTypeRepository.findByCode(OffenseCodes.VIG_02)).thenReturn(vig02offense);
   }
 
   @Test

@@ -7,9 +7,9 @@ import ca.ulaval.glo4003.offenses.api.OffenseTypeResourceImplementation;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
 import ca.ulaval.glo4003.offenses.domain.Offense;
-import ca.ulaval.glo4003.offenses.domain.OffenseRepository;
+import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
 import ca.ulaval.glo4003.offenses.filesystem.OffenseFileHelper;
-import ca.ulaval.glo4003.offenses.infrastructure.OffenseRepositoryInMemory;
+import ca.ulaval.glo4003.offenses.infrastructure.OffenseTypeRepositoryInMemory;
 import ca.ulaval.glo4003.offenses.services.OffenseTypeService;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
@@ -18,10 +18,10 @@ import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import java.util.List;
 
 public class OffenseInjector {
-  private final OffenseRepository offenseRepository;
+  private final OffenseTypeRepository offenseTypeRepository;
 
   public OffenseInjector() {
-    offenseRepository = new OffenseRepositoryInMemory();
+    offenseTypeRepository = new OffenseTypeRepositoryInMemory();
   }
 
   public OffenseResource createOffenseResource(
@@ -48,7 +48,7 @@ public class OffenseInjector {
     List<Offense> offenses = offenseFileHelper.getAllOffenses();
 
     for (Offense offense : offenses) {
-      offenseRepository.save(offense);
+      offenseTypeRepository.save(offense);
     }
 
     OffenseTypeService offenseTypeService =
@@ -72,7 +72,10 @@ public class OffenseInjector {
     OffenseAssembler offenseAssembler = new OffenseAssembler();
 
     return new OffenseTypeService(
-        parkingStickerRepository, offenseValidationAssembler, offenseAssembler, offenseRepository);
+        parkingStickerRepository,
+        offenseValidationAssembler,
+        offenseAssembler,
+        offenseTypeRepository);
   }
 
   private OffenseValidationAssembler createOffenseValidationAssembler(

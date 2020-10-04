@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.offenses.assemblers.OffenseAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
 import ca.ulaval.glo4003.offenses.domain.Offense;
 import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
-import ca.ulaval.glo4003.offenses.domain.OffenseRepository;
+import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
 import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
@@ -17,21 +17,21 @@ public class OffenseTypeService {
   private final ParkingStickerRepository parkingStickerRepository;
   private final OffenseValidationAssembler offenseValidationAssembler;
   private final OffenseAssembler offenseAssembler;
-  private final OffenseRepository offenseRepository;
+  private final OffenseTypeRepository offenseTypeRepository;
 
   public OffenseTypeService(
       ParkingStickerRepository parkingStickerRepository,
       OffenseValidationAssembler offenseValidationAssembler,
       OffenseAssembler offenseAssembler,
-      OffenseRepository offenseRepository) {
+      OffenseTypeRepository offenseTypeRepository) {
     this.parkingStickerRepository = parkingStickerRepository;
     this.offenseValidationAssembler = offenseValidationAssembler;
     this.offenseAssembler = offenseAssembler;
-    this.offenseRepository = offenseRepository;
+    this.offenseTypeRepository = offenseTypeRepository;
   }
 
   public List<OffenseTypeDto> getAllOffenseTypes() {
-    return offenseAssembler.assembleMany(offenseRepository.getAll());
+    return offenseAssembler.assembleMany(offenseTypeRepository.getAll());
   }
 
   public OffenseTypeDto validateOffense(OffenseValidationDto offenseValidationDto) {
@@ -58,14 +58,14 @@ public class OffenseTypeService {
   }
 
   private Offense createWrongZoneOffense() {
-    return offenseRepository.findByCode(OffenseCodes.ZONE_01);
+    return offenseTypeRepository.findByCode(OffenseCodes.ZONE_01);
   }
 
   private Offense createWrongDayOffense() {
-    return offenseRepository.findByCode(OffenseCodes.VIG_01);
+    return offenseTypeRepository.findByCode(OffenseCodes.VIG_01);
   }
 
   private Offense createInvalidStickerOffense() {
-    return offenseRepository.findByCode(OffenseCodes.VIG_02);
+    return offenseTypeRepository.findByCode(OffenseCodes.VIG_02);
   }
 }

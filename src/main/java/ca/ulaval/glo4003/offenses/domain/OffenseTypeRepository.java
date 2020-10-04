@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.offenses.domain;
 
 import java.util.List;
 
-public interface OffenseRepository {
+public interface OffenseTypeRepository {
 
   void save(Offense offense);
 
