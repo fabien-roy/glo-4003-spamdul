@@ -11,14 +11,14 @@ uses:
       body:
         application/json:
           type: types.User
-          example: !include examples/user/post-users-request.json
+          example: !include examples/users/post-users-request.json
       responses:
         201:
           description: Id for newly created account of user
           body:
             application/json:
               type: types.AccountIdObject
-              example: !include examples/user/post-users-response.json
+              example: !include examples/users/post-users-response.json
         400:
           description: Error adding user
     /{accountId}:
@@ -30,7 +30,7 @@ uses:
             body:
               application/json:
                 type: types.User
-                example: !include ./examples/user/get-users-response.json
+                example: !include examples/users/get-users-response.json
           400:
             description: Error getting user
           404:
@@ -42,15 +42,15 @@ uses:
         application/json:
           type: types.ParkingSticker
           examples:
-            postal: !include examples/parking/post-parkings-request-postal.json
-            email: !include examples/parking/post-parkings-request-email.json
+            postal: !include examples/parkings/post-parkings-request-postal.json
+            email: !include examples/parkings/post-parkings-request-email.json
       responses:
         201:
           description: Code for newly added parking sticker
           body:
             application/json:
               type: types.ParkingStickerCodeObject
-              example: !include examples/parking/post-parkings-response.json
+              example: !include examples/parkings/post-parkings-response.json
         400:
           description: Error adding parking sticker
         404:
@@ -65,7 +65,7 @@ uses:
               body:
                 application/json:
                   type: types.AccessStatusObject
-                  example: !include examples/parking/get-parkings-validate-response.json
+                  example: !include examples/parkings/get-parkings-validate-response.json
             400:
               description: Error validating parking sticker
             404:
@@ -79,7 +79,7 @@ uses:
           body:
             application/json:
               type: types.Offense[]
-              example: !include examples/offense/get-offenses-response.json
+              example: !include examples/offenses/get-offenses-response.json
         400:
           description: Error getting offenses
     /validate:
@@ -88,14 +88,14 @@ uses:
         body:
           application/json:
             type: types.OffenseValidation
-            example: !include examples/offense/get-offenses-validate-request.json
+            example: !include examples/offenses/get-offenses-validate-request.json
         responses:
           200:
             description: Offense of parking sticker code
             body:
               application/json:
                 type: types.Offense
-                example: !include examples/offense/get-offenses-validate-response.json
+                example: !include examples/offenses/get-offenses-validate-response.json
           400:
             description: Error getting offenses for parking sticker
           404:
@@ -106,7 +106,7 @@ uses:
       body:
         application/json:
           type: types.Car
-          example: !include examples/car/post-cars-request.json
+          example: !include examples/cars/post-cars-request.json
       responses:
         201:
           description: Car successfully added
