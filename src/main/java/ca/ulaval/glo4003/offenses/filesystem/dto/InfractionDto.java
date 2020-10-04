@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.offenses.api.dto;
+package ca.ulaval.glo4003.offenses.filesystem.dto;
 
 public class InfractionDto {
   public String infraction;

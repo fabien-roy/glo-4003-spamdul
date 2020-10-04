@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
-import ca.ulaval.glo4003.offenses.assemblers.OffenseAssembler;
+import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
 import ca.ulaval.glo4003.offenses.domain.*;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
@@ -32,7 +32,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class OffenseTypeServiceTest {
   @Mock private ParkingStickerRepository parkingStickerRepository;
   @Mock private OffenseValidationAssembler offenseValidationAssembler;
-  @Mock private OffenseAssembler offenseAssembler;
+  @Mock private OffenseTypeAssembler offenseTypeAssembler;
   @Mock private OffenseTypeRepository offenseTypeRepository;
   @Mock ParkingSticker parkingSticker;
 
@@ -54,11 +54,11 @@ public class OffenseTypeServiceTest {
         new OffenseTypeService(
             parkingStickerRepository,
             offenseValidationAssembler,
-            offenseAssembler,
+            offenseTypeAssembler,
             offenseTypeRepository);
 
     when(offenseTypeRepository.getAll()).thenReturn(offenseTypes);
-    when(offenseAssembler.assembleMany(offenseTypes)).thenReturn(offenseTypeDtos);
+    when(offenseTypeAssembler.assembleMany(offenseTypes)).thenReturn(offenseTypeDtos);
 
     when(offenseValidationAssembler.assemble(offenseValidationDto)).thenReturn(offenseValidation);
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
@@ -93,7 +93,7 @@ public class OffenseTypeServiceTest {
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
-    Mockito.verify(offenseAssembler).assemble(vig02offense);
+    Mockito.verify(offenseTypeAssembler).assemble(vig02offense);
   }
 
   @Test
@@ -104,7 +104,7 @@ public class OffenseTypeServiceTest {
     offenseTypeService.validateOffense(offenseValidationDto);
 
     ArgumentCaptor<Offense> argumentCaptor = ArgumentCaptor.forClass(Offense.class);
-    Mockito.verify(offenseAssembler).assemble(argumentCaptor.capture());
+    Mockito.verify(offenseTypeAssembler).assemble(argumentCaptor.capture());
     Offense capturedArgument = argumentCaptor.getValue();
     assertThat(capturedArgument.getCode()).isEqualTo(OffenseCodes.NONE);
   }
@@ -117,6 +117,6 @@ public class OffenseTypeServiceTest {
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
-    Mockito.verify(offenseAssembler).assemble(zone01offense);
+    Mockito.verify(offenseTypeAssembler).assemble(zone01offense);
   }
 }

@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.offenses.helpers;
 
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.*;
 
-import ca.ulaval.glo4003.offenses.api.dto.InfractionDto;
+import ca.ulaval.glo4003.offenses.filesystem.dto.InfractionDto;
 
 public class InfractionDtoBuilder {
   private String infraction = createDescription();
