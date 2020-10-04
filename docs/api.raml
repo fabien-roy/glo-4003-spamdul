@@ -79,24 +79,24 @@ uses:
           body:
             application/json:
               type: types.OffenseType[]
-              example: !include examples/offensetypes/get-offenseType-types-response.json
+              example: !include examples/offensetypes/get-offense-types-response.json
         400:
           description: Error getting offenseType types
-  /offenseTypes:
+  /offenses:
     /validate:
       get:
         description: Check offenseTypes for the parking sticker
         body:
           application/json:
             type: types.OffenseValidation
-            example: !include examples/offenseTypes/get-offenseTypes-validate-request.json
+            example: !include examples/offenses/get-offenses-validate-request.json
         responses:
           200:
             description: Offense type of parking sticker code
             body:
               application/json:
                 type: types.OffenseType
-                example: !include examples/offenseTypes/get-offenseTypes-validate-response.json
+                example: !include examples/offenses/get-offenses-validate-response.json
           400:
             description: Error getting offenseType type for parking sticker
           404:

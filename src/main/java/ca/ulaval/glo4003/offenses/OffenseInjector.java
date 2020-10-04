@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.offenses;
 
 import ca.ulaval.glo4003.files.filesystem.JsonHelper;
+import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.offenses.api.OffenseResourceImplementation;
 import ca.ulaval.glo4003.offenses.api.OffenseTypeResource;
@@ -49,8 +50,9 @@ public class OffenseInjector {
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       TimeOfDayAssembler timeOfDayAssembler,
-      JsonHelper jsonHelper) {
-    addOffenseTypesToRepository(jsonHelper);
+      JsonHelper jsonHelper,
+      MoneyAssembler moneyAssembler) {
+    addOffenseTypesToRepository(jsonHelper, moneyAssembler);
 
     OffenseTypeService offenseTypeService =
         createOffenseService(
@@ -62,12 +64,13 @@ public class OffenseInjector {
     return new OffenseTypeResourceImplementation(offenseTypeService);
   }
 
-  private void addOffenseTypesToRepository(JsonHelper jsonHelper) {
+  private void addOffenseTypesToRepository(JsonHelper jsonHelper, MoneyAssembler moneyAssembler) {
     InfractionFileHelper infractionFileHelper = new InfractionFileHelper(jsonHelper);
     List<InfractionDto> infractions = infractionFileHelper.readInfractions();
 
     OffenseCodeAssembler offenseCodeAssembler = new OffenseCodeAssembler();
-    InfractionAssembler infractionAssembler = new InfractionAssembler(offenseCodeAssembler);
+    InfractionAssembler infractionAssembler =
+        new InfractionAssembler(offenseCodeAssembler, moneyAssembler);
     List<OffenseType> offenseTypes = infractionAssembler.assembleMany(infractions);
 
     for (OffenseType offenseType : offenseTypes) {

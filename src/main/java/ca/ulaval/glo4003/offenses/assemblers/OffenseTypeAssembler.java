@@ -11,7 +11,7 @@ public class OffenseTypeAssembler {
 
     offenseTypeDto.description = offenseType.getDescription();
     offenseTypeDto.code = offenseType.getCode().toString();
-    offenseTypeDto.amount = offenseType.getAmount();
+    offenseTypeDto.amount = offenseType.getAmount().toDouble();
 
     return offenseTypeDto;
   }

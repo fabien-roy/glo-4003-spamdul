@@ -1,13 +1,14 @@
 package ca.ulaval.glo4003.offenses.domain;
 
+import ca.ulaval.glo4003.funds.domain.Money;
 import java.util.Objects;
 
 public class OffenseType {
   private final String description;
   private final OffenseCode code;
-  private final double amount;
+  private final Money amount;
 
-  public OffenseType(String description, OffenseCode code, double amount) {
+  public OffenseType(String description, OffenseCode code, Money amount) {
     this.description = description;
     this.code = code;
     this.amount = amount;
@@ -34,7 +35,7 @@ public class OffenseType {
     return code;
   }
 
-  public double getAmount() {
+  public Money getAmount() {
     return amount;
   }
 }

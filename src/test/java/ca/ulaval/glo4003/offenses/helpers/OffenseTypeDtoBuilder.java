@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.offenses.helpers;
 
+import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.*;
 
 import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
@@ -7,7 +8,7 @@ import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 public class OffenseTypeDtoBuilder {
   private String description = createDescription();
   private String code = createOffenseCode().toString();
-  private int amount = (int) createAmount();
+  private int amount = (int) createMoney().toDouble();
 
   private OffenseTypeDtoBuilder() {}
 

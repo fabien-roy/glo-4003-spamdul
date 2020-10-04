@@ -41,7 +41,7 @@ public class OffenseTypeAssemblerTest {
   public void whenAssembling_thenReturnOffenseDtoWithAmount() {
     OffenseTypeDto offenseTypeDto = offenseTypeAssembler.assemble(offenseType);
 
-    Truth.assertThat(offenseTypeDto.amount).isEqualTo(offenseType.getAmount());
+    Truth.assertThat(offenseTypeDto.amount).isEqualTo(offenseType.getAmount().toDouble());
   }
 
   @Test

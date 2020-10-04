@@ -12,8 +12,4 @@ public class OffenseTypeMother {
     String code = Faker.instance().color().toString().toUpperCase();
     return new OffenseCode(code);
   }
-
-  public static double createAmount() {
-    return Faker.instance().number().numberBetween(1, 200);
-  }
 }

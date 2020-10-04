@@ -3,10 +3,12 @@ package ca.ulaval.glo4003.bills.domain;
 import ca.ulaval.glo4003.bills.filesystem.CSVBillingZoneHelper;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
 
+// TODO : Move to funds module
 public class Bill {
-  CSVBillingZoneHelper csvBillingZoneHelper = new CSVBillingZoneHelper();
+  CSVBillingZoneHelper csvBillingZoneHelper =
+      new CSVBillingZoneHelper(); // TODO : Remove this atrocity from our beautiful domain
 
-  private float amountDue;
+  private float amountDue; // TODO : Use Money value object
 
   public Bill() {
     amountDue = 0;

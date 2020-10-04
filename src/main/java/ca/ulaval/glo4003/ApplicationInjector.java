@@ -10,6 +10,7 @@ import ca.ulaval.glo4003.communications.CommunicationInjector;
 import ca.ulaval.glo4003.communications.api.CommunicationExceptionMapper;
 import ca.ulaval.glo4003.files.FileInjector;
 import ca.ulaval.glo4003.files.api.FileExceptionMapper;
+import ca.ulaval.glo4003.funds.FundInjector;
 import ca.ulaval.glo4003.interfaces.api.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.locations.LocationInjector;
 import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
@@ -36,6 +37,7 @@ public class ApplicationInjector {
   private static final CarInjector CAR_INJECTOR = new CarInjector();
   private static final CommunicationInjector COMMUNICATION_INJECTOR = new CommunicationInjector();
   private static final FileInjector FILE_INJECTOR = new FileInjector();
+  private static final FundInjector FUND_INJECTOR = new FundInjector();
   private static final LocationInjector LOCATION_INJECTOR = new LocationInjector();
   private static final ParkingInjector PARKING_INJECTOR = new ParkingInjector();
   private static final TimeInjector TIME_INJECTOR = new TimeInjector();
@@ -79,7 +81,8 @@ public class ApplicationInjector {
         PARKING_INJECTOR.createParkingStickerCodeAssembler(),
         PARKING_INJECTOR.createParkingAreaCodeAssembler(),
         TIME_INJECTOR.createTimeOfDayAssembler(),
-        FILE_INJECTOR.createJsonHelper());
+        FILE_INJECTOR.createJsonHelper(),
+        FUND_INJECTOR.createMoneyAssembler());
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {

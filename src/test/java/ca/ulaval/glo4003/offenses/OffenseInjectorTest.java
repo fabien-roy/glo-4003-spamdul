@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.offenses;
 
 import ca.ulaval.glo4003.files.filesystem.JsonHelper;
+import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.offenses.api.OffenseTypeResource;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
@@ -21,6 +22,7 @@ public class OffenseInjectorTest {
   @Mock private ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   @Mock private TimeOfDayAssembler timeOfDayAssembler;
+  @Mock private MoneyAssembler moneyAssembler;
 
   private OffenseInjector offenseInjector;
 
@@ -53,7 +55,8 @@ public class OffenseInjectorTest {
             parkingStickerCodeAssembler,
             parkingAreaCodeAssembler,
             timeOfDayAssembler,
-            jsonHelper);
+            jsonHelper,
+            moneyAssembler);
 
     Truth.assertThat(offenseTypeResource).isNotNull();
   }
