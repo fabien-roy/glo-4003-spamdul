@@ -1,22 +1,22 @@
 package ca.ulaval.glo4003.offenses.assemblers;
 
 import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
-import ca.ulaval.glo4003.offenses.domain.Offense;
+import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class OffenseTypeAssembler {
-  public OffenseTypeDto assemble(Offense offense) {
+  public OffenseTypeDto assemble(OffenseType offenseType) {
     OffenseTypeDto offenseTypeDto = new OffenseTypeDto();
 
-    offenseTypeDto.description = offense.getDescription();
-    offenseTypeDto.code = offense.getCode().toString();
-    offenseTypeDto.amount = offense.getAmount();
+    offenseTypeDto.description = offenseType.getDescription();
+    offenseTypeDto.code = offenseType.getCode().toString();
+    offenseTypeDto.amount = offenseType.getAmount();
 
     return offenseTypeDto;
   }
 
-  public List<OffenseTypeDto> assembleMany(List<Offense> offenses) {
-    return offenses.stream().map(this::assemble).collect(Collectors.toList());
+  public List<OffenseTypeDto> assembleMany(List<OffenseType> offenseTypes) {
+    return offenseTypes.stream().map(this::assemble).collect(Collectors.toList());
   }
 }

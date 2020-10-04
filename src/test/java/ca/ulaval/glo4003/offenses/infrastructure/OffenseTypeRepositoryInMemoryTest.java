@@ -4,8 +4,8 @@ import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeBuilder.anOffenseTyp
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.offenses.domain.Offense;
 import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
+import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
 import ca.ulaval.glo4003.offenses.exceptions.OffenseTypeNotFoundException;
 import java.util.List;
@@ -30,11 +30,11 @@ public class OffenseTypeRepositoryInMemoryTest {
 
   @Test
   public void whenGettingAll_thenReturnAllOffenseTypes() {
-    Offense offense = anOffenseType().build();
-    offenseTypeRepository.save(offense);
+    OffenseType offenseType = anOffenseType().build();
+    offenseTypeRepository.save(offenseType);
 
-    List<Offense> storedOffenses = offenseTypeRepository.getAll();
+    List<OffenseType> offenseTypes = offenseTypeRepository.getAll();
 
-    assertThat(storedOffenses).contains(offense);
+    assertThat(offenseTypes).contains(offenseType);
   }
 }

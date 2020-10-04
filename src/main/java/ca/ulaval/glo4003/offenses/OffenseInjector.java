@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.offenses.api.OffenseTypeResourceImplementation;
 import ca.ulaval.glo4003.offenses.assemblers.InfractionAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
-import ca.ulaval.glo4003.offenses.domain.Offense;
+import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
 import ca.ulaval.glo4003.offenses.filesystem.InfractionFileHelper;
 import ca.ulaval.glo4003.offenses.filesystem.dto.InfractionDto;
@@ -65,10 +65,10 @@ public class OffenseInjector {
     List<InfractionDto> infractions = infractionFileHelper.readInfractions();
 
     InfractionAssembler infractionAssembler = new InfractionAssembler();
-    List<Offense> offenses = infractionAssembler.assembleMany(infractions);
+    List<OffenseType> offenseTypes = infractionAssembler.assembleMany(infractions);
 
-    for (Offense offense : offenses) {
-      offenseTypeRepository.save(offense);
+    for (OffenseType offenseType : offenseTypes) {
+      offenseTypeRepository.save(offenseType);
     }
   }
 

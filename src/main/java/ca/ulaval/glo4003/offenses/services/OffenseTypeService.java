@@ -4,8 +4,8 @@ import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
-import ca.ulaval.glo4003.offenses.domain.Offense;
 import ca.ulaval.glo4003.offenses.domain.OffenseCodes;
+import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
 import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
@@ -53,19 +53,19 @@ public class OffenseTypeService {
     return offenseTypeAssembler.assemble(createNoOffense());
   }
 
-  private Offense createNoOffense() {
-    return new Offense("Aucune infraction signalée", OffenseCodes.NONE, 0);
+  private OffenseType createNoOffense() {
+    return new OffenseType("Aucune infraction signalée", OffenseCodes.NONE, 0);
   }
 
-  private Offense createWrongZoneOffense() {
+  private OffenseType createWrongZoneOffense() {
     return offenseTypeRepository.findByCode(OffenseCodes.ZONE_01);
   }
 
-  private Offense createWrongDayOffense() {
+  private OffenseType createWrongDayOffense() {
     return offenseTypeRepository.findByCode(OffenseCodes.VIG_01);
   }
 
-  private Offense createInvalidStickerOffense() {
+  private OffenseType createInvalidStickerOffense() {
     return offenseTypeRepository.findByCode(OffenseCodes.VIG_02);
   }
 }

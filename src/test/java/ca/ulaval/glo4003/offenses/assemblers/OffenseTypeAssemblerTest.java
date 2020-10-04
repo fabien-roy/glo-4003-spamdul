@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.offenses.assemblers;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeBuilder.anOffenseType;
 
 import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
-import ca.ulaval.glo4003.offenses.domain.Offense;
+import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import com.google.common.truth.Truth;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class OffenseTypeAssemblerTest {
   private OffenseTypeAssembler offenseTypeAssembler;
 
-  private final Offense offense = anOffenseType().build();
+  private final OffenseType offenseType = anOffenseType().build();
 
   @Before
   public void setUp() {
@@ -25,30 +25,30 @@ public class OffenseTypeAssemblerTest {
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithDescription() {
-    OffenseTypeDto offenseTypeDto = offenseTypeAssembler.assemble(offense);
+    OffenseTypeDto offenseTypeDto = offenseTypeAssembler.assemble(offenseType);
 
-    Truth.assertThat(offenseTypeDto.description).isEqualTo(offense.getDescription());
+    Truth.assertThat(offenseTypeDto.description).isEqualTo(offenseType.getDescription());
   }
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithCode() {
-    OffenseTypeDto offenseTypeDto = offenseTypeAssembler.assemble(offense);
+    OffenseTypeDto offenseTypeDto = offenseTypeAssembler.assemble(offenseType);
 
-    Truth.assertThat(offenseTypeDto.code).isEqualTo(offense.getCode().toString());
+    Truth.assertThat(offenseTypeDto.code).isEqualTo(offenseType.getCode().toString());
   }
 
   @Test
   public void whenAssembling_thenReturnOffenseDtoWithAmount() {
-    OffenseTypeDto offenseTypeDto = offenseTypeAssembler.assemble(offense);
+    OffenseTypeDto offenseTypeDto = offenseTypeAssembler.assemble(offenseType);
 
-    Truth.assertThat(offenseTypeDto.amount).isEqualTo(offense.getAmount());
+    Truth.assertThat(offenseTypeDto.amount).isEqualTo(offenseType.getAmount());
   }
 
   @Test
   public void whenAssemblingMany_thenReturnManyOffenseDto() {
-    List<Offense> offenses = Collections.nCopies(2, offense);
+    List<OffenseType> offenseTypes = Collections.nCopies(2, offenseType);
 
-    List<OffenseTypeDto> offenseTypeDtos = offenseTypeAssembler.assembleMany(offenses);
+    List<OffenseTypeDto> offenseTypeDtos = offenseTypeAssembler.assembleMany(offenseTypes);
 
     Truth.assertThat(offenseTypeDtos.size()).isEqualTo(2);
   }

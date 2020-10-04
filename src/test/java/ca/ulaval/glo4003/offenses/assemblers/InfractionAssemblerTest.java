@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.offenses.assemblers;
 import static ca.ulaval.glo4003.offenses.helpers.InfractionDtoBuilder.anInfractionDto;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
 
-import ca.ulaval.glo4003.offenses.domain.Offense;
+import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.filesystem.dto.InfractionDto;
 import com.google.common.truth.Truth;
 import java.util.Collections;
@@ -24,16 +24,16 @@ public class InfractionAssemblerTest {
 
   @Test
   public void whenAssembling_thenReturnOffenseWithDescription() {
-    Offense offense = infractionAssembler.assemble(infractionDto);
+    OffenseType offenseType = infractionAssembler.assemble(infractionDto);
 
-    Truth.assertThat(offense.getDescription()).isEqualTo(infractionDto.infraction);
+    Truth.assertThat(offenseType.getDescription()).isEqualTo(infractionDto.infraction);
   }
 
   @Test
   public void whenAssembling_thenReturnOffenseWithCode() {
-    Offense offense = infractionAssembler.assemble(infractionDto);
+    OffenseType offenseType = infractionAssembler.assemble(infractionDto);
 
-    Truth.assertThat(offense.getCode().toString()).isEqualTo(infractionDto.code);
+    Truth.assertThat(offenseType.getCode().toString()).isEqualTo(infractionDto.code);
   }
 
   @Test
@@ -41,24 +41,24 @@ public class InfractionAssemblerTest {
     String lowerCaseCode = createOffenseCode().toString().toLowerCase();
     infractionDto = anInfractionDto().withCode(lowerCaseCode).build();
 
-    Offense offense = infractionAssembler.assemble(infractionDto);
+    OffenseType offenseType = infractionAssembler.assemble(infractionDto);
 
-    Truth.assertThat(offense.getCode().toString()).isEqualTo(infractionDto.code.toUpperCase());
+    Truth.assertThat(offenseType.getCode().toString()).isEqualTo(infractionDto.code.toUpperCase());
   }
 
   @Test
   public void whenAssembling_thenReturnOffenseWithAmount() {
-    Offense offense = infractionAssembler.assemble(infractionDto);
+    OffenseType offenseType = infractionAssembler.assemble(infractionDto);
 
-    Truth.assertThat(offense.getAmount()).isEqualTo(infractionDto.montant);
+    Truth.assertThat(offenseType.getAmount()).isEqualTo(infractionDto.montant);
   }
 
   @Test
   public void whenAssemblingMany_thenReturnManyOffenses() {
     List<InfractionDto> infractionDtos = Collections.nCopies(2, infractionDto);
 
-    List<Offense> offenses = infractionAssembler.assembleMany(infractionDtos);
+    List<OffenseType> offenseTypes = infractionAssembler.assembleMany(infractionDtos);
 
-    Truth.assertThat(offenses.size()).isEqualTo(2);
+    Truth.assertThat(offenseTypes.size()).isEqualTo(2);
   }
 }

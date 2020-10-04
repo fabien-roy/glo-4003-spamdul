@@ -2,12 +2,12 @@ package ca.ulaval.glo4003.offenses.domain;
 
 import java.util.Objects;
 
-public class Offense {
+public class OffenseType {
   private String description;
   private OffenseCodes code;
   private double amount;
 
-  public Offense(String description, OffenseCodes code, double amount) {
+  public OffenseType(String description, OffenseCodes code, double amount) {
     this.description = description;
     this.code = code;
     this.amount = amount;
@@ -17,8 +17,8 @@ public class Offense {
   public boolean equals(Object object) {
     if (this == object) return true;
     if (object == null || getClass() != object.getClass()) return false;
-    Offense offense = (Offense) object;
-    return code.equals(offense.code);
+    OffenseType offenseType = (OffenseType) object;
+    return code.equals(offenseType.code);
   }
 
   @Override

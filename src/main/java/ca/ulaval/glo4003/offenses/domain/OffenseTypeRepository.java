@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface OffenseTypeRepository {
 
-  void save(Offense offense);
+  void save(OffenseType offenseType);
 
-  Offense findByCode(OffenseCodes offenseCodes);
+  OffenseType findByCode(OffenseCodes offenseCodes);
 
-  List<Offense> getAll();
+  List<OffenseType> getAll();
 }

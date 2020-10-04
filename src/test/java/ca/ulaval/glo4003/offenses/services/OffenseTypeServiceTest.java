@@ -38,15 +38,18 @@ public class OffenseTypeServiceTest {
 
   private OffenseTypeService offenseTypeService;
 
-  private final Offense offenseType = anOffenseType().build();
-  private final List<Offense> offenseTypes = Collections.singletonList(offenseType);
+  private final OffenseType offenseType = anOffenseType().build();
+  private final List<OffenseType> offenseTypes = Collections.singletonList(offenseType);
   private final OffenseTypeDto offenseTypeDto = anOffenseTypeDto().build();
   private final List<OffenseTypeDto> offenseTypeDtos = Collections.singletonList(offenseTypeDto);
   private final OffenseValidation offenseValidation = anOffenseValidation().build();
   private final OffenseValidationDto offenseValidationDto = anOffenseValidationDto().build();
-  private final Offense zone01offense = anOffenseType().withCode(OffenseCodes.ZONE_01).build();
-  private final Offense vig01offense = anOffenseType().withCode(OffenseCodes.VIG_01).build();
-  private final Offense vig02offense = anOffenseType().withCode(OffenseCodes.VIG_02).build();
+  private final OffenseType zone01OffenseType =
+      anOffenseType().withCode(OffenseCodes.ZONE_01).build();
+  private final OffenseType vig01OffenseType =
+      anOffenseType().withCode(OffenseCodes.VIG_01).build();
+  private final OffenseType vig02OffenseType =
+      anOffenseType().withCode(OffenseCodes.VIG_02).build();
 
   @Before
   public void setUp() {
@@ -65,9 +68,9 @@ public class OffenseTypeServiceTest {
         .thenReturn(false);
     when(parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode()))
         .thenReturn(parkingSticker);
-    when(offenseTypeRepository.findByCode(OffenseCodes.ZONE_01)).thenReturn(zone01offense);
-    when(offenseTypeRepository.findByCode(OffenseCodes.VIG_01)).thenReturn(vig01offense);
-    when(offenseTypeRepository.findByCode(OffenseCodes.VIG_02)).thenReturn(vig02offense);
+    when(offenseTypeRepository.findByCode(OffenseCodes.ZONE_01)).thenReturn(zone01OffenseType);
+    when(offenseTypeRepository.findByCode(OffenseCodes.VIG_01)).thenReturn(vig01OffenseType);
+    when(offenseTypeRepository.findByCode(OffenseCodes.VIG_02)).thenReturn(vig02OffenseType);
   }
 
   @Test
@@ -93,7 +96,7 @@ public class OffenseTypeServiceTest {
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
-    Mockito.verify(offenseTypeAssembler).assemble(vig02offense);
+    Mockito.verify(offenseTypeAssembler).assemble(vig02OffenseType);
   }
 
   @Test
@@ -103,9 +106,9 @@ public class OffenseTypeServiceTest {
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
-    ArgumentCaptor<Offense> argumentCaptor = ArgumentCaptor.forClass(Offense.class);
+    ArgumentCaptor<OffenseType> argumentCaptor = ArgumentCaptor.forClass(OffenseType.class);
     Mockito.verify(offenseTypeAssembler).assemble(argumentCaptor.capture());
-    Offense capturedArgument = argumentCaptor.getValue();
+    OffenseType capturedArgument = argumentCaptor.getValue();
     assertThat(capturedArgument.getCode()).isEqualTo(OffenseCodes.NONE);
   }
 
@@ -117,6 +120,6 @@ public class OffenseTypeServiceTest {
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
-    Mockito.verify(offenseTypeAssembler).assemble(zone01offense);
+    Mockito.verify(offenseTypeAssembler).assemble(zone01OffenseType);
   }
 }
