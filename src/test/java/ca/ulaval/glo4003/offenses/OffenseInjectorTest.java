@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.offenses;
 
+import ca.ulaval.glo4003.files.filesystem.JsonHelper;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.offenses.api.OffenseTypeResource;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
@@ -22,6 +23,10 @@ public class OffenseInjectorTest {
   @Mock private TimeOfDayAssembler timeOfDayAssembler;
 
   private OffenseInjector offenseInjector;
+
+  private final JsonHelper jsonHelper =
+      new JsonHelper(); // TODO : If we would not fill offense type repository at injection, this
+  // would not have to happen
 
   @Before
   public void setUp() {
@@ -47,7 +52,8 @@ public class OffenseInjectorTest {
             parkingStickerRepository,
             parkingStickerCodeAssembler,
             parkingAreaCodeAssembler,
-            timeOfDayAssembler);
+            timeOfDayAssembler,
+            jsonHelper);
 
     Truth.assertThat(offenseTypeResource).isNotNull();
   }
