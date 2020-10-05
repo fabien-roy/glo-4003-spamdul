@@ -64,11 +64,9 @@ public class ParkingService {
     ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
 
     Account account = accountRepository.findById(parkingSticker.getAccountId());
-    parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
 
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
-    // TODO : Use observers instead of this if-else
     if (parkingSticker.getReceptionMethod().equals(ReceptionMethods.EMAIL)) {
       emailSender.sendEmail(
           parkingSticker.getEmailAddress().toString(),
@@ -82,12 +80,16 @@ public class ParkingService {
               SENDING_PARKING_STICKER_POSTAL_MESSAGE, parkingSticker.getCode().toString()));
     }
 
-    account.addParkingSticker(parkingSticker);
-    Bill bill = billService.createBill(parkingSticker);
+    ParkingArea parkingArea = parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
+    Bill bill = billService.createBill(parkingSticker, parkingArea);
+
     account.addBill(bill);
+    account.addParkingSticker(parkingSticker);
     accountRepository.update(account);
 
     parkingStickerRepository.save(parkingSticker);
+
+    // TODO : Use observers instead of this if-else (here, not before)
 
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
   }

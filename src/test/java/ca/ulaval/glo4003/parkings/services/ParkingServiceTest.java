@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.parkings.services;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.parkings.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -53,6 +54,7 @@ public class ParkingServiceTest {
   private ParkingSticker parkingStickerNotValidToday =
       aParkingSticker().withValidDay(notDayOfWeek).build();
   private ParkingStickerCode parkingStickerCode = parkingSticker.getCode();
+  private ParkingArea parkingArea = aParkingArea().build();
   private Bill bill = aBill().build();
   private AccessStatusDto accessStatusGrantedDto = anAccessStatusDto().build();
   private AccessStatusDto accessStatusRefusedDto = anAccessStatusDto().build();
@@ -78,7 +80,9 @@ public class ParkingServiceTest {
         .thenReturn(parkingStickerCodeDto);
     when(accountRepository.findById(parkingSticker.getAccountId())).thenReturn(account);
     when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
-    when(billService.createBill(parkingSticker)).thenReturn(bill);
+    when(parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode()))
+        .thenReturn(parkingArea);
+    when(billService.createBill(parkingSticker, parkingArea)).thenReturn(bill);
     when(parkingStickerCodeAssembler.assemble(parkingStickerCode.toString()))
         .thenReturn(parkingStickerCode);
     when(parkingStickerRepository.findByCode(parkingStickerCode)).thenReturn(parkingSticker);

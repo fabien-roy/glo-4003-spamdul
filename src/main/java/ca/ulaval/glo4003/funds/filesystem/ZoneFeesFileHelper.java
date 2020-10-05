@@ -15,7 +15,7 @@ public class ZoneFeesFileHelper {
     this.fileHelper = fileHelper;
   }
 
-  public float getZonePrice(String zone, String time) {
+  public double getZonePrice(String zone, String time) {
     List<List<String>> csvData = fileHelper.readFile(ZONE_FEES_PATH);
     int columnNumber = findColumnNumberForZonePrice(time, csvData.get(0));
     return findPriceForSpecificColumnNumberAndZone(columnNumber, zone, csvData);
@@ -32,11 +32,11 @@ public class ZoneFeesFileHelper {
     return zones;
   }
 
-  private float findPriceForSpecificColumnNumberAndZone(
+  private double findPriceForSpecificColumnNumberAndZone(
       int columnNumber, String zone, List<List<String>> csvData) {
     for (int i = 1; i < csvData.size(); i++) {
       if (csvData.get(i).get(0).equals(zone)) {
-        return Float.parseFloat(csvData.get(i).get(columnNumber));
+        return Double.parseDouble(csvData.get(i).get(columnNumber));
       }
     }
 

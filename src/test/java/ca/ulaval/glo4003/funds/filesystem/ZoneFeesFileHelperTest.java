@@ -21,7 +21,7 @@ public class ZoneFeesFileHelperTest {
 
   private static final String defaultZone = "Zone1";
   private static final String defaultTime = "1j/sem/session";
-  private static final float price = 103;
+  private static final double price = 103;
   private static final String CSV_FILE = "data/frais-zone.csv";
   private final List<List<String>> csvFile = new ArrayList<>();
 
@@ -39,8 +39,8 @@ public class ZoneFeesFileHelperTest {
 
   @Test
   public void whenBillingAZone_thenReturnTheGoodPrice() {
-    float price = zoneFeesFileHelper.getZonePrice(defaultZone, defaultTime);
-    Truth.assertThat(price).isEqualTo(103f);
+    double price = zoneFeesFileHelper.getZonePrice(defaultZone, defaultTime);
+    Truth.assertThat(price).isEqualTo(103d);
   }
 
   @Test

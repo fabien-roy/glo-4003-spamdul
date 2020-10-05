@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings.domain;
 
 public class ParkingArea {
-  private ParkingAreaCode code;
+  private final ParkingAreaCode code;
 
   public ParkingArea(ParkingAreaCode code) {
     this.code = code;
