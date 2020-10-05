@@ -19,6 +19,11 @@ public class ParkingAreaBuilder {
     return new ParkingAreaBuilder();
   }
 
+  public ParkingAreaBuilder withFeePerPeriod(Map<ParkingPeriods, Money> feePerPeriod) {
+    this.feePerPeriod = feePerPeriod;
+    return this;
+  }
+
   public ParkingArea build() {
     return new ParkingArea(parkingAreaCode, feePerPeriod);
   }

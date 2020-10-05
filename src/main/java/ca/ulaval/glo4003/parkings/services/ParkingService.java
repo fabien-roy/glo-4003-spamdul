@@ -81,7 +81,7 @@ public class ParkingService {
     }
 
     ParkingArea parkingArea = parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
-    Bill bill = billService.createBill(parkingSticker, parkingArea);
+    Bill bill = billService.createBillForParkingSticker(parkingSticker, parkingArea);
 
     account.addBill(bill);
     account.addParkingSticker(parkingSticker);

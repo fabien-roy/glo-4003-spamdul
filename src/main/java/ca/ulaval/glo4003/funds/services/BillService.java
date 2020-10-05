@@ -16,13 +16,12 @@ public class BillService {
     this.billFactory = billFactory;
   }
 
-  // TODO : Test BillService.createBill
-  public Bill createBill(ParkingSticker parkingSticker, ParkingArea parkingArea) {
+  public Bill createBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
     logger.info(String.format("Create bill for parking sticker %s", parkingSticker));
 
-    Money amount =
+    Money feeForPeriod =
         parkingArea.getFeeForPeriod(ParkingPeriods.ONE_DAY); // TODO : Will this always be one day?
 
-    return billFactory.createForParkingSticker(amount, parkingSticker.getReceptionMethod());
+    return billFactory.createForParkingSticker(feeForPeriod, parkingSticker.getReceptionMethod());
   }
 }
