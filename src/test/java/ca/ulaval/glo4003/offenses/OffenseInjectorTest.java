@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.offenses;
 import ca.ulaval.glo4003.files.filesystem.JsonHelper;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
-import ca.ulaval.glo4003.offenses.api.OffenseTypeResource;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
@@ -42,22 +41,10 @@ public class OffenseInjectorTest {
             parkingStickerRepository,
             parkingStickerCodeAssembler,
             parkingAreaCodeAssembler,
-            timeOfDayAssembler);
-
-    Truth.assertThat(offenseResource).isNotNull();
-  }
-
-  @Test
-  public void whenCreatingOffenseTypeResource_thenReturnIt() {
-    OffenseTypeResource offenseTypeResource =
-        offenseInjector.createOffenseTypeResource(
-            parkingStickerRepository,
-            parkingStickerCodeAssembler,
-            parkingAreaCodeAssembler,
             timeOfDayAssembler,
             jsonHelper,
             moneyAssembler);
 
-    Truth.assertThat(offenseTypeResource).isNotNull();
+    Truth.assertThat(offenseResource).isNotNull();
   }
 }

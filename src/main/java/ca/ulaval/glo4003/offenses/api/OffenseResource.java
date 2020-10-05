@@ -9,6 +9,11 @@ import javax.ws.rs.core.Response;
 public interface OffenseResource {
 
   @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("types")
+  Response getAllOffenses();
+
+  @GET
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   @Path("validate")

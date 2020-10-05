@@ -31,7 +31,23 @@ public class OffenseResourceImplementationTest {
   public void setUp() {
     offenseResource = new OffenseResourceImplementation(offenseTypeService);
 
+    when(offenseTypeService.getAllOffenseTypes()).thenReturn(offenseTypeDtos);
     when(offenseTypeService.validateOffense(offenseValidationDto)).thenReturn(offenseTypeDtos);
+  }
+
+  @Test
+  public void whenGettingAllOffenses_thenRespondOkStatus() {
+    Response response = offenseResource.getAllOffenses();
+
+    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
+  }
+
+  @Test
+  public void whenGettingAllOffenses_thenRespondOffenseTypeDtos() {
+    Response response = offenseResource.getAllOffenses();
+    List<OffenseTypeDto> receivedOffenseTypeDtos = (List<OffenseTypeDto>) response.getEntity();
+
+    Truth.assertThat(receivedOffenseTypeDtos).isSameInstanceAs(offenseTypeDtos);
   }
 
   @Test

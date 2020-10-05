@@ -4,8 +4,6 @@ import ca.ulaval.glo4003.files.filesystem.JsonHelper;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.offenses.api.OffenseResourceImplementation;
-import ca.ulaval.glo4003.offenses.api.OffenseTypeResource;
-import ca.ulaval.glo4003.offenses.api.OffenseTypeResourceImplementation;
 import ca.ulaval.glo4003.offenses.assemblers.InfractionAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseCodeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
@@ -34,21 +32,6 @@ public class OffenseInjector {
       ParkingStickerRepository parkingStickerRepository,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
-      TimeOfDayAssembler timeOfDayAssembler) {
-    OffenseTypeService offenseTypeService =
-        createOffenseService(
-            parkingStickerRepository,
-            parkingStickerCodeAssembler,
-            parkingAreaCodeAssembler,
-            timeOfDayAssembler);
-
-    return new OffenseResourceImplementation(offenseTypeService);
-  }
-
-  public OffenseTypeResource createOffenseTypeResource(
-      ParkingStickerRepository parkingStickerRepository,
-      ParkingStickerCodeAssembler parkingStickerCodeAssembler,
-      ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       TimeOfDayAssembler timeOfDayAssembler,
       JsonHelper jsonHelper,
       MoneyAssembler moneyAssembler) {
@@ -61,7 +44,7 @@ public class OffenseInjector {
             parkingAreaCodeAssembler,
             timeOfDayAssembler);
 
-    return new OffenseTypeResourceImplementation(offenseTypeService);
+    return new OffenseResourceImplementation(offenseTypeService);
   }
 
   private void addOffenseTypesToRepository(JsonHelper jsonHelper, MoneyAssembler moneyAssembler) {

@@ -16,6 +16,17 @@ public class OffenseResourceImplementation implements OffenseResource {
   }
 
   @Override
+  public Response getAllOffenses() {
+    List<OffenseTypeDto> offenses = offenseTypeService.getAllOffenseTypes();
+    GenericEntity<List<OffenseTypeDto>> entities =
+        new GenericEntity<List<OffenseTypeDto>>(offenses) {};
+    return Response.status(Response.Status.OK)
+        .entity(entities)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
+
+  @Override
   public Response validateOffense(OffenseValidationDto offenseValidationDto) {
     List<OffenseTypeDto> offenses = offenseTypeService.validateOffense(offenseValidationDto);
     GenericEntity<List<OffenseTypeDto>> entities =
