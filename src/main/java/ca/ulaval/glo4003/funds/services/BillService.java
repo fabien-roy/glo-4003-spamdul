@@ -23,6 +23,6 @@ public class BillService {
     Money amount =
         parkingArea.getFeeForPeriod(ParkingPeriods.ONE_DAY); // TODO : Will this always be one day?
 
-    return billFactory.createForParkingSticker(amount);
+    return billFactory.createForParkingSticker(amount, parkingSticker.getReceptionMethod());
   }
 }

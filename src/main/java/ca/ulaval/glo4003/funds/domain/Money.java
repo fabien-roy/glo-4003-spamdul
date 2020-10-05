@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.funds.domain;
 import java.util.Objects;
 
 public class Money {
-  private double amount;
+  private final double amount;
 
   public Money(double amount) {
     this.amount = amount;
@@ -11,6 +11,10 @@ public class Money {
 
   public double toDouble() {
     return amount;
+  }
+
+  public static Money ZERO() {
+    return new Money(0);
   }
 
   @Override

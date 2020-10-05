@@ -1,11 +1,14 @@
 package ca.ulaval.glo4003.funds.domain;
 
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
+
 public class BillFactory {
 
   // TODO : Test BillFactory.createForParkingSticker
-  public Bill createForParkingSticker(Money amount) {
+  public Bill createForParkingSticker(Money amount, ReceptionMethods receptionMethod) {
     // TODO : Use BillIdGenerator to make a new one
     // TODO : Add description concerning parking stickers
-    return new Bill();
+    // TODO : Add a fee for reception method
+    return new Bill(Money.ZERO());
   }
 }
