@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.accounts.domain;
 
-import ca.ulaval.glo4003.bills.domain.Bill;
 import ca.ulaval.glo4003.cars.domain.Car;
+import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.users.domain.User;

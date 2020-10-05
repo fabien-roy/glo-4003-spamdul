@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.bills.api;
+package ca.ulaval.glo4003.funds.api;
 
-import ca.ulaval.glo4003.bills.exceptions.BillException;
+import ca.ulaval.glo4003.funds.exceptions.FundException;
 import ca.ulaval.glo4003.interfaces.api.dto.ErrorDto;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -8,10 +8,10 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class BillExceptionMapper implements ExceptionMapper<BillException> {
+public class FundExceptionMapper implements ExceptionMapper<FundException> {
 
   @Override
-  public Response toResponse(BillException exception) {
+  public Response toResponse(FundException exception) {
     Response.Status responseStatus = Response.Status.BAD_REQUEST;
 
     ErrorDto errorDto = new ErrorDto();

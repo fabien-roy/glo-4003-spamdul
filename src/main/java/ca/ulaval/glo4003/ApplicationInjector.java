@@ -2,7 +2,6 @@ package ca.ulaval.glo4003;
 
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
-import ca.ulaval.glo4003.bills.api.BillExceptionMapper;
 import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.cars.api.CarExceptionMapper;
 import ca.ulaval.glo4003.cars.api.CarResource;
@@ -11,6 +10,7 @@ import ca.ulaval.glo4003.communications.api.CommunicationExceptionMapper;
 import ca.ulaval.glo4003.files.FileInjector;
 import ca.ulaval.glo4003.files.api.FileExceptionMapper;
 import ca.ulaval.glo4003.funds.FundInjector;
+import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
 import ca.ulaval.glo4003.interfaces.api.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.locations.LocationInjector;
 import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
@@ -80,10 +80,10 @@ public class ApplicationInjector {
     return Arrays.asList(
         CatchAllExceptionMapper.class,
         AccountExceptionMapper.class,
-        BillExceptionMapper.class,
         CarExceptionMapper.class,
         CommunicationExceptionMapper.class,
         FileExceptionMapper.class,
+        FundExceptionMapper.class,
         LocationExceptionMapper.class,
         ParkingExceptionMapper.class,
         TimeExceptionMapper.class,

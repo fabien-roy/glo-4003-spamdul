@@ -1,9 +1,8 @@
-package ca.ulaval.glo4003.bills.domain;
+package ca.ulaval.glo4003.funds.domain;
 
-import ca.ulaval.glo4003.bills.filesystem.CSVBillingZoneHelper;
+import ca.ulaval.glo4003.funds.filesystem.CSVBillingZoneHelper;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
 
-// TODO : Move to funds module
 public class Bill {
   CSVBillingZoneHelper csvBillingZoneHelper =
       new CSVBillingZoneHelper(); // TODO : Remove this atrocity from our beautiful domain

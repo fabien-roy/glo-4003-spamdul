@@ -2,9 +2,9 @@ package ca.ulaval.glo4003.parkings;
 
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.bills.filesystem.CSVBillingZoneHelper;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
+import ca.ulaval.glo4003.funds.filesystem.CSVBillingZoneHelper;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
 import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.api.ParkingResource;
