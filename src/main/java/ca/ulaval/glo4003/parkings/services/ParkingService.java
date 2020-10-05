@@ -87,7 +87,9 @@ public class ParkingService {
     account.addParkingSticker(parkingSticker);
     accountRepository.update(account);
 
-    parkingStickerRepository.save(parkingSticker);
+    parkingStickerRepository.save(
+        parkingSticker); // TODO : Isn't this duplicated information? We already have the parking
+    // sticker in the account
 
     // TODO : Use observers instead of this if-else (here, not before)
 
