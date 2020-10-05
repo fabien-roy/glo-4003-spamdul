@@ -70,19 +70,19 @@ uses:
               description: Error validating parking sticker
             404:
               description: Parking sticker not found
-  /offenseTypes:
-    get:
-      description: Collection of all possible offenseType types
-      responses:
-        200:
-          description: All offenseType types
-          body:
-            application/json:
-              type: types.OffenseType[]
-              example: !include examples/offensetypes/get-offense-types-response.json
-        400:
-          description: Error getting offenseType types
   /offenses:
+    /types:
+      get:
+        description: Collection of all possible offenseType types
+        responses:
+          200:
+            description: All offenseType types
+            body:
+              application/json:
+                type: types.OffenseType[]
+                example: !include examples/offenses/get-offense-types-response.json
+          400:
+            description: Error getting offenseType types
     /validate:
       get:
         description: Check offenseTypes for the parking sticker
