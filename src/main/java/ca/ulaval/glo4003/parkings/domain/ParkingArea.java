@@ -15,4 +15,8 @@ public class ParkingArea {
   public ParkingAreaCode getCode() {
     return code;
   }
+
+  public Money getFeeForPeriod(ParkingPeriods period) {
+    return feePerPeriod.get(period);
+  }
 }
