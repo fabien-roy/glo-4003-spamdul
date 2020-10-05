@@ -25,15 +25,11 @@ public class ParkingInjector {
   private final ParkingStickerCodeGenerator parkingStickerCodeGenerator;
   private final ParkingAreaRepository parkingAreaRepository;
   private final ParkingStickerRepository parkingStickerRepository;
-  private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
-  private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
   public ParkingInjector() {
     parkingStickerCodeGenerator = new ParkingStickerCodeGenerator();
     parkingAreaRepository = new ParkingAreaRepositoryInMemory();
     parkingStickerRepository = new ParkingStickerRepositoryInMemory();
-    parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
-    parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
   }
 
   public ParkingResource createParkingResource(
@@ -86,11 +82,11 @@ public class ParkingInjector {
     return parkingStickerRepository;
   }
 
-  public ParkingStickerCodeAssembler getParkingStickerCodeAssembler() {
-    return parkingStickerCodeAssembler;
+  public ParkingStickerCodeAssembler createParkingStickerCodeAssembler() {
+    return new ParkingStickerCodeAssembler();
   }
 
-  public ParkingAreaCodeAssembler getParkingAreaCodeAssembler() {
-    return parkingAreaCodeAssembler;
+  public ParkingAreaCodeAssembler createParkingAreaCodeAssembler() {
+    return new ParkingAreaCodeAssembler();
   }
 }

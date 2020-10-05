@@ -1,13 +1,14 @@
 package ca.ulaval.glo4003.offenses.domain;
 
+import ca.ulaval.glo4003.funds.domain.Money;
 import java.util.Objects;
 
-public class Offense {
-  private String description;
-  private OffenseCodes code;
-  private double amount;
+public class OffenseType {
+  private final String description;
+  private final OffenseCode code;
+  private final Money amount;
 
-  public Offense(String description, OffenseCodes code, double amount) {
+  public OffenseType(String description, OffenseCode code, Money amount) {
     this.description = description;
     this.code = code;
     this.amount = amount;
@@ -17,8 +18,8 @@ public class Offense {
   public boolean equals(Object object) {
     if (this == object) return true;
     if (object == null || getClass() != object.getClass()) return false;
-    Offense offense = (Offense) object;
-    return code.equals(offense.code);
+    OffenseType offenseType = (OffenseType) object;
+    return code.equals(offenseType.code);
   }
 
   @Override
@@ -30,11 +31,11 @@ public class Offense {
     return description;
   }
 
-  public OffenseCodes getCode() {
+  public OffenseCode getCode() {
     return code;
   }
 
-  public double getAmount() {
+  public Money getAmount() {
     return amount;
   }
 }

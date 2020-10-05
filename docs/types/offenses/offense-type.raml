@@ -1,6 +1,6 @@
 #%RAML 1.0 DataType
 type: object
-displayName: Offense
+displayName: OffenseType
 uses:
   types: ../../libraries/types.raml
 properties:
@@ -9,7 +9,7 @@ properties:
     description: Description of offence
   code:
     type: string
-    description: Code of offense
+    description: Code of offenseType
   amount:
-    type: number
-    description: Amount due for offense
+    type: types.Money
+    description: Amount due for offenseType

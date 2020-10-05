@@ -1,13 +1,14 @@
 package ca.ulaval.glo4003.offenses.helpers;
 
-import static ca.ulaval.glo4003.offenses.helpers.OffenseMother.*;
+import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
+import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.*;
 
-import ca.ulaval.glo4003.offenses.api.dto.InfractionDto;
+import ca.ulaval.glo4003.offenses.filesystem.dto.InfractionDto;
 
 public class InfractionDtoBuilder {
   private String infraction = createDescription();
   private String code = createOffenseCode().toString();
-  private int montant = (int) createAmount();
+  private int montant = (int) createMoney().toDouble();
 
   private InfractionDtoBuilder() {}
 

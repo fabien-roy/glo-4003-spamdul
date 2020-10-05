@@ -71,33 +71,34 @@ uses:
             404:
               description: Parking sticker not found
   /offenses:
-    get:
-      description: Collection of all possible offenses
-      responses:
-        200:
-          description: All offenses
-          body:
-            application/json:
-              type: types.Offense[]
-              example: !include examples/offenses/get-offenses-response.json
-        400:
-          description: Error getting offenses
+    /types:
+      get:
+        description: Collection of all possible offenseType types
+        responses:
+          200:
+            description: All offenseType types
+            body:
+              application/json:
+                type: types.OffenseType[]
+                example: !include examples/offenses/get-offense-types-response.json
+          400:
+            description: Error getting offenseType types
     /validate:
       get:
-        description: Check offenses for the parking sticker
+        description: Check offenseTypes for the parking sticker
         body:
           application/json:
             type: types.OffenseValidation
             example: !include examples/offenses/get-offenses-validate-request.json
         responses:
           200:
-            description: Offense of parking sticker code
+            description: Offense type of parking sticker code
             body:
               application/json:
-                type: types.Offense
+                type: types.OffenseType
                 example: !include examples/offenses/get-offenses-validate-response.json
           400:
-            description: Error getting offenses for parking sticker
+            description: Error getting offenseType type for parking sticker
           404:
             description: Parking sticker not found
   /cars:
