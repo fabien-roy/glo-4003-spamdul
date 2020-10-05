@@ -281,13 +281,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/offenseTypes",
+					"raw": "{{host}}/api/offenses/types",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"api",
-						"offenseTypes"
+						"offenses",
+						"types"
 					]
 				}
 			},
