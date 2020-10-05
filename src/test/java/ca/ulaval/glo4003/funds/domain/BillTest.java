@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.funds.domain;
 
 import static org.mockito.Mockito.verify;
 
-import ca.ulaval.glo4003.funds.filesystem.CSVBillingZoneHelper;
+import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
 import com.google.common.truth.Truth;
 import org.junit.Before;
@@ -16,19 +16,19 @@ public class BillTest {
   private static final String zone = "Zone1";
   private static final String time = "1j/sem/session";
   private Bill bill;
-  @Mock private CSVBillingZoneHelper csvBillingZoneHelper;
+  @Mock private ZoneFeesFileHelper zoneFeesFileHelper;
 
   @Before
   public void setup() {
     bill = new Bill();
-    bill.setCsvBillingZoneHelper(csvBillingZoneHelper);
+    bill.setCsvBillingZoneHelper(zoneFeesFileHelper);
   }
 
   @Test
   public void whenCalculatingTheZonePrice_thenAddThisPriceToMoneyToPay() {
     bill.calculateZonePriceWithCommunicationType(ReceptionMethods.POSTAL, zone, time);
 
-    verify(csvBillingZoneHelper).getZonePrice(zone, time);
+    verify(zoneFeesFileHelper).getZonePrice(zone, time);
   }
 
   @Test

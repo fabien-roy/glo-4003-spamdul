@@ -1,11 +1,12 @@
 package ca.ulaval.glo4003.funds.domain;
 
-import ca.ulaval.glo4003.funds.filesystem.CSVBillingZoneHelper;
+import ca.ulaval.glo4003.files.filesystem.CsvHelper;
+import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
 
 public class Bill {
-  CSVBillingZoneHelper csvBillingZoneHelper =
-      new CSVBillingZoneHelper(); // TODO : Remove this atrocity from our beautiful domain
+  // TODO : Remove this atrocity from our beautiful domain
+  ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(new CsvHelper());
 
   private float amountDue; // TODO : Use Money value object
 
@@ -15,7 +16,7 @@ public class Bill {
 
   public void calculateZonePriceWithCommunicationType(
       ReceptionMethods receptionMethods, String zone, String time) {
-    amountDue += csvBillingZoneHelper.getZonePrice(zone, time);
+    amountDue += zoneFeesFileHelper.getZonePrice(zone, time);
     addPriceForCommunicationMethod(receptionMethods);
   }
 
@@ -25,8 +26,8 @@ public class Bill {
     }
   }
 
-  public void setCsvBillingZoneHelper(CSVBillingZoneHelper csvBillingZoneHelper) {
-    this.csvBillingZoneHelper = csvBillingZoneHelper;
+  public void setCsvBillingZoneHelper(ZoneFeesFileHelper zoneFeesFileHelper) {
+    this.zoneFeesFileHelper = zoneFeesFileHelper;
   }
 
   public float getAmountDue() {

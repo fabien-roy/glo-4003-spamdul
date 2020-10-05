@@ -4,7 +4,9 @@ import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
-import ca.ulaval.glo4003.funds.filesystem.CSVBillingZoneHelper;
+import ca.ulaval.glo4003.files.domain.StringMatrixFileHelper;
+import ca.ulaval.glo4003.files.filesystem.CsvHelper;
+import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
 import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.api.ParkingResource;
@@ -40,17 +42,19 @@ public class ParkingInjector {
       EmailSender emailSender,
       PostalSender postalSender,
       AccountRepository accountRepository) {
+    ParkingAreaCodeAssembler parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
+
     if (isDev) {
-      CSVBillingZoneHelper csvBillingZoneHelper = new CSVBillingZoneHelper();
-      List<String> zones = csvBillingZoneHelper.getAllZones();
+      StringMatrixFileHelper fileHelper = new CsvHelper();
+      ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileHelper);
+      List<String> zones = zoneFeesFileHelper.getAllZones();
       List<ParkingArea> parkingAreas =
           zones.stream()
-              .map(zone -> new ParkingArea(new ParkingAreaCode(zone)))
+              .map(zone -> new ParkingArea(parkingAreaCodeAssembler.assemble(zone)))
               .collect(Collectors.toList());
       parkingAreas.forEach(parkingAreaRepository::save);
     }
 
-    ParkingAreaCodeAssembler parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
     ParkingStickerAssembler parkingStickerAssembler =
         new ParkingStickerAssembler(
             parkingAreaCodeAssembler,

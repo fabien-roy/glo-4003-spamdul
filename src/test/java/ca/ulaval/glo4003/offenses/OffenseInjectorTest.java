@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.offenses;
 
+import ca.ulaval.glo4003.files.domain.StringFileHelper;
 import ca.ulaval.glo4003.files.filesystem.JsonHelper;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
@@ -25,7 +26,7 @@ public class OffenseInjectorTest {
 
   private OffenseInjector offenseInjector;
 
-  private final JsonHelper jsonHelper =
+  private final StringFileHelper jsonHelper =
       new JsonHelper(); // TODO : If we would not fill offense type repository at injection, this
   // would not have to happen
 

@@ -1,29 +1,29 @@
 package ca.ulaval.glo4003.funds.filesystem;
 
-import ca.ulaval.glo4003.files.filesystem.CsvHelper;
+import ca.ulaval.glo4003.files.domain.StringMatrixFileHelper;
 import ca.ulaval.glo4003.funds.exceptions.InvalidTimeException;
 import ca.ulaval.glo4003.funds.exceptions.InvalidZoneException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSVBillingZoneHelper {
-  private final String csvFraisZonePath =
-      "data/frais-zone.csv"; // TODO : Make sure this works on all OS
-  CsvHelper csvHelper = new CsvHelper();
+public class ZoneFeesFileHelper {
+  private static final String ZONE_FEES_PATH = "data/frais-zone.csv";
 
-  public void setCsvHelper(CsvHelper csvHelper) {
-    this.csvHelper = csvHelper;
+  private final StringMatrixFileHelper fileHelper;
+
+  public ZoneFeesFileHelper(StringMatrixFileHelper fileHelper) {
+    this.fileHelper = fileHelper;
   }
 
   public float getZonePrice(String zone, String time) {
-    List<List<String>> csvData = csvHelper.getCsvFileInJavaFormat(csvFraisZonePath);
+    List<List<String>> csvData = fileHelper.readFile(ZONE_FEES_PATH);
     int columnNumber = findColumnNumberForZonePrice(time, csvData.get(0));
     return findPriceForSpecificColumnNumberAndZone(columnNumber, zone, csvData);
   }
 
   public List<String> getAllZones() {
     List<String> zones = new ArrayList<>();
-    List<List<String>> csvData = csvHelper.getCsvFileInJavaFormat(csvFraisZonePath);
+    List<List<String>> csvData = fileHelper.readFile(ZONE_FEES_PATH);
 
     for (int i = 1; i < csvData.size(); i++) {
       zones.add(csvData.get(i).get(0));

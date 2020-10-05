@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.funds.filesystem;
 
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.files.filesystem.CsvHelper;
+import ca.ulaval.glo4003.files.domain.StringMatrixFileHelper;
 import ca.ulaval.glo4003.funds.exceptions.InvalidTimeException;
 import ca.ulaval.glo4003.funds.exceptions.InvalidZoneException;
 import com.google.common.truth.Truth;
@@ -16,45 +16,46 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CSVBillingZoneHelperTest {
-  private CSVBillingZoneHelper csvBillingZoneHelper;
+public class ZoneFeesFileHelperTest {
+  @Mock private StringMatrixFileHelper fileHelper;
+
   private static final String defaultZone = "Zone1";
   private static final String defaultTime = "1j/sem/session";
   private static final float price = 103;
   private static final String CSV_FILE = "data/frais-zone.csv";
   private final List<List<String>> csvFile = new ArrayList<>();
-  @Mock private CsvHelper csvHelper;
+
+  private ZoneFeesFileHelper zoneFeesFileHelper;
 
   @Before
   public void setup() {
-    csvBillingZoneHelper = new CSVBillingZoneHelper();
-    csvBillingZoneHelper.setCsvHelper(csvHelper);
+    zoneFeesFileHelper = new ZoneFeesFileHelper(fileHelper);
 
     csvFile.add(Arrays.asList("name", defaultTime));
     csvFile.add(Arrays.asList(defaultZone, String.valueOf(price)));
 
-    when(csvHelper.getCsvFileInJavaFormat(CSV_FILE)).thenReturn(csvFile);
+    when(fileHelper.readFile(CSV_FILE)).thenReturn(csvFile);
   }
 
   @Test
   public void whenBillingAZone_thenReturnTheGoodPrice() {
-    float price = csvBillingZoneHelper.getZonePrice(defaultZone, defaultTime);
+    float price = zoneFeesFileHelper.getZonePrice(defaultZone, defaultTime);
     Truth.assertThat(price).isEqualTo(103f);
   }
 
   @Test
   public void whenGettingAllZones_thenReturnAllZones() {
-    List<String> zones = csvBillingZoneHelper.getAllZones();
+    List<String> zones = zoneFeesFileHelper.getAllZones();
     Truth.assertThat(zones).contains(defaultZone);
   }
 
   @Test(expected = InvalidTimeException.class)
   public void whenBillingAZoneForAnInvalidTime_thenThrowInvalidTimeException() {
-    csvBillingZoneHelper.getZonePrice(defaultZone, "invalid");
+    zoneFeesFileHelper.getZonePrice(defaultZone, "invalid");
   }
 
   @Test(expected = InvalidZoneException.class)
   public void whenBillingAInvalidZone_thenThrowInvalidZoneException() {
-    csvBillingZoneHelper.getZonePrice("invalid", defaultTime);
+    zoneFeesFileHelper.getZonePrice("invalid", defaultTime);
   }
 }
