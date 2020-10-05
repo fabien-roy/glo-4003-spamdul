@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileHelper;
 import ca.ulaval.glo4003.files.filesystem.CsvHelper;
+import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
@@ -20,8 +21,10 @@ import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingStickerRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.services.ParkingService;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 public class ParkingInjector {
 
@@ -47,14 +50,7 @@ public class ParkingInjector {
     ParkingAreaCodeAssembler parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
 
     if (isDev) {
-      StringMatrixFileHelper fileHelper = new CsvHelper();
-      ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileHelper);
-      List<String> zones = zoneFeesFileHelper.getAllZones();
-      List<ParkingArea> parkingAreas =
-          zones.stream()
-              .map(zone -> new ParkingArea(parkingAreaCodeAssembler.assemble(zone)))
-              .collect(Collectors.toList());
-      parkingAreas.forEach(parkingAreaRepository::save);
+      addParkingAreasToRepository(parkingAreaCodeAssembler);
     }
 
     ParkingStickerAssembler parkingStickerAssembler =
@@ -95,5 +91,38 @@ public class ParkingInjector {
 
   public ParkingAreaCodeAssembler createParkingAreaCodeAssembler() {
     return new ParkingAreaCodeAssembler();
+  }
+
+  private void addParkingAreasToRepository(ParkingAreaCodeAssembler parkingAreaCodeAssembler) {
+    StringMatrixFileHelper fileHelper = new CsvHelper();
+    ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileHelper);
+
+    Map<String, Map<String, Double>> zonesAndFees = zoneFeesFileHelper.getZonesAndFees();
+    List<ParkingArea> parkingAreas = new ArrayList<>();
+
+    zonesAndFees
+        .keySet()
+        .forEach(
+            zone -> {
+              ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(zone);
+              Map<ParkingPeriods, Money> feesPerPeriod = new HashMap<>();
+              zonesAndFees
+                  .get(zone)
+                  .keySet()
+                  .forEach(
+                      period -> {
+                        ParkingPeriods parkingPeriod = ParkingPeriods.get(period);
+                        Money fee =
+                            new Money(
+                                zonesAndFees
+                                    .get(zone)
+                                    .get(period)); // TODO : We could use money assembler (but this
+                        // is the injector, it's not that important)
+                        feesPerPeriod.put(parkingPeriod, fee);
+                      });
+              parkingAreas.add(new ParkingArea(parkingAreaCode, feesPerPeriod));
+            });
+
+    parkingAreas.forEach(parkingAreaRepository::save);
   }
 }

@@ -29,12 +29,12 @@ public class ZoneFeesFileHelperTest {
 
   @Before
   public void setup() {
-    zoneFeesFileHelper = new ZoneFeesFileHelper(fileHelper);
-
     csvFile.add(Arrays.asList("name", defaultTime));
     csvFile.add(Arrays.asList(defaultZone, String.valueOf(price)));
 
     when(fileHelper.readFile(CSV_FILE)).thenReturn(csvFile);
+
+    zoneFeesFileHelper = new ZoneFeesFileHelper(fileHelper);
   }
 
   @Test
