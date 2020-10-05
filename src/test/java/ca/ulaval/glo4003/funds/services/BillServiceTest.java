@@ -41,7 +41,8 @@ public class BillServiceTest {
     feePerPeriod.put(ParkingPeriods.ONE_DAY, parkingPeriodFee);
     parkingArea = aParkingArea().withFeePerPeriod(feePerPeriod).build();
 
-    when(billFactory.createForParkingSticker(parkingPeriodFee, parkingSticker.getReceptionMethod()))
+    when(billFactory.createForParkingSticker(
+            parkingPeriodFee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
         .thenReturn(bill);
   }
 
