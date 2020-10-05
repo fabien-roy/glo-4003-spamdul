@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileHelper;
 import ca.ulaval.glo4003.files.filesystem.CsvHelper;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
+import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
 import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.api.ParkingResource;
@@ -41,7 +42,8 @@ public class ParkingInjector {
       EmailAddressAssembler emailAddressAssembler,
       EmailSender emailSender,
       PostalSender postalSender,
-      AccountRepository accountRepository) {
+      AccountRepository accountRepository,
+      BillService billService) {
     ParkingAreaCodeAssembler parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
 
     if (isDev) {
@@ -77,7 +79,8 @@ public class ParkingInjector {
             parkingStickerRepository,
             accessStatusAssembler,
             emailSender,
-            postalSender);
+            postalSender,
+            billService);
 
     return new ParkingResourceImplementation(parkingService);
   }

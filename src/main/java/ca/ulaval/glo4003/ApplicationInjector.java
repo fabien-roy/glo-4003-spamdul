@@ -55,7 +55,8 @@ public class ApplicationInjector {
         COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
         COMMUNICATION_INJECTOR.createEmailSender(),
         LOCATION_INJECTOR.createPostalCodeSender(),
-        ACCOUNT_INJECTOR.getAccountRepository());
+        ACCOUNT_INJECTOR.getAccountRepository(),
+        FUND_INJECTOR.createBillService());
   }
 
   public UserResource createUserResource() {

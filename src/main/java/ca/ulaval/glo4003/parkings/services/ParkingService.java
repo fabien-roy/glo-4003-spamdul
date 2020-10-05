@@ -3,6 +3,8 @@ package ca.ulaval.glo4003.parkings.services;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
+import ca.ulaval.glo4003.funds.domain.Bill;
+import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
@@ -11,7 +13,6 @@ import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.*;
-import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
 import ca.ulaval.glo4003.times.domain.Days;
 import java.time.LocalDate;
 import java.util.logging.Logger;
@@ -32,6 +33,7 @@ public class ParkingService {
   private final ParkingStickerRepository parkingStickerRepository;
   private final EmailSender emailSender;
   private final PostalSender postalSender;
+  private final BillService billService;
 
   public ParkingService(
       ParkingStickerAssembler parkingStickerAssembler,
@@ -42,7 +44,8 @@ public class ParkingService {
       ParkingStickerRepository parkingStickerRepository,
       AccessStatusAssembler accessStatusAssembler,
       EmailSender emailSender,
-      PostalSender postalSender) {
+      PostalSender postalSender,
+      BillService billService) {
     this.parkingStickerAssembler = parkingStickerAssembler;
     this.parkingStickerCodeAssembler = parkingStickerCodeAssembler;
     this.accessStatusAssembler = accessStatusAssembler;
@@ -52,6 +55,7 @@ public class ParkingService {
     this.parkingStickerRepository = parkingStickerRepository;
     this.emailSender = emailSender;
     this.postalSender = postalSender;
+    this.billService = billService;
   }
 
   public ParkingStickerCodeDto addParkingSticker(ParkingStickerDto parkingStickerDto) {
@@ -64,6 +68,7 @@ public class ParkingService {
 
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
+    // TODO : Use observers instead of this if-else
     if (parkingSticker.getReceptionMethod().equals(ReceptionMethods.EMAIL)) {
       emailSender.sendEmail(
           parkingSticker.getEmailAddress().toString(),
@@ -78,17 +83,16 @@ public class ParkingService {
     }
 
     account.addParkingSticker(parkingSticker);
+    Bill bill = billService.createBill(parkingSticker);
+    account.addBill(bill);
     accountRepository.update(account);
 
     parkingStickerRepository.save(parkingSticker);
 
-    // TODO : This is where we should notify observers (mail service) of new parking sticker
-
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
   }
 
-  public AccessStatusDto validateParkingStickerCode(String stringCode)
-      throws NotFoundParkingStickerException {
+  public AccessStatusDto validateParkingStickerCode(String stringCode) {
     logger.info(String.format("Validate parking sticker code %s", stringCode));
 
     ParkingStickerCode parkingStickerCode = parkingStickerCodeAssembler.assemble(stringCode);
@@ -98,8 +102,8 @@ public class ParkingService {
     String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
 
     if (!parkingSticker.validateParkingStickerDay(Days.get(dayOfWeek)))
-      return accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED.toString());
+      return accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED);
 
-    return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED.toString());
+    return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED);
   }
 }
