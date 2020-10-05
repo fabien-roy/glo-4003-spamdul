@@ -12,4 +12,20 @@ public class Bill {
     this.amountDue = amountDue;
     this.amountPaid = Money.ZERO();
   }
+
+  public BillId getId() {
+    return id;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public Money getAmountDue() {
+    return amountDue;
+  }
+
+  public Money getAmountPaid() {
+    return amountPaid;
+  }
 }
