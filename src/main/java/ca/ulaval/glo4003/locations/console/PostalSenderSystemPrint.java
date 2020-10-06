@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
 
-// TODO : Test PostalSenderSystemPrint
 public class PostalSenderSystemPrint implements PostalSender {
   private static final String POSTAL_MESSAGE = "Envoie a la boîte postal %s :";
   private static final String PARKING_STICKER_CREATION_MESSAGE =
