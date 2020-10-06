@@ -93,10 +93,10 @@ public class ParkingServiceTest {
   }
 
   @Test
-  public void whenAddingParkingSticker_thenAddParkingStickerToAccount() {
+  public void whenAddingParkingSticker_thenAddParkingStickerCodeToAccount() {
     parkingService.addParkingSticker(parkingStickerDto);
 
-    Truth.assertThat(account.getParkingStickers()).contains(parkingSticker);
+    Truth.assertThat(account.getParkingStickerCodes()).contains(parkingSticker.getCode());
   }
 
   @Test

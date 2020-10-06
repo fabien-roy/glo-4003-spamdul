@@ -83,13 +83,11 @@ public class ParkingService {
     ParkingArea parkingArea = parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
     Bill bill = billService.createBillForParkingSticker(parkingSticker, parkingArea);
 
+    account.addParkingStickerCode(parkingSticker.getCode());
     account.addBill(bill);
-    account.addParkingSticker(parkingSticker);
     accountRepository.update(account);
 
-    parkingStickerRepository.save(
-        parkingSticker); // TODO : Isn't this duplicated information? We already have the parking
-    // sticker in the account
+    parkingStickerRepository.save(parkingSticker);
 
     // TODO : Use observers instead of this if-else (here, not before)
 
