@@ -18,8 +18,8 @@ public class ZoneFeesFileHelperTest {
   private static final String CSV_FILE = "data/frais-zone.csv";
   private static final String FIRST_PERIOD = "firstPeriod";
   private static final String SECOND_PERIOD = "secondPeriod";
-  private static final String FIRST_ZONE = "FIRST_ZONE";
-  private static final String SECOND_ZONE = "SECOND_ZONE";
+  private static final String FIRST_ZONE = "firstZone";
+  private static final String SECOND_ZONE = "secondZone";
   private static final Double FIRST_ZONE_FIRST_PERIOD_FEE = 1d;
   private static final Double FIRST_ZONE_SECOND_PERIOD_FEE = 2d;
   private static final Double SECOND_ZONE_FIRST_PERIOD_FEE = 3d;
