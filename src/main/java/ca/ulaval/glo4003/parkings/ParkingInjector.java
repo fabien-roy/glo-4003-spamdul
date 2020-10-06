@@ -20,7 +20,7 @@ import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingStickerRepositoryInMemory;
-import ca.ulaval.glo4003.parkings.services.ParkingService;
+import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,8 +65,8 @@ public class ParkingInjector {
     ParkingStickerFactory parkingStickerFactory =
         new ParkingStickerFactory(parkingStickerCodeGenerator);
 
-    ParkingService parkingService =
-        new ParkingService(
+    ParkingStickerService parkingStickerService =
+        new ParkingStickerService(
             parkingStickerAssembler,
             parkingStickerCodeAssembler,
             parkingStickerFactory,
@@ -78,7 +78,7 @@ public class ParkingInjector {
             postalSender,
             billService);
 
-    return new ParkingResourceImplementation(parkingService);
+    return new ParkingResourceImplementation(parkingStickerService);
   }
 
   public ParkingStickerRepository getParkingStickerRepository() {

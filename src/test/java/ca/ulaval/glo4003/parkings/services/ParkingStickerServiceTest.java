@@ -30,7 +30,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParkingServiceTest {
+public class ParkingStickerServiceTest {
   @Mock private ParkingStickerDto parkingStickerDto;
   @Mock private ParkingStickerCodeDto parkingStickerCodeDto;
   @Mock private ParkingStickerAssembler parkingStickerAssembler;
@@ -44,22 +44,23 @@ public class ParkingServiceTest {
   @Mock private PostalSender postalSender;
   @Mock private BillService billService;
 
-  private LocalDate date = LocalDate.now();
-  private String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
-  String notDayOfWeek = date.getDayOfWeek().plus(1).toString().toLowerCase();
+  private ParkingStickerService parkingStickerService;
+
+  private final LocalDate date = LocalDate.now();
+  private final String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
+  private final String notDayOfWeek = date.getDayOfWeek().plus(1).toString().toLowerCase();
   private ParkingSticker parkingSticker = aParkingSticker().withValidDay(dayOfWeek).build();
-  private ParkingSticker parkingStickerNotValidToday =
+  private final ParkingSticker parkingStickerNotValidToday =
       aParkingSticker().withValidDay(notDayOfWeek).build();
-  private ParkingArea parkingArea = aParkingArea().build();
-  private Bill bill = aBill().build();
-  private AccessStatusDto accessStatusGrantedDto = anAccessStatusDto().build();
-  private AccessStatusDto accessStatusRefusedDto = anAccessStatusDto().build();
-  private ParkingService parkingService;
+  private final ParkingArea parkingArea = aParkingArea().build();
+  private final Bill bill = aBill().build();
+  private final AccessStatusDto accessStatusGrantedDto = anAccessStatusDto().build();
+  private final AccessStatusDto accessStatusRefusedDto = anAccessStatusDto().build();
 
   @Before
   public void setUp() {
-    parkingService =
-        new ParkingService(
+    parkingStickerService =
+        new ParkingStickerService(
             parkingStickerAssembler,
             parkingStickerCodeAssembler,
             parkingStickerFactory,
@@ -90,7 +91,7 @@ public class ParkingServiceTest {
 
   @Test
   public void whenAddingParkingSticker_thenAddParkingStickerToAccount() {
-    parkingService.addParkingSticker(parkingStickerDto);
+    parkingStickerService.addParkingSticker(parkingStickerDto);
 
     Mockito.verify(accountService)
         .addParkingStickerToAccount(
@@ -99,7 +100,7 @@ public class ParkingServiceTest {
 
   @Test
   public void whenAddingParkingSticker_thenAddParkingStickerToRepository() {
-    parkingService.addParkingSticker(parkingStickerDto);
+    parkingStickerService.addParkingSticker(parkingStickerDto);
 
     Mockito.verify(parkingStickerRepository).save(eq(parkingSticker));
   }
@@ -107,7 +108,7 @@ public class ParkingServiceTest {
   @Test
   public void whenAddingParkingSticker_thenReturnParkingStickerCode() {
     ParkingStickerCodeDto receivedParkingStickerCodeDto =
-        parkingService.addParkingSticker(parkingStickerDto);
+        parkingStickerService.addParkingSticker(parkingStickerDto);
 
     Truth.assertThat(receivedParkingStickerCodeDto).isSameInstanceAs(parkingStickerCodeDto);
   }
@@ -118,7 +119,7 @@ public class ParkingServiceTest {
     when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
     when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
 
-    parkingService.addParkingSticker(parkingStickerDto);
+    parkingStickerService.addParkingSticker(parkingStickerDto);
 
     Mockito.verify(emailSender)
         .sendEmail(eq(parkingSticker.getEmailAddress().toString()), anyString(), anyString());
@@ -130,7 +131,7 @@ public class ParkingServiceTest {
     when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
     when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
 
-    parkingService.addParkingSticker(parkingStickerDto);
+    parkingStickerService.addParkingSticker(parkingStickerDto);
 
     Mockito.verify(postalSender).sendPostal(eq(parkingSticker.getPostalCode()), anyString());
   }
@@ -139,7 +140,7 @@ public class ParkingServiceTest {
   public void
       givenValidParkingStickerCode_whenValidateParkingStickerCode_thenAccessGrantedResponseIsReturned() {
     AccessStatusDto accessStatusDto =
-        parkingService.validateParkingStickerCode(parkingSticker.getCode().toString());
+        parkingStickerService.validateParkingStickerCode(parkingSticker.getCode().toString());
 
     Truth.assertThat(accessStatusDto).isSameInstanceAs(accessStatusGrantedDto);
   }
@@ -151,7 +152,7 @@ public class ParkingServiceTest {
         .thenReturn(parkingStickerNotValidToday);
 
     AccessStatusDto accessStatusDto =
-        parkingService.validateParkingStickerCode(parkingSticker.getCode().toString());
+        parkingStickerService.validateParkingStickerCode(parkingSticker.getCode().toString());
 
     Truth.assertThat(accessStatusDto).isSameInstanceAs(accessStatusRefusedDto);
   }

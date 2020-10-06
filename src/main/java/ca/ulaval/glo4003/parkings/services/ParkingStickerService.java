@@ -16,13 +16,13 @@ import ca.ulaval.glo4003.times.domain.Days;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 
-public class ParkingService {
+public class ParkingStickerService {
   private static final String SENDING_PARKING_STICKER_EMAIL_SUBJECT = "Votre vignette SPAMD-UL";
   private static final String SENDING_PARKING_STICKER_EMAIL_MESSAGE =
       "Votre code de vignette SPAMD-UL est %s";
   private static final String SENDING_PARKING_STICKER_POSTAL_MESSAGE =
       "Votre code de vignette SPAMD-UL est %s";
-  private final Logger logger = Logger.getLogger(ParkingService.class.getName());
+  private final Logger logger = Logger.getLogger(ParkingStickerService.class.getName());
   private final ParkingStickerAssembler parkingStickerAssembler;
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   private final AccessStatusAssembler accessStatusAssembler;
@@ -34,7 +34,7 @@ public class ParkingService {
   private final PostalSender postalSender;
   private final BillService billService;
 
-  public ParkingService(
+  public ParkingStickerService(
       ParkingStickerAssembler parkingStickerAssembler,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingStickerFactory parkingStickerFactory,
