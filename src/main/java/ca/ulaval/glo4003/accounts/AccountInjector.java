@@ -9,13 +9,8 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 
 public class AccountInjector {
 
-  private final AccountRepository accountRepository;
-  private final AccountIdGenerator accountIdGenerator;
-
-  public AccountInjector() {
-    accountRepository = new AccountRepositoryInMemory();
-    accountIdGenerator = new AccountIdGenerator();
-  }
+  private final AccountRepository accountRepository = new AccountRepositoryInMemory();
+  private final AccountIdGenerator accountIdGenerator = new AccountIdGenerator();
 
   public AccountRepository getAccountRepository() {
     return accountRepository;

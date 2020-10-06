@@ -9,11 +9,7 @@ import ca.ulaval.glo4003.funds.services.BillService;
 
 public class FundInjector {
 
-  private final BillRepository billRepository;
-
-  public FundInjector() {
-    this.billRepository = new BillRepositoryInMemory();
-  }
+  private final BillRepository billRepository = new BillRepositoryInMemory();
 
   public BillService createBillService() {
     BillIdGenerator billIdGenerator = new BillIdGenerator();

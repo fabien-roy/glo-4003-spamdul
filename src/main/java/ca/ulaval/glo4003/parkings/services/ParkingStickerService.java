@@ -77,8 +77,8 @@ public class ParkingStickerService {
     }
 
     ParkingArea parkingArea = parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
-    BillId billId = billService.addBillForParkingSticker(parkingSticker, parkingArea);
 
+    BillId billId = billService.addBillForParkingSticker(parkingSticker, parkingArea);
     accountService.addParkingStickerToAccount(
         parkingSticker.getAccountId(), parkingSticker.getCode(), billId);
 

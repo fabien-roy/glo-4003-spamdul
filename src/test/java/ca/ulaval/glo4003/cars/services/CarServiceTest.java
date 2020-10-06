@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.assemblers.CarAssembler;
 import ca.ulaval.glo4003.cars.domain.Car;
+import ca.ulaval.glo4003.cars.domain.CarRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class CarServiceTest {
 
   @Mock private CarAssembler carAssembler;
+  @Mock private CarRepository carRepository;
   @Mock private AccountService accountService;
 
   private CarService carService;
@@ -28,7 +30,7 @@ public class CarServiceTest {
 
   @Before
   public void setup() {
-    carService = new CarService(carAssembler, accountService);
+    carService = new CarService(carAssembler, carRepository, accountService);
 
     when(carAssembler.create(carDto)).thenReturn(car);
   }
@@ -45,5 +47,12 @@ public class CarServiceTest {
     carService.addCar(carDto);
 
     verify(accountService).addLicensePlateToAccount(car.getAccountId(), car.getLicensePlate());
+  }
+
+  @Test
+  public void whenAddingCar_shouldSaveToRepository() {
+    carService.addCar(carDto);
+
+    verify(carRepository).save(car);
   }
 }

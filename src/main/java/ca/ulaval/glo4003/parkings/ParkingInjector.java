@@ -28,15 +28,11 @@ import java.util.Map;
 
 public class ParkingInjector {
 
-  private final ParkingStickerCodeGenerator parkingStickerCodeGenerator;
-  private final ParkingAreaRepository parkingAreaRepository;
-  private final ParkingStickerRepository parkingStickerRepository;
-
-  public ParkingInjector() {
-    parkingStickerCodeGenerator = new ParkingStickerCodeGenerator();
-    parkingAreaRepository = new ParkingAreaRepositoryInMemory();
-    parkingStickerRepository = new ParkingStickerRepositoryInMemory();
-  }
+  private final ParkingStickerCodeGenerator parkingStickerCodeGenerator =
+      new ParkingStickerCodeGenerator();
+  private final ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
+  private final ParkingStickerRepository parkingStickerRepository =
+      new ParkingStickerRepositoryInMemory();
 
   public ParkingResource createParkingResource(
       boolean isDev,

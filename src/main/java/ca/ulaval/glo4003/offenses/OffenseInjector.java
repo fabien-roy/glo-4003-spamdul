@@ -22,11 +22,7 @@ import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import java.util.List;
 
 public class OffenseInjector {
-  private final OffenseTypeRepository offenseTypeRepository;
-
-  public OffenseInjector() {
-    offenseTypeRepository = new OffenseTypeRepositoryInMemory();
-  }
+  private final OffenseTypeRepository offenseTypeRepository = new OffenseTypeRepositoryInMemory();
 
   public OffenseResource createOffenseResource(
       ParkingStickerRepository parkingStickerRepository,
