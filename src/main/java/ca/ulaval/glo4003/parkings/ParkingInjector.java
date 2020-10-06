@@ -3,14 +3,12 @@ package ca.ulaval.glo4003.parkings;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
-import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
-import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.api.ParkingResource;
 import ca.ulaval.glo4003.parkings.api.ParkingResourceImplementation;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
@@ -39,9 +37,8 @@ public class ParkingInjector {
       AccountIdAssembler accountIdAssembler,
       PostalCodeAssembler postalCodeAssembler,
       EmailAddressAssembler emailAddressAssembler,
-      EmailSender emailSender,
-      PostalSender postalSender,
       AccountService accountService,
+      List<ParkingStickerCreationObserver> parkingStickerCreationObservers,
       BillService billService) {
     ParkingAreaCodeAssembler parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
 
@@ -70,9 +67,9 @@ public class ParkingInjector {
             parkingAreaRepository,
             parkingStickerRepository,
             accessStatusAssembler,
-            emailSender,
-            postalSender,
             billService);
+
+    parkingStickerCreationObservers.forEach(parkingStickerService::register);
 
     return new ParkingResourceImplementation(parkingStickerService);
   }

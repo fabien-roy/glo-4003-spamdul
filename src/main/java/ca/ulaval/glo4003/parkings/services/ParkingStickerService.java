@@ -1,10 +1,8 @@
 package ca.ulaval.glo4003.parkings.services;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
-import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
-import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
@@ -16,12 +14,7 @@ import ca.ulaval.glo4003.times.domain.Days;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 
-public class ParkingStickerService {
-  private static final String SENDING_PARKING_STICKER_EMAIL_SUBJECT = "Votre vignette SPAMD-UL";
-  private static final String SENDING_PARKING_STICKER_EMAIL_MESSAGE =
-      "Votre code de vignette SPAMD-UL est %s";
-  private static final String SENDING_PARKING_STICKER_POSTAL_MESSAGE =
-      "Votre code de vignette SPAMD-UL est %s";
+public class ParkingStickerService extends ParkingStickerCreationObservable {
   private final Logger logger = Logger.getLogger(ParkingStickerService.class.getName());
   private final ParkingStickerAssembler parkingStickerAssembler;
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
@@ -30,8 +23,6 @@ public class ParkingStickerService {
   private final AccountService accountService;
   private final ParkingAreaRepository parkingAreaRepository;
   private final ParkingStickerRepository parkingStickerRepository;
-  private final EmailSender emailSender;
-  private final PostalSender postalSender;
   private final BillService billService;
 
   public ParkingStickerService(
@@ -42,8 +33,6 @@ public class ParkingStickerService {
       ParkingAreaRepository parkingAreaRepository,
       ParkingStickerRepository parkingStickerRepository,
       AccessStatusAssembler accessStatusAssembler,
-      EmailSender emailSender,
-      PostalSender postalSender,
       BillService billService) {
     this.parkingStickerAssembler = parkingStickerAssembler;
     this.parkingStickerCodeAssembler = parkingStickerCodeAssembler;
@@ -52,8 +41,6 @@ public class ParkingStickerService {
     this.parkingStickerFactory = parkingStickerFactory;
     this.parkingAreaRepository = parkingAreaRepository;
     this.parkingStickerRepository = parkingStickerRepository;
-    this.emailSender = emailSender;
-    this.postalSender = postalSender;
     this.billService = billService;
   }
 
@@ -63,19 +50,6 @@ public class ParkingStickerService {
     ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
-    if (parkingSticker.getReceptionMethod().equals(ReceptionMethods.EMAIL)) {
-      emailSender.sendEmail(
-          parkingSticker.getEmailAddress().toString(),
-          SENDING_PARKING_STICKER_EMAIL_SUBJECT,
-          String.format(
-              SENDING_PARKING_STICKER_EMAIL_MESSAGE, parkingSticker.getCode().toString()));
-    } else if (parkingSticker.getReceptionMethod().equals(ReceptionMethods.POSTAL)) {
-      postalSender.sendPostal(
-          parkingSticker.getPostalCode(),
-          String.format(
-              SENDING_PARKING_STICKER_POSTAL_MESSAGE, parkingSticker.getCode().toString()));
-    }
-
     ParkingArea parkingArea = parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
 
     BillId billId = billService.addBillForParkingSticker(parkingSticker, parkingArea);
@@ -84,7 +58,7 @@ public class ParkingStickerService {
 
     parkingStickerRepository.save(parkingSticker);
 
-    // TODO : Use observers instead of this if-else (here, not before)
+    notifyParkingStickerCreated(parkingSticker);
 
     return parkingStickerCodeAssembler.assemble(parkingSticker.getCode());
   }
