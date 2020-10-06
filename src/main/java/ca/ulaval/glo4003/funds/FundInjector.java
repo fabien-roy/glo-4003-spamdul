@@ -3,14 +3,22 @@ package ca.ulaval.glo4003.funds;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.BillFactory;
 import ca.ulaval.glo4003.funds.domain.BillIdGenerator;
+import ca.ulaval.glo4003.funds.domain.BillRepository;
+import ca.ulaval.glo4003.funds.infrastructure.BillRepositoryInMemory;
 import ca.ulaval.glo4003.funds.services.BillService;
 
 public class FundInjector {
 
+  private final BillRepository billRepository;
+
+  public FundInjector() {
+    this.billRepository = new BillRepositoryInMemory();
+  }
+
   public BillService createBillService() {
     BillIdGenerator billIdGenerator = new BillIdGenerator();
     BillFactory billFactory = new BillFactory(billIdGenerator);
-    return new BillService(billFactory);
+    return new BillService(billFactory, billRepository);
   }
 
   public MoneyAssembler createMoneyAssembler() {

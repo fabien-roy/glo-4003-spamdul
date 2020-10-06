@@ -82,7 +82,8 @@ public class ParkingServiceTest {
     when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
     when(parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode()))
         .thenReturn(parkingArea);
-    when(billService.createBillForParkingSticker(parkingSticker, parkingArea)).thenReturn(bill);
+    when(billService.addBillForParkingSticker(parkingSticker, parkingArea))
+        .thenReturn(bill.getId());
     when(parkingStickerCodeAssembler.assemble(parkingStickerCode.toString()))
         .thenReturn(parkingStickerCode);
     when(parkingStickerRepository.findByCode(parkingStickerCode)).thenReturn(parkingSticker);
@@ -100,10 +101,10 @@ public class ParkingServiceTest {
   }
 
   @Test
-  public void whenAddingParkingSticker_thenAddBillToAccount() {
+  public void whenAddingParkingSticker_thenAddBillIdToAccount() {
     parkingService.addParkingSticker(parkingStickerDto);
 
-    Truth.assertThat(account.getBills()).contains(bill);
+    Truth.assertThat(account.getBillIds()).contains(bill.getId());
   }
 
   @Test

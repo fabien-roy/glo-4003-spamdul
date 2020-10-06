@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.parkings.services;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
-import ca.ulaval.glo4003.funds.domain.Bill;
+import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.api.dto.AccessStatusDto;
@@ -81,10 +81,10 @@ public class ParkingService {
     }
 
     ParkingArea parkingArea = parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
-    Bill bill = billService.createBillForParkingSticker(parkingSticker, parkingArea);
+    BillId billId = billService.addBillForParkingSticker(parkingSticker, parkingArea);
 
     account.addParkingStickerCode(parkingSticker.getCode());
-    account.addBill(bill);
+    account.addBillId(billId);
     accountRepository.update(account);
 
     parkingStickerRepository.save(parkingSticker);

@@ -1,8 +1,6 @@
 package ca.ulaval.glo4003.funds.services;
 
-import ca.ulaval.glo4003.funds.domain.Bill;
-import ca.ulaval.glo4003.funds.domain.BillFactory;
-import ca.ulaval.glo4003.funds.domain.Money;
+import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriods;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
@@ -11,18 +9,24 @@ import java.util.logging.Logger;
 public class BillService {
   private final Logger logger = Logger.getLogger(BillService.class.getName());
   private final BillFactory billFactory;
+  private final BillRepository billRepository;
 
-  public BillService(BillFactory billFactory) {
+  public BillService(BillFactory billFactory, BillRepository billRepository) {
     this.billFactory = billFactory;
+    this.billRepository = billRepository;
   }
 
-  public Bill createBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
+  public BillId addBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
     logger.info(String.format("Create bill for parking sticker %s", parkingSticker));
 
     Money feeForPeriod =
         parkingArea.getFeeForPeriod(ParkingPeriods.ONE_DAY); // TODO : Will this always be one day?
+    Bill bill =
+        billFactory.createForParkingSticker(
+            feeForPeriod, parkingSticker.getCode(), parkingSticker.getReceptionMethod());
 
-    return billFactory.createForParkingSticker(
-        feeForPeriod, parkingSticker.getCode(), parkingSticker.getReceptionMethod());
+    billRepository.save(bill);
+
+    return bill.getId();
   }
 }
