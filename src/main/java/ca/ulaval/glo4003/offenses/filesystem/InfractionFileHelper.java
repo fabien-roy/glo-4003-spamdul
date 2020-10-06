@@ -17,13 +17,12 @@ public class InfractionFileHelper {
     this.fileReader = fileReader;
   }
 
-  // TODO : Test InfractionFileHelper.getInfractions
   public List<InfractionDto> getInfractions() {
     ObjectMapper objectMapper = new ObjectMapper();
 
     try {
-      String jsonFile = fileReader.readFile(INFRACTIONS_PATH);
-      return objectMapper.readValue(jsonFile, new TypeReference<List<InfractionDto>>() {});
+      String jsonData = fileReader.readFile(INFRACTIONS_PATH);
+      return objectMapper.readValue(jsonData, new TypeReference<List<InfractionDto>>() {});
     } catch (IOException exception) {
       throw new InvalidFileException();
     }
