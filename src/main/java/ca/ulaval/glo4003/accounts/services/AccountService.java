@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.accounts.services;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.cars.domain.Car;
+import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 
@@ -15,10 +15,10 @@ public class AccountService {
     this.accountRepository = accountRepository;
   }
 
-  public void addCarToAccount(AccountId id, Car car) {
+  public void addLicensePlateToAccount(AccountId id, LicensePlate licensePlate) {
     Account account = getAccount(id);
 
-    account.addCar(car);
+    account.addLicensePlate(licensePlate);
     accountRepository.update(account);
   }
 

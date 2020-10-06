@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.accounts.services;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
-import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
+import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingStickerCode;
 import static org.mockito.Mockito.verify;
@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.cars.domain.Car;
+import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import com.google.common.truth.Truth;
@@ -27,7 +27,7 @@ public class AccountServiceTest {
   private AccountService accountService;
 
   private final Account account = anAccount().build();
-  private final Car car = aCar().build();
+  private final LicensePlate licensePlate = createLicensePlate();
   private final ParkingStickerCode parkingStickerCode = createParkingStickerCode();
   private final BillId billId = createBillId();
 
@@ -39,15 +39,15 @@ public class AccountServiceTest {
   }
 
   @Test
-  public void whenAddingCar_shouldAddCarToAccount() {
-    accountService.addCarToAccount(account.getId(), car);
+  public void whenAddingCar_shouldAddLicensePlateToAccount() {
+    accountService.addLicensePlateToAccount(account.getId(), licensePlate);
 
-    Truth.assertThat(account.getCars()).contains(car);
+    Truth.assertThat(account.getLicensePlates()).contains(licensePlate);
   }
 
   @Test
   public void whenAddingCar_shouldUpdateAccountInRepository() {
-    accountService.addCarToAccount(account.getId(), car);
+    accountService.addLicensePlateToAccount(account.getId(), licensePlate);
 
     verify(accountRepository).update(account);
   }

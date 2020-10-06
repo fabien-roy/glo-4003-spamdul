@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.accounts.domain;
 
-import ca.ulaval.glo4003.cars.domain.Car;
+import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.users.domain.User;
@@ -11,7 +11,7 @@ public class Account {
   private final AccountId id;
   private final User user;
   private List<ParkingStickerCode> parkingStickerCodes = new ArrayList<>();
-  private List<Car> cars = new ArrayList<>(); // TODO : List of LicensePlate
+  private List<LicensePlate> licensePlates = new ArrayList<>();
   private List<BillId> billIds = new ArrayList<>();
 
   public Account(AccountId id, User user) {
@@ -31,8 +31,8 @@ public class Account {
     return parkingStickerCodes;
   }
 
-  public List<Car> getCars() {
-    return cars;
+  public List<LicensePlate> getLicensePlates() {
+    return licensePlates;
   }
 
   public List<BillId> getBillIds() {
@@ -43,8 +43,8 @@ public class Account {
     parkingStickerCodes.add(parkingSticker);
   }
 
-  public void addCar(Car car) {
-    cars.add(car);
+  public void addLicensePlate(LicensePlate licensePlate) {
+    licensePlates.add(licensePlate);
   }
 
   public void addBillId(BillId billId) {

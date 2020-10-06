@@ -41,9 +41,9 @@ public class CarServiceTest {
   }
 
   @Test
-  public void whenAddingCar_shouldAddCarToAccount() {
+  public void whenAddingCar_shouldAddLicensePlateToAccount() {
     carService.addCar(carDto);
 
-    verify(accountService).addCarToAccount(car.getAccountId(), car);
+    verify(accountService).addLicensePlateToAccount(car.getAccountId(), car.getLicensePlate());
   }
 }
