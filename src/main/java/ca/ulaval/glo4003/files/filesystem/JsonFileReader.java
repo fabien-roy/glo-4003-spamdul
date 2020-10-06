@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-// TODO : Test JsonFileReader
 public class JsonFileReader implements StringFileReader {
 
   public String readFile(String path) {
