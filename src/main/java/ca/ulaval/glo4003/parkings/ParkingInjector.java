@@ -4,8 +4,8 @@ import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
-import ca.ulaval.glo4003.files.domain.StringMatrixFileHelper;
-import ca.ulaval.glo4003.files.filesystem.CsvHelper;
+import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
+import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
@@ -94,8 +94,8 @@ public class ParkingInjector {
   }
 
   private void addParkingAreasToRepository(ParkingAreaCodeAssembler parkingAreaCodeAssembler) {
-    StringMatrixFileHelper fileHelper = new CsvHelper();
-    ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileHelper);
+    StringMatrixFileReader fileReader = new CsvFileReader();
+    ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader);
 
     Map<String, Map<String, Double>> zonesAndFees = zoneFeesFileHelper.getZonesAndFees();
     List<ParkingArea> parkingAreas = new ArrayList<>();

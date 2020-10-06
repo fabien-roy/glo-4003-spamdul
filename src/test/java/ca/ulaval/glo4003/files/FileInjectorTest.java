@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.files;
 
-import ca.ulaval.glo4003.files.filesystem.JsonHelper;
+import ca.ulaval.glo4003.files.filesystem.JsonFileReader;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,9 +15,9 @@ public class FileInjectorTest {
   }
 
   @Test
-  public void whenCreatingJsonHelper_thenReturnIt() {
-    JsonHelper jsonHelper = fileInjector.createJsonHelper();
+  public void whenCreatingJsonReader_thenReturnIt() {
+    JsonFileReader jsonReader = fileInjector.createJsonFileReader();
 
-    Truth.assertThat(jsonHelper).isNotNull();
+    Truth.assertThat(jsonReader).isNotNull();
   }
 }

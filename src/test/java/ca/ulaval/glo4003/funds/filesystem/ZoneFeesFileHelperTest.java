@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.funds.filesystem;
 
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.files.domain.StringMatrixFileHelper;
+import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import com.google.common.truth.Truth;
 import java.util.*;
 import org.junit.Before;
@@ -13,7 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ZoneFeesFileHelperTest {
-  @Mock private StringMatrixFileHelper fileHelper;
+  @Mock private StringMatrixFileReader fileReader;
 
   private static final String CSV_FILE = "data/frais-zone.csv";
   private static final String FIRST_PERIOD = "firstPeriod";
@@ -42,9 +42,9 @@ public class ZoneFeesFileHelperTest {
             SECOND_ZONE_FIRST_PERIOD_FEE.toString(),
             SECOND_ZONE_SECOND_PERIOD_FEE.toString()));
 
-    when(fileHelper.readFile(CSV_FILE)).thenReturn(csvFile);
+    when(fileReader.readFile(CSV_FILE)).thenReturn(csvFile);
 
-    zoneFeesFileHelper = new ZoneFeesFileHelper(fileHelper);
+    zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader);
   }
 
   @Test

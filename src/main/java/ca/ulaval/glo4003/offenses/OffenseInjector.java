@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.offenses;
 
-import ca.ulaval.glo4003.files.domain.StringFileHelper;
+import ca.ulaval.glo4003.files.domain.StringFileReader;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.offenses.api.OffenseResourceImplementation;
@@ -33,9 +33,9 @@ public class OffenseInjector {
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       TimeOfDayAssembler timeOfDayAssembler,
-      StringFileHelper fileHelper,
+      StringFileReader fileReader,
       MoneyAssembler moneyAssembler) {
-    addOffenseTypesToRepository(fileHelper, moneyAssembler);
+    addOffenseTypesToRepository(fileReader, moneyAssembler);
 
     OffenseTypeService offenseTypeService =
         createOffenseService(
@@ -48,9 +48,9 @@ public class OffenseInjector {
   }
 
   private void addOffenseTypesToRepository(
-      StringFileHelper fileHelper, MoneyAssembler moneyAssembler) {
-    InfractionFileHelper infractionFileHelper = new InfractionFileHelper(fileHelper);
-    List<InfractionDto> infractions = infractionFileHelper.readInfractions();
+      StringFileReader fileReader, MoneyAssembler moneyAssembler) {
+    InfractionFileHelper infractionFileHelper = new InfractionFileHelper(fileReader);
+    List<InfractionDto> infractions = infractionFileHelper.getInfractions();
 
     OffenseCodeAssembler offenseCodeAssembler = new OffenseCodeAssembler();
     InfractionAssembler infractionAssembler =

@@ -72,7 +72,7 @@ public class ApplicationInjector {
         PARKING_INJECTOR.createParkingStickerCodeAssembler(),
         PARKING_INJECTOR.createParkingAreaCodeAssembler(),
         TIME_INJECTOR.createTimeOfDayAssembler(),
-        FILE_INJECTOR.createJsonHelper(),
+        FILE_INJECTOR.createJsonFileReader(),
         FUND_INJECTOR.createMoneyAssembler());
   }
 

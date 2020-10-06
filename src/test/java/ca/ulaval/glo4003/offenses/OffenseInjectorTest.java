@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.offenses;
 
-import ca.ulaval.glo4003.files.domain.StringFileHelper;
-import ca.ulaval.glo4003.files.filesystem.JsonHelper;
+import ca.ulaval.glo4003.files.domain.StringFileReader;
+import ca.ulaval.glo4003.files.filesystem.JsonFileReader;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
@@ -26,8 +26,9 @@ public class OffenseInjectorTest {
 
   private OffenseInjector offenseInjector;
 
-  private final StringFileHelper jsonHelper =
-      new JsonHelper(); // TODO : If we would not fill offense type repository at injection, this
+  private final StringFileReader jsonHelper =
+      new JsonFileReader(); // TODO : If we would not fill offense type repository at injection,
+  // this
   // would not have to happen
 
   @Before

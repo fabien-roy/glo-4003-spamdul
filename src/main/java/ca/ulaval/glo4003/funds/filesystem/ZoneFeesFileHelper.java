@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds.filesystem;
 
-import ca.ulaval.glo4003.files.domain.StringMatrixFileHelper;
+import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +11,8 @@ public class ZoneFeesFileHelper {
 
   private final List<List<String>> csvData;
 
-  public ZoneFeesFileHelper(StringMatrixFileHelper fileHelper) {
-    csvData = fileHelper.readFile(ZONE_FEES_PATH);
+  public ZoneFeesFileHelper(StringMatrixFileReader fileReader) {
+    csvData = fileReader.readFile(ZONE_FEES_PATH);
   }
 
   public Map<String, Map<String, Double>> getZonesAndFees() {

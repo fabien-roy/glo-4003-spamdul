@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.files;
 
-import ca.ulaval.glo4003.files.filesystem.JsonHelper;
+import ca.ulaval.glo4003.files.filesystem.JsonFileReader;
 
 public class FileInjector {
 
-  public JsonHelper createJsonHelper() {
-    return new JsonHelper();
+  public JsonFileReader createJsonFileReader() {
+    return new JsonFileReader();
   }
 }
