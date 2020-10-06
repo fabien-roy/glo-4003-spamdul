@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.parkings.services;
 
-import ca.ulaval.glo4003.accounts.domain.Account;
-import ca.ulaval.glo4003.accounts.domain.AccountRepository;
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
@@ -28,7 +27,7 @@ public class ParkingService {
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   private final AccessStatusAssembler accessStatusAssembler;
   private final ParkingStickerFactory parkingStickerFactory;
-  private final AccountRepository accountRepository;
+  private final AccountService accountService;
   private final ParkingAreaRepository parkingAreaRepository;
   private final ParkingStickerRepository parkingStickerRepository;
   private final EmailSender emailSender;
@@ -39,7 +38,7 @@ public class ParkingService {
       ParkingStickerAssembler parkingStickerAssembler,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingStickerFactory parkingStickerFactory,
-      AccountRepository accountRepository,
+      AccountService accountService,
       ParkingAreaRepository parkingAreaRepository,
       ParkingStickerRepository parkingStickerRepository,
       AccessStatusAssembler accessStatusAssembler,
@@ -48,9 +47,9 @@ public class ParkingService {
       BillService billService) {
     this.parkingStickerAssembler = parkingStickerAssembler;
     this.parkingStickerCodeAssembler = parkingStickerCodeAssembler;
+    this.accountService = accountService;
     this.accessStatusAssembler = accessStatusAssembler;
     this.parkingStickerFactory = parkingStickerFactory;
-    this.accountRepository = accountRepository;
     this.parkingAreaRepository = parkingAreaRepository;
     this.parkingStickerRepository = parkingStickerRepository;
     this.emailSender = emailSender;
@@ -62,9 +61,6 @@ public class ParkingService {
     logger.info(String.format("Add new parking sticker %s", parkingStickerDto));
 
     ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
-
-    Account account = accountRepository.findById(parkingSticker.getAccountId());
-
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
     if (parkingSticker.getReceptionMethod().equals(ReceptionMethods.EMAIL)) {
@@ -83,9 +79,8 @@ public class ParkingService {
     ParkingArea parkingArea = parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
     BillId billId = billService.addBillForParkingSticker(parkingSticker, parkingArea);
 
-    account.addParkingStickerCode(parkingSticker.getCode());
-    account.addBillId(billId);
-    accountRepository.update(account);
+    accountService.addParkingStickerToAccount(
+        parkingSticker.getAccountId(), parkingSticker.getCode(), billId);
 
     parkingStickerRepository.save(parkingSticker);
 

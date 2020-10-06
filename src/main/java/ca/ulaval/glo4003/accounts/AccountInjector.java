@@ -30,8 +30,6 @@ public class AccountInjector {
   }
 
   public AccountService createAccountService() {
-    AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
-
-    return new AccountService(accountIdAssembler, accountRepository);
+    return new AccountService(accountRepository);
   }
 }

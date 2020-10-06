@@ -2,13 +2,16 @@ package ca.ulaval.glo4003.accounts.services;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
+import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingStickerCode;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.cars.domain.Car;
+import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,42 +22,54 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class AccountServiceTest {
 
-  @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private AccountRepository accountRepository;
 
   private AccountService accountService;
-  private Account account;
-  private Car car;
+
+  private final Account account = anAccount().build();
+  private final Car car = aCar().build();
+  private final ParkingStickerCode parkingStickerCode = createParkingStickerCode();
+  private final BillId billId = createBillId();
 
   @Before
   public void setup() {
-    accountService = new AccountService(accountIdAssembler, accountRepository);
+    accountService = new AccountService(accountRepository);
 
-    account = anAccount().build();
-    car = aCar().build();
-
-    when(accountIdAssembler.assemble(account.getId().toString())).thenReturn(account.getId());
     when(accountRepository.findById(account.getId())).thenReturn(account);
   }
 
   @Test
-  public void whenAddingCar_shouldAssembleAccountId() {
-    accountService.addCarToAccount(account.getId().toString(), car);
-
-    verify(accountIdAssembler).assemble(account.getId().toString());
-  }
-
-  @Test
   public void whenAddingCar_shouldAddCarToAccount() {
-    accountService.addCarToAccount(account.getId().toString(), car);
+    accountService.addCarToAccount(account.getId(), car);
 
     Truth.assertThat(account.getCars()).contains(car);
   }
 
   @Test
-  public void whenAddingCar_shouldSaveAccountToRepository() {
-    accountService.addCarToAccount(account.getId().toString(), car);
+  public void whenAddingCar_shouldUpdateAccountInRepository() {
+    accountService.addCarToAccount(account.getId(), car);
 
-    verify(accountRepository).save(account);
+    verify(accountRepository).update(account);
+  }
+
+  @Test
+  public void whenAddingParkingSticker_shouldAddParkingStickerCodeToAccount() {
+    accountService.addParkingStickerToAccount(account.getId(), parkingStickerCode, billId);
+
+    Truth.assertThat(account.getParkingStickerCodes()).contains(parkingStickerCode);
+  }
+
+  @Test
+  public void whenAddingParkingSticker_shouldAddBillIdToAccount() {
+    accountService.addParkingStickerToAccount(account.getId(), parkingStickerCode, billId);
+
+    Truth.assertThat(account.getBillIds()).contains(billId);
+  }
+
+  @Test
+  public void whenAddingParkingSticker_shouldUpdateAccountInRepository() {
+    accountService.addParkingStickerToAccount(account.getId(), parkingStickerCode, billId);
+
+    verify(accountRepository).update(account);
   }
 }

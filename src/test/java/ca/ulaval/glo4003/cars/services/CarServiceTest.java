@@ -23,15 +23,12 @@ public class CarServiceTest {
 
   private CarService carService;
 
-  private CarDto carDto;
-  private Car car;
+  private final CarDto carDto = aCarDto().build();
+  private final Car car = aCar().build();
 
   @Before
   public void setup() {
     carService = new CarService(carAssembler, accountService);
-
-    carDto = aCarDto().build();
-    car = aCar().build();
 
     when(carAssembler.create(carDto)).thenReturn(car);
   }
@@ -47,6 +44,6 @@ public class CarServiceTest {
   public void whenAddingCar_shouldAddCarToAccount() {
     carService.addCar(carDto);
 
-    verify(accountService).addCarToAccount(carDto.accountId, car);
+    verify(accountService).addCarToAccount(car.getAccountId(), car);
   }
 }

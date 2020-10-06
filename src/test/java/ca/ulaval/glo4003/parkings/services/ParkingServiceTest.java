@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.parkings.services;
 
-import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.parkings.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
@@ -9,8 +8,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.accounts.domain.Account;
-import ca.ulaval.glo4003.accounts.domain.AccountRepository;
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.services.BillService;
@@ -39,21 +37,19 @@ public class ParkingServiceTest {
   @Mock private AccessStatusAssembler accessStatusAssembler;
   @Mock private ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   @Mock private ParkingStickerFactory parkingStickerFactory;
-  @Mock private AccountRepository accountRepository;
+  @Mock private AccountService accountService;
   @Mock private ParkingAreaRepository parkingAreaRepository;
   @Mock private ParkingStickerRepository parkingStickerRepository;
   @Mock private EmailSender emailSender;
   @Mock private PostalSender postalSender;
   @Mock private BillService billService;
 
-  private Account account = anAccount().build();
   private LocalDate date = LocalDate.now();
   private String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
   String notDayOfWeek = date.getDayOfWeek().plus(1).toString().toLowerCase();
   private ParkingSticker parkingSticker = aParkingSticker().withValidDay(dayOfWeek).build();
   private ParkingSticker parkingStickerNotValidToday =
       aParkingSticker().withValidDay(notDayOfWeek).build();
-  private ParkingStickerCode parkingStickerCode = parkingSticker.getCode();
   private ParkingArea parkingArea = aParkingArea().build();
   private Bill bill = aBill().build();
   private AccessStatusDto accessStatusGrantedDto = anAccessStatusDto().build();
@@ -67,7 +63,7 @@ public class ParkingServiceTest {
             parkingStickerAssembler,
             parkingStickerCodeAssembler,
             parkingStickerFactory,
-            accountRepository,
+            accountService,
             parkingAreaRepository,
             parkingStickerRepository,
             accessStatusAssembler,
@@ -78,15 +74,14 @@ public class ParkingServiceTest {
     when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
     when(parkingStickerCodeAssembler.assemble(parkingSticker.getCode()))
         .thenReturn(parkingStickerCodeDto);
-    when(accountRepository.findById(parkingSticker.getAccountId())).thenReturn(account);
     when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
     when(parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode()))
         .thenReturn(parkingArea);
     when(billService.addBillForParkingSticker(parkingSticker, parkingArea))
         .thenReturn(bill.getId());
-    when(parkingStickerCodeAssembler.assemble(parkingStickerCode.toString()))
-        .thenReturn(parkingStickerCode);
-    when(parkingStickerRepository.findByCode(parkingStickerCode)).thenReturn(parkingSticker);
+    when(parkingStickerCodeAssembler.assemble(parkingSticker.getCode().toString()))
+        .thenReturn(parkingSticker.getCode());
+    when(parkingStickerRepository.findByCode(parkingSticker.getCode())).thenReturn(parkingSticker);
     when(accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED))
         .thenReturn(accessStatusGrantedDto);
     when(accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED))
@@ -94,24 +89,12 @@ public class ParkingServiceTest {
   }
 
   @Test
-  public void whenAddingParkingSticker_thenAddParkingStickerCodeToAccount() {
+  public void whenAddingParkingSticker_thenAddParkingStickerToAccount() {
     parkingService.addParkingSticker(parkingStickerDto);
 
-    Truth.assertThat(account.getParkingStickerCodes()).contains(parkingSticker.getCode());
-  }
-
-  @Test
-  public void whenAddingParkingSticker_thenAddBillIdToAccount() {
-    parkingService.addParkingSticker(parkingStickerDto);
-
-    Truth.assertThat(account.getBillIds()).contains(bill.getId());
-  }
-
-  @Test
-  public void whenAddingParkingSticker_thenUpdateAccount() {
-    parkingService.addParkingSticker(parkingStickerDto);
-
-    Mockito.verify(accountRepository).update(account);
+    Mockito.verify(accountService)
+        .addParkingStickerToAccount(
+            parkingSticker.getAccountId(), parkingSticker.getCode(), bill.getId());
   }
 
   @Test
@@ -134,7 +117,6 @@ public class ParkingServiceTest {
     parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethods.EMAIL).build();
     when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
     when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
-    when(accountRepository.findById(parkingSticker.getAccountId())).thenReturn(account);
 
     parkingService.addParkingSticker(parkingStickerDto);
 
@@ -147,7 +129,6 @@ public class ParkingServiceTest {
     parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethods.POSTAL).build();
     when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
     when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
-    when(accountRepository.findById(parkingSticker.getAccountId())).thenReturn(account);
 
     parkingService.addParkingSticker(parkingStickerDto);
 
@@ -158,7 +139,7 @@ public class ParkingServiceTest {
   public void
       givenValidParkingStickerCode_whenValidateParkingStickerCode_thenAccessGrantedResponseIsReturned() {
     AccessStatusDto accessStatusDto =
-        parkingService.validateParkingStickerCode(parkingStickerCode.toString());
+        parkingService.validateParkingStickerCode(parkingSticker.getCode().toString());
 
     Truth.assertThat(accessStatusDto).isSameInstanceAs(accessStatusGrantedDto);
   }
@@ -166,11 +147,11 @@ public class ParkingServiceTest {
   @Test
   public void
       givenInvalidParkingStickerCode_whenValidateParkingStickerCode_thenAccessRefusedResponseIsReturned() {
-    when(parkingStickerRepository.findByCode(parkingStickerCode))
+    when(parkingStickerRepository.findByCode(parkingSticker.getCode()))
         .thenReturn(parkingStickerNotValidToday);
 
     AccessStatusDto accessStatusDto =
-        parkingService.validateParkingStickerCode(parkingStickerCode.toString());
+        parkingService.validateParkingStickerCode(parkingSticker.getCode().toString());
 
     Truth.assertThat(accessStatusDto).isSameInstanceAs(accessStatusRefusedDto);
   }

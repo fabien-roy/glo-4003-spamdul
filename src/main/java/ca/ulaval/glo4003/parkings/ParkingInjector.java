@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings;
 
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
-import ca.ulaval.glo4003.accounts.domain.AccountRepository;
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
@@ -45,7 +45,7 @@ public class ParkingInjector {
       EmailAddressAssembler emailAddressAssembler,
       EmailSender emailSender,
       PostalSender postalSender,
-      AccountRepository accountRepository,
+      AccountService accountService,
       BillService billService) {
     ParkingAreaCodeAssembler parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
 
@@ -70,7 +70,7 @@ public class ParkingInjector {
             parkingStickerAssembler,
             parkingStickerCodeAssembler,
             parkingStickerFactory,
-            accountRepository,
+            accountService,
             parkingAreaRepository,
             parkingStickerRepository,
             accessStatusAssembler,

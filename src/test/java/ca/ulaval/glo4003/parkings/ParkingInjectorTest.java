@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings;
 
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
-import ca.ulaval.glo4003.accounts.domain.AccountRepository;
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.funds.services.BillService;
@@ -22,7 +22,7 @@ public class ParkingInjectorTest {
   @Mock private PostalCodeAssembler postalCodeAssembler;
   @Mock private EmailAddressAssembler emailAddressAssembler;
   @Mock private EmailSender emailSender;
-  @Mock private AccountRepository accountRepository;
+  @Mock private AccountService accountService;
   @Mock private PostalSender postalSender;
   @Mock private BillService billService;
 
@@ -43,7 +43,7 @@ public class ParkingInjectorTest {
             emailAddressAssembler,
             emailSender,
             postalSender,
-            accountRepository,
+            accountService,
             billService);
 
     Truth.assertThat(parkingResource).isNotNull();

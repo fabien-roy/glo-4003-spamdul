@@ -1,25 +1,31 @@
 package ca.ulaval.glo4003.cars.assemblers;
 
+import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.domain.Car;
+import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
 import java.time.LocalDate;
 
 public class CarAssembler {
 
   private final LicensePlateAssembler licensePlateAssembler;
+  private final AccountIdAssembler accountIdAssembler;
 
-  public CarAssembler(LicensePlateAssembler licensePlateAssembler) {
+  public CarAssembler(
+      LicensePlateAssembler licensePlateAssembler, AccountIdAssembler accountIdAssembler) {
     this.licensePlateAssembler = licensePlateAssembler;
+    this.accountIdAssembler = accountIdAssembler;
   }
 
   public Car create(CarDto carDto) {
     validateYear(carDto.year);
-    return new Car(
-        carDto.manufacturer,
-        carDto.model,
-        carDto.year,
-        licensePlateAssembler.assemble(carDto.licensePlate));
+
+    LicensePlate licensePlate = licensePlateAssembler.assemble(carDto.licensePlate);
+    AccountId accountId = accountIdAssembler.assemble(carDto.accountId);
+
+    return new Car(licensePlate, accountId, carDto.manufacturer, carDto.model, carDto.year);
   }
 
   private void validateYear(int year) {

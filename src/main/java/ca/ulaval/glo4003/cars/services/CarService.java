@@ -18,6 +18,6 @@ public class CarService {
   public void addCar(CarDto carDto) {
     Car car = carAssembler.create(carDto);
 
-    accountService.addCarToAccount(carDto.accountId, car);
+    accountService.addCarToAccount(car.getAccountId(), car);
   }
 }

@@ -43,7 +43,8 @@ public class ApplicationInjector {
   private static final OffenseInjector OFFENSE_INJECTOR = new OffenseInjector();
 
   public CarResource createCarResource() {
-    return CAR_INJECTOR.createCarResource(ACCOUNT_INJECTOR.createAccountService());
+    return CAR_INJECTOR.createCarResource(
+        ACCOUNT_INJECTOR.createAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler());
   }
 
   public ParkingResource createParkingResource() {
@@ -54,7 +55,7 @@ public class ApplicationInjector {
         COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
         COMMUNICATION_INJECTOR.createEmailSender(),
         LOCATION_INJECTOR.createPostalCodeSender(),
-        ACCOUNT_INJECTOR.getAccountRepository(),
+        ACCOUNT_INJECTOR.createAccountService(),
         FUND_INJECTOR.createBillService());
   }
 
