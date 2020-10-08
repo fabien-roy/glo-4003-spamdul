@@ -2,22 +2,17 @@ package ca.ulaval.glo4003;
 
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
-import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
-import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.cars.api.CarExceptionMapper;
 import ca.ulaval.glo4003.cars.api.CarResource;
 import ca.ulaval.glo4003.communications.CommunicationInjector;
 import ca.ulaval.glo4003.communications.api.CommunicationExceptionMapper;
-import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.files.FileInjector;
 import ca.ulaval.glo4003.files.api.FileExceptionMapper;
 import ca.ulaval.glo4003.funds.FundInjector;
-import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.interfaces.api.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.locations.LocationInjector;
 import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
-import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
 import ca.ulaval.glo4003.offenses.OffenseInjector;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.ParkingInjector;
@@ -66,9 +61,9 @@ public class ApplicationInjector {
         ACCOUNT_INJECTOR.createAccountService(),
         parkingStickerCreationObservers,
         FUND_INJECTOR.createBillService());
-    }
+  }
 
-    public UserResource createUserResource() {
+  public UserResource createUserResource() {
     return USER_INJECTOR.createUserResource(
         ACCOUNT_INJECTOR.getAccountRepository(),
         ACCOUNT_INJECTOR.createAccountFactory(),
