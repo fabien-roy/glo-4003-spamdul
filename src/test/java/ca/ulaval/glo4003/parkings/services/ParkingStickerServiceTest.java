@@ -4,15 +4,12 @@ import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.parkings.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
-import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.services.BillService;
-import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.parkings.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
@@ -40,8 +37,7 @@ public class ParkingStickerServiceTest {
   @Mock private AccountService accountService;
   @Mock private ParkingAreaRepository parkingAreaRepository;
   @Mock private ParkingStickerRepository parkingStickerRepository;
-  @Mock private EmailSender emailSender;
-  @Mock private PostalSender postalSender;
+  @Mock private ParkingStickerCreationObserver parkingStickerCreationObserver;
   @Mock private BillService billService;
 
   private ParkingStickerService parkingStickerService;
@@ -68,8 +64,6 @@ public class ParkingStickerServiceTest {
             parkingAreaRepository,
             parkingStickerRepository,
             accessStatusAssembler,
-            emailSender,
-            postalSender,
             billService);
 
     when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
@@ -114,26 +108,12 @@ public class ParkingStickerServiceTest {
   }
 
   @Test
-  public void givenReceptionMethodIsEmail_whenAddParkingSticker_thenMailSenderIsCalled() {
-    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethods.EMAIL).build();
-    when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
-    when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
+  public void whenAddParkingSticker_thenParkingStickerCreationObserversAreNotified() {
+    parkingStickerService.register(parkingStickerCreationObserver);
 
     parkingStickerService.addParkingSticker(parkingStickerDto);
 
-    Mockito.verify(emailSender)
-        .sendEmail(eq(parkingSticker.getEmailAddress().toString()), anyString(), anyString());
-  }
-
-  @Test
-  public void givenReceptionMethodPostal_whenAddParkingSticker_thenPostalSenderIsCalled() {
-    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethods.POSTAL).build();
-    when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
-    when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
-
-    parkingStickerService.addParkingSticker(parkingStickerDto);
-
-    Mockito.verify(postalSender).sendPostal(eq(parkingSticker.getPostalCode()), anyString());
+    Mockito.verify(parkingStickerCreationObserver).listenParkingStickerCreated(parkingSticker);
   }
 
   @Test
