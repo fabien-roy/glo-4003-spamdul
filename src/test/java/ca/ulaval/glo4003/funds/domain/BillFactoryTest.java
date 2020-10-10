@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.funds.domain;
 
+import static ca.ulaval.glo4003.accessPass.helper.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
@@ -78,7 +79,7 @@ public class BillFactoryTest {
   public void whenCreatingForParkingSticker_thenReturnBillWithParkingStickerType() {
     Bill bill = billFactory.createForParkingSticker(fee, parkingStickerCode, receptionMethod);
 
-    Truth.assertThat(bill.getBillType()).isEqualTo(BillType.PARKINGSTICKER);
+    Truth.assertThat(bill.getBillTypes()).isEqualTo(BillTypes.PARKING_STICKER);
   }
 
   @Test
@@ -106,7 +107,7 @@ public class BillFactoryTest {
   public void whenCreatingForAccessPass_thenReturnBillWithAccessPassType() {
     Bill bill = billFactory.createForAccessPass(fee, accessPassCode);
 
-    Truth.assertThat(bill.getBillType()).isEqualTo(BillType.ACCESSPASS);
+    Truth.assertThat(bill.getBillTypes()).isEqualTo(BillTypes.ACCESS_PASS);
   }
 
   @Test
@@ -134,6 +135,6 @@ public class BillFactoryTest {
   public void whenCreatingForOffense_thenReturnBillWithAccessPassType() {
     Bill bill = billFactory.createForOffense(fee, offenseCode);
 
-    Truth.assertThat(bill.getBillType()).isEqualTo(BillType.OFFENSE);
+    Truth.assertThat(bill.getBillTypes()).isEqualTo(BillTypes.OFFENSE);
   }
 }

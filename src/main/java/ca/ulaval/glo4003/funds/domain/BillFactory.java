@@ -21,7 +21,7 @@ public class BillFactory {
 
   public Bill createForParkingSticker(
       Money feeForPeriod, ParkingStickerCode parkingStickerCode, ReceptionMethods receptionMethod) {
-    BillId id = getBillId();
+    BillId id = generateBillId();
     String description =
         String.format(PARKING_STICKER_BILL_DESCRIPTION, parkingStickerCode.toString());
 
@@ -31,30 +31,30 @@ public class BillFactory {
       amount = amount.plus(Money.fromDouble(5));
     }
 
-    BillType billType = BillType.PARKINGSTICKER;
+    BillTypes billTypes = BillTypes.PARKING_STICKER;
 
-    return new Bill(id, billType, description, amount);
+    return new Bill(id, billTypes, description, amount);
   }
 
   public Bill createForAccessPass(Money feeForPeriod, AccessPassCode accessPassCode) {
-    BillId id = getBillId();
+    BillId id = generateBillId();
     String description = String.format(ACCESS_PASS_BILL_DESCRIPTION, accessPassCode.toString());
 
-    BillType billType = BillType.ACCESSPASS;
+    BillTypes billTypes = BillTypes.ACCESS_PASS;
 
-    return new Bill(id, billType, description, feeForPeriod);
+    return new Bill(id, billTypes, description, feeForPeriod);
   }
 
   public Bill createForOffense(Money fee, OffenseCode offenseCode) {
-    BillId id = getBillId();
+    BillId id = generateBillId();
     String description = String.format(OFFENSE_BILL_DESCRIPTION, offenseCode.toString());
 
-    BillType billType = BillType.OFFENSE;
+    BillTypes billTypes = BillTypes.OFFENSE;
 
-    return new Bill(id, billType, description, fee);
+    return new Bill(id, billTypes, description, fee);
   }
 
-  private BillId getBillId() {
+  private BillId generateBillId() {
     return billIdGenerator.generate();
   }
 }

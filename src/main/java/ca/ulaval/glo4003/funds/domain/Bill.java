@@ -2,14 +2,14 @@ package ca.ulaval.glo4003.funds.domain;
 
 public class Bill {
   private final BillId id;
-  private final BillType billType;
+  private final BillTypes billTypes;
   private final String description;
   private final Money amountDue;
   private Money amountPaid;
 
-  public Bill(BillId id, BillType billType, String description, Money amountDue) {
+  public Bill(BillId id, BillTypes billTypes, String description, Money amountDue) {
     this.id = id;
-    this.billType = billType;
+    this.billTypes = billTypes;
     this.description = description;
     this.amountDue = amountDue;
     this.amountPaid = Money.ZERO();
@@ -19,8 +19,8 @@ public class Bill {
     return id;
   }
 
-  public BillType getBillType() {
-    return billType;
+  public BillTypes getBillTypes() {
+    return billTypes;
   }
 
   public String getDescription() {

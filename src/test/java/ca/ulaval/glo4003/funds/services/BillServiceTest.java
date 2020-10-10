@@ -1,11 +1,11 @@
 package ca.ulaval.glo4003.funds.services;
 
+import static ca.ulaval.glo4003.accessPass.helper.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
-import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createAccessPassCode;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.access.domain.AccessPassCode;

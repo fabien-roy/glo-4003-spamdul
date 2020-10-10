@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.accessPass.domain;
 
 import static ca.ulaval.glo4003.accessPass.helper.AccessPassBuilder.anAccessPass;
-import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createAccessPassCode;
+import static ca.ulaval.glo4003.accessPass.helper.AccessPassMother.createAccessPassCode;
 
 import ca.ulaval.glo4003.access.domain.AccessPass;
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
@@ -19,7 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class AccessPassFactoryTest {
   private AccessPassFactory accessPassFactory;
 
-  private static final AccessPassCode ACCESSPASSCODE = createAccessPassCode();
+  private static final AccessPassCode ACCESS_PASS_CODE = createAccessPassCode();
   private AccessPass accessPass = anAccessPass().build();
 
   @Mock private AccessPassCodeGenerator accessPassCodeGenerator;
@@ -28,13 +28,13 @@ public class AccessPassFactoryTest {
   public void setUp() {
     accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
 
-    BDDMockito.given(accessPassCodeGenerator.generate()).willReturn(ACCESSPASSCODE);
+    BDDMockito.given(accessPassCodeGenerator.generate()).willReturn(ACCESS_PASS_CODE);
   }
 
   @Test
   public void whenCreating_thenGeneratorCode() {
     accessPassFactory.create(accessPass);
 
-    Truth.assertThat(accessPass.getAccessPassCode()).isSameInstanceAs(ACCESSPASSCODE);
+    Truth.assertThat(accessPass.getAccessPassCode()).isSameInstanceAs(ACCESS_PASS_CODE);
   }
 }

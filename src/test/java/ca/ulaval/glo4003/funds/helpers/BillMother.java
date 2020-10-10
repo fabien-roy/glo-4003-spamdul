@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.funds.helpers;
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.domain.BillType;
+import ca.ulaval.glo4003.funds.domain.BillTypes;
 import com.github.javafaker.Faker;
 import java.util.UUID;
 
@@ -16,7 +16,7 @@ public class BillMother {
     return Faker.instance().elderScrolls().quote();
   }
 
-  public static BillType createBillType() {
-    return randomEnum(BillType.class);
+  public static BillTypes createBillType() {
+    return randomEnum(BillTypes.class);
   }
 }

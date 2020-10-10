@@ -11,13 +11,13 @@ public class BillTest {
   private final BillId billId = createBillId();
   private final String description = createDescription();
   private final Money amountDue = createMoney();
-  private final BillType billType = createBillType();
+  private final BillTypes billTypes = createBillType();
 
   @Test
   public void whenConstructing_setAmountPaidToZero() {
     Money expectedAmountPaid = Money.ZERO();
 
-    Bill bill = new Bill(billId, billType, description, amountDue);
+    Bill bill = new Bill(billId, billTypes, description, amountDue);
 
     Truth.assertThat(bill.getAmountPaid()).isEqualTo(expectedAmountPaid);
   }
