@@ -3,10 +3,12 @@ package ca.ulaval.glo4003.accounts.services;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createAccessPassCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingStickerCode;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.access.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
@@ -30,6 +32,7 @@ public class AccountServiceTest {
   private final LicensePlate licensePlate = createLicensePlate();
   private final ParkingStickerCode parkingStickerCode = createParkingStickerCode();
   private final BillId billId = createBillId();
+  private final AccessPassCode accessPassCode = createAccessPassCode();
 
   @Before
   public void setup() {
@@ -69,6 +72,41 @@ public class AccountServiceTest {
   @Test
   public void whenAddingParkingSticker_shouldUpdateAccountInRepository() {
     accountService.addParkingStickerToAccount(account.getId(), parkingStickerCode, billId);
+
+    verify(accountRepository).update(account);
+  }
+
+  @Test
+  public void whenAddingAccessCode_shouldAddAccessCodeToAccount() {
+    accountService.addAccessCodeToAccount(account.getId(), accessPassCode, billId);
+
+    Truth.assertThat(account.getAccessPassCodes()).contains(accessPassCode);
+  }
+
+  @Test
+  public void whenAddingAccessCode_shouldAddBillIdToAccount() {
+    accountService.addAccessCodeToAccount(account.getId(), accessPassCode, billId);
+
+    Truth.assertThat(account.getBillIds()).contains(billId);
+  }
+
+  @Test
+  public void whenAddingAccessCode_shouldUpdateAccountInRepository() {
+    accountService.addAccessCodeToAccount(account.getId(), accessPassCode, billId);
+
+    verify(accountRepository).update(account);
+  }
+
+  @Test
+  public void whenAddingOffense_shouldAddBillIdToAccount() {
+    accountService.addOffenseToAccount(account.getId(), billId);
+
+    Truth.assertThat(account.getBillIds()).contains(billId);
+  }
+
+  @Test
+  public void whenAddingOffense_shouldUpdateAccountInRepository() {
+    accountService.addOffenseToAccount(account.getId(), billId);
 
     verify(accountRepository).update(account);
   }
