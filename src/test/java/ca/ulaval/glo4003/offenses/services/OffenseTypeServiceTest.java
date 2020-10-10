@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.offenses.services;
 
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
-import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeBuilder.anOffenseType;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeDtoBuilder.anOffenseTypeDto;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationBuilder.anOffenseValidation;
@@ -10,7 +9,6 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
@@ -27,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -52,7 +51,6 @@ public class OffenseTypeServiceTest {
   private final OffenseType invalidStickerOffenseType = anOffenseType().build();
   private final OffenseTypeDto wrongZoneOffenseTypeDto = anOffenseTypeDto().build();
   private final OffenseTypeDto invalidStickerOffenseTypeDto = anOffenseTypeDto().build();
-  private final Money fee = createMoney();
   private final BillId billId = createBillId();
 
   @Before
@@ -81,7 +79,8 @@ public class OffenseTypeServiceTest {
         .thenReturn(Collections.singletonList(wrongZoneOffenseTypeDto));
     when(offenseTypeAssembler.assembleMany(Collections.singletonList(invalidStickerOffenseType)))
         .thenReturn(Collections.singletonList(invalidStickerOffenseTypeDto));
-    when(billService.addBillOffense(fee, offenseType.getCode())).thenReturn(billId);
+    when(billService.addBillOffense(offenseType.getAmount(), offenseType.getCode()))
+        .thenReturn(billId);
   }
 
   @Test
@@ -121,5 +120,29 @@ public class OffenseTypeServiceTest {
     List<OffenseTypeDto> offenseTypeDtos = offenseTypeService.validateOffense(offenseValidationDto);
 
     Truth.assertThat(offenseTypeDtos).contains(wrongZoneOffenseTypeDto);
+  }
+
+  @Test
+  public void givenWrongZoneOffense_whenValidatingOffense_thenBillFactoryIsCalled() {
+    when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
+        .thenReturn(false);
+
+    offenseTypeService.validateOffense(offenseValidationDto);
+
+    Mockito.verify(billService)
+        .addBillOffense(wrongZoneOffenseType.getAmount(), wrongZoneOffenseType.getCode());
+  }
+
+  @Test
+  public void givenWrongZoneOffense_whenValidatingOffense_thenAddBillToAccountIsCalled() {
+    when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
+        .thenReturn(false);
+    when(billService.addBillOffense(
+            wrongZoneOffenseType.getAmount(), wrongZoneOffenseType.getCode()))
+        .thenReturn(billId);
+
+    offenseTypeService.validateOffense(offenseValidationDto);
+
+    Mockito.verify(accountService).addOffenseToAccount(parkingSticker.getAccountId(), billId);
   }
 }
