@@ -16,10 +16,6 @@ public class ZoneFeesFileHelper {
     csvData = fileReader.readFile(ZONE_FEES_PATH);
   }
 
-  public void setFilePath(String filePath) {
-    ZONE_FEES_PATH = filePath;
-  }
-
   public Map<String, Map<String, Double>> getZonesAndFees() {
     List<String> zones = getAllZones();
     Map<String, Map<String, Double>> zonesAndFees = new HashMap<>();
