@@ -2,11 +2,15 @@ package ca.ulaval.glo4003.funds.services;
 
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
+import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createAccessPassCode;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.access.domain.AccessPassCode;
 import ca.ulaval.glo4003.funds.domain.*;
+import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriods;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
@@ -32,6 +36,9 @@ public class BillServiceTest {
   private final Money parkingPeriodFee = createMoney();
   private final Bill bill = aBill().build();
   private ParkingArea parkingArea;
+  private final Money fee = createMoney();
+  private final AccessPassCode accessPassCode = createAccessPassCode();
+  private final OffenseCode offenseCode = createOffenseCode();
 
   @Before
   public void setUp() {
@@ -44,6 +51,8 @@ public class BillServiceTest {
     when(billFactory.createForParkingSticker(
             parkingPeriodFee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
         .thenReturn(bill);
+    when(billFactory.createForAccessPass(fee, accessPassCode)).thenReturn(bill);
+    when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
   }
 
   @Test
@@ -56,6 +65,34 @@ public class BillServiceTest {
   @Test
   public void whenAddingBillForParkingSticker_thenSaveBillToRepository() {
     billService.addBillForParkingSticker(parkingSticker, parkingArea);
+
+    Mockito.verify(billRepository).save(bill);
+  }
+
+  @Test
+  public void whenAddingBillForAccessPass_thenReturnBillId() {
+    BillId billId = billService.addBillForAccessCode(fee, accessPassCode);
+
+    Truth.assertThat(billId).isEqualTo(bill.getId());
+  }
+
+  @Test
+  public void whenAddingBillForAccessPass_thenSaveBillToRepository() {
+    billService.addBillForAccessCode(fee, accessPassCode);
+
+    Mockito.verify(billRepository).save(bill);
+  }
+
+  @Test
+  public void whenAddingBillForOffense_thenReturnBillId() {
+    BillId billId = billService.addBillOffense(fee, offenseCode);
+
+    Truth.assertThat(billId).isEqualTo(bill.getId());
+  }
+
+  @Test
+  public void whenAddingBillForOffense_thenSaveBillToRepository() {
+    billService.addBillOffense(fee, offenseCode);
 
     Mockito.verify(billRepository).save(bill);
   }

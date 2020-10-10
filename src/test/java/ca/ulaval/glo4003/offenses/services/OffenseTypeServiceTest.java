@@ -1,11 +1,17 @@
 package ca.ulaval.glo4003.offenses.services;
 
+import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
+import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeBuilder.anOffenseType;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeDtoBuilder.anOffenseTypeDto;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationBuilder.anOffenseValidation;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationDtoBuilder.anOffenseValidationDto;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.accounts.services.AccountService;
+import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.domain.Money;
+import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
@@ -30,7 +36,9 @@ public class OffenseTypeServiceTest {
   @Mock private OffenseTypeAssembler offenseTypeAssembler;
   @Mock private OffenseTypeRepository offenseTypeRepository;
   @Mock private OffenseTypeFactory offenseTypeFactory;
-  @Mock ParkingSticker parkingSticker;
+  @Mock private ParkingSticker parkingSticker;
+  @Mock private BillService billService;
+  @Mock private AccountService accountService;
 
   private OffenseTypeService offenseTypeService;
 
@@ -44,6 +52,8 @@ public class OffenseTypeServiceTest {
   private final OffenseType invalidStickerOffenseType = anOffenseType().build();
   private final OffenseTypeDto wrongZoneOffenseTypeDto = anOffenseTypeDto().build();
   private final OffenseTypeDto invalidStickerOffenseTypeDto = anOffenseTypeDto().build();
+  private final Money fee = createMoney();
+  private final BillId billId = createBillId();
 
   @Before
   public void setUp() {
@@ -53,7 +63,9 @@ public class OffenseTypeServiceTest {
             offenseValidationAssembler,
             offenseTypeAssembler,
             offenseTypeRepository,
-            offenseTypeFactory);
+            offenseTypeFactory,
+            billService,
+            accountService);
 
     when(offenseTypeRepository.getAll()).thenReturn(offenseTypes);
     when(offenseTypeAssembler.assembleMany(offenseTypes)).thenReturn(offenseTypeDtos);
@@ -69,6 +81,7 @@ public class OffenseTypeServiceTest {
         .thenReturn(Collections.singletonList(wrongZoneOffenseTypeDto));
     when(offenseTypeAssembler.assembleMany(Collections.singletonList(invalidStickerOffenseType)))
         .thenReturn(Collections.singletonList(invalidStickerOffenseTypeDto));
+    when(billService.addBillOffense(fee, offenseType.getCode())).thenReturn(billId);
   }
 
   @Test

@@ -1,6 +1,8 @@
 package ca.ulaval.glo4003.funds.services;
 
+import ca.ulaval.glo4003.access.domain.AccessPassCode;
 import ca.ulaval.glo4003.funds.domain.*;
+import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriods;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
@@ -24,6 +26,22 @@ public class BillService {
     Bill bill =
         billFactory.createForParkingSticker(
             feeForPeriod, parkingSticker.getCode(), parkingSticker.getReceptionMethod());
+
+    billRepository.save(bill);
+
+    return bill.getId();
+  }
+
+  public BillId addBillForAccessCode(Money fee, AccessPassCode accessPassCode) {
+    Bill bill = billFactory.createForAccessPass(fee, accessPassCode);
+
+    billRepository.save(bill);
+
+    return bill.getId();
+  }
+
+  public BillId addBillOffense(Money fee, OffenseCode offenseCode) {
+    Bill bill = billFactory.createForOffense(fee, offenseCode);
 
     billRepository.save(bill);
 
