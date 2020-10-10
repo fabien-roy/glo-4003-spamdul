@@ -8,6 +8,6 @@ public class InfractionDto {
   @Override
   public String toString() {
     return String.format(
-        "OffenseFileDto{infraction='%s', code='%s', montant='%s'}", infraction, code, montant);
+        "InfractionDto{infraction='%s', code='%s', montant='%s'}", infraction, code, montant);
   }
 }

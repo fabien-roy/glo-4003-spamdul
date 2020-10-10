@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.locations.domain;
 
-public interface PostalSender {
+import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
+
+public interface PostalSender extends ParkingStickerCreationObserver {
   void sendPostal(PostalCode postalCode, String message);
 }

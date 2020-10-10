@@ -1,17 +1,30 @@
 package ca.ulaval.glo4003.cars.domain;
 
+import ca.ulaval.glo4003.accounts.domain.AccountId;
+
 public class Car {
 
-  private String manufacturer;
-  private String model;
-  private int year;
-  private LicensePlate licensePlate;
+  private final LicensePlate licensePlate;
+  private final AccountId accountId;
+  private final String manufacturer;
+  private final String model;
+  private final int year;
 
-  public Car(String manufacturer, String model, int year, LicensePlate licensePlate) {
+  public Car(
+      LicensePlate licensePlate, AccountId accountId, String manufacturer, String model, int year) {
+    this.licensePlate = licensePlate;
+    this.accountId = accountId;
     this.manufacturer = manufacturer;
     this.model = model;
     this.year = year;
-    this.licensePlate = licensePlate;
+  }
+
+  public LicensePlate getLicensePlate() {
+    return licensePlate;
+  }
+
+  public AccountId getAccountId() {
+    return accountId;
   }
 
   public String getManufacturer() {
@@ -24,9 +37,5 @@ public class Car {
 
   public int getYear() {
     return year;
-  }
-
-  public LicensePlate getLicensePlate() {
-    return licensePlate;
   }
 }

@@ -2,7 +2,6 @@ package ca.ulaval.glo4003;
 
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
-import ca.ulaval.glo4003.bills.api.BillExceptionMapper;
 import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.cars.api.CarExceptionMapper;
 import ca.ulaval.glo4003.cars.api.CarResource;
@@ -19,6 +18,7 @@ import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.ParkingInjector;
 import ca.ulaval.glo4003.parkings.api.ParkingExceptionMapper;
 import ca.ulaval.glo4003.parkings.api.ParkingResource;
+import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
 import ca.ulaval.glo4003.times.TimeInjector;
 import ca.ulaval.glo4003.times.api.TimeExceptionMapper;
 import ca.ulaval.glo4003.users.UserInjector;
@@ -44,18 +44,23 @@ public class ApplicationInjector {
   private static final OffenseInjector OFFENSE_INJECTOR = new OffenseInjector();
 
   public CarResource createCarResource() {
-    return CAR_INJECTOR.createCarResource(ACCOUNT_INJECTOR.createAccountService());
+    return CAR_INJECTOR.createCarResource(
+        ACCOUNT_INJECTOR.createAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler());
   }
 
   public ParkingResource createParkingResource() {
+    List<ParkingStickerCreationObserver> parkingStickerCreationObservers =
+        Arrays.asList(
+            COMMUNICATION_INJECTOR.createEmailSender(), LOCATION_INJECTOR.createPostalCodeSender());
+
     return PARKING_INJECTOR.createParkingResource(
         IS_DEV,
         ACCOUNT_INJECTOR.createAccountIdAssembler(),
         LOCATION_INJECTOR.createPostalCodeAssembler(),
         COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
-        COMMUNICATION_INJECTOR.createEmailSender(),
-        LOCATION_INJECTOR.createPostalCodeSender(),
-        ACCOUNT_INJECTOR.getAccountRepository());
+        ACCOUNT_INJECTOR.createAccountService(),
+        parkingStickerCreationObservers,
+        FUND_INJECTOR.createBillService());
   }
 
   public UserResource createUserResource() {
@@ -72,7 +77,7 @@ public class ApplicationInjector {
         PARKING_INJECTOR.createParkingStickerCodeAssembler(),
         PARKING_INJECTOR.createParkingAreaCodeAssembler(),
         TIME_INJECTOR.createTimeOfDayAssembler(),
-        FILE_INJECTOR.createJsonHelper(),
+        FILE_INJECTOR.createJsonFileReader(),
         FUND_INJECTOR.createMoneyAssembler());
   }
 
@@ -80,7 +85,6 @@ public class ApplicationInjector {
     return Arrays.asList(
         CatchAllExceptionMapper.class,
         AccountExceptionMapper.class,
-        BillExceptionMapper.class,
         CarExceptionMapper.class,
         CommunicationExceptionMapper.class,
         FileExceptionMapper.class,

@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.offenses;
 
-import ca.ulaval.glo4003.files.filesystem.JsonHelper;
+import ca.ulaval.glo4003.files.domain.StringFileReader;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.offenses.api.OffenseResourceImplementation;
@@ -22,20 +22,16 @@ import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import java.util.List;
 
 public class OffenseInjector {
-  private final OffenseTypeRepository offenseTypeRepository;
-
-  public OffenseInjector() {
-    offenseTypeRepository = new OffenseTypeRepositoryInMemory();
-  }
+  private final OffenseTypeRepository offenseTypeRepository = new OffenseTypeRepositoryInMemory();
 
   public OffenseResource createOffenseResource(
       ParkingStickerRepository parkingStickerRepository,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       TimeOfDayAssembler timeOfDayAssembler,
-      JsonHelper jsonHelper,
+      StringFileReader fileReader,
       MoneyAssembler moneyAssembler) {
-    addOffenseTypesToRepository(jsonHelper, moneyAssembler);
+    addOffenseTypesToRepository(fileReader, moneyAssembler);
 
     OffenseTypeService offenseTypeService =
         createOffenseService(
@@ -47,9 +43,10 @@ public class OffenseInjector {
     return new OffenseResourceImplementation(offenseTypeService);
   }
 
-  private void addOffenseTypesToRepository(JsonHelper jsonHelper, MoneyAssembler moneyAssembler) {
-    InfractionFileHelper infractionFileHelper = new InfractionFileHelper(jsonHelper);
-    List<InfractionDto> infractions = infractionFileHelper.readInfractions();
+  private void addOffenseTypesToRepository(
+      StringFileReader fileReader, MoneyAssembler moneyAssembler) {
+    InfractionFileHelper infractionFileHelper = new InfractionFileHelper(fileReader);
+    List<InfractionDto> infractions = infractionFileHelper.getInfractions();
 
     OffenseCodeAssembler offenseCodeAssembler = new OffenseCodeAssembler();
     InfractionAssembler infractionAssembler =
