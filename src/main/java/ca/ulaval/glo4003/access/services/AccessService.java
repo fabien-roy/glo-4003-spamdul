@@ -57,21 +57,19 @@ public class AccessService {
     if (licensePlate == null) {
       consumptionTypes = ConsumptionTypes.ZERO_POLLUTION;
     } else {
-      Car car = carService.getCarByLicensePlate(accessPass.getLicensePlate());
+      Car car = carService.getCarByLicensePlate(licensePlate);
       consumptionTypes = car.getConsumptionType();
     }
 
-    Money moneyDue =
-        accessPassPriceByCarConsumptionRepository
-            .findByConsumptionType(consumptionTypes)
-            .getFeeForPeriod(AccessPeriods.ONE_DAY);
+    AccessPassPriceByCarConsumption accessPassPriceByCarConsumption =
+        accessPassPriceByCarConsumptionRepository.findByConsumptionType(consumptionTypes);
+
+    Money moneyDue = accessPassPriceByCarConsumption.getFeeForPeriod(AccessPeriods.ONE_DAY);
     BillId billId = billService.addBillForAccessCode(moneyDue, accessPass.getAccessPassCode());
     accountService.addAccessCodeToAccount(
         new AccountId(UUID.fromString(accountId)), accessPass.getAccessPassCode(), billId);
 
     AccessPassCode accessPassCode = accessPassRepository.save(accessPass);
-
-    // TODO test service
 
     return accessPassCodeAssembler.assemble(accessPassCode);
   }

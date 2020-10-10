@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.access.helper;
 
 import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionTypes;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
+import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnums;
 
 import ca.ulaval.glo4003.access.domain.AccessPassPriceByCarConsumption;
@@ -20,6 +21,10 @@ public class AccessPassPriceByCarConsumptionBuilder {
     return new AccessPassPriceByCarConsumptionBuilder();
   }
 
+  public static AccessPeriods createAccessPeriod() {
+    return randomEnum(AccessPeriods.class);
+  }
+
   public static Map<AccessPeriods, Money> createAccessFeeByPeriod() {
     List<AccessPeriods> accessPeriods =
         randomEnums(AccessPeriods.class, Faker.instance().number().numberBetween(1, 5));
@@ -29,6 +34,11 @@ public class AccessPassPriceByCarConsumptionBuilder {
   }
 
   public AccessPassPriceByCarConsumption build() {
+    return new AccessPassPriceByCarConsumption(consumptionTypes, createAccessFeeByPeriod());
+  }
+
+  public AccessPassPriceByCarConsumption buildWithConsumptionType(
+      ConsumptionTypes consumptionTypes) {
     return new AccessPassPriceByCarConsumption(consumptionTypes, createAccessFeeByPeriod());
   }
 }
