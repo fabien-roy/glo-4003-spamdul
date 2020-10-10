@@ -13,13 +13,20 @@ import ca.ulaval.glo4003.cars.services.CarService;
 public class CarInjector {
 
   private final CarRepository carRepository = new CarRepositoryInMemory();
+  private final CarService carService;
 
-  public CarResource createCarResource(
-      AccountService accountService, AccountIdAssembler accountIdAssembler) {
+  public CarInjector(AccountService accountService, AccountIdAssembler accountIdAssembler) {
     LicensePlateAssembler licensePlateAssembler = new LicensePlateAssembler();
     CarAssembler carAssembler = new CarAssembler(licensePlateAssembler, accountIdAssembler);
 
-    CarService carService = new CarService(carAssembler, carRepository, accountService);
+    carService = new CarService(carAssembler, carRepository, accountService);
+  }
+
+  public CarService getCarService() {
+    return carService;
+  }
+
+  public CarResource createCarResource() {
 
     return new CarResourceImplementation(carService);
   }

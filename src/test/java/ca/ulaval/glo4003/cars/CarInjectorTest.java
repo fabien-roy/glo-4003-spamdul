@@ -20,12 +20,12 @@ public class CarInjectorTest {
 
   @Before
   public void setUp() {
-    carInjector = new CarInjector();
+    carInjector = new CarInjector(accountService, accountIdAssembler);
   }
 
   @Test
   public void whenCreatingCarResource_thenReturnIt() {
-    CarResource carResource = carInjector.createCarResource(accountService, accountIdAssembler);
+    CarResource carResource = carInjector.createCarResource();
 
     Truth.assertThat(carResource).isNotNull();
   }

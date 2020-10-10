@@ -35,7 +35,9 @@ public class ApplicationInjector {
   private static final boolean IS_DEV = true;
 
   private static final AccountInjector ACCOUNT_INJECTOR = new AccountInjector();
-  private static final CarInjector CAR_INJECTOR = new CarInjector();
+  private static final CarInjector CAR_INJECTOR =
+      new CarInjector(
+          ACCOUNT_INJECTOR.getAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler());
   private static final CommunicationInjector COMMUNICATION_INJECTOR = new CommunicationInjector();
   private static final FileInjector FILE_INJECTOR = new FileInjector();
   private static final FundInjector FUND_INJECTOR = new FundInjector();
@@ -44,11 +46,11 @@ public class ApplicationInjector {
   private static final TimeInjector TIME_INJECTOR = new TimeInjector();
   private static final UserInjector USER_INJECTOR = new UserInjector();
   private static final OffenseInjector OFFENSE_INJECTOR = new OffenseInjector();
-  private static final AccessInjector ACCESS_INJECTOR = new AccessInjector();
+  private static final AccessInjector ACCESS_INJECTOR =
+      new AccessInjector(CAR_INJECTOR.getCarService());
 
   public CarResource createCarResource() {
-    return CAR_INJECTOR.createCarResource(
-        ACCOUNT_INJECTOR.getAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler());
+    return CAR_INJECTOR.createCarResource();
   }
 
   public ParkingResource createParkingResource() {

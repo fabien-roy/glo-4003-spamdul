@@ -79,6 +79,13 @@ public class CarAssemblerTest {
     Truth.assertThat(car.getYear()).isEqualTo(carDto.year);
   }
 
+  @Test
+  public void whenAssembling_shouldCarWithConsumptionType() {
+    Car car = carAssembler.create(carDto);
+
+    Truth.assertThat(car.getConsumptionType().toString()).isEqualTo(carDto.consumptionType);
+  }
+
   @Test(expected = InvalidCarYearException.class)
   public void givenCarWithInvalidYear_whenAssembling_shouldThrowInvalidYearException() {
     CarDto carDto = aCarDto().withYear(INVALID_YEAR).build();

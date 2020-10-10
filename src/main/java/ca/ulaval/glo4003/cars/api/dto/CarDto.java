@@ -6,6 +6,7 @@ public class CarDto {
   public String model;
   public int year;
   public String licensePlate;
+  public String consumptionType;
 
   @Override
   public String toString() {

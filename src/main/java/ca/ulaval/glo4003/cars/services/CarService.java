@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.assemblers.CarAssembler;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.CarRepository;
+import ca.ulaval.glo4003.cars.domain.LicensePlate;
 
 public class CarService {
 
@@ -25,5 +26,9 @@ public class CarService {
     accountService.addLicensePlateToAccount(car.getAccountId(), car.getLicensePlate());
 
     carRepository.save(car);
+  }
+
+  public Car getCarByLicensePlate(LicensePlate licensePlate) {
+    return carRepository.getCarByLicensePlate(licensePlate);
   }
 }
