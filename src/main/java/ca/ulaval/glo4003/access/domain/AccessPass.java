@@ -16,4 +16,8 @@ public class AccessPass {
   public void setAccessPassCode(AccessPassCode accessPassCode) {
     this.accessPassCode = accessPassCode;
   }
+
+  public AccessPassCode getAccessPassCode() {
+    return accessPassCode;
+  }
 }
