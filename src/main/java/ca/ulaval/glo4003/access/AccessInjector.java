@@ -3,18 +3,22 @@ package ca.ulaval.glo4003.access;
 import ca.ulaval.glo4003.access.api.AccessResource;
 import ca.ulaval.glo4003.access.api.AccessResourceImplementation;
 import ca.ulaval.glo4003.access.assembler.AccessPassAssembler;
+import ca.ulaval.glo4003.access.assembler.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.access.domain.AccessPassCodeGenerator;
 import ca.ulaval.glo4003.access.domain.AccessPassFactory;
 import ca.ulaval.glo4003.access.domain.AccessPassPriceByCarConsumption;
 import ca.ulaval.glo4003.access.domain.AccessPeriods;
+import ca.ulaval.glo4003.access.infrastructure.AccessPassInMemoryRepository;
 import ca.ulaval.glo4003.access.infrastructure.AccessPassPriceByCarConsumptionInMemoryRepository;
 import ca.ulaval.glo4003.access.services.AccessService;
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
+import ca.ulaval.glo4003.funds.services.BillService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,10 +31,13 @@ public class AccessInjector {
       accessPassPriceByCarConsumptionInMemoryRepository;
   private String accessPriceFilePath = "data/frais-acces.csv";
 
-  public AccessInjector(CarService carService) {
+  public AccessInjector(
+      CarService carService, AccountService accountService, BillService billService) {
     AccessPassAssembler accessPassAssembler = new AccessPassAssembler();
     AccessPassCodeGenerator accessPassCodeGenerator = new AccessPassCodeGenerator();
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
+    AccessPassInMemoryRepository accessPassInMemoryRepository = new AccessPassInMemoryRepository();
+    AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
 
     accessPassPriceByCarConsumptionInMemoryRepository =
         new AccessPassPriceByCarConsumptionInMemoryRepository();
@@ -41,7 +48,11 @@ public class AccessInjector {
             accessPassAssembler,
             accessPassFactory,
             carService,
-            accessPassPriceByCarConsumptionInMemoryRepository);
+            accessPassPriceByCarConsumptionInMemoryRepository,
+            accountService,
+            billService,
+            accessPassInMemoryRepository,
+            accessPassCodeAssembler);
     accessResource = new AccessResourceImplementation(accessService);
   }
 

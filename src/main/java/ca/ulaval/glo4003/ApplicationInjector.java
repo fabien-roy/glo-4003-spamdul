@@ -47,7 +47,10 @@ public class ApplicationInjector {
   private static final UserInjector USER_INJECTOR = new UserInjector();
   private static final OffenseInjector OFFENSE_INJECTOR = new OffenseInjector();
   private static final AccessInjector ACCESS_INJECTOR =
-      new AccessInjector(CAR_INJECTOR.getCarService());
+      new AccessInjector(
+          CAR_INJECTOR.getCarService(),
+          ACCOUNT_INJECTOR.getAccountService(),
+          FUND_INJECTOR.getBillService());
 
   public CarResource createCarResource() {
     return CAR_INJECTOR.createCarResource();
