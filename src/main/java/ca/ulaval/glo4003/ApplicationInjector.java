@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003;
 
+import ca.ulaval.glo4003.access.AccessInjector;
+import ca.ulaval.glo4003.access.api.AccessResource;
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
 import ca.ulaval.glo4003.cars.CarInjector;
@@ -42,6 +44,7 @@ public class ApplicationInjector {
   private static final TimeInjector TIME_INJECTOR = new TimeInjector();
   private static final UserInjector USER_INJECTOR = new UserInjector();
   private static final OffenseInjector OFFENSE_INJECTOR = new OffenseInjector();
+  private static final AccessInjector ACCESS_INJECTOR = new AccessInjector();
 
   public CarResource createCarResource() {
     return CAR_INJECTOR.createCarResource(
@@ -81,6 +84,10 @@ public class ApplicationInjector {
         FUND_INJECTOR.createMoneyAssembler(),
         FUND_INJECTOR.getBillService(),
         ACCOUNT_INJECTOR.getAccountService());
+  }
+
+  public AccessResource createAccessResource() {
+    return ACCESS_INJECTOR.getAccessResource();
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {

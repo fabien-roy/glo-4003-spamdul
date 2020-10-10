@@ -1,7 +1,5 @@
-package ca.ulaval.glo4003.accessPass.domain;
+package ca.ulaval.glo4003.access.domain;
 
-import ca.ulaval.glo4003.access.domain.AccessPassCode;
-import ca.ulaval.glo4003.access.domain.AccessPassCodeGenerator;
 import com.google.common.truth.Truth;
 import org.junit.Test;
 

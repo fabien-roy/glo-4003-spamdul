@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.accessPass.helper;
+package ca.ulaval.glo4003.access.helper;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.times.helpers.DayMother.createDay;

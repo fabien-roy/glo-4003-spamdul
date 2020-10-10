@@ -1,12 +1,8 @@
-package ca.ulaval.glo4003.accessPass.domain;
+package ca.ulaval.glo4003.access.domain;
 
-import static ca.ulaval.glo4003.accessPass.helper.AccessPassBuilder.anAccessPass;
-import static ca.ulaval.glo4003.accessPass.helper.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.access.helper.AccessPassBuilder.anAccessPass;
+import static ca.ulaval.glo4003.access.helper.AccessPassMother.createAccessPassCode;
 
-import ca.ulaval.glo4003.access.domain.AccessPass;
-import ca.ulaval.glo4003.access.domain.AccessPassCode;
-import ca.ulaval.glo4003.access.domain.AccessPassCodeGenerator;
-import ca.ulaval.glo4003.access.domain.AccessPassFactory;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
