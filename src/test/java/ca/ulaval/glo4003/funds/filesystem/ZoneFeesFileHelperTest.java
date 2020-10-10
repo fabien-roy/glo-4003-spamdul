@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.funds.filesystem;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
+import ca.ulaval.glo4003.parkings.ParkingInjector;
 import com.google.common.truth.Truth;
 import java.util.*;
 import org.junit.Before;
@@ -44,7 +45,7 @@ public class ZoneFeesFileHelperTest {
 
     when(fileReader.readFile(CSV_FILE)).thenReturn(csvFile);
 
-    zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader);
+    zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader, ParkingInjector.ZONE_FEES_PATH);
   }
 
   @Test

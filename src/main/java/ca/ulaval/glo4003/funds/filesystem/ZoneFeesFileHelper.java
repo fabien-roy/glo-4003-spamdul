@@ -7,12 +7,17 @@ import java.util.List;
 import java.util.Map;
 
 public class ZoneFeesFileHelper {
-  private static final String ZONE_FEES_PATH = "data/frais-zone.csv";
+  private static String ZONE_FEES_PATH;
 
   private final List<List<String>> csvData;
 
-  public ZoneFeesFileHelper(StringMatrixFileReader fileReader) {
+  public ZoneFeesFileHelper(StringMatrixFileReader fileReader, String filePath) {
+    ZONE_FEES_PATH = filePath;
     csvData = fileReader.readFile(ZONE_FEES_PATH);
+  }
+
+  public void setFilePath(String filePath) {
+    ZONE_FEES_PATH = filePath;
   }
 
   public Map<String, Map<String, Double>> getZonesAndFees() {

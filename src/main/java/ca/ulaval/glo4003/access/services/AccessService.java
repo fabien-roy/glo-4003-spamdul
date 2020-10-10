@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.access.assembler.AccessPassAssembler;
 import ca.ulaval.glo4003.access.domain.AccessPass;
 import ca.ulaval.glo4003.access.domain.AccessPassFactory;
+import ca.ulaval.glo4003.access.domain.AccessPassPriceByCarConsumptionRepository;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
@@ -14,15 +15,18 @@ public class AccessService {
   private AccessPassAssembler accessPassAssembler;
   private AccessPassFactory accessPassFactory;
   private CarService carService;
+  private AccessPassPriceByCarConsumptionRepository accessPassPriceByCarConsumptionRepository;
 
   public AccessService(
       AccessPassAssembler accessPassAssembler,
       AccessPassFactory accessPassFactory,
-      CarService carService) {
+      CarService carService,
+      AccessPassPriceByCarConsumptionRepository accessPassPriceByCarConsumptionRepository) {
 
     this.accessPassAssembler = accessPassAssembler;
     this.accessPassFactory = accessPassFactory;
     this.carService = carService;
+    this.accessPassPriceByCarConsumptionRepository = accessPassPriceByCarConsumptionRepository;
   }
 
   public AccessPassCodeDto addAccessPass(AccessPassDto accessPassDto, String accountId) {
