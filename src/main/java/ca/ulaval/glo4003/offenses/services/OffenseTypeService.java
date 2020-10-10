@@ -50,11 +50,13 @@ public class OffenseTypeService {
           parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode());
     } catch (NotFoundParkingStickerException e) {
       offenseTypes.add(offenseTypeFactory.createInvalidStickerOffense());
+      // TODO cant add a bill ?
     }
 
     if (parkingSticker != null
         && !parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode())) {
       offenseTypes.add(offenseTypeFactory.createWrongZoneOffense());
+      // TODO add bill for this offense
     }
 
     return offenseTypeAssembler.assembleMany(offenseTypes);
