@@ -64,7 +64,6 @@ public class AccountService {
   }
 
   public BillsDto getBills(String accountId) {
-    // TODO test
     AccountId id = accountIdAssembler.assemble(accountId);
     Account account = getAccount(id);
     List<BillId> billIds = account.getBillIds();

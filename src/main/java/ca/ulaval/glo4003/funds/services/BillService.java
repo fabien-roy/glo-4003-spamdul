@@ -50,7 +50,6 @@ public class BillService {
   }
 
   public List<Bill> getBillsByIds(List<BillId> billIds) {
-    // TODO test
     return billRepository.getBillsByIds(billIds);
   }
 }

@@ -4,6 +4,7 @@ import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
+import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.users.domain.User;
 
 public class AccountBuilder {
@@ -23,6 +24,13 @@ public class AccountBuilder {
 
   public Account build() {
     Account account = new Account(id, user);
+    return account;
+  }
+
+  public Account buildWithBillId(BillId billId) {
+    Account account = new Account(id, user);
+    account.addBillId(billId);
+
     return account;
   }
 }
