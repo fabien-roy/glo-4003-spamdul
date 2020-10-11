@@ -6,7 +6,7 @@ public class Bill {
   private final BillId id;
   private final BillTypes billTypes;
   private final String description;
-  private final Money amountDue;
+  private Money amountDue;
   private Money amountPaid;
 
   public Bill(BillId id, BillTypes billTypes, String description, Money amountDue) {
@@ -22,8 +22,8 @@ public class Bill {
       throw new TooMuchMoney();
     }
 
-    amountPaid.plus(amountToPay);
-    amountDue.minus(amountToPay);
+    amountPaid = amountPaid.plus(amountToPay);
+    amountDue = amountDue.minus(amountToPay);
   }
 
   public BillId getId() {

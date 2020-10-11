@@ -108,4 +108,11 @@ public class BillServiceTest {
 
     Mockito.verify(billRepository).getBillsByIds(billIds);
   }
+
+  @Test
+  public void whenGettingBill_thenBillRepositoryIsCalled() {
+    billService.getBill(bill.getId());
+
+    Mockito.verify(billRepository).getBill(bill.getId());
+  }
 }

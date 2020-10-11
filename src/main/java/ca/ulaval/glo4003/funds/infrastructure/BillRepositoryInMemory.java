@@ -20,7 +20,7 @@ public class BillRepositoryInMemory implements BillRepository {
 
   @Override
   public List<Bill> getBillsByIds(List<BillId> billIds) {
-    return billIds.stream().map(bills::get).collect(Collectors.toList());
+    return billIds.stream().map(this::getBill).collect(Collectors.toList());
   }
 
   @Override
