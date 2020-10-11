@@ -190,3 +190,16 @@ uses:
             description: Error getting offense type for parking sticker
           404:
             description: Parking sticker not found
+  /initiatives:
+    description: Collection of funding initiatives
+    post:
+      description: Add a new funding initiative
+      body:
+        application/json:
+          type: types.Initiative
+          example: !include examples/initiatives/post-initiatives-request.json
+      responses:
+        201:
+          description: Funding initiative successfully added
+        400:
+          description: Error adding funding initiative
