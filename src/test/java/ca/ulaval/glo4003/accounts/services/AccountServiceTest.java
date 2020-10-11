@@ -6,19 +6,20 @@ import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePla
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingStickerCode;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.funds.api.dto.PayBillDto;
 import ca.ulaval.glo4003.funds.assemblers.BillIdAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
 import ca.ulaval.glo4003.funds.assemblers.PayBillAssembler;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import com.google.common.truth.Truth;
@@ -39,6 +40,7 @@ public class AccountServiceTest {
   @Mock private BillsAssembler billsAssembler;
   @Mock private BillIdAssembler billIdAssembler;
   @Mock private PayBillAssembler payBillAssembler;
+  @Mock private PayBillDto payBillDto;
 
   private AccountService accountService;
 
@@ -46,9 +48,9 @@ public class AccountServiceTest {
   private final LicensePlate licensePlate = createLicensePlate();
   private final ParkingStickerCode parkingStickerCode = createParkingStickerCode();
   private final BillId billId = createBillId();
-  private final Account accountWithBill = anAccount().buildWithBillId(billId);
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final Bill bill = aBill().build();
+  private final Account accountWithBill = anAccount().buildWithBillId(bill.getId());
 
   @Before
   public void setup() {
@@ -146,7 +148,7 @@ public class AccountServiceTest {
   @Test
   public void givenBillIds_whenGettingBills_shouldGetBillsToService() {
     List<BillId> billIds = new ArrayList<>();
-    billIds.add(billId);
+    billIds.add(bill.getId());
 
     when(accountIdAssembler.assemble(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());
@@ -169,7 +171,7 @@ public class AccountServiceTest {
   @Test
   public void givenBills_whenGettingBills_shouldAssembleBillsToBillsDto() {
     List<BillId> billIds = new ArrayList<>();
-    billIds.add(billId);
+    billIds.add(bill.getId());
     List<Bill> bills = new ArrayList<>();
     bills.add(bill);
 
@@ -181,5 +183,59 @@ public class AccountServiceTest {
     accountService.getBills(accountWithBill.getId().toString());
 
     verify(billsAssembler).assemble(bills);
+  }
+
+  @Test
+  public void whenPayingBill_shouldCallPayBillAssembler() {
+    setupPayBill();
+
+    accountService.payBill(payBillDto, accountWithBill.getId().toString(), bill.getId().toString());
+
+    verify(payBillAssembler).assemble(payBillDto);
+  }
+
+  @Test
+  public void whenPayingBill_shouldCallAccountIdAssembler() {
+    setupPayBill();
+
+    accountService.payBill(payBillDto, accountWithBill.getId().toString(), bill.getId().toString());
+
+    verify(accountIdAssembler).assemble(accountWithBill.getId().toString());
+  }
+
+  @Test
+  public void whenPayingBill_shouldCallBillIdAssembler() {
+    setupPayBill();
+
+    accountService.payBill(payBillDto, accountWithBill.getId().toString(), bill.getId().toString());
+
+    verify(billIdAssembler).assemble(bill.getId().toString());
+  }
+
+  @Test
+  public void whenPayingBill_shouldCallBillService() {
+    setupPayBill();
+
+    accountService.payBill(payBillDto, accountWithBill.getId().toString(), bill.getId().toString());
+
+    verify(billService).getBill(bill.getId());
+  }
+
+  @Test
+  public void whenPayingBill_shouldCallBillsAssembler() {
+    setupPayBill();
+
+    accountService.payBill(payBillDto, accountWithBill.getId().toString(), bill.getId().toString());
+
+    verify(billsAssembler).assemble(bill);
+  }
+
+  private void setupPayBill() {
+    when(payBillAssembler.assemble(payBillDto)).thenReturn(new Money(1));
+    when(accountIdAssembler.assemble(accountWithBill.getId().toString()))
+        .thenReturn(accountWithBill.getId());
+    when(billIdAssembler.assemble(bill.getId().toString())).thenReturn(bill.getId());
+    when(accountRepository.findById(accountWithBill.getId())).thenReturn(accountWithBill);
+    when(billService.getBill(bill.getId())).thenReturn(bill);
   }
 }
