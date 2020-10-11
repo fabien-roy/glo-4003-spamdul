@@ -210,6 +210,19 @@ uses:
         body:
           application/json:
             type: types.Initiative[]
-            example: !include examples/initiatives/get-initiatives-request.json
+            example: !include examples/initiatives/get-initiatives-response.json
       400:
         description: Error getting funding initiative
+  /availableAmount:
+    description: Available amount for funding initiatives
+    get:
+      description: Get available amount for funding initiatives
+      responses:
+        200:
+          description: Available amount for funding initiatives
+          body:
+            application/json:
+              type: types.AvailableAmountForInitiatives
+              example: !include examples/initiatives/get-initiatives-available-amount-response.json
+        400:
+          description: Error getting funding initiative
