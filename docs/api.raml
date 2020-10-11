@@ -217,6 +217,24 @@ uses:
             example: !include examples/initiatives/get-initiatives-response.json
       400:
         description: Error getting funding initiative
+  /{initiativeCode}:
+    description: An initiative with given code
+    uriParameters:
+      initiativeCode:
+        type: types.InitiativeCode
+    post:
+      description: Add amount to initiative
+      body:
+        application/json:
+          type: types.InitiativeAddedAmount
+          example: !include examples/initiatives/post-initiatives-added-amount-request.json
+      responses:
+        200:
+          description: Amount successfully added to initiative
+        400:
+          description: Error adding amount to initiative
+        404:
+          description: Initiative not not found
   /availableAmount:
     description: Available amount for funding initiatives
     get:
