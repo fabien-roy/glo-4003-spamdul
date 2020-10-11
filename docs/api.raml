@@ -130,22 +130,32 @@ uses:
               description: Error adding parking sticker to user
             404:
               description: User not found
-  /parkings:
-    /{parkingStickerCode}:
-      /validate:
-        get:
-          description: Validate the parking sticker with code with `parkingStickerCode = {parkingStickerCode}` for current day
+  /gateEntry:
+    description: Gate entry for campus access
+    /validateAccessPass:
+      description: Validations of access passes
+      /{accessPassCode}:
+        description: Validations an access pass for given code
+        uriParameters:
+          accessPassCode:
+            type: types.AccessPassCode
+        post:
+          description: Validate the access pass with given code
+          body:
+            application/json:
+              type: types.DayOfWeekObject
+              example: !include examples/gateEntry/post-gate-entry-validate-access-pass-request.json
           responses:
             200:
-              description: Access status of parking sticker code
+              description: Access status of access pass
               body:
                 application/json:
                   type: types.AccessStatusObject
-                  example: !include examples/parkings/get-parkings-validate-response.json
+                  example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response.json
             400:
-              description: Error validating parking sticker
+              description: Error validating access pass
             404:
-              description: Parking sticker not found
+              description: Access pass not found
   /offenses:
     /types:
       get:
