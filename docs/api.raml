@@ -202,3 +202,14 @@ uses:
         description: Funding initiative successfully added
       400:
         description: Error adding funding initiative
+  get:
+    description: Get all funding initiatives
+    responses:
+      200:
+        description: All funding initiatives
+        body:
+          application/json:
+            type: types.Initiative[]
+            example: !include examples/initiatives/get-initiatives-request.json
+      400:
+        description: Error getting funding initiative
