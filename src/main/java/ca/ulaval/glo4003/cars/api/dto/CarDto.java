@@ -11,7 +11,7 @@ public class CarDto {
   @Override
   public String toString() {
     return String.format(
-        "CarDto{accountId='%s', manufacturer='%s', model='%s', year='%d', licensePlate='%s'}",
-        accountId, manufacturer, model, year, licensePlate);
+        "CarDto{accountId='%s', manufacturer='%s', model='%s', year='%d', licensePlate='%s', consumptionType='%s'}",
+        accountId, manufacturer, model, year, licensePlate, consumptionType);
   }
 }

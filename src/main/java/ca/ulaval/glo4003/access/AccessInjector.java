@@ -30,7 +30,6 @@ public class AccessInjector {
   private final AccessPassInMemoryRepository accessPassInMemoryRepository =
       new AccessPassInMemoryRepository();
   private final AccessPassCodeGenerator accessPassCodeGenerator = new AccessPassCodeGenerator();
-  private final String accessPriceFilePath = "data/frais-acces.csv";
 
   public AccessInjector() {
     addAccessPassByConsumptionTypesToRepository();
@@ -55,9 +54,10 @@ public class AccessInjector {
 
   private void addAccessPassByConsumptionTypesToRepository() {
     StringMatrixFileReader fileReader = new CsvFileReader();
-    ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader, accessPriceFilePath);
+    ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader);
 
-    Map<String, Map<String, Double>> zonesAndFees = zoneFeesFileHelper.getZonesAndFees();
+    Map<String, Map<String, Double>> zonesAndFees =
+        zoneFeesFileHelper.getZoneAndFeesForAccessPass();
     List<AccessPassPriceByCarConsumption> accessConsumption = new ArrayList<>();
 
     zonesAndFees

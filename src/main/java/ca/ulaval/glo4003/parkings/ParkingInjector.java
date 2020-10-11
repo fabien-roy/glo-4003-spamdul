@@ -31,7 +31,6 @@ public class ParkingInjector {
   private final ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
   private final ParkingStickerRepository parkingStickerRepository =
       new ParkingStickerRepositoryInMemory();
-  public static final String ZONE_FEES_PATH = "data/frais-zone.csv";
 
   public ParkingResource createParkingResource(
       boolean isDev,
@@ -89,9 +88,10 @@ public class ParkingInjector {
 
   private void addParkingAreasToRepository(ParkingAreaCodeAssembler parkingAreaCodeAssembler) {
     StringMatrixFileReader fileReader = new CsvFileReader();
-    ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader, ZONE_FEES_PATH);
+    ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader);
 
-    Map<String, Map<String, Double>> zonesAndFees = zoneFeesFileHelper.getZonesAndFees();
+    Map<String, Map<String, Double>> zonesAndFees =
+        zoneFeesFileHelper.getZoneAndFeesForParkingSticker();
     List<ParkingArea> parkingAreas = new ArrayList<>();
 
     zonesAndFees

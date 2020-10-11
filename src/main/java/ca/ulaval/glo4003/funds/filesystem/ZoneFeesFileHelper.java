@@ -7,16 +7,27 @@ import java.util.List;
 import java.util.Map;
 
 public class ZoneFeesFileHelper {
-  private static String ZONE_FEES_PATH;
 
-  private final List<List<String>> csvData;
+  private List<List<String>> csvData;
+  private static final String accessPriceFilePath = "data/frais-acces.csv";
+  private static final String parkingStickerPriceFilePath = "data/frais-zone.csv";
+  private StringMatrixFileReader fileReader;
 
-  public ZoneFeesFileHelper(StringMatrixFileReader fileReader, String filePath) {
-    ZONE_FEES_PATH = filePath;
-    csvData = fileReader.readFile(ZONE_FEES_PATH);
+  public ZoneFeesFileHelper(StringMatrixFileReader fileReader) {
+    this.fileReader = fileReader;
   }
 
-  public Map<String, Map<String, Double>> getZonesAndFees() {
+  public Map<String, Map<String, Double>> getZoneAndFeesForParkingSticker() {
+    csvData = fileReader.readFile(parkingStickerPriceFilePath);
+    return getZonesAndFees();
+  }
+
+  public Map<String, Map<String, Double>> getZoneAndFeesForAccessPass() {
+    csvData = fileReader.readFile(accessPriceFilePath);
+    return getZonesAndFees();
+  }
+
+  private Map<String, Map<String, Double>> getZonesAndFees() {
     List<String> zones = getAllZones();
     Map<String, Map<String, Double>> zonesAndFees = new HashMap<>();
 
