@@ -73,6 +73,21 @@ uses:
                 description: Error paying user's bills
               404:
                 description: User or bill not found
+      /cars:
+        description: Collection of cars for user
+        post:
+          description: Add a new car to user
+          body:
+            application/json:
+              type: types.Car
+              example: !include examples/users/post-users-cars-request.json
+          responses:
+            201:
+              description: Car successfully added to user
+            400:
+              description: Error adding car to user
+            404:
+              description: User not found
   /parkings:
     post:
       description: Add a new parking sticker
@@ -139,17 +154,3 @@ uses:
             description: Error getting offenseType type for parking sticker
           404:
             description: Parking sticker not found
-  /cars:
-    post:
-      description: Add a new car
-      body:
-        application/json:
-          type: types.Car
-          example: !include examples/cars/post-cars-request.json
-      responses:
-        201:
-          description: Car successfully added
-        400:
-          description: Error adding car
-        404:
-          description: Account not found
