@@ -5,6 +5,6 @@ import ca.ulaval.glo4003.funds.domain.Money;
 
 public class PayBillAssembler {
   public Money assemble(PayBillDto payBillDto) {
-    return new Money(payBillDto.amountPaid);
+    return new Money(payBillDto.amountToPay);
   }
 }
