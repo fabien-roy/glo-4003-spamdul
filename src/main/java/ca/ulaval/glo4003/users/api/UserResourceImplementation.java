@@ -6,10 +6,12 @@ import ca.ulaval.glo4003.access.services.AccessService;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.services.CarService;
-import ca.ulaval.glo4003.funds.api.dto.BillsDto;
+import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.services.UserService;
+import java.util.List;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -66,10 +68,11 @@ public class UserResourceImplementation implements UserResource {
 
   @Override
   public Response getBills(String accountId) {
-    BillsDto billsDto = accountService.getBills(accountId);
+    List<BillDto> billsDto = accountService.getBills(accountId);
+    GenericEntity<List<BillDto>> entities = new GenericEntity<List<BillDto>>(billsDto) {};
 
     return Response.status(Response.Status.OK)
-        .entity(billsDto)
+        .entity(entities)
         .type(MediaType.APPLICATION_JSON)
         .build();
   }
