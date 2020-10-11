@@ -72,7 +72,7 @@ public class AccountService {
     return billsAssembler.assemble(bills);
   }
 
-  private Account getAccount(AccountId id) {
+  public Account getAccount(AccountId id) {
     return accountRepository.findById(id);
   }
 }

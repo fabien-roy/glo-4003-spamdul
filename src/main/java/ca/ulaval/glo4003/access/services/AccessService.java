@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.access.assembler.AccessPassAssembler;
 import ca.ulaval.glo4003.access.assembler.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.access.domain.*;
+import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
@@ -14,7 +15,6 @@ import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
-import java.util.UUID;
 
 public class AccessService {
   private AccessPassAssembler accessPassAssembler;
@@ -25,6 +25,7 @@ public class AccessService {
   private AccountService accountService;
   private AccessPassRepository accessPassRepository;
   private AccessPassCodeAssembler accessPassCodeAssembler;
+  private AccountIdAssembler accountIdAssembler;
 
   public AccessService(
       AccessPassAssembler accessPassAssembler,
@@ -34,7 +35,8 @@ public class AccessService {
       AccountService accountService,
       BillService billService,
       AccessPassRepository accessPassRepository,
-      AccessPassCodeAssembler accessPassCodeAssembler) {
+      AccessPassCodeAssembler accessPassCodeAssembler,
+      AccountIdAssembler accountIdAssembler) {
 
     this.accessPassAssembler = accessPassAssembler;
     this.accessPassFactory = accessPassFactory;
@@ -44,9 +46,12 @@ public class AccessService {
     this.billService = billService;
     this.accessPassRepository = accessPassRepository;
     this.accessPassCodeAssembler = accessPassCodeAssembler;
+    this.accountIdAssembler = accountIdAssembler;
   }
 
   public AccessPassCodeDto addAccessPass(AccessPassDto accessPassDto, String accountId) {
+    AccountId id = accountIdAssembler.assemble(accountId);
+    accountService.getAccount(id);
 
     AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId);
     accessPass = accessPassFactory.create(accessPass);
@@ -66,8 +71,7 @@ public class AccessService {
 
     Money moneyDue = accessPassType.getFeeForPeriod(AccessPeriods.ONE_DAY);
     BillId billId = billService.addBillForAccessCode(moneyDue, accessPass.getAccessPassCode());
-    accountService.addAccessCodeToAccount(
-        new AccountId(UUID.fromString(accountId)), accessPass.getAccessPassCode(), billId);
+    accountService.addAccessCodeToAccount(id, accessPass.getAccessPassCode(), billId);
 
     AccessPassCode accessPassCode = accessPassRepository.save(accessPass);
 

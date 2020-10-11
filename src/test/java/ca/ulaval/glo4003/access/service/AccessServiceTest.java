@@ -15,6 +15,7 @@ import ca.ulaval.glo4003.access.assembler.AccessPassAssembler;
 import ca.ulaval.glo4003.access.assembler.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.access.domain.*;
 import ca.ulaval.glo4003.access.services.AccessService;
+import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
@@ -39,6 +40,7 @@ public class AccessServiceTest {
   @Mock private BillService billService;
   @Mock private AccessPassRepository accessPassRepository;
   @Mock private AccessPassCodeAssembler accessPassCodeAssembler;
+  @Mock private AccountIdAssembler accountIdAssembler;
 
   private AccessPassDto accessPassDto = anAccessPassDto().build();
   private AccountId accountId = createAccountId();
@@ -61,8 +63,10 @@ public class AccessServiceTest {
             accountService,
             billService,
             accessPassRepository,
-            accessPassCodeAssembler);
+            accessPassCodeAssembler,
+            accountIdAssembler);
 
+    when(accountIdAssembler.assemble(accountId.toString())).thenReturn(accountId);
     when(accessPassAssembler.assemble(accessPassDto, accountId.toString())).thenReturn(accessPass);
 
     accessPass.setAccessPassCode(new AccessPassCode(UUID.randomUUID().toString()));
@@ -137,5 +141,19 @@ public class AccessServiceTest {
     accessService.addAccessPass(accessPassDto, accountId.toString());
 
     verify(accessPassCodeAssembler).assemble(accessPassWithId.getAccessPassCode());
+  }
+
+  @Test
+  public void whenAddingAccess_thenAccountIdAssemblerIsCalled() {
+    accessService.addAccessPass(accessPassDto, accountId.toString());
+
+    verify(accountIdAssembler).assemble(accountId.toString());
+  }
+
+  @Test
+  public void whenAddingAccess_thenGetAccountIsCalled() {
+    accessService.addAccessPass(accessPassDto, accountId.toString());
+
+    verify(accountService).getAccount(accountId);
   }
 }

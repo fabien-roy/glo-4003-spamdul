@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.access.domain.AccessPeriods;
 import ca.ulaval.glo4003.access.infrastructure.AccessPassInMemoryRepository;
 import ca.ulaval.glo4003.access.infrastructure.AccessPassTypeInMemoryRepository;
 import ca.ulaval.glo4003.access.services.AccessService;
+import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
 import ca.ulaval.glo4003.cars.services.CarService;
@@ -39,6 +40,7 @@ public class AccessInjector {
     AccessPassAssembler accessPassAssembler = new AccessPassAssembler();
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
     AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
+    AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
 
     return new AccessService(
         accessPassAssembler,
@@ -48,7 +50,8 @@ public class AccessInjector {
         accountService,
         billService,
         accessPassInMemoryRepository,
-        accessPassCodeAssembler);
+        accessPassCodeAssembler,
+        accountIdAssembler);
   }
 
   private void addAccessPassByConsumptionTypesToRepository() {

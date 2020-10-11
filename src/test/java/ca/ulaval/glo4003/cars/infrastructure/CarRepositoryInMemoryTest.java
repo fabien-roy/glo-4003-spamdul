@@ -6,7 +6,7 @@ import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePla
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.CarRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.cars.exceptions.InvalidLicensePlateException;
+import ca.ulaval.glo4003.cars.exceptions.NotFoundLicensePlate;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class CarRepositoryInMemoryTest {
     Truth.assertThat(car.getLicensePlate()).isEqualTo(licensePlate);
   }
 
-  @Test(expected = InvalidLicensePlateException.class)
+  @Test(expected = NotFoundLicensePlate.class)
   public void
       whenGettingCarByLicensePlateWithANotFoundLicensePlate_thenThrowInvalidLicensePlateException() {
     carRepository.getCarByLicensePlate(createLicensePlate());
