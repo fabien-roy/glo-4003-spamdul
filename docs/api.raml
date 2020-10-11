@@ -24,6 +24,9 @@ uses:
           description: Error adding user
     /{accountId}:
       description: User with given account id
+      uriParameters:
+        accountId:
+          type: types.AccountId
       get:
         description: Get the user's information
         responses:
@@ -38,6 +41,7 @@ uses:
           404:
             description: User not found
       /bills:
+        description: Collection of bills for user
         get:
           description: Get the user's bills
           responses:
@@ -51,6 +55,24 @@ uses:
               description: Error getting user's bills
             404:
               description: User not found
+        /{billId}:
+          description: Bill of user with given bill id
+          uriParameters:
+            billId:
+              type: types.BillId
+          post:
+            description: Pay an amount of the user's bills
+            body:
+              application/json:
+                type: types.AmountPaying
+                example: !include examples/users/post-users-bills-request.json
+            responses:
+              200:
+                description: Amount successfully paid from bill
+              400:
+                description: Error paying user's bills
+              404:
+                description: User or bill not found
   /parkings:
     post:
       description: Add a new parking sticker
