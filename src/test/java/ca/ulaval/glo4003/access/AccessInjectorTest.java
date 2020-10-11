@@ -17,12 +17,13 @@ public class AccessInjectorTest {
 
   @Before
   public void setUp() {
-    accessInjector = new AccessInjector(carService, accountService, billService);
+    accessInjector = new AccessInjector();
   }
 
   @Test
   public void whenGettingAccessResource_thenReturnIt() {
-    AccessResource accessResource = accessInjector.getAccessResource();
+    AccessResource accessResource =
+        accessInjector.createAccessResource(carService, accountService, billService);
 
     Truth.assertThat(accessResource).isNotNull();
   }

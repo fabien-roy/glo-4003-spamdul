@@ -25,25 +25,26 @@ import java.util.List;
 import java.util.Map;
 
 public class AccessInjector {
-  private AccessService accessService;
-  private AccessResource accessResource;
-  private AccessPassPriceByCarConsumptionInMemoryRepository
-      accessPassPriceByCarConsumptionInMemoryRepository;
-  private String accessPriceFilePath = "data/frais-acces.csv";
 
-  public AccessInjector(
+  private final AccessPassPriceByCarConsumptionInMemoryRepository
+      accessPassPriceByCarConsumptionInMemoryRepository =
+          new AccessPassPriceByCarConsumptionInMemoryRepository();
+  private final AccessPassInMemoryRepository accessPassInMemoryRepository =
+      new AccessPassInMemoryRepository();
+  private final AccessPassCodeGenerator accessPassCodeGenerator = new AccessPassCodeGenerator();
+  private final String accessPriceFilePath = "data/frais-acces.csv";
+
+  public AccessInjector() {
+    addAccessPassByConsumptionTypesToRepository();
+  }
+
+  public AccessResource createAccessResource(
       CarService carService, AccountService accountService, BillService billService) {
     AccessPassAssembler accessPassAssembler = new AccessPassAssembler();
-    AccessPassCodeGenerator accessPassCodeGenerator = new AccessPassCodeGenerator();
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
-    AccessPassInMemoryRepository accessPassInMemoryRepository = new AccessPassInMemoryRepository();
     AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
 
-    accessPassPriceByCarConsumptionInMemoryRepository =
-        new AccessPassPriceByCarConsumptionInMemoryRepository();
-    addAccessPassByConsumptionTypesToRepository();
-
-    accessService =
+    AccessService accessService =
         new AccessService(
             accessPassAssembler,
             accessPassFactory,
@@ -53,11 +54,7 @@ public class AccessInjector {
             billService,
             accessPassInMemoryRepository,
             accessPassCodeAssembler);
-    accessResource = new AccessResourceImplementation(accessService);
-  }
-
-  public AccessResource getAccessResource() {
-    return accessResource;
+    return new AccessResourceImplementation(accessService);
   }
 
   private void addAccessPassByConsumptionTypesToRepository() {

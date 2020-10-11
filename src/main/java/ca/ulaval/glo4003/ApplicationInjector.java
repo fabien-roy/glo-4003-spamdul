@@ -35,9 +35,7 @@ public class ApplicationInjector {
   private static final boolean IS_DEV = true;
 
   private static final AccountInjector ACCOUNT_INJECTOR = new AccountInjector();
-  private static final CarInjector CAR_INJECTOR =
-      new CarInjector(
-          ACCOUNT_INJECTOR.getAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler());
+  private static final CarInjector CAR_INJECTOR = new CarInjector();
   private static final CommunicationInjector COMMUNICATION_INJECTOR = new CommunicationInjector();
   private static final FileInjector FILE_INJECTOR = new FileInjector();
   private static final FundInjector FUND_INJECTOR = new FundInjector();
@@ -46,14 +44,11 @@ public class ApplicationInjector {
   private static final TimeInjector TIME_INJECTOR = new TimeInjector();
   private static final UserInjector USER_INJECTOR = new UserInjector();
   private static final OffenseInjector OFFENSE_INJECTOR = new OffenseInjector();
-  private static final AccessInjector ACCESS_INJECTOR =
-      new AccessInjector(
-          CAR_INJECTOR.getCarService(),
-          ACCOUNT_INJECTOR.getAccountService(),
-          FUND_INJECTOR.getBillService());
+  private static final AccessInjector ACCESS_INJECTOR = new AccessInjector();
 
   public CarResource createCarResource() {
-    return CAR_INJECTOR.createCarResource();
+    return CAR_INJECTOR.createCarResource(
+        ACCOUNT_INJECTOR.getAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler());
   }
 
   public ParkingResource createParkingResource() {
@@ -92,7 +87,11 @@ public class ApplicationInjector {
   }
 
   public AccessResource createAccessResource() {
-    return ACCESS_INJECTOR.getAccessResource();
+    return ACCESS_INJECTOR.createAccessResource(
+        CAR_INJECTOR.createCarService(
+            ACCOUNT_INJECTOR.getAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler()),
+        ACCOUNT_INJECTOR.getAccountService(),
+        FUND_INJECTOR.createBillService());
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
