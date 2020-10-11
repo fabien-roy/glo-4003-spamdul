@@ -11,7 +11,13 @@ public class AccessPassAssembler {
   public AccessPass assemble(AccessPassDto accessPassCodeDto, String accountId) {
     AccountId id = new AccountId(UUID.fromString(accountId));
     Days days = Days.get(accessPassCodeDto.accessDay);
-    LicensePlate licensePlate = new LicensePlate(accessPassCodeDto.licensePlate);
+
+    LicensePlate licensePlate;
+    if (accessPassCodeDto.licensePlate != null) {
+      licensePlate = new LicensePlate(accessPassCodeDto.licensePlate);
+    } else {
+      licensePlate = null;
+    }
     AccessPass accessPass = new AccessPass(id, days, licensePlate);
 
     return accessPass;
