@@ -4,202 +4,201 @@ version: 2.0.0
 mediaType: application/json
 uses:
   types: ./libraries/types.raml
-/api:
-  /users:
-    description: Collection of users
-    post:
-      description: Add a new user
-      body:
-        application/json:
-          type: types.User
-          example: !include examples/users/post-users-request.json
-      responses:
-        201:
-          description: Id for newly created account of user
-          body:
-            application/json:
-              type: types.AccountIdObject
-              example: !include examples/users/post-users-response.json
-        400:
-          description: Error adding user
-    /{accountId}:
-      description: User with given account id
-      uriParameters:
-        accountId:
-          type: types.AccountId
-      get:
-        description: Get the user's information
-        responses:
-          200:
-            description: Requested user
-            body:
-              application/json:
-                type: types.User
-                example: !include examples/users/get-users-response.json
-          400:
-            description: Error getting user
-          404:
-            description: User not found
-      /bills:
-        description: Collection of bills for user
-        get:
-          description: Get the user's bills
-          responses:
-            200:
-              description: Requested user's bills
-              body:
-                application/json:
-                  type: types.Bill[]
-                  example: !include examples/users/get-users-bills-response.json
-            400:
-              description: Error getting user's bills
-            404:
-              description: User not found
-        /{billId}:
-          description: Bill of user with given bill id
-          uriParameters:
-            billId:
-              type: types.BillId
-          post:
-            description: Pay an amount of the user's bills
-            body:
-              application/json:
-                type: types.BillPayment
-                example: !include examples/users/post-users-bills-request.json
-            responses:
-              200:
-                description: Amount successfully paid from bill
-              400:
-                description: Error paying user's bills
-              404:
-                description: User or bill not found
-      /cars:
-        description: Collection of cars for user
-        post:
-          description: Add a new car to user
-          body:
-            application/json:
-              type: types.Car
-              example: !include examples/users/post-users-cars-request.json
-          responses:
-            201:
-              description: Car successfully added to user
-            400:
-              description: Error adding car to user
-            404:
-              description: User not found
-      /accessPasses:
-        description: Collection of access passes for user
-        post:
-          description: Add a access pass to user
-          body:
-            application/json:
-              type: types.AccessPass
-              examples:
-                "With car": !include examples/users/post-users-access-passes-request-with-car.json
-                "Without car": !include examples/users/post-users-access-passes-request-without-car.json
-          responses:
-            201:
-              description: Code for newly added access pass
-              body:
-                application/json:
-                  type: types.AccessPassCodeObject
-                  example: !include examples/users/post-users-access-passes-response.json
-            400:
-              description: Error adding access pass to user
-            404:
-              description: User not found
-      /parkingStickers:
-        description: Collection of parking stickers for user
-        post:
-          description: Add a parking sticker to user
-          body:
-            application/json:
-              type: types.ParkingSticker
-              examples:
-                "Send via postal carrier": !include examples/users/post-users-parking-stickers-request-postal.json
-                "Sent via email": !include examples/users/post-users-parking-stickers-request-email.json
-          responses:
-            201:
-              description: Code for newly added parking sticker
-              body:
-                application/json:
-                  type: types.ParkingStickerCodeObject
-                  example: !include examples/users/post-users-parking-stickers-response.json
-            400:
-              description: Error adding parking sticker to user
-            404:
-              description: User not found
-  /gateEntry:
-    description: Gate entry for campus access
-    /validateAccessPass:
-      description: Validations of access passes
-      /{accessPassCode}:
-        description: Validations an access pass for given code
-        uriParameters:
-          accessPassCode:
-            type: types.AccessPassCode
-        post:
-          description: Validate the access pass with given code
-          body:
-            application/json:
-              type: types.DayOfWeekObject
-              example: !include examples/gateEntry/post-gate-entry-validate-access-pass-request.json
-          responses:
-            200:
-              description: Access status of access pass
-              body:
-                application/json:
-                  type: types.AccessStatusObject
-                  example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response.json
-            400:
-              description: Error validating access pass
-            404:
-              description: Access pass not found
-  /offenses:
-    description: Collection of offenses
-    /types:
-      description: Collection of all possible offense types
-      get:
-        description: Get all possible offense types
-        responses:
-          200:
-            description: All offense types
-            body:
-              application/json:
-                type: types.OffenseType[]
-                example: !include examples/offenses/get-offense-types-response.json
-          400:
-            description: Error getting offense types
-    /validate:
-      description: Validations of offenses
-      post:
-        description: Check offense for the parking sticker
+/api/users:
+  description: Collection of users
+  post:
+    description: Add a new user
+    body:
+      application/json:
+        type: types.User
+        example: !include examples/users/post-users-request.json
+    responses:
+      201:
+        description: Id for newly created account of user
         body:
           application/json:
-            type: types.OffenseValidation
-            example: !include examples/offenses/get-offenses-validate-request.json
+            type: types.AccountIdObject
+            example: !include examples/users/post-users-response.json
+      400:
+        description: Error adding user
+  /{accountId}:
+    description: User with given account id
+    uriParameters:
+      accountId:
+        type: types.AccountId
+    get:
+      description: Get the user's information
+      responses:
+        200:
+          description: Requested user
+          body:
+            application/json:
+              type: types.User
+              example: !include examples/users/get-users-response.json
+        400:
+          description: Error getting user
+        404:
+          description: User not found
+    /bills:
+      description: Collection of bills for user
+      get:
+        description: Get the user's bills
         responses:
           200:
-            description: Offense type of parking sticker code
+            description: Requested user's bills
             body:
               application/json:
-                type: types.OffenseType
-                example: !include examples/offenses/get-offenses-validate-response.json
+                type: types.Bill[]
+                example: !include examples/users/get-users-bills-response.json
           400:
-            description: Error getting offense type for parking sticker
+            description: Error getting user's bills
           404:
-            description: Parking sticker not found
-  /initiatives:
-    description: Collection of funding initiatives
+            description: User not found
+      /{billId}:
+        description: Bill of user with given bill id
+        uriParameters:
+          billId:
+            type: types.BillId
+        post:
+          description: Pay an amount of the user's bills
+          body:
+            application/json:
+              type: types.BillPayment
+              example: !include examples/users/post-users-bills-request.json
+          responses:
+            200:
+              description: Amount successfully paid from bill
+            400:
+              description: Error paying user's bills
+            404:
+              description: User or bill not found
+    /cars:
+      description: Collection of cars for user
+      post:
+        description: Add a new car to user
+        body:
+          application/json:
+            type: types.Car
+            example: !include examples/users/post-users-cars-request.json
+        responses:
+          201:
+            description: Car successfully added to user
+          400:
+            description: Error adding car to user
+          404:
+            description: User not found
+    /accessPasses:
+      description: Collection of access passes for user
+      post:
+        description: Add a access pass to user
+        body:
+          application/json:
+            type: types.AccessPass
+            examples:
+              "With car": !include examples/users/post-users-access-passes-request-with-car.json
+              "Without car": !include examples/users/post-users-access-passes-request-without-car.json
+        responses:
+          201:
+            description: Code for newly added access pass
+            body:
+              application/json:
+                type: types.AccessPassCodeObject
+                example: !include examples/users/post-users-access-passes-response.json
+          400:
+            description: Error adding access pass to user
+          404:
+            description: User not found
+    /parkingStickers:
+      description: Collection of parking stickers for user
+      post:
+        description: Add a parking sticker to user
+        body:
+          application/json:
+            type: types.ParkingSticker
+            examples:
+              "Send via postal carrier": !include examples/users/post-users-parking-stickers-request-postal.json
+              "Sent via email": !include examples/users/post-users-parking-stickers-request-email.json
+        responses:
+          201:
+            description: Code for newly added parking sticker
+            body:
+              application/json:
+                type: types.ParkingStickerCodeObject
+                example: !include examples/users/post-users-parking-stickers-response.json
+          400:
+            description: Error adding parking sticker to user
+          404:
+            description: User not found
+/api/gateEntry:
+  description: Gate entry for campus access
+  /validateAccessPass:
+    description: Validations of access passes
+    /{accessPassCode}:
+      description: Validations an access pass for given code
+      uriParameters:
+        accessPassCode:
+          type: types.AccessPassCode
+      post:
+        description: Validate the access pass with given code
+        body:
+          application/json:
+            type: types.DayOfWeekObject
+            example: !include examples/gateEntry/post-gate-entry-validate-access-pass-request.json
+        responses:
+          200:
+            description: Access status of access pass
+            body:
+              application/json:
+                type: types.AccessStatusObject
+                example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response.json
+          400:
+            description: Error validating access pass
+          404:
+            description: Access pass not found
+/api/offenses:
+  description: Collection of offenses
+  /types:
+    description: Collection of all possible offense types
+    get:
+      description: Get all possible offense types
+      responses:
+        200:
+          description: All offense types
+          body:
+            application/json:
+              type: types.OffenseType[]
+              example: !include examples/offenses/get-offense-types-response.json
+        400:
+          description: Error getting offense types
+  /validate:
+    description: Validations of offenses
     post:
-      description: Add a new funding initiative
+      description: Check offense for the parking sticker
       body:
         application/json:
-          type: types.Initiative
-          example: !include examples/initiatives/post-initiatives-request.json
+          type: types.OffenseValidation
+          example: !include examples/offenses/get-offenses-validate-request.json
       responses:
-        201:
-          description: Funding initiative successfully added
+        200:
+          description: Offense type of parking sticker code
+          body:
+            application/json:
+              type: types.OffenseType
+              example: !include examples/offenses/get-offenses-validate-response.json
         400:
-          description: Error adding funding initiative
+          description: Error getting offense type for parking sticker
+        404:
+          description: Parking sticker not found
+/api/initiatives:
+  description: Collection of funding initiatives
+  post:
+    description: Add a new funding initiative
+    body:
+      application/json:
+        type: types.Initiative
+        example: !include examples/initiatives/post-initiatives-request.json
+    responses:
+      201:
+        description: Funding initiative successfully added
+      400:
+        description: Error adding funding initiative
