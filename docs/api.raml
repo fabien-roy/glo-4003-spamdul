@@ -336,3 +336,14 @@ uses:
         description: Carbon credit monthly payment status successfully changed
       400:
         description: Error changing carbon credit monthly payment status
+  get:
+    description: Get amount of purchased carbon credits
+    responses:
+      200:
+        description: Amount of purchased carbon credits
+        body:
+          application/json:
+            type: types.CarbonCreditAmount
+            example: !include examples/carbonCredits/get-carbon-credits-request.json
+      400:
+        description: Error getting amount of purchased carbon credits
