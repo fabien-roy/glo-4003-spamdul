@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.funds.domain;
 
+import ca.ulaval.glo4003.funds.exception.TooMuchMoney;
+
 public class Bill {
   private final BillId id;
   private final BillTypes billTypes;
@@ -13,6 +15,15 @@ public class Bill {
     this.description = description;
     this.amountDue = amountDue;
     this.amountPaid = Money.ZERO();
+  }
+
+  public void pay(Money amountToPay) {
+    if (amountToPay.toDouble() > amountDue.toDouble()) {
+      throw new TooMuchMoney();
+    }
+
+    amountPaid.plus(amountToPay);
+    amountDue.minus(amountToPay);
   }
 
   public BillId getId() {

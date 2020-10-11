@@ -6,10 +6,15 @@ import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.api.dto.BillsDto;
+import ca.ulaval.glo4003.funds.api.dto.PayBillDto;
+import ca.ulaval.glo4003.funds.assemblers.BillIdAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
+import ca.ulaval.glo4003.funds.assemblers.PayBillAssembler;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import java.util.List;
@@ -20,16 +25,22 @@ public class AccountService {
   private final AccountIdAssembler accountIdAssembler;
   private final BillService billService;
   private final BillsAssembler billsAssembler;
+  private final BillIdAssembler billIdAssembler;
+  private final PayBillAssembler payBillAssembler;
 
   public AccountService(
       AccountRepository accountRepository,
       AccountIdAssembler accountIdAssembler,
       BillService billService,
-      BillsAssembler billsAssembler) {
+      BillsAssembler billsAssembler,
+      BillIdAssembler billIdAssembler,
+      PayBillAssembler payBillAssembler) {
     this.accountRepository = accountRepository;
     this.accountIdAssembler = accountIdAssembler;
     this.billService = billService;
     this.billsAssembler = billsAssembler;
+    this.billIdAssembler = billIdAssembler;
+    this.payBillAssembler = payBillAssembler;
   }
 
   public void addLicensePlateToAccount(AccountId id, LicensePlate licensePlate) {
@@ -70,6 +81,19 @@ public class AccountService {
     List<Bill> bills = billService.getBillsByIds(billIds);
 
     return billsAssembler.assemble(bills);
+  }
+
+  public BillDto payBill(PayBillDto payBillDto, String accountId, String billId) {
+    Money amountToPay = payBillAssembler.assemble(payBillDto);
+    AccountId id = accountIdAssembler.assemble(accountId);
+    BillId billNumber = billIdAssembler.assemble(billId);
+
+    Account account = getAccount(id);
+    account.verifyAccountHasBillId(billNumber);
+    Bill bill = billService.getBill(billNumber);
+    bill.pay(amountToPay);
+
+    return billsAssembler.assemble(bill);
   }
 
   public Account getAccount(AccountId id) {

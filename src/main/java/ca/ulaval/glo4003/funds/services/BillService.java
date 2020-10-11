@@ -52,4 +52,8 @@ public class BillService {
   public List<Bill> getBillsByIds(List<BillId> billIds) {
     return billRepository.getBillsByIds(billIds);
   }
+
+  public Bill getBill(BillId billId) {
+    return billRepository.getBill(billId);
+  }
 }

@@ -17,6 +17,10 @@ public class Money {
     return new Money(amount + addedMoney.toDouble());
   }
 
+  public Money minus(Money money) {
+    return new Money(amount - money.toDouble());
+  }
+
   public double toDouble() {
     return amount;
   }

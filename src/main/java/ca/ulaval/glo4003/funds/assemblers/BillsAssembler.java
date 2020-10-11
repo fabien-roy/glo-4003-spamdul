@@ -16,7 +16,7 @@ public class BillsAssembler {
     return billsDto;
   }
 
-  private BillDto assemble(Bill bill) {
+  public BillDto assemble(Bill bill) {
     BillDto billDto = new BillDto();
     billDto.billId = bill.getId().toString();
     billDto.billType = bill.getBillTypes().toString();

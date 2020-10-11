@@ -14,7 +14,9 @@ import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.funds.assemblers.BillIdAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
+import ca.ulaval.glo4003.funds.assemblers.PayBillAssembler;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
@@ -35,6 +37,8 @@ public class AccountServiceTest {
   @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private BillService billService;
   @Mock private BillsAssembler billsAssembler;
+  @Mock private BillIdAssembler billIdAssembler;
+  @Mock private PayBillAssembler payBillAssembler;
 
   private AccountService accountService;
 
@@ -49,7 +53,13 @@ public class AccountServiceTest {
   @Before
   public void setup() {
     accountService =
-        new AccountService(accountRepository, accountIdAssembler, billService, billsAssembler);
+        new AccountService(
+            accountRepository,
+            accountIdAssembler,
+            billService,
+            billsAssembler,
+            billIdAssembler,
+            payBillAssembler);
 
     when(accountRepository.findById(account.getId())).thenReturn(account);
   }
