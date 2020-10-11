@@ -88,6 +88,23 @@ uses:
               description: Error adding car to user
             404:
               description: User not found
+      /accessPasses:
+        description: Collection of access passes for user
+        post:
+          description: Add a access pass to user
+          body:
+            application/json:
+              type: types.AccessPass
+              examples:
+                "With car": !include examples/users/post-users-access-passes-request-with-car.json
+                "Without car": !include examples/users/post-users-access-passes-request-without-car.json
+          responses:
+            201:
+              description: Access pass successfully added to user
+            400:
+              description: Error adding access pass to user
+            404:
+              description: User not found
   /parkings:
     post:
       description: Add a new parking sticker
