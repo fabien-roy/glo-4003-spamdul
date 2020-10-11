@@ -6,6 +6,7 @@ uses:
   types: ./libraries/types.raml
 /api:
   /users:
+    description: Collection of users
     post:
       description: Add a new user
       body:
@@ -22,8 +23,9 @@ uses:
         400:
           description: Error adding user
     /{accountId}:
+      description: User with given account id
       get:
-        description: Get the user with account with `accountId = {accountId}`
+        description: Get the user's information
         responses:
           200:
             description: Requested user
@@ -35,6 +37,20 @@ uses:
             description: Error getting user
           404:
             description: User not found
+      /bills:
+        get:
+          description: Get the user's bills
+          responses:
+            200:
+              description: Requested user's bills
+              body:
+                application/json:
+                  type: types.Bill[]
+                  example: !include examples/users/get-users-bills-response.json
+            400:
+              description: Error getting user's bills
+            404:
+              description: User not found
   /parkings:
     post:
       description: Add a new parking sticker
