@@ -200,6 +200,10 @@ uses:
     responses:
       201:
         description: Funding initiative successfully added
+        body:
+          application/json:
+            type: types.InitiativeCodeObject
+            example: !include examples/initiatives/post-initiatives-response.json
       400:
         description: Error adding funding initiative
   get:
