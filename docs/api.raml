@@ -157,21 +157,24 @@ uses:
             404:
               description: Access pass not found
   /offenses:
+    description: Collection of offenses
     /types:
+      description: Collection of all possible offense types
       get:
-        description: Collection of all possible offenseType types
+        description: Get all possible offense types
         responses:
           200:
-            description: All offenseType types
+            description: All offense types
             body:
               application/json:
                 type: types.OffenseType[]
                 example: !include examples/offenses/get-offense-types-response.json
           400:
-            description: Error getting offenseType types
+            description: Error getting offense types
     /validate:
-      get:
-        description: Check offenseTypes for the parking sticker
+      description: Validations of offenses
+      post:
+        description: Check offense for the parking sticker
         body:
           application/json:
             type: types.OffenseValidation
@@ -184,6 +187,6 @@ uses:
                 type: types.OffenseType
                 example: !include examples/offenses/get-offenses-validate-response.json
           400:
-            description: Error getting offenseType type for parking sticker
+            description: Error getting offense type for parking sticker
           404:
             description: Parking sticker not found
