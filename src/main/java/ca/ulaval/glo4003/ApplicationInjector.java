@@ -71,7 +71,8 @@ public class ApplicationInjector {
             ACCOUNT_INJECTOR.getAccountService(),
             FUND_INJECTOR.createBillService()),
         CAR_INJECTOR.createCarService(
-            ACCOUNT_INJECTOR.getAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler()));
+            ACCOUNT_INJECTOR.getAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler()),
+        ACCOUNT_INJECTOR.getAccountService());
   }
 
   public OffenseResource createOffenseResource() {

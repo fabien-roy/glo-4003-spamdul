@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.funds.api.dto.BillsDto;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 
@@ -45,6 +46,10 @@ public class AccountService {
 
     account.addBillId(billId);
     accountRepository.update(account);
+  }
+
+  public BillsDto getBills(String accountId) {
+    return null;
   }
 
   private Account getAccount(AccountId id) {

@@ -3,8 +3,10 @@ package ca.ulaval.glo4003.users.api;
 import ca.ulaval.glo4003.access.api.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.access.services.AccessService;
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.services.CarService;
+import ca.ulaval.glo4003.funds.api.dto.BillsDto;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.services.UserService;
@@ -15,12 +17,17 @@ public class UserResourceImplementation implements UserResource {
   private final UserService userService;
   private final AccessService accessService;
   private final CarService carService;
+  private final AccountService accountService;
 
   public UserResourceImplementation(
-      UserService userService, AccessService accessService, CarService carService) {
+      UserService userService,
+      AccessService accessService,
+      CarService carService,
+      AccountService accountService) {
     this.userService = userService;
     this.accessService = accessService;
     this.carService = carService;
+    this.accountService = accountService;
   }
 
   @Override
@@ -55,5 +62,15 @@ public class UserResourceImplementation implements UserResource {
   public Response addCar(CarDto carDto, String accountId) {
     carService.addCar(carDto, accountId);
     return Response.status(Response.Status.CREATED).build();
+  }
+
+  @Override
+  public Response getBills(String accountId) {
+    BillsDto billsDto = accountService.getBills(accountId);
+
+    return Response.status(Response.Status.OK)
+        .entity(billsDto)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
   }
 }
