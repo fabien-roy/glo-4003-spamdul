@@ -46,42 +46,35 @@ public class CarAssemblerTest {
 
   @Test
   public void whenAssembling_shouldCarWithLicensePlate() {
-    Car car = carAssembler.create(carDto);
+    Car car = carAssembler.assemble(carDto, ACCOUNT_ID.toString());
 
     Truth.assertThat(car.getLicensePlate().toString()).isEqualTo(carDto.licensePlate);
   }
 
   @Test
-  public void whenAssembling_shouldCarWithAccountId() {
-    Car car = carAssembler.create(carDto);
-
-    Truth.assertThat(car.getAccountId().toString()).isEqualTo(carDto.accountId);
-  }
-
-  @Test
   public void whenAssembling_shouldCarWithManufacturer() {
-    Car car = carAssembler.create(carDto);
+    Car car = carAssembler.assemble(carDto, ACCOUNT_ID.toString());
 
     Truth.assertThat(car.getManufacturer()).isEqualTo(carDto.manufacturer);
   }
 
   @Test
   public void whenAssembling_shouldCarWithModel() {
-    Car car = carAssembler.create(carDto);
+    Car car = carAssembler.assemble(carDto, ACCOUNT_ID.toString());
 
     Truth.assertThat(car.getModel()).isEqualTo(carDto.model);
   }
 
   @Test
   public void whenAssembling_shouldCarWithYear() {
-    Car car = carAssembler.create(carDto);
+    Car car = carAssembler.assemble(carDto, ACCOUNT_ID.toString());
 
     Truth.assertThat(car.getYear()).isEqualTo(carDto.year);
   }
 
   @Test
   public void whenAssembling_shouldCarWithConsumptionType() {
-    Car car = carAssembler.create(carDto);
+    Car car = carAssembler.assemble(carDto, ACCOUNT_ID.toString());
 
     Truth.assertThat(car.getConsumptionType().toString()).isEqualTo(carDto.consumptionType);
   }
@@ -90,6 +83,6 @@ public class CarAssemblerTest {
   public void givenCarWithInvalidYear_whenAssembling_shouldThrowInvalidYearException() {
     CarDto carDto = aCarDto().withYear(INVALID_YEAR).build();
 
-    carAssembler.create(carDto);
+    carAssembler.assemble(carDto, ACCOUNT_ID.toString());
   }
 }

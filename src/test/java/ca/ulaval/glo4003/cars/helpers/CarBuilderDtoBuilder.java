@@ -39,7 +39,6 @@ public class CarBuilderDtoBuilder {
   public CarDto build() {
     CarDto carDto = new CarDto();
     carDto.licensePlate = licensePlate;
-    carDto.accountId = accountId;
     carDto.manufacturer = manufacturer;
     carDto.model = model;
     carDto.year = year;
