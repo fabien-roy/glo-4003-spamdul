@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.accounts.services;
 
+import ca.ulaval.glo4003.access.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
@@ -27,6 +28,21 @@ public class AccountService {
     Account account = getAccount(id);
 
     account.addParkingStickerCode(parkingStickerCode);
+    account.addBillId(billId);
+    accountRepository.update(account);
+  }
+
+  public void addAccessCodeToAccount(AccountId id, AccessPassCode accessPassCode, BillId billId) {
+    Account account = getAccount(id);
+
+    account.addAccessPassCode(accessPassCode);
+    account.addBillId(billId);
+    accountRepository.update(account);
+  }
+
+  public void addOffenseToAccount(AccountId id, BillId billId) {
+    Account account = getAccount(id);
+
     account.addBillId(billId);
     accountRepository.update(account);
   }

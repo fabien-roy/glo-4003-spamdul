@@ -45,7 +45,7 @@ public class ApplicationInjector {
 
   public CarResource createCarResource() {
     return CAR_INJECTOR.createCarResource(
-        ACCOUNT_INJECTOR.createAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler());
+        ACCOUNT_INJECTOR.getAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler());
   }
 
   public ParkingResource createParkingResource() {
@@ -58,7 +58,7 @@ public class ApplicationInjector {
         ACCOUNT_INJECTOR.createAccountIdAssembler(),
         LOCATION_INJECTOR.createPostalCodeAssembler(),
         COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
-        ACCOUNT_INJECTOR.createAccountService(),
+        ACCOUNT_INJECTOR.getAccountService(),
         parkingStickerCreationObservers,
         FUND_INJECTOR.createBillService());
   }
@@ -78,7 +78,9 @@ public class ApplicationInjector {
         PARKING_INJECTOR.createParkingAreaCodeAssembler(),
         TIME_INJECTOR.createTimeOfDayAssembler(),
         FILE_INJECTOR.createJsonFileReader(),
-        FUND_INJECTOR.createMoneyAssembler());
+        FUND_INJECTOR.createMoneyAssembler(),
+        FUND_INJECTOR.createBillService(),
+        ACCOUNT_INJECTOR.getAccountService());
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {

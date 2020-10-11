@@ -1,7 +1,9 @@
 package ca.ulaval.glo4003.offenses;
 
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.files.domain.StringFileReader;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.offenses.api.OffenseResourceImplementation;
 import ca.ulaval.glo4003.offenses.assemblers.InfractionAssembler;
@@ -30,7 +32,9 @@ public class OffenseInjector {
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       TimeOfDayAssembler timeOfDayAssembler,
       StringFileReader fileReader,
-      MoneyAssembler moneyAssembler) {
+      MoneyAssembler moneyAssembler,
+      BillService billService,
+      AccountService accountService) {
     addOffenseTypesToRepository(fileReader, moneyAssembler);
 
     OffenseTypeService offenseTypeService =
@@ -38,7 +42,9 @@ public class OffenseInjector {
             parkingStickerRepository,
             parkingStickerCodeAssembler,
             parkingAreaCodeAssembler,
-            timeOfDayAssembler);
+            timeOfDayAssembler,
+            billService,
+            accountService);
 
     return new OffenseResourceImplementation(offenseTypeService);
   }
@@ -62,7 +68,9 @@ public class OffenseInjector {
       ParkingStickerRepository parkingStickerRepository,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
-      TimeOfDayAssembler timeOfDayAssembler) {
+      TimeOfDayAssembler timeOfDayAssembler,
+      BillService billService,
+      AccountService accountService) {
     OffenseValidationAssembler offenseValidationAssembler =
         createOffenseValidationAssembler(
             parkingStickerCodeAssembler, parkingAreaCodeAssembler, timeOfDayAssembler);
@@ -75,7 +83,9 @@ public class OffenseInjector {
         offenseValidationAssembler,
         offenseTypeAssembler,
         offenseTypeRepository,
-        offenseTypeFactory);
+        offenseTypeFactory,
+        billService,
+        accountService);
   }
 
   private OffenseValidationAssembler createOffenseValidationAssembler(

@@ -1,5 +1,8 @@
 package ca.ulaval.glo4003.offenses.services;
 
+import ca.ulaval.glo4003.accounts.services.AccountService;
+import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
@@ -20,18 +23,24 @@ public class OffenseTypeService {
   private final OffenseTypeAssembler offenseTypeAssembler;
   private final OffenseTypeRepository offenseTypeRepository;
   private final OffenseTypeFactory offenseTypeFactory;
+  private final BillService billService;
+  private final AccountService accountService;
 
   public OffenseTypeService(
       ParkingStickerRepository parkingStickerRepository,
       OffenseValidationAssembler offenseValidationAssembler,
       OffenseTypeAssembler offenseTypeAssembler,
       OffenseTypeRepository offenseTypeRepository,
-      OffenseTypeFactory offenseTypeFactory) {
+      OffenseTypeFactory offenseTypeFactory,
+      BillService billService,
+      AccountService accountService) {
     this.parkingStickerRepository = parkingStickerRepository;
     this.offenseValidationAssembler = offenseValidationAssembler;
     this.offenseTypeAssembler = offenseTypeAssembler;
     this.offenseTypeRepository = offenseTypeRepository;
     this.offenseTypeFactory = offenseTypeFactory;
+    this.billService = billService;
+    this.accountService = accountService;
   }
 
   public List<OffenseTypeDto> getAllOffenseTypes() {
@@ -50,11 +59,16 @@ public class OffenseTypeService {
           parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode());
     } catch (NotFoundParkingStickerException e) {
       offenseTypes.add(offenseTypeFactory.createInvalidStickerOffense());
+      // TODO cant add a bill ?
     }
 
     if (parkingSticker != null
         && !parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode())) {
-      offenseTypes.add(offenseTypeFactory.createWrongZoneOffense());
+      OffenseType offense = offenseTypeFactory.createWrongZoneOffense();
+      offenseTypes.add(offense);
+
+      BillId billId = billService.addBillOffense(offense.getAmount(), offense.getCode());
+      accountService.addOffenseToAccount(parkingSticker.getAccountId(), billId);
     }
 
     return offenseTypeAssembler.assembleMany(offenseTypes);
