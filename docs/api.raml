@@ -323,3 +323,16 @@ uses:
               example: !include examples/profits/get-profits-offenses-response.json
         400:
           description: Error getting profits for offenses
+/api/carbonCredits:
+  description: Information about carbon credits purchased with generated profits
+  post:
+    description: Enable or disabled monthly payment of carbon credits
+    body:
+      application/json:
+        type: types.CarbonCreditMonthlyPaymentStatusObject
+        example: !include examples/carbonCredits/post-carbon-credits-request.json
+    responses:
+      200:
+        description: Carbon credit monthly payment status successfully changed
+      400:
+        description: Error changing carbon credit monthly payment status
