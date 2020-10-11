@@ -1,5 +1,8 @@
 package ca.ulaval.glo4003.users.api;
 
+import ca.ulaval.glo4003.access.api.dto.AccessPassCodeDto;
+import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
+import ca.ulaval.glo4003.access.services.AccessService;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.services.UserService;
@@ -8,9 +11,11 @@ import javax.ws.rs.core.Response;
 
 public class UserResourceImplementation implements UserResource {
   private final UserService userService;
+  private final AccessService accessService;
 
-  public UserResourceImplementation(UserService userService) {
+  public UserResourceImplementation(UserService userService, AccessService accessService) {
     this.userService = userService;
+    this.accessService = accessService;
   }
 
   @Override
@@ -27,6 +32,16 @@ public class UserResourceImplementation implements UserResource {
     UserDto userDto = userService.getUser(accountId);
     return Response.status(Response.Status.OK)
         .entity(userDto)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
+
+  @Override
+  public Response addAccessPass(AccessPassDto accessPassDto, String accountId) {
+    AccessPassCodeDto accessPassCode = accessService.addAccessPass(accessPassDto, accountId);
+
+    return Response.status(Response.Status.CREATED)
+        .entity(accessPassCode)
         .type(MediaType.APPLICATION_JSON)
         .build();
   }

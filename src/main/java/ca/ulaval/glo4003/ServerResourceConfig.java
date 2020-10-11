@@ -20,7 +20,6 @@ public class ServerResourceConfig {
                 resources.add(APPLICATION_INJECTOR.createUserResource());
                 resources.add(APPLICATION_INJECTOR.createParkingResource());
                 resources.add(APPLICATION_INJECTOR.createOffenseResource());
-                resources.add(APPLICATION_INJECTOR.createAccessResource());
                 return resources;
               }
 

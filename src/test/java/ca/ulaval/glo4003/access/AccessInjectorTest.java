@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.access;
 
-import ca.ulaval.glo4003.access.api.AccessResource;
+import ca.ulaval.glo4003.access.services.AccessService;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.services.BillService;
@@ -21,9 +21,9 @@ public class AccessInjectorTest {
   }
 
   @Test
-  public void whenGettingAccessResource_thenReturnIt() {
-    AccessResource accessResource =
-        accessInjector.createAccessResource(carService, accountService, billService);
+  public void whenGettingAccessService_thenReturnIt() {
+    AccessService accessResource =
+        accessInjector.createAccessService(carService, accountService, billService);
 
     Truth.assertThat(accessResource).isNotNull();
   }

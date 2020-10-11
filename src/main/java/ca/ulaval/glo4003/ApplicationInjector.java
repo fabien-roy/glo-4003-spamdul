@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003;
 
 import ca.ulaval.glo4003.access.AccessInjector;
-import ca.ulaval.glo4003.access.api.AccessResource;
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
 import ca.ulaval.glo4003.cars.CarInjector;
@@ -71,7 +70,12 @@ public class ApplicationInjector {
         ACCOUNT_INJECTOR.getAccountRepository(),
         ACCOUNT_INJECTOR.createAccountFactory(),
         ACCOUNT_INJECTOR.createAccountIdAssembler(),
-        TIME_INJECTOR.createCustomDateAssembler());
+        TIME_INJECTOR.createCustomDateAssembler(),
+        ACCESS_INJECTOR.createAccessService(
+            CAR_INJECTOR.createCarService(
+                ACCOUNT_INJECTOR.getAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler()),
+            ACCOUNT_INJECTOR.getAccountService(),
+            FUND_INJECTOR.createBillService()));
   }
 
   public OffenseResource createOffenseResource() {
@@ -84,14 +88,6 @@ public class ApplicationInjector {
         FUND_INJECTOR.createMoneyAssembler(),
         FUND_INJECTOR.createBillService(),
         ACCOUNT_INJECTOR.getAccountService());
-  }
-
-  public AccessResource createAccessResource() {
-    return ACCESS_INJECTOR.createAccessResource(
-        CAR_INJECTOR.createCarService(
-            ACCOUNT_INJECTOR.getAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler()),
-        ACCOUNT_INJECTOR.getAccountService(),
-        FUND_INJECTOR.createBillService());
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {

@@ -1,7 +1,5 @@
 package ca.ulaval.glo4003.access;
 
-import ca.ulaval.glo4003.access.api.AccessResource;
-import ca.ulaval.glo4003.access.api.AccessResourceImplementation;
 import ca.ulaval.glo4003.access.assembler.AccessPassAssembler;
 import ca.ulaval.glo4003.access.assembler.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.access.domain.AccessPassCodeGenerator;
@@ -38,23 +36,21 @@ public class AccessInjector {
     addAccessPassByConsumptionTypesToRepository();
   }
 
-  public AccessResource createAccessResource(
+  public AccessService createAccessService(
       CarService carService, AccountService accountService, BillService billService) {
     AccessPassAssembler accessPassAssembler = new AccessPassAssembler();
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
     AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
 
-    AccessService accessService =
-        new AccessService(
-            accessPassAssembler,
-            accessPassFactory,
-            carService,
-            accessPassPriceByCarConsumptionInMemoryRepository,
-            accountService,
-            billService,
-            accessPassInMemoryRepository,
-            accessPassCodeAssembler);
-    return new AccessResourceImplementation(accessService);
+    return new AccessService(
+        accessPassAssembler,
+        accessPassFactory,
+        carService,
+        accessPassPriceByCarConsumptionInMemoryRepository,
+        accountService,
+        billService,
+        accessPassInMemoryRepository,
+        accessPassCodeAssembler);
   }
 
   private void addAccessPassByConsumptionTypesToRepository() {
