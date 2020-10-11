@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.users;
 
-import ca.ulaval.glo4003.access.services.AccessService;
+import ca.ulaval.glo4003.access.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
@@ -17,12 +17,12 @@ public class UserInjector {
       AccountFactory accountFactory,
       AccountIdAssembler accountIdAssembler,
       CustomDateAssembler customDateAssembler,
-      AccessService accessService) {
+      AccessPassService accessPassService) {
     UserAssembler userAssembler = new UserAssembler(customDateAssembler);
 
     UserService userService =
         new UserService(accountRepository, accountFactory, accountIdAssembler, userAssembler);
 
-    return new UserResourceImplementation(userService, accessService);
+    return new UserResourceImplementation(userService, accessPassService);
   }
 }
