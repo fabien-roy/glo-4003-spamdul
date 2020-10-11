@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.access.domain;
 
 public class AccessPassFactory {
-  private AccessPassCodeGenerator accessPassCodeGenerator;
+  private final AccessPassCodeGenerator accessPassCodeGenerator;
 
   public AccessPassFactory(AccessPassCodeGenerator accessPassCodeGenerator) {
     this.accessPassCodeGenerator = accessPassCodeGenerator;

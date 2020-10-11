@@ -68,7 +68,7 @@ public class ApplicationInjector {
         COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
         ACCOUNT_INJECTOR.getAccountService(),
         parkingStickerCreationObservers,
-        FUND_INJECTOR.getBillService());
+        FUND_INJECTOR.createBillService());
   }
 
   public UserResource createUserResource() {
@@ -87,7 +87,7 @@ public class ApplicationInjector {
         TIME_INJECTOR.createTimeOfDayAssembler(),
         FILE_INJECTOR.createJsonFileReader(),
         FUND_INJECTOR.createMoneyAssembler(),
-        FUND_INJECTOR.getBillService(),
+        FUND_INJECTOR.createBillService(),
         ACCOUNT_INJECTOR.getAccountService());
   }
 
