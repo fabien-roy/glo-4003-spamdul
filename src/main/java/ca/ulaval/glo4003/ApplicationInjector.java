@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003;
 
 import ca.ulaval.glo4003.access.AccessInjector;
+import ca.ulaval.glo4003.access.api.AccessExceptionMapper;
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
 import ca.ulaval.glo4003.cars.CarInjector;
@@ -54,7 +55,7 @@ public class ApplicationInjector {
         ACCOUNT_INJECTOR.createAccountIdAssembler(),
         LOCATION_INJECTOR.createPostalCodeAssembler(),
         COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
-        ACCOUNT_INJECTOR.getAccountService(),
+        ACCOUNT_INJECTOR.createAccountService(),
         parkingStickerCreationObservers,
         FUND_INJECTOR.createBillService());
   }
@@ -67,11 +68,12 @@ public class ApplicationInjector {
         TIME_INJECTOR.createCustomDateAssembler(),
         ACCESS_INJECTOR.createAccessService(
             CAR_INJECTOR.createCarService(
-                ACCOUNT_INJECTOR.getAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler()),
-            ACCOUNT_INJECTOR.getAccountService(),
+                ACCOUNT_INJECTOR.createAccountService(),
+                ACCOUNT_INJECTOR.createAccountIdAssembler()),
+            ACCOUNT_INJECTOR.createAccountService(),
             FUND_INJECTOR.createBillService()),
         CAR_INJECTOR.createCarService(
-            ACCOUNT_INJECTOR.getAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler()));
+            ACCOUNT_INJECTOR.createAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler()));
   }
 
   public OffenseResource createOffenseResource() {
@@ -83,7 +85,7 @@ public class ApplicationInjector {
         FILE_INJECTOR.createJsonFileReader(),
         FUND_INJECTOR.createMoneyAssembler(),
         FUND_INJECTOR.createBillService(),
-        ACCOUNT_INJECTOR.getAccountService());
+        ACCOUNT_INJECTOR.createAccountService());
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
@@ -96,6 +98,7 @@ public class ApplicationInjector {
         LocationExceptionMapper.class,
         ParkingExceptionMapper.class,
         TimeExceptionMapper.class,
-        UserExceptionMapper.class);
+        UserExceptionMapper.class,
+        AccessExceptionMapper.class);
   }
 }
