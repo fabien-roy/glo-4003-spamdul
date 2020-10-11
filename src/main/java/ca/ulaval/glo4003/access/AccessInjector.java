@@ -4,10 +4,10 @@ import ca.ulaval.glo4003.access.assembler.AccessPassAssembler;
 import ca.ulaval.glo4003.access.assembler.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.access.domain.AccessPassCodeGenerator;
 import ca.ulaval.glo4003.access.domain.AccessPassFactory;
-import ca.ulaval.glo4003.access.domain.AccessPassPriceByCarConsumption;
+import ca.ulaval.glo4003.access.domain.AccessPassType;
 import ca.ulaval.glo4003.access.domain.AccessPeriods;
 import ca.ulaval.glo4003.access.infrastructure.AccessPassInMemoryRepository;
-import ca.ulaval.glo4003.access.infrastructure.AccessPassPriceByCarConsumptionInMemoryRepository;
+import ca.ulaval.glo4003.access.infrastructure.AccessPassTypeInMemoryRepository;
 import ca.ulaval.glo4003.access.services.AccessService;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
@@ -24,9 +24,8 @@ import java.util.Map;
 
 public class AccessInjector {
 
-  private final AccessPassPriceByCarConsumptionInMemoryRepository
-      accessPassPriceByCarConsumptionInMemoryRepository =
-          new AccessPassPriceByCarConsumptionInMemoryRepository();
+  private final AccessPassTypeInMemoryRepository accessPassPriceByCarConsumptionInMemoryRepository =
+      new AccessPassTypeInMemoryRepository();
   private final AccessPassInMemoryRepository accessPassInMemoryRepository =
       new AccessPassInMemoryRepository();
   private final AccessPassCodeGenerator accessPassCodeGenerator = new AccessPassCodeGenerator();
@@ -58,7 +57,7 @@ public class AccessInjector {
 
     Map<String, Map<String, Double>> zonesAndFees =
         zoneFeesFileHelper.getZoneAndFeesForAccessPass();
-    List<AccessPassPriceByCarConsumption> accessConsumption = new ArrayList<>();
+    List<AccessPassType> accessConsumption = new ArrayList<>();
 
     zonesAndFees
         .keySet()
@@ -80,8 +79,7 @@ public class AccessInjector {
                         // is the injector, it's not that important)
                         feesPerPeriod.put(accessPeriods, fee);
                       });
-              accessConsumption.add(
-                  new AccessPassPriceByCarConsumption(consumptionTypes, feesPerPeriod));
+              accessConsumption.add(new AccessPassType(consumptionTypes, feesPerPeriod));
             });
 
     accessConsumption.forEach(accessPassPriceByCarConsumptionInMemoryRepository::save);

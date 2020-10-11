@@ -5,7 +5,7 @@ import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnums;
 
-import ca.ulaval.glo4003.access.domain.AccessPassPriceByCarConsumption;
+import ca.ulaval.glo4003.access.domain.AccessPassType;
 import ca.ulaval.glo4003.access.domain.AccessPeriods;
 import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
 import ca.ulaval.glo4003.funds.domain.Money;
@@ -33,12 +33,11 @@ public class AccessPassPriceByCarConsumptionBuilder {
     return feePerPeriod;
   }
 
-  public AccessPassPriceByCarConsumption build() {
-    return new AccessPassPriceByCarConsumption(consumptionTypes, createAccessFeeByPeriod());
+  public AccessPassType build() {
+    return new AccessPassType(consumptionTypes, createAccessFeeByPeriod());
   }
 
-  public AccessPassPriceByCarConsumption buildWithConsumptionType(
-      ConsumptionTypes consumptionTypes) {
-    return new AccessPassPriceByCarConsumption(consumptionTypes, createAccessFeeByPeriod());
+  public AccessPassType buildWithConsumptionType(ConsumptionTypes consumptionTypes) {
+    return new AccessPassType(consumptionTypes, createAccessFeeByPeriod());
   }
 }

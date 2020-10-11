@@ -20,7 +20,7 @@ public class AccessService {
   private AccessPassAssembler accessPassAssembler;
   private AccessPassFactory accessPassFactory;
   private CarService carService;
-  private AccessPassPriceByCarConsumptionRepository accessPassPriceByCarConsumptionRepository;
+  private AccessPassTypeRepository accessPassTypeRepository;
   private BillService billService;
   private AccountService accountService;
   private AccessPassRepository accessPassRepository;
@@ -30,7 +30,7 @@ public class AccessService {
       AccessPassAssembler accessPassAssembler,
       AccessPassFactory accessPassFactory,
       CarService carService,
-      AccessPassPriceByCarConsumptionRepository accessPassPriceByCarConsumptionRepository,
+      AccessPassTypeRepository accessPassTypeRepository,
       AccountService accountService,
       BillService billService,
       AccessPassRepository accessPassRepository,
@@ -39,7 +39,7 @@ public class AccessService {
     this.accessPassAssembler = accessPassAssembler;
     this.accessPassFactory = accessPassFactory;
     this.carService = carService;
-    this.accessPassPriceByCarConsumptionRepository = accessPassPriceByCarConsumptionRepository;
+    this.accessPassTypeRepository = accessPassTypeRepository;
     this.accountService = accountService;
     this.billService = billService;
     this.accessPassRepository = accessPassRepository;
@@ -61,10 +61,10 @@ public class AccessService {
       consumptionTypes = car.getConsumptionType();
     }
 
-    AccessPassPriceByCarConsumption accessPassPriceByCarConsumption =
-        accessPassPriceByCarConsumptionRepository.findByConsumptionType(consumptionTypes);
+    AccessPassType accessPassType =
+        accessPassTypeRepository.findByConsumptionType(consumptionTypes);
 
-    Money moneyDue = accessPassPriceByCarConsumption.getFeeForPeriod(AccessPeriods.ONE_DAY);
+    Money moneyDue = accessPassType.getFeeForPeriod(AccessPeriods.ONE_DAY);
     BillId billId = billService.addBillForAccessCode(moneyDue, accessPass.getAccessPassCode());
     accountService.addAccessCodeToAccount(
         new AccountId(UUID.fromString(accountId)), accessPass.getAccessPassCode(), billId);

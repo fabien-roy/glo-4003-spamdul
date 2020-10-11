@@ -34,7 +34,7 @@ public class AccessServiceTest {
   @Mock private AccessPassAssembler accessPassAssembler;
   @Mock private AccessPassFactory accessPassFactory;
   @Mock private CarService carService;
-  @Mock private AccessPassPriceByCarConsumptionRepository accessPassPriceByCarConsumptionRepository;
+  @Mock private AccessPassTypeRepository accessPassTypeRepository;
   @Mock private AccountService accountService;
   @Mock private BillService billService;
   @Mock private AccessPassRepository accessPassRepository;
@@ -57,7 +57,7 @@ public class AccessServiceTest {
             accessPassAssembler,
             accessPassFactory,
             carService,
-            accessPassPriceByCarConsumptionRepository,
+            accessPassTypeRepository,
             accountService,
             billService,
             accessPassRepository,
@@ -70,12 +70,11 @@ public class AccessServiceTest {
 
     when(carService.getCarByLicensePlate(accessPassWithId.getLicensePlate())).thenReturn(car);
 
-    AccessPassPriceByCarConsumption accessPassPriceByCarConsumption =
-        anAccessPassPriceByConsumption().build();
-    when(accessPassPriceByCarConsumptionRepository.findByConsumptionType(car.getConsumptionType()))
-        .thenReturn(accessPassPriceByCarConsumption);
+    AccessPassType accessPassType = anAccessPassPriceByConsumption().build();
+    when(accessPassTypeRepository.findByConsumptionType(car.getConsumptionType()))
+        .thenReturn(accessPassType);
 
-    moneyDue = accessPassPriceByCarConsumption.getFeeForPeriod(AccessPeriods.ONE_DAY);
+    moneyDue = accessPassType.getFeeForPeriod(AccessPeriods.ONE_DAY);
 
     when(accessPassRepository.save(accessPassWithId))
         .thenReturn(accessPassWithId.getAccessPassCode());
@@ -88,11 +87,10 @@ public class AccessServiceTest {
     accessPassWithId.setLicensePlate(null);
     when(accessPassFactory.create(accessPass)).thenReturn(accessPassWithId);
 
-    AccessPassPriceByCarConsumption accessPassPriceByCarConsumption =
+    AccessPassType accessPassType =
         anAccessPassPriceByConsumption().buildWithConsumptionType(ConsumptionTypes.ZERO_POLLUTION);
-    when(accessPassPriceByCarConsumptionRepository.findByConsumptionType(
-            ConsumptionTypes.ZERO_POLLUTION))
-        .thenReturn(accessPassPriceByCarConsumption);
+    when(accessPassTypeRepository.findByConsumptionType(ConsumptionTypes.ZERO_POLLUTION))
+        .thenReturn(accessPassType);
 
     accessService.addAccessPass(accessPassDto, accountId.toString());
 

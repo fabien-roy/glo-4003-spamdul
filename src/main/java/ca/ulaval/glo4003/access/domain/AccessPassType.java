@@ -4,12 +4,11 @@ import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
 import ca.ulaval.glo4003.funds.domain.Money;
 import java.util.Map;
 
-public class AccessPassPriceByCarConsumption {
+public class AccessPassType {
   private final ConsumptionTypes consumptionTypes;
   private final Map<AccessPeriods, Money> feePerPeriod;
 
-  public AccessPassPriceByCarConsumption(
-      ConsumptionTypes consumptionTypes, Map<AccessPeriods, Money> feePerPeriod) {
+  public AccessPassType(ConsumptionTypes consumptionTypes, Map<AccessPeriods, Money> feePerPeriod) {
     this.consumptionTypes = consumptionTypes;
     this.feePerPeriod = feePerPeriod;
   }
