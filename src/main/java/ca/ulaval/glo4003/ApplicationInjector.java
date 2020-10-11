@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003;
 
 import ca.ulaval.glo4003.access.AccessInjector;
+import ca.ulaval.glo4003.access.api.AccessExceptionMapper;
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
 import ca.ulaval.glo4003.cars.CarInjector;
@@ -99,6 +100,7 @@ public class ApplicationInjector {
         LocationExceptionMapper.class,
         ParkingExceptionMapper.class,
         TimeExceptionMapper.class,
-        UserExceptionMapper.class);
+        UserExceptionMapper.class,
+        AccessExceptionMapper.class);
   }
 }

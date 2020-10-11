@@ -14,6 +14,8 @@ public class AccountInjector {
   private final AccountRepository accountRepository = new AccountRepositoryInMemory();
   private final AccountIdGenerator accountIdGenerator = new AccountIdGenerator();
 
+  public AccountInjector() {}
+
   public AccountRepository getAccountRepository() {
     return accountRepository;
   }
