@@ -9,10 +9,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
+import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
 import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import com.google.common.truth.Truth;
 import org.junit.Before;
@@ -25,6 +28,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class AccountServiceTest {
 
   @Mock private AccountRepository accountRepository;
+  @Mock private AccountIdAssembler accountIdAssembler;
+  @Mock private BillService billService;
+  @Mock private BillsAssembler billsAssembler;
 
   private AccountService accountService;
 
@@ -36,7 +42,8 @@ public class AccountServiceTest {
 
   @Before
   public void setup() {
-    accountService = new AccountService(accountRepository);
+    accountService =
+        new AccountService(accountRepository, accountIdAssembler, billService, billsAssembler);
 
     when(accountRepository.findById(account.getId())).thenReturn(account);
   }
