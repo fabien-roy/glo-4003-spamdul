@@ -64,7 +64,7 @@ uses:
             description: Pay an amount of the user's bills
             body:
               application/json:
-                type: types.AmountPaying
+                type: types.BillPayment
                 example: !include examples/users/post-users-bills-request.json
             responses:
               200:
@@ -100,31 +100,37 @@ uses:
                 "Without car": !include examples/users/post-users-access-passes-request-without-car.json
           responses:
             201:
-              description: Access pass successfully added to user
+              description: Code for newly added access pass
+              body:
+                application/json:
+                  type: types.AccessPassCodeObject
+                  example: !include examples/users/post-users-access-passes-response.json
             400:
               description: Error adding access pass to user
             404:
               description: User not found
-  /parkings:
-    post:
-      description: Add a new parking sticker
-      body:
-        application/json:
-          type: types.ParkingSticker
-          examples:
-            postal: !include examples/parkings/post-parkings-request-postal.json
-            email: !include examples/parkings/post-parkings-request-email.json
-      responses:
-        201:
-          description: Code for newly added parking sticker
+      /parkingStickers:
+        description: Collection of parking stickers for user
+        post:
+          description: Add a parking sticker to user
           body:
             application/json:
-              type: types.ParkingStickerCodeObject
-              example: !include examples/parkings/post-parkings-response.json
-        400:
-          description: Error adding parking sticker
-        404:
-          description: Account or parking area not found
+              type: types.ParkingSticker
+              examples:
+                "Send via postal carrier": !include examples/users/post-users-parking-stickers-request-postal.json
+                "Sent via email": !include examples/users/post-users-parking-stickers-request-email.json
+          responses:
+            201:
+              description: Code for newly added parking sticker
+              body:
+                application/json:
+                  type: types.ParkingStickerCodeObject
+                  example: !include examples/users/post-users-parking-stickers-response.json
+            400:
+              description: Error adding parking sticker to user
+            404:
+              description: User not found
+  /parkings:
     /{parkingStickerCode}:
       /validate:
         get:

@@ -4,8 +4,6 @@ displayName: ParkingSticker
 uses:
   types: ../../libraries/types.raml
 properties:
-  accountId:
-    type: types.AccountId
   parkingArea:
     type: types.ParkingAreaCode
   receptionMethod:
@@ -18,6 +16,3 @@ properties:
     type: types.Email
     description: Email to send sticker to, required if reception method is email
     required: false
-  validDay:
-    type: types.Day
-    description: Day of sticker validity
