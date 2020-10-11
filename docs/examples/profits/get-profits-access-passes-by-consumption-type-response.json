@@ -1,0 +1,10 @@
+[
+  {
+    "profits": 600.0,
+    "consumptionType": "zeroPollution"
+  },
+  {
+    "profits": 760.0,
+    "consumptionType": "economical"
+  }
+]
