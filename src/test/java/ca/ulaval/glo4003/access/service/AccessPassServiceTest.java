@@ -67,6 +67,7 @@ public class AccessPassServiceTest {
             accessPassCodeAssembler,
             accountIdAssembler);
 
+    when(accountIdAssembler.assemble(accountId.toString())).thenReturn(accountId);
     when(accessPassAssembler.assemble(accessPassDto, accountId.toString())).thenReturn(accessPass);
 
     accessPass.setAccessPassCode(new AccessPassCode(UUID.randomUUID().toString()));

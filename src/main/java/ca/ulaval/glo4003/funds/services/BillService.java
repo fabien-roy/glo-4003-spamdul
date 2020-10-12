@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriods;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class BillService {
@@ -46,5 +47,9 @@ public class BillService {
     billRepository.save(bill);
 
     return bill.getId();
+  }
+
+  public List<Bill> getBillsByIds(List<BillId> billIds) {
+    return billRepository.getBills(billIds);
   }
 }

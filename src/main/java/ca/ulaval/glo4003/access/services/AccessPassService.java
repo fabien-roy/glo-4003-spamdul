@@ -50,9 +50,9 @@ public class AccessPassService {
   }
 
   public AccessPassCodeDto addAccessPass(AccessPassDto accessPassDto, String accountId) {
-
     AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId);
     AccountId id = accountIdAssembler.assemble(accountId);
+    accountService.getAccount(id);
     accessPass = accessPassFactory.create(accessPass);
 
     LicensePlate licensePlate = accessPass.getLicensePlate();

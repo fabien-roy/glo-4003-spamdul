@@ -55,7 +55,7 @@ public class ApplicationInjector {
         ACCOUNT_INJECTOR.createAccountIdAssembler(),
         LOCATION_INJECTOR.createPostalCodeAssembler(),
         COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
-        ACCOUNT_INJECTOR.createAccountService(),
+        ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
         parkingStickerCreationObservers,
         FUND_INJECTOR.createBillService());
   }
@@ -68,12 +68,14 @@ public class ApplicationInjector {
         TIME_INJECTOR.createCustomDateAssembler(),
         ACCESS_INJECTOR.createAccessService(
             CAR_INJECTOR.createCarService(
-                ACCOUNT_INJECTOR.createAccountService(),
+                ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
-            ACCOUNT_INJECTOR.createAccountService(),
+            ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
             FUND_INJECTOR.createBillService()),
         CAR_INJECTOR.createCarService(
-            ACCOUNT_INJECTOR.createAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler()));
+            ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
+            ACCOUNT_INJECTOR.createAccountIdAssembler()),
+        ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()));
   }
 
   public OffenseResource createOffenseResource() {
@@ -85,7 +87,7 @@ public class ApplicationInjector {
         FILE_INJECTOR.createJsonFileReader(),
         FUND_INJECTOR.createMoneyAssembler(),
         FUND_INJECTOR.createBillService(),
-        ACCOUNT_INJECTOR.createAccountService());
+        ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()));
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {

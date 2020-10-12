@@ -10,6 +10,7 @@ import ca.ulaval.glo4003.access.api.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.access.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
@@ -30,6 +31,7 @@ public class UserResourceImplementationTest {
   @Mock private UserService userService;
   @Mock private AccessPassService accessPassService;
   @Mock private AccessPassDto accessPassDto;
+  @Mock private AccountService accountService;
   @Mock private CarService carService;
 
   private AccountId accountId = createAccountId();
@@ -41,7 +43,8 @@ public class UserResourceImplementationTest {
 
   @Before
   public void setUp() {
-    userResource = new UserResourceImplementation(userService, accessPassService, carService);
+    userResource =
+        new UserResourceImplementation(userService, accessPassService, carService, accountService);
   }
 
   @Test
@@ -118,5 +121,19 @@ public class UserResourceImplementationTest {
     Response response = userResource.addCar(carDto, accountId.toString());
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
+  }
+
+  @Test
+  public void whenGettingBills_thenGetBills() {
+    userResource.getBills(accountId.toString());
+
+    verify(accountService).getBills(accountId.toString());
+  }
+
+  @Test
+  public void whenGettingBills_thenRespondWithOkStatus() {
+    Response response = userResource.getBills(accountId.toString());
+
+    assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }
 }

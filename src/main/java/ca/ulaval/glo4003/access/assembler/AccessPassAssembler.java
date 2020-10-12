@@ -22,9 +22,12 @@ public class AccessPassAssembler {
   public AccessPass assemble(AccessPassDto accessPassCodeDto, String accountId) {
     AccountId id = accountIdAssembler.assemble(accountId);
     Days days = Days.get(accessPassCodeDto.accessDay);
-    LicensePlate licensePlate = licensePlateAssembler.assemble(accessPassCodeDto.licensePlate);
-    AccessPass accessPass = new AccessPass(id, days, licensePlate);
-
-    return accessPass;
+    LicensePlate licensePlate;
+    if (accessPassCodeDto.licensePlate != null) {
+      licensePlate = licensePlateAssembler.assemble(accessPassCodeDto.licensePlate);
+    } else {
+      licensePlate = null;
+    }
+    return new AccessPass(id, days, licensePlate);
   }
 }

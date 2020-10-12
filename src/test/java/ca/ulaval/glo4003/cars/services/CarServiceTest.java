@@ -6,6 +6,7 @@ import static ca.ulaval.glo4003.cars.helpers.CarBuilderDtoBuilder.aCarDto;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
@@ -24,6 +25,7 @@ public class CarServiceTest {
   @Mock private CarAssembler carAssembler;
   @Mock private CarRepository carRepository;
   @Mock private AccountService accountService;
+  @Mock private AccountIdAssembler accountIdAssembler;
 
   private CarService carService;
   private final AccountId accountId = createAccountId();
@@ -32,7 +34,7 @@ public class CarServiceTest {
 
   @Before
   public void setup() {
-    carService = new CarService(carAssembler, carRepository, accountService);
+    carService = new CarService(carAssembler, carRepository, accountService, accountIdAssembler);
 
     when(carAssembler.assemble(carDto, accountId.toString())).thenReturn(car);
   }

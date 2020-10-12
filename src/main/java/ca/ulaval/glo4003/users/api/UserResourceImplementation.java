@@ -3,11 +3,15 @@ package ca.ulaval.glo4003.users.api;
 import ca.ulaval.glo4003.access.api.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.access.services.AccessPassService;
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.services.CarService;
+import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.services.UserService;
+import java.util.List;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -15,12 +19,17 @@ public class UserResourceImplementation implements UserResource {
   private final UserService userService;
   private final AccessPassService accessPassService;
   private final CarService carService;
+  private final AccountService accountService;
 
   public UserResourceImplementation(
-      UserService userService, AccessPassService accessPassService, CarService carService) {
+      UserService userService,
+      AccessPassService accessPassService,
+      CarService carService,
+      AccountService accountService) {
     this.userService = userService;
     this.accessPassService = accessPassService;
     this.carService = carService;
+    this.accountService = accountService;
   }
 
   @Override
@@ -55,5 +64,16 @@ public class UserResourceImplementation implements UserResource {
   public Response addCar(CarDto carDto, String accountId) {
     carService.addCar(carDto, accountId);
     return Response.status(Response.Status.CREATED).build();
+  }
+
+  @Override
+  public Response getBills(String accountId) {
+    List<BillDto> billsDto = accountService.getBills(accountId);
+    GenericEntity<List<BillDto>> entities = new GenericEntity<List<BillDto>>(billsDto) {};
+
+    return Response.status(Response.Status.OK)
+        .entity(entities)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
   }
 }

@@ -42,4 +42,9 @@ public class Money {
   public int hashCode() {
     return Objects.hashCode(amount);
   }
+
+  @Override
+  public String toString() {
+    return String.valueOf(amount);
+  }
 }

@@ -31,4 +31,9 @@ public interface UserResource {
   @Produces(MediaType.APPLICATION_JSON)
   @Path("{accountId}/cars")
   Response addCar(CarDto carDto, @PathParam("accountId") String accountId);
+
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("{accountId}/bills")
+  Response getBills(@PathParam("accountId") String accountId);
 }

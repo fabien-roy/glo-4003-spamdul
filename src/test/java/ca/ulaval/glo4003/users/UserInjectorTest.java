@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.access.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
 import ca.ulaval.glo4003.users.api.UserResource;
@@ -23,6 +24,7 @@ public class UserInjectorTest {
   @Mock private CustomDateAssembler customDateAssembler;
   @Mock private AccessPassService accessPassService;
   @Mock private CarService carService;
+  @Mock private AccountService accountService;
 
   private UserInjector userInjector;
 
@@ -40,7 +42,8 @@ public class UserInjectorTest {
             accountIdAssembler,
             customDateAssembler,
             accessPassService,
-            carService);
+            carService,
+            accountService);
 
     Truth.assertThat(userResource).isNotNull();
   }

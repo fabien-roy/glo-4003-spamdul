@@ -6,6 +6,8 @@ import ca.ulaval.glo4003.accounts.domain.AccountIdGenerator;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.infrastructure.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.accounts.services.AccountService;
+import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
+import ca.ulaval.glo4003.funds.services.BillService;
 
 public class AccountInjector {
 
@@ -26,7 +28,8 @@ public class AccountInjector {
     return new AccountIdAssembler();
   }
 
-  public AccountService createAccountService() {
-    return new AccountService(accountRepository);
+  public AccountService createAccountService(BillService billService) {
+    return new AccountService(
+        accountRepository, new AccountIdAssembler(), billService, new BillsAssembler());
   }
 }

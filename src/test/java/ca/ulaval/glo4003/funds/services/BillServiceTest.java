@@ -15,7 +15,9 @@ import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriods;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import com.google.common.truth.Truth;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
@@ -95,5 +97,15 @@ public class BillServiceTest {
     billService.addBillOffense(fee, offenseCode);
 
     Mockito.verify(billRepository).save(bill);
+  }
+
+  @Test
+  public void givenBillIds_whenGettingBills_thenBillRepositoryIsCalled() {
+    List<BillId> billIds = new ArrayList<>();
+    billIds.add(bill.getId());
+
+    billService.getBillsByIds(billIds);
+
+    Mockito.verify(billRepository).getBills(billIds);
   }
 }
