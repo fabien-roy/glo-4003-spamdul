@@ -20,8 +20,8 @@ public class CarService {
     this.accountService = accountService;
   }
 
-  public void addCar(CarDto carDto) {
-    Car car = carAssembler.create(carDto);
+  public void addCar(CarDto carDto, String accountId) {
+    Car car = carAssembler.assemble(carDto, accountId);
 
     accountService.addLicensePlateToAccount(car.getAccountId(), car.getLicensePlate());
 

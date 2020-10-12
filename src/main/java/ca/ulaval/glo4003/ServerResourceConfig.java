@@ -16,7 +16,6 @@ public class ServerResourceConfig {
               @Override
               public Set<Object> getSingletons() {
                 HashSet<Object> resources = new HashSet<>();
-                resources.add(APPLICATION_INJECTOR.createCarResource());
                 resources.add(APPLICATION_INJECTOR.createUserResource());
                 resources.add(APPLICATION_INJECTOR.createParkingResource());
                 resources.add(APPLICATION_INJECTOR.createOffenseResource());

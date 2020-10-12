@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.users.api;
 
 import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
+import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -24,4 +25,10 @@ public interface UserResource {
   @Produces(MediaType.APPLICATION_JSON)
   @Path("{accountId}/access")
   Response addAccessPass(AccessPassDto accessPassDto, @PathParam("accountId") String accountId);
+
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("{accountId}/cars")
+  Response addCar(CarDto carDto, @PathParam("accountId") String accountId);
 }

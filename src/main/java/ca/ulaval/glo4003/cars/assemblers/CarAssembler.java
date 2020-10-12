@@ -20,15 +20,15 @@ public class CarAssembler {
     this.accountIdAssembler = accountIdAssembler;
   }
 
-  public Car create(CarDto carDto) {
+  public Car assemble(CarDto carDto, String accountId) {
     validateYear(carDto.year);
 
     LicensePlate licensePlate = licensePlateAssembler.assemble(carDto.licensePlate);
-    AccountId accountId = accountIdAssembler.assemble(carDto.accountId);
+    AccountId id = accountIdAssembler.assemble(accountId);
 
     return new Car(
         licensePlate,
-        accountId,
+        id,
         carDto.manufacturer,
         carDto.model,
         carDto.year,

@@ -6,7 +6,6 @@ import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
 import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.cars.api.CarExceptionMapper;
-import ca.ulaval.glo4003.cars.api.CarResource;
 import ca.ulaval.glo4003.communications.CommunicationInjector;
 import ca.ulaval.glo4003.communications.api.CommunicationExceptionMapper;
 import ca.ulaval.glo4003.files.FileInjector;
@@ -46,11 +45,6 @@ public class ApplicationInjector {
   private static final OffenseInjector OFFENSE_INJECTOR = new OffenseInjector();
   private static final AccessInjector ACCESS_INJECTOR = new AccessInjector();
 
-  public CarResource createCarResource() {
-    return CAR_INJECTOR.createCarResource(
-        ACCOUNT_INJECTOR.createAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler());
-  }
-
   public ParkingResource createParkingResource() {
     List<ParkingStickerCreationObserver> parkingStickerCreationObservers =
         Arrays.asList(
@@ -77,7 +71,9 @@ public class ApplicationInjector {
                 ACCOUNT_INJECTOR.createAccountService(),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
             ACCOUNT_INJECTOR.createAccountService(),
-            FUND_INJECTOR.createBillService()));
+            FUND_INJECTOR.createBillService()),
+        CAR_INJECTOR.createCarService(
+            ACCOUNT_INJECTOR.createAccountService(), ACCOUNT_INJECTOR.createAccountIdAssembler()));
   }
 
   public OffenseResource createOffenseResource() {
