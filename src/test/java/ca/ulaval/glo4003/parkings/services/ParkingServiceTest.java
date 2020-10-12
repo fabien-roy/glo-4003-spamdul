@@ -54,8 +54,7 @@ public class ParkingServiceTest {
             accessStatusAssembler,
             emailSender);
     LocalDate date = LocalDate.now();
-    String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
-    parkingSticker = aParkingSticker().withValidDay(dayOfWeek).build();
+    parkingSticker = aParkingSticker().build();
     parkingStickerCode = parkingSticker.getCode();
 
     when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
@@ -157,7 +156,9 @@ public class ParkingServiceTest {
     Mockito.verify(accessStatusAssembler).assemble(eq(AccessStatus.ACCESS_GRANTED.toString()));
   }
 
-  @Test
+  // TODO: Might need to remove this test below, parking sticker doesn't handle valid days anymore
+
+  /*@Test
   public void
       givenInvalidParkingStickerCode_whenValidateParkingStickerCode_thenAccessRefusedResponseIsReturned() {
     ParkingSticker invalidParkingStickerDay =
@@ -168,5 +169,5 @@ public class ParkingServiceTest {
     parkingService.validateParkingStickerCode(parkingStickerCode.toString());
 
     Mockito.verify(accessStatusAssembler).assemble(eq(AccessStatus.ACCESS_REFUSED.toString()));
-  }
+  }*/
 }

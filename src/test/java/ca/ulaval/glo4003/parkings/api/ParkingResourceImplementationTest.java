@@ -39,22 +39,6 @@ public class ParkingResourceImplementationTest {
   }
 
   @Test
-  public void whenAddParkingSticker_thenAddParkingStickerToService() {
-    Response response = parkingResource.addParkingSticker(parkingStickerDto);
-    ParkingStickerCodeDto parkingStickerCodeDto = (ParkingStickerCodeDto) response.getEntity();
-
-    Truth.assertThat(parkingStickerCodeDto.parkingStickerCode)
-        .isEqualTo(parkingStickerCodeDto.parkingStickerCode);
-  }
-
-  @Test
-  public void whenAddParkingSticker_thenRespondWithCreatedStatus() {
-    Response response = parkingResource.addParkingSticker(parkingStickerDto);
-
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
-  }
-
-  @Test
   public void whenValidateParkingStickerCode_thenValidateParkingStickerCodeToService() {
     Response response = parkingResource.validateParkingSticker(parkingStickerCode);
     AccessStatusDto receivedAccessStatusDto = (AccessStatusDto) response.getEntity();

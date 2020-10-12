@@ -26,6 +26,7 @@ public class ParkingInjector {
   private final ParkingStickerRepository parkingStickerRepository;
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
+  private ParkingService parkingService;
 
   public ParkingInjector() {
     parkingStickerCodeGenerator = new ParkingStickerCodeGenerator();
@@ -76,6 +77,8 @@ public class ParkingInjector {
             accessStatusAssembler,
             emailSender);
 
+    this.parkingService = parkingService;
+
     return new ParkingResourceImplementation(parkingService);
   }
 
@@ -89,5 +92,9 @@ public class ParkingInjector {
 
   public ParkingAreaCodeAssembler getParkingAreaCodeAssembler() {
     return parkingAreaCodeAssembler;
+  }
+
+  public ParkingService getParkingService() {
+    return parkingService;
   }
 }

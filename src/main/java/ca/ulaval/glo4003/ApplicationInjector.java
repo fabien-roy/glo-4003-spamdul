@@ -58,7 +58,8 @@ public class ApplicationInjector {
         ACCOUNT_INJECTOR.getAccountRepository(),
         ACCOUNT_INJECTOR.createAccountFactory(),
         ACCOUNT_INJECTOR.createAccountIdAssembler(),
-        TIME_INJECTOR.createCustomDateAssembler());
+        TIME_INJECTOR.createCustomDateAssembler(),
+        PARKING_INJECTOR.getParkingService());
   }
 
   public OffenseResource createOffenseResource() {

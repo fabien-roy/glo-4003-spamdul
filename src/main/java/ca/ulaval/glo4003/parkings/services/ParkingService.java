@@ -11,8 +11,6 @@ import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
-import ca.ulaval.glo4003.times.domain.Days;
-import java.time.LocalDate;
 import java.util.logging.Logger;
 
 public class ParkingService {
@@ -85,11 +83,14 @@ public class ParkingService {
     ParkingStickerCode parkingStickerCode = parkingStickerCodeAssembler.assemble(stringCode);
     ParkingSticker parkingSticker = parkingStickerRepository.findByCode(parkingStickerCode);
 
-    LocalDate date = LocalDate.now();
+    // TODO: I think this section down here is now unneeded (parking stickers don't handle that
+    // anymore?)
+
+    /*LocalDate date = LocalDate.now();
     String dayOfWeek = date.getDayOfWeek().toString().toLowerCase();
 
     if (!parkingSticker.validateParkingStickerDay(Days.get(dayOfWeek)))
-      return accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED.toString());
+      return accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED.toString());*/
 
     return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED.toString());
   }

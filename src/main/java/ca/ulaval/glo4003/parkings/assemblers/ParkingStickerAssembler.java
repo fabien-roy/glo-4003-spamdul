@@ -12,7 +12,6 @@ import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
 import ca.ulaval.glo4003.parkings.exceptions.MissingEmailException;
 import ca.ulaval.glo4003.parkings.exceptions.MissingPostalCodeException;
-import ca.ulaval.glo4003.times.domain.Days;
 
 public class ParkingStickerAssembler {
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
@@ -45,12 +44,7 @@ public class ParkingStickerAssembler {
         } else {
           PostalCode postalCode = postalCodeAssembler.assemble(parkingStickerDto.postalCode);
 
-          return new ParkingSticker(
-              accountId,
-              parkingAreaCode,
-              receptionMethod,
-              postalCode,
-              Days.get(parkingStickerDto.validDay));
+          return new ParkingSticker(accountId, parkingAreaCode, receptionMethod, postalCode);
         }
       default:
       case EMAIL:
@@ -59,12 +53,7 @@ public class ParkingStickerAssembler {
         } else {
           EmailAddress emailAddress = emailAddressAssembler.assemble(parkingStickerDto.email);
 
-          return new ParkingSticker(
-              accountId,
-              parkingAreaCode,
-              receptionMethod,
-              emailAddress,
-              Days.get(parkingStickerDto.validDay));
+          return new ParkingSticker(accountId, parkingAreaCode, receptionMethod, emailAddress);
         }
     }
   }
