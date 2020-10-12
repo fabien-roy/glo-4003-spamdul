@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.users.api;
 
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
-import ca.ulaval.glo4003.parkings.services.ParkingService;
+import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.services.UserService;
@@ -11,9 +11,9 @@ import javax.ws.rs.core.Response;
 
 public class UserResourceImplementation implements UserResource {
   private final UserService userService;
-  private final ParkingService parkingService;
+  private final ParkingStickerService parkingService;
 
-  public UserResourceImplementation(UserService userService, ParkingService parkingService) {
+  public UserResourceImplementation(UserService userService, ParkingStickerService parkingService) {
     this.userService = userService;
     this.parkingService = parkingService;
   }

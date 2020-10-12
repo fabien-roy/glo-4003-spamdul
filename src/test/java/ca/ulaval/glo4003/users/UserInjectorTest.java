@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.users;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.parkings.services.ParkingService;
+import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
 import ca.ulaval.glo4003.users.api.UserResource;
 import com.google.common.truth.Truth;
@@ -20,7 +20,7 @@ public class UserInjectorTest {
   @Mock private AccountFactory accountFactory;
   @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private CustomDateAssembler customDateAssembler;
-  @Mock private ParkingService parkingService;
+  @Mock private ParkingStickerService parkingStickerService;
 
   private UserInjector userInjector;
 
@@ -37,7 +37,7 @@ public class UserInjectorTest {
             accountFactory,
             accountIdAssembler,
             customDateAssembler,
-            parkingService);
+            parkingStickerService);
 
     Truth.assertThat(userResource).isNotNull();
   }

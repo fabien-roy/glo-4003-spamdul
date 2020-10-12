@@ -1,29 +1,31 @@
 #%RAML 1.0 Library
 types:
-  Date: !include ../types/time/date.raml
-  Day: !include ../types/time/day.raml
-  TimeOfDay: !include ../types/time/time-of-day.raml
+  Date: !include ../types/times/date.raml
+  Day: !include ../types/times/day.raml
+  TimeOfDay: !include ../types/times/time-of-day.raml
 
-  PostalCode: !include ../types/location/postal-code.raml
+  PostalCode: !include ../types/locations/postal-code.raml
 
-  Email: !include ../types/communication/email.raml
+  Email: !include ../types/communications/email.raml
 
-  AccountId: !include ../types/account/account-id.raml
-  AccountIdObject: !include ../types/account/account-id-object.raml
+  Money: !include ../types/funds/money.raml
 
-  Sex: !include ../types/user/sex.raml
-  User: !include ../types/user/user.raml
+  AccountId: !include ../types/accounts/account-id.raml
+  AccountIdObject: !include ../types/accounts/account-id-object.raml
 
-  LicensePlate: !include ../types/car/license-plate.raml
-  Car: !include ../types/car/car.raml
+  Sex: !include ../types/users/sex.raml
+  User: !include ../types/users/user.raml
 
-  ReceptionMethod: !include ../types/parking/reception-method.raml
-  AccessStatus: !include ../types/parking/access-status.raml
-  AccessStatusObject: !include ../types/parking/access-status-object.raml
-  ParkingAreaCode: !include ../types/parking/parking-area-code.raml
-  ParkingStickerCode: !include ../types/parking/parking-sticker-code.raml
-  ParkingStickerCodeObject: !include ../types/parking/parking-sticker-code-object.raml
-  ParkingSticker: !include ../types/parking/parking-sticker.raml
+  LicensePlate: !include ../types/cars/license-plate.raml
+  Car: !include ../types/cars/car.raml
 
-  Offense: !include ../types/offense/offense.raml
-  OffenseValidation: !include ../types/offense/offense-validation.raml
+  ReceptionMethod: !include ../types/parkings/reception-method.raml
+  AccessStatus: !include ../types/parkings/access-status.raml
+  AccessStatusObject: !include ../types/parkings/access-status-object.raml
+  ParkingAreaCode: !include ../types/parkings/parking-area-code.raml
+  ParkingStickerCode: !include ../types/parkings/parking-sticker-code.raml
+  ParkingStickerCodeObject: !include ../types/parkings/parking-sticker-code-object.raml
+  ParkingSticker: !include ../types/parkings/parking-sticker.raml
+
+  OffenseType: !include ../types/offenses/offense-type.raml
+  OffenseValidation: !include ../types/offenses/offense-validation.raml

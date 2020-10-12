@@ -10,6 +10,7 @@ public interface OffenseResource {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
+  @Path("types")
   Response getAllOffenses();
 
   @GET

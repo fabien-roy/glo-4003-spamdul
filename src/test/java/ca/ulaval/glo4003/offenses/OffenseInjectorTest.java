@@ -1,7 +1,15 @@
 package ca.ulaval.glo4003.offenses;
 
+import ca.ulaval.glo4003.accounts.services.AccountService;
+import ca.ulaval.glo4003.files.domain.StringFileReader;
+import ca.ulaval.glo4003.files.filesystem.JsonFileReader;
+import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
+import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +21,19 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class OffenseInjectorTest {
 
   @Mock private ParkingStickerRepository parkingStickerRepository;
+  @Mock private ParkingStickerCodeAssembler parkingStickerCodeAssembler;
+  @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
+  @Mock private TimeOfDayAssembler timeOfDayAssembler;
+  @Mock private MoneyAssembler moneyAssembler;
+  @Mock private BillService billService;
+  @Mock private AccountService accountService;
+
   private OffenseInjector offenseInjector;
+
+  private final StringFileReader jsonHelper =
+      new JsonFileReader(); // TODO : If we would not fill offense type repository at injection,
+  // this
+  // would not have to happen
 
   @Before
   public void setUp() {
@@ -23,7 +43,15 @@ public class OffenseInjectorTest {
   @Test
   public void whenCreatingOffenseResource_thenReturnIt() {
     OffenseResource offenseResource =
-        offenseInjector.createOffenseResource(parkingStickerRepository);
+        offenseInjector.createOffenseResource(
+            parkingStickerRepository,
+            parkingStickerCodeAssembler,
+            parkingAreaCodeAssembler,
+            timeOfDayAssembler,
+            jsonHelper,
+            moneyAssembler,
+            billService,
+            accountService);
 
     Truth.assertThat(offenseResource).isNotNull();
   }

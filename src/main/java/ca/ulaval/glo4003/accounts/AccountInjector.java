@@ -9,12 +9,12 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 
 public class AccountInjector {
 
-  private final AccountRepository accountRepository;
-  private final AccountIdGenerator accountIdGenerator;
+  private final AccountRepository accountRepository = new AccountRepositoryInMemory();
+  private final AccountIdGenerator accountIdGenerator = new AccountIdGenerator();
+  private final AccountService accountService;
 
   public AccountInjector() {
-    accountRepository = new AccountRepositoryInMemory();
-    accountIdGenerator = new AccountIdGenerator();
+    accountService = new AccountService(accountRepository);
   }
 
   public AccountRepository getAccountRepository() {
@@ -29,9 +29,7 @@ public class AccountInjector {
     return new AccountIdAssembler();
   }
 
-  public AccountService createAccountService() {
-    AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
-
-    return new AccountService(accountIdAssembler, accountRepository);
+  public AccountService getAccountService() {
+    return accountService;
   }
 }

@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.communications;
 
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
-import ca.ulaval.glo4003.communications.smtp.EmailSenderGmailSMTP;
+import ca.ulaval.glo4003.communications.smtp.EmailSenderGmailSmtp;
 
 public class CommunicationInjector {
 
@@ -12,6 +12,6 @@ public class CommunicationInjector {
 
   // TODO : Test createEmailSender
   public EmailSender createEmailSender() {
-    return new EmailSenderGmailSMTP();
+    return new EmailSenderGmailSmtp();
   }
 }

@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.parkings.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
-import ca.ulaval.glo4003.parkings.services.ParkingService;
+import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
@@ -19,7 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ParkingResourceImplementationTest {
-  @Mock private ParkingService parkingService;
+  @Mock private ParkingStickerService parkingStickerService;
   @Mock private ParkingStickerDto parkingStickerDto;
   @Mock private ParkingStickerCodeDto parkingStickerCodeDto;
 
@@ -30,12 +30,14 @@ public class ParkingResourceImplementationTest {
 
   @Before
   public void setUp() {
-    parkingResource = new ParkingResourceImplementation(parkingService);
+    parkingResource = new ParkingResourceImplementation(parkingStickerService);
 
     accessStatusDto = anAccessStatusDto().build();
 
-    when(parkingService.addParkingSticker(parkingStickerDto)).thenReturn(parkingStickerCodeDto);
-    when(parkingService.validateParkingStickerCode(parkingStickerCode)).thenReturn(accessStatusDto);
+    when(parkingStickerService.addParkingSticker(parkingStickerDto))
+        .thenReturn(parkingStickerCodeDto);
+    when(parkingStickerService.validateParkingStickerCode(parkingStickerCode))
+        .thenReturn(accessStatusDto);
   }
 
   @Test
@@ -51,7 +53,8 @@ public class ParkingResourceImplementationTest {
       givenParkingStickerCodeValidAccessDay_whenValidateParkingStickerCode_thenRespondWithAcceptedStatus() {
     accessStatusDto =
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_GRANTED.toString()).build();
-    when(parkingService.validateParkingStickerCode(parkingStickerCode)).thenReturn(accessStatusDto);
+    when(parkingStickerService.validateParkingStickerCode(parkingStickerCode))
+        .thenReturn(accessStatusDto);
 
     Response response = parkingResource.validateParkingSticker(parkingStickerCode);
 
@@ -63,7 +66,8 @@ public class ParkingResourceImplementationTest {
       givenParkingStickerCodeInvalidAccessDay_whenValidateParkingStickerCode_thenRespondWithForbiddenStatus() {
     accessStatusDto =
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_REFUSED.toString()).build();
-    when(parkingService.validateParkingStickerCode(parkingStickerCode)).thenReturn(accessStatusDto);
+    when(parkingStickerService.validateParkingStickerCode(parkingStickerCode))
+        .thenReturn(accessStatusDto);
 
     Response response = parkingResource.validateParkingSticker(parkingStickerCode);
 

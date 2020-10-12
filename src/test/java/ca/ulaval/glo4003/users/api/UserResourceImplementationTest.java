@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.users.api;
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static org.mockito.Mockito.*;
 
-import ca.ulaval.glo4003.parkings.services.ParkingService;
+import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.services.UserService;
@@ -20,7 +20,7 @@ public class UserResourceImplementationTest {
   @Mock private UserDto userDto;
   @Mock private AccountIdDto accountIdDto;
   @Mock private UserService userService;
-  @Mock private ParkingService parkingService;
+  @Mock private ParkingStickerService parkingStickerService;
 
   private UserResource userResource;
 
@@ -28,7 +28,7 @@ public class UserResourceImplementationTest {
 
   @Before
   public void setUp() {
-    userResource = new UserResourceImplementation(userService, parkingService);
+    userResource = new UserResourceImplementation(userService, parkingStickerService);
   }
 
   @Test

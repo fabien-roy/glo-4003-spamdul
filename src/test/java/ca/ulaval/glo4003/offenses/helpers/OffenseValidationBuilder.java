@@ -20,11 +20,6 @@ public class OffenseValidationBuilder {
     return new OffenseValidationBuilder();
   }
 
-  public OffenseValidationBuilder withParkingStickerCode(String parkingStickerCode) {
-    this.parkingStickerCode = new ParkingStickerCode(parkingStickerCode);
-    return this;
-  }
-
   public OffenseValidation build() {
     OffenseValidation offenseValidation =
         new OffenseValidation(parkingStickerCode, parkingAreaCode, timeOfDay);
