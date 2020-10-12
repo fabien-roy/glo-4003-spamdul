@@ -33,4 +33,11 @@ public class BillRepositoryInMemory implements BillRepository {
 
     return bill;
   }
+
+  @Override
+  public void updateBill(Bill bill) {
+    getBill(bill.getId());
+
+    bills.put(bill.getId(), bill);
+  }
 }

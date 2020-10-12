@@ -5,6 +5,7 @@ import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.BillRepository;
+import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class BillRepositoryInMemoryTest {
   }
 
   @Test(expected = BillNotFoundException.class)
-  public void givenBillIds_whenGettingBillsButNotFound_thenThrowBillNotFound() {
+  public void givenBillIds_whenGettingBillsButNotFound_thenThrowBillNotFoundException() {
     List<BillId> billIds = new ArrayList<>();
     billIds.add(bill.getId());
     billIds.add(bill2.getId());
@@ -63,7 +64,24 @@ public class BillRepositoryInMemoryTest {
   }
 
   @Test(expected = BillNotFoundException.class)
-  public void givenBillId_whenGettingBillNotFound_thenThrowBillNotFound() {
+  public void givenBillId_whenGettingBillNotFound_thenThrowBillNotFoundException() {
     billRepository.getBill(bill.getId());
+  }
+
+  @Test(expected = BillNotFoundException.class)
+  public void givenNoBill_whenUpdating_thenThrowBillNotFoundException() {
+    billRepository.updateBill(bill);
+  }
+
+  @Test
+  public void givenBill_whenUpdating_thenBillIsUpdated() {
+    billRepository.save(bill);
+    Bill billBeforeUpdating = billRepository.getBill(bill.getId());
+    bill.pay(new Money(1));
+
+    billRepository.updateBill(bill);
+    Bill billAfterUpdating = billRepository.getBill(bill.getId());
+
+    Truth.assertThat(billAfterUpdating.getAmountPaid()).isNotEqualTo(billBeforeUpdating);
   }
 }

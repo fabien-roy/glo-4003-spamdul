@@ -8,4 +8,6 @@ public interface BillRepository {
   List<Bill> getBills(List<BillId> billIds);
 
   Bill getBill(BillId billId);
+
+  void updateBill(Bill bill);
 }

@@ -216,23 +216,13 @@ public class AccountServiceTest {
   }
 
   @Test
-  public void givenAccountWithBill_whenPayingBill_shouldCallBillService() {
+  public void givenAccountWithBill_whenPayingBill_shouldCallPayBillService() {
     setupPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
 
-    verify(billService).getBill(bill.getId());
-  }
-
-  @Test
-  public void givenAccountWithBill_whenPayingBill_shouldCallBillsAssembler() {
-    setupPayBill();
-
-    accountService.payBill(
-        billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
-
-    verify(billsAssembler).assemble(bill);
+    verify(billService).payBill(bill.getId(), new Money(1));
   }
 
   private void setupPayBill() {
@@ -241,6 +231,5 @@ public class AccountServiceTest {
         .thenReturn(accountWithBill.getId());
     when(billIdAssembler.assemble(bill.getId().toString())).thenReturn(bill.getId());
     when(accountRepository.findById(accountWithBill.getId())).thenReturn(accountWithBill);
-    when(billService.getBill(bill.getId())).thenReturn(bill);
   }
 }

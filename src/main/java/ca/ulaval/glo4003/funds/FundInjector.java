@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.funds;
 
+import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.BillFactory;
 import ca.ulaval.glo4003.funds.domain.BillIdGenerator;
@@ -14,7 +15,7 @@ public class FundInjector {
 
   public BillService createBillService() {
     BillFactory billFactory = new BillFactory(billIdGenerator);
-    return new BillService(billFactory, billRepository);
+    return new BillService(billFactory, billRepository, new BillsAssembler());
   }
 
   public MoneyAssembler createMoneyAssembler() {

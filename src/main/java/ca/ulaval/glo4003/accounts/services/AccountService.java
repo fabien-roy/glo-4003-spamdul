@@ -90,10 +90,8 @@ public class AccountService {
 
     Account account = getAccount(id);
     account.verifyAccountHasBillId(billNumber);
-    Bill bill = billService.getBill(billNumber);
-    bill.pay(amountToPay);
 
-    return billsAssembler.assemble(bill);
+    return billService.payBill(billNumber, amountToPay);
   }
 
   public Account getAccount(AccountId id) {
