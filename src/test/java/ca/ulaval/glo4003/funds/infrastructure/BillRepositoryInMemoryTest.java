@@ -38,7 +38,7 @@ public class BillRepositoryInMemoryTest {
     billIds.add(bill.getId());
     billIds.add(bill2.getId());
 
-    List<Bill> bills = billRepository.getBillsByIds(billIds);
+    List<Bill> bills = billRepository.getBills(billIds);
 
     Truth.assertThat(bills).contains(bill);
     Truth.assertThat(bills).contains(bill2);

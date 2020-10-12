@@ -50,6 +50,6 @@ public class BillService {
   }
 
   public List<Bill> getBillsByIds(List<BillId> billIds) {
-    return billRepository.getBillsByIds(billIds);
+    return billRepository.getBills(billIds);
   }
 }

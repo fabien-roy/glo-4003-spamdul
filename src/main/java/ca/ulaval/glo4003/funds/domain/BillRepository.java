@@ -5,5 +5,5 @@ import java.util.List;
 public interface BillRepository {
   BillId save(Bill bill);
 
-  List<Bill> getBillsByIds(List<BillId> billIds);
+  List<Bill> getBills(List<BillId> billIds);
 }

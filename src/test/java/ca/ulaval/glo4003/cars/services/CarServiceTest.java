@@ -59,20 +59,4 @@ public class CarServiceTest {
 
     verify(carRepository).save(car);
   }
-
-  @Test
-  public void whenAddingCar_shouldCallAccountIdAssembler() {
-    carService.addCar(carDto, accountId.toString());
-
-    verify(accountIdAssembler).assemble(accountId.toString());
-  }
-
-  @Test
-  public void whenAddingCar_shouldCallGetAccount() {
-    when(accountIdAssembler.assemble(accountId.toString())).thenReturn(accountId);
-
-    carService.addCar(carDto, accountId.toString());
-
-    verify(accountService).getAccount(accountId);
-  }
 }

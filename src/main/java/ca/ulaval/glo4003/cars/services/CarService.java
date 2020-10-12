@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.cars.services;
 
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
-import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.assemblers.CarAssembler;
@@ -28,9 +27,6 @@ public class CarService {
   }
 
   public void addCar(CarDto carDto, String accountId) {
-    AccountId id = accountIdAssembler.assemble(accountId);
-    accountService.getAccount(id);
-
     Car car = carAssembler.assemble(carDto, accountId);
 
     accountService.addLicensePlateToAccount(car.getAccountId(), car.getLicensePlate());

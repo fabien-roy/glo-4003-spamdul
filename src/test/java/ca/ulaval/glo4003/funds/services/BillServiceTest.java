@@ -106,6 +106,6 @@ public class BillServiceTest {
 
     billService.getBillsByIds(billIds);
 
-    Mockito.verify(billRepository).getBillsByIds(billIds);
+    Mockito.verify(billRepository).getBills(billIds);
   }
 }
