@@ -16,7 +16,7 @@ import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 
-public class AccessService {
+public class AccessPassService {
   private AccessPassAssembler accessPassAssembler;
   private AccessPassFactory accessPassFactory;
   private CarService carService;
@@ -27,7 +27,7 @@ public class AccessService {
   private AccessPassCodeAssembler accessPassCodeAssembler;
   private AccountIdAssembler accountIdAssembler;
 
-  public AccessService(
+  public AccessPassService(
       AccessPassAssembler accessPassAssembler,
       AccessPassFactory accessPassFactory,
       CarService carService,
@@ -50,10 +50,9 @@ public class AccessService {
   }
 
   public AccessPassCodeDto addAccessPass(AccessPassDto accessPassDto, String accountId) {
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId);
     AccountId id = accountIdAssembler.assemble(accountId);
     accountService.getAccount(id);
-
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId);
     accessPass = accessPassFactory.create(accessPass);
 
     LicensePlate licensePlate = accessPass.getLicensePlate();

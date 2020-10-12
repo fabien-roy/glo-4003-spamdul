@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.assemblers.BillIdAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillPaymentAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
+import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.services.BillService;
 
 public class AccountInjector {
@@ -37,6 +38,6 @@ public class AccountInjector {
         billService,
         new BillsAssembler(),
         new BillIdAssembler(),
-        new BillPaymentAssembler());
+        new BillPaymentAssembler(new MoneyAssembler()));
   }
 }

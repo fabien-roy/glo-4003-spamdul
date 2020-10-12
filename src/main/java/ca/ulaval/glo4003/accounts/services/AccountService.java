@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.api.dto.BillPaymentDto;
-import ca.ulaval.glo4003.funds.api.dto.BillsDto;
 import ca.ulaval.glo4003.funds.assemblers.BillIdAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillPaymentAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
@@ -74,7 +73,7 @@ public class AccountService {
     accountRepository.update(account);
   }
 
-  public BillsDto getBills(String accountId) {
+  public List<BillDto> getBills(String accountId) {
     AccountId id = accountIdAssembler.assemble(accountId);
     Account account = getAccount(id);
     List<BillId> billIds = account.getBillIds();

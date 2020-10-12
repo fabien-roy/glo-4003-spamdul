@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.users;
 
-import ca.ulaval.glo4003.access.services.AccessService;
+import ca.ulaval.glo4003.access.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
@@ -22,7 +22,7 @@ public class UserInjectorTest {
   @Mock private AccountFactory accountFactory;
   @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private CustomDateAssembler customDateAssembler;
-  @Mock private AccessService accessService;
+  @Mock private AccessPassService accessPassService;
   @Mock private CarService carService;
   @Mock private AccountService accountService;
 
@@ -41,7 +41,7 @@ public class UserInjectorTest {
             accountFactory,
             accountIdAssembler,
             customDateAssembler,
-            accessService,
+            accessPassService,
             carService,
             accountService);
 
