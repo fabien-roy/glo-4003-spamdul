@@ -15,4 +15,8 @@ public class AccessPassBuilder {
   public AccessPass build() {
     return new AccessPass(createAccountId(), createDay(), createLicensePlate());
   }
+
+  public AccessPass buildWithoutLicense() {
+    return new AccessPass(createAccountId(), createDay(), null);
+  }
 }

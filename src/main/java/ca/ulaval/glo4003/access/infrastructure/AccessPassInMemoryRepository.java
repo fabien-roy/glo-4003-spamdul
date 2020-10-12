@@ -13,8 +13,4 @@ public class AccessPassInMemoryRepository implements AccessPassRepository {
     accessPasses.put(accessPass.getAccessPassCode(), accessPass);
     return accessPass.getAccessPassCode();
   }
-
-  public HashMap<AccessPassCode, AccessPass> getAccessPasses() {
-    return accessPasses;
-  }
 }
