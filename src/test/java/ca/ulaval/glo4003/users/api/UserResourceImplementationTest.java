@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.access.api.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
-import ca.ulaval.glo4003.access.services.AccessService;
+import ca.ulaval.glo4003.access.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.services.CarService;
@@ -28,9 +28,9 @@ public class UserResourceImplementationTest {
   @Mock private UserDto userDto;
   @Mock private AccountIdDto accountIdDto;
   @Mock private UserService userService;
-  @Mock private AccessService accessService;
-  @Mock private CarService carService;
+  @Mock private AccessPassService accessPassService;
   @Mock private AccessPassDto accessPassDto;
+  @Mock private CarService carService;
 
   private AccountId accountId = createAccountId();
   private AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDtoBuilder().build();
@@ -41,7 +41,7 @@ public class UserResourceImplementationTest {
 
   @Before
   public void setUp() {
-    userResource = new UserResourceImplementation(userService, accessService, carService);
+    userResource = new UserResourceImplementation(userService, accessPassService, carService);
   }
 
   @Test
@@ -86,7 +86,7 @@ public class UserResourceImplementationTest {
 
   @Test
   public void whenAddingAccessPass_thenAddAccessPassToService() {
-    when(accessService.addAccessPass(accessPassDto, accountId.toString()))
+    when(accessPassService.addAccessPass(accessPassDto, accountId.toString()))
         .thenReturn(accessPassCodeDto);
 
     Response response = userResource.addAccessPass(accessPassDto, accountId.toString());
@@ -98,7 +98,7 @@ public class UserResourceImplementationTest {
 
   @Test
   public void whenAddingAccessPass_thenResponseCreatedStatus() {
-    when(accessService.addAccessPass(accessPassDto, accountId.toString()))
+    when(accessPassService.addAccessPass(accessPassDto, accountId.toString()))
         .thenReturn(accessPassCodeDto);
 
     Response response = userResource.addAccessPass(accessPassDto, accountId.toString());

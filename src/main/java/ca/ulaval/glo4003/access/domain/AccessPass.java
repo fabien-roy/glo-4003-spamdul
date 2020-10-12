@@ -8,15 +8,11 @@ public class AccessPass {
   private AccessPassCode accessPassCode;
   private final AccountId accountId;
   private final Days validDay;
-  private LicensePlate licensePlate;
+  private final LicensePlate licensePlate;
 
   public AccessPass(AccountId accountId, Days validDay, LicensePlate licensePlate) {
     this.accountId = accountId;
     this.validDay = validDay;
-    this.licensePlate = licensePlate;
-  }
-
-  public void setLicensePlate(LicensePlate licensePlate) {
     this.licensePlate = licensePlate;
   }
 

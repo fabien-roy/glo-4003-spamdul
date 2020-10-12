@@ -14,7 +14,8 @@ import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.access.assembler.AccessPassAssembler;
 import ca.ulaval.glo4003.access.assembler.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.access.domain.*;
-import ca.ulaval.glo4003.access.services.AccessService;
+import ca.ulaval.glo4003.access.services.AccessPassService;
+import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
@@ -30,7 +31,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AccessServiceTest {
+public class AccessPassServiceTest {
   @Mock private AccessPassAssembler accessPassAssembler;
   @Mock private AccessPassFactory accessPassFactory;
   @Mock private CarService carService;
@@ -39,21 +40,23 @@ public class AccessServiceTest {
   @Mock private BillService billService;
   @Mock private AccessPassRepository accessPassRepository;
   @Mock private AccessPassCodeAssembler accessPassCodeAssembler;
+  @Mock private AccountIdAssembler accountIdAssembler;
 
   private AccessPassDto accessPassDto = anAccessPassDto().build();
   private AccountId accountId = createAccountId();
   private AccessPass accessPass = anAccessPass().build();
   private AccessPass accessPassWithId = accessPass;
+  private AccessPass accessPassWithoutLicense = anAccessPass().buildWithoutLicense();
   private Car car = aCar().build();
   private AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDtoBuilder().build();
   private Money moneyDue;
 
-  private AccessService accessService;
+  private AccessPassService accessPassService;
 
   @Before
   public void setUp() {
-    accessService =
-        new AccessService(
+    accessPassService =
+        new AccessPassService(
             accessPassAssembler,
             accessPassFactory,
             carService,
@@ -61,7 +64,8 @@ public class AccessServiceTest {
             accountService,
             billService,
             accessPassRepository,
-            accessPassCodeAssembler);
+            accessPassCodeAssembler,
+            accountIdAssembler);
 
     when(accessPassAssembler.assemble(accessPassDto, accountId.toString())).thenReturn(accessPass);
 
@@ -84,58 +88,64 @@ public class AccessServiceTest {
 
   @Test
   public void whenAddingAccessPassWithoutLicensePlate_thenCarServiceIsNotCalled() {
-    accessPassWithId.setLicensePlate(null);
-    when(accessPassFactory.create(accessPass)).thenReturn(accessPassWithId);
+    when(accessPassFactory.create(accessPass)).thenReturn(accessPassWithoutLicense);
 
     AccessPassType accessPassType =
         anAccessPassPriceByConsumption().buildWithConsumptionType(ConsumptionTypes.ZERO_POLLUTION);
     when(accessPassTypeRepository.findByConsumptionType(ConsumptionTypes.ZERO_POLLUTION))
         .thenReturn(accessPassType);
 
-    accessService.addAccessPass(accessPassDto, accountId.toString());
+    accessPassService.addAccessPass(accessPassDto, accountId.toString());
 
     verify(carService, times(0)).getCarByLicensePlate(accessPassWithId.getLicensePlate());
   }
 
   @Test
   public void whenAddingAccessPassWithLicensePlate_thenConsumptionTypeIsSameAsCar() {
-    accessService.addAccessPass(accessPassDto, accountId.toString());
+    accessPassService.addAccessPass(accessPassDto, accountId.toString());
 
     verify(carService, times(1)).getCarByLicensePlate(accessPassWithId.getLicensePlate());
   }
 
   @Test
   public void whenAddingAccess_thenAccessPassAssemblerIsCalled() {
-    accessService.addAccessPass(accessPassDto, accountId.toString());
+    accessPassService.addAccessPass(accessPassDto, accountId.toString());
 
     verify(accessPassAssembler).assemble(accessPassDto, accountId.toString());
   }
 
   @Test
   public void whenAddingAccess_thenAccessPassFactoryIsCalled() {
-    accessService.addAccessPass(accessPassDto, accountId.toString());
+    accessPassService.addAccessPass(accessPassDto, accountId.toString());
 
     verify(accessPassFactory).create(accessPass);
   }
 
   @Test
   public void whenAddingAccess_thenBillServiceIsCalled() {
-    accessService.addAccessPass(accessPassDto, accountId.toString());
+    accessPassService.addAccessPass(accessPassDto, accountId.toString());
 
     verify(billService).addBillForAccessCode(moneyDue, accessPassWithId.getAccessPassCode());
   }
 
   @Test
   public void whenAddingAccess_thenAccountPassRepositoryIsCalled() {
-    accessService.addAccessPass(accessPassDto, accountId.toString());
+    accessPassService.addAccessPass(accessPassDto, accountId.toString());
 
     verify(accessPassRepository).save(accessPassWithId);
   }
 
   @Test
   public void whenAddingAccess_thenAccessPassCodeAssemblerIsCalled() {
-    accessService.addAccessPass(accessPassDto, accountId.toString());
+    accessPassService.addAccessPass(accessPassDto, accountId.toString());
 
     verify(accessPassCodeAssembler).assemble(accessPassWithId.getAccessPassCode());
+  }
+
+  @Test
+  public void whenAddingAccess_thenAccountIdAssemblerIsCalled() {
+    accessPassService.addAccessPass(accessPassDto, accountId.toString());
+
+    verify(accountIdAssembler).assemble(accountId.toString());
   }
 }
