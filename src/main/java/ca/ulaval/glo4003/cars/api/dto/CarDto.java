@@ -6,11 +6,12 @@ public class CarDto {
   public String model;
   public int year;
   public String licensePlate;
+  public String consumptionType;
 
   @Override
   public String toString() {
     return String.format(
-        "CarDto{accountId='%s', manufacturer='%s', model='%s', year='%d', licensePlate='%s'}",
-        accountId, manufacturer, model, year, licensePlate);
+        "CarDto{accountId='%s', manufacturer='%s', model='%s', year='%d', licensePlate='%s', consumptionType='%s'}",
+        accountId, manufacturer, model, year, licensePlate, consumptionType);
   }
 }

@@ -1,8 +1,13 @@
 package ca.ulaval.glo4003.users.api;
 
+import static ca.ulaval.glo4003.access.helper.AccessPassCodeDtoBuilder.anAccessPassCodeDtoBuilder;
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static org.mockito.Mockito.*;
 
+import ca.ulaval.glo4003.access.api.dto.AccessPassCodeDto;
+import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
+import ca.ulaval.glo4003.access.services.AccessPassService;
+import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.services.UserService;
@@ -19,14 +24,18 @@ public class UserResourceImplementationTest {
   @Mock private UserDto userDto;
   @Mock private AccountIdDto accountIdDto;
   @Mock private UserService userService;
+  @Mock private AccessPassService accessPassService;
+  @Mock private AccessPassDto accessPassDto;
 
+  private AccountId accountId = createAccountId();
+  private AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDtoBuilder().build();
   private UserResource userResource;
 
   private static final String ACCOUNT_ID = createAccountId().toString();
 
   @Before
   public void setUp() {
-    userResource = new UserResourceImplementation(userService);
+    userResource = new UserResourceImplementation(userService, accessPassService);
   }
 
   @Test
@@ -67,5 +76,27 @@ public class UserResourceImplementationTest {
     Response response = userResource.getUser(ACCOUNT_ID);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
+  }
+
+  @Test
+  public void whenAddingAccessPass_thenAddAccessPassToService() {
+    when(accessPassService.addAccessPass(accessPassDto, accountId.toString()))
+        .thenReturn(accessPassCodeDto);
+
+    Response response = userResource.addAccessPass(accessPassDto, accountId.toString());
+    AccessPassCodeDto respondedAccessPassCodeDto = (AccessPassCodeDto) response.getEntity();
+
+    Truth.assertThat(respondedAccessPassCodeDto.accessPassCode)
+        .isEqualTo(accessPassCodeDto.accessPassCode);
+  }
+
+  @Test
+  public void whenAddingAccessPass_thenResponseCreatedStatus() {
+    when(accessPassService.addAccessPass(accessPassDto, accountId.toString()))
+        .thenReturn(accessPassCodeDto);
+
+    Response response = userResource.addAccessPass(accessPassDto, accountId.toString());
+
+    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
   }
 }

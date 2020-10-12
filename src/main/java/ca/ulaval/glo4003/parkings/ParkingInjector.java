@@ -90,7 +90,8 @@ public class ParkingInjector {
     StringMatrixFileReader fileReader = new CsvFileReader();
     ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader);
 
-    Map<String, Map<String, Double>> zonesAndFees = zoneFeesFileHelper.getZonesAndFees();
+    Map<String, Map<String, Double>> zonesAndFees =
+        zoneFeesFileHelper.getZoneAndFeesForParkingSticker();
     List<ParkingArea> parkingAreas = new ArrayList<>();
 
     zonesAndFees

@@ -11,16 +11,21 @@ import ca.ulaval.glo4003.cars.infrastructure.CarRepositoryInMemory;
 import ca.ulaval.glo4003.cars.services.CarService;
 
 public class CarInjector {
-
   private final CarRepository carRepository = new CarRepositoryInMemory();
 
   public CarResource createCarResource(
       AccountService accountService, AccountIdAssembler accountIdAssembler) {
     LicensePlateAssembler licensePlateAssembler = new LicensePlateAssembler();
     CarAssembler carAssembler = new CarAssembler(licensePlateAssembler, accountIdAssembler);
-
     CarService carService = new CarService(carAssembler, carRepository, accountService);
 
     return new CarResourceImplementation(carService);
+  }
+
+  public CarService createCarService(
+      AccountService accountService, AccountIdAssembler accountIdAssembler) {
+    LicensePlateAssembler licensePlateAssembler = new LicensePlateAssembler();
+    CarAssembler carAssembler = new CarAssembler(licensePlateAssembler, accountIdAssembler);
+    return new CarService(carAssembler, carRepository, accountService);
   }
 }

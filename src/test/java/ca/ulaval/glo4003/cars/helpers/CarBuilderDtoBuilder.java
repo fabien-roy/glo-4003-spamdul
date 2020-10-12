@@ -5,6 +5,7 @@ import static ca.ulaval.glo4003.cars.helpers.CarMother.*;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
+import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
 
 public class CarBuilderDtoBuilder {
   private String licensePlate = createLicensePlate().toString();
@@ -12,6 +13,7 @@ public class CarBuilderDtoBuilder {
   private String manufacturer = createManufacturer();
   private String model = createModel();
   private int year = createYear();
+  private ConsumptionTypes consumptionTypes = createConsumptionTypes();
 
   private CarBuilderDtoBuilder() {}
 
@@ -41,6 +43,7 @@ public class CarBuilderDtoBuilder {
     carDto.manufacturer = manufacturer;
     carDto.model = model;
     carDto.year = year;
+    carDto.consumptionType = consumptionTypes.toString();
     return carDto;
   }
 }

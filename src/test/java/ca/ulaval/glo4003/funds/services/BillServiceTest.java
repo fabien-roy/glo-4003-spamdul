@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds.services;
 
-import static ca.ulaval.glo4003.accessPass.helper.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.access.helper.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;

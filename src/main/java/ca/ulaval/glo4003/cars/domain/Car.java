@@ -9,14 +9,25 @@ public class Car {
   private final String manufacturer;
   private final String model;
   private final int year;
+  private final ConsumptionTypes consumptionType;
+
+  public ConsumptionTypes getConsumptionType() {
+    return consumptionType;
+  }
 
   public Car(
-      LicensePlate licensePlate, AccountId accountId, String manufacturer, String model, int year) {
+      LicensePlate licensePlate,
+      AccountId accountId,
+      String manufacturer,
+      String model,
+      int year,
+      ConsumptionTypes consumptionType) {
     this.licensePlate = licensePlate;
     this.accountId = accountId;
     this.manufacturer = manufacturer;
     this.model = model;
     this.year = year;
+    this.consumptionType = consumptionType;
   }
 
   public LicensePlate getLicensePlate() {
