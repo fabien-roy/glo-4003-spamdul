@@ -51,8 +51,7 @@ public class AccountServiceTest {
   private final BillId billId = createBillId();
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final Bill bill = aBill().build();
-  private final Account accountWithBill =
-      anAccount().withBilldIds(Collections.singletonList(bill.getId())).build();
+  private final Account accountWithBill = anAccount().withBilldIds(Collections.singletonList(bill.getId())).build();
 
   @Before
   public void setup() {

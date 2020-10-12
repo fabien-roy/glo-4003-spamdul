@@ -25,7 +25,6 @@ public class PostalCodeAssemblerTest {
     Truth.assertThat(postalCode).isEqualTo(POSTAL_CODE);
   }
 
-  // TODO : A parametrized test would allow us to test many invalid postal codes, but JUnit 4.
   @Test(expected = InvalidPostalCodeException.class)
   public void givenInvalidPostalCode_whenAssembling_thenThrowInvalidPostalCodeException() {
     String invalidPostalCode = "invalidPostalCode";
