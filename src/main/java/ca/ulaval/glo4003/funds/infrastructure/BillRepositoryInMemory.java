@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.funds.infrastructure;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.BillRepository;
-import ca.ulaval.glo4003.funds.exception.BillNotFound;
+import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class BillRepositoryInMemory implements BillRepository {
   }
 
   @Override
-  public List<Bill> getBillsByIds(List<BillId> billIds) {
+  public List<Bill> getBills(List<BillId> billIds) {
     return billIds.stream().map(this::getBill).collect(Collectors.toList());
   }
 
@@ -28,7 +28,7 @@ public class BillRepositoryInMemory implements BillRepository {
     Bill bill = bills.get(billId);
 
     if (bill == null) {
-      throw new BillNotFound();
+      throw new BillNotFoundException();
     }
 
     return bill;

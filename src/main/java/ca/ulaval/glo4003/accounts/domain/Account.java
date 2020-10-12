@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.accounts.domain;
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.exception.BillNotFound;
+import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.users.domain.User;
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class Account {
 
   public void verifyAccountHasBillId(BillId billId) {
     if (!billIds.contains(billId)) {
-      throw new BillNotFound();
+      throw new BillNotFoundException();
     }
   }
 

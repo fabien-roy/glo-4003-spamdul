@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.users.api;
 
 import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
-import ca.ulaval.glo4003.funds.api.dto.PayBillDto;
+import ca.ulaval.glo4003.funds.api.dto.BillPaymentDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -43,7 +43,7 @@ public interface UserResource {
   @Produces(MediaType.APPLICATION_JSON)
   @Path("{accountId}/bills/{billId}")
   Response payBill(
-      PayBillDto payBillDto,
+      BillPaymentDto billPaymentDto,
       @PathParam("accountId") String accountId,
       @PathParam("billId") String billId);
 }

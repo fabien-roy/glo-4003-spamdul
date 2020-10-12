@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds.api.dto;
 
-public class PayBillDto {
+public class BillPaymentDto {
   public Double amountToPay;
 
   @Override

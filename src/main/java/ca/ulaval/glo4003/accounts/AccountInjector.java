@@ -7,8 +7,8 @@ import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.infrastructure.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.assemblers.BillIdAssembler;
+import ca.ulaval.glo4003.funds.assemblers.BillPaymentAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
-import ca.ulaval.glo4003.funds.assemblers.PayBillAssembler;
 import ca.ulaval.glo4003.funds.services.BillService;
 
 public class AccountInjector {
@@ -37,6 +37,6 @@ public class AccountInjector {
         billService,
         new BillsAssembler(),
         new BillIdAssembler(),
-        new PayBillAssembler());
+        new BillPaymentAssembler());
   }
 }

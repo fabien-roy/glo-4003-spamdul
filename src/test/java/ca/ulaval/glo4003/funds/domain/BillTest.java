@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.funds.domain;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.*;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 
-import ca.ulaval.glo4003.funds.exception.TooMuchMoney;
+import ca.ulaval.glo4003.funds.exception.AmountDueExceededException;
 import com.google.common.truth.Truth;
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ public class BillTest {
   }
 
   @Test
-  public void whenPaying_changedAmountToPaid() {
+  public void whenPaying_thenAmountIsPaid() {
     Bill bill = new Bill(billId, billTypes, description, amountDue);
 
     bill.pay(amountDue);
@@ -33,7 +33,7 @@ public class BillTest {
     Truth.assertThat(bill.getAmountPaid()).isEqualTo(amountDue);
   }
 
-  @Test(expected = TooMuchMoney.class)
+  @Test(expected = AmountDueExceededException.class)
   public void whenPayingMoreThanAmountDue_thenThrowTooMuchMoney() {
     Bill bill = new Bill(billId, billTypes, description, amountDue);
 

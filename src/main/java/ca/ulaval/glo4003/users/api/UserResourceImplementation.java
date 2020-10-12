@@ -7,8 +7,8 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.api.dto.BillDto;
+import ca.ulaval.glo4003.funds.api.dto.BillPaymentDto;
 import ca.ulaval.glo4003.funds.api.dto.BillsDto;
-import ca.ulaval.glo4003.funds.api.dto.PayBillDto;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.services.UserService;
@@ -77,8 +77,8 @@ public class UserResourceImplementation implements UserResource {
   }
 
   @Override
-  public Response payBill(PayBillDto payBillDto, String accountId, String billId) {
-    BillDto billDto = accountService.payBill(payBillDto, accountId, billId);
+  public Response payBill(BillPaymentDto billPaymentDto, String accountId, String billId) {
+    BillDto billDto = accountService.payBill(billPaymentDto, accountId, billId);
 
     return Response.status(Response.Status.OK)
         .entity(billDto)

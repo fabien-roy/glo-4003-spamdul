@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.funds.api;
 
-import ca.ulaval.glo4003.funds.exception.BillNotFound;
+import ca.ulaval.glo4003.funds.exception.AmountDueExceededException;
+import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
 import ca.ulaval.glo4003.funds.exception.FundsException;
-import ca.ulaval.glo4003.funds.exception.TooMuchMoney;
 import ca.ulaval.glo4003.interfaces.api.dto.ErrorDto;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -10,15 +10,15 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class FundsExceptionMapper implements ExceptionMapper<FundsException> {
+public class FundExceptionMapper implements ExceptionMapper<FundsException> {
 
   @Override
   public Response toResponse(FundsException exception) {
-    Response.Status responseStatus = Response.Status.INTERNAL_SERVER_ERROR;
+    Response.Status responseStatus = Response.Status.BAD_REQUEST;
 
-    if (exception instanceof BillNotFound) {
+    if (exception instanceof BillNotFoundException) {
       responseStatus = Response.Status.NOT_FOUND;
-    } else if (exception instanceof TooMuchMoney) {
+    } else if (exception instanceof AmountDueExceededException) {
       responseStatus = Response.Status.BAD_REQUEST;
     }
 

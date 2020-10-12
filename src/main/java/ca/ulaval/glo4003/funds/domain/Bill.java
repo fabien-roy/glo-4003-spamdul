@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds.domain;
 
-import ca.ulaval.glo4003.funds.exception.TooMuchMoney;
+import ca.ulaval.glo4003.funds.exception.AmountDueExceededException;
 
 public class Bill {
   private final BillId id;
@@ -19,7 +19,7 @@ public class Bill {
 
   public void pay(Money amountToPay) {
     if (amountToPay.toDouble() > amountDue.toDouble()) {
-      throw new TooMuchMoney();
+      throw new AmountDueExceededException();
     }
 
     amountPaid = amountPaid.plus(amountToPay);
