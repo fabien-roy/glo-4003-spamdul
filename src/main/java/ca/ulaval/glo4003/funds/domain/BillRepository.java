@@ -6,4 +6,8 @@ public interface BillRepository {
   BillId save(Bill bill);
 
   List<Bill> getBills(List<BillId> billIds);
+
+  Bill getBill(BillId billId);
+
+  void updateBill(Bill bill);
 }

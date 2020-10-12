@@ -14,7 +14,7 @@ public class OffenseExceptionMapper implements ExceptionMapper<OffenseException>
 
   @Override
   public Response toResponse(OffenseException exception) {
-    Response.Status responseStatus = Response.Status.INTERNAL_SERVER_ERROR;
+    Response.Status responseStatus = Response.Status.BAD_REQUEST;
 
     if (exception instanceof InvalidOffenseCodeException) {
       responseStatus = Response.Status.BAD_REQUEST;

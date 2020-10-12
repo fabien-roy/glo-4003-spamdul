@@ -11,7 +11,7 @@ public class BillsAssembler {
     return bills.stream().map(this::assemble).collect(Collectors.toList());
   }
 
-  private BillDto assemble(Bill bill) {
+  public BillDto assemble(Bill bill) {
     BillDto billDto = new BillDto();
     billDto.billId = bill.getId().toString();
     billDto.billType = bill.getBillTypes().toString();
