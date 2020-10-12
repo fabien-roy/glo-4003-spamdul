@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.domain.Sex;
 import ca.ulaval.glo4003.users.domain.User;
-import ca.ulaval.glo4003.users.exceptions.InvalidAccessDayException;
 import ca.ulaval.glo4003.users.exceptions.InvalidBirthDateException;
 import ca.ulaval.glo4003.users.exceptions.InvalidNameException;
 
@@ -21,7 +20,6 @@ public class UserAssembler {
 
   public User assemble(UserDto userDto) {
     CustomDate birthDate;
-    DayOfWeek accessDay;
 
     validateNotNull(userDto);
 
@@ -33,13 +31,7 @@ public class UserAssembler {
 
     if (birthDate.isFuture()) throw new InvalidBirthDateException();
 
-    try {
-      accessDay = DayOfWeek.get(userDto.accessDay);
-    } catch (InvalidDayOfWeekException exception) {
-      throw new InvalidAccessDayException();
-    }
-
-    return new User(userDto.name, birthDate, Sex.get(userDto.sex), accessDay);
+    return new User(userDto.name, birthDate, Sex.get(userDto.sex));
   }
 
   public UserDto assemble(User user) {
@@ -47,7 +39,6 @@ public class UserAssembler {
     userDto.name = user.getName();
     userDto.birthDate = user.getBirthDate().toString();
     userDto.sex = user.getSex().name().toLowerCase();
-    userDto.accessDay = user.getAccessDay().toString();
 
     return userDto;
   }
