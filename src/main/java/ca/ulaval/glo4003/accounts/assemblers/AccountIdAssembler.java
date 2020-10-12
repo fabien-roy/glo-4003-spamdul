@@ -7,17 +7,11 @@ import java.util.UUID;
 
 public class AccountIdAssembler {
   public AccountId assemble(String accountId) {
-    if (accountId == null) throw new InvalidAccountIdException();
-
-    UUID assembledId;
-
     try {
-      assembledId = UUID.fromString(accountId);
-    } catch (IllegalArgumentException exception) {
+      return new AccountId(UUID.fromString(accountId));
+    } catch (IllegalArgumentException | NullPointerException exception) {
       throw new InvalidAccountIdException();
     }
-
-    return new AccountId(assembledId);
   }
 
   public AccountIdDto assemble(AccountId accountId) {

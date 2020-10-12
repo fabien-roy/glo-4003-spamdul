@@ -9,7 +9,7 @@ public class BillIdAssembler {
   public BillId assemble(String billId) {
     try {
       return new BillId(UUID.fromString(billId));
-    } catch (IllegalArgumentException exception) {
+    } catch (IllegalArgumentException | NullPointerException exception) {
       throw new BillNotFoundException();
     }
   }
