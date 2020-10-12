@@ -1,14 +1,14 @@
 #%RAML 1.0 Library
 types:
   Date: !include ../types/times/date.raml
+  Year: !include ../types/times/year.raml
   Day: !include ../types/times/day.raml
+  DayOfWeekObject: !include ../types/times/day-of-week-object.raml
   TimeOfDay: !include ../types/times/time-of-day.raml
 
   PostalCode: !include ../types/locations/postal-code.raml
 
   Email: !include ../types/communications/email.raml
-
-  Money: !include ../types/funds/money.raml
 
   AccountId: !include ../types/accounts/account-id.raml
   AccountIdObject: !include ../types/accounts/account-id-object.raml
@@ -17,11 +17,24 @@ types:
   User: !include ../types/users/user.raml
 
   LicensePlate: !include ../types/cars/license-plate.raml
+  ConsumptionType: !include ../types/cars/consumption-type.raml
   Car: !include ../types/cars/car.raml
 
+  Money: !include ../types/funds/money.raml
+  BillPayment: !include ../types/funds/bill-payment.raml
+  BillId: !include ../types/funds/bill-id.raml
+  BillType: !include ../types/funds/bill-type.raml
+  Bill: !include ../types/funds/bill.raml
+  Profit: !include ../types/funds/profit.raml
+  ProfitByConsumptionType: !include ../types/funds/profit-by-consumption-type.raml
+
+  AccessStatus: !include ../types/access/access-status.raml
+  AccessStatusObject: !include ../types/access/access-status-object.raml
+  AccessPassCode: !include ../types/access/access-pass-code.raml
+  AccessPassCodeObject: !include ../types/access/access-pass-code-object.raml
+  AccessPass: !include ../types/access/access-pass.raml
+
   ReceptionMethod: !include ../types/parkings/reception-method.raml
-  AccessStatus: !include ../types/parkings/access-status.raml
-  AccessStatusObject: !include ../types/parkings/access-status-object.raml
   ParkingAreaCode: !include ../types/parkings/parking-area-code.raml
   ParkingStickerCode: !include ../types/parkings/parking-sticker-code.raml
   ParkingStickerCodeObject: !include ../types/parkings/parking-sticker-code-object.raml
@@ -29,3 +42,13 @@ types:
 
   OffenseType: !include ../types/offenses/offense-type.raml
   OffenseValidation: !include ../types/offenses/offense-validation.raml
+
+  InitiativeCode: !include ../types/initiatives/initiative-code.raml
+  InitiativeCodeObject: !include ../types/initiatives/initiative-code-object.raml
+  Initiative: !include ../types/initiatives/initiative.raml
+  InitiativeAddedAmount: !include ../types/initiatives/initiative-added-amount.raml
+  AvailableAmountForInitiatives: !include ../types/initiatives/available-amount-for-initiatives.raml
+
+  CarbonCreditMonthlyPaymentStatus: !include ../types/carbonCredits/carbon-credit-monthly-payment-status.raml
+  CarbonCreditMonthlyPaymentStatusObject: !include ../types/carbonCredits/carbon-credit-monthly-payment-status-object.raml
+  CarbonCreditAmount: !include ../types/carbonCredits/carbon-credit-amount.raml

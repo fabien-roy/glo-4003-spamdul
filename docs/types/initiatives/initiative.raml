@@ -1,0 +1,16 @@
+#%RAML 1.0 DataType
+type: object
+displayName: Initiative
+uses:
+  types: ../../libraries/types.raml
+properties:
+  initiativeCode:
+    type: string
+    required: false
+    description: Code representing initiative, only sent when getting initiatives, not required when adding new initiatives
+  name:
+    type: string
+    description: Name of funding initiative
+  amount:
+    type: types.Money
+    description: Amount of money funding the initiative
