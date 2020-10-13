@@ -32,6 +32,8 @@ public enum Days {
   }
 
   public static Days get(String day) {
+    if (day == null) throw new InvalidDayException();
+
     Days foundDay = lookup.get(day.toLowerCase());
 
     if (foundDay == null) throw new InvalidDayException();

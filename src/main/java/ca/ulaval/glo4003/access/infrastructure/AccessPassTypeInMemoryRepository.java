@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.access.infrastructure;
 import ca.ulaval.glo4003.access.domain.AccessPassType;
 import ca.ulaval.glo4003.access.domain.AccessPassTypeRepository;
 import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
-import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionType;
+import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
 import java.util.HashMap;
 
 public class AccessPassTypeInMemoryRepository implements AccessPassTypeRepository {
@@ -20,7 +20,7 @@ public class AccessPassTypeInMemoryRepository implements AccessPassTypeRepositor
   public AccessPassType findByConsumptionType(ConsumptionTypes consumptionTypes) {
     AccessPassType accessPassType = accessPassPriceByCarConsumptions.get(consumptionTypes);
     if (accessPassType == null) {
-      throw new InvalidConsumptionType();
+      throw new InvalidConsumptionTypeException();
     }
 
     return accessPassType;

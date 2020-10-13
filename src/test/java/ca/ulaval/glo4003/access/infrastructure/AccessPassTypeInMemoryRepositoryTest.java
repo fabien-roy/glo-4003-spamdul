@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.access.infrastructure;
 import static ca.ulaval.glo4003.access.helpers.AccessPassTypeBuilder.anAccessPassType;
 
 import ca.ulaval.glo4003.access.domain.AccessPassType;
-import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionType;
+import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class AccessPassTypeInMemoryRepositoryTest {
     Truth.assertThat(passPriceByCarConsumption).isSameInstanceAs(accessPassType);
   }
 
-  @Test(expected = InvalidConsumptionType.class)
+  @Test(expected = InvalidConsumptionTypeException.class)
   public void
       givenNonExistentParkingArea_whenGettingParkingArea_thenThrowNotFoundParkingAreaException() {
     accessPassPriceByCarConsumptionInMemoryRepository.findByConsumptionType(

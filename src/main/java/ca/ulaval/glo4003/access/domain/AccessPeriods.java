@@ -31,6 +31,8 @@ public enum AccessPeriods {
   }
 
   public static AccessPeriods get(String period) {
+    if (period == null) throw new InvalidAccessPeriodException();
+
     AccessPeriods foundPeriod = lookup.get(period.toLowerCase());
 
     if (foundPeriod == null) throw new InvalidAccessPeriodException();

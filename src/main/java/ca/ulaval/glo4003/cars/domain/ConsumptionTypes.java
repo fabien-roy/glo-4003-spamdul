@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.cars.domain;
 
-import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionType;
+import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,10 +24,12 @@ public enum ConsumptionTypes {
     this.consumptionType = consumptionType;
   }
 
-  public static ConsumptionTypes get(String consumptionType) {
-    ConsumptionTypes foundType = lookup.get(consumptionType.toLowerCase());
+  public static ConsumptionTypes get(String type) {
+    if (type == null) throw new InvalidConsumptionTypeException();
 
-    if (foundType == null) throw new InvalidConsumptionType();
+    ConsumptionTypes foundType = lookup.get(type.toLowerCase());
+
+    if (foundType == null) throw new InvalidConsumptionTypeException();
 
     return foundType;
   }

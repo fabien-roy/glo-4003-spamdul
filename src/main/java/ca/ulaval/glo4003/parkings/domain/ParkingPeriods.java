@@ -30,6 +30,8 @@ public enum ParkingPeriods {
   }
 
   public static ParkingPeriods get(String period) {
+    if (period == null) throw new InvalidParkingPeriodException();
+
     ParkingPeriods foundPeriod = lookup.get(period.toLowerCase());
 
     if (foundPeriod == null) throw new InvalidParkingPeriodException();
