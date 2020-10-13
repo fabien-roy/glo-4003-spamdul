@@ -3,23 +3,23 @@ package ca.ulaval.glo4003.parkings.domain;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
 import ca.ulaval.glo4003.locations.domain.PostalCode;
-import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.domain.DayOfWeek;
 
 public class ParkingSticker {
   private ParkingStickerCode code;
   private final AccountId accountId;
   private final ParkingAreaCode parkingAreaCode;
-  private final ReceptionMethods receptionMethod;
+  private final ReceptionMethod receptionMethod;
   private PostalCode postalCode;
   private EmailAddress emailAddress;
-  private final Days validDay;
+  private final DayOfWeek validDay;
 
   public ParkingSticker(
       AccountId accountId,
       ParkingAreaCode parkingAreaCode,
-      ReceptionMethods receptionMethod,
+      ReceptionMethod receptionMethod,
       PostalCode postalCode,
-      Days validDay) {
+      DayOfWeek validDay) {
     this.accountId = accountId;
     this.parkingAreaCode = parkingAreaCode;
     this.receptionMethod = receptionMethod;
@@ -30,9 +30,9 @@ public class ParkingSticker {
   public ParkingSticker(
       AccountId accountId,
       ParkingAreaCode parkingAreaCode,
-      ReceptionMethods receptionMethod,
+      ReceptionMethod receptionMethod,
       EmailAddress emailAddress,
-      Days validDay) {
+      DayOfWeek validDay) {
     this.accountId = accountId;
     this.parkingAreaCode = parkingAreaCode;
     this.receptionMethod = receptionMethod;
@@ -56,7 +56,7 @@ public class ParkingSticker {
     return parkingAreaCode;
   }
 
-  public ReceptionMethods getReceptionMethod() {
+  public ReceptionMethod getReceptionMethod() {
     return receptionMethod;
   }
 
@@ -68,12 +68,8 @@ public class ParkingSticker {
     return emailAddress;
   }
 
-  public Days getValidDay() {
+  public DayOfWeek getValidDay() {
     return validDay;
-  }
-
-  public boolean validateParkingStickerDay(Days day) {
-    return getValidDay().equals(day);
   }
 
   public boolean validateParkingStickerAreaCode(ParkingAreaCode parkingAreaCode) {

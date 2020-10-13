@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.access.domain;
 
-import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 
 public interface AccessPassTypeRepository {
-  ConsumptionTypes save(AccessPassType accessPassType);
+  ConsumptionType save(AccessPassType accessPassType);
 
-  AccessPassType findByConsumptionType(ConsumptionTypes consumptionTypes);
+  AccessPassType findByConsumptionType(ConsumptionType consumptionType);
 }

@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds.services;
 
-import static ca.ulaval.glo4003.access.helper.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.access.helpers.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
@@ -14,7 +14,7 @@ import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
-import ca.ulaval.glo4003.parkings.domain.ParkingPeriods;
+import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
@@ -49,8 +49,8 @@ public class BillServiceTest {
   public void setUp() {
     billService = new BillService(billFactory, billRepository, billsAssembler);
 
-    Map<ParkingPeriods, Money> feePerPeriod = new HashMap<>();
-    feePerPeriod.put(ParkingPeriods.ONE_DAY, parkingPeriodFee);
+    Map<ParkingPeriod, Money> feePerPeriod = new HashMap<>();
+    feePerPeriod.put(ParkingPeriod.ONE_DAY, parkingPeriodFee);
     parkingArea = aParkingArea().withFeePerPeriod(feePerPeriod).build();
 
     when(billFactory.createForParkingSticker(

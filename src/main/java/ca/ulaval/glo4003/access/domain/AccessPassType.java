@@ -1,23 +1,23 @@
 package ca.ulaval.glo4003.access.domain;
 
-import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.Money;
 import java.util.Map;
 
 public class AccessPassType {
-  private final ConsumptionTypes consumptionTypes;
-  private final Map<AccessPeriods, Money> feePerPeriod;
+  private final ConsumptionType consumptionType;
+  private final Map<AccessPeriod, Money> feePerPeriod;
 
-  public AccessPassType(ConsumptionTypes consumptionTypes, Map<AccessPeriods, Money> feePerPeriod) {
-    this.consumptionTypes = consumptionTypes;
+  public AccessPassType(ConsumptionType consumptionType, Map<AccessPeriod, Money> feePerPeriod) {
+    this.consumptionType = consumptionType;
     this.feePerPeriod = feePerPeriod;
   }
 
-  public ConsumptionTypes getConsumptionTypes() {
-    return consumptionTypes;
+  public ConsumptionType getConsumptionTypes() {
+    return consumptionType;
   }
 
-  public Money getFeeForPeriod(AccessPeriods period) {
+  public Money getFeeForPeriod(AccessPeriod period) {
     return feePerPeriod.get(period);
   }
 }

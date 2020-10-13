@@ -2,9 +2,9 @@ package ca.ulaval.glo4003.users.assemblers;
 
 import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
 import ca.ulaval.glo4003.times.domain.CustomDate;
-import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
-import ca.ulaval.glo4003.times.exceptions.InvalidDayException;
+import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.domain.Sex;
 import ca.ulaval.glo4003.users.domain.User;
@@ -21,7 +21,7 @@ public class UserAssembler {
 
   public User assemble(UserDto userDto) {
     CustomDate birthDate;
-    Days accessDay;
+    DayOfWeek accessDay;
 
     validateNotNull(userDto);
 
@@ -34,8 +34,8 @@ public class UserAssembler {
     if (birthDate.isFuture()) throw new InvalidBirthDateException();
 
     try {
-      accessDay = Days.get(userDto.accessDay);
-    } catch (InvalidDayException exception) {
+      accessDay = DayOfWeek.get(userDto.accessDay);
+    } catch (InvalidDayOfWeekException exception) {
       throw new InvalidAccessDayException();
     }
 

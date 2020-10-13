@@ -4,14 +4,14 @@ import ca.ulaval.glo4003.funds.exception.AmountDueExceededException;
 
 public class Bill {
   private final BillId id;
-  private final BillTypes billTypes;
+  private final BillType billType;
   private final String description;
   private Money amountDue;
   private Money amountPaid;
 
-  public Bill(BillId id, BillTypes billTypes, String description, Money amountDue) {
+  public Bill(BillId id, BillType billType, String description, Money amountDue) {
     this.id = id;
-    this.billTypes = billTypes;
+    this.billType = billType;
     this.description = description;
     this.amountDue = amountDue;
     this.amountPaid = Money.ZERO();
@@ -30,8 +30,8 @@ public class Bill {
     return id;
   }
 
-  public BillTypes getBillTypes() {
-    return billTypes;
+  public BillType getBillTypes() {
+    return billType;
   }
 
   public String getDescription() {

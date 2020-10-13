@@ -9,7 +9,7 @@ public class AccessPassFactory {
 
   public AccessPass create(AccessPass accessPass) {
     AccessPassCode accessPassCode = accessPassCodeGenerator.generate();
-    accessPass.setAccessPassCode(accessPassCode);
+    accessPass.setCode(accessPassCode);
     return accessPass;
   }
 }

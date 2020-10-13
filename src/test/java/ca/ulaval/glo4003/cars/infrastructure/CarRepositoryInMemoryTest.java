@@ -31,13 +31,13 @@ public class CarRepositoryInMemoryTest {
   @Test
   public void whenGettingCarByLicensePlate_thenReturnCar() {
     LicensePlate licensePlate = carRepository.save(car);
-    Car car = carRepository.getCarByLicensePlate(licensePlate);
+    Car car = carRepository.get(licensePlate);
     Truth.assertThat(car.getLicensePlate()).isEqualTo(licensePlate);
   }
 
   @Test(expected = LicensePlateNotFoundException.class)
   public void
       whenGettingCarByLicensePlateWithANotFoundLicensePlate_thenThrowInvalidLicensePlateException() {
-    carRepository.getCarByLicensePlate(createLicensePlate());
+    carRepository.get(createLicensePlate());
   }
 }

@@ -71,7 +71,7 @@ public class OffenseTypeServiceTest {
     when(offenseValidationAssembler.assemble(offenseValidationDto)).thenReturn(offenseValidation);
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(false);
-    when(parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode()))
+    when(parkingStickerRepository.get(offenseValidation.getParkingStickerCode()))
         .thenReturn(parkingSticker);
     when(offenseTypeFactory.createWrongZoneOffense()).thenReturn(wrongZoneOffenseType);
     when(offenseTypeFactory.createInvalidStickerOffense()).thenReturn(invalidStickerOffenseType);
@@ -103,7 +103,7 @@ public class OffenseTypeServiceTest {
   @Test
   public void
       givenValidOffenseValidationDto_whenValidatingOffense_thenInvalidStickerOffenseIsReturned() {
-    when(parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode()))
+    when(parkingStickerRepository.get(offenseValidation.getParkingStickerCode()))
         .thenThrow(new NotFoundParkingStickerException());
 
     List<OffenseTypeDto> offenseTypeDtos = offenseTypeService.validateOffense(offenseValidationDto);

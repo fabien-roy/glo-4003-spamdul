@@ -1,37 +1,29 @@
 package ca.ulaval.glo4003.cars.helpers;
 
-import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.cars.helpers.CarMother.*;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
-import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
 
-public class CarBuilderDtoBuilder {
+public class CarDtoBuilder {
   private String licensePlate = createLicensePlate().toString();
-  private String accountId = createAccountId().toString();
   private String manufacturer = createManufacturer();
   private String model = createModel();
   private int year = createYear();
-  private ConsumptionTypes consumptionTypes = createConsumptionTypes();
+  private String consumptionTypes = createNotZeroPullutionConsumptionTypes().toString();
 
-  private CarBuilderDtoBuilder() {}
+  private CarDtoBuilder() {}
 
-  public static CarBuilderDtoBuilder aCarDto() {
-    return new CarBuilderDtoBuilder();
+  public static CarDtoBuilder aCarDto() {
+    return new CarDtoBuilder();
   }
 
-  public CarBuilderDtoBuilder withLicensePlate(String licensePlate) {
+  public CarDtoBuilder withLicensePlate(String licensePlate) {
     this.licensePlate = licensePlate;
     return this;
   }
 
-  public CarBuilderDtoBuilder withAccountId(String accountId) {
-    this.accountId = accountId;
-    return this;
-  }
-
-  public CarBuilderDtoBuilder withYear(int year) {
+  public CarDtoBuilder withYear(int year) {
     this.year = year;
     return this;
   }
@@ -42,7 +34,7 @@ public class CarBuilderDtoBuilder {
     carDto.manufacturer = manufacturer;
     carDto.model = model;
     carDto.year = year;
-    carDto.consumptionType = consumptionTypes.toString();
+    carDto.consumptionType = consumptionTypes;
     return carDto;
   }
 }

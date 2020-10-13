@@ -17,7 +17,7 @@ public class CarRepositoryInMemory implements CarRepository {
   }
 
   @Override
-  public Car getCarByLicensePlate(LicensePlate licensePlate) {
+  public Car get(LicensePlate licensePlate) {
     Car car = cars.get(licensePlate);
 
     if (car == null) throw new LicensePlateNotFoundException();

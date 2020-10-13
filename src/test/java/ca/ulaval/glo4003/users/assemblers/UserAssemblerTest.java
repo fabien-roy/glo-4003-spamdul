@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
 import ca.ulaval.glo4003.times.domain.CustomDate;
-import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.domain.Sex;
@@ -31,7 +31,7 @@ public class UserAssemblerTest {
   private static final String NAME = createName();
   private static final CustomDate BIRTH_DATE = createPastDate();
   private static final Sex SEX = createSex();
-  private static final Days ACCESS_DAY = createAccessDay();
+  private static final DayOfWeek ACCESS_DAY = createAccessDay();
 
   @Mock private CustomDate futureBirthDate;
   @Mock private CustomDateAssembler customDateAssembler;

@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.times.api;
 
 import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
-import ca.ulaval.glo4003.times.exceptions.InvalidDayException;
+import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
 import ca.ulaval.glo4003.times.exceptions.TimeException;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
@@ -27,8 +27,8 @@ public class TimeExceptionMapperTest {
   }
 
   @Test
-  public void givenInvalidDayException_whenResponding_thenStatusIsBadRequest() {
-    TimeException timeException = new InvalidDayException();
+  public void givenInvalidDayOfWeekException_whenResponding_thenStatusIsBadRequest() {
+    TimeException timeException = new InvalidDayOfWeekException();
 
     Response response = timeExceptionMapper.toResponse(timeException);
 

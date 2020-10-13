@@ -5,14 +5,14 @@ import ca.ulaval.glo4003.access.assembler.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.access.domain.AccessPassCodeGenerator;
 import ca.ulaval.glo4003.access.domain.AccessPassFactory;
 import ca.ulaval.glo4003.access.domain.AccessPassType;
-import ca.ulaval.glo4003.access.domain.AccessPeriods;
+import ca.ulaval.glo4003.access.domain.AccessPeriod;
 import ca.ulaval.glo4003.access.infrastructure.AccessPassInMemoryRepository;
 import ca.ulaval.glo4003.access.infrastructure.AccessPassTypeInMemoryRepository;
 import ca.ulaval.glo4003.access.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
-import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
@@ -36,7 +36,7 @@ public class AccessInjector {
     addAccessPassByConsumptionTypesToRepository();
   }
 
-  public AccessPassService createAccessService(
+  public AccessPassService createAccessPassService(
       CarService carService, AccountService accountService, BillService billService) {
     AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
     LicensePlateAssembler licensePlateAssembler = new LicensePlateAssembler();
@@ -53,8 +53,7 @@ public class AccessInjector {
         accountService,
         billService,
         accessPassInMemoryRepository,
-        accessPassCodeAssembler,
-        accountIdAssembler);
+        accessPassCodeAssembler);
   }
 
   private void addAccessPassByConsumptionTypesToRepository() {
@@ -69,21 +68,21 @@ public class AccessInjector {
         .keySet()
         .forEach(
             consumptionType -> {
-              ConsumptionTypes consumptionTypes = ConsumptionTypes.get(consumptionType);
-              Map<AccessPeriods, Money> feesPerPeriod = new HashMap<>();
+              ConsumptionType consumptionTypes = ConsumptionType.get(consumptionType);
+              Map<AccessPeriod, Money> feesPerPeriod = new HashMap<>();
               zonesAndFees
                   .get(consumptionType)
                   .keySet()
                   .forEach(
                       period -> {
-                        AccessPeriods accessPeriods = AccessPeriods.get(period);
+                        AccessPeriod accessPeriod = AccessPeriod.get(period);
                         Money fee =
                             new Money(
                                 zonesAndFees
                                     .get(consumptionType)
                                     .get(period)); // TODO : We could use money assembler (but this
                         // is the injector, it's not that important)
-                        feesPerPeriod.put(accessPeriods, fee);
+                        feesPerPeriod.put(accessPeriod, fee);
                       });
               accessConsumption.add(new AccessPassType(consumptionTypes, feesPerPeriod));
             });

@@ -55,8 +55,7 @@ public class OffenseTypeService {
     List<OffenseType> offenseTypes = new ArrayList<>();
 
     try {
-      parkingSticker =
-          parkingStickerRepository.findByCode(offenseValidation.getParkingStickerCode());
+      parkingSticker = parkingStickerRepository.get(offenseValidation.getParkingStickerCode());
     } catch (NotFoundParkingStickerException e) {
       offenseTypes.add(offenseTypeFactory.createInvalidStickerOffense());
       // TODO cant add a bill ?

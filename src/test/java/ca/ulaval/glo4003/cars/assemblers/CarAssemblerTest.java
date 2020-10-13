@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.cars.assemblers;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
-import static ca.ulaval.glo4003.cars.helpers.CarBuilderDtoBuilder.aCarDto;
+import static ca.ulaval.glo4003.cars.helpers.CarDtoBuilder.aCarDto;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static org.mockito.Mockito.when;
 
@@ -30,11 +30,7 @@ public class CarAssemblerTest {
   private static final AccountId ACCOUNT_ID = createAccountId();
   private static final int INVALID_YEAR = 100000;
 
-  private final CarDto carDto =
-      aCarDto()
-          .withLicensePlate(LICENSE_PLATE.toString())
-          .withAccountId(ACCOUNT_ID.toString())
-          .build();
+  private final CarDto carDto = aCarDto().withLicensePlate(LICENSE_PLATE.toString()).build();
 
   @Before
   public void setup() {

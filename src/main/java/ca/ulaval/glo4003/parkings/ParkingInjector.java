@@ -11,7 +11,6 @@ import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
 import ca.ulaval.glo4003.parkings.api.ParkingResource;
 import ca.ulaval.glo4003.parkings.api.ParkingResourceImplementation;
-import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
@@ -53,7 +52,6 @@ public class ParkingInjector {
             postalCodeAssembler,
             emailAddressAssembler);
     ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
-    AccessStatusAssembler accessStatusAssembler = new AccessStatusAssembler();
 
     ParkingStickerFactory parkingStickerFactory =
         new ParkingStickerFactory(parkingStickerCodeGenerator);
@@ -66,7 +64,6 @@ public class ParkingInjector {
             accountService,
             parkingAreaRepository,
             parkingStickerRepository,
-            accessStatusAssembler,
             billService);
 
     parkingStickerCreationObservers.forEach(parkingStickerService::register);
@@ -99,13 +96,13 @@ public class ParkingInjector {
         .forEach(
             zone -> {
               ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(zone);
-              Map<ParkingPeriods, Money> feesPerPeriod = new HashMap<>();
+              Map<ParkingPeriod, Money> feesPerPeriod = new HashMap<>();
               zonesAndFees
                   .get(zone)
                   .keySet()
                   .forEach(
                       period -> {
-                        ParkingPeriods parkingPeriod = ParkingPeriods.get(period);
+                        ParkingPeriod parkingPeriod = ParkingPeriod.get(period);
                         Money fee =
                             new Money(
                                 zonesAndFees

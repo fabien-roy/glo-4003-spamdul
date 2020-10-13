@@ -6,7 +6,7 @@ import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePla
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.domain.Car;
-import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 
 public class CarBuilder {
@@ -15,7 +15,7 @@ public class CarBuilder {
   private String manufacturer = createManufacturer();
   private String model = createModel();
   private int year = createYear();
-  private ConsumptionTypes consumptionTypes = createConsumptionTypes();
+  private ConsumptionType consumptionType = createNotZeroPullutionConsumptionTypes();
 
   private CarBuilder() {}
 
@@ -24,6 +24,6 @@ public class CarBuilder {
   }
 
   public Car build() {
-    return new Car(licensePlate, accountId, manufacturer, model, year, consumptionTypes);
+    return new Car(licensePlate, accountId, manufacturer, model, year, consumptionType);
   }
 }

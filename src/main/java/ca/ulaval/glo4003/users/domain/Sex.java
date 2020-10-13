@@ -23,11 +23,13 @@ public enum Sex {
   }
 
   public static Sex get(String sex) {
-    Sex foundType = lookup.get(sex.toLowerCase());
+    if (sex == null) throw new InvalidSexException();
 
-    if (foundType == null) throw new InvalidSexException();
+    Sex foundSex = lookup.get(sex.toLowerCase());
 
-    return foundType;
+    if (foundSex == null) throw new InvalidSexException();
+
+    return foundSex;
   }
 
   @Override

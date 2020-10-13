@@ -9,10 +9,10 @@ import ca.ulaval.glo4003.locations.domain.PostalCode;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.exceptions.MissingEmailException;
 import ca.ulaval.glo4003.parkings.exceptions.MissingPostalCodeException;
-import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.domain.DayOfWeek;
 
 public class ParkingStickerAssembler {
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
@@ -36,7 +36,7 @@ public class ParkingStickerAssembler {
     ParkingAreaCode parkingAreaCode =
         parkingAreaCodeAssembler.assemble(parkingStickerDto.parkingArea);
 
-    ReceptionMethods receptionMethod = ReceptionMethods.get(parkingStickerDto.receptionMethod);
+    ReceptionMethod receptionMethod = ReceptionMethod.get(parkingStickerDto.receptionMethod);
 
     switch (receptionMethod) {
       case POSTAL:
@@ -50,7 +50,7 @@ public class ParkingStickerAssembler {
               parkingAreaCode,
               receptionMethod,
               postalCode,
-              Days.get(parkingStickerDto.validDay));
+              DayOfWeek.get(parkingStickerDto.validDay));
         }
       default:
       case EMAIL:
@@ -64,7 +64,7 @@ public class ParkingStickerAssembler {
               parkingAreaCode,
               receptionMethod,
               emailAddress,
-              Days.get(parkingStickerDto.validDay));
+              DayOfWeek.get(parkingStickerDto.validDay));
         }
     }
   }

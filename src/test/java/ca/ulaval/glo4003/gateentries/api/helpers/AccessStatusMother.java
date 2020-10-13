@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.parkings.helpers;
+package ca.ulaval.glo4003.gateentries.api.helpers;
 
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 
