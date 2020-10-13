@@ -16,16 +16,20 @@ public class AccessPass {
     this.licensePlate = licensePlate;
   }
 
-  public LicensePlate getLicensePlate() {
-    return licensePlate;
-  }
-
   public void setAccessPassCode(AccessPassCode accessPassCode) {
     this.accessPassCode = accessPassCode;
   }
 
   public AccessPassCode getAccessPassCode() {
     return accessPassCode;
+  }
+
+  public AccountId getAccountId() {
+    return accountId;
+  }
+
+  public LicensePlate getLicensePlate() {
+    return licensePlate;
   }
 
   public boolean validateAccessDay(Days accessDay) {

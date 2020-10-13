@@ -53,8 +53,7 @@ public class AccessInjector {
         accountService,
         billService,
         accessPassInMemoryRepository,
-        accessPassCodeAssembler,
-        accountIdAssembler);
+        accessPassCodeAssembler);
   }
 
   private void addAccessPassByConsumptionTypesToRepository() {

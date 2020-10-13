@@ -74,8 +74,7 @@ public class AccountService {
   }
 
   public List<BillDto> getBills(String accountId) {
-    AccountId id = accountIdAssembler.assemble(accountId);
-    Account account = getAccount(id);
+    Account account = getAccount(accountId);
     List<BillId> billIds = account.getBillIds();
     List<Bill> bills = billService.getBillsByIds(billIds);
 
@@ -84,16 +83,20 @@ public class AccountService {
 
   public BillDto payBill(BillPaymentDto billPaymentDto, String accountId, String billId) {
     Money amountToPay = billPaymentAssembler.assemble(billPaymentDto);
-    AccountId id = accountIdAssembler.assemble(accountId);
     BillId billNumber = billIdAssembler.assemble(billId);
 
-    Account account = getAccount(id);
+    Account account = getAccount(accountId);
     account.verifyAccountHasBillId(billNumber);
 
     return billService.payBill(billNumber, amountToPay);
   }
 
-  public Account getAccount(AccountId id) {
-    return accountRepository.findById(id);
+  public Account getAccount(String accountId) {
+    AccountId id = accountIdAssembler.assemble(accountId);
+    return getAccount(id);
+  }
+
+  public Account getAccount(AccountId accountId) {
+    return accountRepository.findById(accountId);
   }
 }
