@@ -63,7 +63,7 @@ public class ParkingStickerServiceTest {
         .thenReturn(bill.getId());
     when(parkingStickerCodeAssembler.assemble(parkingSticker.getCode().toString()))
         .thenReturn(parkingSticker.getCode());
-    when(parkingStickerRepository.findByCode(parkingSticker.getCode())).thenReturn(parkingSticker);
+    when(parkingStickerRepository.get(parkingSticker.getCode())).thenReturn(parkingSticker);
   }
 
   @Test

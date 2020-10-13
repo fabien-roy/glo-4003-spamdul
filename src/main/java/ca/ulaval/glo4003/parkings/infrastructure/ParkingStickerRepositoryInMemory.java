@@ -15,9 +15,8 @@ public class ParkingStickerRepositoryInMemory implements ParkingStickerRepositor
     parkingStickers.put(parkingSticker.getCode(), parkingSticker);
   }
 
-  // TODO : Is this still necessary?
   @Override
-  public ParkingSticker findByCode(ParkingStickerCode code) throws NotFoundParkingStickerException {
+  public ParkingSticker get(ParkingStickerCode code) {
     ParkingSticker foundParkingSticker = parkingStickers.get(code);
 
     if (foundParkingSticker == null) throw new NotFoundParkingStickerException();
