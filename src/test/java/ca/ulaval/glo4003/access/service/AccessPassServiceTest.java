@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.access.service;
 import static ca.ulaval.glo4003.access.helper.AccessPassBuilder.anAccessPass;
 import static ca.ulaval.glo4003.access.helper.AccessPassCodeDtoBuilder.anAccessPassCodeDtoBuilder;
 import static ca.ulaval.glo4003.access.helper.AccessPassDtoBuilder.anAccessPassDto;
-import static ca.ulaval.glo4003.access.helper.AccessPassPriceByCarConsumptionBuilder.anAccessPassPriceByConsumption;
+import static ca.ulaval.glo4003.access.helper.AccessPassTypeBuilder.anAccessPassPriceByConsumption;
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static org.mockito.Mockito.*;
@@ -30,6 +30,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+// TODO : Refactor this test class
 @RunWith(MockitoJUnitRunner.class)
 public class AccessPassServiceTest {
   @Mock private AccessPassAssembler accessPassAssembler;
@@ -42,13 +43,13 @@ public class AccessPassServiceTest {
   @Mock private AccessPassCodeAssembler accessPassCodeAssembler;
   @Mock private AccountIdAssembler accountIdAssembler;
 
-  private AccessPassDto accessPassDto = anAccessPassDto().build();
-  private AccountId accountId = createAccountId();
-  private AccessPass accessPass = anAccessPass().build();
-  private AccessPass accessPassWithId = accessPass;
-  private AccessPass accessPassWithoutLicense = anAccessPass().buildWithoutLicense();
-  private Car car = aCar().build();
-  private AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDtoBuilder().build();
+  private final AccessPassDto accessPassDto = anAccessPassDto().build();
+  private final AccountId accountId = createAccountId();
+  private final AccessPass accessPass = anAccessPass().build();
+  private final AccessPass accessPassWithId = accessPass;
+  private final AccessPass accessPassWithoutLicense = anAccessPass().withLicensePlate(null).build();
+  private final Car car = aCar().build();
+  private final AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDtoBuilder().build();
   private Money moneyDue;
 
   private AccessPassService accessPassService;
@@ -92,7 +93,9 @@ public class AccessPassServiceTest {
     when(accessPassFactory.create(accessPass)).thenReturn(accessPassWithoutLicense);
 
     AccessPassType accessPassType =
-        anAccessPassPriceByConsumption().buildWithConsumptionType(ConsumptionTypes.ZERO_POLLUTION);
+        anAccessPassPriceByConsumption()
+            .withConsumptionType(ConsumptionTypes.ZERO_POLLUTION)
+            .build();
     when(accessPassTypeRepository.findByConsumptionType(ConsumptionTypes.ZERO_POLLUTION))
         .thenReturn(accessPassType);
 
@@ -130,23 +133,9 @@ public class AccessPassServiceTest {
   }
 
   @Test
-  public void whenAddingAccess_thenAccountPassRepositoryIsCalled() {
+  public void whenAddingAccessPass_thenAccessPassIsSavedToRepository() {
     accessPassService.addAccessPass(accessPassDto, accountId.toString());
 
     verify(accessPassRepository).save(accessPassWithId);
-  }
-
-  @Test
-  public void whenAddingAccess_thenAccessPassCodeAssemblerIsCalled() {
-    accessPassService.addAccessPass(accessPassDto, accountId.toString());
-
-    verify(accessPassCodeAssembler).assemble(accessPassWithId.getAccessPassCode());
-  }
-
-  @Test
-  public void whenAddingAccess_thenAccountIdAssemblerIsCalled() {
-    accessPassService.addAccessPass(accessPassDto, accountId.toString());
-
-    verify(accountIdAssembler).assemble(accountId.toString());
   }
 }

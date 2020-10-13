@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.access.infrastructure;
 
-import static ca.ulaval.glo4003.access.helper.AccessPassPriceByCarConsumptionBuilder.anAccessPassPriceByConsumption;
+import static ca.ulaval.glo4003.access.helper.AccessPassTypeBuilder.anAccessPassPriceByConsumption;
 
 import ca.ulaval.glo4003.access.domain.AccessPassType;
 import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionType;

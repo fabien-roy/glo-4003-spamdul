@@ -28,7 +28,6 @@ public class AccessPass {
     return accessPassCode;
   }
 
-  // TODO : Test AccessPass.validateAccessDay
   public boolean validateAccessDay(Days accessDay) {
     return validDay.equals(accessDay);
   }

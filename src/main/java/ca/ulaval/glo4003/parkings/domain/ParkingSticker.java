@@ -72,11 +72,6 @@ public class ParkingSticker {
     return validDay;
   }
 
-  // TODO : Remove ParkingSticker.validateParkingStickerDay
-  public boolean validateParkingStickerDay(Days day) {
-    return getValidDay().equals(day);
-  }
-
   public boolean validateParkingStickerAreaCode(ParkingAreaCode parkingAreaCode) {
     return getParkingAreaCode().equals(parkingAreaCode);
   }

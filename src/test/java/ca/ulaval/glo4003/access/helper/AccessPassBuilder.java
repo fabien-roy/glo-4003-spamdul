@@ -5,18 +5,30 @@ import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePla
 import static ca.ulaval.glo4003.times.helpers.DayMother.createDay;
 
 import ca.ulaval.glo4003.access.domain.AccessPass;
+import ca.ulaval.glo4003.accounts.domain.AccountId;
+import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.times.domain.Days;
 
 public class AccessPassBuilder {
+  private AccountId accountId = createAccountId();
+  private Days validDay = createDay();
+  private LicensePlate licensePlate = createLicensePlate();
 
   public static AccessPassBuilder anAccessPass() {
     return new AccessPassBuilder();
   }
 
-  public AccessPass build() {
-    return new AccessPass(createAccountId(), createDay(), createLicensePlate());
+  public AccessPassBuilder withValidDay(Days validDay) {
+    this.validDay = validDay;
+    return this;
   }
 
-  public AccessPass buildWithoutLicense() {
-    return new AccessPass(createAccountId(), createDay(), null);
+  public AccessPassBuilder withLicensePlate(LicensePlate licensePlate) {
+    this.licensePlate = licensePlate;
+    return this;
+  }
+
+  public AccessPass build() {
+    return new AccessPass(accountId, validDay, licensePlate);
   }
 }
