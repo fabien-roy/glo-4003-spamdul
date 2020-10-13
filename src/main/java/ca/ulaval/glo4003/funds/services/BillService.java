@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
-import ca.ulaval.glo4003.parkings.domain.ParkingPeriods;
+import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import java.util.List;
 import java.util.logging.Logger;
@@ -28,7 +28,7 @@ public class BillService {
     logger.info(String.format("Create bill for parking sticker %s", parkingSticker));
 
     Money feeForPeriod =
-        parkingArea.getFeeForPeriod(ParkingPeriods.ONE_DAY); // TODO : Will this always be one day?
+        parkingArea.getFeeForPeriod(ParkingPeriod.ONE_DAY); // TODO : Will this always be one day?
     Bill bill =
         billFactory.createForParkingSticker(
             feeForPeriod, parkingSticker.getCode(), parkingSticker.getReceptionMethod());

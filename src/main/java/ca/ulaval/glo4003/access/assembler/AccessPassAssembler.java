@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.domain.DayOfWeek;
 
 public class AccessPassAssembler {
 
@@ -21,13 +21,13 @@ public class AccessPassAssembler {
 
   public AccessPass assemble(AccessPassDto accessPassCodeDto, String accountId) {
     AccountId id = accountIdAssembler.assemble(accountId);
-    Days days = Days.get(accessPassCodeDto.accessDay);
+    DayOfWeek dayOfWeek = DayOfWeek.get(accessPassCodeDto.accessDay);
     LicensePlate licensePlate;
     if (accessPassCodeDto.licensePlate != null) {
       licensePlate = licensePlateAssembler.assemble(accessPassCodeDto.licensePlate);
     } else {
       licensePlate = null;
     }
-    return new AccessPass(id, days, licensePlate);
+    return new AccessPass(id, dayOfWeek, licensePlate);
   }
 }

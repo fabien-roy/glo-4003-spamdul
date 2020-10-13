@@ -20,7 +20,7 @@ import ca.ulaval.glo4003.access.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
-import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.domain.BillId;
@@ -125,16 +125,16 @@ public class AccessPassServiceTest {
     when(accountService.getAccount(account.getId().toString())).thenReturn(account);
     when(carService.getCar(accessPass.getLicensePlate())).thenReturn(car);
     when(accessPassFactory.create(accessPass)).thenReturn(accessPass);
-    when(accessPassTypeRepository.findByConsumptionType(ConsumptionTypes.ZERO_POLLUTION))
+    when(accessPassTypeRepository.findByConsumptionType(ConsumptionType.ZERO_POLLUTION))
         .thenReturn(zeroPollutionAccessPassType);
     when(accessPassTypeRepository.findByConsumptionType(car.getConsumptionType()))
         .thenReturn(notZeroPollutionAccessPassType);
     when(billService.addBillForAccessCode(
-            zeroPollutionAccessPassType.getFeeForPeriod(AccessPeriods.ONE_DAY),
+            zeroPollutionAccessPassType.getFeeForPeriod(AccessPeriod.ONE_DAY),
             accessPass.getCode()))
         .thenReturn(zeroPollutionBillId);
     when(billService.addBillForAccessCode(
-            notZeroPollutionAccessPassType.getFeeForPeriod(AccessPeriods.ONE_DAY),
+            notZeroPollutionAccessPassType.getFeeForPeriod(AccessPeriod.ONE_DAY),
             accessPass.getCode()))
         .thenReturn(notZeroPollutionBillId);
     when(accessPassRepository.save(accessPass)).thenReturn(accessPass.getCode());

@@ -4,14 +4,14 @@ import static ca.ulaval.glo4003.access.helpers.AccessPassTypeMother.createAccess
 import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionTypes;
 
 import ca.ulaval.glo4003.access.domain.AccessPassType;
-import ca.ulaval.glo4003.access.domain.AccessPeriods;
-import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
+import ca.ulaval.glo4003.access.domain.AccessPeriod;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.Money;
 import java.util.Map;
 
 public class AccessPassTypeBuilder {
-  private ConsumptionTypes consumptionType = createConsumptionTypes();
-  private Map<AccessPeriods, Money> feeByPeriod = createAccessFeeByPeriod();
+  private ConsumptionType consumptionType = createConsumptionTypes();
+  private Map<AccessPeriod, Money> feeByPeriod = createAccessFeeByPeriod();
 
   public static AccessPassTypeBuilder anAccessPassType() {
     return new AccessPassTypeBuilder();

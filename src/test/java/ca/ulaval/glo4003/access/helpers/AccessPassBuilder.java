@@ -9,19 +9,19 @@ import ca.ulaval.glo4003.access.domain.AccessPass;
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.domain.DayOfWeek;
 
 public class AccessPassBuilder {
   private AccessPassCode code = createAccessPassCode();
   private AccountId accountId = createAccountId();
-  private Days validDay = createDay();
+  private DayOfWeek validDay = createDay();
   private LicensePlate licensePlate = createLicensePlate();
 
   public static AccessPassBuilder anAccessPass() {
     return new AccessPassBuilder();
   }
 
-  public AccessPassBuilder withValidDay(Days validDay) {
+  public AccessPassBuilder withValidDay(DayOfWeek validDay) {
     this.validDay = validDay;
     return this;
   }

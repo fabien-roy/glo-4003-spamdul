@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
 import ca.ulaval.glo4003.gateentries.assemblers.DayOfWeekAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
-import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import java.util.logging.Logger;
 
 public class GateEntryService {
@@ -28,7 +28,7 @@ public class GateEntryService {
   public AccessStatusDto validateAccessPass(DayOfWeekDto dayOfWeekDto, String accessPassCode) {
     logger.info(String.format("Validate access pass code %s", accessPassCode));
 
-    Days dayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
+    DayOfWeek dayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
     AccessPass accessPass = accessPassService.getAccessPass(accessPassCode);
 
     AccessStatus accessStatus =

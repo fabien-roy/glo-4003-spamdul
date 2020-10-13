@@ -96,13 +96,13 @@ public class ParkingInjector {
         .forEach(
             zone -> {
               ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(zone);
-              Map<ParkingPeriods, Money> feesPerPeriod = new HashMap<>();
+              Map<ParkingPeriod, Money> feesPerPeriod = new HashMap<>();
               zonesAndFees
                   .get(zone)
                   .keySet()
                   .forEach(
                       period -> {
-                        ParkingPeriods parkingPeriod = ParkingPeriods.get(period);
+                        ParkingPeriod parkingPeriod = ParkingPeriod.get(period);
                         Money fee =
                             new Money(
                                 zonesAndFees

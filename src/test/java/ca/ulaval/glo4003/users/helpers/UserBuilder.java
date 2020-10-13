@@ -5,7 +5,7 @@ import static ca.ulaval.glo4003.users.helpers.UserMother.createName;
 import static ca.ulaval.glo4003.users.helpers.UserMother.createSex;
 
 import ca.ulaval.glo4003.times.domain.CustomDate;
-import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.users.domain.Sex;
 import ca.ulaval.glo4003.users.domain.User;
 
@@ -13,7 +13,7 @@ public class UserBuilder {
   private String name = createName();
   private CustomDate birthDate = createPastDate();
   private Sex sex = createSex();
-  private Days accessDay;
+  private DayOfWeek accessDay;
 
   private UserBuilder() {}
 
@@ -36,7 +36,7 @@ public class UserBuilder {
     return this;
   }
 
-  public UserBuilder withAccessDay(Days accessDay) {
+  public UserBuilder withAccessDay(DayOfWeek accessDay) {
     this.accessDay = accessDay;
     return this;
   }

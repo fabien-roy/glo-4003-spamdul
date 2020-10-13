@@ -3,13 +3,13 @@ package ca.ulaval.glo4003.access.domain;
 import static ca.ulaval.glo4003.access.helpers.AccessPassBuilder.anAccessPass;
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import org.junit.Test;
 
 public class AccessPassTest {
 
-  private static final Days VALID_DAY = Days.MONDAY;
-  private static final Days INVALID_DAY = Days.FRIDAY;
+  private static final DayOfWeek VALID_DAY = DayOfWeek.MONDAY;
+  private static final DayOfWeek INVALID_DAY = DayOfWeek.FRIDAY;
 
   private final AccessPass accessPass = anAccessPass().withValidDay(VALID_DAY).build();
 

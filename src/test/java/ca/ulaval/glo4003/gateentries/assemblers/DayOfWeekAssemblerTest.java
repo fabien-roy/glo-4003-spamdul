@@ -5,8 +5,8 @@ import static ca.ulaval.glo4003.times.helpers.DayMother.createDay;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
-import ca.ulaval.glo4003.gateentries.exceptions.InvalidDayOfWeekException;
-import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.domain.DayOfWeek;
+import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,10 +21,10 @@ public class DayOfWeekAssemblerTest {
 
   @Test
   public void givenValidDayOfWeek_whenAssembling_thenReturnDayOfWeek() {
-    Days dayOfWeek = createDay();
+    DayOfWeek dayOfWeek = createDay();
     DayOfWeekDto dayOfWeekDto = aDayOfWeekDto().withDayOfWeek(dayOfWeek.toString()).build();
 
-    Days assembledDayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
+    DayOfWeek assembledDayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
 
     assertThat(assembledDayOfWeek).isEqualTo(dayOfWeek);
   }

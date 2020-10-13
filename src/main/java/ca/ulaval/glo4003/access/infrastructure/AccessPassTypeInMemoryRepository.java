@@ -2,23 +2,23 @@ package ca.ulaval.glo4003.access.infrastructure;
 
 import ca.ulaval.glo4003.access.domain.AccessPassType;
 import ca.ulaval.glo4003.access.domain.AccessPassTypeRepository;
-import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
 import java.util.HashMap;
 
 public class AccessPassTypeInMemoryRepository implements AccessPassTypeRepository {
-  private HashMap<ConsumptionTypes, AccessPassType> accessPassPriceByCarConsumptions =
+  private HashMap<ConsumptionType, AccessPassType> accessPassPriceByCarConsumptions =
       new HashMap<>();
 
   @Override
-  public ConsumptionTypes save(AccessPassType accessPassType) {
+  public ConsumptionType save(AccessPassType accessPassType) {
     accessPassPriceByCarConsumptions.put(accessPassType.getConsumptionTypes(), accessPassType);
     return accessPassType.getConsumptionTypes();
   }
 
   @Override
-  public AccessPassType findByConsumptionType(ConsumptionTypes consumptionTypes) {
-    AccessPassType accessPassType = accessPassPriceByCarConsumptions.get(consumptionTypes);
+  public AccessPassType findByConsumptionType(ConsumptionType consumptionType) {
+    AccessPassType accessPassType = accessPassPriceByCarConsumptions.get(consumptionType);
     if (accessPassType == null) {
       throw new InvalidConsumptionTypeException();
     }

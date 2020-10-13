@@ -6,12 +6,12 @@ import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParking
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
-import ca.ulaval.glo4003.parkings.domain.ParkingPeriods;
+import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import java.util.Map;
 
 public class ParkingAreaBuilder {
   private ParkingAreaCode parkingAreaCode = createParkingAreaCode();
-  private Map<ParkingPeriods, Money> feePerPeriod = createFeePerPeriod();
+  private Map<ParkingPeriod, Money> feePerPeriod = createFeePerPeriod();
 
   private ParkingAreaBuilder() {}
 
@@ -19,7 +19,7 @@ public class ParkingAreaBuilder {
     return new ParkingAreaBuilder();
   }
 
-  public ParkingAreaBuilder withFeePerPeriod(Map<ParkingPeriods, Money> feePerPeriod) {
+  public ParkingAreaBuilder withFeePerPeriod(Map<ParkingPeriod, Money> feePerPeriod) {
     this.feePerPeriod = feePerPeriod;
     return this;
   }

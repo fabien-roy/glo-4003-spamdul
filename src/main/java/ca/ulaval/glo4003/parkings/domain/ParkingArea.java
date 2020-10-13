@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class ParkingArea {
   private final ParkingAreaCode code;
-  private final Map<ParkingPeriods, Money> feePerPeriod;
+  private final Map<ParkingPeriod, Money> feePerPeriod;
 
-  public ParkingArea(ParkingAreaCode code, Map<ParkingPeriods, Money> feePerPeriod) {
+  public ParkingArea(ParkingAreaCode code, Map<ParkingPeriod, Money> feePerPeriod) {
     this.code = code;
     this.feePerPeriod = feePerPeriod;
   }
@@ -16,7 +16,7 @@ public class ParkingArea {
     return code;
   }
 
-  public Money getFeeForPeriod(ParkingPeriods period) {
+  public Money getFeeForPeriod(ParkingPeriod period) {
     return feePerPeriod.get(period);
   }
 }

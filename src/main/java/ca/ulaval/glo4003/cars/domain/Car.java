@@ -9,9 +9,9 @@ public class Car {
   private final String manufacturer;
   private final String model;
   private final int year;
-  private final ConsumptionTypes consumptionType;
+  private final ConsumptionType consumptionType;
 
-  public ConsumptionTypes getConsumptionType() {
+  public ConsumptionType getConsumptionType() {
     return consumptionType;
   }
 
@@ -21,7 +21,7 @@ public class Car {
       String manufacturer,
       String model,
       int year,
-      ConsumptionTypes consumptionType) {
+      ConsumptionType consumptionType) {
     this.licensePlate = licensePlate;
     this.accountId = accountId;
     this.manufacturer = manufacturer;

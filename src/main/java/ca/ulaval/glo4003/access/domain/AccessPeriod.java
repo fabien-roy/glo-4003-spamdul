@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.access.exceptions.InvalidAccessPeriodException;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum AccessPeriods {
+public enum AccessPeriod {
   ONE_HOUR("1h"),
   ONE_DAY("1j"),
   ONE_DAY_BY_WEEK_FOR_SESSION("1j/semaine/session"),
@@ -13,15 +13,15 @@ public enum AccessPeriods {
   THREE_SESSIONS("3 session");
 
   private String period;
-  private static final Map<String, AccessPeriods> lookup = new HashMap<>();
+  private static final Map<String, AccessPeriod> lookup = new HashMap<>();
 
   static {
-    for (AccessPeriods period : AccessPeriods.values()) {
+    for (AccessPeriod period : AccessPeriod.values()) {
       lookup.put(period.toString(), period);
     }
   }
 
-  AccessPeriods(String period) {
+  AccessPeriod(String period) {
     this.period = period;
   }
 
@@ -30,10 +30,10 @@ public enum AccessPeriods {
     return period;
   }
 
-  public static AccessPeriods get(String period) {
+  public static AccessPeriod get(String period) {
     if (period == null) throw new InvalidAccessPeriodException();
 
-    AccessPeriods foundPeriod = lookup.get(period.toLowerCase());
+    AccessPeriod foundPeriod = lookup.get(period.toLowerCase());
 
     if (foundPeriod == null) throw new InvalidAccessPeriodException();
 

@@ -14,7 +14,7 @@ import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
 import ca.ulaval.glo4003.gateentries.assemblers.DayOfWeekAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
-import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,7 @@ public class GateEntryServiceTest {
   private GateEntryService gateEntryService;
 
   private final DayOfWeekDto dayOfWeekDto = aDayOfWeekDto().build();
-  private final Days dayOfWeek = createDay();
+  private final DayOfWeek dayOfWeek = createDay();
   private final String accessPassCode = createAccessPassCode().toString();
   private final AccessStatusDto grantedAccessStatusDto = anAccessStatusDto().build();
   private final AccessStatusDto refusedAccessStatusDto = anAccessStatusDto().build();

@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.access.domain.*;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
-import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.domain.BillId;
@@ -49,9 +49,9 @@ public class AccessPassService {
     Account account = accountService.getAccount(accountId);
     LicensePlate licensePlate = accessPass.getLicensePlate();
 
-    ConsumptionTypes consumptionType;
+    ConsumptionType consumptionType;
     if (licensePlate == null) {
-      consumptionType = ConsumptionTypes.ZERO_POLLUTION;
+      consumptionType = ConsumptionType.ZERO_POLLUTION;
     } else {
       Car car = carService.getCar(licensePlate);
       consumptionType = car.getConsumptionType();
@@ -61,7 +61,7 @@ public class AccessPassService {
 
     AccessPassType accessPassType = accessPassTypeRepository.findByConsumptionType(consumptionType);
 
-    Money moneyDue = accessPassType.getFeeForPeriod(AccessPeriods.ONE_DAY);
+    Money moneyDue = accessPassType.getFeeForPeriod(AccessPeriod.ONE_DAY);
     BillId billId = billService.addBillForAccessCode(moneyDue, accessPass.getCode());
     accountService.addAccessCodeToAccount(account.getId(), accessPass.getCode(), billId);
 

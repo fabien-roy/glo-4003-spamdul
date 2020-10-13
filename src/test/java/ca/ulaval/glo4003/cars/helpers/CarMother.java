@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.cars.helpers;
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnumExcept;
 
-import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import com.github.javafaker.Faker;
 import java.util.Collections;
 
@@ -20,12 +20,12 @@ public class CarMother {
     return Faker.instance().number().numberBetween(1960, 2010);
   }
 
-  public static ConsumptionTypes createConsumptionTypes() {
-    return randomEnum(ConsumptionTypes.class);
+  public static ConsumptionType createConsumptionTypes() {
+    return randomEnum(ConsumptionType.class);
   }
 
-  public static ConsumptionTypes createNotZeroPullutionConsumptionTypes() {
+  public static ConsumptionType createNotZeroPullutionConsumptionTypes() {
     return randomEnumExcept(
-        ConsumptionTypes.class, Collections.singletonList(ConsumptionTypes.ZERO_POLLUTION));
+        ConsumptionType.class, Collections.singletonList(ConsumptionType.ZERO_POLLUTION));
   }
 }

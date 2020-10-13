@@ -4,20 +4,20 @@ import ca.ulaval.glo4003.parkings.exceptions.InvalidReceptionMethodException;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ReceptionMethods {
+public enum ReceptionMethod {
   POSTAL("postal"),
   EMAIL("email");
 
   private String method;
-  private static final Map<String, ReceptionMethods> lookup = new HashMap<>();
+  private static final Map<String, ReceptionMethod> lookup = new HashMap<>();
 
   static {
-    for (ReceptionMethods method : ReceptionMethods.values()) {
+    for (ReceptionMethod method : ReceptionMethod.values()) {
       lookup.put(method.toString(), method);
     }
   }
 
-  ReceptionMethods(String method) {
+  ReceptionMethod(String method) {
     this.method = method;
   }
 
@@ -26,10 +26,10 @@ public enum ReceptionMethods {
     return method;
   }
 
-  public static ReceptionMethods get(String method) {
+  public static ReceptionMethod get(String method) {
     if (method == null) throw new InvalidReceptionMethodException();
 
-    ReceptionMethods foundMethod = lookup.get(method.toLowerCase());
+    ReceptionMethod foundMethod = lookup.get(method.toLowerCase());
 
     if (foundMethod == null) throw new InvalidReceptionMethodException();
 
