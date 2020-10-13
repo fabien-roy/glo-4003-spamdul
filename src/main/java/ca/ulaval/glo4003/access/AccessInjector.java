@@ -36,7 +36,7 @@ public class AccessInjector {
     addAccessPassByConsumptionTypesToRepository();
   }
 
-  public AccessPassService createAccessService(
+  public AccessPassService createAccessPassService(
       CarService carService, AccountService accountService, BillService billService) {
     AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
     LicensePlateAssembler licensePlateAssembler = new LicensePlateAssembler();

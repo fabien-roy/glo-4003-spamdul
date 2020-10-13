@@ -21,9 +21,9 @@ public class AccessInjectorTest {
   }
 
   @Test
-  public void whenGettingAccessService_thenReturnIt() {
+  public void whenGettingAccessPassService_thenReturnIt() {
     AccessPassService accessResource =
-        accessInjector.createAccessService(carService, accountService, billService);
+        accessInjector.createAccessPassService(carService, accountService, billService);
 
     Truth.assertThat(accessResource).isNotNull();
   }

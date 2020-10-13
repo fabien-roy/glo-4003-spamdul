@@ -71,7 +71,7 @@ public class ApplicationInjector {
         ACCOUNT_INJECTOR.createAccountFactory(),
         ACCOUNT_INJECTOR.createAccountIdAssembler(),
         TIME_INJECTOR.createCustomDateAssembler(),
-        ACCESS_INJECTOR.createAccessService(
+        ACCESS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
@@ -97,7 +97,7 @@ public class ApplicationInjector {
 
   public GateEntryResource createGateEntryResource() {
     return GATE_ENTRY_INJECTOR.createGateEntryResource(
-        ACCESS_INJECTOR.createAccessService(
+        ACCESS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
