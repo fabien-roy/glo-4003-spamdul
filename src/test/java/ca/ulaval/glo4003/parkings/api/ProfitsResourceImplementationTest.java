@@ -18,7 +18,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParkingResourceImplementationTest {
+public class ProfitsResourceImplementationTest {
   @Mock private ParkingStickerService parkingStickerService;
   @Mock private ParkingStickerDto parkingStickerDto;
   @Mock private ParkingStickerCodeDto parkingStickerCodeDto;
