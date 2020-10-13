@@ -76,4 +76,9 @@ public class AccessPassService {
 
     return accessPassCodeAssembler.assemble(accessPassCode);
   }
+
+  // TODO : AccessService.getAccessPass
+  public AccessPass getAccessPass(String code) {
+    return null;
+  }
 }

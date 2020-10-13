@@ -72,6 +72,7 @@ public class ParkingSticker {
     return validDay;
   }
 
+  // TODO : Remove ParkingSticker.validateParkingStickerDay
   public boolean validateParkingStickerDay(Days day) {
     return getValidDay().equals(day);
   }
