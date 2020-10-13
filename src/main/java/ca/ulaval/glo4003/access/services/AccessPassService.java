@@ -49,18 +49,17 @@ public class AccessPassService {
     Account account = accountService.getAccount(accountId);
     LicensePlate licensePlate = accessPass.getLicensePlate();
 
-    ConsumptionTypes consumptionTypes;
+    ConsumptionTypes consumptionType;
     if (licensePlate == null) {
-      consumptionTypes = ConsumptionTypes.ZERO_POLLUTION;
+      consumptionType = ConsumptionTypes.ZERO_POLLUTION;
     } else {
       Car car = carService.getCar(licensePlate);
-      consumptionTypes = car.getConsumptionType();
+      consumptionType = car.getConsumptionType();
     }
 
     accessPass = accessPassFactory.create(accessPass);
 
-    AccessPassType accessPassType =
-        accessPassTypeRepository.findByConsumptionType(consumptionTypes);
+    AccessPassType accessPassType = accessPassTypeRepository.findByConsumptionType(consumptionType);
 
     Money moneyDue = accessPassType.getFeeForPeriod(AccessPeriods.ONE_DAY);
     BillId billId = billService.addBillForAccessCode(moneyDue, accessPass.getCode());

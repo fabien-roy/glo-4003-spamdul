@@ -4,22 +4,24 @@ import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePla
 import static ca.ulaval.glo4003.times.helpers.DayMother.createDay;
 
 import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
-import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.times.domain.Days;
 
 public class AccessPassDtoBuilder {
-  private Days accessDay = createDay();
-  private LicensePlate licensePlate = createLicensePlate();
+  private String accessDay = createDay().toString();
+  private String licensePlate = createLicensePlate().toString();
 
   public static AccessPassDtoBuilder anAccessPassDto() {
     return new AccessPassDtoBuilder();
   }
 
+  public AccessPassDtoBuilder withLicensePlate(String licensePlate) {
+    this.licensePlate = licensePlate;
+    return this;
+  }
+
   public AccessPassDto build() {
     AccessPassDto accessPassDto = new AccessPassDto();
-    accessPassDto.accessDay = accessDay.toString();
-    accessPassDto.licensePlate = licensePlate.toString();
-
+    accessPassDto.accessDay = accessDay;
+    accessPassDto.licensePlate = licensePlate;
     return accessPassDto;
   }
 }

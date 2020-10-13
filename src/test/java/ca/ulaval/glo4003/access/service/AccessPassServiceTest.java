@@ -6,10 +6,12 @@ import static ca.ulaval.glo4003.access.helpers.AccessPassDtoBuilder.anAccessPass
 import static ca.ulaval.glo4003.access.helpers.AccessPassTypeBuilder.anAccessPassType;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
+import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.access.api.dto.AccessPassCodeDto;
@@ -22,6 +24,7 @@ import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
+import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
@@ -44,15 +47,16 @@ public class AccessPassServiceTest {
 
   private AccessPassService accessPassService;
 
-  private Account account = anAccount().build();
+  private static final LicensePlate LICENSE_PLATE = createLicensePlate();
+  private final Account account = anAccount().build();
+  private final Car car = aCar().build();
+  private final AccessPassType zeroPollutionAccessPassType = anAccessPassType().build();
+  private final AccessPassType notZeroPollutionAccessPassType = anAccessPassType().build();
+  private final BillId zeroPollutionBillId = createBillId();
+  private final BillId notZeroPollutionBillId = createBillId();
+  private final AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDto().build();
   private AccessPassDto accessPassDto = anAccessPassDto().build();
   private AccessPass accessPass = anAccessPass().build();
-  private Car car = aCar().build();
-  private AccessPassType zeroPollutionAccessPassType = anAccessPassType().build();
-  private AccessPassType notZeroPollutionAccessPassType = anAccessPassType().build();
-  private BillId zeroPollutionBillId = createBillId();
-  private BillId notZeroPollutionBillId = createBillId();
-  private AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDto().build();
 
   @Before
   public void setUp() {
@@ -66,7 +70,47 @@ public class AccessPassServiceTest {
             billService,
             accessPassRepository,
             accessPassCodeAssembler);
+  }
 
+  @Test
+  public void whenAddingAccessPass_thenAddNotZeroPollutionBillToAccount() {
+    givenAccessPassDtoWithLicensePlate(LICENSE_PLATE);
+
+    accessPassService.addAccessPass(accessPassDto, account.getId().toString());
+
+    verify(accountService)
+        .addAccessCodeToAccount(account.getId(), accessPass.getCode(), notZeroPollutionBillId);
+  }
+
+  @Test
+  public void givenNoLicensePlate_whenAddingAccessPass_thenAddZeroPollutionBillToAccount() {
+    givenAccessPassDtoWithLicensePlate(null);
+
+    accessPassService.addAccessPass(accessPassDto, account.getId().toString());
+
+    verify(accountService)
+        .addAccessCodeToAccount(account.getId(), accessPass.getCode(), zeroPollutionBillId);
+  }
+
+  @Test
+  public void whenAddingAccessPass_thenReturnAccessPassCode() {
+    givenAccessPassDtoWithLicensePlate(LICENSE_PLATE);
+
+    AccessPassCodeDto receivedAccessPassCodeDto =
+        accessPassService.addAccessPass(accessPassDto, account.getId().toString());
+
+    assertThat(receivedAccessPassCodeDto).isSameInstanceAs(accessPassCodeDto);
+  }
+
+  private void givenAccessPassDtoWithLicensePlate(LicensePlate licensePlate) {
+    String stringLicensePlate = licensePlate == null ? null : licensePlate.toString();
+    accessPassDto = anAccessPassDto().withLicensePlate(stringLicensePlate).build();
+    accessPass = anAccessPass().withLicensePlate(licensePlate).build();
+
+    setUpMocks();
+  }
+
+  private void setUpMocks() {
     when(accessPassAssembler.assemble(accessPassDto, account.getId().toString()))
         .thenReturn(accessPass);
     when(accountService.getAccount(account.getId().toString())).thenReturn(account);
@@ -86,23 +130,5 @@ public class AccessPassServiceTest {
         .thenReturn(notZeroPollutionBillId);
     when(accessPassRepository.save(accessPass)).thenReturn(accessPass.getCode());
     when(accessPassCodeAssembler.assemble(accessPass.getCode())).thenReturn(accessPassCodeDto);
-  }
-
-  @Test
-  public void givenNoLicensePlate_whenAddingAccessPass_thenAddZeroPollutionBillToAccount() {
-    // TODO : Let's test this
-  }
-
-  @Test
-  public void givenLicensePlate_whenAddingAccessPass_thenAddNotZeroPollutionBillToAccount() {
-    // TODO : Let's test this
-  }
-
-  @Test
-  public void whenAddingAccessPass_thenReturnAccessPassCode() {
-    AccessPassCodeDto receivedAccessPassCodeDto =
-        accessPassService.addAccessPass(accessPassDto, account.getId().toString());
-
-    assertThat(receivedAccessPassCodeDto).isSameInstanceAs(accessPassCodeDto);
   }
 }
