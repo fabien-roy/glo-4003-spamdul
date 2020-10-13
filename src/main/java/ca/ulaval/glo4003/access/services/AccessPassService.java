@@ -70,7 +70,6 @@ public class AccessPassService {
     return accessPassCodeAssembler.assemble(accessPassCode);
   }
 
-  // TODO : AccessService.getAccessPass
   public AccessPass getAccessPass(String code) {
     AccessPassCode accessPassCode = accessPassCodeAssembler.assemble(code);
     return accessPassRepository.get(accessPassCode);

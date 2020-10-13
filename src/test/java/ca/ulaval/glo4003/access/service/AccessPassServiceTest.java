@@ -9,10 +9,7 @@ import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.AdditionalMatchers.not;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.access.api.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
@@ -130,7 +127,7 @@ public class AccessPassServiceTest {
     when(accessPassFactory.create(accessPass)).thenReturn(accessPass);
     when(accessPassTypeRepository.findByConsumptionType(ConsumptionTypes.ZERO_POLLUTION))
         .thenReturn(zeroPollutionAccessPassType);
-    when(accessPassTypeRepository.findByConsumptionType(not(eq(ConsumptionTypes.ZERO_POLLUTION))))
+    when(accessPassTypeRepository.findByConsumptionType(car.getConsumptionType()))
         .thenReturn(notZeroPollutionAccessPassType);
     when(billService.addBillForAccessCode(
             zeroPollutionAccessPassType.getFeeForPeriod(AccessPeriods.ONE_DAY),

@@ -17,8 +17,6 @@ public class ParkingStickerDtoBuilder {
   private String email = createEmailAddress().toString();
   private String validDay = createDay().toString();
 
-  private ParkingStickerDtoBuilder() {}
-
   public static ParkingStickerDtoBuilder aParkingStickerDto() {
     return new ParkingStickerDtoBuilder();
   }

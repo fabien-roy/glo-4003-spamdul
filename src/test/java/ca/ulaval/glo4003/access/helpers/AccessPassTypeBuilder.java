@@ -17,12 +17,6 @@ public class AccessPassTypeBuilder {
     return new AccessPassTypeBuilder();
   }
 
-  // TODO : Is this necessary?
-  public AccessPassTypeBuilder withConsumptionType(ConsumptionTypes consumptionType) {
-    this.consumptionType = consumptionType;
-    return this;
-  }
-
   public AccessPassType build() {
     return new AccessPassType(consumptionType, feeByPeriod);
   }
