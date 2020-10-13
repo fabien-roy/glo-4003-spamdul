@@ -1,6 +1,6 @@
 #%RAML 1.0
 title: SPAMD-UL
-version: 2.0.0
+version: 2.0.1
 mediaType: application/json
 uses:
   types: ./libraries/types.raml
@@ -144,14 +144,20 @@ uses:
             type: types.DayOfWeekObject
             example: !include examples/gateEntry/post-gate-entry-validate-access-pass-request.json
         responses:
-          200:
-            description: Access status of access pass
+          202:
+            description: Access status of access pass is granted
             body:
               application/json:
                 type: types.AccessStatusObject
-                example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response.json
+                example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-granted.json
           400:
             description: Error validating access pass
+          403:
+            description: Access status of access pass is refused
+            body:
+              application/json:
+                type: types.AccessStatusObject
+                example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-refused.json
           404:
             description: Access pass not found
 /api/offenses:
