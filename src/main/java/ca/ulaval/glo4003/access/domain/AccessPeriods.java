@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.access.domain;
 
-import ca.ulaval.glo4003.access.exceptions.AccessExceptionPeriodsException;
+import ca.ulaval.glo4003.access.exceptions.InvalidAccessPeriodException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public enum AccessPeriods {
   public static AccessPeriods get(String period) {
     AccessPeriods foundPeriod = lookup.get(period.toLowerCase());
 
-    if (foundPeriod == null) throw new AccessExceptionPeriodsException();
+    if (foundPeriod == null) throw new InvalidAccessPeriodException();
 
     return foundPeriod;
   }
