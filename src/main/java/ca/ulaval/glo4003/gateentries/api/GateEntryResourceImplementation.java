@@ -19,12 +19,10 @@ public class GateEntryResourceImplementation implements GateEntryResource {
     AccessStatusDto accessStatusDto =
         gateEntryService.validateAccessPass(dayOfWeekDto, accessPassCode);
 
-    Response.Status status;
-    if (AccessStatus.ACCESS_REFUSED.toString().equals(accessStatusDto.accessStatus)) {
-      status = Response.Status.FORBIDDEN;
-    } else {
-      status = Response.Status.ACCEPTED;
-    }
+    Response.Status status =
+        accessStatusDto.accessStatus.equals(AccessStatus.ACCESS_GRANTED.toString())
+            ? Response.Status.ACCEPTED
+            : Response.Status.FORBIDDEN;
 
     return Response.status(status).entity(accessStatusDto).type(MediaType.APPLICATION_JSON).build();
   }
