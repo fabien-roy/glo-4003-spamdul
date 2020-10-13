@@ -13,6 +13,11 @@ public class DayOfWeekDtoBuilder {
     return new DayOfWeekDtoBuilder();
   }
 
+  public DayOfWeekDtoBuilder withDayOfWeek(String dayOfWeek) {
+    this.dayOfWeek = dayOfWeek;
+    return this;
+  }
+
   public DayOfWeekDto build() {
     DayOfWeekDto dayOfWeekDto = new DayOfWeekDto();
     dayOfWeekDto.dayOfWeek = dayOfWeek;
