@@ -1,11 +1,11 @@
-package ca.ulaval.glo4003.access.helper;
+package ca.ulaval.glo4003.access.helpers;
 
-import static ca.ulaval.glo4003.access.helper.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.access.helpers.AccessPassMother.createAccessPassCode;
 
 import ca.ulaval.glo4003.access.api.dto.AccessPassCodeDto;
 
 public class AccessPassCodeDtoBuilder {
-  public static AccessPassCodeDtoBuilder anAccessPassCodeDtoBuilder() {
+  public static AccessPassCodeDtoBuilder anAccessPassCodeDto() {
     return new AccessPassCodeDtoBuilder();
   }
 

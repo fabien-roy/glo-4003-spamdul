@@ -2,7 +2,8 @@ package ca.ulaval.glo4003.cars.services;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
-import static ca.ulaval.glo4003.cars.helpers.CarBuilderDtoBuilder.aCarDto;
+import static ca.ulaval.glo4003.cars.helpers.CarDtoBuilder.aCarDto;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -35,26 +36,34 @@ public class CarServiceTest {
     carService = new CarService(carAssembler, carRepository, accountService);
 
     when(carAssembler.assemble(carDto, accountId.toString())).thenReturn(car);
+    when(carRepository.get(car.getLicensePlate())).thenReturn(car);
   }
 
   @Test
-  public void whenAddingCar_shouldAssembleCar() {
+  public void whenAddingCar_thenAssembleCar() {
     carService.addCar(carDto, accountId.toString());
 
     verify(carAssembler).assemble(carDto, accountId.toString());
   }
 
   @Test
-  public void whenAddingCar_shouldAddLicensePlateToAccount() {
+  public void whenAddingCar_thenAddLicensePlateToAccount() {
     carService.addCar(carDto, accountId.toString());
 
     verify(accountService).addLicensePlateToAccount(car.getAccountId(), car.getLicensePlate());
   }
 
   @Test
-  public void whenAddingCar_shouldSaveToRepository() {
+  public void whenAddingCar_thenSaveToRepository() {
     carService.addCar(carDto, accountId.toString());
 
     verify(carRepository).save(car);
+  }
+
+  @Test
+  public void whenGettingCar_thenGetCarInRepository() {
+    Car receivedCar = carService.getCar(car.getLicensePlate());
+
+    assertThat(receivedCar).isSameInstanceAs(car);
   }
 }

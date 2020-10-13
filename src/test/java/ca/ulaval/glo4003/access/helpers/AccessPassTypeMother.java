@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.access.helper;
+package ca.ulaval.glo4003.access.helpers;
 
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnums;

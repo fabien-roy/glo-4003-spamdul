@@ -15,7 +15,7 @@ public class CarBuilder {
   private String manufacturer = createManufacturer();
   private String model = createModel();
   private int year = createYear();
-  private ConsumptionTypes consumptionTypes = createConsumptionTypes();
+  private ConsumptionTypes consumptionTypes = createNotZeroPullutionConsumptionTypes();
 
   private CarBuilder() {}
 

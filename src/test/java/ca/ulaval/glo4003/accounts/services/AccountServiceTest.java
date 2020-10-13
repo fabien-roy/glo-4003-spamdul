@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.accounts.services;
 
-import static ca.ulaval.glo4003.access.helper.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.access.helpers.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
@@ -24,6 +24,7 @@ import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +51,8 @@ public class AccountServiceTest {
   private final BillId billId = createBillId();
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final Bill bill = aBill().build();
-  private final Account accountWithBill = anAccount().buildWithBillId(bill.getId());
+  private final Account accountWithBill =
+      anAccount().withBilldIds(Collections.singletonList(bill.getId())).build();
 
   @Before
   public void setup() {

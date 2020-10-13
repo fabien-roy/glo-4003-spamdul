@@ -28,7 +28,7 @@ public class CarService {
     carRepository.save(car);
   }
 
-  public Car getCarByLicensePlate(LicensePlate licensePlate) {
-    return carRepository.getCarByLicensePlate(licensePlate);
+  public Car getCar(LicensePlate licensePlate) {
+    return carRepository.get(licensePlate);
   }
 }

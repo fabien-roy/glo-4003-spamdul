@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.access.domain;
 
-import static ca.ulaval.glo4003.access.helper.AccessPassBuilder.anAccessPass;
+import static ca.ulaval.glo4003.access.helpers.AccessPassBuilder.anAccessPass;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.times.domain.Days;

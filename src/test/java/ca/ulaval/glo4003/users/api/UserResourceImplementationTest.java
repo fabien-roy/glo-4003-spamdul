@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.users.api;
 
-import static ca.ulaval.glo4003.access.helper.AccessPassCodeDtoBuilder.anAccessPassCodeDtoBuilder;
+import static ca.ulaval.glo4003.access.helpers.AccessPassCodeDtoBuilder.anAccessPassCodeDto;
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
-import static ca.ulaval.glo4003.cars.helpers.CarBuilderDtoBuilder.aCarDto;
+import static ca.ulaval.glo4003.cars.helpers.CarDtoBuilder.aCarDto;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -35,7 +35,7 @@ public class UserResourceImplementationTest {
   @Mock private CarService carService;
 
   private AccountId accountId = createAccountId();
-  private AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDtoBuilder().build();
+  private AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDto().build();
   private CarDto carDto = aCarDto().build();
   private UserResource userResource;
 

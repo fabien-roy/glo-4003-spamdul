@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.access.helper;
+package ca.ulaval.glo4003.access.helpers;
 
-import static ca.ulaval.glo4003.access.helper.AccessPassTypeMother.createAccessFeeByPeriod;
+import static ca.ulaval.glo4003.access.helpers.AccessPassTypeMother.createAccessFeeByPeriod;
 import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionTypes;
 
 import ca.ulaval.glo4003.access.domain.AccessPassType;
@@ -13,10 +13,11 @@ public class AccessPassTypeBuilder {
   private ConsumptionTypes consumptionType = createConsumptionTypes();
   private Map<AccessPeriods, Money> feeByPeriod = createAccessFeeByPeriod();
 
-  public static AccessPassTypeBuilder anAccessPassPriceByConsumption() {
+  public static AccessPassTypeBuilder anAccessPassType() {
     return new AccessPassTypeBuilder();
   }
 
+  // TODO : Is this necessary?
   public AccessPassTypeBuilder withConsumptionType(ConsumptionTypes consumptionType) {
     this.consumptionType = consumptionType;
     return this;

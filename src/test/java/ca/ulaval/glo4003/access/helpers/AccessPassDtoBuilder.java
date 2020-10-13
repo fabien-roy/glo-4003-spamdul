@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.access.helper;
+package ca.ulaval.glo4003.access.helpers;
 
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static ca.ulaval.glo4003.times.helpers.DayMother.createDay;

@@ -25,14 +25,14 @@ public class AccountBuilder {
     return this;
   }
 
+  public AccountBuilder withBilldIds(List<BillId> billdIds) {
+    this.billIds = billdIds;
+    return this;
+  }
+
   public Account build() {
     Account account = new Account(id, user);
     billIds.forEach(account::addBillId);
     return account;
-  }
-
-  public Account buildWithBillId(BillId billId) {
-    billIds.add(billId);
-    return build();
   }
 }

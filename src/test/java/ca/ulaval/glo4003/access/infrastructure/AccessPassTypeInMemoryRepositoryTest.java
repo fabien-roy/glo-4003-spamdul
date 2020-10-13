@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.access.infrastructure;
 
-import static ca.ulaval.glo4003.access.helper.AccessPassTypeBuilder.anAccessPassPriceByConsumption;
+import static ca.ulaval.glo4003.access.helpers.AccessPassTypeBuilder.anAccessPassType;
 
 import ca.ulaval.glo4003.access.domain.AccessPassType;
 import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionType;
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class AccessPassTypeInMemoryRepositoryTest {
   private AccessPassTypeInMemoryRepository accessPassPriceByCarConsumptionInMemoryRepository;
-  private AccessPassType accessPassType = anAccessPassPriceByConsumption().build();
+  private AccessPassType accessPassType = anAccessPassType().build();
 
   @Before
   public void setUp() {

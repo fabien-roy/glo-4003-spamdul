@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.access.helper;
+package ca.ulaval.glo4003.access.helpers;
 
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
 import com.github.javafaker.Faker;

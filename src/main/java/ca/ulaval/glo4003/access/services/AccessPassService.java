@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.access.assembler.AccessPassAssembler;
 import ca.ulaval.glo4003.access.assembler.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.access.domain.*;
+import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionTypes;
@@ -45,26 +46,25 @@ public class AccessPassService {
 
   public AccessPassCodeDto addAccessPass(AccessPassDto accessPassDto, String accountId) {
     AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId);
-    accountService.getAccount(accountId);
-    accessPass = accessPassFactory.create(accessPass);
-
+    Account account = accountService.getAccount(accountId);
     LicensePlate licensePlate = accessPass.getLicensePlate();
 
     ConsumptionTypes consumptionTypes;
     if (licensePlate == null) {
       consumptionTypes = ConsumptionTypes.ZERO_POLLUTION;
     } else {
-      Car car = carService.getCarByLicensePlate(licensePlate);
+      Car car = carService.getCar(licensePlate);
       consumptionTypes = car.getConsumptionType();
     }
+
+    accessPass = accessPassFactory.create(accessPass);
 
     AccessPassType accessPassType =
         accessPassTypeRepository.findByConsumptionType(consumptionTypes);
 
     Money moneyDue = accessPassType.getFeeForPeriod(AccessPeriods.ONE_DAY);
-    BillId billId = billService.addBillForAccessCode(moneyDue, accessPass.getAccessPassCode());
-    accountService.addAccessCodeToAccount(
-        accessPass.getAccountId(), accessPass.getAccessPassCode(), billId);
+    BillId billId = billService.addBillForAccessCode(moneyDue, accessPass.getCode());
+    accountService.addAccessCodeToAccount(account.getId(), accessPass.getCode(), billId);
 
     AccessPassCode accessPassCode = accessPassRepository.save(accessPass);
 

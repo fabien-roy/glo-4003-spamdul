@@ -10,7 +10,7 @@ public class AccessPassInMemoryRepository implements AccessPassRepository {
 
   @Override
   public AccessPassCode save(AccessPass accessPass) {
-    accessPasses.put(accessPass.getAccessPassCode(), accessPass);
-    return accessPass.getAccessPassCode();
+    accessPasses.put(accessPass.getCode(), accessPass);
+    return accessPass.getCode();
   }
 }

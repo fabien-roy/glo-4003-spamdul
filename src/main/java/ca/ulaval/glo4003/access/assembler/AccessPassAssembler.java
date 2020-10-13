@@ -10,8 +10,8 @@ import ca.ulaval.glo4003.times.domain.Days;
 
 public class AccessPassAssembler {
 
-  private AccountIdAssembler accountIdAssembler;
-  private LicensePlateAssembler licensePlateAssembler;
+  private final AccountIdAssembler accountIdAssembler;
+  private final LicensePlateAssembler licensePlateAssembler;
 
   public AccessPassAssembler(
       AccountIdAssembler accountIdAssembler, LicensePlateAssembler licensePlateAssembler) {

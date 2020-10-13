@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.access.infrastructure;
 
-import static ca.ulaval.glo4003.access.helper.AccessPassBuilder.anAccessPass;
+import static ca.ulaval.glo4003.access.helpers.AccessPassBuilder.anAccessPass;
 
 import ca.ulaval.glo4003.access.domain.AccessPass;
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
@@ -16,6 +16,6 @@ public class AccessPassInMemoryRepositoryTest {
   public void whenSavingParkingSticker_thenReturnAccessPassCode() {
     AccessPassCode accessPassCode = accessPassInMemoryRepository.save(accessPass);
 
-    Truth.assertThat(accessPassCode).isEqualTo(accessPass.getAccessPassCode());
+    Truth.assertThat(accessPassCode).isEqualTo(accessPass.getCode());
   }
 }

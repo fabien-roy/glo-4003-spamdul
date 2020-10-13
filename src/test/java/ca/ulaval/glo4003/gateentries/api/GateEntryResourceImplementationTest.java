@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.gateentries.api;
 
-import static ca.ulaval.glo4003.access.helper.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.access.helpers.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.gateentries.api.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
 import static ca.ulaval.glo4003.gateentries.api.helpers.DayOfWeekDtoBuilder.aDayOfWeekDto;
 import static org.mockito.Mockito.when;

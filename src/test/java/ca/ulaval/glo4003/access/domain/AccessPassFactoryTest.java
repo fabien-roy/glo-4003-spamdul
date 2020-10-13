@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.access.domain;
 
-import static ca.ulaval.glo4003.access.helper.AccessPassBuilder.anAccessPass;
-import static ca.ulaval.glo4003.access.helper.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.access.helpers.AccessPassBuilder.anAccessPass;
+import static ca.ulaval.glo4003.access.helpers.AccessPassMother.createAccessPassCode;
 
 import com.google.common.truth.Truth;
 import org.junit.Before;
@@ -31,6 +31,6 @@ public class AccessPassFactoryTest {
   public void whenCreating_thenGeneratorCode() {
     accessPassFactory.create(accessPass);
 
-    Truth.assertThat(accessPass.getAccessPassCode()).isSameInstanceAs(ACCESS_PASS_CODE);
+    Truth.assertThat(accessPass.getCode()).isSameInstanceAs(ACCESS_PASS_CODE);
   }
 }

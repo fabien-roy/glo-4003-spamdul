@@ -16,11 +16,11 @@ public class AccessPass {
     this.licensePlate = licensePlate;
   }
 
-  public void setAccessPassCode(AccessPassCode accessPassCode) {
+  public void setCode(AccessPassCode accessPassCode) {
     this.accessPassCode = accessPassCode;
   }
 
-  public AccessPassCode getAccessPassCode() {
+  public AccessPassCode getCode() {
     return accessPassCode;
   }
 
