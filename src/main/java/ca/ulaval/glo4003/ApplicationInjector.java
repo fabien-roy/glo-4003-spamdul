@@ -12,7 +12,9 @@ import ca.ulaval.glo4003.files.FileInjector;
 import ca.ulaval.glo4003.files.api.FileExceptionMapper;
 import ca.ulaval.glo4003.funds.FundInjector;
 import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
+import ca.ulaval.glo4003.gateentries.GateEntryInjector;
 import ca.ulaval.glo4003.gateentries.api.GateEntryExceptionMapper;
+import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
 import ca.ulaval.glo4003.interfaces.api.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.locations.LocationInjector;
 import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
@@ -35,17 +37,18 @@ public class ApplicationInjector {
 
   private static final boolean IS_DEV = true;
 
+  private static final AccessInjector ACCESS_INJECTOR = new AccessInjector();
   private static final AccountInjector ACCOUNT_INJECTOR = new AccountInjector();
   private static final CarInjector CAR_INJECTOR = new CarInjector();
   private static final CommunicationInjector COMMUNICATION_INJECTOR = new CommunicationInjector();
   private static final FileInjector FILE_INJECTOR = new FileInjector();
+  private static final GateEntryInjector GATE_ENTRY_INJECTOR = new GateEntryInjector();
   private static final FundInjector FUND_INJECTOR = new FundInjector();
   private static final LocationInjector LOCATION_INJECTOR = new LocationInjector();
+  private static final OffenseInjector OFFENSE_INJECTOR = new OffenseInjector();
   private static final ParkingInjector PARKING_INJECTOR = new ParkingInjector();
   private static final TimeInjector TIME_INJECTOR = new TimeInjector();
   private static final UserInjector USER_INJECTOR = new UserInjector();
-  private static final OffenseInjector OFFENSE_INJECTOR = new OffenseInjector();
-  private static final AccessInjector ACCESS_INJECTOR = new AccessInjector();
 
   public ParkingResource createParkingResource() {
     List<ParkingStickerCreationObserver> parkingStickerCreationObservers =
@@ -90,6 +93,16 @@ public class ApplicationInjector {
         FUND_INJECTOR.createMoneyAssembler(),
         FUND_INJECTOR.createBillService(),
         ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()));
+  }
+
+  public GateEntryResource createGateEntryResource() {
+    return GATE_ENTRY_INJECTOR.createGateEntryResource(
+        ACCESS_INJECTOR.createAccessService(
+            CAR_INJECTOR.createCarService(
+                ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
+                ACCOUNT_INJECTOR.createAccountIdAssembler()),
+            ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
+            FUND_INJECTOR.createBillService()));
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {

@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-// TODO : Inject GateEntryResource
 public class GateEntryResourceImplementation implements GateEntryResource {
   private final GateEntryService gateEntryService;
 
