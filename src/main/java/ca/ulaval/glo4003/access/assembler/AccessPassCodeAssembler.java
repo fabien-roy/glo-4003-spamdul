@@ -9,4 +9,9 @@ public class AccessPassCodeAssembler {
     accessPassCodeDto.accessPassCode = accessPassCode.toString();
     return accessPassCodeDto;
   }
+
+  // TODO : AccessPassCodeAssembler.assemble
+  public AccessPassCode assemble(String code) {
+    return null;
+  }
 }

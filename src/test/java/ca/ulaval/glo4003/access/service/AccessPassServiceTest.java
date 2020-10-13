@@ -70,6 +70,10 @@ public class AccessPassServiceTest {
             billService,
             accessPassRepository,
             accessPassCodeAssembler);
+
+    when(accessPassCodeAssembler.assemble(accessPass.getCode().toString()))
+        .thenReturn(accessPass.getCode());
+    when(accessPassRepository.get(accessPass.getCode())).thenReturn(accessPass);
   }
 
   @Test
@@ -100,6 +104,14 @@ public class AccessPassServiceTest {
         accessPassService.addAccessPass(accessPassDto, account.getId().toString());
 
     assertThat(receivedAccessPassCodeDto).isSameInstanceAs(accessPassCodeDto);
+  }
+
+  @Test
+  public void whenGettingAccessPass_thenReturnAccessPassFromRepository() {
+    AccessPass receivedAccessPass =
+        accessPassService.getAccessPass(accessPass.getCode().toString());
+
+    assertThat(receivedAccessPass).isSameInstanceAs(accessPass);
   }
 
   private void givenAccessPassDtoWithLicensePlate(LicensePlate licensePlate) {

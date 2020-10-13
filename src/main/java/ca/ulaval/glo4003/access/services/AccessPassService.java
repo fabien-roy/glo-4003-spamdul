@@ -72,6 +72,7 @@ public class AccessPassService {
 
   // TODO : AccessService.getAccessPass
   public AccessPass getAccessPass(String code) {
-    return null;
+    AccessPassCode accessPassCode = accessPassCodeAssembler.assemble(code);
+    return accessPassRepository.get(accessPassCode);
   }
 }

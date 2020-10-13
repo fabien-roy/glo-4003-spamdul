@@ -13,4 +13,10 @@ public class AccessPassInMemoryRepository implements AccessPassRepository {
     accessPasses.put(accessPass.getCode(), accessPass);
     return accessPass.getCode();
   }
+
+  // TODO : AccessPassRepository.get
+  @Override
+  public AccessPass get(AccessPassCode accessPassCode) {
+    return null;
+  }
 }
