@@ -17,15 +17,15 @@ import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 
 public class AccessPassService {
-  private AccessPassAssembler accessPassAssembler;
-  private AccessPassFactory accessPassFactory;
-  private CarService carService;
-  private AccessPassTypeRepository accessPassTypeRepository;
-  private BillService billService;
-  private AccountService accountService;
-  private AccessPassRepository accessPassRepository;
-  private AccessPassCodeAssembler accessPassCodeAssembler;
-  private AccountIdAssembler accountIdAssembler;
+  private final AccessPassAssembler accessPassAssembler;
+  private final AccessPassFactory accessPassFactory;
+  private final CarService carService;
+  private final AccessPassTypeRepository accessPassTypeRepository;
+  private final BillService billService;
+  private final AccountService accountService;
+  private final AccessPassRepository accessPassRepository;
+  private final AccessPassCodeAssembler accessPassCodeAssembler;
+  private final AccountIdAssembler accountIdAssembler;
 
   public AccessPassService(
       AccessPassAssembler accessPassAssembler,

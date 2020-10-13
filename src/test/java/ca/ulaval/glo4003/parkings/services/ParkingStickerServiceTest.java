@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings.services;
 
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
-import static ca.ulaval.glo4003.parkings.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
+import static ca.ulaval.glo4003.gateentries.api.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 import static org.mockito.Matchers.eq;
@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.services.BillService;
-import ca.ulaval.glo4003.parkings.api.dto.AccessStatusDto;
+import ca.ulaval.glo4003.gateentries.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
