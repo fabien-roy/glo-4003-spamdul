@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.access.assembler;
 
 import ca.ulaval.glo4003.access.api.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
+import ca.ulaval.glo4003.access.exceptions.InvalidAccessPassCodeException;
 
 public class AccessPassCodeAssembler {
   public AccessPassCodeDto assemble(AccessPassCode accessPassCode) {
@@ -10,8 +11,9 @@ public class AccessPassCodeAssembler {
     return accessPassCodeDto;
   }
 
-  // TODO : AccessPassCodeAssembler.assemble
   public AccessPassCode assemble(String code) {
-    return null;
+    if (code == null) throw new InvalidAccessPassCodeException();
+
+    return new AccessPassCode(code);
   }
 }

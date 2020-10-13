@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.parkings.exceptions.InvalidParkingStickerCodeException;
 
+// TODO : Check if everything here is still used
 public class ParkingStickerCodeAssembler {
   public ParkingStickerCodeDto assemble(ParkingStickerCode parkingStickerCode) {
     ParkingStickerCodeDto parkingStickerCodeDto = new ParkingStickerCodeDto();

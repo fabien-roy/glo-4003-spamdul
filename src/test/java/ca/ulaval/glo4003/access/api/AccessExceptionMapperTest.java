@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.access.api;
 
 import ca.ulaval.glo4003.access.exceptions.AccessException;
+import ca.ulaval.glo4003.access.exceptions.InvalidAccessPassCodeException;
 import ca.ulaval.glo4003.access.exceptions.InvalidAccessPeriodException;
 import ca.ulaval.glo4003.access.exceptions.NotFoundAccessPassException;
 import com.google.common.truth.Truth;
@@ -28,6 +29,15 @@ public class AccessExceptionMapperTest {
   @Test
   public void givenNotFoundAccessPassException_whenResponding_thenStatusIsBadRequest() {
     AccessException invalidAccessPeriodException = new NotFoundAccessPassException();
+
+    Response response = accessExceptionMapper.toResponse(invalidAccessPeriodException);
+
+    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+  }
+
+  @Test
+  public void givenInvalidAccessCodePassException_whenResponding_thenStatusIsBadRequest() {
+    AccessException invalidAccessPeriodException = new InvalidAccessPassCodeException();
 
     Response response = accessExceptionMapper.toResponse(invalidAccessPeriodException);
 
