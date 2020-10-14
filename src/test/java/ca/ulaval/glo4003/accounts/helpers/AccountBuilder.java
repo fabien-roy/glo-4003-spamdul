@@ -26,8 +26,8 @@ public class AccountBuilder {
     return this;
   }
 
-  public AccountBuilder withBilldIds(List<BillId> billdIds) {
-    this.billIds = billdIds;
+  public AccountBuilder withBillIds(List<BillId> billIds) {
+    this.billIds = billIds;
     return this;
   }
 
