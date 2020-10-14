@@ -10,4 +10,6 @@ public interface BillRepository {
   Bill getBill(BillId billId);
 
   void updateBill(Bill bill);
+
+  List<Bill> getAll(BillQuery BillQuery);
 }
