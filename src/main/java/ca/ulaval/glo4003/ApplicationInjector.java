@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.cars.api.CarExceptionMapper;
 import ca.ulaval.glo4003.communications.CommunicationInjector;
 import ca.ulaval.glo4003.communications.api.CommunicationExceptionMapper;
-import ca.ulaval.glo4003.files.FileInjector;
 import ca.ulaval.glo4003.files.api.FileExceptionMapper;
 import ca.ulaval.glo4003.funds.FundInjector;
 import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
@@ -39,7 +38,6 @@ public class ApplicationInjector {
   private static final AccountInjector ACCOUNT_INJECTOR = new AccountInjector();
   private static final CarInjector CAR_INJECTOR = new CarInjector();
   private static final CommunicationInjector COMMUNICATION_INJECTOR = new CommunicationInjector();
-  private static final FileInjector FILE_INJECTOR = new FileInjector();
   private static final GateEntryInjector GATE_ENTRY_INJECTOR = new GateEntryInjector();
   private static final FundInjector FUND_INJECTOR = new FundInjector();
   private static final LocationInjector LOCATION_INJECTOR = new LocationInjector();
@@ -84,7 +82,6 @@ public class ApplicationInjector {
         PARKING_INJECTOR.createParkingStickerCodeAssembler(),
         PARKING_INJECTOR.createParkingAreaCodeAssembler(),
         TIME_INJECTOR.createTimeOfDayAssembler(),
-        FILE_INJECTOR.createJsonFileReader(),
         FUND_INJECTOR.createMoneyAssembler(),
         FUND_INJECTOR.createBillService(),
         ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()));

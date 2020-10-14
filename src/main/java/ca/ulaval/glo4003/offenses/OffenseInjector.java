@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.offenses;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.files.domain.StringFileReader;
+import ca.ulaval.glo4003.files.filesystem.JsonFileReader;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
@@ -25,17 +26,17 @@ import java.util.List;
 
 public class OffenseInjector {
   private final OffenseTypeRepository offenseTypeRepository = new OffenseTypeRepositoryInMemory();
+  private final StringFileReader fileReader = new JsonFileReader();
 
   public OffenseResource createOffenseResource(
       ParkingStickerRepository parkingStickerRepository,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       TimeOfDayAssembler timeOfDayAssembler,
-      StringFileReader fileReader,
       MoneyAssembler moneyAssembler,
       BillService billService,
       AccountService accountService) {
-    addOffenseTypesToRepository(fileReader, moneyAssembler);
+    addOffenseTypesToRepository(moneyAssembler);
 
     OffenseTypeService offenseTypeService =
         createOffenseService(
@@ -49,8 +50,7 @@ public class OffenseInjector {
     return new OffenseResourceImplementation(offenseTypeService);
   }
 
-  private void addOffenseTypesToRepository(
-      StringFileReader fileReader, MoneyAssembler moneyAssembler) {
+  private void addOffenseTypesToRepository(MoneyAssembler moneyAssembler) {
     InfractionFileHelper infractionFileHelper = new InfractionFileHelper(fileReader);
     List<InfractionDto> infractions = infractionFileHelper.getInfractions();
 
