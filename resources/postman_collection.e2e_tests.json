@@ -47,6 +47,47 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add car",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "43005929-a3bd-43b6-9e9f-368b455ed0a1",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"cars"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -640,6 +681,303 @@
 												"api",
 												"users",
 												"{{param.accountId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Add car to user",
+							"item": [
+								{
+									"name": "Account id",
+									"item": [
+										{
+											"name": "Non existent account id",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "087a4e2e-e573-4516-8e43-7540b87bf4be",
+														"exec": [
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"Returns account not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Account not found\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate2}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/dcbf4b65-c58e-40c4-b974-90c47bcd421a/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"dcbf4b65-c58e-40c4-b974-90c47bcd421a",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "License plate",
+									"item": [
+										{
+											"name": "Invalid license plate (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "8ca9a516-8b47-4841-aee4-930edf03a5a4",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid license plate\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid license plate\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid license plate (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "32bcad5d-578c-4d07-abe5-69addb7f6d7c",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid license plate\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid license plate\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": null,\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid license plate (already exists)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "c158d9fc-2db5-4935-91b5-6df69644103f",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns already existing license plate\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Already existing license plate\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid license plate (bad format)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "92ab2e22-12c2-4755-ac2d-b5485beafd47",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid license plate\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid license plate\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": \"badFormat\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Valid car",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b1c4421c-fff7-44ab-bbbc-29e26454e94a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"licensePlate\": {{request.car.licensePlate2}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"cars"
 											]
 										}
 									},
