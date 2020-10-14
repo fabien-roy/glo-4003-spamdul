@@ -37,7 +37,7 @@ public class ParkingStickerServiceTest {
 
   private ParkingStickerService parkingStickerService;
 
-  private ParkingSticker parkingSticker = aParkingSticker().build();
+  private final ParkingSticker parkingSticker = aParkingSticker().build();
   private final ParkingArea parkingArea = aParkingArea().build();
   private final Bill bill = aBill().build();
 
@@ -91,7 +91,7 @@ public class ParkingStickerServiceTest {
   }
 
   @Test
-  public void whenAddParkingSticker_thenParkingStickerCreationObserversAreNotified() {
+  public void whenAddingParkingSticker_thenParkingStickerCreationObserversAreNotified() {
     parkingStickerService.register(parkingStickerCreationObserver);
 
     parkingStickerService.addParkingSticker(parkingStickerDto);

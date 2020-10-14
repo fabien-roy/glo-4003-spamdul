@@ -5,13 +5,15 @@ import static ca.ulaval.glo4003.access.helpers.AccessPassMother.createAccessPass
 import ca.ulaval.glo4003.access.api.dto.AccessPassCodeDto;
 
 public class AccessPassCodeDtoBuilder {
+  private String accessPassCode = createAccessPassCode().toString();
+
   public static AccessPassCodeDtoBuilder anAccessPassCodeDto() {
     return new AccessPassCodeDtoBuilder();
   }
 
   public AccessPassCodeDto build() {
     AccessPassCodeDto accessPassCodeDto = new AccessPassCodeDto();
-    accessPassCodeDto.accessPassCode = createAccessPassCode().toString();
+    accessPassCodeDto.accessPassCode = accessPassCode;
     return accessPassCodeDto;
   }
 }

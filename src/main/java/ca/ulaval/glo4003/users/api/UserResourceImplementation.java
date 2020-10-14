@@ -8,6 +8,9 @@ import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.api.dto.BillPaymentDto;
+import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
+import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
+import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.services.UserService;
@@ -17,20 +20,23 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 public class UserResourceImplementation implements UserResource {
-  private final UserService userService;
+  private final AccountService accountService;
   private final AccessPassService accessPassService;
   private final CarService carService;
-  private final AccountService accountService;
+  private final UserService userService;
+  private final ParkingStickerService parkingStickerService;
 
   public UserResourceImplementation(
       UserService userService,
       AccessPassService accessPassService,
       CarService carService,
-      AccountService accountService) {
+      AccountService accountService,
+      ParkingStickerService parkingStickerService) {
     this.userService = userService;
     this.accessPassService = accessPassService;
     this.carService = carService;
     this.accountService = accountService;
+    this.parkingStickerService = parkingStickerService;
   }
 
   @Override
@@ -38,6 +44,17 @@ public class UserResourceImplementation implements UserResource {
     AccountIdDto accountIdDto = userService.addUser(userDto);
     return Response.status(Response.Status.CREATED)
         .entity(accountIdDto)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
+
+  @Override
+  public Response addParkingSticker(String accountId, ParkingStickerDto parkingStickerDto) {
+    parkingStickerDto.accountId = accountId;
+    ParkingStickerCodeDto parkingStickerCodeDto =
+        parkingStickerService.addParkingSticker(parkingStickerDto);
+    return Response.status(Response.Status.CREATED)
+        .entity(parkingStickerCodeDto)
         .type(MediaType.APPLICATION_JSON)
         .build();
   }

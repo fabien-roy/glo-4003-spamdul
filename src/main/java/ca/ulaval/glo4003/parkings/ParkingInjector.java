@@ -9,8 +9,6 @@ import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
-import ca.ulaval.glo4003.parkings.api.ParkingResource;
-import ca.ulaval.glo4003.parkings.api.ParkingResourceImplementation;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
@@ -31,7 +29,19 @@ public class ParkingInjector {
   private final ParkingStickerRepository parkingStickerRepository =
       new ParkingStickerRepositoryInMemory();
 
-  public ParkingResource createParkingResource(
+  public ParkingStickerRepository getParkingStickerRepository() {
+    return parkingStickerRepository;
+  }
+
+  public ParkingStickerCodeAssembler createParkingStickerCodeAssembler() {
+    return new ParkingStickerCodeAssembler();
+  }
+
+  public ParkingAreaCodeAssembler createParkingAreaCodeAssembler() {
+    return new ParkingAreaCodeAssembler();
+  }
+
+  public ParkingStickerService createParkingStickerService(
       boolean isDev,
       AccountIdAssembler accountIdAssembler,
       PostalCodeAssembler postalCodeAssembler,
@@ -45,6 +55,8 @@ public class ParkingInjector {
       addParkingAreasToRepository(parkingAreaCodeAssembler);
     }
 
+    ParkingStickerFactory parkingStickerFactory =
+        new ParkingStickerFactory(parkingStickerCodeGenerator);
     ParkingStickerAssembler parkingStickerAssembler =
         new ParkingStickerAssembler(
             parkingAreaCodeAssembler,
@@ -52,9 +64,6 @@ public class ParkingInjector {
             postalCodeAssembler,
             emailAddressAssembler);
     ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
-
-    ParkingStickerFactory parkingStickerFactory =
-        new ParkingStickerFactory(parkingStickerCodeGenerator);
 
     ParkingStickerService parkingStickerService =
         new ParkingStickerService(
@@ -65,22 +74,9 @@ public class ParkingInjector {
             parkingAreaRepository,
             parkingStickerRepository,
             billService);
-
     parkingStickerCreationObservers.forEach(parkingStickerService::register);
 
-    return new ParkingResourceImplementation(parkingStickerService);
-  }
-
-  public ParkingStickerRepository getParkingStickerRepository() {
-    return parkingStickerRepository;
-  }
-
-  public ParkingStickerCodeAssembler createParkingStickerCodeAssembler() {
-    return new ParkingStickerCodeAssembler();
-  }
-
-  public ParkingAreaCodeAssembler createParkingAreaCodeAssembler() {
-    return new ParkingAreaCodeAssembler();
+    return parkingStickerService;
   }
 
   private void addParkingAreasToRepository(ParkingAreaCodeAssembler parkingAreaCodeAssembler) {

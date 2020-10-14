@@ -20,7 +20,6 @@ import ca.ulaval.glo4003.offenses.OffenseInjector;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.ParkingInjector;
 import ca.ulaval.glo4003.parkings.api.ParkingExceptionMapper;
-import ca.ulaval.glo4003.parkings.api.ParkingResource;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
 import ca.ulaval.glo4003.times.TimeInjector;
 import ca.ulaval.glo4003.times.api.TimeExceptionMapper;
@@ -47,22 +46,11 @@ public class ApplicationInjector {
   private static final TimeInjector TIME_INJECTOR = new TimeInjector();
   private static final UserInjector USER_INJECTOR = new UserInjector();
 
-  public ParkingResource createParkingResource() {
+  public UserResource createUserResource() {
     List<ParkingStickerCreationObserver> parkingStickerCreationObservers =
         Arrays.asList(
             COMMUNICATION_INJECTOR.createEmailSender(), LOCATION_INJECTOR.createPostalCodeSender());
 
-    return PARKING_INJECTOR.createParkingResource(
-        IS_DEV,
-        ACCOUNT_INJECTOR.createAccountIdAssembler(),
-        LOCATION_INJECTOR.createPostalCodeAssembler(),
-        COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
-        ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
-        parkingStickerCreationObservers,
-        FUND_INJECTOR.createBillService());
-  }
-
-  public UserResource createUserResource() {
     return USER_INJECTOR.createUserResource(
         ACCOUNT_INJECTOR.getAccountRepository(),
         ACCOUNT_INJECTOR.createAccountFactory(),
@@ -77,7 +65,15 @@ public class ApplicationInjector {
         CAR_INJECTOR.createCarService(
             ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
             ACCOUNT_INJECTOR.createAccountIdAssembler()),
-        ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()));
+        ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
+        PARKING_INJECTOR.createParkingStickerService(
+            IS_DEV,
+            ACCOUNT_INJECTOR.createAccountIdAssembler(),
+            LOCATION_INJECTOR.createPostalCodeAssembler(),
+            COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
+            ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
+            parkingStickerCreationObservers,
+            FUND_INJECTOR.createBillService()));
   }
 
   public OffenseResource createOffenseResource() {
