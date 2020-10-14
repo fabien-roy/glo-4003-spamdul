@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.funds.domain;
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 
 public class BillFactory {
 
@@ -20,38 +20,38 @@ public class BillFactory {
   }
 
   public Bill createForParkingSticker(
-      Money feeForPeriod, ParkingStickerCode parkingStickerCode, ReceptionMethods receptionMethod) {
+      Money feeForPeriod, ParkingStickerCode parkingStickerCode, ReceptionMethod receptionMethod) {
     BillId id = generateBillId();
     String description =
         String.format(PARKING_STICKER_BILL_DESCRIPTION, parkingStickerCode.toString());
 
     Money amount = new Money(feeForPeriod);
 
-    if (receptionMethod.equals(ReceptionMethods.POSTAL)) {
+    if (receptionMethod.equals(ReceptionMethod.POSTAL)) {
       amount = amount.plus(Money.fromDouble(5));
     }
 
-    BillTypes billTypes = BillTypes.PARKING_STICKER;
+    BillType billType = BillType.PARKING_STICKER;
 
-    return new Bill(id, billTypes, description, amount);
+    return new Bill(id, billType, description, amount);
   }
 
   public Bill createForAccessPass(Money feeForPeriod, AccessPassCode accessPassCode) {
     BillId id = generateBillId();
     String description = String.format(ACCESS_PASS_BILL_DESCRIPTION, accessPassCode.toString());
 
-    BillTypes billTypes = BillTypes.ACCESS_PASS;
+    BillType billType = BillType.ACCESS_PASS;
 
-    return new Bill(id, billTypes, description, feeForPeriod);
+    return new Bill(id, billType, description, feeForPeriod);
   }
 
   public Bill createForOffense(Money fee, OffenseCode offenseCode) {
     BillId id = generateBillId();
     String description = String.format(OFFENSE_BILL_DESCRIPTION, offenseCode.toString());
 
-    BillTypes billTypes = BillTypes.OFFENSE;
+    BillType billType = BillType.OFFENSE;
 
-    return new Bill(id, billTypes, description, fee);
+    return new Bill(id, billType, description, fee);
   }
 
   private BillId generateBillId() {

@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds.domain;
 
-import static ca.ulaval.glo4003.accessPass.helper.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.access.helpers.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class BillFactoryTest {
   private final Money fee = createMoney();
   private final ParkingStickerCode parkingStickerCode = createParkingStickerCode();
   private final AccessPassCode accessPassCode = createAccessPassCode();
-  private final ReceptionMethods receptionMethod = createReceptionMethod();
+  private final ReceptionMethod receptionMethod = createReceptionMethod();
   private final OffenseCode offenseCode = createOffenseCode();
 
   @Before
@@ -57,7 +57,7 @@ public class BillFactoryTest {
   @Test
   public void
       givenEmailReceptionMethod_whenCreatingForParkingSticker_thenReturnBillWithAmountEqualToFee() {
-    ReceptionMethods emailReceptionMethod = ReceptionMethods.EMAIL;
+    ReceptionMethod emailReceptionMethod = ReceptionMethod.EMAIL;
 
     Bill bill = billFactory.createForParkingSticker(fee, parkingStickerCode, emailReceptionMethod);
 
@@ -68,7 +68,7 @@ public class BillFactoryTest {
   public void
       givenPostalReceptionMethod_whenCreatingForParkingSticker_thenReturnBillWithAmountEqualToFeePlusFive() {
     Money expectedAmount = fee.plus(Money.fromDouble(5));
-    ReceptionMethods postalReceptionMethod = ReceptionMethods.POSTAL;
+    ReceptionMethod postalReceptionMethod = ReceptionMethod.POSTAL;
 
     Bill bill = billFactory.createForParkingSticker(fee, parkingStickerCode, postalReceptionMethod);
 
@@ -79,7 +79,7 @@ public class BillFactoryTest {
   public void whenCreatingForParkingSticker_thenReturnBillWithParkingStickerType() {
     Bill bill = billFactory.createForParkingSticker(fee, parkingStickerCode, receptionMethod);
 
-    Truth.assertThat(bill.getBillTypes()).isEqualTo(BillTypes.PARKING_STICKER);
+    Truth.assertThat(bill.getBillTypes()).isEqualTo(BillType.PARKING_STICKER);
   }
 
   @Test
@@ -107,7 +107,7 @@ public class BillFactoryTest {
   public void whenCreatingForAccessPass_thenReturnBillWithAccessPassType() {
     Bill bill = billFactory.createForAccessPass(fee, accessPassCode);
 
-    Truth.assertThat(bill.getBillTypes()).isEqualTo(BillTypes.ACCESS_PASS);
+    Truth.assertThat(bill.getBillTypes()).isEqualTo(BillType.ACCESS_PASS);
   }
 
   @Test
@@ -135,6 +135,6 @@ public class BillFactoryTest {
   public void whenCreatingForOffense_thenReturnBillWithAccessPassType() {
     Bill bill = billFactory.createForOffense(fee, offenseCode);
 
-    Truth.assertThat(bill.getBillTypes()).isEqualTo(BillTypes.OFFENSE);
+    Truth.assertThat(bill.getBillTypes()).isEqualTo(BillType.OFFENSE);
   }
 }

@@ -1,15 +1,15 @@
 package ca.ulaval.glo4003.users.domain;
 
 import ca.ulaval.glo4003.times.domain.CustomDate;
-import ca.ulaval.glo4003.times.domain.Days;
+import ca.ulaval.glo4003.times.domain.DayOfWeek;
 
 public class User {
   private String name;
   private CustomDate birthDate;
   private Sex sex;
-  private Days accessDay;
+  private DayOfWeek accessDay;
 
-  public User(String name, CustomDate birthDate, Sex sex, Days accessDay) {
+  public User(String name, CustomDate birthDate, Sex sex, DayOfWeek accessDay) {
     this.name = name;
     this.birthDate = birthDate;
     this.sex = sex;
@@ -28,7 +28,7 @@ public class User {
     return sex;
   }
 
-  public Days getAccessDay() {
+  public DayOfWeek getAccessDay() {
     return accessDay;
   }
 }

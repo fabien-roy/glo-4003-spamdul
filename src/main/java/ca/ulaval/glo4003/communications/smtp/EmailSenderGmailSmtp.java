@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.communications.smtp;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.communications.exceptions.EmailSendingFailedException;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
@@ -46,7 +46,7 @@ public class EmailSenderGmailSmtp implements EmailSender {
 
   @Override
   public void listenParkingStickerCreated(ParkingSticker parkingSticker) {
-    if (parkingSticker.getReceptionMethod().equals(ReceptionMethods.EMAIL)) {
+    if (parkingSticker.getReceptionMethod().equals(ReceptionMethod.EMAIL)) {
       sendEmail(
           parkingSticker.getEmailAddress().toString(),
           PARKING_STICKER_CREATION_SUBJECT,

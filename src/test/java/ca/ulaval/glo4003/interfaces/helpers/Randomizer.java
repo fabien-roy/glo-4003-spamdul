@@ -15,6 +15,15 @@ public class Randomizer {
     return enumToRandomize.getEnumConstants()[x];
   }
 
+  public static <T extends Enum<?>> T randomEnumExcept(
+      Class<T> enumToRandomize, List<T> enumsToExclude) {
+    T randomEnum;
+    do {
+      randomEnum = randomEnum(enumToRandomize);
+    } while (enumsToExclude.contains(randomEnum));
+    return randomEnum;
+  }
+
   public static <T extends Enum<?>> List<T> randomEnums(Class<T> enumToRandomize, int quantity) {
     List<T> randomEnums = new ArrayList<>();
 

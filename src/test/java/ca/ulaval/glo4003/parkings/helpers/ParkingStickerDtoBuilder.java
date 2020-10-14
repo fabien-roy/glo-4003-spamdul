@@ -15,8 +15,6 @@ public class ParkingStickerDtoBuilder {
   private String postalCode = createPostalCode().toString();
   private String email = createEmailAddress().toString();
 
-  private ParkingStickerDtoBuilder() {}
-
   public static ParkingStickerDtoBuilder aParkingStickerDto() {
     return new ParkingStickerDtoBuilder();
   }

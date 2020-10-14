@@ -12,13 +12,13 @@ import ca.ulaval.glo4003.locations.domain.PostalCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 
 public class ParkingStickerBuilder {
   private ParkingStickerCode parkingStickerCode = createParkingStickerCode();
   private AccountId accountId = createAccountId();
   private ParkingAreaCode parkingAreaCode = createParkingAreaCode();
-  private ReceptionMethods receptionMethod = createReceptionMethod();
+  private ReceptionMethod receptionMethod = createReceptionMethod();
   private PostalCode postalCode = createPostalCode();
   private EmailAddress emailAddress = createEmailAddress();
 
@@ -28,7 +28,7 @@ public class ParkingStickerBuilder {
     return new ParkingStickerBuilder();
   }
 
-  public ParkingStickerBuilder withReceptionMethod(ReceptionMethods receptionMethod) {
+  public ParkingStickerBuilder withReceptionMethod(ReceptionMethod receptionMethod) {
     this.receptionMethod = receptionMethod;
     return this;
   }

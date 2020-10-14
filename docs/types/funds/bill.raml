@@ -1,0 +1,19 @@
+#%RAML 1.0 DataType
+type: object
+displayName: Bill
+uses:
+  types: ../../libraries/types.raml
+properties:
+  billId:
+    type: types.BillId
+  billType:
+    type: types.BillType
+  description:
+    type: string
+    description: Description of bill
+  amountDue:
+    type: types.Money
+    description: Total amount due for bill
+  amountPaid:
+    type: types.Money
+    description: Amount paid for bill

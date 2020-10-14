@@ -8,14 +8,14 @@ public class ParkingSticker {
   private ParkingStickerCode code;
   private final AccountId accountId;
   private final ParkingAreaCode parkingAreaCode;
-  private final ReceptionMethods receptionMethod;
+  private final ReceptionMethod receptionMethod;
   private PostalCode postalCode;
   private EmailAddress emailAddress;
 
   public ParkingSticker(
       AccountId accountId,
       ParkingAreaCode parkingAreaCode,
-      ReceptionMethods receptionMethod,
+      ReceptionMethod receptionMethod,
       PostalCode postalCode) {
     this.accountId = accountId;
     this.parkingAreaCode = parkingAreaCode;
@@ -26,7 +26,7 @@ public class ParkingSticker {
   public ParkingSticker(
       AccountId accountId,
       ParkingAreaCode parkingAreaCode,
-      ReceptionMethods receptionMethod,
+      ReceptionMethod receptionMethod,
       EmailAddress emailAddress) {
     this.accountId = accountId;
     this.parkingAreaCode = parkingAreaCode;
@@ -50,7 +50,7 @@ public class ParkingSticker {
     return parkingAreaCode;
   }
 
-  public ReceptionMethods getReceptionMethod() {
+  public ReceptionMethod getReceptionMethod() {
     return receptionMethod;
   }
 

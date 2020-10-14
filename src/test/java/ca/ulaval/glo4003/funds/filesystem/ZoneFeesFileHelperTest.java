@@ -15,7 +15,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ZoneFeesFileHelperTest {
   @Mock private StringMatrixFileReader fileReader;
 
-  private static final String CSV_FILE = "data/frais-zone.csv";
+  private static final String PARKING_STICKER_FILE = "data/frais-zone.csv";
+  private static final String ACCESS_PASS_FILE = "data/frais-acces.csv";
   private static final String FIRST_PERIOD = "firstPeriod";
   private static final String SECOND_PERIOD = "secondPeriod";
   private static final String FIRST_ZONE = "firstZone";
@@ -42,14 +43,16 @@ public class ZoneFeesFileHelperTest {
             SECOND_ZONE_FIRST_PERIOD_FEE.toString(),
             SECOND_ZONE_SECOND_PERIOD_FEE.toString()));
 
-    when(fileReader.readFile(CSV_FILE)).thenReturn(csvFile);
+    when(fileReader.readFile(PARKING_STICKER_FILE)).thenReturn(csvFile);
+    when(fileReader.readFile(ACCESS_PASS_FILE)).thenReturn(csvFile);
 
     zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader);
   }
 
   @Test
-  public void whenGettingZonesAndFees_thenReturnZones() {
-    Map<String, Map<String, Double>> zonesAndFees = zoneFeesFileHelper.getZonesAndFees();
+  public void whenGettingZonesAndFeesForParkingSticker_thenReturnZones() {
+    Map<String, Map<String, Double>> zonesAndFees =
+        zoneFeesFileHelper.getZoneAndFeesForParkingSticker();
     Set<String> zones = zonesAndFees.keySet();
 
     Truth.assertThat(zones).hasSize(2);
@@ -58,8 +61,45 @@ public class ZoneFeesFileHelperTest {
   }
 
   @Test
-  public void whenGettingZonesAndFees_thenReturnPeriods() {
-    Map<String, Map<String, Double>> zonesAndFees = zoneFeesFileHelper.getZonesAndFees();
+  public void whenGettingZonesAndFeesForParkingSticker_thenReturnPeriods() {
+    Map<String, Map<String, Double>> zonesAndFees =
+        zoneFeesFileHelper.getZoneAndFeesForParkingSticker();
+    testPeriod(zonesAndFees);
+  }
+
+  @Test
+  public void whenGettingZonesAndFeesForParkingSticker_thenReturnFeesForPeriods() {
+    Map<String, Map<String, Double>> zonesAndFees =
+        zoneFeesFileHelper.getZoneAndFeesForParkingSticker();
+    testFeeForPeriods(zonesAndFees);
+  }
+
+  @Test
+  public void whenGettingZonesAndFeesForAccessPass_thenReturnZones() {
+    Map<String, Map<String, Double>> zonesAndFees =
+        zoneFeesFileHelper.getZoneAndFeesForAccessPass();
+    Set<String> zones = zonesAndFees.keySet();
+
+    Truth.assertThat(zones).hasSize(2);
+    Truth.assertThat(zones).contains(FIRST_ZONE);
+    Truth.assertThat(zones).contains(SECOND_ZONE);
+  }
+
+  @Test
+  public void whenGettingZonesAndFeesForAccessPass_thenReturnPeriods() {
+    Map<String, Map<String, Double>> zonesAndFees =
+        zoneFeesFileHelper.getZoneAndFeesForAccessPass();
+    testPeriod(zonesAndFees);
+  }
+
+  @Test
+  public void whenGettingZonesAndFeesForAccessPass_thenReturnFeesForPeriods() {
+    Map<String, Map<String, Double>> zonesAndFees =
+        zoneFeesFileHelper.getZoneAndFeesForAccessPass();
+    testFeeForPeriods(zonesAndFees);
+  }
+
+  private void testPeriod(Map<String, Map<String, Double>> zonesAndFees) {
     Set<String> periodsForFirstZone = zonesAndFees.get(FIRST_ZONE).keySet();
     Set<String> periodsForSecondZone = zonesAndFees.get(SECOND_ZONE).keySet();
 
@@ -71,9 +111,7 @@ public class ZoneFeesFileHelperTest {
     Truth.assertThat(periodsForSecondZone).contains(SECOND_PERIOD);
   }
 
-  @Test
-  public void whenGettingZonesAndFees_thenReturnFeesForPeriods() {
-    Map<String, Map<String, Double>> zonesAndFees = zoneFeesFileHelper.getZonesAndFees();
+  private void testFeeForPeriods(Map<String, Map<String, Double>> zonesAndFees) {
     Double firstZoneFirstPeriodFee = zonesAndFees.get(FIRST_ZONE).get(FIRST_PERIOD);
     Double firstZoneSecondPeriodFee = zonesAndFees.get(FIRST_ZONE).get(SECOND_PERIOD);
     Double secondZoneFirstPeriodFee = zonesAndFees.get(SECOND_ZONE).get(FIRST_PERIOD);

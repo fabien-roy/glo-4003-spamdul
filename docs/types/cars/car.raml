@@ -4,8 +4,9 @@ displayName: Car
 uses:
   types: ../../libraries/types.raml
 properties:
-  accountId:
-    type: types.AccountId
+  licensePlate:
+    type: types.LicensePlate
+    description: Valid license plate of car
   manufacturer:
     type: string
     description: Manufacturer of car
@@ -13,8 +14,7 @@ properties:
     type: string
     description: Model of car
   year:
-    type: number
+    type: types.Year
     description: Year of car
-  licensePlate:
-    type: types.LicensePlate
-    description: Valid license plate of car
+  consumptionType:
+    type: types.ConsumptionType

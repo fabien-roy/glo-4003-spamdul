@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.access.domain;
 
 public class AccessPassCode {
-  private String code;
+  private final String code;
 
   public AccessPassCode(String code) {
     this.code = code;
