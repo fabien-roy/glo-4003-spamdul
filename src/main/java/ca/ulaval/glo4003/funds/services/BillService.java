@@ -69,4 +69,8 @@ public class BillService {
   public Bill getBill(BillId billId) {
     return billRepository.getBill(billId);
   }
+
+  public Money getProfitsFromParkingStickerBillsByYear(int year) {
+    return null;
+  }
 }

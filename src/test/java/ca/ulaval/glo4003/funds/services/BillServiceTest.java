@@ -39,11 +39,10 @@ public class BillServiceTest {
   private final ParkingSticker parkingSticker = aParkingSticker().build();
   private final Money parkingPeriodFee = createMoney();
   private final Bill bill = aBill().build();
-  private ParkingArea parkingArea;
   private final Money fee = createMoney();
-  private final Money amountDue = new Money(1);
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final OffenseCode offenseCode = createOffenseCode();
+  private ParkingArea parkingArea;
 
   @Before
   public void setUp() {
@@ -122,23 +121,23 @@ public class BillServiceTest {
 
   @Test
   public void whenPayingBill_thenGetBillRepositoryIsCalled() {
-    billService.payBill(bill.getId(), amountDue);
+    billService.payBill(bill.getId(), bill.getAmountDue());
 
     verify(billRepository).getBill(bill.getId());
   }
 
   @Test
   public void whenPayingBill_thenSaveBillRepositoryIsCalled() {
-    billService.payBill(bill.getId(), amountDue);
-    bill.pay(amountDue);
+    billService.payBill(bill.getId(), bill.getAmountDue());
+    bill.pay(bill.getAmountDue());
 
     verify(billRepository).updateBill(bill);
   }
 
   @Test
   public void whenPayingBill_thenBillAssemblerIsCalled() {
-    billService.payBill(bill.getId(), amountDue);
-    bill.pay(amountDue);
+    billService.payBill(bill.getId(), bill.getAmountDue());
+    bill.pay(bill.getAmountDue());
 
     verify(billsAssembler).assemble(bill);
   }
