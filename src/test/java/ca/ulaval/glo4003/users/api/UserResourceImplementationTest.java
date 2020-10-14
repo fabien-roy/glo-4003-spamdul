@@ -1,8 +1,11 @@
 package ca.ulaval.glo4003.users.api;
 
 import static ca.ulaval.glo4003.access.helpers.AccessPassCodeDtoBuilder.anAccessPassCodeDto;
+import static ca.ulaval.glo4003.access.helpers.AccessPassDtoBuilder.anAccessPassDto;
+import static ca.ulaval.glo4003.accounts.helpers.AccountIdDtoBuilder.anAccountIdDto;
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.cars.helpers.CarDtoBuilder.aCarDto;
+import static ca.ulaval.glo4003.users.helpers.UserDtoBuilder.aUserDto;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -13,6 +16,7 @@ import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.services.CarService;
+import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.services.UserService;
@@ -26,25 +30,27 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserResourceImplementationTest {
-  @Mock private UserDto userDto;
-  @Mock private AccountIdDto accountIdDto;
   @Mock private UserService userService;
   @Mock private AccessPassService accessPassService;
-  @Mock private AccessPassDto accessPassDto;
-  @Mock private AccountService accountService;
   @Mock private CarService carService;
+  @Mock private AccountService accountService;
+  @Mock private ParkingStickerService parkingStickerService;
 
-  private AccountId accountId = createAccountId();
-  private AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDto().build();
-  private CarDto carDto = aCarDto().build();
   private UserResource userResource;
 
   private static final String ACCOUNT_ID = createAccountId().toString();
+  private final AccountId accountId = createAccountId();
+  private final AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDto().build();
+  private final CarDto carDto = aCarDto().build();
+  private final UserDto userDto = aUserDto().build();
+  private final AccountIdDto accountIdDto = anAccountIdDto().build();
+  private final AccessPassDto accessPassDto = anAccessPassDto().build();
 
   @Before
   public void setUp() {
     userResource =
-        new UserResourceImplementation(userService, accessPassService, carService, accountService);
+        new UserResourceImplementation(
+            userService, accessPassService, carService, accountService, parkingStickerService);
   }
 
   @Test
