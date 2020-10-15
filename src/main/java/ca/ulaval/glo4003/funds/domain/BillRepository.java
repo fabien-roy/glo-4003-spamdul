@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.funds.domain;
 
 import java.util.List;
 
-public interface BillRepository {
+public interface BillRepository<Query extends BillQuery> {
   BillId save(Bill bill);
 
   List<Bill> getBills(List<BillId> billIds);
@@ -11,5 +11,5 @@ public interface BillRepository {
 
   void updateBill(Bill bill);
 
-  List<Bill> getAll(BillQuery BillQuery);
+  List<Bill> getAll(Query billQuery);
 }

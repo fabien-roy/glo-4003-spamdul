@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.funds.infrastructure;
 
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
+import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
@@ -12,15 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class BillRepositoryInMemoryTest {
   private BillRepository billRepository;
+
+  @Mock BillQueryInMemory billQueryInMemory;
 
   private final Bill bill = aBill().build();
   private final Bill bill2 = aBill().build();
 
   @Before
-  public void setUp() {
+  public void setup() {
     billRepository = new BillRepositoryInMemory();
   }
 
@@ -83,5 +90,12 @@ public class BillRepositoryInMemoryTest {
     Bill billAfterUpdating = billRepository.getBill(bill.getId());
 
     Truth.assertThat(billAfterUpdating.getAmountPaid()).isNotEqualTo(billBeforeUpdating);
+  }
+
+  @Test
+  public void givenBillQuery_whenGettingAllBills_theShouldExecuteQueries() {
+    billRepository.getAll(billQueryInMemory);
+
+    verify(billQueryInMemory).execute();
   }
 }

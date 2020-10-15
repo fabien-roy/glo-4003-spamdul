@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.funds.infrastructure;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.domain.BillQuery;
 import ca.ulaval.glo4003.funds.domain.BillRepository;
 import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
 import java.util.HashMap;
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class BillRepositoryInMemory implements BillRepository {
+public class BillRepositoryInMemory implements BillRepository<BillQueryInMemory> {
   private final Map<BillId, Bill> bills = new HashMap<>();
 
   @Override
@@ -43,7 +42,8 @@ public class BillRepositoryInMemory implements BillRepository {
   }
 
   @Override
-  public List<Bill> getAll(BillQuery BillQuery) { // TODO : DO NOT FORGET TO TEST
-    return null;
+  public List<Bill> getAll(BillQueryInMemory billQuery) {
+    billQuery.setBills(bills);
+    return billQuery.execute();
   }
 }
