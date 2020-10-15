@@ -1945,6 +1945,753 @@
 							],
 							"protocolProfileBehavior": {},
 							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Add parking sticker to user",
+							"item": [
+								{
+									"name": "Account id",
+									"item": [
+										{
+											"name": "Non existent account id",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "7ce5f1fd-86b1-4684-aafa-cb7fb00cbe28",
+														"exec": [
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"Returns account not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Account not found\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/dcbf4b65-c58e-40c4-b974-90c47bcd421a/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"dcbf4b65-c58e-40c4-b974-90c47bcd421a",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Parking area",
+									"item": [
+										{
+											"name": "Non existent parking area",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "972b62ae-0678-496b-9af3-dfd883d0f7dd",
+														"exec": [
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"Returns parking area not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Parking area not found\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": \"Zone_Unknown\",\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid parking area (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "39b1a5ec-61a9-493c-abc7-6446893f6339",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid parking area code\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking area code\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": null,\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid parking area (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "fd123cc4-64a0-44bf-9e90-7580d68a5a76",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid parking area code\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking area code\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Reception method",
+									"item": [
+										{
+											"name": "Invalid reception method (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "e289df3d-5df8-414d-8b32-4c487716de57",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid reception method\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": null,\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid reception method (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "6c22f8ff-918d-4c87-a315-82f6c4f6dc88",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid reception method\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid reception method (bad value)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bcdf6d0f-2dc0-4afe-9139-d733f0fb44bc",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid reception method\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid reception method\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": \"byFoot\",\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Postal code",
+									"item": [
+										{
+											"name": "Missing postal code (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "8e68dc32-f0f1-481d-9df4-4a7d0abb5efc",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns missing property for postal code\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Missing property : postalCode\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Missing postal code (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "ac3cf9e2-7fcd-4cc8-af3f-3f1f8c36feb7",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns missing property for postal code\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Missing property : postalCode\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid postal code (bad format)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "7c4af96c-82ca-4eb7-9e21-d9f82f05fb42",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid postal code\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid postal code\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": \"badFormat\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Email",
+									"item": [
+										{
+											"name": "Missing email (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "13cf79a9-dddf-460d-9b95-9f891e0ce4b9",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns missing property for email\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Missing property : email\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Missing email (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "36fefbec-ea73-46ed-a0f2-6dca721cee84",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns missing property for email\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Missing property : email\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid email (bad format)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "6315ffbe-017e-44d3-b23a-99d05b04045c",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid email address\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid email address\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": \"badFormat\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Valid parking sticker (postal)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "150faf15-4a92-420b-b0dd-1123d8ae685f",
+												"exec": [
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Returns parking sticker code\", function () {",
+													"    pm.response.to.have.jsonBody(\"parkingStickerCode\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"parkingStickers"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Valid parking sticker (email)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "72d0bd33-4a63-4210-a026-41d008a269c4",
+												"exec": [
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Returns parking sticker code\", function () {",
+													"    pm.response.to.have.jsonBody(\"parkingStickerCode\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": {{request.parkingSticker.email}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"parkingStickers"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
 						}
 					],
 					"protocolProfileBehavior": {},
