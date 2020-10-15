@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class BillService {
@@ -16,12 +17,17 @@ public class BillService {
   private final BillFactory billFactory;
   private final BillRepository billRepository;
   private final BillsAssembler billsAssembler;
+  private final BillQueryFactory billQueryFactory;
 
   public BillService(
-      BillFactory billFactory, BillRepository billRepository, BillsAssembler billsAssembler) {
+      BillFactory billFactory,
+      BillRepository billRepository,
+      BillsAssembler billsAssembler,
+      BillQueryFactory billQueryFactory) {
     this.billFactory = billFactory;
     this.billRepository = billRepository;
     this.billsAssembler = billsAssembler;
+    this.billQueryFactory = billQueryFactory;
   }
 
   public BillId addBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
@@ -68,5 +74,21 @@ public class BillService {
 
   public Bill getBill(BillId billId) {
     return billRepository.getBill(billId);
+  }
+
+  public Money getAllBills(Map<String, List<String>> params) {
+    BillQuery billQuery = billQueryFactory.create(params);
+
+    List<Bill> bills = billRepository.getAll(billQuery);
+
+    return calculateProfits(bills);
+  }
+
+  private Money calculateProfits(List<Bill> bills) {
+    Money total = Money.ZERO();
+    for (Bill bill : bills) {
+      total.plus(bill.getAmountPaid());
+    }
+    return total;
   }
 }
