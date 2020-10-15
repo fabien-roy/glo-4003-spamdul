@@ -88,6 +88,48 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add access pass",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6ac08ad5-83f5-4a8f-acfa-76452ac0d914",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"accessPasses"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -792,6 +834,12 @@
 							"_postman_isSubFolder": true
 						},
 						{
+							"name": "Pay user's bills (TODO)",
+							"item": [],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
 							"name": "Add car to user",
 							"item": [
 								{
@@ -852,19 +900,19 @@
 									"name": "License plate",
 									"item": [
 										{
-											"name": "Invalid license plate (missing)",
+											"name": "Already existing license plate",
 											"event": [
 												{
 													"listen": "test",
 													"script": {
-														"id": "8ca9a516-8b47-4841-aee4-930edf03a5a4",
+														"id": "c158d9fc-2db5-4935-91b5-6df69644103f",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid license plate\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid license plate\")",
+															"pm.test(\"Returns already existing license plate\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Already existing license plate\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -876,7 +924,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -946,19 +994,19 @@
 											"response": []
 										},
 										{
-											"name": "Invalid license plate (already exists)",
+											"name": "Invalid license plate (missing)",
 											"event": [
 												{
 													"listen": "test",
 													"script": {
-														"id": "c158d9fc-2db5-4935-91b5-6df69644103f",
+														"id": "8ca9a516-8b47-4841-aee4-930edf03a5a4",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns already existing license plate\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Already existing license plate\")",
+															"pm.test(\"Returns invalid license plate\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid license plate\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -970,7 +1018,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"raw": "{\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -1549,7 +1597,9 @@
 											"script": {
 												"id": "b1c4421c-fff7-44ab-bbbc-29e26454e94a",
 												"exec": [
-													""
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -1577,6 +1627,316 @@
 												"users",
 												"{{param.accountId}}",
 												"cars"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Add access pass to user",
+							"item": [
+								{
+									"name": "Account id",
+									"item": [
+										{
+											"name": "Non existent account id",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "3a1a2843-48ae-4c1c-8b84-89bb992ced4f",
+														"exec": [
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"Returns account not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Account not found\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/dcbf4b65-c58e-40c4-b974-90c47bcd421a/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"dcbf4b65-c58e-40c4-b974-90c47bcd421a",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Access day",
+									"item": [
+										{
+											"name": "Invalid access day (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "6a0fab72-d994-44f6-8188-c0f80a10e08a",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid day of week\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid day of week\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"accessDay\": null,\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid access day (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "9dfadfd4-b7cb-44d5-bb84-e4d3bd209dc0",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid day of week\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid day of week\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid access day (bad value)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "a2b580d2-0b7c-40b7-93ee-39e2d74376d5",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid day of week\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid day of week\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"accessDay\": \"funday\",\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "License plate",
+									"item": [
+										{
+											"name": "Non existent license plate",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "d293f8e4-ea1f-44e0-a597-0d61af282507",
+														"exec": [
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"Returns license plate not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"License plate not found\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"licensePlate\": \"AAA AAA\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Valid access pass",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "387a62d0-a997-4043-83b8-e614a81c47ae",
+												"exec": [
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Returns access pass code\", function () {",
+													"    pm.response.to.have.jsonBody(\"accessPassCode\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"accessPasses"
 											]
 										}
 									},

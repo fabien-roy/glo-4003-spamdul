@@ -6,7 +6,7 @@ import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePla
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.CarRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.cars.exceptions.LicensePlateNotFoundException;
+import ca.ulaval.glo4003.cars.exceptions.NotFoundLicensePlateException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,15 +29,18 @@ public class CarRepositoryInMemoryTest {
   }
 
   @Test
-  public void whenGettingCarByLicensePlate_thenReturnCar() {
-    LicensePlate licensePlate = carRepository.save(car);
-    Car car = carRepository.get(licensePlate);
-    Truth.assertThat(car.getLicensePlate()).isEqualTo(licensePlate);
+  public void whenGettingCar_thenReturnCar() {
+    carRepository.save(car);
+
+    Car foundCar = carRepository.get(car.getLicensePlate());
+
+    Truth.assertThat(foundCar).isSameInstanceAs(car);
   }
 
-  @Test(expected = LicensePlateNotFoundException.class)
-  public void
-      whenGettingCarByLicensePlateWithANotFoundLicensePlate_thenThrowInvalidLicensePlateException() {
-    carRepository.get(createLicensePlate());
+  @Test(expected = NotFoundLicensePlateException.class)
+  public void givenNonExistentLicensePlate_whenGettingCar_thenThrowNotFoundLicensePlateException() {
+    LicensePlate nonExistentLicensePlate = createLicensePlate();
+
+    carRepository.get(nonExistentLicensePlate);
   }
 }
