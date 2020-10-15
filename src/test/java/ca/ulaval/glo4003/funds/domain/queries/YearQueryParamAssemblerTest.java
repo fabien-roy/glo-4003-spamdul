@@ -26,7 +26,7 @@ public class YearQueryParamAssemblerTest {
   private Map<String, List<String>> params = new HashMap<>();
 
   @Before
-  public void setUpMocks() {
+  public void setup() {
     queryAssembler = new YearQueryParamAssembler();
     when(queryBuilder.withYear(A_YEAR)).thenReturn(assembledQueryBuilder);
   }

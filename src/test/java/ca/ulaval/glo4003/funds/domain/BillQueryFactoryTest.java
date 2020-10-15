@@ -23,11 +23,12 @@ public class BillQueryFactoryTest {
 
   private Map<String, List<String>> params = new HashMap<>();
 
-  private Set<BillQueryParamAssembler> queryParamAssemblers =
-      new HashSet<>(Collections.singletonList(firstQueryAssembler));
+  private Set<BillQueryParamAssembler> queryParamAssemblers = new HashSet<>();
 
   @Before
-  public void setUpMocks() {
+  public void setup() {
+    queryParamAssemblers.add(firstQueryAssembler);
+
     when(billQueryBuilder.aBillQuery()).thenReturn(billQueryBuilder);
     when(billQueryBuilder.build()).thenReturn(query);
     when(filteredBillQueryBuilder.build()).thenReturn(filteredQuery);

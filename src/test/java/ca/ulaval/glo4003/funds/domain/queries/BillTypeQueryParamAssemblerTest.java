@@ -28,7 +28,7 @@ public class BillTypeQueryParamAssemblerTest {
   private Map<String, List<String>> params = new HashMap<>();
 
   @Before
-  public void setUpMocks() {
+  public void setup() {
     queryAssembler = new BillTypeQueryParamAssembler();
     when(queryBuilder.withBillType(billType)).thenReturn(assembledQueryBuilder);
   }
