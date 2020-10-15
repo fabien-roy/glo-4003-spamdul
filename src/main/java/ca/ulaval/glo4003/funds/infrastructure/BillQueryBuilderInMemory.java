@@ -19,13 +19,13 @@ public class BillQueryBuilderInMemory implements BillQueryBuilder<BillQueryInMem
 
   @Override
   public BillQueryBuilder<BillQueryInMemory> withBillType(BillType billType) {
-    this.filters.add(new BillTypeFilterInMemory());
+    this.filters.add(new BillTypeFilterInMemory(billType));
     return this;
   }
 
   @Override
-  public BillQueryBuilder<BillQueryInMemory> withYear(int Year) {
-    this.filters.add(new YearFilterInMemory());
+  public BillQueryBuilder<BillQueryInMemory> withYear(int year) {
+    this.filters.add(new YearFilterInMemory(year));
     return this;
   }
 
