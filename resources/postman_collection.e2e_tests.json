@@ -2696,6 +2696,316 @@
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Gate entry",
+					"item": [
+						{
+							"name": "Validate gate entry for access pass",
+							"item": [
+								{
+									"name": "Access pass code",
+									"item": [
+										{
+											"name": "Non existent access pass code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "72e2e352-2ba6-478d-8beb-c552f743ffc9",
+														"exec": [
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"Returns access pass not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Access pass not found\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/gateEntry/validateAccessPass/94bdc917-b04d-4314-b071-980a5d78ad9a",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"gateEntry",
+														"validateAccessPass",
+														"94bdc917-b04d-4314-b071-980a5d78ad9a"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Day of week",
+									"item": [
+										{
+											"name": "Invalid day of week (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "ab486e2b-03df-4c91-bb2f-f8de33e806cd",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid day of week\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid day of week\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"dayOfWeek\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/gateEntry/validateAccessPass/{{param.accessPassCode}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"gateEntry",
+														"validateAccessPass",
+														"{{param.accessPassCode}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid day of week (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "3c9d4bcb-afbb-487f-b385-9a4c704130f0",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid day of week\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid day of week\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"dayOfWeek\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/gateEntry/validateAccessPass/{{param.accessPassCode}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"gateEntry",
+														"validateAccessPass",
+														"{{param.accessPassCode}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid day of week (bad value)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "1a20ed4c-0271-4b1b-b57f-055fd5f9ac2b",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid day of week\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid day of week\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"dayOfWeek\": \"funday\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/gateEntry/validateAccessPass/{{param.accessPassCode}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"gateEntry",
+														"validateAccessPass",
+														"{{param.accessPassCode}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Valid access day",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "569df9f4-4dd5-498b-b648-b90ae179a03a",
+												"exec": [
+													"pm.test(\"Returns status 202\", function () {",
+													"    pm.response.to.have.status(202);",
+													"});",
+													"",
+													"pm.test(\"Returns access status granted\", function () {",
+													"    pm.expect(pm.response.json().accessStatus).to.equal(\"Access granted\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/gateEntry/validateAccessPass/{{param.accessPassCode}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"gateEntry",
+												"validateAccessPass",
+												"{{param.accessPassCode}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Invalid access day",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "8bf031c8-45a8-4a84-bd68-e543345630e5",
+												"exec": [
+													"pm.test(\"Returns status 403\", function () {",
+													"    pm.response.to.have.status(403);",
+													"});",
+													"",
+													"pm.test(\"Returns access status granted\", function () {",
+													"    pm.expect(pm.response.json().accessStatus).to.equal(\"Access refused\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"dayOfWeek\": \"friday\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/gateEntry/validateAccessPass/{{param.accessPassCode}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"gateEntry",
+												"validateAccessPass",
+												"{{param.accessPassCode}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
