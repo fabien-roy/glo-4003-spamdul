@@ -3006,6 +3006,565 @@
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Offenses",
+					"item": [
+						{
+							"name": "Get offense types",
+							"item": [
+								{
+									"name": "Get offense types",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a0d39405-319b-45ee-8a3f-6163087282da",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Returns offenses\", function () {",
+													"    pm.expect(pm.response.json()).to.length.to.be.greaterThan(0);",
+													"});",
+													"",
+													"pm.test(\"Returns offence with description\", function () {",
+													"    pm.expect(pm.response.json()[0].description).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns offence with code\", function () {",
+													"    pm.expect(pm.response.json()[0].code).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns offence with amount\", function () {",
+													"    pm.expect(pm.response.json()[0].amount).to.not.be.null;",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/offenses/types",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"offenses",
+												"types"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Validation offense for parking sticker",
+							"item": [
+								{
+									"name": "Parking sticker code",
+									"item": [
+										{
+											"name": "Non existent parking sticker code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "00745988-215f-43c3-be40-805fe9db5008",
+														"exec": [
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"Returns parking sticker not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Parking sticker not found\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"parkingStickerCode\": \"a1f5b0f6-91e5-4008-9e04-5f1081cfe914\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/offenses/validate",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"offenses",
+														"validate"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid parking sticker code (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bcc24a35-fe67-4d96-8955-a065dd5ad84f",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid parking sticker code\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking sticker code\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"parkingStickerCode\": null,\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/offenses/validate",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"offenses",
+														"validate"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid parking sticker code (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "402a4ef2-1db0-48c7-8a6f-ad8a5e47ca35",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid parking sticker code\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking sticker code\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/offenses/validate",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"offenses",
+														"validate"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Parking area",
+									"item": [
+										{
+											"name": "Non existent parking area",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "3bd3258a-9750-4fca-b7bd-03871dd02ce4",
+														"exec": [
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"Returns parking area not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Parking area not found\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {\n        \"parkingArea\": {{request.offenseValidation.parkingArea}}\n    },\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/offenses/validate",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"offenses",
+														"validate"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid parking area (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "cb90c3bd-7014-405f-8adc-b7fb4c764720",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid parking area code\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking area code\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": null,\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/offenses/validate",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"offenses",
+														"validate"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid parking area (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "3224a435-f0b1-48e0-9280-94675ce2acb7",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid parking area code\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking area code\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/offenses/validate",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"offenses",
+														"validate"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Time of day",
+									"item": [
+										{
+											"name": "Invalid time of day (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "23d53478-a3bd-4d33-a4c3-bcce77884e2a",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid time of day\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid time of day\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/offenses/validate",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"offenses",
+														"validate"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid time of day (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "6b8179a5-1921-4ca9-ad8b-98c9c692d7bb",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid time of day\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid time of day\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/offenses/validate",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"offenses",
+														"validate"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid time of day (bad format)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "dca6d013-9bfd-40a2-99ef-112c4cf77a84",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid time of day\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid time of day\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": \"120000\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/offenses/validate",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"offenses",
+														"validate"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Valid offense validation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "874092cc-eb75-4c0b-93b5-8539d92830ef",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/offenses/validate",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"offenses",
+												"validate"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
