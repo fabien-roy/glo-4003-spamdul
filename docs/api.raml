@@ -185,11 +185,19 @@ uses:
           example: !include examples/offenses/get-offenses-validate-request.json
       responses:
         200:
-          description: Offense type of parking sticker code
+          description: |
+            List of offense types of parking sticker code
+
+            An offense with a valid parking sticker code will generate a bill to its associated
+            user, with the exception of an offense for an invalid (or absent) parking sticker code.
+            In that case, the offense type will be correctly responded but no bill will be
+            generated, since it would be impossible to find a user.
           body:
             application/json:
-              type: types.OffenseType
-              example: !include examples/offenses/get-offenses-validate-response.json
+              type: types.OffenseType[]
+              examples:
+                "With offense types": !include examples/offenses/get-offenses-validate-response-with-offense-types.json
+                "Without offense type": !include examples/offenses/get-offenses-validate-response-without-offense-type.json
         400:
           description: Error getting offense type for parking sticker
         404:
