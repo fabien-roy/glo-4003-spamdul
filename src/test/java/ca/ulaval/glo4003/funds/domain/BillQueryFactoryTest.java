@@ -4,7 +4,6 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamAssembler;
-import ca.ulaval.glo4003.funds.domain.queries.BillTypeQueryParamAssembler;
 import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,11 +13,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BillQueryFactoryTest {
-  private static BillQueryFactory billQueryFactory;
+  private BillQueryFactory billQueryFactory;
 
-  @Mock private static BillQueryBuilder billQueryBuilder;
-  @Mock private static BillQueryBuilder filteredBillQueryBuilder;
-  @Mock private BillTypeQueryParamAssembler firstQueryAssembler;
+  @Mock private BillQueryBuilder billQueryBuilder;
+  @Mock private BillQueryBuilder filteredBillQueryBuilder;
+  @Mock private BillQueryParamAssembler firstQueryAssembler;
   @Mock private BillQuery query;
   @Mock private BillQuery filteredQuery;
 
