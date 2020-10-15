@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.cars.api.CarExceptionMapper;
 import ca.ulaval.glo4003.communications.CommunicationInjector;
 import ca.ulaval.glo4003.communications.api.CommunicationExceptionMapper;
-import ca.ulaval.glo4003.files.FileInjector;
 import ca.ulaval.glo4003.files.api.FileExceptionMapper;
 import ca.ulaval.glo4003.funds.FundInjector;
 import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
@@ -21,7 +20,6 @@ import ca.ulaval.glo4003.offenses.OffenseInjector;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.ParkingInjector;
 import ca.ulaval.glo4003.parkings.api.ParkingExceptionMapper;
-import ca.ulaval.glo4003.parkings.api.ParkingResource;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
 import ca.ulaval.glo4003.times.TimeInjector;
 import ca.ulaval.glo4003.times.api.TimeExceptionMapper;
@@ -40,7 +38,6 @@ public class ApplicationInjector {
   private static final AccountInjector ACCOUNT_INJECTOR = new AccountInjector();
   private static final CarInjector CAR_INJECTOR = new CarInjector();
   private static final CommunicationInjector COMMUNICATION_INJECTOR = new CommunicationInjector();
-  private static final FileInjector FILE_INJECTOR = new FileInjector();
   private static final GateEntryInjector GATE_ENTRY_INJECTOR = new GateEntryInjector();
   private static final FundInjector FUND_INJECTOR = new FundInjector();
   private static final LocationInjector LOCATION_INJECTOR = new LocationInjector();
@@ -49,22 +46,11 @@ public class ApplicationInjector {
   private static final TimeInjector TIME_INJECTOR = new TimeInjector();
   private static final UserInjector USER_INJECTOR = new UserInjector();
 
-  public ParkingResource createParkingResource() {
+  public UserResource createUserResource() {
     List<ParkingStickerCreationObserver> parkingStickerCreationObservers =
         Arrays.asList(
             COMMUNICATION_INJECTOR.createEmailSender(), LOCATION_INJECTOR.createPostalCodeSender());
 
-    return PARKING_INJECTOR.createParkingResource(
-        IS_DEV,
-        ACCOUNT_INJECTOR.createAccountIdAssembler(),
-        LOCATION_INJECTOR.createPostalCodeAssembler(),
-        COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
-        ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
-        parkingStickerCreationObservers,
-        FUND_INJECTOR.createBillService());
-  }
-
-  public UserResource createUserResource() {
     return USER_INJECTOR.createUserResource(
         ACCOUNT_INJECTOR.getAccountRepository(),
         ACCOUNT_INJECTOR.createAccountFactory(),
@@ -79,7 +65,15 @@ public class ApplicationInjector {
         CAR_INJECTOR.createCarService(
             ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
             ACCOUNT_INJECTOR.createAccountIdAssembler()),
-        ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()));
+        ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
+        PARKING_INJECTOR.createParkingStickerService(
+            IS_DEV,
+            ACCOUNT_INJECTOR.createAccountIdAssembler(),
+            LOCATION_INJECTOR.createPostalCodeAssembler(),
+            COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
+            ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
+            parkingStickerCreationObservers,
+            FUND_INJECTOR.createBillService()));
   }
 
   public OffenseResource createOffenseResource() {
@@ -88,7 +82,6 @@ public class ApplicationInjector {
         PARKING_INJECTOR.createParkingStickerCodeAssembler(),
         PARKING_INJECTOR.createParkingAreaCodeAssembler(),
         TIME_INJECTOR.createTimeOfDayAssembler(),
-        FILE_INJECTOR.createJsonFileReader(),
         FUND_INJECTOR.createMoneyAssembler(),
         FUND_INJECTOR.createBillService(),
         ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()));

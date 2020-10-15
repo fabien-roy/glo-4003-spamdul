@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.accounts.helpers;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
+import static ca.ulaval.glo4003.users.helpers.UserBuilder.aUser;
 
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class AccountBuilder {
   private AccountId id = createAccountId();
-  private User user = null; // TODO : Use a new UserBuilder
+  private User user = aUser().build();
   private List<BillId> billIds = new ArrayList<>();
 
   private AccountBuilder() {}
@@ -25,8 +26,8 @@ public class AccountBuilder {
     return this;
   }
 
-  public AccountBuilder withBilldIds(List<BillId> billdIds) {
-    this.billIds = billdIds;
+  public AccountBuilder withBillIds(List<BillId> billIds) {
+    this.billIds = billIds;
     return this;
   }
 

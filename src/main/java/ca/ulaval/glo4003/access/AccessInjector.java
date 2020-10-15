@@ -31,6 +31,7 @@ public class AccessInjector {
   private final AccessPassInMemoryRepository accessPassInMemoryRepository =
       new AccessPassInMemoryRepository();
   private final AccessPassCodeGenerator accessPassCodeGenerator = new AccessPassCodeGenerator();
+  private final StringMatrixFileReader fileReader = new CsvFileReader();
 
   public AccessInjector() {
     addAccessPassByConsumptionTypesToRepository();
@@ -57,7 +58,6 @@ public class AccessInjector {
   }
 
   private void addAccessPassByConsumptionTypesToRepository() {
-    StringMatrixFileReader fileReader = new CsvFileReader();
     ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader);
 
     Map<String, Map<String, Double>> zonesAndFees =
@@ -76,12 +76,7 @@ public class AccessInjector {
                   .forEach(
                       period -> {
                         AccessPeriod accessPeriod = AccessPeriod.get(period);
-                        Money fee =
-                            new Money(
-                                zonesAndFees
-                                    .get(consumptionType)
-                                    .get(period)); // TODO : We could use money assembler (but this
-                        // is the injector, it's not that important)
+                        Money fee = new Money(zonesAndFees.get(consumptionType).get(period));
                         feesPerPeriod.put(accessPeriod, fee);
                       });
               accessConsumption.add(new AccessPassType(consumptionTypes, feesPerPeriod));

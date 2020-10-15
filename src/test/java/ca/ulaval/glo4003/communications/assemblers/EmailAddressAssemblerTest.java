@@ -25,7 +25,6 @@ public class EmailAddressAssemblerTest {
     Truth.assertThat(postalCode).isEqualTo(EMAIL_ADDRESS);
   }
 
-  // TODO : A parametrized test would allow us to test many invalid email addresses, but JUnit 4.
   @Test(expected = InvalidEmailAddressException.class)
   public void givenInvalidEmailAddress_whenAssembling_thenThrowInvalidEmailAddressException() {
     String invalidEmailAddress = "invalidEmailAddress";

@@ -5,8 +5,8 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
-import ca.ulaval.glo4003.parkings.api.ParkingResource;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
+import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import com.google.common.truth.Truth;
 import java.util.Collections;
 import org.junit.Before;
@@ -33,9 +33,9 @@ public class ParkingInjectorTest {
   }
 
   @Test
-  public void whenCreatingParkingResource_thenReturnIt() {
-    ParkingResource parkingResource =
-        parkingInjector.createParkingResource(
+  public void whenCreatingParkingStickerService_thenReturnIt() {
+    ParkingStickerService parkingStickerService =
+        parkingInjector.createParkingStickerService(
             false,
             accountIdAssembler,
             postalCodeAssembler,
@@ -44,6 +44,6 @@ public class ParkingInjectorTest {
             Collections.singletonList(parkingStickerCreationObserver),
             billService);
 
-    Truth.assertThat(parkingResource).isNotNull();
+    Truth.assertThat(parkingStickerService).isNotNull();
   }
 }
