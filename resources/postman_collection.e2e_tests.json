@@ -943,6 +943,504 @@
 									"_postman_isSubFolder": true
 								},
 								{
+									"name": "Manufacturer",
+									"item": [
+										{
+											"name": "Invalid manufacturer (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "fb9a8b6f-f561-4d19-84a6-5b3781958af4",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid manufacturer\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid manufacturer\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate2}},\n  \"manufacturer\": null,\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid manufacturer (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "59c5dd2c-7e6a-4ba8-86ec-49c317b016f5",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid manufacturer\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid manufacturer\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate2}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Model",
+									"item": [
+										{
+											"name": "Invalid model (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "258e2439-a316-42af-9a64-cfa2715a5641",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid model\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid model\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate2}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": null,\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid model (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "12c8ca01-852d-4010-a187-fed8d25b0ef9",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid model\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid model\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate2}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Year",
+									"item": [
+										{
+											"name": "Invalid year (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "dda061f5-9bb6-4a87-bb1b-72c62b2f612c",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid year\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate2}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": null,\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid year (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "0a40ff21-8655-4516-8bea-2355331de4e3",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid year\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate2}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid year (future)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "1fbf3682-7ae7-43e8-ab50-7f19c08a0dd2",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid year\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate2}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": 2300,\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Consumption type",
+									"item": [
+										{
+											"name": "Invalid consumption type (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "72275dd9-afc3-4aab-aeca-9228f7a65e9a",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid car consumption type\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid car consumption type\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate2}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid consumption type (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "613ef110-255a-4b06-a59b-9bf902601888",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid car consumption type\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid car consumption type\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate2}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid consumption type (bad value)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "c8d9bdf8-a41d-467f-a80e-a2b4b567bcf9",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid car consumption type\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid car consumption type\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"licensePlate\": {{request.car.licensePlate2}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": \"badValue\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"cars"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
 									"name": "Valid car",
 									"event": [
 										{
