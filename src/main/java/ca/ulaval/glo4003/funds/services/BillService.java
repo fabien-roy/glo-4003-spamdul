@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.funds.services;
 
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
 import ca.ulaval.glo4003.funds.api.dto.BillDto;
-import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
+import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
@@ -16,17 +16,17 @@ public class BillService {
   private final Logger logger = Logger.getLogger(BillService.class.getName());
   private final BillFactory billFactory;
   private final BillRepository billRepository;
-  private final BillsAssembler billsAssembler;
+  private final BillAssembler billAssembler;
   private final BillQueryFactory billQueryFactory;
 
   public BillService(
       BillFactory billFactory,
       BillRepository billRepository,
-      BillsAssembler billsAssembler,
+      BillAssembler billAssembler,
       BillQueryFactory billQueryFactory) {
     this.billFactory = billFactory;
     this.billRepository = billRepository;
-    this.billsAssembler = billsAssembler;
+    this.billAssembler = billAssembler;
     this.billQueryFactory = billQueryFactory;
   }
 
@@ -65,7 +65,7 @@ public class BillService {
     bill.pay(amountToPay);
     billRepository.updateBill(bill);
 
-    return billsAssembler.assemble(bill);
+    return billAssembler.assemble(bill);
   }
 
   public List<Bill> getBillsByIds(List<BillId> billIds) {

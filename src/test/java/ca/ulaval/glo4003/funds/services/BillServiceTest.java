@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
-import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
+import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
@@ -29,7 +29,7 @@ public class BillServiceTest {
 
   @Mock BillFactory billFactory;
   @Mock BillRepository billRepository;
-  @Mock BillsAssembler billsAssembler;
+  @Mock BillAssembler billAssembler;
   @Mock BillQueryFactory billQueryFactory;
   @Mock BillQuery billQuery;
 
@@ -47,7 +47,7 @@ public class BillServiceTest {
 
   @Before
   public void setUp() {
-    billService = new BillService(billFactory, billRepository, billsAssembler, billQueryFactory);
+    billService = new BillService(billFactory, billRepository, billAssembler, billQueryFactory);
 
     Map<ParkingPeriod, Money> feePerPeriod = new HashMap<>();
     feePerPeriod.put(ParkingPeriod.ONE_DAY, parkingPeriodFee);
@@ -142,7 +142,7 @@ public class BillServiceTest {
     billService.payBill(bill.getId(), amountDue);
     bill.pay(amountDue);
 
-    verify(billsAssembler).assemble(bill);
+    verify(billAssembler).assemble(bill);
   }
 
   @Test

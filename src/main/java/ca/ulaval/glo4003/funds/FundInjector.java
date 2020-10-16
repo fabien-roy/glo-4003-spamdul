@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds;
 
-import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
+import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamAssembler;
@@ -30,7 +30,7 @@ public class FundInjector {
     BillQueryFactory billQueryFactory =
         new BillQueryFactory(billQueryBuilderInMemory, billQueryParamAssemblers);
 
-    return new BillService(billFactory, billRepository, new BillsAssembler(), billQueryFactory);
+    return new BillService(billFactory, billRepository, new BillAssembler(), billQueryFactory);
   }
 
   public MoneyAssembler createMoneyAssembler() {
