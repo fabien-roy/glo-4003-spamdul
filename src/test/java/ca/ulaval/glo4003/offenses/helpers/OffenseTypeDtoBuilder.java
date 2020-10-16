@@ -21,6 +21,7 @@ public class OffenseTypeDtoBuilder {
     offenseTypeDto.description = description;
     offenseTypeDto.code = code;
     offenseTypeDto.amount = amount;
+
     return offenseTypeDto;
   }
 }
