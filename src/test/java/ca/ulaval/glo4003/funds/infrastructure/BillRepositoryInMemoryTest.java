@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.funds.infrastructure;
 
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
+import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
@@ -24,7 +25,7 @@ public class BillRepositoryInMemoryTest {
   @Mock BillQueryInMemory billQueryInMemory;
 
   private final Bill bill = aBill().build();
-  private final Bill bill2 = aBill().build();
+  private final Bill other_bill = aBill().build();
 
   @Before
   public void setUp() {
@@ -41,23 +42,22 @@ public class BillRepositoryInMemoryTest {
   @Test
   public void givenBillIds_whenGettingBills_thenReturnBills() {
     billRepository.save(bill);
-    billRepository.save(bill2);
-
+    billRepository.save(other_bill);
     List<BillId> billIds = new ArrayList<>();
     billIds.add(bill.getId());
-    billIds.add(bill2.getId());
+    billIds.add(other_bill.getId());
 
     List<Bill> bills = billRepository.getBills(billIds);
 
     Truth.assertThat(bills).contains(bill);
-    Truth.assertThat(bills).contains(bill2);
+    Truth.assertThat(bills).contains(other_bill);
   }
 
   @Test(expected = BillNotFoundException.class)
   public void givenBillIds_whenGettingBillsButNotFound_thenThrowBillNotFoundException() {
     List<BillId> billIds = new ArrayList<>();
     billIds.add(bill.getId());
-    billIds.add(bill2.getId());
+    billIds.add(other_bill.getId());
 
     billRepository.getBills(billIds);
   }
@@ -84,7 +84,7 @@ public class BillRepositoryInMemoryTest {
   public void givenBill_whenUpdating_thenBillIsUpdated() {
     billRepository.save(bill);
     Bill billBeforeUpdating = billRepository.getBill(bill.getId());
-    bill.pay(new Money(1));
+    bill.pay(createMoney());
 
     billRepository.updateBill(bill);
     Bill billAfterUpdating = billRepository.getBill(bill.getId());
