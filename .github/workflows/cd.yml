@@ -14,10 +14,5 @@ jobs:
           HEROKU_API_KEY=${{ secrets.HEROKU_API_KEY }}
           mvn clean heroku:deploy
       - name: End-to-end tests
-        uses: actions/setup-node@v2-beta
-        with:
-          node-version: '12'
-          collection: resources/postman_collection.e2e_tests.json
-          environment: resources/postman_environment.json
         run: npm install -g newman &&
-          newman run {{collection}} --environment {{environment}}
+          newman run resources/postman_collection.e2e_tests.json --environment resources/postman_environment.json
