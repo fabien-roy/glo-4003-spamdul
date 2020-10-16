@@ -2,6 +2,7 @@
 
 [![Build](https://github.com/GLO4003UL/a20-eq4/workflows/Build/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22Build%22)
 [![Deploy](https://github.com/GLO4003UL/a20-eq4/workflows/Deploy/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22Deploy%22)
+[![End-to-end tests](https://github.com/GLO4003UL/a20-eq4/workflows/End-to-end%20tests/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22End-to-end+tests%22)
 [![Codecov](https://codecov.io/gh/GLO4003UL/a20-eq4/branch/develop/graph/badge.svg?token=1L5N0NP4T7)](https://codecov.io/gh/GLO4003UL/a20-eq4)
 [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
 
