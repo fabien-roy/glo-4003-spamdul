@@ -8,11 +8,9 @@
 
 **This is our project for course GLO-4003 at Laval University. We are team 4 : L'inquisition espagnole.**
 
-**Requests supported by SPAMD-UL are specified on [this project's GitHub Pages](https://glo4003ul.github.io/a20-eq4/).**
-
-**The project's report is [our wiki](https://github.com/GLO4003UL/a20-eq4/wiki). It is in French, as request by the course.**
-
-**Our project is hosted on [https://glo4003-a20-eq4.herokuapp.com/api](https://glo4003-a20-eq4.herokuapp.com/api).**
+ - [:books: API documentation](https://glo4003ul.github.io/a20-eq4/)
+ - [:black_nib: Project report](https://glo4003ul.github.io/a20-eq4/)
+ - [:rocket: Development environment](https://glo4003-a20-eq4.herokuapp.com/api)
 
 ## Project setup
 
