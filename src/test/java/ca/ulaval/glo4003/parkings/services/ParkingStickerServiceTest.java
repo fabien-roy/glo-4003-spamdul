@@ -67,6 +67,13 @@ public class ParkingStickerServiceTest {
   }
 
   @Test
+  public void whenAddingParkingSticker_thenVerifyAccountExists() {
+    parkingStickerService.addParkingSticker(parkingStickerDto);
+
+    Mockito.verify(accountService).getAccount(parkingSticker.getAccountId());
+  }
+
+  @Test
   public void whenAddingParkingSticker_thenAddParkingStickerToAccount() {
     parkingStickerService.addParkingSticker(parkingStickerDto);
 

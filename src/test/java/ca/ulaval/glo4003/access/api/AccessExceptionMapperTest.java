@@ -27,12 +27,12 @@ public class AccessExceptionMapperTest {
   }
 
   @Test
-  public void givenNotFoundAccessPassException_whenResponding_thenStatusIsBadRequest() {
+  public void givenNotFoundAccessPassException_whenResponding_thenStatusIsNotFound() {
     AccessException invalidAccessPeriodException = new NotFoundAccessPassException();
 
     Response response = accessExceptionMapper.toResponse(invalidAccessPeriodException);
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.NOT_FOUND.getStatusCode());
   }
 
   @Test

@@ -197,7 +197,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+							"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -289,12 +289,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{param.accountId}}/parkingStickers",
+							"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"users",
 								"{{param.accountId}}",
 								"parkingStickers"
 							]
@@ -330,12 +331,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/{{param.accountId}}/parkingStickers",
+							"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
+								"users",
 								"{{param.accountId}}",
 								"parkingStickers"
 							]

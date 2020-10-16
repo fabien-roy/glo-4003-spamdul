@@ -31,7 +31,7 @@ public interface UserResource {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("{accountId}/access")
+  @Path("{accountId}/accessPasses")
   Response addAccessPass(AccessPassDto accessPassDto, @PathParam("accountId") String accountId);
 
   @POST

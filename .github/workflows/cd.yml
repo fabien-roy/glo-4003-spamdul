@@ -16,5 +16,5 @@ jobs:
       - name: Integration tests
         uses: matt-ball/newman-action@master
         with:
-          collection: resources/postman_collection.integration_tests.json
+          collection: resources/postman_collection.e2e_tests.json
           environment: resources/postman_environment.json
