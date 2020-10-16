@@ -153,13 +153,6 @@ public class BillServiceTest {
   }
 
   @Test
-  public void whenGettingAllBills_thenShouldGetBillsWithQuery() {
-    billService.getAllBills(params); // TODO : Refactor
-
-    verify(billRepository).getAll(billQuery);
-  }
-
-  @Test
   public void whenGettingAllBills_thenShouldUseProfitsCalculator() {
     Money total = billService.getAllBills(params);
 
