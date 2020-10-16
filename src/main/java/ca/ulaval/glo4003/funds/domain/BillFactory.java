@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.access.domain.AccessPassCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
+import java.util.Calendar;
 
 public class BillFactory {
 
@@ -33,7 +34,7 @@ public class BillFactory {
 
     BillType billType = BillType.PARKING_STICKER;
 
-    return new Bill(id, billType, description, amount);
+    return new Bill(id, billType, description, amount, Calendar.getInstance().get(Calendar.YEAR));
   }
 
   public Bill createForAccessPass(Money feeForPeriod, AccessPassCode accessPassCode) {
@@ -42,7 +43,8 @@ public class BillFactory {
 
     BillType billType = BillType.ACCESS_PASS;
 
-    return new Bill(id, billType, description, feeForPeriod);
+    return new Bill(
+        id, billType, description, feeForPeriod, Calendar.getInstance().get(Calendar.YEAR));
   }
 
   public Bill createForOffense(Money fee, OffenseCode offenseCode) {
@@ -51,7 +53,7 @@ public class BillFactory {
 
     BillType billType = BillType.OFFENSE;
 
-    return new Bill(id, billType, description, fee);
+    return new Bill(id, billType, description, fee, Calendar.getInstance().get(Calendar.YEAR));
   }
 
   private BillId generateBillId() {

@@ -8,13 +8,15 @@ public class Bill {
   private final String description;
   private Money amountDue;
   private Money amountPaid;
+  private int year;
 
-  public Bill(BillId id, BillType billType, String description, Money amountDue) {
+  public Bill(BillId id, BillType billType, String description, Money amountDue, int year) {
     this.id = id;
     this.billType = billType;
     this.description = description;
     this.amountDue = amountDue;
     this.amountPaid = Money.ZERO();
+    this.year = year;
   }
 
   public void pay(Money amountToPay) {
@@ -44,5 +46,9 @@ public class Bill {
 
   public Money getAmountPaid() {
     return amountPaid;
+  }
+
+  public int getYear() {
+    return year;
   }
 }

@@ -13,12 +13,13 @@ public class BillBuilder {
   private BillType billType = createBillType();
   private String description = createDescription();
   private Money amountDue = createMoney();
+  private int year = createYear();
 
   public static BillBuilder aBill() {
     return new BillBuilder();
   }
 
   public Bill build() {
-    return new Bill(id, billType, description, amountDue);
+    return new Bill(id, billType, description, amountDue, year);
   }
 }
