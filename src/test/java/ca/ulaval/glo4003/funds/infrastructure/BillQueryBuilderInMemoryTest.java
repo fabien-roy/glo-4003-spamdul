@@ -14,7 +14,7 @@ public class BillQueryBuilderInMemoryTest {
 
   private BillQueryBuilderInMemory billQueryBuilderInMemory;
   private final BillType billType = createBillType();
-  private static final int A_YEAR = 2020; // TODO : Create a builder for years
+  private static final int A_YEAR = 2020; // TODO : Create an Object Mother
 
   @Before
   public void setup() {

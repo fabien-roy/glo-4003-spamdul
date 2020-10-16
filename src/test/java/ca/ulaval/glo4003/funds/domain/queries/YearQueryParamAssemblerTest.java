@@ -22,7 +22,7 @@ public class YearQueryParamAssemblerTest {
   @Mock private static BillQueryBuilder queryBuilder;
   @Mock private static BillQueryBuilder assembledQueryBuilder;
 
-  private static final int A_YEAR = 2020;
+  private static final int A_YEAR = 2020; // TODO : Add to Bill Object Mother
   private Map<String, List<String>> params = new HashMap<>();
 
   @Before
