@@ -17,7 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
       - name: End-to-end tests
-        run: npm install -g newman &&
-          newman run resources/postman_environment.json --environment resources/postman_collection.e2e_tests.json
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '12'
+          collection: resources/postman_environment.json
+          environment: resources/postman_collection.e2e_tests.json
+      - run: npm install -g newman
+      - run: newman run {{collection}} --environment {{environment}}
