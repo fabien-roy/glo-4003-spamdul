@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.carboncredits.api;
 
 import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
+import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditMonthlyPaymentStatusDto;
 import ca.ulaval.glo4003.carboncredits.services.CarbonCreditService;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -10,6 +11,12 @@ public class CarbonCreditResourceImplementation implements CarbonCreditResource 
 
   public CarbonCreditResourceImplementation(CarbonCreditService carbonCreditService) {
     this.carbonCreditService = carbonCreditService;
+  }
+
+  @Override
+  public Response modifyCarbonCreditMonthlyPaymentStatus(
+      CarbonCreditMonthlyPaymentStatusDto carbonCreditMonthlyPaymentStatusDto) {
+    return null;
   }
 
   public Response getCarbonCredits() {
