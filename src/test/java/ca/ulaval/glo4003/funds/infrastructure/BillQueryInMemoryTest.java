@@ -41,7 +41,7 @@ public class BillQueryInMemoryTest {
   }
 
   @Test
-  public void whenExecetingQuery_thenShouldUseFilter() {
+  public void whenExecutingQuery_thenShouldUseFilter() {
     billQueryInMemory.execute();
 
     verify(billFilterInMemory).filter(bills);
