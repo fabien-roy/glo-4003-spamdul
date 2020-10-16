@@ -15,7 +15,7 @@ public enum BillType {
 
   static {
     for (BillType name : BillType.values()) {
-      lookup.put(name.toString(), name);
+      lookup.put(name.toString().toLowerCase(), name);
     }
   }
 

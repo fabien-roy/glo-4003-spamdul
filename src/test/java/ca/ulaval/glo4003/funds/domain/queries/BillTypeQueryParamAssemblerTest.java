@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.funds.domain.queries;
 
 import static ca.ulaval.glo4003.funds.domain.queries.BillTypeQueryParamAssembler.BILL_TYPE_PARAM;
+import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillType;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -21,10 +22,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class BillTypeQueryParamAssemblerTest {
 
   private static BillQueryParamAssembler queryAssembler;
-  @Mock private static BillQueryBuilder queryBuilder;
-  @Mock private static BillQueryBuilder assembledQueryBuilder;
+  @Mock private BillQueryBuilder queryBuilder;
+  @Mock private BillQueryBuilder assembledQueryBuilder;
 
-  private BillType billType = BillType.OFFENSE;
+  private BillType billType = createBillType();
   private Map<String, List<String>> params = new HashMap<>();
 
   @Before
