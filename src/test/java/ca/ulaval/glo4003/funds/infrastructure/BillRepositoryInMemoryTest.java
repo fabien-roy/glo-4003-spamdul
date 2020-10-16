@@ -84,7 +84,7 @@ public class BillRepositoryInMemoryTest {
   public void givenBill_whenUpdating_thenBillIsUpdated() {
     billRepository.save(bill);
     Bill billBeforeUpdating = billRepository.getBill(bill.getId());
-    bill.pay(createMoney());
+    bill.pay(bill.getAmountDue());
 
     billRepository.updateBill(bill);
     Bill billAfterUpdating = billRepository.getBill(bill.getId());
