@@ -1,13 +1,11 @@
 package ca.ulaval.glo4003.funds.infrastructure;
 
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
-import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.BillRepository;
-import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;

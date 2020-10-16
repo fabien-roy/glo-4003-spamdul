@@ -35,14 +35,14 @@ public class BillTypeQueryParamAssemblerTest {
   }
 
   @Test
-  public void assemble_withoutBillType_shouldReturnSameBuilder() {
+  public void whenAssemblingWithoutBillType_thenShouldReturnSameBuilder() {
     BillQueryBuilder actualQueryBuilder = queryAssembler.assemble(queryBuilder, params);
 
     assertThat(queryBuilder).isEqualTo(actualQueryBuilder);
   }
 
   @Test
-  public void assemble_withBillType_shouldAssembleBuilder() {
+  public void whenAssemblingWithBillType_thenShouldAssembleBuilder() {
     params.put(BILL_TYPE_PARAM, Collections.singletonList(billType.toString()));
 
     BillQueryBuilder actualQueryBuilder = queryAssembler.assemble(queryBuilder, params);
@@ -51,7 +51,7 @@ public class BillTypeQueryParamAssemblerTest {
   }
 
   @Test(expected = InvalidBillTypeException.class)
-  public void assemble_withInvalidBillType_shouldThrowInvalidPackageException() {
+  public void whenAssemblingWithInvalidBillType_thenShouldThrowInvalidPackageException() {
     params.put(BILL_TYPE_PARAM, Collections.singletonList("invalidBillType"));
 
     queryAssembler.assemble(queryBuilder, params);
