@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.funds.infrastructure;
 
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
-import static org.mockito.Mockito.verify;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
@@ -22,14 +22,14 @@ public class BillQueryInMemoryTest {
   private List<Bill> bills;
   private Map<BillId, Bill> billMap = new HashMap<>();
   private List<Bill> filteredBills;
+  private Bill filteredBill;
 
   @Before
   public void setUp() {
     Bill bill = aBill().build();
-    Bill filteredBill = aBill().build();
-    bills = Arrays.asList(bill, filteredBill);
+    filteredBill = aBill().build();
+    bills = Arrays.asList(bill);
     billMap.put(bill.getId(), bill);
-    billMap.put(filteredBill.getId(), filteredBill);
 
     filteredBills = Collections.singletonList(filteredBill);
     when(billFilterInMemory.filter(bills)).thenReturn(filteredBills);
@@ -42,8 +42,9 @@ public class BillQueryInMemoryTest {
 
   @Test
   public void whenExecutingQuery_thenShouldUseFilter() {
-    billQueryInMemory.execute();
+    List<Bill> bills = billQueryInMemory.execute();
 
-    verify(billFilterInMemory).filter(bills);
+    assertThat(bills.size()).isEqualTo(1);
+    assertThat(bills.get(0)).isSameInstanceAs(filteredBill);
   }
 }
