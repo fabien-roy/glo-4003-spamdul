@@ -14,9 +14,9 @@ import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.api.dto.BillPaymentDto;
+import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillIdAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillPaymentAssembler;
-import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
@@ -38,7 +38,7 @@ public class AccountServiceTest {
   @Mock private AccountRepository accountRepository;
   @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private BillService billService;
-  @Mock private BillsAssembler billsAssembler;
+  @Mock private BillAssembler billAssembler;
   @Mock private BillIdAssembler billIdAssembler;
   @Mock private BillPaymentAssembler billPaymentAssembler;
   @Mock private BillPaymentDto billPaymentDto;
@@ -55,13 +55,13 @@ public class AccountServiceTest {
       anAccount().withBillIds(Collections.singletonList(bill.getId())).build();
 
   @Before
-  public void setup() {
+  public void setUp() {
     accountService =
         new AccountService(
             accountRepository,
             accountIdAssembler,
             billService,
-            billsAssembler,
+            billAssembler,
             billIdAssembler,
             billPaymentAssembler);
 
@@ -184,12 +184,12 @@ public class AccountServiceTest {
 
     accountService.getBills(accountWithBill.getId().toString());
 
-    verify(billsAssembler).assemble(bills);
+    verify(billAssembler).assemble(bills);
   }
 
   @Test
   public void givenAccountWithBill_whenPayingBill_shouldCallPayBillAssembler() {
-    setupPayBill();
+    setUpPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
@@ -199,7 +199,7 @@ public class AccountServiceTest {
 
   @Test
   public void givenAccountWithBill_whenPayingBill_shouldCallAccountIdAssembler() {
-    setupPayBill();
+    setUpPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
@@ -209,7 +209,7 @@ public class AccountServiceTest {
 
   @Test
   public void givenAccountWithBill_whenPayingBill_shouldCallBillIdAssembler() {
-    setupPayBill();
+    setUpPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
@@ -219,7 +219,7 @@ public class AccountServiceTest {
 
   @Test
   public void givenAccountWithBill_whenPayingBill_shouldCallPayBillService() {
-    setupPayBill();
+    setUpPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
@@ -227,7 +227,7 @@ public class AccountServiceTest {
     verify(billService).payBill(bill.getId(), new Money(1));
   }
 
-  private void setupPayBill() {
+  private void setUpPayBill() {
     when(billPaymentAssembler.assemble(billPaymentDto)).thenReturn(new Money(1));
     when(accountIdAssembler.assemble(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());

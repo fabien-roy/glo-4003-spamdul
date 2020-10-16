@@ -45,4 +45,8 @@ public class Bill {
   public Money getAmountPaid() {
     return amountPaid;
   }
+
+  public boolean isBillTypeEqual(BillType billType) {
+    return this.billType.equals(billType);
+  }
 }

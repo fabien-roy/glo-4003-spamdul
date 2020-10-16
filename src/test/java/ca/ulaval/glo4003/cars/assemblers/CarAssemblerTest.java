@@ -33,7 +33,7 @@ public class CarAssemblerTest {
   private final CarDto carDto = aCarDto().withLicensePlate(LICENSE_PLATE.toString()).build();
 
   @Before
-  public void setup() {
+  public void setUp() {
     carAssembler = new CarAssembler(licensePlateAssembler, accountIdAssembler);
 
     when(licensePlateAssembler.assemble(LICENSE_PLATE.toString())).thenReturn(LICENSE_PLATE);
