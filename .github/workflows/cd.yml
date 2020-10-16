@@ -13,7 +13,7 @@ jobs:
         run: mvn clean install &&
           HEROKU_API_KEY=${{ secrets.HEROKU_API_KEY }}
           mvn clean heroku:deploy
-      - name: Integration tests
+      - name: End-to-end tests
         uses: matt-ball/newman-action@master
         with:
           collection: resources/postman_collection.e2e_tests.json
