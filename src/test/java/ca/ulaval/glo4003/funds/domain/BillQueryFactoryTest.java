@@ -29,7 +29,7 @@ public class BillQueryFactoryTest {
   public void setup() {
     queryParamAssemblers.add(firstQueryAssembler);
 
-    when(billQueryBuilder.emptyBillQuery()).thenReturn(billQueryBuilder);
+    when(billQueryBuilder.aBillQuery()).thenReturn(billQueryBuilder);
     when(billQueryBuilder.build()).thenReturn(query);
     when(filteredBillQueryBuilder.build()).thenReturn(filteredQuery);
     when(firstQueryAssembler.assemble(billQueryBuilder, params))

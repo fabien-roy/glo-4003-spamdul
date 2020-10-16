@@ -29,7 +29,8 @@ public enum BillType {
   }
 
   public static BillType get(String name) {
-    BillType foundName = lookup.get(name);
+    if (name == null) throw new InvalidBillTypeException();
+    BillType foundName = lookup.get(name.toLowerCase());
 
     if (foundName == null) throw new InvalidBillTypeException();
 

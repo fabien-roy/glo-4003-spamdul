@@ -13,7 +13,7 @@ public class BillQueryBuilderInMemory implements BillQueryBuilder<BillQueryInMem
   private List<BillFilterInMemory> filters = new ArrayList<>();
 
   @Override
-  public BillQueryBuilder<BillQueryInMemory> emptyBillQuery() {
+  public BillQueryBuilder<BillQueryInMemory> aBillQuery() {
     return new BillQueryBuilderInMemory();
   }
 

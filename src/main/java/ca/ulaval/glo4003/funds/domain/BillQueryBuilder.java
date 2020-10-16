@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.funds.domain;
 
 public interface BillQueryBuilder<Query extends BillQuery> {
 
-  BillQueryBuilder<Query> emptyBillQuery();
+  BillQueryBuilder<Query> aBillQuery();
 
   BillQueryBuilder<Query> withBillType(BillType billType);
 

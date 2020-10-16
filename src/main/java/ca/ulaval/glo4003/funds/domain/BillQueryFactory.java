@@ -17,7 +17,7 @@ public class BillQueryFactory {
   }
 
   public BillQuery create(Map<String, List<String>> params) {
-    BillQueryBuilder builder = billQueryBuilder.emptyBillQuery();
+    BillQueryBuilder builder = billQueryBuilder.aBillQuery();
 
     for (BillQueryParamAssembler queryParamAssembler : queryParamAssemblers)
       builder = queryParamAssembler.assemble(builder, params);
