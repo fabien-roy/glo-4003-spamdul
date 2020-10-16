@@ -11,7 +11,6 @@ on:
 
 jobs:
   e2e-tests:
-    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
