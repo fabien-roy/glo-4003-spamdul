@@ -7,6 +7,10 @@ import java.util.List;
 public class BillProfitsCalculator {
 
   public Money calculate(List<Bill> bills) {
-    return Money.ZERO();
+    Money total = Money.ZERO();
+    for (Bill bill : bills) {
+      total.plus(bill.getAmountPaid());
+    }
+    return total;
   }
 }
