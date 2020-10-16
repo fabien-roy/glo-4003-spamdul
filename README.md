@@ -1,8 +1,8 @@
 # SPAMD-UL
 
-[![Build](https://github.com/GLO4003UL/a20-eq4/workflows/build/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22Build%22)
-[![Deploy](https://github.com/GLO4003UL/a20-eq4/workflows/deploy/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22Deploy%22)
-[![E2E Tests](https://github.com/GLO4003UL/a20-eq4/workflows/e2e%20tests/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22E2E+Tests%22)
+[![Build](https://github.com/GLO4003UL/a20-eq4/workflows/Build/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22Build%22)
+[![Deploy](https://github.com/GLO4003UL/a20-eq4/workflows/Deploy/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22Deploy%22)
+[![E2E Tests](https://github.com/GLO4003UL/a20-eq4/workflows/E2E%20Tests/badge.svg)](https://github.com/GLO4003UL/a20-eq4/actions?query=workflow%3A%22E2E+Tests%22)
 [![Codecov](https://codecov.io/gh/GLO4003UL/a20-eq4/branch/develop/graph/badge.svg?token=1L5N0NP4T7)](https://codecov.io/gh/GLO4003UL/a20-eq4)
 [![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
 
