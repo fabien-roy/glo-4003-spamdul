@@ -1,13 +1,13 @@
 package ca.ulaval.glo4003.funds.infrastructure;
 
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
-import static org.mockito.Mockito.verify;
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.BillRepository;
 import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
-import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
@@ -28,13 +28,18 @@ public class BillRepositoryInMemoryTest {
   @Before
   public void setUp() {
     billRepository = new BillRepositoryInMemory();
+
+    List<Bill> bills = new ArrayList<>();
+    bills.add(bill);
+
+    when(billQueryInMemory.execute()).thenReturn(bills);
   }
 
   @Test
   public void whenSavingBill_thenReturnId() {
     BillId billId = billRepository.save(bill);
 
-    Truth.assertThat(billId).isSameInstanceAs(bill.getId());
+    assertThat(billId).isSameInstanceAs(bill.getId());
   }
 
   @Test
@@ -47,8 +52,8 @@ public class BillRepositoryInMemoryTest {
 
     List<Bill> bills = billRepository.getBills(billIds);
 
-    Truth.assertThat(bills).contains(bill);
-    Truth.assertThat(bills).contains(other_bill);
+    assertThat(bills).contains(bill);
+    assertThat(bills).contains(other_bill);
   }
 
   @Test(expected = BillNotFoundException.class)
@@ -65,7 +70,7 @@ public class BillRepositoryInMemoryTest {
     billRepository.save(bill);
     Bill billFromRepository = billRepository.getBill(bill.getId());
 
-    Truth.assertThat(billFromRepository).isEqualTo(bill);
+    assertThat(billFromRepository).isEqualTo(bill);
   }
 
   @Test(expected = BillNotFoundException.class)
@@ -87,13 +92,14 @@ public class BillRepositoryInMemoryTest {
     billRepository.updateBill(bill);
     Bill billAfterUpdating = billRepository.getBill(bill.getId());
 
-    Truth.assertThat(billAfterUpdating.getAmountPaid()).isNotEqualTo(billBeforeUpdating);
+    assertThat(billAfterUpdating.getAmountPaid()).isNotEqualTo(billBeforeUpdating);
   }
 
   @Test
-  public void givenBillQuery_whenGettingAllBills_thenShouldExecuteQueries() {
-    billRepository.getAll(billQueryInMemory);
+  public void givenBillQuery_whenGettingAllBills_thenShouldReturnValueFromQuery() {
+    List<Bill> bills = billRepository.getAll(billQueryInMemory);
 
-    verify(billQueryInMemory).execute();
+    assertThat(bills.size()).isEqualTo(1);
+    assertThat(bills.get(0)).isSameInstanceAs(bill);
   }
 }
