@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class BillTypeFilterInMemory implements BillFilterInMemory {
 
-  private BillType billType;
+  private final BillType billType;
 
   public BillTypeFilterInMemory(BillType billType) {
     this.billType = billType;

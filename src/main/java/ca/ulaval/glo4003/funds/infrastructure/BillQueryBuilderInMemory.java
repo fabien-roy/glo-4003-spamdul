@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BillQueryBuilderInMemory implements BillQueryBuilder<BillQueryInMemory> {
 
-  private List<BillFilterInMemory> filters = new ArrayList<>();
+  private final List<BillFilterInMemory> filters = new ArrayList<>();
 
   @Override
   public BillQueryBuilder<BillQueryInMemory> aBillQuery() {

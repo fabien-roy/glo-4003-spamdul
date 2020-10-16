@@ -5,7 +5,7 @@ import java.util.List;
 
 public class YearFilterInMemory implements BillFilterInMemory {
 
-  private int year;
+  private final int year;
 
   public YearFilterInMemory(int year) {
     this.year = year;

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class BillQueryInMemory implements BillQuery {
   private List<Bill> bills;
-  private List<BillFilterInMemory> filters;
+  private final List<BillFilterInMemory> filters;
 
   public BillQueryInMemory(List<BillFilterInMemory> filters) {
     this.filters = filters;
