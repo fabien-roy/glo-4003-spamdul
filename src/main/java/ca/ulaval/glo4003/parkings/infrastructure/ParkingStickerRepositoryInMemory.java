@@ -16,7 +16,7 @@ public class ParkingStickerRepositoryInMemory implements ParkingStickerRepositor
   }
 
   @Override
-  public ParkingSticker findByCode(ParkingStickerCode code) throws NotFoundParkingStickerException {
+  public ParkingSticker get(ParkingStickerCode code) {
     ParkingSticker foundParkingSticker = parkingStickers.get(code);
 
     if (foundParkingSticker == null) throw new NotFoundParkingStickerException();

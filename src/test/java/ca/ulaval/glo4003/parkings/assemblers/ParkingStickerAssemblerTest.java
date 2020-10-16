@@ -6,7 +6,6 @@ import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalC
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerDtoBuilder.aParkingStickerDto;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createReceptionMethod;
-import static ca.ulaval.glo4003.times.helpers.DayMother.createDay;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
@@ -18,12 +17,10 @@ import ca.ulaval.glo4003.locations.domain.PostalCode;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.exceptions.InvalidReceptionMethodException;
 import ca.ulaval.glo4003.parkings.exceptions.MissingEmailException;
 import ca.ulaval.glo4003.parkings.exceptions.MissingPostalCodeException;
-import ca.ulaval.glo4003.times.domain.Days;
-import ca.ulaval.glo4003.times.exceptions.InvalidDayException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,10 +32,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ParkingStickerAssemblerTest {
   private static final AccountId ACCOUNT_ID = createAccountId();
   private static final ParkingAreaCode PARKING_AREA = createParkingAreaCode();
-  private static final ReceptionMethods RECEPTION_METHOD = createReceptionMethod();
+  private static final ReceptionMethod RECEPTION_METHOD = createReceptionMethod();
   private static final PostalCode POSTAL_CODE = createPostalCode();
   private static final EmailAddress EMAIL_ADDRESS = createEmailAddress();
-  private static final Days VALID_DAY = createDay();
 
   @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
@@ -70,7 +66,6 @@ public class ParkingStickerAssemblerTest {
             .withReceptionMethod(RECEPTION_METHOD.toString())
             .withPostalCode(POSTAL_CODE.toString())
             .withEmail(EMAIL_ADDRESS.toString())
-            .withValidDay(VALID_DAY.toString())
             .build();
   }
 
@@ -101,7 +96,7 @@ public class ParkingStickerAssemblerTest {
       givenPostalReceptionMethodAndNoPostalCode_whenAssembling_thenThrowMissingPostalCodeException() {
     parkingStickerDto =
         aParkingStickerDto()
-            .withReceptionMethod(ReceptionMethods.POSTAL.toString())
+            .withReceptionMethod(ReceptionMethod.POSTAL.toString())
             .withPostalCode(null)
             .build();
 
@@ -112,7 +107,7 @@ public class ParkingStickerAssemblerTest {
   public void givenEmailReceptionMethodAndNoEmail_whenAssembling_thenThrowMissingEmailException() {
     parkingStickerDto =
         aParkingStickerDto()
-            .withReceptionMethod(ReceptionMethods.EMAIL.toString())
+            .withReceptionMethod(ReceptionMethod.EMAIL.toString())
             .withEmail(null)
             .build();
 
@@ -123,7 +118,7 @@ public class ParkingStickerAssemblerTest {
   public void givenEmailReceptionMethod_whenAssembling_thenReturnParkingStickerWithEmailAddress() {
     parkingStickerDto =
         aParkingStickerDto()
-            .withReceptionMethod(ReceptionMethods.EMAIL.toString())
+            .withReceptionMethod(ReceptionMethod.EMAIL.toString())
             .withEmail(EMAIL_ADDRESS.toString())
             .build();
 
@@ -140,10 +135,21 @@ public class ParkingStickerAssemblerTest {
   }
 
   @Test
+  public void
+      givenUpperCaseReceptionMethod_whenAssembling_thenReturnParkingStickerWithReceptionMethod() {
+    parkingStickerDto =
+        aParkingStickerDto().withReceptionMethod(RECEPTION_METHOD.toString().toUpperCase()).build();
+
+    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+
+    Truth.assertThat(parkingSticker.getReceptionMethod()).isEqualTo(RECEPTION_METHOD);
+  }
+
+  @Test
   public void givenPostalReceptionMethod_whenAssembling_thenReturnParkingStickerWithPostalCode() {
     parkingStickerDto =
         aParkingStickerDto()
-            .withReceptionMethod(ReceptionMethods.POSTAL.toString())
+            .withReceptionMethod(ReceptionMethod.POSTAL.toString())
             .withPostalCode(POSTAL_CODE.toString())
             .build();
 
@@ -156,26 +162,12 @@ public class ParkingStickerAssemblerTest {
   public void givenEmailReceptionMethod_whenAssembling_thenReturnParkingStickerWithEmail() {
     parkingStickerDto =
         aParkingStickerDto()
-            .withReceptionMethod(ReceptionMethods.EMAIL.toString())
+            .withReceptionMethod(ReceptionMethod.EMAIL.toString())
             .withEmail(EMAIL_ADDRESS.toString())
             .build();
 
     ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
 
     Truth.assertThat(parkingSticker.getEmailAddress()).isEqualTo(EMAIL_ADDRESS);
-  }
-
-  @Test
-  public void whenAssembling_thenReturnParkingStickerWithValidDay() {
-    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
-
-    Truth.assertThat(parkingSticker.getValidDay()).isEqualTo(VALID_DAY);
-  }
-
-  @Test(expected = InvalidDayException.class)
-  public void givenInvalidValidDay_whenAssembling_thenThrowInvalidDayException() {
-    parkingStickerDto = aParkingStickerDto().withValidDay("invalidDay").build();
-
-    parkingStickerAssembler.assemble(parkingStickerDto);
   }
 }

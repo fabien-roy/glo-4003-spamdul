@@ -5,7 +5,6 @@ import static ca.ulaval.glo4003.communications.helpers.EmailAddressMother.create
 import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createReceptionMethod;
-import static ca.ulaval.glo4003.times.helpers.DayMother.createDay;
 
 import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
 
@@ -15,9 +14,6 @@ public class ParkingStickerDtoBuilder {
   private String receptionMethod = createReceptionMethod().toString();
   private String postalCode = createPostalCode().toString();
   private String email = createEmailAddress().toString();
-  private String validDay = createDay().toString();
-
-  private ParkingStickerDtoBuilder() {}
 
   public static ParkingStickerDtoBuilder aParkingStickerDto() {
     return new ParkingStickerDtoBuilder();
@@ -48,11 +44,6 @@ public class ParkingStickerDtoBuilder {
     return this;
   }
 
-  public ParkingStickerDtoBuilder withValidDay(String validDay) {
-    this.validDay = validDay;
-    return this;
-  }
-
   public ParkingStickerDto build() {
     ParkingStickerDto parkingStickerDto = new ParkingStickerDto();
     parkingStickerDto.accountId = accountId;
@@ -60,7 +51,6 @@ public class ParkingStickerDtoBuilder {
     parkingStickerDto.receptionMethod = receptionMethod;
     parkingStickerDto.postalCode = postalCode;
     parkingStickerDto.email = email;
-    parkingStickerDto.validDay = validDay;
     return parkingStickerDto;
   }
 }

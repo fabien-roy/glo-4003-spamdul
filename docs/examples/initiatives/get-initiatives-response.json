@@ -1,0 +1,12 @@
+[
+  {
+    "initiativeCode": "INIT-12345",
+    "name": "Eco-friendship 3000",
+    "amount": 650.0
+  },
+  {
+    "initiativeCode": "INIT-23456",
+    "name": "It's green o' clock",
+    "amount": 1050.0
+  }
+]

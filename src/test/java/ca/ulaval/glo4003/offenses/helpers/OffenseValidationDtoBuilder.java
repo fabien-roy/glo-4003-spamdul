@@ -17,21 +17,6 @@ public class OffenseValidationDtoBuilder {
     return new OffenseValidationDtoBuilder();
   }
 
-  public OffenseValidationDtoBuilder withParkingStickerCode(String parkingStickerCode) {
-    this.parkingStickerCode = parkingStickerCode;
-    return this;
-  }
-
-  public OffenseValidationDtoBuilder withParkingAreaCode(String parkingAreaCode) {
-    this.parkingAreaCode = parkingAreaCode;
-    return this;
-  }
-
-  public OffenseValidationDtoBuilder withTimeOfDay(String timeOfDay) {
-    this.timeOfDay = timeOfDay;
-    return this;
-  }
-
   public OffenseValidationDto build() {
     OffenseValidationDto offenseValidationDto = new OffenseValidationDto();
     offenseValidationDto.parkingStickerCode = parkingStickerCode;

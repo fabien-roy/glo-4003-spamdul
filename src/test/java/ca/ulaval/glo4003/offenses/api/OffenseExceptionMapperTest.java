@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.offenses.api;
 
 import ca.ulaval.glo4003.offenses.exceptions.InvalidOffenseCodeException;
 import ca.ulaval.glo4003.offenses.exceptions.OffenseException;
-import ca.ulaval.glo4003.offenses.exceptions.OffenseNotFoundException;
+import ca.ulaval.glo4003.offenses.exceptions.OffenseTypeNotFoundException;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
@@ -27,7 +27,7 @@ public class OffenseExceptionMapperTest {
 
   @Test
   public void givenOffenseNotFoundException_whenResponding_thenStatusIsNotFound() {
-    OffenseException offenseException = new OffenseNotFoundException();
+    OffenseException offenseException = new OffenseTypeNotFoundException();
 
     Response response = offenseExceptionMapper.toResponse(offenseException);
 

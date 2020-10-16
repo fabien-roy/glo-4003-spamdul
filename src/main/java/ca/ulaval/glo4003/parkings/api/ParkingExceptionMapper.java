@@ -12,22 +12,12 @@ public class ParkingExceptionMapper implements ExceptionMapper<ParkingException>
 
   @Override
   public Response toResponse(ParkingException exception) {
-    Response.Status responseStatus = Response.Status.INTERNAL_SERVER_ERROR;
+    Response.Status responseStatus = Response.Status.BAD_REQUEST;
 
-    if (exception instanceof InvalidParkingAreaCodeException) {
-      responseStatus = Response.Status.BAD_REQUEST;
-    } else if (exception instanceof InvalidReceptionMethodException) {
-      responseStatus = Response.Status.BAD_REQUEST;
-    } else if (exception instanceof MissingPostalCodeException) {
-      responseStatus = Response.Status.BAD_REQUEST;
-    } else if (exception instanceof MissingEmailException) {
-      responseStatus = Response.Status.BAD_REQUEST;
-    } else if (exception instanceof NotFoundParkingAreaException) {
+    if (exception instanceof NotFoundParkingAreaException) {
       responseStatus = Response.Status.NOT_FOUND;
     } else if (exception instanceof NotFoundParkingStickerException) {
       responseStatus = Response.Status.NOT_FOUND;
-    } else if (exception instanceof InvalidParkingStickerCodeException) {
-      responseStatus = Response.Status.BAD_REQUEST;
     }
 
     ErrorDto errorDto = new ErrorDto();

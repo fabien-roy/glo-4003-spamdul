@@ -14,7 +14,7 @@ public class AccountExceptionMapper implements ExceptionMapper<AccountException>
 
   @Override
   public Response toResponse(AccountException exception) {
-    Response.Status responseStatus = Response.Status.INTERNAL_SERVER_ERROR;
+    Response.Status responseStatus = Response.Status.BAD_REQUEST;
 
     if (exception instanceof InvalidAccountIdException) {
       responseStatus = Response.Status.BAD_REQUEST;
