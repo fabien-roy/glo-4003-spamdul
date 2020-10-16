@@ -214,6 +214,7 @@
 					<includeTarget>false</includeTarget>
 					<includes>
 						<include>target/${jar-file-name}.jar</include>
+						<include>data/*</include>
 					</includes>
 					<processTypes>
 						<web>java -Dport=$PORT -jar target/${jar-file-name}.jar</web>
