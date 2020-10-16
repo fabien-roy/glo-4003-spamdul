@@ -32,6 +32,7 @@ public class BillServiceTest {
   @Mock BillAssembler billAssembler;
   @Mock BillQueryFactory billQueryFactory;
   @Mock BillQuery billQuery;
+  @Mock BillProfitsCalculator billProfitsCalculator;
 
   private BillService billService;
 
@@ -47,11 +48,16 @@ public class BillServiceTest {
 
   @Before
   public void setUp() {
-    billService = new BillService(billFactory, billRepository, billAssembler, billQueryFactory);
+    billService =
+        new BillService(
+            billFactory, billRepository, billAssembler, billQueryFactory, billProfitsCalculator);
 
     Map<ParkingPeriod, Money> feePerPeriod = new HashMap<>();
     feePerPeriod.put(ParkingPeriod.ONE_DAY, parkingPeriodFee);
     parkingArea = aParkingArea().withFeePerPeriod(feePerPeriod).build();
+
+    List<Bill> bills = new ArrayList<>();
+    bills.add(bill);
 
     when(billFactory.createForParkingSticker(
             parkingPeriodFee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
@@ -60,7 +66,8 @@ public class BillServiceTest {
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
     when(billQueryFactory.create(params)).thenReturn(billQuery);
     when(billRepository.getBill(bill.getId())).thenReturn(bill);
-    when(billRepository.getAll(billQuery)).thenReturn(Arrays.asList(bill));
+    when(billRepository.getAll(billQuery)).thenReturn(bills);
+    when(billProfitsCalculator.calculate(bills)).thenReturn(fee);
   }
 
   @Test
@@ -147,15 +154,15 @@ public class BillServiceTest {
 
   @Test
   public void whenGettingAllBills_thenShouldGetBillsWithQuery() {
-    billService.getAllBills(params);
+    billService.getAllBills(params); // TODO : Refactor
 
     verify(billRepository).getAll(billQuery);
   }
 
   @Test
-  public void whenGettingAllBills_thenShouldReturnProfits() {
+  public void whenGettingAllBills_thenShouldUseProfitsCalculator() {
     Money total = billService.getAllBills(params);
 
-    assertThat(total).isEqualTo(bill.getAmountPaid());
+    assertThat(total).isSameInstanceAs(fee);
   }
 }

@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.funds.domain.queries.BillTypeQueryParamAssembler;
 import ca.ulaval.glo4003.funds.domain.queries.YearQueryParamAssembler;
 import ca.ulaval.glo4003.funds.infrastructure.BillQueryBuilderInMemory;
 import ca.ulaval.glo4003.funds.infrastructure.BillRepositoryInMemory;
+import ca.ulaval.glo4003.funds.services.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.services.BillService;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +21,7 @@ public class FundInjector {
   private final BillTypeQueryParamAssembler billTypeQueryParamAssembler =
       new BillTypeQueryParamAssembler();
   private final YearQueryParamAssembler yearQueryParamAssembler = new YearQueryParamAssembler();
+  private final BillProfitsCalculator billProfitsCalculator = new BillProfitsCalculator();
 
   public BillService createBillService() {
     Set<BillQueryParamAssembler> billQueryParamAssemblers = new HashSet<>();
@@ -30,7 +32,8 @@ public class FundInjector {
     BillQueryFactory billQueryFactory =
         new BillQueryFactory(billQueryBuilderInMemory, billQueryParamAssemblers);
 
-    return new BillService(billFactory, billRepository, new BillAssembler(), billQueryFactory);
+    return new BillService(
+        billFactory, billRepository, new BillAssembler(), billQueryFactory, billProfitsCalculator);
   }
 
   public MoneyAssembler createMoneyAssembler() {

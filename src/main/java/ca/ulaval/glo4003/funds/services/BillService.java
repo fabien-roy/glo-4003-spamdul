@@ -18,16 +18,19 @@ public class BillService {
   private final BillRepository billRepository;
   private final BillAssembler billAssembler;
   private final BillQueryFactory billQueryFactory;
+  private final BillProfitsCalculator billProfitsCalculator;
 
   public BillService(
       BillFactory billFactory,
       BillRepository billRepository,
       BillAssembler billAssembler,
-      BillQueryFactory billQueryFactory) {
+      BillQueryFactory billQueryFactory,
+      BillProfitsCalculator billProfitsCalculator) {
     this.billFactory = billFactory;
     this.billRepository = billRepository;
     this.billAssembler = billAssembler;
     this.billQueryFactory = billQueryFactory;
+    this.billProfitsCalculator = billProfitsCalculator;
   }
 
   public BillId addBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
@@ -81,14 +84,6 @@ public class BillService {
 
     List<Bill> bills = billRepository.getAll(billQuery);
 
-    return calculateProfits(bills);
-  }
-
-  private Money calculateProfits(List<Bill> bills) {
-    Money total = Money.ZERO();
-    for (Bill bill : bills) {
-      total.plus(bill.getAmountPaid());
-    }
-    return total;
+    return billProfitsCalculator.calculate(bills);
   }
 }
