@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003;
 
-import ca.ulaval.glo4003.access.AccessInjector;
-import ca.ulaval.glo4003.access.api.AccessExceptionMapper;
+import ca.ulaval.glo4003.accesspasses.AccessPassInjector;
+import ca.ulaval.glo4003.accesspasses.api.AccessPassExceptionMapper;
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
 import ca.ulaval.glo4003.cars.CarInjector;
@@ -34,7 +34,7 @@ public class ApplicationInjector {
 
   private static final boolean IS_DEV = true;
 
-  private static final AccessInjector ACCESS_INJECTOR = new AccessInjector();
+  private static final AccessPassInjector ACCESS_PASS_INJECTOR = new AccessPassInjector();
   private static final AccountInjector ACCOUNT_INJECTOR = new AccountInjector();
   private static final CarInjector CAR_INJECTOR = new CarInjector();
   private static final CommunicationInjector COMMUNICATION_INJECTOR = new CommunicationInjector();
@@ -56,7 +56,7 @@ public class ApplicationInjector {
         ACCOUNT_INJECTOR.createAccountFactory(),
         ACCOUNT_INJECTOR.createAccountIdAssembler(),
         TIME_INJECTOR.createCustomDateAssembler(),
-        ACCESS_INJECTOR.createAccessPassService(
+        ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
@@ -89,7 +89,7 @@ public class ApplicationInjector {
 
   public GateEntryResource createGateEntryResource() {
     return GATE_ENTRY_INJECTOR.createGateEntryResource(
-        ACCESS_INJECTOR.createAccessPassService(
+        ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
@@ -108,7 +108,7 @@ public class ApplicationInjector {
         ParkingExceptionMapper.class,
         TimeExceptionMapper.class,
         UserExceptionMapper.class,
-        AccessExceptionMapper.class,
+        AccessPassExceptionMapper.class,
         FundExceptionMapper.class);
   }
 }

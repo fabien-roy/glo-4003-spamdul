@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.users.api;
 
-import static ca.ulaval.glo4003.access.helpers.AccessPassCodeDtoBuilder.anAccessPassCodeDto;
-import static ca.ulaval.glo4003.access.helpers.AccessPassDtoBuilder.anAccessPassDto;
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassCodeDtoBuilder.anAccessPassCodeDto;
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassDtoBuilder.anAccessPassDto;
 import static ca.ulaval.glo4003.accounts.helpers.AccountIdDtoBuilder.anAccountIdDto;
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.cars.helpers.CarDtoBuilder.aCarDto;
@@ -9,9 +9,9 @@ import static ca.ulaval.glo4003.users.helpers.UserDtoBuilder.aUserDto;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
-import ca.ulaval.glo4003.access.api.dto.AccessPassCodeDto;
-import ca.ulaval.glo4003.access.api.dto.AccessPassDto;
-import ca.ulaval.glo4003.access.services.AccessPassService;
+import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassCodeDto;
+import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassDto;
+import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
