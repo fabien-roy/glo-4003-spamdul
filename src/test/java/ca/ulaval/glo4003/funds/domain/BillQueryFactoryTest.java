@@ -51,6 +51,6 @@ public class BillQueryFactoryTest {
 
     BillQuery actualQuery = billQueryFactory.create(params);
 
-    assertThat(filteredQuery).isEqualTo(actualQuery);
+    assertThat(filteredQuery).isSameInstanceAs(actualQuery);
   }
 }
