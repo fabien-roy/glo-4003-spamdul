@@ -19,6 +19,7 @@ public class ServerResourceConfig {
                 resources.add(APPLICATION_INJECTOR.createUserResource());
                 resources.add(APPLICATION_INJECTOR.createOffenseResource());
                 resources.add(APPLICATION_INJECTOR.createGateEntryResource());
+                resources.add(APPLICATION_INJECTOR.createCarbonCreditResource());
                 return resources;
               }
 
