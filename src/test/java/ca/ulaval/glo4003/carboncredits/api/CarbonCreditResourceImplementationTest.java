@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.carboncredits.api;
 
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.carboncredits.domain.CarbonCredit;
-import ca.ulaval.glo4003.carboncredits.services.CarbonCreditsService;
+import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
+import ca.ulaval.glo4003.carboncredits.services.CarbonCreditService;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
@@ -14,16 +14,16 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarbonCreditResourceImplementationTest {
-  private final Double CARBON_CREDITS = new CarbonCredit(20).toDouble();
-  @Mock private CarbonCreditsService carbonCreditsService;
+  private final CarbonCreditDto carbonCreditDto = new CarbonCreditDto();
+  @Mock private CarbonCreditService carbonCreditService;
 
   private CarbonCreditResource carbonCreditResource;
 
   @Before
   public void setUp() {
-    carbonCreditResource = new CarbonCreditResourceImplementation(carbonCreditsService);
+    carbonCreditResource = new CarbonCreditResourceImplementation(carbonCreditService);
 
-    when(carbonCreditsService.getCarbonCredits()).thenReturn(CARBON_CREDITS);
+    when(carbonCreditService.getCarbonCredits()).thenReturn(carbonCreditDto);
   }
 
   @Test
@@ -37,6 +37,6 @@ public class CarbonCreditResourceImplementationTest {
   public void whenGettingCarbonCredits_thenRespondCarbonCredits() {
     Response response = carbonCreditResource.getCarbonCredits();
 
-    Truth.assertThat(response.getEntity()).isEqualTo(CARBON_CREDITS);
+    Truth.assertThat(response.getEntity()).isEqualTo(carbonCreditDto);
   }
 }

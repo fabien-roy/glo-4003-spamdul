@@ -1,20 +1,21 @@
 package ca.ulaval.glo4003.carboncredits.api;
 
-import ca.ulaval.glo4003.carboncredits.services.CarbonCreditsService;
+import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
+import ca.ulaval.glo4003.carboncredits.services.CarbonCreditService;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 public class CarbonCreditResourceImplementation implements CarbonCreditResource {
-  private final CarbonCreditsService carbonCreditsService;
+  private final CarbonCreditService carbonCreditService;
 
-  public CarbonCreditResourceImplementation(CarbonCreditsService carbonCreditsService) {
-    this.carbonCreditsService = carbonCreditsService;
+  public CarbonCreditResourceImplementation(CarbonCreditService carbonCreditService) {
+    this.carbonCreditService = carbonCreditService;
   }
 
   public Response getCarbonCredits() {
-    Double carbonCredits = carbonCreditsService.getCarbonCredits();
+    CarbonCreditDto carbonCreditDto = carbonCreditService.getCarbonCredits();
     return Response.status(Response.Status.OK)
-        .entity(carbonCredits)
+        .entity(carbonCreditDto)
         .type(MediaType.APPLICATION_JSON)
         .build();
   }

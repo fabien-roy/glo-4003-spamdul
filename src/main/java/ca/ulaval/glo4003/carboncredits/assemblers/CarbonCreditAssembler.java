@@ -1,3 +1,14 @@
 package ca.ulaval.glo4003.carboncredits.assemblers;
 
-public class CarbonCreditAssembler {}
+import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
+import ca.ulaval.glo4003.carboncredits.domain.CarbonCredit;
+
+public class CarbonCreditAssembler {
+  public CarbonCreditDto assemble(CarbonCredit carbonCredit) {
+    CarbonCreditDto carbonCreditDto = new CarbonCreditDto();
+
+    carbonCreditDto.carbonCreditAmount = carbonCredit.toDouble();
+
+    return carbonCreditDto;
+  }
+}
