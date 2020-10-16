@@ -93,7 +93,7 @@ public class BillRepositoryInMemoryTest {
   }
 
   @Test
-  public void givenBillQuery_whenGettingAllBills_theShouldExecuteQueries() {
+  public void givenBillQuery_whenGettingAllBills_thenShouldExecuteQueries() {
     billRepository.getAll(billQueryInMemory);
 
     verify(billQueryInMemory).execute();
