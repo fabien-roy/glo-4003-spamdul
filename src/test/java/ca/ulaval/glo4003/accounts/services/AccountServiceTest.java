@@ -55,7 +55,7 @@ public class AccountServiceTest {
       anAccount().withBillIds(Collections.singletonList(bill.getId())).build();
 
   @Before
-  public void setup() {
+  public void setUp() {
     accountService =
         new AccountService(
             accountRepository,
@@ -189,7 +189,7 @@ public class AccountServiceTest {
 
   @Test
   public void givenAccountWithBill_whenPayingBill_shouldCallPayBillAssembler() {
-    setupPayBill();
+    setUpPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
@@ -199,7 +199,7 @@ public class AccountServiceTest {
 
   @Test
   public void givenAccountWithBill_whenPayingBill_shouldCallAccountIdAssembler() {
-    setupPayBill();
+    setUpPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
@@ -209,7 +209,7 @@ public class AccountServiceTest {
 
   @Test
   public void givenAccountWithBill_whenPayingBill_shouldCallBillIdAssembler() {
-    setupPayBill();
+    setUpPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
@@ -219,7 +219,7 @@ public class AccountServiceTest {
 
   @Test
   public void givenAccountWithBill_whenPayingBill_shouldCallPayBillService() {
-    setupPayBill();
+    setUpPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
@@ -227,7 +227,7 @@ public class AccountServiceTest {
     verify(billService).payBill(bill.getId(), new Money(1));
   }
 
-  private void setupPayBill() {
+  private void setUpPayBill() {
     when(billPaymentAssembler.assemble(billPaymentDto)).thenReturn(new Money(1));
     when(accountIdAssembler.assemble(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());

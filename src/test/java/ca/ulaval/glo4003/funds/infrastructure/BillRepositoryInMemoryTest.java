@@ -27,7 +27,7 @@ public class BillRepositoryInMemoryTest {
   private final Bill bill2 = aBill().build();
 
   @Before
-  public void setup() {
+  public void setUp() {
     billRepository = new BillRepositoryInMemory();
   }
 

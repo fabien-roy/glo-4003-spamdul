@@ -29,7 +29,7 @@ public class BillTypeQueryParamAssemblerTest {
   private Map<String, List<String>> params = new HashMap<>();
 
   @Before
-  public void setup() {
+  public void setUp() {
     queryAssembler = new BillTypeQueryParamAssembler();
     when(queryBuilder.withBillType(billType)).thenReturn(assembledQueryBuilder);
   }

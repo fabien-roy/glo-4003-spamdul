@@ -21,7 +21,7 @@ public class BillTypeFilterInMemoryTest {
   private List<Bill> bills = new ArrayList<>();
 
   @Before
-  public void setup() {
+  public void setUp() {
     billTypeFilterInMemory = new BillTypeFilterInMemory(A_BILL_TYPE);
   }
 

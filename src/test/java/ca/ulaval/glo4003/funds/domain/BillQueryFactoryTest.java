@@ -26,7 +26,7 @@ public class BillQueryFactoryTest {
   private Set<BillQueryParamAssembler> queryParamAssemblers = new HashSet<>();
 
   @Before
-  public void setup() {
+  public void setUp() {
     queryParamAssemblers.add(firstQueryAssembler);
 
     when(billQueryBuilder.aBillQuery()).thenReturn(billQueryBuilder);

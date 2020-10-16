@@ -17,7 +17,7 @@ public class BillQueryBuilderInMemoryTest {
   private static final int A_YEAR = 2020; // TODO : Create an Object Mother
 
   @Before
-  public void setup() {
+  public void setUp() {
     billQueryBuilderInMemory = new BillQueryBuilderInMemory();
   }
 

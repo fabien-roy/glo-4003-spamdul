@@ -24,7 +24,7 @@ public class BillQueryInMemoryTest {
   private List<Bill> filteredBills;
 
   @Before
-  public void setup() {
+  public void setUp() {
     Bill bill = aBill().build();
     Bill filteredBill = aBill().build();
     bills = Arrays.asList(bill, filteredBill);

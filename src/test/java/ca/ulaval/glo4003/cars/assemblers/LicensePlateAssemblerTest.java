@@ -17,7 +17,7 @@ public class LicensePlateAssemblerTest {
   private LicensePlateAssembler licensePlateAssembler;
 
   @Before
-  public void setup() {
+  public void setUp() {
     licensePlateAssembler = new LicensePlateAssembler();
   }
 
