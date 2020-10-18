@@ -1,14 +1,14 @@
 package ca.ulaval.glo4003.gateentries.services;
 
-import static ca.ulaval.glo4003.access.helpers.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.gateentries.api.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
 import static ca.ulaval.glo4003.gateentries.api.helpers.DayOfWeekDtoBuilder.aDayOfWeekDto;
 import static ca.ulaval.glo4003.times.helpers.DayMother.createDay;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.access.domain.AccessPass;
-import ca.ulaval.glo4003.access.services.AccessPassService;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
+import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.gateentries.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
 import ca.ulaval.glo4003.gateentries.assemblers.DayOfWeekAssembler;

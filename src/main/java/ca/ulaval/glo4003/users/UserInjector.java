@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.users;
 
-import ca.ulaval.glo4003.access.services.AccessPassService;
+import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
