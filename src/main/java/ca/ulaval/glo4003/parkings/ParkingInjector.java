@@ -29,6 +29,10 @@ public class ParkingInjector {
   private final ParkingStickerRepository parkingStickerRepository =
       new ParkingStickerRepositoryInMemory();
 
+  public ParkingAreaRepository getParkingAreaRepository() {
+    return parkingAreaRepository;
+  }
+
   public ParkingStickerRepository getParkingStickerRepository() {
     return parkingStickerRepository;
   }

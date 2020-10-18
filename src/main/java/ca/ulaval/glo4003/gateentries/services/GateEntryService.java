@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.gateentries.services;
 
-import ca.ulaval.glo4003.access.domain.AccessPass;
-import ca.ulaval.glo4003.access.services.AccessPassService;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
+import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.gateentries.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
 import ca.ulaval.glo4003.gateentries.assemblers.DayOfWeekAssembler;

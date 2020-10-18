@@ -57,8 +57,7 @@ public class ParkingStickerServiceTest {
     when(parkingStickerCodeAssembler.assemble(parkingSticker.getCode()))
         .thenReturn(parkingStickerCodeDto);
     when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
-    when(parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode()))
-        .thenReturn(parkingArea);
+    when(parkingAreaRepository.get(parkingSticker.getParkingAreaCode())).thenReturn(parkingArea);
     when(billService.addBillForParkingSticker(parkingSticker, parkingArea))
         .thenReturn(bill.getId());
     when(parkingStickerCodeAssembler.assemble(parkingSticker.getCode().toString()))
