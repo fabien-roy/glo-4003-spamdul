@@ -6,336 +6,928 @@
 	},
 	"item": [
 		{
-			"name": "Add user",
-			"event": [
+			"name": "Users",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "ceaf5b39-6925-478b-b2f0-0911334576e7",
-						"exec": [
-							"var jsonData = JSON.parse(responseBody);",
-							"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
-						],
-						"type": "text/javascript"
-					}
+					"name": "Add user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ceaf5b39-6925-478b-b2f0-0911334576e7",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4a70557f-d5d4-44de-8beb-08a9fe968bf8",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user's bills",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "47118fd1-0421-46da-a807-5eac329646c1",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.billId\", jsonData[0].billId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/bills",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"bills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay user's bill",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3e0970fd-d645-4062-bbc2-60745d4e5a04",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amountToPay\": {{request.bill.amountToPay}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/bills/{{param.billId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"bills",
+								"{{param.billId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add car to user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d8a1e46f-d00a-4ba4-9914-e8d0581ecafb",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add access pass to user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0d837524-508c-40e0-8600-7bb004994456",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"accessPasses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add parking sticker to user (postal)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aa424acc-1539-4981-be1b-5d8603294f81",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"parkingStickers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add parking sticker to user (email)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fa188b49-16d0-4d82-bf18-70eacd498ef8",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": {{request.parkingSticker.email}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"parkingStickers"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"name\": {{request.user.name}},\n  \"birthDate\": {{request.user.birthDate}},\n  \"sex\": {{request.user.sex}},\n  \"accessDay\": {{request.user.accessDay}}\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/api/users",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"users"
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Get user",
-			"event": [
+			"name": "Gate entry",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "4a70557f-d5d4-44de-8beb-08a9fe968bf8",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
+					"name": "Validate gate entry for access pass",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "47267477-5c4f-483b-ae9b-f569a748531c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/gateEntry/validateAccessPass/{{param.accessPassCode}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"gateEntry",
+								"validateAccessPass",
+								"{{param.accessPassCode}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/api/users/{{param.accountId}}",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"users",
-						"{{param.accountId}}"
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Add parking sticker (postal)",
-			"event": [
+			"name": "Offenses",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "aa424acc-1539-4981-be1b-5d8603294f81",
-						"exec": [
-							"var jsonData = JSON.parse(responseBody);",
-							"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
-						],
-						"type": "text/javascript"
-					}
+					"name": "Get offense types",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "249e3ec7-99d2-4dc2-91c9-e8cba88f1967",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/offenses/types",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"offenses",
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate offense for parking sticker",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c313947b-bb6b-44eb-a4c0-d2b425eda3c2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/offenses/validate",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"offenses",
+								"validate"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/api/parkings",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"parkings"
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Add parking sticker (email)",
-			"event": [
+			"name": "Initiatives",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "fa188b49-16d0-4d82-bf18-70eacd498ef8",
-						"exec": [
-							"var jsonData = JSON.parse(responseBody);",
-							"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
-						],
-						"type": "text/javascript"
-					}
+					"name": "Add initiative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cf3e622d-d0ec-4964-903a-6e99a548b477",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.initiativeCode\", jsonData.initiativeCode);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": {{request.initiative.name}},\n  \"amount\": {{request.initiative.amount}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/initiatives",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"initiatives"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get initiatives",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/initiatives",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"initiatives"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add amount to initiative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e5413957-3fe2-4c71-82fb-b00115442dff",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amountToAdd\": {{request.initiative.amountToAdd}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/initiatives/{{param.initiativeCode}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"initiatives",
+								"{{param.initiativeCode}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get available amount for initiatives",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/initiatives/availableAmount",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"initiatives",
+								"availableAmount"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": {{request.parkingSticker.email}},\n  \"validDay\": {{request.parkingSticker.validDay}}\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/api/parkings",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"parkings"
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Validate parking sticker",
-			"event": [
+			"name": "Profits",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "47267477-5c4f-483b-ae9b-f569a748531c",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
+					"name": "Get profits for parking stickers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "91b81b74-c5d2-43dc-bbff-d18de54a2fe4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/profits/parkingStickers?year={{queryParam.profits.year}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"profits",
+								"parkingStickers"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "{{queryParam.profits.year}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get profits for access passes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "994fd4fc-95da-4f71-a92e-b83090478b60",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/profits/accessPasses?year={{queryParam.profits.year}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"profits",
+								"accessPasses"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "{{queryParam.profits.year}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get profits for access passes (by consumption type)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "84e01870-9a0d-46ee-b0af-daffe4026ffa",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/profits/accessPasses?year={{queryParam.profits.year}}&byConsumptionType=true",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"profits",
+								"accessPasses"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "{{queryParam.profits.year}}"
+								},
+								{
+									"key": "byConsumptionType",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get profits for offenses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6648dfd2-e8b5-4d93-8a91-7de35fc22290",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/profits/offenses?year={{queryParam.profits.year}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"profits",
+								"offenses"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "{{queryParam.profits.year}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/api/parkings/{{param.parkingStickerCode}}/validate",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"parkings",
-						"{{param.parkingStickerCode}}",
-						"validate"
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Add car",
-			"event": [
+			"name": "Carbon credits",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "d8a1e46f-d00a-4ba4-9914-e8d0581ecafb",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
+					"name": "Enable or disable monthly payment for carbon credits",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "598b6dae-be1b-4c88-9e3a-c683eaa125b4",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"monthlyPaymentStatus\": {{param.carbonCredit.monthlyPaymentStatus}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/profits/carbonCredits",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"profits",
+								"carbonCredits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable or disable monthly payment for carbon credits Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28da7bda-3065-43a3-81b2-caf98599d183",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/profits/carbonCredits",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"profits",
+								"carbonCredits"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"accountId\": \"{{param.accountId}}\",\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/api/cars",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"cars"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get offense types",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "249e3ec7-99d2-4dc2-91c9-e8cba88f1967",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/api/offenses/types",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"offenses",
-						"types"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Validate offense for parking sticker",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "c313947b-bb6b-44eb-a4c0-d2b425eda3c2",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"parkingStickerCode\": \"{{param.parkingStickerCode}}\",\n    \"parkingArea\": {{request.offenseValidation.parkingArea}},\n    \"timeOfDay\": {{request.offenseValidation.timeOfDay}}\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/api/offenses/validate",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"offenses",
-						"validate"
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}

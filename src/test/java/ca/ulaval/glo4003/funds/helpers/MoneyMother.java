@@ -8,4 +8,9 @@ public class MoneyMother {
     double amount = Faker.instance().number().numberBetween(1, 200);
     return new Money(amount);
   }
+
+  public static Money createMoneyBelowAmount(Money maxAmount) {
+    double amount = Faker.instance().number().numberBetween(1, (int) maxAmount.toDouble());
+    return new Money(amount);
+  }
 }

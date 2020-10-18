@@ -13,7 +13,7 @@ public interface OffenseResource {
   @Path("types")
   Response getAllOffenses();
 
-  @GET
+  @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   @Path("validate")

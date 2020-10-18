@@ -32,7 +32,7 @@ public class CarServiceTest {
   private final Car car = aCar().build();
 
   @Before
-  public void setup() {
+  public void setUp() {
     carService = new CarService(carAssembler, carRepository, accountService);
 
     when(carAssembler.assemble(carDto, accountId.toString())).thenReturn(car);

@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.funds.domain.Bill;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BillsAssembler {
+public class BillAssembler {
 
   public List<BillDto> assemble(List<Bill> bills) {
     return bills.stream().map(this::assemble).collect(Collectors.toList());

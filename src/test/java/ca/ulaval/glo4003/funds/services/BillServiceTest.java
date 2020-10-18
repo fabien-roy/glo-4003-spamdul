@@ -6,21 +6,18 @@ import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.access.domain.AccessPassCode;
-import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
+import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import com.google.common.truth.Truth;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +29,10 @@ public class BillServiceTest {
 
   @Mock BillFactory billFactory;
   @Mock BillRepository billRepository;
-  @Mock BillsAssembler billsAssembler;
+  @Mock BillAssembler billAssembler;
+  @Mock BillQueryFactory billQueryFactory;
+  @Mock BillQuery billQuery;
+  @Mock BillProfitsCalculator billProfitsCalculator;
 
   private BillService billService;
 
@@ -44,28 +44,37 @@ public class BillServiceTest {
   private final Money amountDue = new Money(1);
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final OffenseCode offenseCode = createOffenseCode();
+  private Map<String, List<String>> params = new HashMap<>();
 
   @Before
   public void setUp() {
-    billService = new BillService(billFactory, billRepository, billsAssembler);
+    billService =
+        new BillService(
+            billFactory, billRepository, billAssembler, billQueryFactory, billProfitsCalculator);
 
     Map<ParkingPeriod, Money> feePerPeriod = new HashMap<>();
     feePerPeriod.put(ParkingPeriod.ONE_DAY, parkingPeriodFee);
     parkingArea = aParkingArea().withFeePerPeriod(feePerPeriod).build();
+
+    List<Bill> bills = new ArrayList<>();
+    bills.add(bill);
 
     when(billFactory.createForParkingSticker(
             parkingPeriodFee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
         .thenReturn(bill);
     when(billFactory.createForAccessPass(fee, accessPassCode)).thenReturn(bill);
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
+    when(billQueryFactory.create(params)).thenReturn(billQuery);
     when(billRepository.getBill(bill.getId())).thenReturn(bill);
+    when(billRepository.getAll(billQuery)).thenReturn(bills);
+    when(billProfitsCalculator.calculate(bills)).thenReturn(fee);
   }
 
   @Test
   public void whenAddingBillForParkingSticker_thenReturnBillId() {
     BillId billId = billService.addBillForParkingSticker(parkingSticker, parkingArea);
 
-    Truth.assertThat(billId).isEqualTo(bill.getId());
+    assertThat(billId).isEqualTo(bill.getId());
   }
 
   @Test
@@ -79,7 +88,7 @@ public class BillServiceTest {
   public void whenAddingBillForAccessPass_thenReturnBillId() {
     BillId billId = billService.addBillForAccessCode(fee, accessPassCode);
 
-    Truth.assertThat(billId).isEqualTo(bill.getId());
+    assertThat(billId).isEqualTo(bill.getId());
   }
 
   @Test
@@ -93,7 +102,7 @@ public class BillServiceTest {
   public void whenAddingBillForOffense_thenReturnBillId() {
     BillId billId = billService.addBillOffense(fee, offenseCode);
 
-    Truth.assertThat(billId).isEqualTo(bill.getId());
+    assertThat(billId).isEqualTo(bill.getId());
   }
 
   @Test
@@ -140,6 +149,13 @@ public class BillServiceTest {
     billService.payBill(bill.getId(), amountDue);
     bill.pay(amountDue);
 
-    verify(billsAssembler).assemble(bill);
+    verify(billAssembler).assemble(bill);
+  }
+
+  @Test
+  public void whenGettingAllBills_thenShouldUseProfitsCalculator() {
+    Money total = billService.getAllBills(params);
+
+    assertThat(total).isSameInstanceAs(fee);
   }
 }

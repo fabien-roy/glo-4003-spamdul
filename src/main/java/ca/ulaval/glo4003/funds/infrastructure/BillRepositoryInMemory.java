@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class BillRepositoryInMemory implements BillRepository {
+public class BillRepositoryInMemory implements BillRepository<BillQueryInMemory> {
   private final Map<BillId, Bill> bills = new HashMap<>();
 
   @Override
@@ -39,5 +39,11 @@ public class BillRepositoryInMemory implements BillRepository {
     getBill(bill.getId());
 
     bills.put(bill.getId(), bill);
+  }
+
+  @Override
+  public List<Bill> getAll(BillQueryInMemory billQuery) {
+    billQuery.setBills(bills);
+    return billQuery.execute();
   }
 }

@@ -5,7 +5,7 @@
 
 	<groupId>ca.ulaval.glo4003</groupId>
 	<artifactId>spamd-ul</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>SPAMD-UL</name>
@@ -214,6 +214,7 @@
 					<includeTarget>false</includeTarget>
 					<includes>
 						<include>target/${jar-file-name}.jar</include>
+						<include>data/*</include>
 					</includes>
 					<processTypes>
 						<web>java -Dport=$PORT -jar target/${jar-file-name}.jar</web>

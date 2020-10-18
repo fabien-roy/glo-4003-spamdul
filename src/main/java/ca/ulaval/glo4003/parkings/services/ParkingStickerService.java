@@ -41,6 +41,7 @@ public class ParkingStickerService extends ParkingStickerCreationObservable {
     logger.info(String.format("Add new parking sticker %s", parkingStickerDto));
 
     ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+    accountService.getAccount(parkingSticker.getAccountId());
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
     ParkingArea parkingArea = parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
