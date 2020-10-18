@@ -41,6 +41,7 @@ public class OffenseTypeServiceTest {
   @Mock private ParkingSticker parkingSticker;
   @Mock private BillService billService;
   @Mock private AccountService accountService;
+  @Mock private OffenseNotifier offenseNotifier;
 
   private OffenseTypeService offenseTypeService;
 
@@ -67,7 +68,8 @@ public class OffenseTypeServiceTest {
             offenseTypeRepository,
             offenseTypeFactory,
             billService,
-            accountService);
+            accountService,
+            offenseNotifier);
 
     when(offenseTypeRepository.getAll()).thenReturn(offenseTypes);
     when(offenseTypeAssembler.assembleMany(offenseTypes)).thenReturn(offenseTypeDtos);

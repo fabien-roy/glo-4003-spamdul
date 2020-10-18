@@ -11,6 +11,8 @@ import ca.ulaval.glo4003.offenses.assemblers.InfractionAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseCodeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
+import ca.ulaval.glo4003.offenses.console.OffenseNotifierSystemPrint;
+import ca.ulaval.glo4003.offenses.domain.OffenseNotifier;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeFactory;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
@@ -26,6 +28,7 @@ import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import java.util.List;
 
 public class OffenseInjector {
+  private final OffenseNotifier offenseNotifier = new OffenseNotifierSystemPrint();
   private final OffenseTypeRepository offenseTypeRepository = new OffenseTypeRepositoryInMemory();
   private final StringFileReader fileReader = new JsonFileReader();
 
@@ -90,7 +93,8 @@ public class OffenseInjector {
         offenseTypeRepository,
         offenseTypeFactory,
         billService,
-        accountService);
+        accountService,
+        offenseNotifier);
   }
 
   private OffenseValidationAssembler createOffenseValidationAssembler(
