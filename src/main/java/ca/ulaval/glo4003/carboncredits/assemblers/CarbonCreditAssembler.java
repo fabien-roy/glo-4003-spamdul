@@ -7,7 +7,7 @@ public class CarbonCreditAssembler {
   public CarbonCreditDto assemble(CarbonCredit carbonCredit) {
     CarbonCreditDto carbonCreditDto = new CarbonCreditDto();
 
-    carbonCreditDto.carbonCreditAmount = carbonCredit.toDouble();
+    carbonCreditDto.carbonCredits = carbonCredit.toDouble();
 
     return carbonCreditDto;
   }

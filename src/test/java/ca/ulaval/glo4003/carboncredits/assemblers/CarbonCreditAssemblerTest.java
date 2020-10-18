@@ -25,6 +25,6 @@ public class CarbonCreditAssemblerTest {
   public void whenAssembling_thenReturnCarbonCreditDtoWithCarbonCreditAmount() {
     CarbonCreditDto carbonCreditDto = carbonCreditAssembler.assemble(carbonCredit);
 
-    Truth.assertThat(carbonCreditDto.carbonCreditAmount).isEqualTo(carbonCredit.toDouble());
+    Truth.assertThat(carbonCreditDto.carbonCredits).isEqualTo(carbonCredit.toDouble());
   }
 }
