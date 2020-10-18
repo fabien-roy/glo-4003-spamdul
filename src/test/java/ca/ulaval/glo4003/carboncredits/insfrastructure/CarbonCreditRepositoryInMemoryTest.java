@@ -11,21 +11,19 @@ import org.junit.Test;
 public class CarbonCreditRepositoryInMemoryTest {
   private CarbonCreditRepository carbonCreditRepository;
   private CarbonCredit carbonCredit;
-  private CarbonCredit beforeCarbonCreditAmount;
+  private CarbonCredit addedCarbonCreditAmount;
 
   @Before
   public void setUp() {
     carbonCreditRepository = new CarbonCreditRepositoryInMemory();
     carbonCredit = aCarbonCredit().build();
-    beforeCarbonCreditAmount = carbonCreditRepository.getAll();
-
-    carbonCreditRepository.addCarbonCredit(carbonCredit);
   }
 
   @Test
-  public void whenGettingCarbonCredits_thenReturnCarbonCredits() {
-    CarbonCredit afterCarbonCreditAmount = carbonCreditRepository.getAll();
+  public void givenCarbonCredits_whenGettingCarbonCredits_thenReturnCarbonCredits() {
+    carbonCreditRepository.addCarbonCredit(carbonCredit);
+    addedCarbonCreditAmount = carbonCreditRepository.getAll();
 
-    assertThat(afterCarbonCreditAmount.minus(beforeCarbonCreditAmount)).isEqualTo(carbonCredit);
+    assertThat(addedCarbonCreditAmount).isEqualTo(carbonCredit);
   }
 }

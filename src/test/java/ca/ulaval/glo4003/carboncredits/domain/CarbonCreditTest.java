@@ -19,17 +19,6 @@ public class CarbonCreditTest {
   }
 
   @Test
-  public void whenRemovingCarbonCredit_thenReturnRemovedCarbonCredit() {
-    CarbonCredit carbonCredit = new CarbonCredit(20);
-    CarbonCredit removedCarbonCredit = new CarbonCredit(10);
-    CarbonCredit expectedCarbonCredit = new CarbonCredit(10);
-
-    CarbonCredit actualCarbonCredit = carbonCredit.minus(removedCarbonCredit);
-
-    Truth.assertThat(actualCarbonCredit).isEqualTo(expectedCarbonCredit);
-  }
-
-  @Test
   public void whenConvertingMoneyToCarbonCredit_thenReturnCarbonCredit() {
     Money money = new Money(20);
 

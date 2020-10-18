@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.carboncredits.domain.CarbonCredit;
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCreditRepository;
 
 public class CarbonCreditRepositoryInMemory implements CarbonCreditRepository {
-  private CarbonCredit carbonCreditAmount = new CarbonCredit(0);
+  private CarbonCredit carbonCreditAmount = CarbonCredit.ZERO();
 
   @Override
   public void addCarbonCredit(CarbonCredit carbonCredit) {

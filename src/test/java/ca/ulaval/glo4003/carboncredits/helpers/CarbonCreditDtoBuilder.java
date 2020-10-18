@@ -15,7 +15,7 @@ public class CarbonCreditDtoBuilder {
 
   public CarbonCreditDto build() {
     CarbonCreditDto carbonCreditDto = new CarbonCreditDto();
-    carbonCreditDto.carbonCreditAmount = carbonCreditAmount;
+    carbonCreditDto.carbonCredits = carbonCreditAmount;
 
     return carbonCreditDto;
   }

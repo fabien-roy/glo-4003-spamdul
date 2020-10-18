@@ -4,14 +4,14 @@ import ca.ulaval.glo4003.funds.domain.Money;
 import java.util.Objects;
 
 public class CarbonCredit {
-  private final double carbonCreditAmount;
+  private final double amount;
 
   public CarbonCredit(double carbonCredit) {
-    this.carbonCreditAmount = carbonCredit;
+    this.amount = carbonCredit;
   }
 
   public CarbonCredit(CarbonCredit carbonCredit) {
-    this.carbonCreditAmount = carbonCredit.toDouble();
+    this.amount = carbonCredit.toDouble();
   }
 
   public static CarbonCredit convertMoneyToCarbonCredit(Money money) {
@@ -19,15 +19,11 @@ public class CarbonCredit {
   }
 
   public CarbonCredit plus(CarbonCredit addedCarbonCredit) {
-    return new CarbonCredit(this.carbonCreditAmount + addedCarbonCredit.toDouble());
-  }
-
-  public CarbonCredit minus(CarbonCredit removedCarbonCredit) {
-    return new CarbonCredit(this.carbonCreditAmount - removedCarbonCredit.toDouble());
+    return new CarbonCredit(this.amount + addedCarbonCredit.toDouble());
   }
 
   public double toDouble() {
-    return carbonCreditAmount;
+    return amount;
   }
 
   public static CarbonCredit ZERO() {
@@ -44,16 +40,16 @@ public class CarbonCredit {
 
     CarbonCredit carbonCredit = (CarbonCredit) object;
 
-    return this.carbonCreditAmount == carbonCredit.toDouble();
+    return this.amount == carbonCredit.toDouble();
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(carbonCreditAmount);
+    return Objects.hashCode(amount);
   }
 
   @Override
   public String toString() {
-    return String.valueOf(carbonCreditAmount);
+    return String.valueOf(amount);
   }
 }
