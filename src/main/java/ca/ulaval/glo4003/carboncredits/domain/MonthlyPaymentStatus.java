@@ -13,7 +13,7 @@ public enum MonthlyPaymentStatus {
 
   static {
     for (MonthlyPaymentStatus name : MonthlyPaymentStatus.values()) {
-      lookup.put(name.toString().toLowerCase(), name);
+      lookup.put(name.toString(), name);
     }
   }
 
