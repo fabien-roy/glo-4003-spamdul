@@ -4,8 +4,8 @@ public class BillDto {
   public String billId;
   public String billType;
   public String description;
-  public String amountDue;
-  public String amountPaid;
+  public double amountDue;
+  public double amountPaid;
 
   @Override
   public String toString() {
