@@ -16,7 +16,8 @@ public class CarbonCreditResourceImplementation implements CarbonCreditResource 
   @Override
   public Response modifyCarbonCreditMonthlyPaymentStatus(
       CarbonCreditMonthlyPaymentStatusDto carbonCreditMonthlyPaymentStatusDto) {
-    return null;
+    carbonCreditService.modifyCarbonCreditMonthlyPaymentStatus(carbonCreditMonthlyPaymentStatusDto);
+    return Response.status(Response.Status.OK).build();
   }
 
   public Response getCarbonCredits() {

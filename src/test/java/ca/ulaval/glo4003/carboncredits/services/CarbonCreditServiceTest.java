@@ -6,7 +6,9 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
 import ca.ulaval.glo4003.carboncredits.assemblers.CarbonCreditAssembler;
+import ca.ulaval.glo4003.carboncredits.assemblers.CarbonCreditMonthlyPaymentStatusAssembler;
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCreditRepository;
+import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatusRepository;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +20,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class CarbonCreditServiceTest {
   @Mock CarbonCreditRepository carbonCreditRepository;
   @Mock CarbonCreditAssembler carbonCreditAssembler;
+  @Mock CarbonCreditMonthlyPaymentStatusAssembler carbonCreditMonthlyPaymentStatusAssembler;
+  @Mock MonthlyPaymentStatusRepository monthlyPaymentStatusRepository;
 
   private CarbonCreditService carbonCreditService;
 
@@ -25,7 +29,12 @@ public class CarbonCreditServiceTest {
 
   @Before
   public void setUp() {
-    carbonCreditService = new CarbonCreditService(carbonCreditRepository, carbonCreditAssembler);
+    carbonCreditService =
+        new CarbonCreditService(
+            carbonCreditRepository,
+            carbonCreditAssembler,
+            carbonCreditMonthlyPaymentStatusAssembler,
+            monthlyPaymentStatusRepository);
 
     when(carbonCreditAssembler.assemble(any())).thenReturn(carbonCreditDto);
   }
