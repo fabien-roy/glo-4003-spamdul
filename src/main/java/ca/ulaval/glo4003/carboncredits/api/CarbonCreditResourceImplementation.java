@@ -20,6 +20,7 @@ public class CarbonCreditResourceImplementation implements CarbonCreditResource 
     return Response.status(Response.Status.OK).build();
   }
 
+  @Override
   public Response getCarbonCredits() {
     CarbonCreditDto carbonCreditDto = carbonCreditService.getCarbonCredits();
     return Response.status(Response.Status.OK)

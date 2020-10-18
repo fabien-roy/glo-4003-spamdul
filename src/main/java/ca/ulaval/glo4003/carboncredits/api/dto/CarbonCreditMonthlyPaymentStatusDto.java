@@ -5,6 +5,7 @@ public class CarbonCreditMonthlyPaymentStatusDto {
 
   @Override
   public String toString() {
-    return String.format("CarbonCredits{monthlyPaymentStatus='%s'}", monthlyPaymentStatus);
+    return String.format(
+        "CarbonCreditMonthlyPaymentStatusDto{monthlyPaymentStatus='%s'}", monthlyPaymentStatus);
   }
 }

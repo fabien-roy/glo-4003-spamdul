@@ -5,6 +5,6 @@ public class CarbonCreditDto {
 
   @Override
   public String toString() {
-    return String.format("CarbonCredits{carbonCredits='%s'}", carbonCredits);
+    return String.format("CarbonCreditDto{carbonCredits='%s'}", carbonCredits);
   }
 }

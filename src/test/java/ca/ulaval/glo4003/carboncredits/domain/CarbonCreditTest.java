@@ -22,7 +22,7 @@ public class CarbonCreditTest {
   public void whenConvertingMoneyToCarbonCredit_thenReturnCarbonCredit() {
     Money money = new Money(20);
 
-    CarbonCredit actualCarbonCredit = CarbonCredit.convertMoneyToCarbonCredit(money);
+    CarbonCredit actualCarbonCredit = CarbonCredit.fromMoney(money);
 
     Truth.assertThat(actualCarbonCredit).isEqualTo(CARBON_CREDIT);
   }
