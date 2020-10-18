@@ -17,7 +17,7 @@ public class ParkingAreaRepositoryInMemory implements ParkingAreaRepository {
   }
 
   @Override
-  public ParkingArea findByCode(ParkingAreaCode code) {
+  public ParkingArea get(ParkingAreaCode code) {
     ParkingArea foundParkingArea = parkingAreas.get(code);
 
     if (foundParkingArea == null) throw new NotFoundParkingAreaException();

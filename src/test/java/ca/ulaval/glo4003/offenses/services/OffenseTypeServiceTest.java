@@ -5,6 +5,7 @@ import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeBuilder.anOffenseTyp
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeDtoBuilder.anOffenseTypeDto;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationBuilder.anOffenseValidation;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationDtoBuilder.anOffenseValidationDto;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
@@ -15,6 +16,7 @@ import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
 import ca.ulaval.glo4003.offenses.domain.*;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
@@ -30,6 +32,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OffenseTypeServiceTest {
+  @Mock private ParkingAreaRepository parkingAreaRepository;
   @Mock private ParkingStickerRepository parkingStickerRepository;
   @Mock private OffenseValidationAssembler offenseValidationAssembler;
   @Mock private OffenseTypeAssembler offenseTypeAssembler;
@@ -57,6 +60,7 @@ public class OffenseTypeServiceTest {
   public void setUp() {
     offenseTypeService =
         new OffenseTypeService(
+            parkingAreaRepository,
             parkingStickerRepository,
             offenseValidationAssembler,
             offenseTypeAssembler,
@@ -88,6 +92,13 @@ public class OffenseTypeServiceTest {
     List<OffenseTypeDto> receivedOffenseTypeDtos = offenseTypeService.getAllOffenseTypes();
 
     Truth.assertThat(receivedOffenseTypeDtos).isSameInstanceAs(offenseTypeDtos);
+  }
+
+  @Test
+  public void whenValidatingOffense_thenVerifyParkingAreaExists() {
+    offenseTypeService.validateOffense(offenseValidationDto);
+
+    verify(parkingAreaRepository).get(offenseValidation.getParkingAreaCode());
   }
 
   @Test

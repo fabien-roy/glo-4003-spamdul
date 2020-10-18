@@ -78,6 +78,7 @@ public class ApplicationInjector {
 
   public OffenseResource createOffenseResource() {
     return OFFENSE_INJECTOR.createOffenseResource(
+        PARKING_INJECTOR.getParkingAreaRepository(),
         PARKING_INJECTOR.getParkingStickerRepository(),
         PARKING_INJECTOR.createParkingStickerCodeAssembler(),
         PARKING_INJECTOR.createParkingAreaCodeAssembler(),
