@@ -20,6 +20,7 @@ import ca.ulaval.glo4003.offenses.infrastructure.OffenseTypeRepositoryInMemory;
 import ca.ulaval.glo4003.offenses.services.OffenseTypeService;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import java.util.List;
@@ -29,6 +30,7 @@ public class OffenseInjector {
   private final StringFileReader fileReader = new JsonFileReader();
 
   public OffenseResource createOffenseResource(
+      ParkingAreaRepository parkingAreaRepository,
       ParkingStickerRepository parkingStickerRepository,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
@@ -40,6 +42,7 @@ public class OffenseInjector {
 
     OffenseTypeService offenseTypeService =
         createOffenseService(
+            parkingAreaRepository,
             parkingStickerRepository,
             parkingStickerCodeAssembler,
             parkingAreaCodeAssembler,
@@ -65,6 +68,7 @@ public class OffenseInjector {
   }
 
   private OffenseTypeService createOffenseService(
+      ParkingAreaRepository parkingAreaRepository,
       ParkingStickerRepository parkingStickerRepository,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
@@ -79,6 +83,7 @@ public class OffenseInjector {
         new OffenseTypeFactory(offenseTypeRepository, createOffenseCodeAssembler());
 
     return new OffenseTypeService(
+        parkingAreaRepository,
         parkingStickerRepository,
         offenseValidationAssembler,
         offenseTypeAssembler,

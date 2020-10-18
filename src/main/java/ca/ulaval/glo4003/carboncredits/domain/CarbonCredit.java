@@ -30,10 +30,6 @@ public class CarbonCredit {
     return new CarbonCredit(0);
   }
 
-  public static CarbonCredit fromDouble(double carbonCreditAmount) {
-    return new CarbonCredit(carbonCreditAmount);
-  }
-
   @Override
   public boolean equals(Object object) {
     if (object == null || getClass() != object.getClass()) return false;

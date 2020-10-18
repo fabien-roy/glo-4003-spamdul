@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds.services;
 
-import ca.ulaval.glo4003.access.domain.AccessPassCode;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.domain.*;

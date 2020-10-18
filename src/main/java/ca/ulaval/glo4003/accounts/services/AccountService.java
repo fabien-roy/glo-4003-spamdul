@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.accounts.services;
 
-import ca.ulaval.glo4003.access.domain.AccessPassCode;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
