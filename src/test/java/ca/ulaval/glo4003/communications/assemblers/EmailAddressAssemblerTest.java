@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.communications.assemblers;
 
-import static ca.ulaval.glo4003.communications.helpers.EmailAddressMother.createEmailAddress;
+import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAddress;
 
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
 import ca.ulaval.glo4003.communications.exceptions.InvalidEmailAddressException;

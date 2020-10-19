@@ -15,21 +15,33 @@ public class GmailSmtpClient {
   private static final String EMAIL_PASSWORD =
       "InsquisitionsEspagnolesEquipeQuatre"; // TODO : Get this from env
 
-  public Session getSession() {
+  public MimeMessage createMessage() {
+    Session session = getSession();
+    MimeMessage message = new MimeMessage(session);
+
+    try {
+      message.setFrom(new InternetAddress(EMAIL_SENDER));
+    } catch (MessagingException exception) {
+      throw new EmailSendingFailedException();
+    }
+
+    return message;
+  }
+
+  public void sendMessage(MimeMessage message) {
+    try {
+      Transport.send(message, EMAIL_SENDER, EMAIL_PASSWORD);
+    } catch (MessagingException exception) {
+      throw new EmailSendingFailedException();
+    }
+  }
+
+  private Session getSession() {
     Properties properties = System.getProperties();
     properties.setProperty("mail.smtp.host", GMAIL_HOST);
     properties.setProperty("mail.smtp.port", "587");
     properties.setProperty("mail.smtp.starttls.enable", "true");
 
     return Session.getInstance(properties);
-  }
-
-  public void sendMessage(MimeMessage message) {
-    try {
-      message.setFrom(new InternetAddress(EMAIL_SENDER));
-      Transport.send(message, EMAIL_SENDER, EMAIL_PASSWORD);
-    } catch (MessagingException exception) {
-      throw new EmailSendingFailedException();
-    }
   }
 }
