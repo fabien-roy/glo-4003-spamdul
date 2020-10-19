@@ -5,8 +5,8 @@ import ca.ulaval.glo4003.offenses.domain.OffenseType;
 
 public class OffenseNotifierSystemPrint implements OffenseNotifier {
   private static final String OFFENSE_WITHOUT_PARKING_STICKER_MESSAGE =
-      "An offense was validated for without a valid parking sticker. The associated offense type is"
-          + "%s, '%s', with an amount of %s.";
+      "An offense for an invalid or missing parking sticker was validated. The associated offense"
+          + " type is %s, '%s', with an amount of %s.";
 
   @Override
   public void notifyOffenseWithoutParkingSticker(OffenseType offenseType) {
