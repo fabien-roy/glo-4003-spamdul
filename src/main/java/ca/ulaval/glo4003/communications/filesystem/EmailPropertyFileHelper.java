@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.communications.domain.EmailPropertyHelper;
 import ca.ulaval.glo4003.files.filesystem.PropertyFileReader;
 import java.util.Properties;
 
-// TODO : Test EmailPropertiesFileHelper
 public class EmailPropertyFileHelper implements EmailPropertyHelper {
 
   private Properties emailProperties;
