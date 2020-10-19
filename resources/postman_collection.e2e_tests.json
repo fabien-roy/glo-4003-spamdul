@@ -712,17 +712,17 @@
 													"",
 													"pm.test(\"Returns correct name\", function () {",
 													"    var name = postman.getEnvironmentVariable(\"request.user.name\");",
-													"    pm.expect(name).to.contain(pm.response.json().name);",
+													"    pm.expect(pm.response.json().name).to.equal(name);",
 													"});",
 													"",
 													"pm.test(\"Returns correct birth date\", function () {",
 													"    var birthDate = postman.getEnvironmentVariable(\"request.user.birthDate\");",
-													"    pm.expect(birthDate).to.contain(pm.response.json().birthDate);",
+													"    pm.expect(pm.response.json().birthDate).to.equal(birthDate);",
 													"});",
 													"",
 													"pm.test(\"Returns correct sex\", function () {",
 													"    var sex = postman.getEnvironmentVariable(\"request.user.sex\");",
-													"    pm.expect(sex).to.contain(pm.response.json().sex);",
+													"    pm.expect(pm.response.json().sex).to.equal(sex);",
 													"});"
 												],
 												"type": "text/javascript"
@@ -3869,17 +3869,17 @@
 													"",
 													"pm.test(\"Returns initiative with correct code\", function () {",
 													"    var initiativeCode = postman.getEnvironmentVariable(\"param.initiativeCode\");",
-													"    pm.expect(initiativeCode).to.contain(pm.response.json()[0].initiativeCode);",
+													"    pm.expect(pm.response.json()[0].initiativeCode).to.equal(initiativeCode);",
 													"});",
 													"",
 													"pm.test(\"Returns initiative with correct name\", function () {",
 													"    var name = postman.getEnvironmentVariable(\"request.initiative.name\");",
-													"    pm.expect(name).to.contain(pm.response.json()[0].name);",
+													"    pm.expect(pm.response.json()[0].name).to.equal(name);",
 													"});",
 													"",
 													"pm.test(\"Returns initiative with correct amount\", function () {",
 													"    var amount = postman.getEnvironmentVariable(\"request.initiative.amount\");",
-													"    pm.expect(amount).to.contain(pm.response.json()[0].amount);",
+													"    pm.expect(pm.response.json()[0].amount).to.equal(amount);",
 													"});"
 												],
 												"type": "text/javascript"
@@ -4160,6 +4160,84 @@
 										}
 									},
 									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Get available amount for initiatives",
+							"item": [
+								{
+									"name": "Get available amount for initiatives",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1511166a-1cc1-425b-8016-419ad57091a6",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Returns available amount\", function () {",
+													"    pm.expect(pm.response.json().availableAmount).to.not.be.null;",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/initiatives/availableAmount",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"initiatives",
+												"availableAmount"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "fb8b121d-23ce-4d60-8758-dabf1aded5f4",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "d298bb29-3a6a-485e-a02e-e00dc3699ebe",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
 								}
 							],
 							"protocolProfileBehavior": {},
