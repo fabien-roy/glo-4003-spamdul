@@ -3060,7 +3060,7 @@
 													"});",
 													"",
 													"pm.test(\"Returns offenses\", function () {",
-													"    pm.expect(pm.response.json()).to.length.to.be.greaterThan(0);",
+													"    pm.expect(pm.response.json().length).to.be.greaterThan(0);",
 													"});",
 													"",
 													"pm.test(\"Returns offense with description\", function () {",
@@ -4348,61 +4348,6 @@
 									"name": "Year",
 									"item": [
 										{
-											"name": "Invalid year (null)",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"id": "493e8d2b-df79-470d-8097-b07672c0774b",
-														"exec": [
-															"pm.test(\"Returns status 400\", function () {",
-															"    pm.response.to.have.status(400);",
-															"});",
-															"",
-															"pm.test(\"Returns invalid year\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\");",
-															"});"
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"protocolProfileBehavior": {
-												"disableBodyPruning": true
-											},
-											"request": {
-												"method": "GET",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{host}}/api/profits/parkingStickers?year=null",
-													"host": [
-														"{{host}}"
-													],
-													"path": [
-														"api",
-														"profits",
-														"parkingStickers"
-													],
-													"query": [
-														{
-															"key": "year",
-															"value": "null"
-														}
-													]
-												}
-											},
-											"response": []
-										},
-										{
 											"name": "Invalid year (negative)",
 											"event": [
 												{
@@ -4560,6 +4505,366 @@
 												"api",
 												"profits",
 												"parkingStickers"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Get profits for access passes",
+							"item": [
+								{
+									"name": "Year",
+									"item": [
+										{
+											"name": "Invalid year (negative)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "83eab499-c324-4035-b2b6-9e54cce95021",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid year\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/profits/accessPasses?year=-2000",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"profits",
+														"accessPasses"
+													],
+													"query": [
+														{
+															"key": "year",
+															"value": "-2000"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid year (string)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "0c17f406-f7eb-4326-9cfd-ed6dfff40c09",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid year\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/profits/accessPasses?year=year",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"profits",
+														"accessPasses"
+													],
+													"query": [
+														{
+															"key": "year",
+															"value": "year"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "85c4f87e-7b2b-42a2-9334-4a073abb9b30",
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "08d70c11-8e63-489e-962f-93291909eeb4",
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "By consumption type",
+									"item": [
+										{
+											"name": "Invalid by consumption type (bad value)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "6e8a815b-290d-4ba1-a164-5862ecf9ee41",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid by consumption type\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid by consumption type\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/profits/accessPasses?byConsumptionType=byConsumptionType",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"profits",
+														"accessPasses"
+													],
+													"query": [
+														{
+															"key": "byConsumptionType",
+															"value": "byConsumptionType"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "cc6b1dae-660d-424e-adb3-8e5ad467a776",
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "2f45fad7-0cab-41f7-9462-172912f442b6",
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Get profits for access passes",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "aead51a9-13eb-4736-b687-c791faea8f63",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Returns profits\", function () {",
+													"    pm.expect(pm.response.json().profits).to.not.be.null;",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/profits/accessPasses",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"profits",
+												"accessPasses"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get profits for access passes (by consumption type)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "52f8e519-71a2-46ed-97e4-5f513c5a9155",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Returns profits by consumption type\", function () {",
+													"    pm.expect(pm.response.json().length).to.be.greaterThan(0);",
+													"});",
+													"",
+													"pm.test(\"Returns profits for each consumption type\", function () {",
+													"  for (i = 0; i < pm.response.json().length; i++) {",
+													"    pm.expect(pm.response.json()[0].profits).to.not.be.null;",
+													"  }",
+													"});",
+													"",
+													"pm.test(\"Contains profits for gourmande\", function () {",
+													"    pm.expect(pm.response.json()).to.contain(\"gourmande\");",
+													"});",
+													"",
+													"pm.test(\"Contains profits for économique\", function () {",
+													"    pm.expect(pm.response.json()).to.contain(\"économique\");",
+													"});",
+													"",
+													"pm.test(\"Contains profits for hybride économique\", function () {",
+													"    pm.expect(pm.response.json()).to.contain(\"hybride économique\");",
+													"});",
+													"",
+													"pm.test(\"Contains profits for super économique\", function () {",
+													"    pm.expect(pm.response.json()).to.contain(\"super économique\");",
+													"});",
+													"",
+													"pm.test(\"Contains profits for 0 pollution\", function () {",
+													"    pm.expect(pm.response.json()).to.contain(\"0 pollution\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/profits/accessPasses?byConsumptionType=true",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"profits",
+												"accessPasses"
+											],
+											"query": [
+												{
+													"key": "byConsumptionType",
+													"value": "true"
+												}
 											]
 										}
 									},
