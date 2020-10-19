@@ -201,6 +201,11 @@ h1 > small {
 .list-group-item:hover {
   background-color: #181818;
 }
+.panel.panel-white.resource-modal {
+  background-color: #343434;
+  border: none;
+  border-bottom: 1px solid #343434;
+}
 .modal-content {
   background-color: #181818;
   color: #c6c6c6;
