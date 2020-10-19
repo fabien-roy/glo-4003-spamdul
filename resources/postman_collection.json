@@ -365,15 +365,12 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -884,7 +881,7 @@
 					"response": []
 				},
 				{
-					"name": "Enable or disable monthly payment for carbon credits Copy",
+					"name": "Get amount of purchased carbon credits",
 					"event": [
 						{
 							"listen": "test",
