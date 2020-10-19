@@ -10,10 +10,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class GmailSmtpEmailClient implements EmailSender {
-  // TODO : Change this to english
-  private static final String PARKING_STICKER_CREATION_SUBJECT = "Votre vignette SPAMD-UL";
+  private static final String PARKING_STICKER_CREATION_SUBJECT = "Your SPAMD-UL parking sticker";
   private static final String PARKING_STICKER_CREATION_TEXT =
-      "Votre code de vignette SPAMD-UL est %s";
+      "Your SPAMD-UL parking sticker code is %s";
 
   private final GmailSmtpClient gmailSmtpClient;
 
