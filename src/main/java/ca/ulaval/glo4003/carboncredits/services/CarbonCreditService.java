@@ -15,6 +15,6 @@ public class CarbonCreditService {
   }
 
   public CarbonCreditDto getCarbonCredits() {
-    return carbonCreditAssembler.assemble(carbonCreditRepository.getAll());
+    return carbonCreditAssembler.assemble(carbonCreditRepository.get());
   }
 }

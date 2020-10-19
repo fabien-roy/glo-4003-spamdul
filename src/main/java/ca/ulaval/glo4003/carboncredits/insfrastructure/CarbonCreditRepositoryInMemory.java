@@ -7,12 +7,12 @@ public class CarbonCreditRepositoryInMemory implements CarbonCreditRepository {
   private CarbonCredit carbonCreditAmount = CarbonCredit.ZERO();
 
   @Override
-  public void addCarbonCredit(CarbonCredit carbonCredit) {
+  public void add(CarbonCredit carbonCredit) {
     this.carbonCreditAmount = carbonCreditAmount.plus(carbonCredit);
   }
 
   @Override
-  public CarbonCredit getAll() {
+  public CarbonCredit get() {
     return carbonCreditAmount;
   }
 }

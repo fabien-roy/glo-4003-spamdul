@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.carboncredits.domain;
 
 public interface CarbonCreditRepository {
 
-  void addCarbonCredit(CarbonCredit carbonCredit);
+  void add(CarbonCredit carbonCredit);
 
-  CarbonCredit getAll();
+  CarbonCredit get();
 }

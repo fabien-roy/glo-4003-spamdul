@@ -21,8 +21,8 @@ public class CarbonCreditRepositoryInMemoryTest {
 
   @Test
   public void givenCarbonCredits_whenGettingCarbonCredits_thenReturnCarbonCredits() {
-    carbonCreditRepository.addCarbonCredit(carbonCredit);
-    addedCarbonCreditAmount = carbonCreditRepository.getAll();
+    carbonCreditRepository.add(carbonCredit);
+    addedCarbonCreditAmount = carbonCreditRepository.get();
 
     assertThat(addedCarbonCreditAmount).isEqualTo(carbonCredit);
   }
