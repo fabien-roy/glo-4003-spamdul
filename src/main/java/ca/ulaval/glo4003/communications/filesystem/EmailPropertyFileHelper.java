@@ -34,10 +34,6 @@ public class EmailPropertyFileHelper implements EmailPropertyHelper {
     return getProperty(PASSWORD_PROPERTY);
   }
 
-  private Properties getProperties() {
-    return fileReader.readFile(EMAIL_PROPERTIES_FILE_PATH);
-  }
-
   private String getProperty(String property) {
     String envProperty = System.getenv(property);
     return envProperty == null ? getFileProperty(property) : envProperty;
@@ -46,5 +42,9 @@ public class EmailPropertyFileHelper implements EmailPropertyHelper {
   private String getFileProperty(String property) {
     if (emailProperties == null) emailProperties = getProperties();
     return emailProperties.getProperty(property);
+  }
+
+  private Properties getProperties() {
+    return fileReader.readFile(EMAIL_PROPERTIES_FILE_PATH);
   }
 }
