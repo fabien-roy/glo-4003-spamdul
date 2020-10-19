@@ -5050,6 +5050,293 @@
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Carbon credits",
+					"item": [
+						{
+							"name": "Enable or disable monthly payment",
+							"item": [
+								{
+									"name": "Monthly payment status",
+									"item": [
+										{
+											"name": "Invalid monthly payment status (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "6c278f93-39da-4939-a476-f5c66121f640",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid monthly payment status\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid monthly payment status\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"monthlyPaymentStatus\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/profits/carbonCredits",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"profits",
+														"carbonCredits"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid monthly payment status (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "c8b31060-1985-4780-b52d-3cce0548374a",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid monthly payment status\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid monthly payment status\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/profits/carbonCredits",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"profits",
+														"carbonCredits"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid monthly payment status (bad value)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "c78d3e6f-19f0-48ad-bcde-af70b0d132e7",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid monthly payment status\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid monthly payment status\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"monthlyPaymentStatus\": \"badValue\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/profits/carbonCredits",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"profits",
+														"carbonCredits"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Enable monthly payment for carbon credits",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4662ba0c-bd95-4ffe-872e-441232898944",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"monthlyPaymentStatus\": \"enable\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/profits/carbonCredits",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"profits",
+												"carbonCredits"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Disable monthly payment for carbon credits",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e876b4db-6a81-4773-8654-d41e07b98c97",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"monthlyPaymentStatus\": \"disable\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/profits/carbonCredits",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"profits",
+												"carbonCredits"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "656e7421-52f7-4097-8265-f3021f43c005",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "1a6a3d2f-7eaf-46b0-a89a-4ad67c3f01c2",
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "46edd995-ce81-40b7-853d-5981c29878a6",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6a0f909e-a6a8-4d96-b3ca-cfe51d5eb87a",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
