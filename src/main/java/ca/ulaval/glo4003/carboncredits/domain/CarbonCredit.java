@@ -14,7 +14,7 @@ public class CarbonCredit {
     this.amount = carbonCredit.toDouble();
   }
 
-  public static CarbonCredit convertMoneyToCarbonCredit(Money money) {
+  public static CarbonCredit fromMoney(Money money) {
     return new CarbonCredit(money.toDouble());
   }
 
