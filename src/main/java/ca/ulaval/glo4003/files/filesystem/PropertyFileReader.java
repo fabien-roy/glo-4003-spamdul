@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-// TODO : Test PropertyFileReader
 // This class does not have an interface, it always returns a Properties object
 public class PropertyFileReader {
   public Properties readFile(String path) {
