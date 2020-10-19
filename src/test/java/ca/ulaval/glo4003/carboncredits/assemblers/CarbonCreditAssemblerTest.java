@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.carboncredits.assemblers;
 
-import static ca.ulaval.glo4003.carboncredits.helpers.CarbonCreditBuilder.aCarbonCredit;
+import static ca.ulaval.glo4003.carboncredits.helpers.CarbonCreditMother.createCarbonCredit;
 
 import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCredit;
@@ -14,7 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class CarbonCreditAssemblerTest {
   private CarbonCreditAssembler carbonCreditAssembler;
 
-  private final CarbonCredit carbonCredit = aCarbonCredit().build();
+  private final CarbonCredit carbonCredit = createCarbonCredit();
 
   @Before
   public void setUp() {

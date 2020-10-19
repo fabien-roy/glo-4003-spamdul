@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.carboncredits.insfrastructure;
 
-import static ca.ulaval.glo4003.carboncredits.helpers.CarbonCreditBuilder.aCarbonCredit;
+import static ca.ulaval.glo4003.carboncredits.helpers.CarbonCreditMother.createCarbonCredit;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCredit;
@@ -10,13 +10,12 @@ import org.junit.Test;
 
 public class CarbonCreditRepositoryInMemoryTest {
   private CarbonCreditRepository carbonCreditRepository;
-  private CarbonCredit carbonCredit;
+  private CarbonCredit carbonCredit = createCarbonCredit();
   private CarbonCredit addedCarbonCreditAmount;
 
   @Before
   public void setUp() {
     carbonCreditRepository = new CarbonCreditRepositoryInMemory();
-    carbonCredit = aCarbonCredit().build();
   }
 
   @Test
