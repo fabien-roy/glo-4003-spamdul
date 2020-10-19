@@ -5,6 +5,7 @@ import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeBuilder.anOffenseTyp
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeDtoBuilder.anOffenseTypeDto;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationBuilder.anOffenseValidation;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationDtoBuilder.anOffenseValidationDto;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -20,14 +21,12 @@ import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
-import com.google.common.truth.Truth;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -93,7 +92,7 @@ public class OffenseTypeServiceTest {
   public void whenGettingAllOffenseTypes_thenReturnAllOffenseTypes() {
     List<OffenseTypeDto> receivedOffenseTypeDtos = offenseTypeService.getAllOffenseTypes();
 
-    Truth.assertThat(receivedOffenseTypeDtos).isSameInstanceAs(offenseTypeDtos);
+    assertThat(receivedOffenseTypeDtos).isSameInstanceAs(offenseTypeDtos);
   }
 
   @Test
@@ -110,7 +109,7 @@ public class OffenseTypeServiceTest {
 
     List<OffenseTypeDto> offenseTypeDtos = offenseTypeService.validateOffense(offenseValidationDto);
 
-    Truth.assertThat(offenseTypeDtos).isEmpty();
+    assertThat(offenseTypeDtos).isEmpty();
   }
 
   @Test
@@ -121,7 +120,18 @@ public class OffenseTypeServiceTest {
 
     List<OffenseTypeDto> offenseTypeDtos = offenseTypeService.validateOffense(offenseValidationDto);
 
-    Truth.assertThat(offenseTypeDtos).contains(invalidStickerOffenseTypeDto);
+    assertThat(offenseTypeDtos).contains(invalidStickerOffenseTypeDto);
+  }
+
+  @Test
+  public void
+      givenValidOffenseValidationDto_whenValidatingOffense_thenOffenseIsNotifiedForInvalidParkingSticker() {
+    when(parkingStickerRepository.get(offenseValidation.getParkingStickerCode()))
+        .thenThrow(new NotFoundParkingStickerException());
+
+    offenseTypeService.validateOffense(offenseValidationDto);
+
+    verify(offenseNotifier).notifyOffenseWithoutParkingSticker(invalidStickerOffenseType);
   }
 
   @Test
@@ -132,7 +142,7 @@ public class OffenseTypeServiceTest {
 
     List<OffenseTypeDto> offenseTypeDtos = offenseTypeService.validateOffense(offenseValidationDto);
 
-    Truth.assertThat(offenseTypeDtos).contains(wrongZoneOffenseTypeDto);
+    assertThat(offenseTypeDtos).contains(wrongZoneOffenseTypeDto);
   }
 
   @Test
@@ -142,7 +152,7 @@ public class OffenseTypeServiceTest {
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
-    Mockito.verify(billService)
+    verify(billService)
         .addBillOffense(wrongZoneOffenseType.getAmount(), wrongZoneOffenseType.getCode());
   }
 
@@ -156,6 +166,6 @@ public class OffenseTypeServiceTest {
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
-    Mockito.verify(accountService).addOffenseToAccount(parkingSticker.getAccountId(), billId);
+    verify(accountService).addOffenseToAccount(parkingSticker.getAccountId(), billId);
   }
 }

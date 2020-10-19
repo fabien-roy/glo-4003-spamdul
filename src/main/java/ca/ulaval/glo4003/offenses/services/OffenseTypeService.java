@@ -64,7 +64,7 @@ public class OffenseTypeService {
     } catch (NotFoundParkingStickerException exception) {
       OffenseType invalidStickerOffense = offenseTypeFactory.createInvalidStickerOffense();
       offenseTypes.add(invalidStickerOffense);
-      offenseNotifier.notifyOffenseWithoutParkingSticker(invalidStickerOffense); // TODO : Test this
+      offenseNotifier.notifyOffenseWithoutParkingSticker(invalidStickerOffense);
     }
 
     if (parkingSticker != null
