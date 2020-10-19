@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 
+// TODO : Test AccessPassAssembler
 public class AccessPassAssembler {
 
   private final AccountIdAssembler accountIdAssembler;
