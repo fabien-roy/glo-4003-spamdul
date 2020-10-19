@@ -3519,6 +3519,304 @@
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Initiatives",
+					"item": [
+						{
+							"name": "Add initiative",
+							"item": [
+								{
+									"name": "Name",
+									"item": [
+										{
+											"name": "Invalid name (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "5efac022-2c0c-42b3-8726-924e011cd6b2",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid initiative name\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative name\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": null,\n  \"amount\": {{request.initiative.amount}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/initiatives",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"initiatives"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid name (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bcfb3002-7a27-4505-852e-67016b2a86bf",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid initiative name\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative name\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"amount\": {{request.initiative.amount}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/initiatives",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"initiatives"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Amount",
+									"item": [
+										{
+											"name": "Invalid amount (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "c0f9e6d1-1dbf-451e-a2e1-663ce426af84",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid initiative amount\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative amount\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": {{request.initiative.name}},\n  \"amount\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/initiatives",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"initiatives"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid amount (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bc93fc89-90b7-4a9e-9fe6-5441be4e217c",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid initiative amount\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative amount\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": {{request.initiative.name}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/initiatives",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"initiatives"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid amount (negative)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "e50b9049-cba1-4a8f-a070-3b20520e1a95",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid initiative amount\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative amount\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": {{request.initiative.name}},\n  \"amount\": -200.0\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/initiatives",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"initiatives"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Valid initiative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c991579a-d350-4819-bd6b-ab22cd988271",
+												"exec": [
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Returns initiative code\", function () {",
+													"    pm.response.to.have.jsonBody(\"initiativeCode\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": {{request.initiative.name}},\n  \"amount\": {{request.initiative.amount}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/initiatives",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"initiatives"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
