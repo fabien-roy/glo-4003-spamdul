@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.communications;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.communications.smtp.EmailSenderGmailSmtp;
+import ca.ulaval.glo4003.communications.smtp.GmailSmtpClient;
 
 public class CommunicationInjector {
 
@@ -10,8 +11,8 @@ public class CommunicationInjector {
     return new EmailAddressAssembler();
   }
 
-  // TODO : Test createEmailSender
   public EmailSender createEmailSender() {
-    return new EmailSenderGmailSmtp();
+    GmailSmtpClient gmailSmtpClient = new GmailSmtpClient();
+    return new EmailSenderGmailSmtp(gmailSmtpClient);
   }
 }
