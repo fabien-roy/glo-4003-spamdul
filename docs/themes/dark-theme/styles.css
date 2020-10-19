@@ -216,7 +216,7 @@ h1 > small {
 }
 .close:hover,
 .close:focus {
-  opacity: 0.8;
+  opacity: 0.2;
 }
 .nav-tabs {
   border-bottom-color: #343434;
