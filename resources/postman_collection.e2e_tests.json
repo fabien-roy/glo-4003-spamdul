@@ -3751,6 +3751,51 @@
 											"response": []
 										},
 										{
+											"name": "Invalid amount (string)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bf5d1a6f-9693-486e-b575-3eeb2b329e29",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid initiative amount\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative amount\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": {{request.initiative.name}},\n  \"amount\": \"amount\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/initiatives",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"initiatives"
+													]
+												}
+											},
+											"response": []
+										},
+										{
 											"name": "Invalid amount (negative)",
 											"event": [
 												{
@@ -4036,7 +4081,7 @@
 															"});",
 															"",
 															"pm.test(\"Returns invalid amount to add\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount to add\")",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount to add\");",
 															"});"
 														],
 														"type": "text/javascript"
@@ -4049,6 +4094,52 @@
 												"body": {
 													"mode": "raw",
 													"raw": "{\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/initiatives/{{param.initiativeCode}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"initiatives",
+														"{{param.initiativeCode}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid amount to add (string)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "54875371-1601-4568-acd6-57859cea0005",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid amount to add\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount to add\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"amountToAdd\": \"amount\"\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -4238,6 +4329,241 @@
 											""
 										]
 									}
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Profits",
+					"item": [
+						{
+							"name": "Get profits for parking stickers",
+							"item": [
+								{
+									"name": "Year",
+									"item": [
+										{
+											"name": "Invalid year (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "493e8d2b-df79-470d-8097-b07672c0774b",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid year\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/profits/parkingStickers?year=null",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"profits",
+														"parkingStickers"
+													],
+													"query": [
+														{
+															"key": "year",
+															"value": "null"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid year (negative)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "50a6359f-f2ba-4b3a-be0e-df38e456fab0",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid year\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/profits/parkingStickers?year=-2000",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"profits",
+														"parkingStickers"
+													],
+													"query": [
+														{
+															"key": "year",
+															"value": "-2000"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid year (string)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "5cb8bc1a-e955-4001-865a-f722da28e4b9",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid year\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/profits/parkingStickers?year=year",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"profits",
+														"parkingStickers"
+													],
+													"query": [
+														{
+															"key": "year",
+															"value": "year"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Get profits for parking stickers",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dd3e7aab-7724-4d5e-8b83-4c50fa899922",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Returns profits\", function () {",
+													"    pm.expect(pm.response.json().profits).to.not.be.null;",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/profits/parkingStickers",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"profits",
+												"parkingStickers"
+											]
+										}
+									},
+									"response": []
 								}
 							],
 							"protocolProfileBehavior": {},
