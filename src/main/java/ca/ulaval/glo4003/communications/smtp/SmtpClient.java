@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.communications.smtp;
 
+import ca.ulaval.glo4003.communications.domain.EmailPropertyHelper;
 import ca.ulaval.glo4003.communications.exceptions.EmailSendingFailedException;
 import java.util.Properties;
 import javax.mail.MessagingException;
@@ -7,16 +8,14 @@ import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class GmailSmtpClient {
-  private static final String GMAIL_HOST = "smtp.gmail.com";
-  private static final String EMAIL_SENDER = "SPAMDUL.eq4@gmail.com"; // TODO : Get this from env
-  private static final String EMAIL_PASSWORD =
-      "InsquisitionsEspagnolesEquipeQuatre"; // TODO : Get this from env
-
+public class SmtpClient {
   private final SmtpTransportDelegator smtpTransportDelegator;
+  private final EmailPropertyHelper propertyHelper;
 
-  public GmailSmtpClient(SmtpTransportDelegator smtpTransportDelegator) {
+  public SmtpClient(
+      SmtpTransportDelegator smtpTransportDelegator, EmailPropertyHelper propertyHelper) {
     this.smtpTransportDelegator = smtpTransportDelegator;
+    this.propertyHelper = propertyHelper;
   }
 
   public MimeMessage createMessage() {
@@ -24,7 +23,7 @@ public class GmailSmtpClient {
     MimeMessage message = new MimeMessage(session);
 
     try {
-      message.setFrom(new InternetAddress(EMAIL_SENDER));
+      message.setFrom(new InternetAddress(propertyHelper.getSender()));
     } catch (MessagingException exception) {
       throw new EmailSendingFailedException();
     }
@@ -33,12 +32,13 @@ public class GmailSmtpClient {
   }
 
   public void sendMessage(MimeMessage message) {
-    smtpTransportDelegator.sendMessage(message, EMAIL_SENDER, EMAIL_PASSWORD);
+    smtpTransportDelegator.sendMessage(
+        message, propertyHelper.getSender(), propertyHelper.getPassword());
   }
 
   private Session getSession() {
     Properties properties = System.getProperties();
-    properties.setProperty("mail.smtp.host", GMAIL_HOST);
+    properties.setProperty("mail.smtp.host", propertyHelper.getHost());
     properties.setProperty("mail.smtp.port", "587");
     properties.setProperty("mail.smtp.starttls.enable", "true");
 

@@ -18,12 +18,12 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GmailSmtpEmailClientTest {
+public class SmtpEmailSenderTest {
 
-  @Mock private GmailSmtpClient gmailSmtpClient;
+  @Mock private SmtpClient smtpClient;
   @Mock private MimeMessage message;
 
-  private GmailSmtpEmailClient gmailSmtpEmailClient;
+  private SmtpEmailSender smtpEmailSender;
 
   private final String emailAddress = createEmailAddress().toString();
   private final String emailSubject = createEmailSubject();
@@ -31,37 +31,37 @@ public class GmailSmtpEmailClientTest {
 
   @Before
   public void setUp() {
-    gmailSmtpEmailClient = new GmailSmtpEmailClient(gmailSmtpClient);
+    smtpEmailSender = new SmtpEmailSender(smtpClient);
 
-    when(gmailSmtpClient.createMessage()).thenReturn(message);
+    when(smtpClient.createMessage()).thenReturn(message);
   }
 
   @Test
   public void whenSendingMessage_thenAddRecipientToMessage() throws MessagingException {
-    gmailSmtpEmailClient.sendEmail(emailAddress, emailSubject, emailContent);
+    smtpEmailSender.sendEmail(emailAddress, emailSubject, emailContent);
 
     verify(message).addRecipient(Message.RecipientType.TO, new InternetAddress(emailAddress));
   }
 
   @Test
   public void whenSendingMessage_thenSetSubjectToMessage() throws MessagingException {
-    gmailSmtpEmailClient.sendEmail(emailAddress, emailSubject, emailContent);
+    smtpEmailSender.sendEmail(emailAddress, emailSubject, emailContent);
 
     verify(message).setSubject(emailSubject);
   }
 
   @Test
   public void whenSendingMessage_thenSetTextToMessage() throws MessagingException {
-    gmailSmtpEmailClient.sendEmail(emailAddress, emailSubject, emailContent);
+    smtpEmailSender.sendEmail(emailAddress, emailSubject, emailContent);
 
     verify(message).setText(emailContent);
   }
 
   @Test
   public void whenSendingMessage_thenSendMessageWithClient() {
-    gmailSmtpEmailClient.sendEmail(emailAddress, emailSubject, emailContent);
+    smtpEmailSender.sendEmail(emailAddress, emailSubject, emailContent);
 
-    verify(gmailSmtpClient).sendMessage(message);
+    verify(smtpClient).sendMessage(message);
   }
 
   @Test(expected = EmailSendingFailedException.class)
@@ -71,7 +71,7 @@ public class GmailSmtpEmailClientTest {
         .when(message)
         .addRecipient(Message.RecipientType.TO, new InternetAddress(emailAddress));
 
-    gmailSmtpEmailClient.sendEmail(emailAddress, emailSubject, emailContent);
+    smtpEmailSender.sendEmail(emailAddress, emailSubject, emailContent);
   }
 
   @Test(expected = EmailSendingFailedException.class)
@@ -79,7 +79,7 @@ public class GmailSmtpEmailClientTest {
       throws MessagingException {
     doThrow(MessagingException.class).when(message).setSubject(emailSubject);
 
-    gmailSmtpEmailClient.sendEmail(emailAddress, emailSubject, emailContent);
+    smtpEmailSender.sendEmail(emailAddress, emailSubject, emailContent);
   }
 
   @Test(expected = EmailSendingFailedException.class)
@@ -87,7 +87,7 @@ public class GmailSmtpEmailClientTest {
       throws MessagingException {
     doThrow(MessagingException.class).when(message).setText(emailContent);
 
-    gmailSmtpEmailClient.sendEmail(emailAddress, emailSubject, emailContent);
+    smtpEmailSender.sendEmail(emailAddress, emailSubject, emailContent);
   }
 
   @Test
@@ -96,9 +96,9 @@ public class GmailSmtpEmailClientTest {
     ParkingSticker parkingSticker =
         aParkingSticker().withReceptionMethod(ReceptionMethod.EMAIL).build();
 
-    gmailSmtpEmailClient.listenParkingStickerCreated(parkingSticker);
+    smtpEmailSender.listenParkingStickerCreated(parkingSticker);
 
-    verify(gmailSmtpClient).sendMessage(message);
+    verify(smtpClient).sendMessage(message);
   }
 
   @Test
@@ -107,8 +107,8 @@ public class GmailSmtpEmailClientTest {
     ParkingSticker parkingSticker =
         aParkingSticker().withReceptionMethod(ReceptionMethod.POSTAL).build();
 
-    gmailSmtpEmailClient.listenParkingStickerCreated(parkingSticker);
+    smtpEmailSender.listenParkingStickerCreated(parkingSticker);
 
-    verify(gmailSmtpClient, never()).sendMessage(message);
+    verify(smtpClient, never()).sendMessage(message);
   }
 }

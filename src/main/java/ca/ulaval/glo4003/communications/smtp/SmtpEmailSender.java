@@ -9,20 +9,20 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class GmailSmtpEmailClient implements EmailSender {
+public class SmtpEmailSender implements EmailSender {
   private static final String PARKING_STICKER_CREATION_SUBJECT = "Your SPAMD-UL parking sticker";
   private static final String PARKING_STICKER_CREATION_TEXT =
       "Your SPAMD-UL parking sticker code is %s";
 
-  private final GmailSmtpClient gmailSmtpClient;
+  private final SmtpClient smtpClient;
 
-  public GmailSmtpEmailClient(GmailSmtpClient gmailSmtpClient) {
-    this.gmailSmtpClient = gmailSmtpClient;
+  public SmtpEmailSender(SmtpClient smtpClient) {
+    this.smtpClient = smtpClient;
   }
 
   @Override
   public void sendEmail(String emailAddress, String emailSubject, String emailContent) {
-    MimeMessage message = gmailSmtpClient.createMessage();
+    MimeMessage message = smtpClient.createMessage();
 
     try {
       message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailAddress));
@@ -32,7 +32,7 @@ public class GmailSmtpEmailClient implements EmailSender {
       throw new EmailSendingFailedException();
     }
 
-    gmailSmtpClient.sendMessage(message);
+    smtpClient.sendMessage(message);
   }
 
   @Override
