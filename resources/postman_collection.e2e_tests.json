@@ -130,6 +130,46 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add initiative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "df1d2257-d2ec-4692-b42c-647502fdc423",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.initiativeCode\", jsonData.initiativeCode);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": {{request.initiative.name}},\n  \"amount\": {{request.initiative.amount}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/initiatives",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"initiatives"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -672,17 +712,17 @@
 													"",
 													"pm.test(\"Returns correct name\", function () {",
 													"    var name = postman.getEnvironmentVariable(\"request.user.name\");",
-													"    pm.expect(name).to.contain(pm.response.json().name)",
+													"    pm.expect(name).to.contain(pm.response.json().name);",
 													"});",
 													"",
 													"pm.test(\"Returns correct birth date\", function () {",
 													"    var birthDate = postman.getEnvironmentVariable(\"request.user.birthDate\");",
-													"    pm.expect(birthDate).to.contain(pm.response.json().birthDate)",
+													"    pm.expect(birthDate).to.contain(pm.response.json().birthDate);",
 													"});",
 													"",
 													"pm.test(\"Returns correct sex\", function () {",
 													"    var sex = postman.getEnvironmentVariable(\"request.user.sex\");",
-													"    pm.expect(sex).to.contain(pm.response.json().sex)",
+													"    pm.expect(sex).to.contain(pm.response.json().sex);",
 													"});"
 												],
 												"type": "text/javascript"
@@ -830,12 +870,6 @@
 									"response": []
 								}
 							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
-						},
-						{
-							"name": "Pay user's bills (TODO)",
-							"item": [],
 							"protocolProfileBehavior": {},
 							"_postman_isSubFolder": true
 						},
@@ -3029,15 +3063,15 @@
 													"    pm.expect(pm.response.json()).to.length.to.be.greaterThan(0);",
 													"});",
 													"",
-													"pm.test(\"Returns offence with description\", function () {",
+													"pm.test(\"Returns offense with description\", function () {",
 													"    pm.expect(pm.response.json()[0].description).to.not.be.null;",
 													"});",
 													"",
-													"pm.test(\"Returns offence with code\", function () {",
+													"pm.test(\"Returns offense with code\", function () {",
 													"    pm.expect(pm.response.json()[0].code).to.not.be.null;",
 													"});",
 													"",
-													"pm.test(\"Returns offence with amount\", function () {",
+													"pm.test(\"Returns offense with amount\", function () {",
 													"    pm.expect(pm.response.json()[0].amount).to.not.be.null;",
 													"});"
 												],
@@ -3791,6 +3825,76 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\n  \"name\": {{request.initiative.name}},\n  \"amount\": {{request.initiative.amount}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/initiatives",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"initiatives"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Get initiatives",
+							"item": [
+								{
+									"name": "Get initiatives",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "16875cdf-55ee-4038-972e-7cfe63daa312",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Returns initiative\", function () {",
+													"    pm.expect(pm.response.json()).to.length.to.be.greaterThan(0);",
+													"});",
+													"",
+													"pm.test(\"Returns initiative with correct code\", function () {",
+													"    var initiativeCode = postman.getEnvironmentVariable(\"param.initiativeCode\");",
+													"    pm.expect(initiativeCode).to.contain(pm.response.json()[0].initiativeCode);",
+													"});",
+													"",
+													"pm.test(\"Returns initiative with correct name\", function () {",
+													"    var name = postman.getEnvironmentVariable(\"request.initiative.name\");",
+													"    pm.expect(name).to.contain(pm.response.json()[0].name);",
+													"});",
+													"",
+													"pm.test(\"Returns initiative with correct amount\", function () {",
+													"    var amount = postman.getEnvironmentVariable(\"request.initiative.amount\");",
+													"    pm.expect(amount).to.contain(pm.response.json()[0].amount);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
 											"options": {
 												"raw": {
 													"language": "json"
