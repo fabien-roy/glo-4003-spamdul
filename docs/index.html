@@ -170,6 +170,143 @@ pre code {
 .required {
   color: #f00;
 }
+
+/* Let's dark theme this */
+body {
+  background-color: #1d1d1d;
+}
+h1,
+h1 > small {
+  color: #c6c6c6;
+}
+.page-header {
+  border-bottom-color: #343434;
+}
+.panel {
+  background-color: #181818;
+}
+.panel-default {
+  border-color: #343434;
+}
+.panel-default > .panel-heading {
+  background-color: #000;
+  color: #c6c6c6;
+  border-bottom-color: #343434;
+}
+.top-resource-description {
+  background-color: #141414;
+  color: #c6c6c6;
+  border-bottom-color: #343434;
+}
+.panel-group {
+  border: 1px solid #343434;
+  border-radius: 4px;
+}
+.panel-group .panel-white {
+  border-bottom-color: #343434;
+}
+.panel-group .panel-white:first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.panel-group .panel-white:last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom: none;
+}
+.panel-white .panel-heading {
+  background-color: #141414;
+  color: #c6c6c6;
+}
+.parent {
+  color: #5f5a60;
+}
+.resource-description {
+  border-bottom-color: #343434;
+  background: #343434;
+  color: #c6c6c6;
+}
+.panel-group .panel-heading + .panel-collapse > .panel-body {
+  background-color: #343434;
+  border-top-color: #343434;
+}
+.list-group-item {
+  background-color: #141414;
+  border-color: #343434;
+  color: #c6c6c6;
+}
+.list-group-item:hover {
+  background-color: #181818;
+}
+.panel.panel-white.resource-modal {
+  background-color: #343434;
+  border: none;
+  border-bottom: 1px solid #343434;
+}
+.modal-content {
+  background-color: #181818;
+  color: #c6c6c6;
+  border-color: #343434;
+}
+.modal-header {
+  border-bottom-color: #343434;
+}
+.close {
+  color: #fff;
+  text-shadow: 0 1px 0 #000;
+  opacity: 0.5;
+}
+.close:hover,
+.close:focus {
+  color: #fff;
+  text-shadow: 0 1px 0 #000;
+  opacity: 0.3;
+}
+.nav-tabs {
+  border-bottom-color: #343434;
+}
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus {
+  border-color: #343434;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  background-color: #181818;
+  color: #c6c6c6;
+  border-color: #343434;
+  border-bottom-color: transparent;
+}
+.tab-content {
+  border-color: #343434;
+  border-top-color: transparent;
+}
+.tab-pane h2 {
+  border-bottom-color: #343434;
+}
+code {
+  color: #cf6a4c;
+  background-color: #141414;
+}
+pre {
+  border-color: #343434;
+  background-color: #141414;
+}
+.hljs, .hljs-subst {
+  color: #ccc;
+}
+.hljs-type, .hljs-string, .hljs-number, .hljs-selector-id, .hljs-selector-class, .hljs-quote, .hljs-template-tag, .hljs-deletion {
+  color: #cf6a4c;
+}
+.items {
+  border-color: #343434;
+  background-color: #141414;
+  color: #c6c6c6;
+}
+.nav > li > a:focus, .nav > li > a:hover {
+  background-color: #141414;
+}
+
     </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>SPAMD-UL API documentation <small>version 2.0.2</small></h1><p></p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="api_users" class="panel-title">/api/users</h3></div><div class="panel-body"><div class="top-resource-description"><p>Collection of users</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_api_users"><span class="parent"></span>/api/users</a> <span class="methods"><a href="#api_users_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_api_users" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#api_users_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Add a new user</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="api_users_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/api/users</h4></div><div class="modal-body"><div class="alert alert-info"><p>Add a new user</p></div><ul class="nav nav-tabs"><li class="active"><a href="#api_users_post_request" data-toggle="tab">Request</a></li><li><a href="#api_users_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="api_users_post_request"><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: object</p><strong>Properties</strong><ul><li><strong>name</strong>: <em><span class="required">required</span>(string)</em><p>Full name of user</p></li><li><strong>birthDate</strong>: <em><span class="required">required</span>(string)</em><p>Birth date of the user</p></li><li><strong>sex</strong>: <em><span class="required">required</span>(one of m, f, x)</em><p>Valid sex</p></li></ul><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
   "name": "John Doe",
   "birthDate": "01-01-2000",
