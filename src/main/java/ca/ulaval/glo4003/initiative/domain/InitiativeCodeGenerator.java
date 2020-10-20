@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public class InitiativeCodeGenerator {
   public InitiativeCode generate() {
-    return new InitiativeCode(UUID.randomUUID());
+    return new InitiativeCode(UUID.randomUUID().toString());
   }
 }

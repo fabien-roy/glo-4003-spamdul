@@ -14,6 +14,8 @@ import ca.ulaval.glo4003.funds.FundInjector;
 import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
 import ca.ulaval.glo4003.gateentries.GateEntryInjector;
 import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
+import ca.ulaval.glo4003.initiative.InitiativeInjector;
+import ca.ulaval.glo4003.initiative.api.InitiativeResource;
 import ca.ulaval.glo4003.interfaces.api.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.locations.LocationInjector;
 import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
@@ -48,6 +50,7 @@ public class ApplicationInjector {
   private static final ParkingInjector PARKING_INJECTOR = new ParkingInjector();
   private static final TimeInjector TIME_INJECTOR = new TimeInjector();
   private static final UserInjector USER_INJECTOR = new UserInjector();
+  private static final InitiativeInjector INITIATIVE_INJECTOR = new InitiativeInjector();
 
   public ParkingResource createParkingResource() {
     List<ParkingStickerCreationObserver> parkingStickerCreationObservers =
@@ -102,6 +105,10 @@ public class ApplicationInjector {
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
             ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
             FUND_INJECTOR.createBillService()));
+  }
+
+  public InitiativeResource createInitiativeResource() {
+    return INITIATIVE_INJECTOR.createInitiativeResource();
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {

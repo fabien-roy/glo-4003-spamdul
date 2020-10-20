@@ -1,11 +1,9 @@
 package ca.ulaval.glo4003.initiative.domain;
 
-import java.util.UUID;
-
 public class InitiativeCode {
-  private UUID code;
+  private String code;
 
-  public InitiativeCode(UUID code) {
+  public InitiativeCode(String code) {
     this.code = code;
   }
 
@@ -14,17 +12,13 @@ public class InitiativeCode {
     return code.toString();
   }
 
-  public UUID toUUID() {
-    return code;
-  }
-
   @Override
   public boolean equals(Object object) {
     if (object == null || getClass() != object.getClass()) return false;
 
     InitiativeCode initiativeCode = (InitiativeCode) object;
 
-    return code.equals(initiativeCode.toUUID());
+    return code.equals(initiativeCode.toString());
   }
 
   @Override
