@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.initiative.domain.Initiative;
 import ca.ulaval.glo4003.initiative.domain.InitiativeCode;
 import ca.ulaval.glo4003.initiative.domain.InitiativeRepository;
 import ca.ulaval.glo4003.initiative.exception.InitiativeNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class InitiativeRepositoryInMemory implements InitiativeRepository {
 
   @Override
   public List<Initiative> getAllInitiatives() {
-    return null;
+    return new ArrayList<>(initiatives.values());
   }
 
   @Override
@@ -34,5 +35,9 @@ public class InitiativeRepositoryInMemory implements InitiativeRepository {
   }
 
   @Override
-  public void updateInitiative(Initiative initiative) {}
+  public void updateInitiative(Initiative initiative) {
+    getInitiative(initiative.getInitiativeCode());
+
+    initiatives.put(initiative.getInitiativeCode(), initiative);
+  }
 }

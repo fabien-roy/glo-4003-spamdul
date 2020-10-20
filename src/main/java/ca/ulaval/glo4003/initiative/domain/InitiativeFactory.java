@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.initiative.domain;
 
 public class InitiativeFactory {
-  private final InitiativeCodeGenerator initiativeCodeGenerator;
+  private InitiativeCodeGenerator initiativeCodeGenerator;
 
   public InitiativeFactory(InitiativeCodeGenerator initiativeCodeGenerator) {
     this.initiativeCodeGenerator = initiativeCodeGenerator;
