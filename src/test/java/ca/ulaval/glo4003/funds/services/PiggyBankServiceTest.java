@@ -1,11 +1,11 @@
-package ca.ulaval.glo4003.piggybank.services;
+package ca.ulaval.glo4003.funds.services;
 
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.piggybank.domain.PiggyBankRepository;
+import ca.ulaval.glo4003.funds.domain.PiggyBankRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

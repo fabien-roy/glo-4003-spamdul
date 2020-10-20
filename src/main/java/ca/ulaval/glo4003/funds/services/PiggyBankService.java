@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.piggybank.services;
+package ca.ulaval.glo4003.funds.services;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.piggybank.domain.PiggyBankRepository;
+import ca.ulaval.glo4003.funds.domain.PiggyBankRepository;
 
 public class PiggyBankService {
   private PiggyBankRepository piggyBankRepository;

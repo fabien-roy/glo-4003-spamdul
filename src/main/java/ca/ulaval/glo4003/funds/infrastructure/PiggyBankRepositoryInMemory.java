@@ -1,8 +1,8 @@
-package ca.ulaval.glo4003.piggybank.infrastructure;
+package ca.ulaval.glo4003.funds.infrastructure;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.piggybank.domain.PiggyBankRepository;
-import ca.ulaval.glo4003.piggybank.exceptions.PiggyBankInsufficientAmountException;
+import ca.ulaval.glo4003.funds.domain.PiggyBankRepository;
+import ca.ulaval.glo4003.funds.exception.PiggyBankInsufficientAmountException;
 
 public class PiggyBankRepositoryInMemory implements PiggyBankRepository {
   private Money piggyBankAmount = Money.ZERO();

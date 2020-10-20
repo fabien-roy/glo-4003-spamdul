@@ -1,10 +1,10 @@
-package ca.ulaval.glo4003.piggybank.infrastructure;
+package ca.ulaval.glo4003.funds.infrastructure;
 
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.piggybank.domain.PiggyBankRepository;
-import ca.ulaval.glo4003.piggybank.exceptions.PiggyBankInsufficientAmountException;
+import ca.ulaval.glo4003.funds.domain.PiggyBankRepository;
+import ca.ulaval.glo4003.funds.exception.PiggyBankInsufficientAmountException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
