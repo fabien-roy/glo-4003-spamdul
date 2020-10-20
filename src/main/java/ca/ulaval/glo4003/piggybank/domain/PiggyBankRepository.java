@@ -7,5 +7,7 @@ public interface PiggyBankRepository {
 
   void remove(Money money);
 
+  Money takeAll();
+
   Money get();
 }

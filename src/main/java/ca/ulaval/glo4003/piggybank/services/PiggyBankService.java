@@ -11,11 +11,7 @@ public class PiggyBankService {
   }
 
   public Money extractPiggyBankAvailableMoney() {
-    Money piggyBankAvailableAmount = piggyBankRepository.get();
-
-    piggyBankRepository.remove(piggyBankAvailableAmount);
-
-    return piggyBankAvailableAmount;
+    return piggyBankRepository.takeAll();
   }
 
   public void extractPiggyBankSpecificAmount(Money money) {

@@ -32,8 +32,7 @@ public class PiggyBankServiceTest {
   public void whenExtractingPiggyBankAvailableMoney_thenReturnPiggyBankAvailableMoney() {
     piggyBankService.extractPiggyBankAvailableMoney();
 
-    verify(piggyBankRepository).get();
-    verify(piggyBankRepository).remove(money);
+    verify(piggyBankRepository).takeAll();
   }
 
   @Test

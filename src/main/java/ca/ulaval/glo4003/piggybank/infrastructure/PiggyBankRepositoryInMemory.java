@@ -20,6 +20,13 @@ public class PiggyBankRepositoryInMemory implements PiggyBankRepository {
   }
 
   @Override
+  public Money takeAll() {
+    Money remainingAmount = piggyBankAmount;
+    piggyBankAmount = Money.ZERO();
+    return remainingAmount;
+  }
+
+  @Override
   public Money get() {
     return piggyBankAmount;
   }

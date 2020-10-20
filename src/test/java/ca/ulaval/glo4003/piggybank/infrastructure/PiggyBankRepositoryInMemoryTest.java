@@ -47,6 +47,24 @@ public class PiggyBankRepositoryInMemoryTest {
   }
 
   @Test
+  public void whenTakingAll_thenReturnAmountInPiggyBank() {
+    piggyBankRepository.add(ADDED_MONEY);
+
+    Money returnedAmount = piggyBankRepository.takeAll();
+
+    Truth.assertThat(returnedAmount).isEqualTo(ADDED_MONEY);
+  }
+
+  @Test
+  public void whenTakingAll_thenPiggyBankIsEmpty() {
+    piggyBankRepository.add(ADDED_MONEY);
+
+    piggyBankRepository.takeAll();
+
+    Truth.assertThat(piggyBankRepository.get()).isEqualTo(Money.ZERO());
+  }
+
+  @Test
   public void whenGetting_thenMoneyInPiggyBankIsReturned() {
     piggyBankRepository.add(ADDED_MONEY);
 
