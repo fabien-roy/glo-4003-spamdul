@@ -36,7 +36,7 @@ public class CarbonCreditService {
     return carbonCreditAssembler.assemble(carbonCreditRepository.get());
   }
 
-  public void listenTimeToExtractMoneyFromPiggyBanck() {
+  public void listenTimeToExtractMoneyFromSustainableMobilityProgramBank() {
     // TODO call piggy bank function
   }
 }
