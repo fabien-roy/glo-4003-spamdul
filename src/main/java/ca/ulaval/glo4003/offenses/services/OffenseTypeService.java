@@ -7,10 +7,7 @@ import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
-import ca.ulaval.glo4003.offenses.domain.OffenseType;
-import ca.ulaval.glo4003.offenses.domain.OffenseTypeFactory;
-import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
-import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
+import ca.ulaval.glo4003.offenses.domain.*;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
@@ -27,6 +24,7 @@ public class OffenseTypeService {
   private final OffenseTypeFactory offenseTypeFactory;
   private final BillService billService;
   private final AccountService accountService;
+  private final OffenseNotifier offenseNotifier;
 
   public OffenseTypeService(
       ParkingAreaRepository parkingAreaRepository,
@@ -36,7 +34,8 @@ public class OffenseTypeService {
       OffenseTypeRepository offenseTypeRepository,
       OffenseTypeFactory offenseTypeFactory,
       BillService billService,
-      AccountService accountService) {
+      AccountService accountService,
+      OffenseNotifier offenseNotifier) {
     this.parkingAreaRepository = parkingAreaRepository;
     this.parkingStickerRepository = parkingStickerRepository;
     this.offenseValidationAssembler = offenseValidationAssembler;
@@ -45,6 +44,7 @@ public class OffenseTypeService {
     this.offenseTypeFactory = offenseTypeFactory;
     this.billService = billService;
     this.accountService = accountService;
+    this.offenseNotifier = offenseNotifier;
   }
 
   public List<OffenseTypeDto> getAllOffenseTypes() {
@@ -62,8 +62,9 @@ public class OffenseTypeService {
     try {
       parkingSticker = parkingStickerRepository.get(offenseValidation.getParkingStickerCode());
     } catch (NotFoundParkingStickerException exception) {
-      offenseTypes.add(offenseTypeFactory.createInvalidStickerOffense());
-      // TODO : We cannot add a bill. Do we print to console?
+      OffenseType invalidStickerOffense = offenseTypeFactory.createInvalidStickerOffense();
+      offenseTypes.add(invalidStickerOffense);
+      offenseNotifier.notifyOffenseWithoutParkingSticker(invalidStickerOffense);
     }
 
     if (parkingSticker != null
