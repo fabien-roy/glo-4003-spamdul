@@ -5093,13 +5093,12 @@
 													}
 												},
 												"url": {
-													"raw": "{{host}}/api/profits/carbonCredits",
+													"raw": "{{host}}/api/carbonCredits",
 													"host": [
 														"{{host}}"
 													],
 													"path": [
 														"api",
-														"profits",
 														"carbonCredits"
 													]
 												}
@@ -5139,13 +5138,12 @@
 													}
 												},
 												"url": {
-													"raw": "{{host}}/api/profits/carbonCredits",
+													"raw": "{{host}}/api/carbonCredits",
 													"host": [
 														"{{host}}"
 													],
 													"path": [
 														"api",
-														"profits",
 														"carbonCredits"
 													]
 												}
@@ -5185,13 +5183,12 @@
 													}
 												},
 												"url": {
-													"raw": "{{host}}/api/profits/carbonCredits",
+													"raw": "{{host}}/api/carbonCredits",
 													"host": [
 														"{{host}}"
 													],
 													"path": [
 														"api",
-														"profits",
 														"carbonCredits"
 													]
 												}
@@ -5231,13 +5228,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{host}}/api/profits/carbonCredits",
+											"raw": "{{host}}/api/carbonCredits",
 											"host": [
 												"{{host}}"
 											],
 											"path": [
 												"api",
-												"profits",
 												"carbonCredits"
 											]
 										}
@@ -5273,13 +5269,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{host}}/api/profits/carbonCredits",
+											"raw": "{{host}}/api/carbonCredits",
 											"host": [
 												"{{host}}"
 											],
 											"path": [
 												"api",
-												"profits",
 												"carbonCredits"
 											]
 										}
@@ -5351,13 +5346,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{host}}/api/profits/carbonCredits",
+											"raw": "{{host}}/api/carbonCredits",
 											"host": [
 												"{{host}}"
 											],
 											"path": [
 												"api",
-												"profits",
 												"carbonCredits"
 											]
 										}
