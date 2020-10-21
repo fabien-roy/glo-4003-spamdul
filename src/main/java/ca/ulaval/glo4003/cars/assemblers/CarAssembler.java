@@ -7,6 +7,9 @@ import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
+import ca.ulaval.glo4003.cars.exceptions.InvalidLicensePlateException;
+import ca.ulaval.glo4003.cars.exceptions.InvalidManufacturerException;
+import ca.ulaval.glo4003.cars.exceptions.InvalidModelException;
 import java.time.LocalDate;
 
 public class CarAssembler {
@@ -22,6 +25,7 @@ public class CarAssembler {
 
   public Car assemble(CarDto carDto, String accountId) {
     validateYear(carDto.year);
+    validateNotNull(carDto);
 
     LicensePlate licensePlate = licensePlateAssembler.assemble(carDto.licensePlate);
     AccountId id = accountIdAssembler.assemble(accountId);
@@ -33,6 +37,18 @@ public class CarAssembler {
         carDto.model,
         carDto.year,
         ConsumptionType.get(carDto.consumptionType));
+  }
+
+  private void validateNotNull(CarDto carDto) {
+    if (carDto.licensePlate == null) {
+      throw new InvalidLicensePlateException();
+    }
+    if (carDto.manufacturer == null) {
+      throw new InvalidManufacturerException();
+    }
+    if (carDto.model == null) {
+      throw new InvalidModelException();
+    }
   }
 
   private void validateYear(int year) {
