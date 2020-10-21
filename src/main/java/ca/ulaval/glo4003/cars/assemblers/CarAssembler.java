@@ -52,6 +52,10 @@ public class CarAssembler {
   }
 
   private void validateYear(int year) {
+    // If the value is null it's parsed as a 0, so we can throw a null year exception
+    if (year == 0) {
+      throw new InvalidCarYearException();
+    }
     int currentYear = LocalDate.now().getYear();
     if (currentYear + 1 <= year) {
       throw new InvalidCarYearException(currentYear);
