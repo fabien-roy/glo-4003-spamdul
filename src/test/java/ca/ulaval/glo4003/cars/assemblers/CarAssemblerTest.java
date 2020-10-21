@@ -11,7 +11,6 @@ import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
-import ca.ulaval.glo4003.cars.exceptions.InvalidLicensePlateException;
 import ca.ulaval.glo4003.cars.exceptions.InvalidManufacturerException;
 import ca.ulaval.glo4003.cars.exceptions.InvalidModelException;
 import com.google.common.truth.Truth;
@@ -89,13 +88,6 @@ public class CarAssemblerTest {
   public void givenCarWithNullYear_whenAssembling_shouldThrowInvalidYearException() {
     // The year is parsed to zero when it is fed a null
     CarDto carDto = aCarDto().withYear(0).build();
-
-    carAssembler.assemble(carDto, ACCOUNT_ID.toString());
-  }
-
-  @Test(expected = InvalidLicensePlateException.class)
-  public void givenCarWithNullLicensePlate_whenAssembling_shouldThrowInvalidPlateException() {
-    CarDto carDto = aCarDto().withLicensePlate(null).build();
 
     carAssembler.assemble(carDto, ACCOUNT_ID.toString());
   }
