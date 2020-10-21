@@ -35,4 +35,8 @@ public class CarbonCreditService {
   public CarbonCreditDto getCarbonCredits() {
     return carbonCreditAssembler.assemble(carbonCreditRepository.get());
   }
+
+  public void listenTimeToExtractMoneyFromPiggyBanck() {
+    // TODO call piggy bank function
+  }
 }
