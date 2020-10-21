@@ -1,0 +1,3 @@
+SMTP_HOST=examplehost.com
+SMTP_SENDER=examplesender@examplehost.com
+SMTP_PASSWORD=ExamplePassword123

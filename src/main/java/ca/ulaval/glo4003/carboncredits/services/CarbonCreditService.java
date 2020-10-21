@@ -9,10 +9,10 @@ import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatus;
 import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatusRepository;
 
 public class CarbonCreditService {
-  private CarbonCreditRepository carbonCreditRepository;
-  private CarbonCreditAssembler carbonCreditAssembler;
-  private CarbonCreditMonthlyPaymentStatusAssembler carbonCreditMonthlyPaymentStatusAssembler;
-  private MonthlyPaymentStatusRepository monthlyPaymentStatusRepository;
+  private final CarbonCreditRepository carbonCreditRepository;
+  private final CarbonCreditAssembler carbonCreditAssembler;
+  private final CarbonCreditMonthlyPaymentStatusAssembler carbonCreditMonthlyPaymentStatusAssembler;
+  private final MonthlyPaymentStatusRepository monthlyPaymentStatusRepository;
 
   public CarbonCreditService(
       CarbonCreditRepository carbonCreditRepository,
