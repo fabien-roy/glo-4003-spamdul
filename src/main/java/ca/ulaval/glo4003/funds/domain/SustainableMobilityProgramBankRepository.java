@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds.domain;
 
-public interface PiggyBankRepository {
+public interface SustainableMobilityProgramBankRepository {
   void add(Money money);
 
   void remove(Money money);
