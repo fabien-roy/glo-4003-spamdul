@@ -33,6 +33,10 @@ public class Money {
     return new Money(amount);
   }
 
+  public boolean isLessThan(Money money) {
+    return this.amount < money.toDouble();
+  }
+
   @Override
   public boolean equals(Object object) {
     if (object == null || getClass() != object.getClass()) return false;
