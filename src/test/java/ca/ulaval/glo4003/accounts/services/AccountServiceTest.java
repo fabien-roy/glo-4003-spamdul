@@ -224,11 +224,11 @@ public class AccountServiceTest {
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
 
-    verify(billService).payBill(bill.getId(), new Money(1));
+    verify(billService).payBill(bill.getId(), Money.fromDouble(1));
   }
 
   private void setUpPayBill() {
-    when(billPaymentAssembler.assemble(billPaymentDto)).thenReturn(new Money(1));
+    when(billPaymentAssembler.assemble(billPaymentDto)).thenReturn(Money.fromDouble(1));
     when(accountIdAssembler.assemble(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());
     when(billIdAssembler.assemble(bill.getId().toString())).thenReturn(bill.getId());

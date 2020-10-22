@@ -14,7 +14,7 @@ public class Bill {
     this.billType = billType;
     this.description = description;
     this.amountDue = amountDue;
-    this.amountPaid = Money.ZERO();
+    this.amountPaid = Money.zero();
   }
 
   public void pay(Money amountToPay) {

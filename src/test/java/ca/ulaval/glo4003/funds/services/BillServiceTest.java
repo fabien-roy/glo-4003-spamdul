@@ -41,7 +41,7 @@ public class BillServiceTest {
   private final Bill bill = aBill().build();
   private ParkingArea parkingArea;
   private final Money fee = createMoney();
-  private final Money amountDue = new Money(1);
+  private final Money amountDue = Money.fromDouble(1);
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final OffenseCode offenseCode = createOffenseCode();
   private Map<String, List<String>> params = new HashMap<>();

@@ -11,9 +11,9 @@ import org.junit.Test;
 
 public class SustainableMobilityProgramBankRepositoryInMemoryTest {
 
-  private static final Money ADDED_MONEY = new Money(300);
-  private static final Money REMOVED_MONEY = new Money(100);
-  private static final Money REMOVED_TOO_HIGH_MONEY_AMOUNT = new Money(400);
+  private static final Money ADDED_MONEY = Money.fromDouble(300);
+  private static final Money REMOVED_MONEY = Money.fromDouble(100);
+  private static final Money REMOVED_TOO_HIGH_MONEY_AMOUNT = Money.fromDouble(400);
   private static final Money FINAL_AMOUNT = ADDED_MONEY.minus(REMOVED_MONEY);
   private SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
 
@@ -63,7 +63,7 @@ public class SustainableMobilityProgramBankRepositoryInMemoryTest {
 
     sustainableMobilityProgramBankRepository.takeAll();
 
-    Truth.assertThat(sustainableMobilityProgramBankRepository.get()).isEqualTo(Money.ZERO());
+    Truth.assertThat(sustainableMobilityProgramBankRepository.get()).isEqualTo(Money.zero());
   }
 
   @Test

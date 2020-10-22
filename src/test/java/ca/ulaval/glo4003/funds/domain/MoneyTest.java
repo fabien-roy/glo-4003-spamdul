@@ -7,9 +7,9 @@ public class MoneyTest {
 
   @Test
   public void whenAddingMoney_thenReturnAddedMoney() {
-    Money money = new Money(5);
-    Money addedMoney = new Money(10);
-    Money expectedMoney = new Money(15);
+    Money money = Money.fromDouble(5);
+    Money addedMoney = Money.fromDouble(10);
+    Money expectedMoney = Money.fromDouble(15);
 
     Money actualMoney = money.plus(addedMoney);
 

@@ -25,7 +25,7 @@ public class Money {
     return amount;
   }
 
-  public static Money ZERO() {
+  public static Money zero() {
     return new Money(0);
   }
 

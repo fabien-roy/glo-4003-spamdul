@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.funds.exception.SustainableMobilityProgramBankInsuffici
 
 public class SustainableMobilityProgramBankRepositoryInMemory
     implements SustainableMobilityProgramBankRepository {
-  private Money sustainableMobilityProgramBankAmount = Money.ZERO();
+  private Money sustainableMobilityProgramBankAmount = Money.zero();
 
   @Override
   public void add(Money money) {
@@ -24,7 +24,7 @@ public class SustainableMobilityProgramBankRepositoryInMemory
   @Override
   public Money takeAll() {
     Money remainingAmount = sustainableMobilityProgramBankAmount;
-    sustainableMobilityProgramBankAmount = Money.ZERO();
+    sustainableMobilityProgramBankAmount = Money.zero();
     return remainingAmount;
   }
 
