@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.parkings.domain;
 
-import com.google.common.truth.Truth;
+import static com.google.common.truth.Truth.assertThat;
+
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
@@ -19,7 +20,7 @@ public class ParkingStickerCodeGeneratorTest {
     ParkingStickerCode firstCode = parkingStickerCodeGenerator.generate();
     ParkingStickerCode secondCode = parkingStickerCodeGenerator.generate();
 
-    Truth.assertThat(firstCode).isNotEqualTo(secondCode);
+    assertThat(firstCode).isNotEqualTo(secondCode);
   }
 
   @Test
@@ -28,7 +29,7 @@ public class ParkingStickerCodeGeneratorTest {
 
     ParkingStickerCode code = parkingStickerCodeGenerator.generate();
 
-    Truth.assertThat(code.toString()).contains(passKeyword);
+    assertThat(code.toString()).contains(passKeyword);
   }
 
   @Test
@@ -38,7 +39,7 @@ public class ParkingStickerCodeGeneratorTest {
     ParkingStickerCode code = parkingStickerCodeGenerator.generate();
     List<String> codeParts = Arrays.asList(code.toString().split(separator));
 
-    Truth.assertThat(codeParts).hasSize(2);
+    assertThat(codeParts).hasSize(2);
   }
 
   @Test
@@ -49,7 +50,7 @@ public class ParkingStickerCodeGeneratorTest {
     ParkingStickerCode code = parkingStickerCodeGenerator.generate();
     String secondPart = code.toString().split(separator)[1];
 
-    Truth.assertThat(secondPart).hasLength(6);
-    Truth.assertThat(secondPart).matches(alphanumericalRegex);
+    assertThat(secondPart).hasLength(6);
+    assertThat(secondPart).matches(alphanumericalRegex);
   }
 }
