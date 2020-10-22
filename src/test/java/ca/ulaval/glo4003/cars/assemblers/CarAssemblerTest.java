@@ -11,6 +11,8 @@ import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
+import ca.ulaval.glo4003.cars.exceptions.InvalidManufacturerException;
+import ca.ulaval.glo4003.cars.exceptions.InvalidModelException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -78,6 +80,29 @@ public class CarAssemblerTest {
   @Test(expected = InvalidCarYearException.class)
   public void givenCarWithInvalidYear_whenAssembling_shouldThrowInvalidYearException() {
     CarDto carDto = aCarDto().withYear(INVALID_YEAR).build();
+
+    carAssembler.assemble(carDto, ACCOUNT_ID.toString());
+  }
+
+  @Test(expected = InvalidCarYearException.class)
+  public void givenCarWithNullYear_whenAssembling_shouldThrowInvalidYearException() {
+    // The year is parsed to zero when it is fed a null
+    CarDto carDto = aCarDto().withYear(0).build();
+
+    carAssembler.assemble(carDto, ACCOUNT_ID.toString());
+  }
+
+  @Test(expected = InvalidManufacturerException.class)
+  public void
+      givenCarWithNullManufacturer_whenAssembling_shouldThrowInvalidManufacturerException() {
+    CarDto carDto = aCarDto().withManufacturer(null).build();
+
+    carAssembler.assemble(carDto, ACCOUNT_ID.toString());
+  }
+
+  @Test(expected = InvalidModelException.class)
+  public void givenCarWithNullModel_whenAssembling_shouldThrowInvalidModelException() {
+    CarDto carDto = aCarDto().withModel(null).build();
 
     carAssembler.assemble(carDto, ACCOUNT_ID.toString());
   }
