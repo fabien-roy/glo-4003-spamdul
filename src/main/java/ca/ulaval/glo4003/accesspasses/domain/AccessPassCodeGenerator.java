@@ -8,9 +8,11 @@ public class AccessPassCodeGenerator {
   private static final String CODE_PATTERN = "[A-Z0-9]{6}";
 
   public AccessPassCode generate() {
-    String generatedCode = Faker.instance().regexify(CODE_PATTERN);
-    String accessPassCode = CODE_KEYWORD.concat(SEPARATOR).concat(generatedCode);
+    return new AccessPassCode(buildCode());
+  }
 
-    return new AccessPassCode(accessPassCode);
+  private String buildCode() {
+    String generatedCode = Faker.instance().regexify(CODE_PATTERN);
+    return CODE_KEYWORD.concat(SEPARATOR).concat(generatedCode);
   }
 }

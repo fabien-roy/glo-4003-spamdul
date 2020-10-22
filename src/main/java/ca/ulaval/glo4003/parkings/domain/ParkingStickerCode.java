@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings.domain;
 
 public class ParkingStickerCode {
-  private String code;
+  private final String code;
 
   public ParkingStickerCode(String code) {
     this.code = code;
