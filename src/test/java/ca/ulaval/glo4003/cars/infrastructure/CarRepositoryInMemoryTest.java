@@ -6,6 +6,7 @@ import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePla
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.CarRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.cars.exceptions.AlreadyExistingLicensePlateException;
 import ca.ulaval.glo4003.cars.exceptions.NotFoundLicensePlateException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
@@ -42,5 +43,13 @@ public class CarRepositoryInMemoryTest {
     LicensePlate nonExistentLicensePlate = createLicensePlate();
 
     carRepository.get(nonExistentLicensePlate);
+  }
+
+  @Test(expected = AlreadyExistingLicensePlateException.class)
+  public void
+      givenAlreadyExistingLicensePlate_whenSavingCar_thenThrowAlreadyExistingLicensePlateException() {
+    carRepository.save(car);
+
+    carRepository.save(car);
   }
 }
