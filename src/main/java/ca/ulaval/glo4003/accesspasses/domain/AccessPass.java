@@ -7,12 +7,12 @@ import ca.ulaval.glo4003.times.domain.DayOfWeek;
 public class AccessPass {
   private AccessPassCode accessPassCode;
   private final AccountId accountId;
-  private final DayOfWeek validDay;
+  private final DayOfWeek accessDay;
   private final LicensePlate licensePlate;
 
-  public AccessPass(AccountId accountId, DayOfWeek validDay, LicensePlate licensePlate) {
+  public AccessPass(AccountId accountId, DayOfWeek accessDay, LicensePlate licensePlate) {
     this.accountId = accountId;
-    this.validDay = validDay;
+    this.accessDay = accessDay;
     this.licensePlate = licensePlate;
   }
 
@@ -28,11 +28,15 @@ public class AccessPass {
     return accountId;
   }
 
+  public DayOfWeek getAccessDay() {
+    return accessDay;
+  }
+
   public LicensePlate getLicensePlate() {
     return licensePlate;
   }
 
   public boolean validateAccessDay(DayOfWeek accessDay) {
-    return validDay.equals(accessDay);
+    return this.accessDay.equals(accessDay);
   }
 }
