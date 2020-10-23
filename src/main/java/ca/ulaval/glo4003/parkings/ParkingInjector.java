@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
-import ca.ulaval.glo4003.parkings.api.ParkingAreaCodeResource;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
 import ca.ulaval.glo4003.parkings.api.ParkingAreaResourceImplementation;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
@@ -37,7 +37,7 @@ public class ParkingInjector {
     return parkingAreaRepository;
   }
 
-  public ParkingAreaCodeResource createParkingAreaCodeResource() {
+  public ParkingAreaResource createParkingAreaResource() {
     ParkingAreaService parkingAreaService =
         new ParkingAreaService(parkingAreaRepository, new ParkingAreaAssembler());
     return new ParkingAreaResourceImplementation(parkingAreaService);

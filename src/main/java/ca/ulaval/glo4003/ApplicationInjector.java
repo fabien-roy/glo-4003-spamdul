@@ -21,7 +21,7 @@ import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
 import ca.ulaval.glo4003.offenses.OffenseInjector;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.ParkingInjector;
-import ca.ulaval.glo4003.parkings.api.ParkingAreaCodeResource;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
 import ca.ulaval.glo4003.parkings.api.ParkingExceptionMapper;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
 import ca.ulaval.glo4003.times.TimeInjector;
@@ -106,8 +106,8 @@ public class ApplicationInjector {
     return CARBON_CREDIT_INJECTOR.createCarbonCreditResource();
   }
 
-  public ParkingAreaCodeResource createParkingAreaCodeResource() {
-    return PARKING_INJECTOR.createParkingAreaCodeResource();
+  public ParkingAreaResource createParkingAreaResource() {
+    return PARKING_INJECTOR.createParkingAreaResource();
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {

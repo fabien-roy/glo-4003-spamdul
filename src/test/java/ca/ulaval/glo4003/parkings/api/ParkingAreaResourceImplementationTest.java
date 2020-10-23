@@ -20,12 +20,12 @@ public class ParkingAreaResourceImplementationTest {
 
   @Mock private ParkingAreaService parkingAreaService;
 
-  private ParkingAreaCodeResource parkingAreaCodeResource;
+  private ParkingAreaResource parkingAreaResource;
   private ParkingAreaDto parkingAreaDto = aParkingAreaCodeDto().build();
 
   @Before
   public void setUp() {
-    parkingAreaCodeResource = new ParkingAreaResourceImplementation(parkingAreaService);
+    parkingAreaResource = new ParkingAreaResourceImplementation(parkingAreaService);
   }
 
   @Test
@@ -36,7 +36,7 @@ public class ParkingAreaResourceImplementationTest {
     when(parkingAreaService.getParkingAreas()).thenReturn(parkingAreaCodesDto);
 
     List<ParkingAreaDto> parkingAreaCodesDtoFromService = parkingAreaService.getParkingAreas();
-    Response response = parkingAreaCodeResource.getParkingAreas();
+    Response response = parkingAreaResource.getParkingAreas();
     Object entities = response.getEntity();
 
     assertThat(parkingAreaCodesDtoFromService).isEqualTo(entities);
@@ -44,7 +44,7 @@ public class ParkingAreaResourceImplementationTest {
 
   @Test
   public void whenGettingBills_thenRespondWithOkStatus() {
-    Response response = parkingAreaCodeResource.getParkingAreas();
+    Response response = parkingAreaResource.getParkingAreas();
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }

@@ -7,7 +7,7 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public class ParkingAreaResourceImplementation implements ParkingAreaCodeResource {
+public class ParkingAreaResourceImplementation implements ParkingAreaResource {
   private final ParkingAreaService parkingAreaService;
 
   public ParkingAreaResourceImplementation(ParkingAreaService parkingAreaService) {

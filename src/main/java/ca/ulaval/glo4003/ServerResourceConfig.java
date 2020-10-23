@@ -20,7 +20,7 @@ public class ServerResourceConfig {
                 resources.add(APPLICATION_INJECTOR.createOffenseResource());
                 resources.add(APPLICATION_INJECTOR.createGateEntryResource());
                 resources.add(APPLICATION_INJECTOR.createCarbonCreditResource());
-                resources.add(APPLICATION_INJECTOR.createParkingAreaCodeResource());
+                resources.add(APPLICATION_INJECTOR.createParkingAreaResource());
                 return resources;
               }
 

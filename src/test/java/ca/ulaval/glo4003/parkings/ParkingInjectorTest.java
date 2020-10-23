@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
-import ca.ulaval.glo4003.parkings.api.ParkingAreaCodeResource;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
@@ -88,10 +88,9 @@ public class ParkingInjectorTest {
   }
 
   @Test
-  public void whenCreatingParkingAreaCodeResource_thenReturnIt() {
-    ParkingAreaCodeResource parkingAreaCodeResource =
-        parkingInjector.createParkingAreaCodeResource();
+  public void whenCreatingParkingAreaResource_thenReturnIt() {
+    ParkingAreaResource parkingAreaResource = parkingInjector.createParkingAreaResource();
 
-    assertThat(parkingAreaCodeResource).isNotNull();
+    assertThat(parkingAreaResource).isNotNull();
   }
 }
