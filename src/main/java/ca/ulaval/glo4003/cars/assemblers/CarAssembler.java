@@ -10,6 +10,8 @@ import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
 import ca.ulaval.glo4003.cars.exceptions.InvalidManufacturerException;
 import ca.ulaval.glo4003.cars.exceptions.InvalidModelException;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CarAssembler {
 
@@ -20,6 +22,20 @@ public class CarAssembler {
       LicensePlateAssembler licensePlateAssembler, AccountIdAssembler accountIdAssembler) {
     this.licensePlateAssembler = licensePlateAssembler;
     this.accountIdAssembler = accountIdAssembler;
+  }
+
+  public List<CarDto> assemble(List<Car> cars) {
+    return cars.stream().map(this::assemble).collect(Collectors.toList());
+  }
+
+  public CarDto assemble(Car car) {
+    CarDto carDto = new CarDto();
+    carDto.consumptionType = car.getConsumptionType().toString();
+    carDto.licensePlate = car.getLicensePlate().toString();
+    carDto.manufacturer = car.getManufacturer();
+    carDto.model = car.getModel();
+    carDto.year = car.getYear();
+    return carDto;
   }
 
   public Car assemble(CarDto carDto, String accountId) {

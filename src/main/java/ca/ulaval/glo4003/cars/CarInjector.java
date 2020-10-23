@@ -17,4 +17,8 @@ public class CarInjector {
     CarAssembler carAssembler = new CarAssembler(licensePlateAssembler, accountIdAssembler);
     return new CarService(carAssembler, carRepository, accountService);
   }
+
+  public CarRepository getCarRepository() {
+    return carRepository;
+  }
 }

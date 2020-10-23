@@ -5,7 +5,9 @@ import ca.ulaval.glo4003.cars.domain.CarRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.exceptions.NotFoundLicensePlateException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CarRepositoryInMemory implements CarRepository {
   private final Map<LicensePlate, Car> cars = new HashMap<>();
@@ -23,5 +25,10 @@ public class CarRepositoryInMemory implements CarRepository {
     if (car == null) throw new NotFoundLicensePlateException();
 
     return car;
+  }
+
+  @Override
+  public List<Car> getCars(List<LicensePlate> licensePlates) {
+    return licensePlates.stream().map(this::get).collect(Collectors.toList());
   }
 }
