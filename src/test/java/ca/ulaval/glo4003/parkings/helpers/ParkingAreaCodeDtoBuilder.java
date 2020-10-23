@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.parkings.helpers;
 
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 
-import ca.ulaval.glo4003.parkings.api.dto.ParkingAreaCodeDto;
+import ca.ulaval.glo4003.parkings.api.dto.ParkingAreaDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 
 public class ParkingAreaCodeDtoBuilder {
@@ -12,10 +12,10 @@ public class ParkingAreaCodeDtoBuilder {
     return new ParkingAreaCodeDtoBuilder();
   }
 
-  public ParkingAreaCodeDto build() {
-    ParkingAreaCodeDto parkingAreaCodeDto = new ParkingAreaCodeDto();
-    parkingAreaCodeDto.parkingArea = parkingAreaCode.toString();
+  public ParkingAreaDto build() {
+    ParkingAreaDto parkingAreaDto = new ParkingAreaDto();
+    parkingAreaDto.parkingArea = parkingAreaCode.toString();
 
-    return parkingAreaCodeDto;
+    return parkingAreaDto;
   }
 }

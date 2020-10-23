@@ -28,7 +28,7 @@ public class ParkingAreaRepositoryInMemory implements ParkingAreaRepository {
   }
 
   @Override
-  public List<ParkingAreaCode> getAllAreaCode() {
-    return new ArrayList<>(parkingAreas.keySet());
+  public List<ParkingArea> getAllArea() {
+    return new ArrayList<>(parkingAreas.values());
   }
 }

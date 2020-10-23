@@ -1,13 +1,11 @@
 package ca.ulaval.glo4003.parkings.api;
 
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaCodeDtoBuilder.aParkingAreaCodeDto;
-import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.parkings.api.dto.ParkingAreaCodeDto;
-import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
-import ca.ulaval.glo4003.parkings.services.ParkingAreaCodeService;
+import ca.ulaval.glo4003.parkings.api.dto.ParkingAreaDto;
+import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Response;
@@ -18,28 +16,26 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParkingAreaCodeResourceImplementationTest {
-  ParkingAreaCode parkingAreaCode = createParkingAreaCode();
+public class ParkingAreaResourceImplementationTest {
 
-  @Mock private ParkingAreaCodeService parkingAreaCodeService;
+  @Mock private ParkingAreaService parkingAreaService;
 
   private ParkingAreaCodeResource parkingAreaCodeResource;
-  private ParkingAreaCodeDto parkingAreaCodeDto = aParkingAreaCodeDto().build();
+  private ParkingAreaDto parkingAreaDto = aParkingAreaCodeDto().build();
 
   @Before
   public void setUp() {
-    parkingAreaCodeResource = new ParkingAreaCodeResourceImplementation(parkingAreaCodeService);
+    parkingAreaCodeResource = new ParkingAreaResourceImplementation(parkingAreaService);
   }
 
   @Test
   public void whenGettingBills_thenGetBills() {
-    List<ParkingAreaCodeDto> parkingAreaCodesDto = new ArrayList<>();
-    parkingAreaCodesDto.add(parkingAreaCodeDto);
+    List<ParkingAreaDto> parkingAreaCodesDto = new ArrayList<>();
+    parkingAreaCodesDto.add(parkingAreaDto);
 
-    when(parkingAreaCodeService.getParkingAreas()).thenReturn(parkingAreaCodesDto);
+    when(parkingAreaService.getParkingAreas()).thenReturn(parkingAreaCodesDto);
 
-    List<ParkingAreaCodeDto> parkingAreaCodesDtoFromService =
-        parkingAreaCodeService.getParkingAreas();
+    List<ParkingAreaDto> parkingAreaCodesDtoFromService = parkingAreaService.getParkingAreas();
     Response response = parkingAreaCodeResource.getParkingAreas();
     Object entities = response.getEntity();
 

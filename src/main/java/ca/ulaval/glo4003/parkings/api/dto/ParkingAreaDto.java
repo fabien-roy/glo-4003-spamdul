@@ -1,7 +1,10 @@
 package ca.ulaval.glo4003.parkings.api.dto;
 
-public class ParkingAreaCodeDto {
+import java.util.List;
+
+public class ParkingAreaDto {
   public String parkingArea;
+  public List<ParkingPeriodPriceDto> parkingPeriodPrice;
 
   @Override
   public String toString() {

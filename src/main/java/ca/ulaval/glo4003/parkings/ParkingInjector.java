@@ -10,14 +10,15 @@ import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
 import ca.ulaval.glo4003.parkings.api.ParkingAreaCodeResource;
-import ca.ulaval.glo4003.parkings.api.ParkingAreaCodeResourceImplementation;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaResourceImplementation;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingStickerRepositoryInMemory;
-import ca.ulaval.glo4003.parkings.services.ParkingAreaCodeService;
+import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,9 +38,9 @@ public class ParkingInjector {
   }
 
   public ParkingAreaCodeResource createParkingAreaCodeResource() {
-    ParkingAreaCodeService parkingAreaCodeService =
-        new ParkingAreaCodeService(parkingAreaRepository, new ParkingAreaCodeAssembler());
-    return new ParkingAreaCodeResourceImplementation(parkingAreaCodeService);
+    ParkingAreaService parkingAreaService =
+        new ParkingAreaService(parkingAreaRepository, new ParkingAreaAssembler());
+    return new ParkingAreaResourceImplementation(parkingAreaService);
   }
 
   public ParkingStickerRepository getParkingStickerRepository() {
