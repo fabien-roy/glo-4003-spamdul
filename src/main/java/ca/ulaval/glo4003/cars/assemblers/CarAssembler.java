@@ -9,7 +9,6 @@ import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
 import ca.ulaval.glo4003.cars.exceptions.InvalidManufacturerException;
 import ca.ulaval.glo4003.cars.exceptions.InvalidModelException;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,16 +45,13 @@ public class CarAssembler {
     LicensePlate licensePlate = licensePlateAssembler.assemble(carDto.licensePlate);
     AccountId id = accountIdAssembler.assemble(accountId);
 
-    byte[] consumptionTypeUtf8 = carDto.consumptionType.getBytes();
-    String consumptionType = new String(consumptionTypeUtf8, StandardCharsets.UTF_8);
-
     return new Car(
         licensePlate,
         id,
         carDto.manufacturer,
         carDto.model,
         carDto.year,
-        ConsumptionType.get(consumptionType));
+        ConsumptionType.get(carDto.consumptionType));
   }
 
   private void validateNotNull(CarDto carDto) {
