@@ -28,6 +28,6 @@ public class ParkingAreaCodeAssemblerTest {
 
   @Test(expected = InvalidParkingAreaCodeException.class)
   public void givenNullParkingAreaCode_whenAssembling_thenThrowInvalidParkingAreaCodeException() {
-    parkingAreaCodeAssembler.assemble(null);
+    parkingAreaCodeAssembler.assemble((String) null);
   }
 }
