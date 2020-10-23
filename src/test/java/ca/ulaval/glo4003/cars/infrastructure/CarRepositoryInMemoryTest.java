@@ -8,8 +8,6 @@ import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.CarRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.exceptions.NotFoundLicensePlateException;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,17 +35,6 @@ public class CarRepositoryInMemoryTest {
     Car foundCar = carRepository.get(car.getLicensePlate());
 
     assertThat(foundCar).isSameInstanceAs(car);
-  }
-
-  @Test
-  public void whenGettingCars_thenReturnCars() {
-    List<LicensePlate> licensePlates = new ArrayList<>();
-    licensePlates.add(car.getLicensePlate());
-    carRepository.save(car);
-
-    List<Car> cars = carRepository.getCars(licensePlates);
-
-    assertThat(cars).contains(car);
   }
 
   @Test(expected = NotFoundLicensePlateException.class)

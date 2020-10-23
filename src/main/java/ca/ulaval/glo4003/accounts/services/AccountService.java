@@ -5,10 +5,6 @@ import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.cars.api.dto.CarDto;
-import ca.ulaval.glo4003.cars.assemblers.CarAssembler;
-import ca.ulaval.glo4003.cars.domain.Car;
-import ca.ulaval.glo4003.cars.domain.CarRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.api.dto.BillPaymentDto;
@@ -30,8 +26,6 @@ public class AccountService {
   private final BillAssembler billAssembler;
   private final BillIdAssembler billIdAssembler;
   private final BillPaymentAssembler billPaymentAssembler;
-  private final CarRepository carRepository;
-  private final CarAssembler carAssembler;
 
   public AccountService(
       AccountRepository accountRepository,
@@ -39,17 +33,13 @@ public class AccountService {
       BillService billService,
       BillAssembler billAssembler,
       BillIdAssembler billIdAssembler,
-      BillPaymentAssembler billPaymentAssembler,
-      CarRepository carRepository,
-      CarAssembler carAssembler) {
+      BillPaymentAssembler billPaymentAssembler) {
     this.accountRepository = accountRepository;
     this.accountIdAssembler = accountIdAssembler;
     this.billService = billService;
     this.billAssembler = billAssembler;
     this.billIdAssembler = billIdAssembler;
     this.billPaymentAssembler = billPaymentAssembler;
-    this.carRepository = carRepository;
-    this.carAssembler = carAssembler;
   }
 
   public void addLicensePlateToAccount(AccountId id, LicensePlate licensePlate) {
@@ -89,15 +79,6 @@ public class AccountService {
     List<Bill> bills = billService.getBillsByIds(billIds);
 
     return billAssembler.assemble(bills);
-  }
-
-  public List<CarDto> getCars(String accountId) {
-    AccountId id = accountIdAssembler.assemble(accountId);
-    Account account = getAccount(id);
-    List<LicensePlate> licensePlates = account.getLicensePlates();
-    List<Car> cars = carRepository.getCars(licensePlates);
-
-    return carAssembler.assemble(cars);
   }
 
   public BillDto payBill(BillPaymentDto billPaymentDto, String accountId, String billId) {

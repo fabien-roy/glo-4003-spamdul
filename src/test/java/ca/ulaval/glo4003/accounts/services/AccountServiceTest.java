@@ -2,10 +2,7 @@ package ca.ulaval.glo4003.accounts.services;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
-import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
-import static ca.ulaval.glo4003.cars.helpers.CarDtoBuilder.aCarDto;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
-import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensesPlate;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingStickerCode;
@@ -16,10 +13,6 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.cars.api.dto.CarDto;
-import ca.ulaval.glo4003.cars.assemblers.CarAssembler;
-import ca.ulaval.glo4003.cars.domain.Car;
-import ca.ulaval.glo4003.cars.domain.CarRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.api.dto.BillPaymentDto;
 import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
@@ -49,8 +42,6 @@ public class AccountServiceTest {
   @Mock private BillIdAssembler billIdAssembler;
   @Mock private BillPaymentAssembler billPaymentAssembler;
   @Mock private BillPaymentDto billPaymentDto;
-  @Mock private CarRepository carRepository;
-  @Mock private CarAssembler carAssembler;
 
   private AccountService accountService;
 
@@ -62,11 +53,6 @@ public class AccountServiceTest {
   private final Bill bill = aBill().build();
   private final Account accountWithBill =
       anAccount().withBillIds(Collections.singletonList(bill.getId())).build();
-  private final List<LicensePlate> licensePlates = createLicensesPlate();
-  private final Account accountWithLicensePlate =
-      anAccount().withLicensePlate(licensePlates).build();
-  private final Car carWithLicensePlate = aCar().withLicensePlate(licensePlates.get(0)).build();
-  private final CarDto carDto = aCarDto().withLicensePlate(licensePlates.get(0).toString()).build();
 
   @Before
   public void setUp() {
@@ -77,9 +63,7 @@ public class AccountServiceTest {
             billService,
             billAssembler,
             billIdAssembler,
-            billPaymentAssembler,
-            carRepository,
-            carAssembler);
+            billPaymentAssembler);
 
     when(accountRepository.findById(account.getId())).thenReturn(account);
   }
@@ -241,28 +225,6 @@ public class AccountServiceTest {
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
 
     verify(billService).payBill(bill.getId(), Money.fromDouble(1));
-  }
-
-  @Test
-  public void whenGettingCars_ThenReturnAccountCars() {
-    when(accountRepository.findById(accountWithLicensePlate.getId()))
-        .thenReturn(accountWithLicensePlate);
-    when(accountIdAssembler.assemble(accountWithLicensePlate.getId().toString()))
-        .thenReturn(accountWithLicensePlate.getId());
-
-    List<Car> cars = new ArrayList<>();
-    cars.add(carWithLicensePlate);
-    when(carRepository.getCars(accountWithLicensePlate.getLicensePlates())).thenReturn(cars);
-
-    List<CarDto> carsDto = new ArrayList<>();
-    carsDto.add(carDto);
-    when(carAssembler.assemble(cars)).thenReturn(carsDto);
-
-    List<CarDto> carsFromService =
-        accountService.getCars(accountWithLicensePlate.getId().toString());
-
-    assertThat(accountWithLicensePlate.getLicensePlates().get(0).toString())
-        .isEqualTo(carsFromService.get(0).licensePlate);
   }
 
   private void setUpPayBill() {

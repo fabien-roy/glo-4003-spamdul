@@ -6,9 +6,6 @@ import ca.ulaval.glo4003.accounts.domain.AccountIdGenerator;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.infrastructure.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.accounts.services.AccountService;
-import ca.ulaval.glo4003.cars.assemblers.CarAssembler;
-import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
-import ca.ulaval.glo4003.cars.domain.CarRepository;
 import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillIdAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillPaymentAssembler;
@@ -34,15 +31,13 @@ public class AccountInjector {
     return new AccountIdAssembler();
   }
 
-  public AccountService createAccountService(BillService billService, CarRepository carRepository) {
+  public AccountService createAccountService(BillService billService) {
     return new AccountService(
         accountRepository,
         new AccountIdAssembler(),
         billService,
         new BillAssembler(),
         new BillIdAssembler(),
-        new BillPaymentAssembler(new MoneyAssembler()),
-        carRepository,
-        new CarAssembler(new LicensePlateAssembler(), new AccountIdAssembler()));
+        new BillPaymentAssembler(new MoneyAssembler()));
   }
 }

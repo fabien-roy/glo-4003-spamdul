@@ -150,7 +150,7 @@ public class UserResourceImplementationTest {
     List<CarDto> carsDto = new ArrayList<>();
     carsDto.add(carDto);
     carsDto.add(carDto);
-    when(accountService.getCars(accountId.toString())).thenReturn(carsDto);
+    when(carService.getCars(accountId.toString())).thenReturn(carsDto);
 
     Response response = userResource.getCars(accountId.toString());
     Object respondedCarsDto = response.getEntity();

@@ -86,7 +86,7 @@ public class UserResourceImplementation implements UserResource {
 
   @Override
   public Response getCars(String accountId) {
-    List<CarDto> carsDto = accountService.getCars(accountId);
+    List<CarDto> carsDto = carService.getCars(accountId);
     GenericEntity<List<CarDto>> entities = new GenericEntity<List<CarDto>>(carsDto) {};
 
     return Response.status(Response.Status.OK)
