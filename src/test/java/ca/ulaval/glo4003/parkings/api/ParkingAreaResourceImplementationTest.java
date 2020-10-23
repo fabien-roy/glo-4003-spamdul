@@ -30,10 +30,10 @@ public class ParkingAreaResourceImplementationTest {
 
   @Test
   public void whenGettingParkingAreas_thenGetParkingAreas() {
-    List<ParkingAreaDto> parkingAreaCodesDto = new ArrayList<>();
-    parkingAreaCodesDto.add(parkingAreaDto);
+    List<ParkingAreaDto> parkingAreasDto = new ArrayList<>();
+    parkingAreasDto.add(parkingAreaDto);
 
-    when(parkingAreaService.getParkingAreas()).thenReturn(parkingAreaCodesDto);
+    when(parkingAreaService.getParkingAreas()).thenReturn(parkingAreasDto);
 
     List<ParkingAreaDto> parkingAreasDtoFromService = parkingAreaService.getParkingAreas();
     Response response = parkingAreaResource.getParkingAreas();

@@ -21,7 +21,7 @@ public class ParkingAreaService {
     List<ParkingArea> parkingAreas = parkingAreaRepository.getAllArea();
 
     return parkingAreas.stream()
-        .map(parkingAreaCode -> this.parkingAreaAssembler.assemble(parkingAreaCode))
+        .map(parkingArea -> this.parkingAreaAssembler.assemble(parkingArea))
         .collect(Collectors.toList());
   }
 }
