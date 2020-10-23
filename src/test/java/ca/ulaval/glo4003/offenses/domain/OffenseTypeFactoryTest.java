@@ -36,7 +36,7 @@ public class OffenseTypeFactoryTest {
     when(offenseCodeAssembler.assemble("ZONE_01")).thenReturn(wrongZoneOffenseCode);
     when(offenseCodeAssembler.assemble("VIG_01")).thenReturn(wrongDayOffenseCode);
     when(offenseCodeAssembler.assemble("VIG_02")).thenReturn(invalidStickerOffenseCode);
-    when(offenseCodeAssembler.assemble("VIG_02")).thenReturn(absentStickerOffenseCode);
+    when(offenseCodeAssembler.assemble("VIG_03")).thenReturn(absentStickerOffenseCode);
     when(offenseTypeRepository.findByCode(wrongZoneOffenseCode)).thenReturn(wrongZoneOffenseType);
     when(offenseTypeRepository.findByCode(wrongDayOffenseCode)).thenReturn(wrongDayOffenseType);
     when(offenseTypeRepository.findByCode(invalidStickerOffenseCode))

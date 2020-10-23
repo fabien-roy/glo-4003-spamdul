@@ -14,15 +14,16 @@ public class OffenseValidationBuilder {
   private ParkingAreaCode parkingAreaCode = createParkingAreaCode();
   private TimeOfDay timeOfDay = createTimeOfDay();
 
-  private OffenseValidationBuilder() {}
-
   public static OffenseValidationBuilder anOffenseValidation() {
     return new OffenseValidationBuilder();
   }
 
+  public OffenseValidationBuilder withParkingStickerCode(ParkingStickerCode parkingStickerCode) {
+    this.parkingStickerCode = parkingStickerCode;
+    return this;
+  }
+
   public OffenseValidation build() {
-    OffenseValidation offenseValidation =
-        new OffenseValidation(parkingStickerCode, parkingAreaCode, timeOfDay);
-    return offenseValidation;
+    return new OffenseValidation(parkingStickerCode, parkingAreaCode, timeOfDay);
   }
 }
