@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.cars.domain;
 
 import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +30,16 @@ public enum ConsumptionType {
 
     ConsumptionType foundType = lookup.get(type.toLowerCase());
 
-    if (foundType == null) throw new InvalidConsumptionTypeException();
+    if (foundType == null) {
+      byte[] consumptionTypeUtf8 = type.getBytes();
+      String consumptionFrenchType = new String(consumptionTypeUtf8, StandardCharsets.UTF_8);
+
+      foundType = lookup.get(consumptionFrenchType);
+
+      if (foundType == null) {
+        throw new InvalidConsumptionTypeException();
+      }
+    }
 
     return foundType;
   }
