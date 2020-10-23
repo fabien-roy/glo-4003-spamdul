@@ -19,7 +19,7 @@
 		<exec-maven.version>3.0.0</exec-maven.version>
 		<main-class>ca.ulaval.glo4003.Main</main-class>
 		<!-- REST -->
-		<jetty.version>9.4.31.v20200723</jetty.version>
+		<jetty.version>9.4.33.v20201020</jetty.version>
 		<jersey.version>2.8</jersey.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
 		<javax.mail.version>1.5.0-b01</javax.mail.version>
