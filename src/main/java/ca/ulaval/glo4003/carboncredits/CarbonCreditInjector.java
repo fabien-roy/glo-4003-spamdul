@@ -9,6 +9,9 @@ import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatusRepository;
 import ca.ulaval.glo4003.carboncredits.insfrastructure.CarbonCreditRepositoryInMemory;
 import ca.ulaval.glo4003.carboncredits.insfrastructure.MonthlyPaymentStatusRepositoryInMemory;
 import ca.ulaval.glo4003.carboncredits.services.CarbonCreditService;
+import ca.ulaval.glo4003.times.services.TimeScheduler;
+import ca.ulaval.glo4003.times.services.TimeService;
+import ca.ulaval.glo4003.times.systemtime.QuartzTimeScheduler;
 
 public class CarbonCreditInjector {
   private final CarbonCreditRepository carbonCreditRepository =
@@ -26,7 +29,14 @@ public class CarbonCreditInjector {
             carbonCreditAssembler,
             carbonCreditMonthlyPaymentStatusAssembler,
             monthlyPaymentStatusRepository);
+    //    startScheduler(carbonCreditService);
 
     return new CarbonCreditResourceImplementation(carbonCreditService);
+  }
+
+  private void startScheduler(CarbonCreditService carbonCreditService) {
+    TimeScheduler timeScheduler = new QuartzTimeScheduler();
+    TimeService timeService = new TimeService(timeScheduler, carbonCreditService);
+    timeService.startTimeScheduler();
   }
 }
