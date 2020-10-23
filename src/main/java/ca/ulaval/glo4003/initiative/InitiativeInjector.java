@@ -1,14 +1,60 @@
 package ca.ulaval.glo4003.initiative;
 
+import ca.ulaval.glo4003.accounts.domain.AccountIdGenerator;
+import ca.ulaval.glo4003.accounts.domain.AccountRepository;
+import ca.ulaval.glo4003.accounts.infrastructure.AccountRepositoryInMemory;
+import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.initiative.api.InitiativeResource;
+import ca.ulaval.glo4003.initiative.api.InitiativeResourceImplementation;
+import ca.ulaval.glo4003.initiative.assembler.InitiativeAssembler;
+import ca.ulaval.glo4003.initiative.assembler.InitiativeCodeAssembler;
+import ca.ulaval.glo4003.initiative.domain.InitiativeCodeGenerator;
+import ca.ulaval.glo4003.initiative.domain.InitiativeFactory;
+import ca.ulaval.glo4003.initiative.domain.InitiativeRepository;
+import ca.ulaval.glo4003.initiative.infrastructure.InitiativeRepositoryInMemory;
+import ca.ulaval.glo4003.initiative.services.InitiativeService;
 
 public class InitiativeInjector {
 
-  public InitiativeResource createInitiativeResource() {
+  private final AccountRepository accountRepository = new AccountRepositoryInMemory();
+  private final AccountIdGenerator accountIdGenerator = new AccountIdGenerator();
 
-    // InitiativeService initiativeService = new InitiativeService();
+  public InitiativeResource createInitiativeResource(InitiativeService initiativeService) {
+    return new InitiativeResourceImplementation(initiativeService);
+  }
 
-    // return new InitiativeResourceImplementation(initiativeService)
-    return null;
+  public InitiativeService createService(
+      InitiativeFactory initiativeFactory,
+      InitiativeRepository initiativeRepository,
+      InitiativeCodeAssembler initiativeCodeAssembler,
+      InitiativeAssembler initiativeAssembler,
+      MoneyAssembler moneyAssembler) {
+    return new InitiativeService(
+        initiativeFactory,
+        initiativeRepository,
+        initiativeCodeAssembler,
+        initiativeAssembler,
+        moneyAssembler);
+  }
+
+  public InitiativeFactory createInitiativeFactory(
+      InitiativeCodeGenerator initiativeCodeGenerator) {
+    return new InitiativeFactory(initiativeCodeGenerator);
+  }
+
+  public InitiativeRepository getInitiativeRepository() {
+    return new InitiativeRepositoryInMemory();
+  }
+
+  public InitiativeCodeAssembler createInitiativeCodeAssembler() {
+    return new InitiativeCodeAssembler();
+  }
+
+  public InitiativeAssembler createInitiativeAssembler() {
+    return new InitiativeAssembler();
+  }
+
+  public InitiativeCodeGenerator getInitiativeCodeGenerator() {
+    return new InitiativeCodeGenerator();
   }
 }

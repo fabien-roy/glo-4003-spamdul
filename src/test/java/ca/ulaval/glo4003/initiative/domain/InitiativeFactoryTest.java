@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import com.google.common.truth.Truth;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -19,6 +20,7 @@ public class InitiativeFactoryTest {
   private InitiativeCode INITIATIVE_CODE = createCode();
   private Money DEFAULT_ALLOCATED_MONEY = Money.ZERO();
 
+  @Before
   public void setUp() {
     initiativeFactory = new InitiativeFactory(initiativeCodeGenerator);
 
