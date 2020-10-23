@@ -21,7 +21,8 @@ import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.services.UserService;
-import com.google.common.truth.Truth;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,7 +62,7 @@ public class UserResourceImplementationTest {
     Response response = userResource.addUser(userDto);
     AccountIdDto respondedAccountIdDto = (AccountIdDto) response.getEntity();
 
-    Truth.assertThat(respondedAccountIdDto.accountId).isEqualTo(accountIdDto.accountId);
+    assertThat(respondedAccountIdDto.accountId).isEqualTo(accountIdDto.accountId);
   }
 
   @Test
@@ -70,7 +71,7 @@ public class UserResourceImplementationTest {
 
     Response response = userResource.addUser(userDto);
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
+    assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
   }
 
   @Test
@@ -80,9 +81,9 @@ public class UserResourceImplementationTest {
     Response response = userResource.getUser(ACCOUNT_ID);
     UserDto respondedUserDto = (UserDto) response.getEntity();
 
-    Truth.assertThat(respondedUserDto.name).isEqualTo(userDto.name);
-    Truth.assertThat(respondedUserDto.birthDate).isEqualTo(userDto.birthDate);
-    Truth.assertThat(respondedUserDto.sex).isEqualTo(userDto.sex);
+    assertThat(respondedUserDto.name).isEqualTo(userDto.name);
+    assertThat(respondedUserDto.birthDate).isEqualTo(userDto.birthDate);
+    assertThat(respondedUserDto.sex).isEqualTo(userDto.sex);
   }
 
   @Test
@@ -91,7 +92,7 @@ public class UserResourceImplementationTest {
 
     Response response = userResource.getUser(ACCOUNT_ID);
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
+    assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }
 
   @Test
@@ -102,7 +103,7 @@ public class UserResourceImplementationTest {
     Response response = userResource.addAccessPass(accessPassDto, accountId.toString());
     AccessPassCodeDto respondedAccessPassCodeDto = (AccessPassCodeDto) response.getEntity();
 
-    Truth.assertThat(respondedAccessPassCodeDto.accessPassCode)
+    assertThat(respondedAccessPassCodeDto.accessPassCode)
         .isEqualTo(accessPassCodeDto.accessPassCode);
   }
 
@@ -113,7 +114,7 @@ public class UserResourceImplementationTest {
 
     Response response = userResource.addAccessPass(accessPassDto, accountId.toString());
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
+    assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
   }
 
   @Test
@@ -140,6 +141,26 @@ public class UserResourceImplementationTest {
   @Test
   public void whenGettingBills_thenRespondWithOkStatus() {
     Response response = userResource.getBills(accountId.toString());
+
+    assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
+  }
+
+  @Test
+  public void whenGettingCars_thenGetCars() {
+    List<CarDto> carsDto = new ArrayList<>();
+    carsDto.add(carDto);
+    carsDto.add(carDto);
+    when(carService.getCars(accountId.toString())).thenReturn(carsDto);
+
+    Response response = userResource.getCars(accountId.toString());
+    Object respondedCarsDto = response.getEntity();
+
+    assertThat(respondedCarsDto).isEqualTo(carsDto);
+  }
+
+  @Test
+  public void whenGettingCars_thenRespondWithOkStatus() {
+    Response response = userResource.getCars(accountId.toString());
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }
