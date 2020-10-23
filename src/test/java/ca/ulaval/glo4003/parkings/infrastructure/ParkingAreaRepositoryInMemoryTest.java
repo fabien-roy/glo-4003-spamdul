@@ -4,8 +4,10 @@ import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingAreaException;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,6 +28,15 @@ public class ParkingAreaRepositoryInMemoryTest {
     ParkingArea foundParkingArea = parkingAreaRepository.get(parkingArea.getCode());
 
     assertThat(foundParkingArea).isSameInstanceAs(parkingArea);
+  }
+
+  @Test
+  public void whenGettingAllCode_thenReturnAllAreaCode() {
+    parkingAreaRepository.save(parkingArea);
+
+    List<ParkingAreaCode> parkingAreaCodes = parkingAreaRepository.getAllAreaCode();
+
+    assertThat(parkingAreaCodes.size()).isEqualTo(1);
   }
 
   @Test(expected = NotFoundParkingAreaException.class)

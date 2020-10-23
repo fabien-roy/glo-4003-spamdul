@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaCodeResource;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
@@ -31,6 +32,7 @@ public class ParkingInjectorTest {
   @Mock private AccountService accountService;
   @Mock private ParkingStickerCreationObserver parkingStickerCreationObserver;
   @Mock private BillService billService;
+  @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
   private ParkingInjector parkingInjector;
 
@@ -83,5 +85,13 @@ public class ParkingInjectorTest {
             billService);
 
     assertThat(parkingStickerService).isNotNull();
+  }
+
+  @Test
+  public void whenCreatingParkingAreaCodeResource_thenReturnIt() {
+    ParkingAreaCodeResource parkingAreaCodeResource =
+        parkingInjector.createParkingAreaCodeResource();
+
+    assertThat(parkingAreaCodeResource).isNotNull();
   }
 }
