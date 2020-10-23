@@ -6,8 +6,8 @@ import ca.ulaval.glo4003.carboncredits.assemblers.CarbonCreditAssembler;
 import ca.ulaval.glo4003.carboncredits.assemblers.CarbonCreditMonthlyPaymentStatusAssembler;
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCreditRepository;
 import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatusRepository;
-import ca.ulaval.glo4003.carboncredits.insfrastructure.CarbonCreditRepositoryInMemory;
-import ca.ulaval.glo4003.carboncredits.insfrastructure.MonthlyPaymentStatusRepositoryInMemory;
+import ca.ulaval.glo4003.carboncredits.infrastructure.CarbonCreditRepositoryInMemory;
+import ca.ulaval.glo4003.carboncredits.infrastructure.MonthlyPaymentStatusRepositoryInMemory;
 import ca.ulaval.glo4003.carboncredits.services.CarbonCreditService;
 
 public class CarbonCreditInjector {

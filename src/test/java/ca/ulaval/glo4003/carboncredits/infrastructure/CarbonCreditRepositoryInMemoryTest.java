@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.carboncredits.insfrastructure;
+package ca.ulaval.glo4003.carboncredits.infrastructure;
 
 import static ca.ulaval.glo4003.carboncredits.helpers.CarbonCreditMother.createCarbonCredit;
 import static com.google.common.truth.Truth.assertThat;
