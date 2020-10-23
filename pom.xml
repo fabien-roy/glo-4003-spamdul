@@ -86,7 +86,7 @@
 			<artifactId>jersey-media-moxy</artifactId>
 			<version>${jersey.version}</version>
 		</dependency>
-        <!-- We do not use hk2, our injection is homemade. Jersey 2.26+ requires this dependency -->
+		<!-- We do not use hk2, our injection is homemade. Jersey 2.26+ requires this dependency -->
 		<dependency>
 			<groupId>org.glassfish.jersey.inject</groupId>
 			<artifactId>jersey-hk2</artifactId>
