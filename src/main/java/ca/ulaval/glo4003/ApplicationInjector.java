@@ -16,6 +16,7 @@ import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
 import ca.ulaval.glo4003.gateentries.GateEntryInjector;
 import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
 import ca.ulaval.glo4003.initiative.InitiativeInjector;
+import ca.ulaval.glo4003.initiative.api.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.initiative.api.InitiativeResource;
 import ca.ulaval.glo4003.interfaces.api.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.locations.LocationInjector;
@@ -130,6 +131,6 @@ public class ApplicationInjector {
         TimeExceptionMapper.class,
         UserExceptionMapper.class,
         AccessPassExceptionMapper.class,
-        FundExceptionMapper.class);
+        InitiativeExceptionMapper.class);
   }
 }

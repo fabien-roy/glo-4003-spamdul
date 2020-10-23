@@ -19,7 +19,11 @@ public class ServerResourceConfig {
                 resources.add(APPLICATION_INJECTOR.createUserResource());
                 resources.add(APPLICATION_INJECTOR.createOffenseResource());
                 resources.add(APPLICATION_INJECTOR.createGateEntryResource());
+<<<<<<< HEAD
                 resources.add(APPLICATION_INJECTOR.createCarbonCreditResource());
+=======
+                resources.add(APPLICATION_INJECTOR.createInitiativeResource());
+>>>>>>> [FIX] Now work on postman
                 return resources;
               }
 
