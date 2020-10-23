@@ -18,6 +18,7 @@
 		<maven-compiler.version>3.8.1</maven-compiler.version>
 		<exec-maven.version>3.0.0</exec-maven.version>
 		<main-class>ca.ulaval.glo4003.Main</main-class>
+		<quartz.version>2.3.2</quartz.version>
 		<!-- REST -->
 		<jetty.version>9.4.33.v20201020</jetty.version>
 		<jersey.version>2.32</jersey.version>
@@ -146,6 +147,11 @@
 			<groupId>javax.activation</groupId>
 			<artifactId>activation</artifactId>
 			<version>${javax.activation.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>${quartz.version}</version>
 		</dependency>
 	</dependencies>
 
