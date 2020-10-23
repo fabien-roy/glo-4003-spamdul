@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.funds.domain.queries.BillTypeQueryParamAssembler;
 import ca.ulaval.glo4003.funds.domain.queries.YearQueryParamAssembler;
 import ca.ulaval.glo4003.funds.infrastructure.BillQueryBuilderInMemory;
 import ca.ulaval.glo4003.funds.infrastructure.BillRepositoryInMemory;
+import ca.ulaval.glo4003.funds.infrastructure.SustainableMobilityProgramBankRepositoryInMemory;
 import ca.ulaval.glo4003.funds.services.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.services.BillService;
 import java.util.HashSet;
@@ -22,6 +23,8 @@ public class FundInjector {
       new BillTypeQueryParamAssembler();
   private final YearQueryParamAssembler yearQueryParamAssembler = new YearQueryParamAssembler();
   private final BillProfitsCalculator billProfitsCalculator = new BillProfitsCalculator();
+  private final SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository =
+      new SustainableMobilityProgramBankRepositoryInMemory();
 
   public BillService createBillService() {
     Set<BillQueryParamAssembler> billQueryParamAssemblers = new HashSet<>();
@@ -38,5 +41,9 @@ public class FundInjector {
 
   public MoneyAssembler createMoneyAssembler() {
     return new MoneyAssembler();
+  }
+
+  public SustainableMobilityProgramBankRepository getSustainableMobilityProgramBankRepository() {
+    return sustainableMobilityProgramBankRepository;
   }
 }

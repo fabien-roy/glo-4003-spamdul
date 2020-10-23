@@ -4,9 +4,11 @@ import ca.ulaval.glo4003.accounts.domain.AccountIdGenerator;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.infrastructure.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiative.api.InitiativeResource;
 import ca.ulaval.glo4003.initiative.api.InitiativeResourceImplementation;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeAssembler;
+import ca.ulaval.glo4003.initiative.assembler.InitiativeAvailableAmountAssembler;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeCodeAssembler;
 import ca.ulaval.glo4003.initiative.domain.InitiativeCodeGenerator;
 import ca.ulaval.glo4003.initiative.domain.InitiativeFactory;
@@ -27,14 +29,18 @@ public class InitiativeInjector {
       InitiativeFactory initiativeFactory,
       InitiativeRepository initiativeRepository,
       InitiativeCodeAssembler initiativeCodeAssembler,
+      InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler,
       InitiativeAssembler initiativeAssembler,
-      MoneyAssembler moneyAssembler) {
+      MoneyAssembler moneyAssembler,
+      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
     return new InitiativeService(
         initiativeFactory,
         initiativeRepository,
         initiativeCodeAssembler,
+        initiativeAvailableAmountAssembler,
         initiativeAssembler,
-        moneyAssembler);
+        moneyAssembler,
+        sustainableMobilityProgramBankRepository);
   }
 
   public InitiativeFactory createInitiativeFactory(
@@ -52,6 +58,10 @@ public class InitiativeInjector {
 
   public InitiativeAssembler createInitiativeAssembler() {
     return new InitiativeAssembler();
+  }
+
+  public InitiativeAvailableAmountAssembler createInitiativeAvailableAmountAssembler() {
+    return new InitiativeAvailableAmountAssembler();
   }
 
   public InitiativeCodeGenerator getInitiativeCodeGenerator() {

@@ -12,7 +12,6 @@ import ca.ulaval.glo4003.communications.CommunicationInjector;
 import ca.ulaval.glo4003.communications.api.CommunicationExceptionMapper;
 import ca.ulaval.glo4003.files.api.FileExceptionMapper;
 import ca.ulaval.glo4003.funds.FundInjector;
-import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
 import ca.ulaval.glo4003.gateentries.GateEntryInjector;
 import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
 import ca.ulaval.glo4003.initiative.InitiativeInjector;
@@ -108,6 +107,7 @@ public class ApplicationInjector {
   public CarbonCreditResource createCarbonCreditResource() {
     return CARBON_CREDIT_INJECTOR.createCarbonCreditResource();
   }
+
   public InitiativeResource createInitiativeResource() {
     return INITIATIVE_INJECTOR.createInitiativeResource(
         INITIATIVE_INJECTOR.createService(
@@ -115,8 +115,10 @@ public class ApplicationInjector {
                 INITIATIVE_INJECTOR.getInitiativeCodeGenerator()),
             INITIATIVE_INJECTOR.getInitiativeRepository(),
             INITIATIVE_INJECTOR.createInitiativeCodeAssembler(),
+            INITIATIVE_INJECTOR.createInitiativeAvailableAmountAssembler(),
             INITIATIVE_INJECTOR.createInitiativeAssembler(),
-            FUND_INJECTOR.createMoneyAssembler()));
+            FUND_INJECTOR.createMoneyAssembler(),
+            FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {

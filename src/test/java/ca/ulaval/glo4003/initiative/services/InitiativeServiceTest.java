@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.initiative.services;
 
 import static ca.ulaval.glo4003.initiative.helpers.AddInitiativeDtoBuilder.aAddInitiativeDto;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeAddAllocatedAmountDtoBuilder.aInitiativeAddAllocatedAmountDTO;
+import static ca.ulaval.glo4003.initiative.helpers.InitiativeAvailableAmountDtoBuilder.aInitiativeAvailableAmountDto;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeBuilder.aInitiative;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeCodeDtoBuilder.aInitiativeCodeDto;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeDtoBuilder.aInitiativeDto;
@@ -10,11 +11,10 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.initiative.api.dto.AddInitiativeDto;
-import ca.ulaval.glo4003.initiative.api.dto.InitiativeAddAllocatedAmountDto;
-import ca.ulaval.glo4003.initiative.api.dto.InitiativeCodeDto;
-import ca.ulaval.glo4003.initiative.api.dto.InitiativeDto;
+import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
+import ca.ulaval.glo4003.initiative.api.dto.*;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeAssembler;
+import ca.ulaval.glo4003.initiative.assembler.InitiativeAvailableAmountAssembler;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeCodeAssembler;
 import ca.ulaval.glo4003.initiative.domain.Initiative;
 import ca.ulaval.glo4003.initiative.domain.InitiativeFactory;
@@ -32,16 +32,21 @@ public class InitiativeServiceTest {
 
   @Mock private InitiativeFactory initiativeFactory;
   @Mock private InitiativeRepository initiativeRepository;
+  @Mock private SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
   @Mock private InitiativeCodeAssembler initiativeCodeAssembler;
+  @Mock private InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler;
   @Mock private InitiativeAssembler initiativeAssembler;
   @Mock private MoneyAssembler moneyAssembler;
   private AddInitiativeDto addInitiativeDto = aAddInitiativeDto().build();
-  private Initiative initiative = aInitiative().withAllocatedAmount(Money.ZERO()).build();
+  private Initiative initiative = aInitiative().withAllocatedAmount(Money.zero()).build();
   private InitiativeCodeDto initiativeCodeDto =
       aInitiativeCodeDto().withCode(initiative.getInitiativeCode().toString()).build();
+  private InitiativeAvailableAmountDto initiativeAvailableAmountDto =
+      aInitiativeAvailableAmountDto().build();
   private InitiativeDto initiativeDto = aInitiativeDto().build();
   private InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDto =
       aInitiativeAddAllocatedAmountDTO().build();
+  private Money availableAmount = Money.fromDouble(initiativeAvailableAmountDto.availableAmount);
 
   @Before
   public void setUp() {
@@ -50,8 +55,10 @@ public class InitiativeServiceTest {
             initiativeFactory,
             initiativeRepository,
             initiativeCodeAssembler,
+            initiativeAvailableAmountAssembler,
             initiativeAssembler,
-            moneyAssembler);
+            moneyAssembler,
+            sustainableMobilityProgramBankRepository);
     when(initiativeFactory.createInitiative(addInitiativeDto.name)).thenReturn(initiative);
     when(moneyAssembler.assemble(addInitiativeDto.amount))
         .thenReturn(Money.fromDouble(addInitiativeDto.amount));
@@ -69,8 +76,11 @@ public class InitiativeServiceTest {
   }
 
   @Test
-  public void whenAddingInitiative_amountIsRemovedFromPiggyBank() {
-    // TODO
+  public void whenAddingInitiative_thenAmountIsRemovedFromSustainableMobilityProgramBank() {
+    initiativeService.addInitiative(addInitiativeDto);
+
+    verify(sustainableMobilityProgramBankRepository)
+        .remove(Money.fromDouble(addInitiativeDto.amount));
   }
 
   @Test
@@ -138,6 +148,18 @@ public class InitiativeServiceTest {
   }
 
   @Test
+  public void
+      whenAddingAllocatedAmountToInitiative_thenAmountIsRemovedFromSustainableMobilityProgramBank() {
+    when(initiativeRepository.getInitiative(initiative.getInitiativeCode())).thenReturn(initiative);
+
+    initiativeService.AddAllocatedAmountToInitiative(
+        initiative.getInitiativeCode().toString(), initiativeAddAllocatedAmountDto);
+
+    verify(sustainableMobilityProgramBankRepository)
+        .remove(Money.fromDouble(initiativeAddAllocatedAmountDto.amountToAdd));
+  }
+
+  @Test
   public void whenAddingAllocatedAmountToInitiative_thenAddAmountToInitiative() {
     when(initiativeRepository.getInitiative(initiative.getInitiativeCode())).thenReturn(initiative);
 
@@ -156,5 +178,18 @@ public class InitiativeServiceTest {
         initiative.getInitiativeCode().toString(), initiativeAddAllocatedAmountDto);
 
     verify(initiativeRepository).updateInitiative(initiative);
+  }
+
+  @Test
+  public void whenGettingAvailableAmount_thenReturnAvailableAmount() {
+    when(sustainableMobilityProgramBankRepository.get()).thenReturn(availableAmount);
+    when(initiativeAvailableAmountAssembler.assemble(availableAmount))
+        .thenReturn(initiativeAvailableAmountDto);
+
+    InitiativeAvailableAmountDto returnedInitiativeAvailableAmountDto =
+        initiativeService.getAvailableAmount();
+
+    Truth.assertThat(returnedInitiativeAvailableAmountDto.availableAmount)
+        .isEqualTo(availableAmount.toDouble());
   }
 }

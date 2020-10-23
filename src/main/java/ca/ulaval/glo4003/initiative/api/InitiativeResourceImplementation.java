@@ -1,9 +1,6 @@
 package ca.ulaval.glo4003.initiative.api;
 
-import ca.ulaval.glo4003.initiative.api.dto.AddInitiativeDto;
-import ca.ulaval.glo4003.initiative.api.dto.InitiativeAddAllocatedAmountDto;
-import ca.ulaval.glo4003.initiative.api.dto.InitiativeCodeDto;
-import ca.ulaval.glo4003.initiative.api.dto.InitiativeDto;
+import ca.ulaval.glo4003.initiative.api.dto.*;
 import ca.ulaval.glo4003.initiative.services.InitiativeService;
 import java.util.List;
 import javax.ws.rs.core.GenericEntity;
@@ -40,8 +37,12 @@ public class InitiativeResourceImplementation implements InitiativeResource {
 
   @Override
   public Response getInitiativeAvailableAmount() {
-    // TODO go find available mount in bank system;
-    return null;
+    InitiativeAvailableAmountDto initiativeAvailableAmountDto =
+        initiativeService.getAvailableAmount();
+    return Response.status(Response.Status.OK)
+        .entity(initiativeAvailableAmountDto)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
   }
 
   @Override

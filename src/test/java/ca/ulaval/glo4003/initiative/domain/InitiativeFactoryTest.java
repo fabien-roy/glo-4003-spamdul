@@ -18,7 +18,7 @@ public class InitiativeFactoryTest {
 
   private String NAME = createName();
   private InitiativeCode INITIATIVE_CODE = createCode();
-  private Money DEFAULT_ALLOCATED_MONEY = Money.ZERO();
+  private Money DEFAULT_ALLOCATED_MONEY = Money.zero();
 
   @Before
   public void setUp() {

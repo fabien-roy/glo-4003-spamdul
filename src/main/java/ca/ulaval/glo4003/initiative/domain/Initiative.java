@@ -10,7 +10,7 @@ public class Initiative {
   public Initiative(InitiativeCode initiativeCode, String initiativeName) {
     this.initiativeCode = initiativeCode;
     this.initiativeName = initiativeName;
-    this.allocatedAmount = Money.ZERO();
+    this.allocatedAmount = Money.zero();
   }
 
   public void addAllocatedAmount(Money addedAmount) {
