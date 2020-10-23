@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.parkings.api.dto;
 
 public class ParkingPeriodPriceDto {
   public String period;
-  public String price;
+  public Double price;
 
   @Override
   public String toString() {

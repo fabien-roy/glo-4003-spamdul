@@ -7,5 +7,5 @@ public interface ParkingAreaRepository {
 
   ParkingArea get(ParkingAreaCode code);
 
-  List<ParkingArea> getAllArea();
+  List<ParkingArea> getAll();
 }

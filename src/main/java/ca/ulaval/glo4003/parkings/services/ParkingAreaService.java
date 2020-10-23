@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ParkingAreaService {
   private ParkingAreaRepository parkingAreaRepository;
@@ -18,10 +17,8 @@ public class ParkingAreaService {
   }
 
   public List<ParkingAreaDto> getParkingAreas() {
-    List<ParkingArea> parkingAreas = parkingAreaRepository.getAllArea();
+    List<ParkingArea> parkingAreas = parkingAreaRepository.getAll();
 
-    return parkingAreas.stream()
-        .map(parkingArea -> this.parkingAreaAssembler.assemble(parkingArea))
-        .collect(Collectors.toList());
+    return parkingAreaAssembler.assembleMany(parkingAreas);
   }
 }

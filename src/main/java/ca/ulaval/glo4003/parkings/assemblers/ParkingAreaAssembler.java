@@ -8,9 +8,10 @@ import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ParkingAreaAssembler {
-  public ParkingAreaDto assemble(ParkingArea parkingArea) {
+  private ParkingAreaDto assemble(ParkingArea parkingArea) {
     ParkingAreaDto parkingAreaDto = new ParkingAreaDto();
     parkingAreaDto.parkingArea = parkingArea.getCode().toString();
 
@@ -18,12 +19,16 @@ public class ParkingAreaAssembler {
     for (Map.Entry<ParkingPeriod, Money> entry : parkingArea.getFeeForAllPeriod().entrySet()) {
       ParkingPeriodPriceDto parkingPeriodPriceDto = new ParkingPeriodPriceDto();
       parkingPeriodPriceDto.period = entry.getKey().toString();
-      parkingPeriodPriceDto.price = entry.getValue().toString();
+      parkingPeriodPriceDto.price = entry.getValue().toDouble();
       parkingPeriodPricesDto.add(parkingPeriodPriceDto);
     }
 
     parkingAreaDto.parkingPeriodPrice = parkingPeriodPricesDto;
 
     return parkingAreaDto;
+  }
+
+  public List<ParkingAreaDto> assembleMany(List<ParkingArea> parkingAreas) {
+    return parkingAreas.stream().map(this::assemble).collect(Collectors.toList());
   }
 }

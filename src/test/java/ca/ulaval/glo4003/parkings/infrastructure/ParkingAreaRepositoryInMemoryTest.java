@@ -33,7 +33,7 @@ public class ParkingAreaRepositoryInMemoryTest {
   public void whenGettingAllParkingArea_thenReturnAllParkingArea() {
     parkingAreaRepository.save(parkingArea);
 
-    List<ParkingArea> parkingArea = parkingAreaRepository.getAllArea();
+    List<ParkingArea> parkingArea = parkingAreaRepository.getAll();
 
     assertThat(parkingArea.size()).isEqualTo(1);
   }

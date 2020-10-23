@@ -36,9 +36,12 @@ public class ParkingAreaServiceTest {
   public void whenGettingAllZone_thenReturnZones() {
     List<ParkingArea> parkingAreas = new ArrayList<>();
     parkingAreas.add(parkingArea);
-    when(parkingAreaRepository.getAllArea()).thenReturn(parkingAreas);
+    when(parkingAreaRepository.getAll()).thenReturn(parkingAreas);
 
-    when(parkingAreaAssembler.assemble(parkingArea)).thenReturn(parkingAreaDto);
+    List<ParkingAreaDto> parkingAreasDto = new ArrayList<>();
+    parkingAreasDto.add(parkingAreaDto);
+
+    when(parkingAreaAssembler.assembleMany(parkingAreas)).thenReturn(parkingAreasDto);
     List<ParkingAreaDto> parkingAreaDtoList = parkingAreaService.getParkingAreas();
 
     Truth.assertThat(parkingAreaDtoList).contains(parkingAreaDto);
