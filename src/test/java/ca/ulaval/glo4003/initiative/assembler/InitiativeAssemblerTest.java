@@ -42,8 +42,8 @@ public class InitiativeAssemblerTest {
     Truth.assertThat(AssembledInitiativeDto.initiativeName)
         .isEqualTo(initiative.getInitiativeName());
     Truth.assertThat(AssembledInitiativeDto.initiativeCode)
-        .isEqualTo(initiative.getInitiativeCode());
+        .isEqualTo(initiative.getInitiativeCode().toString());
     Truth.assertThat(AssembledInitiativeDto.allocatedAmount)
-        .isEqualTo(initiative.getAllocatedAmount());
+        .isEqualTo(initiative.getAllocatedAmount().toDouble());
   }
 }

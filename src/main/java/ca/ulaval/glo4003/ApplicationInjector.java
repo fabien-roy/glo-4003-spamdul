@@ -108,8 +108,14 @@ public class ApplicationInjector {
     return CARBON_CREDIT_INJECTOR.createCarbonCreditResource();
   }
   public InitiativeResource createInitiativeResource() {
-    return INITIATIVE_INJECTOR.createInitiativeResource();
-
+    return INITIATIVE_INJECTOR.createInitiativeResource(
+        INITIATIVE_INJECTOR.createService(
+            INITIATIVE_INJECTOR.createInitiativeFactory(
+                INITIATIVE_INJECTOR.getInitiativeCodeGenerator()),
+            INITIATIVE_INJECTOR.getInitiativeRepository(),
+            INITIATIVE_INJECTOR.createInitiativeCodeAssembler(),
+            INITIATIVE_INJECTOR.createInitiativeAssembler(),
+            FUND_INJECTOR.createMoneyAssembler()));
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
