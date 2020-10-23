@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.carboncredits.domain;
 
-import ca.ulaval.glo4003.funds.domain.Money;
 import java.util.Objects;
 
 public class CarbonCredit {
@@ -8,14 +7,6 @@ public class CarbonCredit {
 
   public CarbonCredit(double carbonCredit) {
     this.amount = carbonCredit;
-  }
-
-  public CarbonCredit(CarbonCredit carbonCredit) {
-    this.amount = carbonCredit.toDouble();
-  }
-
-  public static CarbonCredit fromMoney(Money money) {
-    return new CarbonCredit(money.toDouble());
   }
 
   public CarbonCredit plus(CarbonCredit addedCarbonCredit) {
@@ -26,8 +17,12 @@ public class CarbonCredit {
     return amount;
   }
 
-  public static CarbonCredit ZERO() {
+  public static CarbonCredit zero() {
     return new CarbonCredit(0);
+  }
+
+  public static CarbonCredit fromDouble(double amount) {
+    return new CarbonCredit(amount);
   }
 
   @Override

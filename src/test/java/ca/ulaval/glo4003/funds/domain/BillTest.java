@@ -16,7 +16,7 @@ public class BillTest {
 
   @Test
   public void whenConstructing_setAmountPaidToZero() {
-    Money expectedAmountPaid = Money.ZERO();
+    Money expectedAmountPaid = Money.zero();
 
     Bill bill = new Bill(billId, billType, description, amountDue);
 
@@ -29,7 +29,7 @@ public class BillTest {
 
     bill.pay(amountDue);
 
-    Truth.assertThat(bill.getAmountDue()).isEqualTo(Money.ZERO());
+    Truth.assertThat(bill.getAmountDue()).isEqualTo(Money.zero());
     Truth.assertThat(bill.getAmountPaid()).isEqualTo(amountDue);
   }
 
@@ -37,6 +37,6 @@ public class BillTest {
   public void whenPayingMoreThanAmountDue_thenThrowTooMuchMoney() {
     Bill bill = new Bill(billId, billType, description, amountDue);
 
-    bill.pay(amountDue.plus(new Money(10)));
+    bill.pay(amountDue.plus(Money.fromDouble(10)));
   }
 }

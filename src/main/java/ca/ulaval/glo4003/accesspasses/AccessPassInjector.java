@@ -76,7 +76,7 @@ public class AccessPassInjector {
                   .forEach(
                       period -> {
                         AccessPeriod accessPeriod = AccessPeriod.get(period);
-                        Money fee = new Money(zonesAndFees.get(consumptionType).get(period));
+                        Money fee = Money.fromDouble(zonesAndFees.get(consumptionType).get(period));
                         feesPerPeriod.put(accessPeriod, fee);
                       });
               accessConsumption.add(new AccessPassType(consumptionTypes, feesPerPeriod));

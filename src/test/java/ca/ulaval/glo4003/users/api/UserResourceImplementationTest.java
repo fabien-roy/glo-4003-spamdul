@@ -7,7 +7,8 @@ import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.cars.helpers.CarDtoBuilder.aCarDto;
 import static ca.ulaval.glo4003.users.helpers.UserDtoBuilder.aUserDto;
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassDto;

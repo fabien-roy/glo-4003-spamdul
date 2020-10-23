@@ -28,6 +28,16 @@ public class CarDtoBuilder {
     return this;
   }
 
+  public CarDtoBuilder withManufacturer(String manufacturer) {
+    this.manufacturer = manufacturer;
+    return this;
+  }
+
+  public CarDtoBuilder withModel(String model) {
+    this.model = model;
+    return this;
+  }
+
   public CarDto build() {
     CarDto carDto = new CarDto();
     carDto.licensePlate = licensePlate;
