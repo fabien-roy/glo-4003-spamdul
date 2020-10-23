@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.parkings.api;
 
-import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaCodeDtoBuilder.aParkingAreaCodeDto;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaDtoBuilder.aParkingAreaDto;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -21,7 +21,7 @@ public class ParkingAreaResourceImplementationTest {
   @Mock private ParkingAreaService parkingAreaService;
 
   private ParkingAreaResource parkingAreaResource;
-  private ParkingAreaDto parkingAreaDto = aParkingAreaCodeDto().build();
+  private ParkingAreaDto parkingAreaDto = aParkingAreaDto().build();
 
   @Before
   public void setUp() {

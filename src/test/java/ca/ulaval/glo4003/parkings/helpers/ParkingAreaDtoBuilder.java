@@ -5,11 +5,11 @@ import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParking
 import ca.ulaval.glo4003.parkings.api.dto.ParkingAreaDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 
-public class ParkingAreaCodeDtoBuilder {
+public class ParkingAreaDtoBuilder {
   private ParkingAreaCode parkingAreaCode = createParkingAreaCode();
 
-  public static ParkingAreaCodeDtoBuilder aParkingAreaCodeDto() {
-    return new ParkingAreaCodeDtoBuilder();
+  public static ParkingAreaDtoBuilder aParkingAreaDto() {
+    return new ParkingAreaDtoBuilder();
   }
 
   public ParkingAreaDto build() {

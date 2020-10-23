@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings.services;
 
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
-import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaCodeDtoBuilder.aParkingAreaCodeDto;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaDtoBuilder.aParkingAreaDto;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.parkings.api.dto.ParkingAreaDto;
@@ -25,7 +25,7 @@ public class ParkingAreaServiceTest {
 
   private ParkingAreaService parkingAreaService;
   private final ParkingArea parkingArea = aParkingArea().build();
-  private final ParkingAreaDto parkingAreaDto = aParkingAreaCodeDto().build();
+  private final ParkingAreaDto parkingAreaDto = aParkingAreaDto().build();
 
   @Before
   public void setUp() {
