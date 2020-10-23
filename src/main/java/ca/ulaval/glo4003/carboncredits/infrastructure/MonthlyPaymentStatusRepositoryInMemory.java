@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.carboncredits.insfrastructure;
+package ca.ulaval.glo4003.carboncredits.infrastructure;
 
 import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatus;
 import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatusRepository;
