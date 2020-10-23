@@ -948,7 +948,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c70f7a0b-353a-4ef7-93a0-abbcfdeffcad"
+												"id": "c70f7a0b-353a-4ef7-93a0-abbcfdeffcad",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
