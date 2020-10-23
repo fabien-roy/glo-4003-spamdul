@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
+import ca.ulaval.glo4003.funds.assemblers.ParkingPeriodPriceAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
@@ -39,7 +40,8 @@ public class ParkingInjector {
 
   public ParkingAreaResource createParkingAreaResource() {
     ParkingAreaService parkingAreaService =
-        new ParkingAreaService(parkingAreaRepository, new ParkingAreaAssembler());
+        new ParkingAreaService(
+            parkingAreaRepository, new ParkingAreaAssembler(new ParkingPeriodPriceAssembler()));
     return new ParkingAreaResourceImplementation(parkingAreaService);
   }
 
