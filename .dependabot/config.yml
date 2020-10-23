@@ -6,5 +6,3 @@ update_configs:
     ignored_updates:
       - match:
           dependency_name: "jersey*"
-      - match:
-          dependency_name: "jetty*"
