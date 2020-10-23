@@ -29,21 +29,21 @@ public class ParkingAreaResourceImplementationTest {
   }
 
   @Test
-  public void whenGettingBills_thenGetBills() {
+  public void whenGettingParkingAreas_thenGetParkingAreas() {
     List<ParkingAreaDto> parkingAreaCodesDto = new ArrayList<>();
     parkingAreaCodesDto.add(parkingAreaDto);
 
     when(parkingAreaService.getParkingAreas()).thenReturn(parkingAreaCodesDto);
 
-    List<ParkingAreaDto> parkingAreaCodesDtoFromService = parkingAreaService.getParkingAreas();
+    List<ParkingAreaDto> parkingAreasDtoFromService = parkingAreaService.getParkingAreas();
     Response response = parkingAreaResource.getParkingAreas();
     Object entities = response.getEntity();
 
-    assertThat(parkingAreaCodesDtoFromService).isEqualTo(entities);
+    assertThat(parkingAreasDtoFromService).isEqualTo(entities);
   }
 
   @Test
-  public void whenGettingBills_thenRespondWithOkStatus() {
+  public void whenGettingParkingAreas_thenRespondWithOkStatus() {
     Response response = parkingAreaResource.getParkingAreas();
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
