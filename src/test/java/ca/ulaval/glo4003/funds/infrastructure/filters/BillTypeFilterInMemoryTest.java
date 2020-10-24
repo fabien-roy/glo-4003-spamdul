@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.funds.infrastructure.filters;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createDescription;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
+import static ca.ulaval.glo4003.times.helpers.CustomDateTimeMother.createDateTime;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
@@ -27,9 +28,15 @@ public class BillTypeFilterInMemoryTest {
 
   @Test
   public void whenFiltering_thenShouldOnlyReturnBillsWithMatchingBillType() {
-    Bill firstBill = new Bill(createBillId(), A_BILL_TYPE, createDescription(), createMoney());
+    Bill firstBill =
+        new Bill(createBillId(), A_BILL_TYPE, createDescription(), createMoney(), createDateTime());
     Bill secondBill =
-        new Bill(createBillId(), ANOTHER_BILL_TYPE, createDescription(), createMoney());
+        new Bill(
+            createBillId(),
+            ANOTHER_BILL_TYPE,
+            createDescription(),
+            createMoney(),
+            createDateTime());
     bills.add(firstBill);
     bills.add(secondBill);
 

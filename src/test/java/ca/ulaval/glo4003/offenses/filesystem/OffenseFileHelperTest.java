@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.files.domain.StringFileReader;
 import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
-import ca.ulaval.glo4003.offenses.filesystem.dto.OffenseInFrenchDto;
+import ca.ulaval.glo4003.offenses.filesystem.dto.OffenseDtoInFrench;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.truth.Truth;
@@ -25,14 +25,14 @@ public class OffenseFileHelperTest {
   private OffenseFileHelper offenseFileHelper;
 
   private static final String JSON_FILE = "data/infraction.json";
-  private final OffenseInFrenchDto offenseInFrenchDto = anOffenseInFrenchDto().build();
-  private final List<OffenseInFrenchDto> offenseInFrenchDtos =
-      Collections.singletonList(offenseInFrenchDto);
+  private final OffenseDtoInFrench offenseDtoInFrench = anOffenseInFrenchDto().build();
+  private final List<OffenseDtoInFrench> offenseDtoInFrenches =
+      Collections.singletonList(offenseDtoInFrench);
 
   @Before
   public void setUp() throws JsonProcessingException {
     ObjectMapper objectMapper = new ObjectMapper();
-    String jsonData = objectMapper.writeValueAsString(offenseInFrenchDtos);
+    String jsonData = objectMapper.writeValueAsString(offenseDtoInFrenches);
 
     when(fileReader.readFile(JSON_FILE)).thenReturn(jsonData);
 
@@ -41,11 +41,11 @@ public class OffenseFileHelperTest {
 
   @Test
   public void whenReadingFile_thenReturnListOfOffenseInFrenchDto() {
-    List<OffenseInFrenchDto> readOffenseInFrenchDtos = offenseFileHelper.getOffenseInFrench();
+    List<OffenseDtoInFrench> readOffenseDtoInFrenches = offenseFileHelper.getOffenseInFrench();
 
-    Truth.assertThat(readOffenseInFrenchDtos).hasSize(1);
-    Truth.assertThat(readOffenseInFrenchDtos.get(0).toString())
-        .isEqualTo(offenseInFrenchDto.toString());
+    Truth.assertThat(readOffenseDtoInFrenches).hasSize(1);
+    Truth.assertThat(readOffenseDtoInFrenches.get(0).toString())
+        .isEqualTo(offenseDtoInFrench.toString());
   }
 
   @Test(expected = InvalidFileException.class)

@@ -18,6 +18,7 @@ public class BillAssembler {
     billDto.description = bill.getDescription();
     billDto.amountDue = bill.getAmountDue().toDouble();
     billDto.amountPaid = bill.getAmountPaid().toDouble();
+    billDto.time = bill.getCustomDateTime().toString();
 
     return billDto;
   }
