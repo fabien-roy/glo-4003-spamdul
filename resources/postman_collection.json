@@ -572,6 +572,49 @@
 					"response": []
 				},
 				{
+					"name": "Get initiative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "93f6eb67-4fbb-4a93-94b8-3a71c1d47604",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/initiatives/{{param.initiativeCode}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"initiatives",
+								"{{param.initiativeCode}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get initiatives",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
