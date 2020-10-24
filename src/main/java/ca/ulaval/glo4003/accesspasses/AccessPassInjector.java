@@ -2,17 +2,16 @@ package ca.ulaval.glo4003.accesspasses;
 
 import ca.ulaval.glo4003.accesspasses.assembler.AccessPassAssembler;
 import ca.ulaval.glo4003.accesspasses.assembler.AccessPassCodeAssembler;
-import ca.ulaval.glo4003.accesspasses.domain.AccessPassCodeGenerator;
-import ca.ulaval.glo4003.accesspasses.domain.AccessPassFactory;
-import ca.ulaval.glo4003.accesspasses.domain.AccessPassType;
-import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
+import ca.ulaval.glo4003.accesspasses.assembler.AccessPassPeriodAssembler;
+import ca.ulaval.glo4003.accesspasses.domain.*;
 import ca.ulaval.glo4003.accesspasses.infrastructure.AccessPassInMemoryRepository;
 import ca.ulaval.glo4003.accesspasses.infrastructure.AccessPassTypeInMemoryRepository;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.AccountService;
+import ca.ulaval.glo4003.cars.assemblers.ConsumptionAssembler;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
-import ca.ulaval.glo4003.cars.domain.ConsumptionType;
+import ca.ulaval.glo4003.cars.domain.ConsumptionTypeInFrench;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
@@ -34,6 +33,9 @@ public class AccessPassInjector {
   private final AccessPassCodeGenerator accessPassCodeGenerator =
       new AccessPassCodeGenerator(new StringCodeGenerator());
   private final StringMatrixFileReader fileReader = new CsvFileReader();
+  private final ConsumptionAssembler consumptionAssembler = new ConsumptionAssembler();
+  private final AccessPassPeriodAssembler accessPassPeriodAssembler =
+      new AccessPassPeriodAssembler();
 
   public AccessPassInjector() {
     addAccessPassByConsumptionTypesToRepository();
@@ -69,19 +71,22 @@ public class AccessPassInjector {
     zonesAndFees
         .keySet()
         .forEach(
-            consumptionType -> {
-              ConsumptionType consumptionTypes = ConsumptionType.get(consumptionType);
+            consommation -> {
+              ConsumptionTypeInFrench consumptionTypeInFrench =
+                  ConsumptionTypeInFrench.get(consommation);
               Map<AccessPeriod, Money> feesPerPeriod = new HashMap<>();
               zonesAndFees
-                  .get(consumptionType)
+                  .get(consommation)
                   .keySet()
                   .forEach(
                       period -> {
-                        AccessPeriod accessPeriod = AccessPeriod.get(period);
-                        Money fee = Money.fromDouble(zonesAndFees.get(consumptionType).get(period));
-                        feesPerPeriod.put(accessPeriod, fee);
+                        AccessPeriodInFrench accessPeriod = AccessPeriodInFrench.get(period);
+                        Money fee = Money.fromDouble(zonesAndFees.get(consommation).get(period));
+                        feesPerPeriod.put(accessPassPeriodAssembler.assemble(accessPeriod), fee);
                       });
-              accessConsumption.add(new AccessPassType(consumptionTypes, feesPerPeriod));
+              accessConsumption.add(
+                  new AccessPassType(
+                      consumptionAssembler.assemble(consumptionTypeInFrench), feesPerPeriod));
             });
 
     accessConsumption.forEach(accessPassPriceByCarConsumptionInMemoryRepository::save);
