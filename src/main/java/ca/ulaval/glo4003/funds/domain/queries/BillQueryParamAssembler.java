@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface BillQueryParamAssembler {
 
-  BillQueryBuilder assemble(BillQueryBuilder builder, Map<String, List<String>> params);
+  BillQueryBuilder assemble(BillQueryBuilder builder, Map<BillQueryParam, List<String>> params);
 }

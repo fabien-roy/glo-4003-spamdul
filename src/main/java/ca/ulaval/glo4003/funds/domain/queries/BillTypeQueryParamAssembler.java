@@ -7,12 +7,14 @@ import java.util.Map;
 
 public class BillTypeQueryParamAssembler implements BillQueryParamAssembler {
 
-  public static final String BILL_TYPE_PARAM = "billType";
+  public static final BillQueryParam BILL_TYPE_PARAM = BillQueryParam.BILL_TYPE;
 
   @Override
-  public BillQueryBuilder assemble(BillQueryBuilder builder, Map<String, List<String>> params) {
+  public BillQueryBuilder assemble(
+      BillQueryBuilder builder, Map<BillQueryParam, List<String>> params) {
     List<String> billTypes = params.get(BILL_TYPE_PARAM);
 
+    // TODO : Could be more than one in the future
     return billTypes != null ? builder.withBillType(BillType.get(billTypes.get(0))) : builder;
   }
 }

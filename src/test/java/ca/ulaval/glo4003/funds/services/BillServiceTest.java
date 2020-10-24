@@ -151,6 +151,8 @@ public class BillServiceTest {
     verify(billAssembler).assemble(bill);
   }
 
+  // TODO : Manque un test getAll est pas tester lol
+
   @Test
   public void whenGettingAllBills_thenShouldUseProfitsCalculator() {
     Money total = billService.getAllBills(params);
