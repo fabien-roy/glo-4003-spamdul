@@ -170,6 +170,95 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get user's bills",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "76e9e79d-d3b7-444a-a212-611ff48dac54",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.length > 0) {",
+									"  postman.setEnvironmentVariable(\"param.billId\", jsonData[0].billId);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/bills",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"bills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay user's bill",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "523f1570-372e-4727-ab31-59f7dc931f02",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amountToPay\": {{request.bill.amountToPay}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/bills/{{param.billId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"bills",
+								"{{param.billId}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -4149,13 +4238,13 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{host}}/api/users/nonExistent",
+													"raw": "{{host}}/api/initiatives/nonExistent",
 													"host": [
 														"{{host}}"
 													],
 													"path": [
 														"api",
-														"users",
+														"initiatives",
 														"nonExistent"
 													]
 												}
@@ -4224,13 +4313,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{host}}/api/users/{{param.initiativeCode}}",
+											"raw": "{{host}}/api/initiatives/{{param.initiativeCode}}",
 											"host": [
 												"{{host}}"
 											],
 											"path": [
 												"api",
-												"users",
+												"initiatives",
 												"{{param.initiativeCode}}"
 											]
 										}
