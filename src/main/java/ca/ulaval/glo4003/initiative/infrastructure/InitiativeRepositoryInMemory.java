@@ -14,12 +14,12 @@ public class InitiativeRepositoryInMemory implements InitiativeRepository {
 
   @Override
   public InitiativeCode save(Initiative initiative) {
-    initiatives.put(initiative.getInitiativeCode(), initiative);
-    return initiative.getInitiativeCode();
+    initiatives.put(initiative.getCode(), initiative);
+    return initiative.getCode();
   }
 
   @Override
-  public List<Initiative> getAllInitiatives() {
+  public List<Initiative> getAll() {
     return new ArrayList<>(initiatives.values());
   }
 
@@ -36,8 +36,8 @@ public class InitiativeRepositoryInMemory implements InitiativeRepository {
 
   @Override
   public void update(Initiative initiative) {
-    get(initiative.getInitiativeCode());
+    get(initiative.getCode());
 
-    initiatives.put(initiative.getInitiativeCode(), initiative);
+    initiatives.put(initiative.getCode(), initiative);
   }
 }

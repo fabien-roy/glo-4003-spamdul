@@ -9,7 +9,7 @@ public class InitiativeFactory {
 
   public Initiative create(Initiative initiative) {
     InitiativeCode initiativeCode = initiativeCodeGenerator.generate();
-    initiative.setInitiativeCode(initiativeCode);
+    initiative.setCode(initiativeCode);
     return initiative;
   }
 }

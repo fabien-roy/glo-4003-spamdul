@@ -1,17 +1,18 @@
 package ca.ulaval.glo4003.initiative.helpers;
 
+import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeMother.*;
 
 import ca.ulaval.glo4003.initiative.api.dto.InitiativeDto;
 
 public class InitiativeDtoBuilder {
-  private Double allocatedAmount = createAmount();
-  private String initiativeName = createName();
-  private String initiativeCode = createCode().toString();
+  private String code = createCode().toString();
+  private String name = createName();
+  private double allocatedAmount = createMoney().toDouble();
 
   private InitiativeDtoBuilder() {}
 
-  public static InitiativeDtoBuilder aInitiativeDto() {
+  public static InitiativeDtoBuilder anInitiativeDto() {
     return new InitiativeDtoBuilder();
   }
 
@@ -21,20 +22,20 @@ public class InitiativeDtoBuilder {
   }
 
   public InitiativeDtoBuilder withInitiativeName(String initiativeName) {
-    this.initiativeName = initiativeName;
+    this.name = initiativeName;
     return this;
   }
 
   public InitiativeDtoBuilder withInitiativeCode(String initiativeCode) {
-    this.initiativeCode = initiativeCode;
+    this.code = initiativeCode;
     return this;
   }
 
   public InitiativeDto build() {
     InitiativeDto initiativeDto = new InitiativeDto();
     initiativeDto.allocatedAmount = allocatedAmount;
-    initiativeDto.name = initiativeName;
-    initiativeDto.code = initiativeCode;
+    initiativeDto.name = name;
+    initiativeDto.code = code;
     return initiativeDto;
   }
 }

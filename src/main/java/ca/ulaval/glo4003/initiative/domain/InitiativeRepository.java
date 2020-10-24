@@ -5,7 +5,7 @@ import java.util.List;
 public interface InitiativeRepository {
   InitiativeCode save(Initiative initiative);
 
-  List<Initiative> getAllInitiatives();
+  List<Initiative> getAll();
 
   Initiative get(InitiativeCode initiativeCode);
 

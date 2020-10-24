@@ -18,7 +18,7 @@ public class InitiativeFactoryTest {
 
   private String NAME = createName();
   private InitiativeCode INITIATIVE_CODE = createCode();
-  private Initiative initiative = aInitiative().withInitiativeCode(null).build();
+  private Initiative initiative = anInitiative().withInitiativeCode(null).build();
 
   @Before
   public void setUp() {
@@ -31,6 +31,6 @@ public class InitiativeFactoryTest {
   public void whenCreatingInitiative_thenReturnInitiativeWithCode() {
     Initiative createdInitiative = initiativeFactory.create(initiative);
 
-    Truth.assertThat(createdInitiative.getInitiativeCode()).isEqualTo(INITIATIVE_CODE);
+    Truth.assertThat(createdInitiative.getCode()).isEqualTo(INITIATIVE_CODE);
   }
 }

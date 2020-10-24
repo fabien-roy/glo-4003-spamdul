@@ -14,13 +14,13 @@ import ca.ulaval.glo4003.initiative.domain.InitiativeRepository;
 import java.util.List;
 
 public class InitiativeService {
-  private InitiativeFactory initiativeFactory;
-  private InitiativeRepository initiativeRepository;
-  private InitiativeCodeAssembler initiativeCodeAssembler;
-  private InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler;
-  private InitiativeAssembler initiativeAssembler;
-  private InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler;
-  private SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
+  private final InitiativeFactory initiativeFactory;
+  private final InitiativeRepository initiativeRepository;
+  private final InitiativeCodeAssembler initiativeCodeAssembler;
+  private final InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler;
+  private final InitiativeAssembler initiativeAssembler;
+  private final InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler;
+  private final SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
 
   public InitiativeService(
       InitiativeFactory initiativeFactory,
@@ -30,7 +30,6 @@ public class InitiativeService {
       InitiativeAssembler initiativeAssembler,
       InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler,
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
-
     this.initiativeFactory = initiativeFactory;
     this.initiativeRepository = initiativeRepository;
     this.initiativeCodeAssembler = initiativeCodeAssembler;
@@ -59,9 +58,9 @@ public class InitiativeService {
   }
 
   public List<InitiativeDto> getAllInitiatives() {
-    List<Initiative> initiatives = initiativeRepository.getAllInitiatives();
+    List<Initiative> initiatives = initiativeRepository.getAll();
 
-    return initiativeAssembler.assemble(initiatives);
+    return initiativeAssembler.assembleMany(initiatives);
   }
 
   public InitiativeAvailableAmountDto getAvailableAmount() {

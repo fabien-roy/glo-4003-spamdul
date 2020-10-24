@@ -1,11 +1,11 @@
 package ca.ulaval.glo4003.initiative.assembler;
 
+import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeAvailableAmountDtoBuilder.aInitiativeAvailableAmountDto;
-import static ca.ulaval.glo4003.initiative.helpers.InitiativeMother.*;
+import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.initiative.api.dto.InitiativeAvailableAmountDto;
-import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,25 +14,26 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class InitiativeAvailableAmountAssemblerTest {
-  private InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler;
   @Mock private InitiativeAvailableAmountDto initiativeAvailableAmountDto;
 
-  private Double AVAILABLE_AMOUNT = createAmount();
+  private InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler;
+
+  private final Money availabledAmount = createMoney();
 
   @Before
   public void setUp() {
     initiativeAvailableAmountAssembler = new InitiativeAvailableAmountAssembler();
 
     initiativeAvailableAmountDto =
-        aInitiativeAvailableAmountDto().withAvailableAmount(AVAILABLE_AMOUNT).build();
+        aInitiativeAvailableAmountDto().withAvailableAmount(availabledAmount.toDouble()).build();
   }
 
   @Test
   public void whenAssembling_thenReturnInitiativeAvailableAmountDto() {
-    InitiativeAvailableAmountDto AssembledInitiativeAvailableAmountDto =
-        initiativeAvailableAmountAssembler.assemble(Money.fromDouble(AVAILABLE_AMOUNT));
+    InitiativeAvailableAmountDto initiativeAvailableAmountDto =
+        initiativeAvailableAmountAssembler.assemble(availabledAmount);
 
-    Truth.assertThat(AssembledInitiativeAvailableAmountDto.availableAmount)
-        .isEqualTo(initiativeAvailableAmountDto.availableAmount);
+    assertThat(initiativeAvailableAmountDto.availableAmount)
+        .isEqualTo(this.initiativeAvailableAmountDto.availableAmount);
   }
 }

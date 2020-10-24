@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.initiative.helpers;
 
+import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeMother.*;
 
 import ca.ulaval.glo4003.funds.domain.Money;
@@ -7,13 +8,13 @@ import ca.ulaval.glo4003.initiative.domain.Initiative;
 import ca.ulaval.glo4003.initiative.domain.InitiativeCode;
 
 public class InitiativeBuilder {
-  private Money allocatedAmount = Money.fromDouble(createAmount());
-  private String initiativeName = createName();
-  private InitiativeCode initiativeCode = createCode();
+  private String name = createName();
+  private InitiativeCode code = createCode();
+  private Money allocatedAmount = createMoney();
 
   private InitiativeBuilder() {}
 
-  public static InitiativeBuilder aInitiative() {
+  public static InitiativeBuilder anInitiative() {
     return new InitiativeBuilder();
   }
 
@@ -23,18 +24,18 @@ public class InitiativeBuilder {
   }
 
   public InitiativeBuilder withInitiativeName(String initiativeName) {
-    this.initiativeName = initiativeName;
+    this.name = initiativeName;
     return this;
   }
 
   public InitiativeBuilder withInitiativeCode(InitiativeCode initiativeCode) {
-    this.initiativeCode = initiativeCode;
+    this.code = initiativeCode;
     return this;
   }
 
   public Initiative build() {
-    Initiative initiative = new Initiative(initiativeName, allocatedAmount);
-    initiative.setInitiativeCode(initiativeCode);
+    Initiative initiative = new Initiative(name, allocatedAmount);
+    initiative.setCode(code);
     return initiative;
   }
 }

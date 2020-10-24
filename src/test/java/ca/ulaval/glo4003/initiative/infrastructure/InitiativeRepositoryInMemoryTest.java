@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.initiative.infrastructure;
 
-import static ca.ulaval.glo4003.initiative.helpers.InitiativeBuilder.aInitiative;
-import static ca.ulaval.glo4003.initiative.helpers.InitiativeMother.createAmount;
+import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
+import static ca.ulaval.glo4003.initiative.helpers.InitiativeBuilder.anInitiative;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.initiative.domain.Initiative;
@@ -16,9 +16,9 @@ import org.junit.Test;
 public class InitiativeRepositoryInMemoryTest {
   private InitiativeRepository initiativeRepository;
 
-  private final Initiative initiative = aInitiative().build();
-  private final Initiative initiative2 = aInitiative().build();
-  private final Money ADDED_ALLOCATED_AMOUNT = new Money(createAmount());
+  private final Initiative initiative = anInitiative().build();
+  private final Initiative otherInitiative = anInitiative().build();
+  private final Money allocatedAmount = createMoney();
 
   @Before
   public void setUp() {
@@ -29,30 +29,30 @@ public class InitiativeRepositoryInMemoryTest {
   public void whenSavingInitiative_thenReturnCode() {
     InitiativeCode initiativeCode = initiativeRepository.save(initiative);
 
-    Truth.assertThat(initiativeCode).isEqualTo(initiative.getInitiativeCode());
+    Truth.assertThat(initiativeCode).isEqualTo(initiative.getCode());
   }
 
   @Test
   public void givenMultipleInitiative_whenGettingAllInitiatives_thenReturnAllInitiatives() {
     initiativeRepository.save(initiative);
-    initiativeRepository.save(initiative2);
+    initiativeRepository.save(otherInitiative);
 
-    List<Initiative> initiatives = initiativeRepository.getAllInitiatives();
+    List<Initiative> initiatives = initiativeRepository.getAll();
 
     Truth.assertThat(initiatives).contains(initiative);
-    Truth.assertThat(initiatives).contains(initiative2);
+    Truth.assertThat(initiatives).contains(otherInitiative);
   }
 
   @Test(expected = InitiativeNotFoundException.class)
   public void whenGettingNonExistingInitiative_thenThrowInitiativeNotFoundException() {
-    initiativeRepository.get(initiative.getInitiativeCode());
+    initiativeRepository.get(initiative.getCode());
   }
 
   @Test
   public void givenInitiativeCode_whenGettingInitiative_thenReturnInitiative() {
     initiativeRepository.save(initiative);
 
-    Initiative InitiativeFromRepo = initiativeRepository.get(initiative.getInitiativeCode());
+    Initiative InitiativeFromRepo = initiativeRepository.get(initiative.getCode());
 
     Truth.assertThat(InitiativeFromRepo).isEqualTo(initiative);
   }
@@ -65,11 +65,11 @@ public class InitiativeRepositoryInMemoryTest {
   @Test
   public void givenBill_whenUpdating_thenBillIsUpdated() {
     initiativeRepository.save(initiative);
-    Initiative initiativeBeforeUpdating = initiativeRepository.get(initiative.getInitiativeCode());
-    initiative.addAllocatedAmount(ADDED_ALLOCATED_AMOUNT);
+    Initiative initiativeBeforeUpdating = initiativeRepository.get(initiative.getCode());
+    initiative.addAllocatedAmount(allocatedAmount);
 
     initiativeRepository.update(initiative);
-    Initiative initiativeAfterUpdating = initiativeRepository.get(initiative.getInitiativeCode());
+    Initiative initiativeAfterUpdating = initiativeRepository.get(initiative.getCode());
 
     Truth.assertThat(initiativeBeforeUpdating.getAllocatedAmount())
         .isNotEqualTo(initiativeAfterUpdating);

@@ -8,14 +8,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class InitiativeAssembler {
-
-  private MoneyAssembler moneyAssembler;
+  private final MoneyAssembler moneyAssembler;
 
   public InitiativeAssembler(MoneyAssembler moneyAssembler) {
     this.moneyAssembler = moneyAssembler;
   }
 
-  public List<InitiativeDto> assemble(List<Initiative> initiatives) {
+  public List<InitiativeDto> assembleMany(List<Initiative> initiatives) {
     return initiatives.stream().map(this::assemble).collect(Collectors.toList());
   }
 
@@ -25,8 +24,8 @@ public class InitiativeAssembler {
 
   public InitiativeDto assemble(Initiative initiative) {
     InitiativeDto initiativeDto = new InitiativeDto();
-    initiativeDto.code = initiative.getInitiativeCode().toString();
-    initiativeDto.name = initiative.getInitiativeName();
+    initiativeDto.code = initiative.getCode().toString();
+    initiativeDto.name = initiative.getName();
     initiativeDto.allocatedAmount = initiative.getAllocatedAmount().toDouble();
 
     return initiativeDto;

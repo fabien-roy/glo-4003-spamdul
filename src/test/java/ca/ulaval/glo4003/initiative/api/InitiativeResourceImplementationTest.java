@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.initiative.api;
 import static ca.ulaval.glo4003.initiative.helpers.AddInitiativeDtoBuilder.anAddInitiativeDto;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeAddAllocatedAmountDtoBuilder.aInitiativeAddAllocatedAmountDTO;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeCodeDtoBuilder.aInitiativeCodeDto;
-import static ca.ulaval.glo4003.initiative.helpers.InitiativeDtoBuilder.aInitiativeDto;
+import static ca.ulaval.glo4003.initiative.helpers.InitiativeDtoBuilder.anInitiativeDto;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeMother.createCode;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -32,7 +32,7 @@ public class InitiativeResourceImplementationTest {
 
   private final AddInitiativeDto addInitiativeDto = anAddInitiativeDto().build();
   private final InitiativeCodeDto initiativeCodeDto = aInitiativeCodeDto().build();
-  private final InitiativeDto initiativeDto = aInitiativeDto().build();
+  private final InitiativeDto initiativeDto = anInitiativeDto().build();
   private final InitiativeCode initiativeCode = createCode();
   private final InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDto =
       aInitiativeAddAllocatedAmountDTO().build();

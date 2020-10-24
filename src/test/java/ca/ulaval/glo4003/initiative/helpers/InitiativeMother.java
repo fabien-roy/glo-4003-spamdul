@@ -8,10 +8,6 @@ public class InitiativeMother {
     return Faker.instance().name().title();
   }
 
-  public static Double createAmount() {
-    return Double.valueOf(Faker.instance().number().numberBetween(1, 200));
-  }
-
   public static InitiativeCode createCode() {
     return new InitiativeCode(Faker.instance().color().toString());
   }
