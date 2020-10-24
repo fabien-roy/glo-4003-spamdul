@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
 import ca.ulaval.glo4003.carboncredits.CarbonCreditInjector;
 import ca.ulaval.glo4003.carboncredits.api.CarbonCreditResource;
+import ca.ulaval.glo4003.carboncredits.services.ConvertCarbonCreditJob;
 import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.cars.api.CarExceptionMapper;
 import ca.ulaval.glo4003.communications.CommunicationInjector;
@@ -109,8 +110,11 @@ public class ApplicationInjector {
     return CARBON_CREDIT_INJECTOR.createCarbonCreditResource();
   }
 
-  // public ConverCarbonCreditJob createConvertCarbonCreditJob(){
-  // }
+  public ConvertCarbonCreditJob createConvertCarbonCreditJob() {
+    return CARBON_CREDIT_INJECTOR.createConvertCarbonCreditJob(
+        FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
+        CARBON_CREDIT_INJECTOR.getCarbonCreditRepository());
+  }
 
   public InitiativeResource createInitiativeResource() {
     return INITIATIVE_INJECTOR.createInitiativeResource(

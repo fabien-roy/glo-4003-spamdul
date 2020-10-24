@@ -9,9 +9,8 @@ import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatusRepository;
 import ca.ulaval.glo4003.carboncredits.infrastructure.CarbonCreditRepositoryInMemory;
 import ca.ulaval.glo4003.carboncredits.infrastructure.MonthlyPaymentStatusRepositoryInMemory;
 import ca.ulaval.glo4003.carboncredits.services.CarbonCreditService;
-import ca.ulaval.glo4003.times.services.TimeScheduler;
-import ca.ulaval.glo4003.times.services.TimeService;
-import ca.ulaval.glo4003.times.systemtime.QuartzTimeScheduler;
+import ca.ulaval.glo4003.carboncredits.services.ConvertCarbonCreditJob;
+import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 
 public class CarbonCreditInjector {
   private final CarbonCreditRepository carbonCreditRepository =
@@ -29,14 +28,18 @@ public class CarbonCreditInjector {
             carbonCreditAssembler,
             carbonCreditMonthlyPaymentStatusAssembler,
             monthlyPaymentStatusRepository);
-    //    startScheduler(carbonCreditService);
 
     return new CarbonCreditResourceImplementation(carbonCreditService);
   }
 
-  private void startScheduler(CarbonCreditService carbonCreditService) {
-    TimeScheduler timeScheduler = new QuartzTimeScheduler();
-    TimeService timeService = new TimeService(timeScheduler, carbonCreditService);
-    timeService.startTimeScheduler();
+  public CarbonCreditRepository getCarbonCreditRepository() {
+    return carbonCreditRepository;
+  }
+
+  public ConvertCarbonCreditJob createConvertCarbonCreditJob(
+      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository,
+      CarbonCreditRepository carbonCreditRepository) {
+    return new ConvertCarbonCreditJob(
+        carbonCreditRepository, sustainableMobilityProgramBankRepository);
   }
 }

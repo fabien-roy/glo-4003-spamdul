@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.times.systemtime;
 
 import static org.quartz.JobBuilder.*;
 
-import ca.ulaval.glo4003.times.JobHandler;
 import ca.ulaval.glo4003.times.services.TimeScheduler;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +9,14 @@ import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
 public class QuartzTimeScheduler implements TimeScheduler {
-  private final String MONTHLY_CRON_EXPRESSION = "0 0 0 L * ?";
-  private final String SECOND_CRON_EXPRESSION = "* 0 0 ? * * *";
+  private static final String MONTHLY_CRON_EXPRESSION = "0 0 0 L * ?";
+  private static final String SECOND_CRON_EXPRESSION = "* 0 0 ? * * *";
   private List<JobHandler> JobList = new ArrayList();
+  private Scheduler scheduler;
 
-  @Override
   public void start() {
     try {
-      Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-
-      scheduler.start();
+      scheduler = new StdSchedulerFactory().getScheduler();
 
       JobDetail job = newJob(ExecuteHandlerJob.class).build();
 
@@ -30,18 +27,24 @@ public class QuartzTimeScheduler implements TimeScheduler {
 
       scheduler.scheduleJob(job, trigger);
 
+      scheduler.start();
+
+      System.out.println("Scheduler ready");
     } catch (SchedulerException se) {
       se.printStackTrace();
     }
   }
 
+  @Override
   public void SubscribeJob(JobHandler job) {
     JobList.add(job);
   }
 
-  private class ExecuteHandlerJob implements Job {
+  public class ExecuteHandlerJob implements Job {
+
     @Override
     public void execute(JobExecutionContext jobExecutionContext) {
+      System.out.println("Launching stuff");
       for (JobHandler job : JobList) {
         job.invoke();
       }
