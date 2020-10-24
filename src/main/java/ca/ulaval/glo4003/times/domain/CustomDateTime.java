@@ -6,8 +6,12 @@ import java.time.format.DateTimeFormatter;
 public class CustomDateTime {
   private LocalDateTime localDateTime;
 
-  public CustomDateTime() {
-    this.localDateTime = LocalDateTime.now();
+  public static CustomDateTime now() {
+    return new CustomDateTime(LocalDateTime.now());
+  }
+
+  private CustomDateTime(LocalDateTime localDateTime) {
+    this.localDateTime = localDateTime;
   }
 
   public int getYear() {

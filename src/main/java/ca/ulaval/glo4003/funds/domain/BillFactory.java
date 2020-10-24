@@ -34,7 +34,7 @@ public class BillFactory {
 
     BillType billType = BillType.PARKING_STICKER;
 
-    return new Bill(id, billType, description, amount, new CustomDateTime());
+    return new Bill(id, billType, description, amount, CustomDateTime.now());
   }
 
   public Bill createForAccessPass(Money feeForPeriod, AccessPassCode accessPassCode) {
@@ -43,7 +43,7 @@ public class BillFactory {
 
     BillType billType = BillType.ACCESS_PASS;
 
-    return new Bill(id, billType, description, feeForPeriod, new CustomDateTime());
+    return new Bill(id, billType, description, feeForPeriod, CustomDateTime.now());
   }
 
   public Bill createForOffense(Money fee, OffenseCode offenseCode) {
@@ -52,7 +52,7 @@ public class BillFactory {
 
     BillType billType = BillType.OFFENSE;
 
-    return new Bill(id, billType, description, fee, new CustomDateTime());
+    return new Bill(id, billType, description, fee, CustomDateTime.now());
   }
 
   private BillId generateBillId() {
