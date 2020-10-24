@@ -67,7 +67,11 @@ uses:
               example: !include examples/users/post-users-bills-request.json
           responses:
             200:
-              description: Amount successfully paid from bill
+              description: Bill after payment
+              body:
+                application/json:
+                  type: types.Bill
+                  example: !include examples/users/post-users-bills-response.json
             400:
               description: Error paying user's bills
             404:
