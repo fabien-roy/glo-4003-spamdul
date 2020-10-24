@@ -1,18 +1,22 @@
 package ca.ulaval.glo4003.funds.domain.queries;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import ca.ulaval.glo4003.funds.domain.BillType;
+import java.util.*;
 
 public class BillQueryParamsAssembler {
 
-  // TODO : Naming?
+  public BillQueryParams assembleWithYear(int year, BillType billType) {
+    BillQueryParams billQueryParams = new BillQueryParams();
+    billQueryParams.add(BillQueryParam.YEAR, toList(String.valueOf(year)));
+    billQueryParams.add(BillQueryParam.BILL_TYPE, toList(billType.toString()));
 
-  private Map<BillQueryParam, List<String>> billQueryParams;
+    return billQueryParams;
+  }
 
-  public Map<BillQueryParam, List<String>> assemble(
-      BillQueryParam billQueryParam, List<String> params) {
-    billQueryParams = new HashMap<>();
-    return billQueryParams.put(billQueryParam, params);
+  private List<String> toList(String value) {
+    List<String> strings = new ArrayList<>();
+    strings.add(value);
+
+    return strings;
   }
 }

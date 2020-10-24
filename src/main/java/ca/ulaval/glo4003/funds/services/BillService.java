@@ -4,15 +4,12 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
-import ca.ulaval.glo4003.funds.domain.queries.BillQueryParam;
+import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 public class BillService {
@@ -21,19 +18,16 @@ public class BillService {
   private final BillRepository<BillQuery> billRepository;
   private final BillAssembler billAssembler;
   private final BillQueryFactory billQueryFactory;
-  private final BillProfitsCalculator billProfitsCalculator;
 
   public BillService(
       BillFactory billFactory,
       BillRepository<BillQuery> billRepository,
       BillAssembler billAssembler,
-      BillQueryFactory billQueryFactory,
-      BillProfitsCalculator billProfitsCalculator) {
+      BillQueryFactory billQueryFactory) {
     this.billFactory = billFactory;
     this.billRepository = billRepository;
     this.billAssembler = billAssembler;
     this.billQueryFactory = billQueryFactory;
-    this.billProfitsCalculator = billProfitsCalculator;
   }
 
   public BillId addBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
@@ -88,20 +82,9 @@ public class BillService {
     return billRepository.getBill(billId);
   }
 
-  public Money getProfitsFromParkingStickerBillsByYear(int year) {
-    Map<BillQueryParam, List<String>> map = new HashMap<>(); // TODO : init de la map à faire où?
+  public List<Bill> getAllBillsByQueryParams(BillQueryParams billQueryParams) {
+    BillQuery billQuery = billQueryFactory.create(billQueryParams);
 
-    List<String> list = new ArrayList<>();
-    list.add(String.valueOf(year));
-    map.put(BillQueryParam.YEAR, list);
-    return getAllBillsByQueryParams(map);
-  }
-
-  private Money getAllBillsByQueryParams(Map<BillQueryParam, List<String>> params) {
-    BillQuery billQuery = billQueryFactory.create(params);
-
-    List<Bill> bills = billRepository.getAll(billQuery);
-
-    return billProfitsCalculator.calculate(bills); // TODO : Should return a map
+    return billRepository.getAll(billQuery);
   }
 }
