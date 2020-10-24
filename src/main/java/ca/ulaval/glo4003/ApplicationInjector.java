@@ -126,8 +126,6 @@ public class ApplicationInjector {
             FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
   }
 
-
-
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
     return Arrays.asList(
         CatchAllExceptionMapper.class,
