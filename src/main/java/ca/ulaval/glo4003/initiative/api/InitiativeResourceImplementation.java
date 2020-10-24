@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 public class InitiativeResourceImplementation implements InitiativeResource {
-  private InitiativeService initiativeService;
+  private final InitiativeService initiativeService;
 
   public InitiativeResourceImplementation(InitiativeService initiativeService) {
     this.initiativeService = initiativeService;

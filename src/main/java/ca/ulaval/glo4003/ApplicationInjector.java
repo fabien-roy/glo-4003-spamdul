@@ -12,6 +12,7 @@ import ca.ulaval.glo4003.communications.CommunicationInjector;
 import ca.ulaval.glo4003.communications.api.CommunicationExceptionMapper;
 import ca.ulaval.glo4003.files.api.FileExceptionMapper;
 import ca.ulaval.glo4003.funds.FundInjector;
+import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
 import ca.ulaval.glo4003.gateentries.GateEntryInjector;
 import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
 import ca.ulaval.glo4003.initiative.InitiativeInjector;
@@ -125,15 +126,16 @@ public class ApplicationInjector {
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
     return Arrays.asList(
         CatchAllExceptionMapper.class,
+        AccessPassExceptionMapper.class,
         AccountExceptionMapper.class,
         CarExceptionMapper.class,
         CommunicationExceptionMapper.class,
         FileExceptionMapper.class,
+        FundExceptionMapper.class,
+        InitiativeExceptionMapper.class,
         LocationExceptionMapper.class,
         ParkingExceptionMapper.class,
         TimeExceptionMapper.class,
-        UserExceptionMapper.class,
-        AccessPassExceptionMapper.class,
-        InitiativeExceptionMapper.class);
+        UserExceptionMapper.class);
   }
 }

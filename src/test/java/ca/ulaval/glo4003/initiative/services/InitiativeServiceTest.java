@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.initiative.services;
 
-import static ca.ulaval.glo4003.initiative.helpers.AddInitiativeDtoBuilder.aAddInitiativeDto;
+import static ca.ulaval.glo4003.initiative.helpers.AddInitiativeDtoBuilder.anAddInitiativeDto;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeAddAllocatedAmountDtoBuilder.aInitiativeAddAllocatedAmountDTO;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeAvailableAmountDtoBuilder.aInitiativeAvailableAmountDto;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeBuilder.aInitiative;
@@ -37,7 +37,7 @@ public class InitiativeServiceTest {
   @Mock private InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler;
   @Mock private InitiativeAssembler initiativeAssembler;
   @Mock private InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler;
-  private AddInitiativeDto addInitiativeDto = aAddInitiativeDto().build();
+  private AddInitiativeDto addInitiativeDto = anAddInitiativeDto().build();
   private Initiative initiative = aInitiative().withAllocatedAmount(Money.zero()).build();
   private InitiativeCodeDto initiativeCodeDto =
       aInitiativeCodeDto().withCode(initiative.getInitiativeCode().toString()).build();

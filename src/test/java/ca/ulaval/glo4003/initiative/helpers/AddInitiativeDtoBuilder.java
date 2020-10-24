@@ -10,18 +10,8 @@ public class AddInitiativeDtoBuilder {
 
   private AddInitiativeDtoBuilder() {}
 
-  public static AddInitiativeDtoBuilder aAddInitiativeDto() {
+  public static AddInitiativeDtoBuilder anAddInitiativeDto() {
     return new AddInitiativeDtoBuilder();
-  }
-
-  public AddInitiativeDtoBuilder withName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  public AddInitiativeDtoBuilder withAmount(Double amount) {
-    this.amount = amount;
-    return this;
   }
 
   public AddInitiativeDto build() {

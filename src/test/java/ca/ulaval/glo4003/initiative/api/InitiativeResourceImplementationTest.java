@@ -1,5 +1,9 @@
 package ca.ulaval.glo4003.initiative.api;
 
+import static ca.ulaval.glo4003.initiative.helpers.AddInitiativeDtoBuilder.anAddInitiativeDto;
+import static ca.ulaval.glo4003.initiative.helpers.InitiativeAddAllocatedAmountDtoBuilder.aInitiativeAddAllocatedAmountDTO;
+import static ca.ulaval.glo4003.initiative.helpers.InitiativeCodeDtoBuilder.aInitiativeCodeDto;
+import static ca.ulaval.glo4003.initiative.helpers.InitiativeDtoBuilder.aInitiativeDto;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeMother.createCode;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -9,13 +13,9 @@ import ca.ulaval.glo4003.initiative.api.dto.InitiativeAddAllocatedAmountDto;
 import ca.ulaval.glo4003.initiative.api.dto.InitiativeCodeDto;
 import ca.ulaval.glo4003.initiative.api.dto.InitiativeDto;
 import ca.ulaval.glo4003.initiative.domain.InitiativeCode;
-import ca.ulaval.glo4003.initiative.helpers.AddInitiativeDtoBuilder;
-import ca.ulaval.glo4003.initiative.helpers.InitiativeAddAllocatedAmountDtoBuilder;
-import ca.ulaval.glo4003.initiative.helpers.InitiativeCodeDtoBuilder;
-import ca.ulaval.glo4003.initiative.helpers.InitiativeDtoBuilder;
 import ca.ulaval.glo4003.initiative.services.InitiativeService;
 import com.google.common.truth.Truth;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
@@ -27,16 +27,16 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class InitiativeResourceImplementationTest {
   @Mock private InitiativeService initiativeService;
+
   private InitiativeResource initiativeResource;
 
-  private AddInitiativeDto addInitiativeDto = AddInitiativeDtoBuilder.aAddInitiativeDto().build();
-  private InitiativeCodeDto initiativeCodeDto =
-      InitiativeCodeDtoBuilder.aInitiativeCodeDto().build();
-  private InitiativeDto initiativeDto = InitiativeDtoBuilder.aInitiativeDto().build();
-  private InitiativeCode initiativeCode = createCode();
-  private InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDto =
-      InitiativeAddAllocatedAmountDtoBuilder.aInitiativeAddAllocatedAmountDTO().build();
-  private List<InitiativeDto> InitiativeDtoList = new ArrayList();
+  private final AddInitiativeDto addInitiativeDto = anAddInitiativeDto().build();
+  private final InitiativeCodeDto initiativeCodeDto = aInitiativeCodeDto().build();
+  private final InitiativeDto initiativeDto = aInitiativeDto().build();
+  private final InitiativeCode initiativeCode = createCode();
+  private final InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDto =
+      aInitiativeAddAllocatedAmountDTO().build();
+  private final List<InitiativeDto> initiativeDtoList = Collections.singletonList(initiativeDto);
 
   @Before
   public void setUp() {
@@ -87,7 +87,7 @@ public class InitiativeResourceImplementationTest {
 
   @Test
   public void whenGettingAllInitiative_thenGetAllInitiativeWithService() {
-    when(initiativeService.getAllInitiatives()).thenReturn(InitiativeDtoList);
+    when(initiativeService.getAllInitiatives()).thenReturn(initiativeDtoList);
 
     initiativeResource.getAllInitiatives();
 
@@ -96,7 +96,7 @@ public class InitiativeResourceImplementationTest {
 
   @Test
   public void whenGettingAllInitiative_thenResponseOkStatus() {
-    when(initiativeService.getAllInitiatives()).thenReturn(InitiativeDtoList);
+    when(initiativeService.getAllInitiatives()).thenReturn(initiativeDtoList);
 
     Response response = initiativeResource.getAllInitiatives();
 
