@@ -4,13 +4,13 @@
     "manufacturer": "Toyota",
     "model": "Camry",
     "year": 2006,
-    "consumptionType": "économique"
+    "consumptionType": "economic"
   },
   {
     "licensePlate": "234FEFG",
     "manufacturer": "Jeep",
     "model": "Cherokee",
     "year": 1999,
-    "consumptionType": "gourmande"
+    "consumptionType": "greedy"
   }
 ]
