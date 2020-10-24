@@ -33,8 +33,8 @@ public class InitiativeBuilder {
   }
 
   public Initiative build() {
-    Initiative initiative = new Initiative(initiativeCode, initiativeName);
-    initiative.addAllocatedAmount(allocatedAmount);
+    Initiative initiative = new Initiative(initiativeName, allocatedAmount);
+    initiative.setInitiativeCode(initiativeCode);
     return initiative;
   }
 }

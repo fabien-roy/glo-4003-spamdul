@@ -33,8 +33,8 @@ public class InitiativeDtoBuilder {
   public InitiativeDto build() {
     InitiativeDto initiativeDto = new InitiativeDto();
     initiativeDto.allocatedAmount = allocatedAmount;
-    initiativeDto.initiativeName = initiativeName;
-    initiativeDto.initiativeCode = initiativeCode;
+    initiativeDto.name = initiativeName;
+    initiativeDto.code = initiativeCode;
     return initiativeDto;
   }
 }

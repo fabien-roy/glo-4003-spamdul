@@ -116,8 +116,9 @@ public class ApplicationInjector {
             INITIATIVE_INJECTOR.getInitiativeRepository(),
             INITIATIVE_INJECTOR.createInitiativeCodeAssembler(),
             INITIATIVE_INJECTOR.createInitiativeAvailableAmountAssembler(),
-            INITIATIVE_INJECTOR.createInitiativeAssembler(),
-            FUND_INJECTOR.createMoneyAssembler(),
+            INITIATIVE_INJECTOR.createInitiativeAssembler(FUND_INJECTOR.createMoneyAssembler()),
+            INITIATIVE_INJECTOR.createInitiativeAddAllocatedAmountAssembler(
+                FUND_INJECTOR.createMoneyAssembler()),
             FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
   }
 

@@ -24,7 +24,7 @@ public class InitiativeRepositoryInMemory implements InitiativeRepository {
   }
 
   @Override
-  public Initiative getInitiative(InitiativeCode initiativeCode) {
+  public Initiative get(InitiativeCode initiativeCode) {
     Initiative initiative = initiatives.get(initiativeCode);
 
     if (initiative == null) {
@@ -35,8 +35,8 @@ public class InitiativeRepositoryInMemory implements InitiativeRepository {
   }
 
   @Override
-  public void updateInitiative(Initiative initiative) {
-    getInitiative(initiative.getInitiativeCode());
+  public void update(Initiative initiative) {
+    get(initiative.getInitiativeCode());
 
     initiatives.put(initiative.getInitiativeCode(), initiative);
   }

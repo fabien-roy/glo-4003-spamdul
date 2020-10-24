@@ -9,10 +9,10 @@ import static ca.ulaval.glo4003.initiative.helpers.InitiativeDtoBuilder.aInitiat
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiative.api.dto.*;
+import ca.ulaval.glo4003.initiative.assembler.InitiativeAddAllocatedAmountAssembler;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeAssembler;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeAvailableAmountAssembler;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeCodeAssembler;
@@ -36,7 +36,7 @@ public class InitiativeServiceTest {
   @Mock private InitiativeCodeAssembler initiativeCodeAssembler;
   @Mock private InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler;
   @Mock private InitiativeAssembler initiativeAssembler;
-  @Mock private MoneyAssembler moneyAssembler;
+  @Mock private InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler;
   private AddInitiativeDto addInitiativeDto = aAddInitiativeDto().build();
   private Initiative initiative = aInitiative().withAllocatedAmount(Money.zero()).build();
   private InitiativeCodeDto initiativeCodeDto =
@@ -57,12 +57,11 @@ public class InitiativeServiceTest {
             initiativeCodeAssembler,
             initiativeAvailableAmountAssembler,
             initiativeAssembler,
-            moneyAssembler,
+            initiativeAddAllocatedAmountAssembler,
             sustainableMobilityProgramBankRepository);
-    when(initiativeFactory.createInitiative(addInitiativeDto.name)).thenReturn(initiative);
-    when(moneyAssembler.assemble(addInitiativeDto.amount))
-        .thenReturn(Money.fromDouble(addInitiativeDto.amount));
-    when(moneyAssembler.assemble(initiativeAddAllocatedAmountDto.amountToAdd))
+    when(initiativeFactory.create(initiative)).thenReturn(initiative);
+    when(initiativeAssembler.assemble(addInitiativeDto)).thenReturn(initiative);
+    when(initiativeAddAllocatedAmountAssembler.assemble(initiativeAddAllocatedAmountDto))
         .thenReturn(Money.fromDouble(initiativeAddAllocatedAmountDto.amountToAdd));
     when(initiativeCodeAssembler.assemble(initiative.getInitiativeCode().toString()))
         .thenReturn(initiative.getInitiativeCode());
@@ -72,22 +71,14 @@ public class InitiativeServiceTest {
   public void whenAddingInitiative_initiativeFactoryCreateInitiative() {
     initiativeService.addInitiative(addInitiativeDto);
 
-    verify(initiativeFactory).createInitiative(addInitiativeDto.name);
+    verify(initiativeFactory).create(initiative);
   }
 
   @Test
   public void whenAddingInitiative_thenAmountIsRemovedFromSustainableMobilityProgramBank() {
     initiativeService.addInitiative(addInitiativeDto);
 
-    verify(sustainableMobilityProgramBankRepository)
-        .remove(Money.fromDouble(addInitiativeDto.amount));
-  }
-
-  @Test
-  public void whenAddingInitiative_amountIsAddedToInitiative() {
-    initiativeService.addInitiative(addInitiativeDto);
-
-    Truth.assertThat(initiative.getAllocatedAmount()).isEqualTo(new Money(addInitiativeDto.amount));
+    verify(sustainableMobilityProgramBankRepository).remove(initiative.getAllocatedAmount());
   }
 
   @Test
@@ -123,19 +114,19 @@ public class InitiativeServiceTest {
 
     initiativeService.getInitiative(initiative.getInitiativeCode().toString());
 
-    verify(initiativeRepository).getInitiative(initiative.getInitiativeCode());
+    verify(initiativeRepository).get(initiative.getInitiativeCode());
   }
 
   @Test
   public void whenGettingInitiative_thenReturnInitiative() {
     when(initiativeAssembler.assemble(initiative)).thenReturn(initiativeDto);
-    when(initiativeRepository.getInitiative(initiative.getInitiativeCode())).thenReturn(initiative);
+    when(initiativeRepository.get(initiative.getInitiativeCode())).thenReturn(initiative);
 
     InitiativeDto returnedInitiativeDto =
         initiativeService.getInitiative(initiative.getInitiativeCode().toString());
 
-    Truth.assertThat(returnedInitiativeDto.initiativeCode).isEqualTo(initiativeDto.initiativeCode);
-    Truth.assertThat(returnedInitiativeDto.initiativeName).isEqualTo(initiativeDto.initiativeName);
+    Truth.assertThat(returnedInitiativeDto.code).isEqualTo(initiativeDto.code);
+    Truth.assertThat(returnedInitiativeDto.name).isEqualTo(initiativeDto.name);
     Truth.assertThat(returnedInitiativeDto.allocatedAmount)
         .isEqualTo(initiativeDto.allocatedAmount);
   }
@@ -150,9 +141,9 @@ public class InitiativeServiceTest {
   @Test
   public void
       whenAddingAllocatedAmountToInitiative_thenAmountIsRemovedFromSustainableMobilityProgramBank() {
-    when(initiativeRepository.getInitiative(initiative.getInitiativeCode())).thenReturn(initiative);
+    when(initiativeRepository.get(initiative.getInitiativeCode())).thenReturn(initiative);
 
-    initiativeService.AddAllocatedAmountToInitiative(
+    initiativeService.addAllocatedAmountToInitiative(
         initiative.getInitiativeCode().toString(), initiativeAddAllocatedAmountDto);
 
     verify(sustainableMobilityProgramBankRepository)
@@ -161,9 +152,9 @@ public class InitiativeServiceTest {
 
   @Test
   public void whenAddingAllocatedAmountToInitiative_thenAddAmountToInitiative() {
-    when(initiativeRepository.getInitiative(initiative.getInitiativeCode())).thenReturn(initiative);
+    when(initiativeRepository.get(initiative.getInitiativeCode())).thenReturn(initiative);
 
-    initiativeService.AddAllocatedAmountToInitiative(
+    initiativeService.addAllocatedAmountToInitiative(
         initiative.getInitiativeCode().toString(), initiativeAddAllocatedAmountDto);
 
     Truth.assertThat(initiative.getAllocatedAmount())
@@ -172,12 +163,12 @@ public class InitiativeServiceTest {
 
   @Test
   public void whenAddingAllocatedAmountToInitiative_thenUpdateRepositoryWithInitiative() {
-    when(initiativeRepository.getInitiative(initiative.getInitiativeCode())).thenReturn(initiative);
+    when(initiativeRepository.get(initiative.getInitiativeCode())).thenReturn(initiative);
 
-    initiativeService.AddAllocatedAmountToInitiative(
+    initiativeService.addAllocatedAmountToInitiative(
         initiative.getInitiativeCode().toString(), initiativeAddAllocatedAmountDto);
 
-    verify(initiativeRepository).updateInitiative(initiative);
+    verify(initiativeRepository).update(initiative);
   }
 
   @Test

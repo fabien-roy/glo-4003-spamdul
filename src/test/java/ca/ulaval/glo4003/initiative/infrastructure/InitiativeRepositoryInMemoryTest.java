@@ -45,34 +45,31 @@ public class InitiativeRepositoryInMemoryTest {
 
   @Test(expected = InitiativeNotFoundException.class)
   public void whenGettingNonExistingInitiative_thenThrowInitiativeNotFoundException() {
-    initiativeRepository.getInitiative(initiative.getInitiativeCode());
+    initiativeRepository.get(initiative.getInitiativeCode());
   }
 
   @Test
   public void givenInitiativeCode_whenGettingInitiative_thenReturnInitiative() {
     initiativeRepository.save(initiative);
 
-    Initiative InitiativeFromRepo =
-        initiativeRepository.getInitiative(initiative.getInitiativeCode());
+    Initiative InitiativeFromRepo = initiativeRepository.get(initiative.getInitiativeCode());
 
     Truth.assertThat(InitiativeFromRepo).isEqualTo(initiative);
   }
 
   @Test(expected = InitiativeNotFoundException.class)
   public void givenNoInitiative_whenUpdating_thenThrowInitiativeNotFoundException() {
-    initiativeRepository.updateInitiative(initiative);
+    initiativeRepository.update(initiative);
   }
 
   @Test
   public void givenBill_whenUpdating_thenBillIsUpdated() {
     initiativeRepository.save(initiative);
-    Initiative initiativeBeforeUpdating =
-        initiativeRepository.getInitiative(initiative.getInitiativeCode());
+    Initiative initiativeBeforeUpdating = initiativeRepository.get(initiative.getInitiativeCode());
     initiative.addAllocatedAmount(ADDED_ALLOCATED_AMOUNT);
 
-    initiativeRepository.updateInitiative(initiative);
-    Initiative initiativeAfterUpdating =
-        initiativeRepository.getInitiative(initiative.getInitiativeCode());
+    initiativeRepository.update(initiative);
+    Initiative initiativeAfterUpdating = initiativeRepository.get(initiative.getInitiativeCode());
 
     Truth.assertThat(initiativeBeforeUpdating.getAllocatedAmount())
         .isNotEqualTo(initiativeAfterUpdating);

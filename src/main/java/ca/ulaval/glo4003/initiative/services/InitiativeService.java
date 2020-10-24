@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.initiative.services;
 
-import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiative.api.dto.*;
+import ca.ulaval.glo4003.initiative.assembler.InitiativeAddAllocatedAmountAssembler;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeAssembler;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeAvailableAmountAssembler;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeCodeAssembler;
@@ -19,7 +19,7 @@ public class InitiativeService {
   private InitiativeCodeAssembler initiativeCodeAssembler;
   private InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler;
   private InitiativeAssembler initiativeAssembler;
-  private MoneyAssembler moneyAssembler;
+  private InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler;
   private SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
 
   public InitiativeService(
@@ -28,7 +28,7 @@ public class InitiativeService {
       InitiativeCodeAssembler initiativeCodeAssembler,
       InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler,
       InitiativeAssembler initiativeAssembler,
-      MoneyAssembler moneyAssembler,
+      InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler,
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
 
     this.initiativeFactory = initiativeFactory;
@@ -36,16 +36,16 @@ public class InitiativeService {
     this.initiativeCodeAssembler = initiativeCodeAssembler;
     this.initiativeAvailableAmountAssembler = initiativeAvailableAmountAssembler;
     this.initiativeAssembler = initiativeAssembler;
-    this.moneyAssembler = moneyAssembler;
+    this.initiativeAddAllocatedAmountAssembler = initiativeAddAllocatedAmountAssembler;
     this.sustainableMobilityProgramBankRepository = sustainableMobilityProgramBankRepository;
   }
 
   public InitiativeCodeDto addInitiative(AddInitiativeDto addInitiativeDto) {
-    Initiative initiative = initiativeFactory.createInitiative(addInitiativeDto.name);
-    Money money = moneyAssembler.assemble(addInitiativeDto.amount);
+    Initiative initiative = initiativeAssembler.assemble(addInitiativeDto);
 
-    sustainableMobilityProgramBankRepository.remove(money);
-    initiative.addAllocatedAmount(money);
+    initiative = initiativeFactory.create(initiative);
+
+    sustainableMobilityProgramBankRepository.remove(initiative.getAllocatedAmount());
 
     InitiativeCode initiativeCode = initiativeRepository.save(initiative);
     return initiativeCodeAssembler.assemble(initiativeCode);
@@ -53,7 +53,7 @@ public class InitiativeService {
 
   public InitiativeDto getInitiative(String initiativeCode) {
     InitiativeCode code = initiativeCodeAssembler.assemble(initiativeCode);
-    Initiative initiative = initiativeRepository.getInitiative(code);
+    Initiative initiative = initiativeRepository.get(code);
 
     return initiativeAssembler.assemble(initiative);
   }
@@ -70,16 +70,16 @@ public class InitiativeService {
     return initiativeAvailableAmountAssembler.assemble(availableAmount);
   }
 
-  public void AddAllocatedAmountToInitiative(
-      String initiativeCode, InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDTO) {
+  public void addAllocatedAmountToInitiative(
+      String initiativeCode, InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDto) {
     InitiativeCode code = initiativeCodeAssembler.assemble(initiativeCode);
-    Money money = moneyAssembler.assemble(initiativeAddAllocatedAmountDTO.amountToAdd);
+    Money money = initiativeAddAllocatedAmountAssembler.assemble(initiativeAddAllocatedAmountDto);
 
-    Initiative initiative = initiativeRepository.getInitiative(code);
+    Initiative initiative = initiativeRepository.get(code);
 
     sustainableMobilityProgramBankRepository.remove(money);
     initiative.addAllocatedAmount(money);
 
-    initiativeRepository.updateInitiative(initiative);
+    initiativeRepository.update(initiative);
   }
 }

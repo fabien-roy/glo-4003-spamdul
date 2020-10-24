@@ -7,7 +7,7 @@ public interface InitiativeRepository {
 
   List<Initiative> getAllInitiatives();
 
-  Initiative getInitiative(InitiativeCode initiativeCode);
+  Initiative get(InitiativeCode initiativeCode);
 
-  void updateInitiative(Initiative initiative);
+  void update(Initiative initiative);
 }

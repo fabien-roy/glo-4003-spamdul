@@ -57,9 +57,8 @@ public class InitiativeResourceImplementation implements InitiativeResource {
   @Override
   public Response allocateAmountToInitiative(
       String initiativeCode, InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDTO) {
-    initiativeService.AddAllocatedAmountToInitiative(
+    initiativeService.addAllocatedAmountToInitiative(
         initiativeCode, initiativeAddAllocatedAmountDTO);
-    // TODO should we return something when adding amount to initiative?
     return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).build();
   }
 }

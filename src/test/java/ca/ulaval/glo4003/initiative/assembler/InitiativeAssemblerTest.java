@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.initiative.assembler;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeBuilder.aInitiative;
 import static ca.ulaval.glo4003.initiative.helpers.InitiativeMother.*;
 
+import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.initiative.api.dto.InitiativeDto;
 import ca.ulaval.glo4003.initiative.domain.Initiative;
@@ -18,6 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class InitiativeAssemblerTest {
   private InitiativeAssembler initiativeAssembler;
   @Mock private Initiative initiative;
+  @Mock private MoneyAssembler moneyAssembler;
 
   private String NAME = createName();
   private InitiativeCode INITIATIVE_CODE = createCode();
@@ -25,7 +27,7 @@ public class InitiativeAssemblerTest {
 
   @Before
   public void setUp() {
-    initiativeAssembler = new InitiativeAssembler();
+    initiativeAssembler = new InitiativeAssembler(moneyAssembler);
 
     initiative =
         aInitiative()
@@ -39,9 +41,8 @@ public class InitiativeAssemblerTest {
   public void whenAssembling_thenReturnInitiativeDto() {
     InitiativeDto AssembledInitiativeDto = initiativeAssembler.assemble(initiative);
 
-    Truth.assertThat(AssembledInitiativeDto.initiativeName)
-        .isEqualTo(initiative.getInitiativeName());
-    Truth.assertThat(AssembledInitiativeDto.initiativeCode)
+    Truth.assertThat(AssembledInitiativeDto.name).isEqualTo(initiative.getInitiativeName());
+    Truth.assertThat(AssembledInitiativeDto.code)
         .isEqualTo(initiative.getInitiativeCode().toString());
     Truth.assertThat(AssembledInitiativeDto.allocatedAmount)
         .isEqualTo(initiative.getAllocatedAmount().toDouble());

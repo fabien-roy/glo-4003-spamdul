@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiative.api.InitiativeResource;
 import ca.ulaval.glo4003.initiative.api.InitiativeResourceImplementation;
+import ca.ulaval.glo4003.initiative.assembler.InitiativeAddAllocatedAmountAssembler;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeAssembler;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeAvailableAmountAssembler;
 import ca.ulaval.glo4003.initiative.assembler.InitiativeCodeAssembler;
@@ -31,7 +32,7 @@ public class InitiativeInjector {
       InitiativeCodeAssembler initiativeCodeAssembler,
       InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler,
       InitiativeAssembler initiativeAssembler,
-      MoneyAssembler moneyAssembler,
+      InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler,
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
     return new InitiativeService(
         initiativeFactory,
@@ -39,7 +40,7 @@ public class InitiativeInjector {
         initiativeCodeAssembler,
         initiativeAvailableAmountAssembler,
         initiativeAssembler,
-        moneyAssembler,
+        initiativeAddAllocatedAmountAssembler,
         sustainableMobilityProgramBankRepository);
   }
 
@@ -56,8 +57,13 @@ public class InitiativeInjector {
     return new InitiativeCodeAssembler();
   }
 
-  public InitiativeAssembler createInitiativeAssembler() {
-    return new InitiativeAssembler();
+  public InitiativeAssembler createInitiativeAssembler(MoneyAssembler moneyAssembler) {
+    return new InitiativeAssembler(moneyAssembler);
+  }
+
+  public InitiativeAddAllocatedAmountAssembler createInitiativeAddAllocatedAmountAssembler(
+      MoneyAssembler moneyAssembler) {
+    return new InitiativeAddAllocatedAmountAssembler(moneyAssembler);
   }
 
   public InitiativeAvailableAmountAssembler createInitiativeAvailableAmountAssembler() {

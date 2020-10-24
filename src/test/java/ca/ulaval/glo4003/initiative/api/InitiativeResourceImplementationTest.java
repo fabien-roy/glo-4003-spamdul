@@ -70,8 +70,8 @@ public class InitiativeResourceImplementationTest {
     Response response = initiativeResource.getInitiative(initiativeCode.toString());
     InitiativeDto respondedInitiativeDto = (InitiativeDto) response.getEntity();
 
-    Truth.assertThat(respondedInitiativeDto.initiativeCode).isEqualTo(initiativeDto.initiativeCode);
-    Truth.assertThat(respondedInitiativeDto.initiativeName).isEqualTo(initiativeDto.initiativeName);
+    Truth.assertThat(respondedInitiativeDto.code).isEqualTo(initiativeDto.code);
+    Truth.assertThat(respondedInitiativeDto.name).isEqualTo(initiativeDto.name);
     Truth.assertThat(respondedInitiativeDto.allocatedAmount)
         .isEqualTo(initiativeDto.allocatedAmount);
   }
@@ -109,7 +109,7 @@ public class InitiativeResourceImplementationTest {
         initiativeCode.toString(), initiativeAddAllocatedAmountDto);
 
     verify(initiativeService)
-        .AddAllocatedAmountToInitiative(initiativeCode.toString(), initiativeAddAllocatedAmountDto);
+        .addAllocatedAmountToInitiative(initiativeCode.toString(), initiativeAddAllocatedAmountDto);
   }
 
   @Test

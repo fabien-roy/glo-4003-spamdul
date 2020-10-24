@@ -7,9 +7,9 @@ public class InitiativeFactory {
     this.initiativeCodeGenerator = initiativeCodeGenerator;
   }
 
-  public Initiative createInitiative(String initiativeName) {
+  public Initiative create(Initiative initiative) {
     InitiativeCode initiativeCode = initiativeCodeGenerator.generate();
-
-    return new Initiative(initiativeCode, initiativeName);
+    initiative.setInitiativeCode(initiativeCode);
+    return initiative;
   }
 }
