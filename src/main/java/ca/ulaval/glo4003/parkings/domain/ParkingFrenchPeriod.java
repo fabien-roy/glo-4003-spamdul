@@ -33,4 +33,9 @@ public enum ParkingFrenchPeriod {
 
     return foundPeriod;
   }
+
+  @Override
+  public String toString() {
+    return period;
+  }
 }

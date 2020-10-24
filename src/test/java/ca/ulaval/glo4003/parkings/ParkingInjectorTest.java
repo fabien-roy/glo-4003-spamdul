@@ -74,7 +74,7 @@ public class ParkingInjectorTest {
   public void whenCreatingParkingStickerService_thenReturnIt() {
     ParkingStickerService parkingStickerService =
         parkingInjector.createParkingStickerService(
-            false,
+            true,
             accountIdAssembler,
             postalCodeAssembler,
             emailAddressAssembler,
