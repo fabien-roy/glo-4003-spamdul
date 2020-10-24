@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.profits.api;
 
+import static ca.ulaval.glo4003.times.helpers.CustomDateMother.createFutureDate;
 import static org.mockito.Mockito.verify;
 
 import ca.ulaval.glo4003.profits.services.ProfitsService;
@@ -12,7 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ProfitsResourceImplementationTest {
 
-  private static int A_YEAR = 2020; // TODO : Add Builder and Object Mother
+  private static int A_YEAR = createFutureDate().toLocalDate().getYear();
 
   private ProfitsResourceImplementation profitsResourceImplementation;
 
