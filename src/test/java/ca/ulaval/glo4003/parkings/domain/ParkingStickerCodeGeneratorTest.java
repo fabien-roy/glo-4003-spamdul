@@ -25,11 +25,11 @@ public class ParkingStickerCodeGeneratorTest {
 
   @Test
   public void whenGenerating_thenReturnCodeWithParkKeyword() {
-    String passKeyword = "PARK";
+    String parkKeyword = "PARK";
 
     ParkingStickerCode code = parkingStickerCodeGenerator.generate();
 
-    assertThat(code.toString()).contains(passKeyword);
+    assertThat(code.toString()).contains(parkKeyword);
   }
 
   @Test
