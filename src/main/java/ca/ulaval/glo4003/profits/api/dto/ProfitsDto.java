@@ -5,6 +5,6 @@ public class ProfitsDto {
 
   @Override
   public String toString() {
-    return String.format("BillDto{profits='%.2f'", profits);
+    return String.format("BillDto{profits='%.2f'}", profits);
   }
 }

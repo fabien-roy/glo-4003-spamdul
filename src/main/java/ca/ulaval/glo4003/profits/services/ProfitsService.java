@@ -10,7 +10,10 @@ import ca.ulaval.glo4003.funds.services.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.profits.api.dto.ProfitsByConsumptionTypeDto;
 import ca.ulaval.glo4003.profits.api.dto.ProfitsDto;
+import ca.ulaval.glo4003.profits.assemblers.ProfitByConsumptionTypeAssembler;
 import ca.ulaval.glo4003.profits.assemblers.ProfitsAssembler;
+import ca.ulaval.glo4003.profits.domain.ProfitByConsumptionType;
+import ca.ulaval.glo4003.profits.domain.ProfitByConsumptionTypeFactory;
 import java.util.List;
 
 public class ProfitsService {
@@ -19,16 +22,22 @@ public class ProfitsService {
   private BillService billService;
   private BillQueryParamsAssembler billQueryParamsAssembler;
   private BillProfitsCalculator billProfitsCalculator;
+  private ProfitByConsumptionTypeFactory profitByConsumptionTypeFactory;
+  private ProfitByConsumptionTypeAssembler profitByConsumptionTypeAssembler;
 
   public ProfitsService(
       ProfitsAssembler profitsAssembler,
       BillService billService,
       BillQueryParamsAssembler billQueryParamsAssembler,
-      BillProfitsCalculator billProfitsCalculator) {
+      BillProfitsCalculator billProfitsCalculator,
+      ProfitByConsumptionTypeFactory profitByConsumptionTypeFactory,
+      ProfitByConsumptionTypeAssembler profitByConsumptionTypeAssembler) {
     this.profitsAssembler = profitsAssembler;
     this.billService = billService;
     this.billQueryParamsAssembler = billQueryParamsAssembler;
     this.billProfitsCalculator = billProfitsCalculator;
+    this.profitByConsumptionTypeFactory = profitByConsumptionTypeFactory;
+    this.profitByConsumptionTypeAssembler = profitByConsumptionTypeAssembler;
   }
 
   public ProfitsDto getParkingStickerProfits(int year) {
@@ -56,11 +65,9 @@ public class ProfitsService {
     BillsByConsumptionTypes billsByConsumptionTypes =
         billService.getBillsByConsumptionsType(billQueryParams);
 
-    // List<ProfitsByConsumptionTypeDto> profitsByConsumptionTypeDto = new
-    // BillPriceByConsumptionsTypeAssembler(billsByConsumptionTypes);
-    // TODO for each key price and consumptionsType
-
-    return null;
+    List<ProfitByConsumptionType> profitByConsumptionTypes =
+        profitByConsumptionTypeFactory.create(billsByConsumptionTypes);
+    return profitByConsumptionTypeAssembler.assembleMany(profitByConsumptionTypes);
   }
 
   public ProfitsDto getOffenseProfits(int year) {
