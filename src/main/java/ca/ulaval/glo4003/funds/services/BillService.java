@@ -84,7 +84,7 @@ public class BillService {
     billRepository.updateBill(bill);
 
     sustainableMobilityProgramBankRepository.add(
-        sustainableMobilityProgramAllocationCalculator.calculate(amountToPay));
+        sustainableMobilityProgramAllocationCalculator.calculate(amountToPay, 0.4));
 
     return billAssembler.assemble(bill);
   }

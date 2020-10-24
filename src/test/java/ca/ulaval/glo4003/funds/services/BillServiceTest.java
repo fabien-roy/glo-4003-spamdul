@@ -78,6 +78,8 @@ public class BillServiceTest {
     when(billRepository.getBill(bill.getId())).thenReturn(bill);
     when(billRepository.getAll(billQuery)).thenReturn(bills);
     when(billProfitsCalculator.calculate(bills)).thenReturn(fee);
+    when(sustainableMobilityProgramAllocationCalculator.calculate(amountDue, 0.4))
+        .thenReturn(Money.fromDouble(0.4));
   }
 
   @Test
@@ -160,6 +162,14 @@ public class BillServiceTest {
     bill.pay(amountDue);
 
     verify(billAssembler).assemble(bill);
+  }
+
+  @Test
+  public void whenPayingBill_thenSustainableMobilityProgramBankRepositoryIsCalled() {
+    billService.payBill(bill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(sustainableMobilityProgramBankRepository).add(Money.fromDouble(0.4));
   }
 
   @Test
