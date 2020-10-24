@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 public class BillService {
+  public static final double RATIO_KEPT_FOR_SUSTAINABLE_MOBILITY_PROGRAM = 0.4;
   private final Logger logger = Logger.getLogger(BillService.class.getName());
   private final BillFactory billFactory;
   private final BillRepository<BillQuery> billRepository;
@@ -84,7 +85,8 @@ public class BillService {
     billRepository.updateBill(bill);
 
     sustainableMobilityProgramBankRepository.add(
-        sustainableMobilityProgramAllocationCalculator.calculate(amountToPay, 0.4));
+        sustainableMobilityProgramAllocationCalculator.calculate(
+            amountToPay, RATIO_KEPT_FOR_SUSTAINABLE_MOBILITY_PROGRAM));
 
     return billAssembler.assemble(bill);
   }

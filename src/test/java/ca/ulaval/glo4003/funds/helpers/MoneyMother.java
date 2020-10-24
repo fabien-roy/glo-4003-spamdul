@@ -13,4 +13,8 @@ public class MoneyMother {
     double amount = Faker.instance().number().numberBetween(1, (int) maxAmount.toDouble());
     return Money.fromDouble(amount);
   }
+
+  public static double createRatio() {
+    return Faker.instance().number().randomDouble(2, 0, 1);
+  }
 }
