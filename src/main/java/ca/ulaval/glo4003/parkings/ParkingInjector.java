@@ -102,7 +102,8 @@ public class ParkingInjector {
                   .keySet()
                   .forEach(
                       period -> {
-                        ParkingPeriod parkingPeriod = ParkingPeriod.get(period);
+                        ParkingPeriod parkingPeriod =
+                            ParkingPeriod.get(period); // TODO translate in english
                         Money fee = Money.fromDouble(zonesAndFees.get(zone).get(period));
                         feesPerPeriod.put(parkingPeriod, fee);
                       });
