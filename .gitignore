@@ -24,3 +24,6 @@ target/
 
 # Node
 */node_modules/
+
+# SMTP login properties
+data/emailSmtp.properties

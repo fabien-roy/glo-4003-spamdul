@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings.helpers;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
-import static ca.ulaval.glo4003.communications.helpers.EmailAddressMother.createEmailAddress;
+import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAddress;
 import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.*;

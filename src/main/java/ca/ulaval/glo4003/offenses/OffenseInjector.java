@@ -11,6 +11,8 @@ import ca.ulaval.glo4003.offenses.assemblers.InfractionAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseCodeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
+import ca.ulaval.glo4003.offenses.console.OffenseNotifierSystemPrint;
+import ca.ulaval.glo4003.offenses.domain.OffenseNotifier;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeFactory;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
@@ -20,15 +22,18 @@ import ca.ulaval.glo4003.offenses.infrastructure.OffenseTypeRepositoryInMemory;
 import ca.ulaval.glo4003.offenses.services.OffenseTypeService;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import java.util.List;
 
 public class OffenseInjector {
+  private final OffenseNotifier offenseNotifier = new OffenseNotifierSystemPrint();
   private final OffenseTypeRepository offenseTypeRepository = new OffenseTypeRepositoryInMemory();
   private final StringFileReader fileReader = new JsonFileReader();
 
   public OffenseResource createOffenseResource(
+      ParkingAreaRepository parkingAreaRepository,
       ParkingStickerRepository parkingStickerRepository,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
@@ -40,6 +45,7 @@ public class OffenseInjector {
 
     OffenseTypeService offenseTypeService =
         createOffenseService(
+            parkingAreaRepository,
             parkingStickerRepository,
             parkingStickerCodeAssembler,
             parkingAreaCodeAssembler,
@@ -65,6 +71,7 @@ public class OffenseInjector {
   }
 
   private OffenseTypeService createOffenseService(
+      ParkingAreaRepository parkingAreaRepository,
       ParkingStickerRepository parkingStickerRepository,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
@@ -79,13 +86,15 @@ public class OffenseInjector {
         new OffenseTypeFactory(offenseTypeRepository, createOffenseCodeAssembler());
 
     return new OffenseTypeService(
+        parkingAreaRepository,
         parkingStickerRepository,
         offenseValidationAssembler,
         offenseTypeAssembler,
         offenseTypeRepository,
         offenseTypeFactory,
         billService,
-        accountService);
+        accountService,
+        offenseNotifier);
   }
 
   private OffenseValidationAssembler createOffenseValidationAssembler(

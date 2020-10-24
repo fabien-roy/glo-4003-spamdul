@@ -44,7 +44,7 @@ public class ParkingStickerService extends ParkingStickerCreationObservable {
     accountService.getAccount(parkingSticker.getAccountId());
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
-    ParkingArea parkingArea = parkingAreaRepository.findByCode(parkingSticker.getParkingAreaCode());
+    ParkingArea parkingArea = parkingAreaRepository.get(parkingSticker.getParkingAreaCode());
 
     BillId billId = billService.addBillForParkingSticker(parkingSticker, parkingArea);
     accountService.addParkingStickerToAccount(

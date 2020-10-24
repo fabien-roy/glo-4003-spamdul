@@ -1,0 +1,38 @@
+{
+  "name": "raml2html-default-theme",
+  "description": "The default theme for raml2html",
+  "version": "2.9.3",
+  "author": {
+    "name": "Kevin Renskers",
+    "email": "kevin@mixedcase.nl"
+  },
+  "bugs": {
+    "url": "https://github.com/raml2html/default-theme/issues"
+  },
+  "devDependencies": {
+    "glob": "7.1.x"
+  },
+  "homepage": "https://github.com/raml2html/default-theme",
+  "keywords": [
+    "RAML",
+    "raml2html-theme"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/raml2html/default-theme.git"
+  },
+  "preferGlobal": true,
+  "files": [
+    "index.nunjucks",
+    "resource.nunjucks",
+    "item.nunjucks",
+    "examples.nunjucks",
+    "scripts.js",
+    "styles.css"
+  ],
+  "engines": {
+    "node": ">=4"
+  },
+  "dependencies": {}
+}

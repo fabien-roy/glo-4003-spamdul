@@ -1,9 +1,11 @@
 package ca.ulaval.glo4003;
 
-import ca.ulaval.glo4003.access.AccessInjector;
-import ca.ulaval.glo4003.access.api.AccessExceptionMapper;
+import ca.ulaval.glo4003.accesspasses.AccessPassInjector;
+import ca.ulaval.glo4003.accesspasses.api.AccessPassExceptionMapper;
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
+import ca.ulaval.glo4003.carboncredits.CarbonCreditInjector;
+import ca.ulaval.glo4003.carboncredits.api.CarbonCreditResource;
 import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.cars.api.CarExceptionMapper;
 import ca.ulaval.glo4003.communications.CommunicationInjector;
@@ -13,12 +15,16 @@ import ca.ulaval.glo4003.funds.FundInjector;
 import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
 import ca.ulaval.glo4003.gateentries.GateEntryInjector;
 import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
+import ca.ulaval.glo4003.initiatives.InitiativeInjector;
+import ca.ulaval.glo4003.initiatives.api.InitiativeExceptionMapper;
+import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
 import ca.ulaval.glo4003.interfaces.api.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.locations.LocationInjector;
 import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
 import ca.ulaval.glo4003.offenses.OffenseInjector;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.ParkingInjector;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
 import ca.ulaval.glo4003.parkings.api.ParkingExceptionMapper;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
 import ca.ulaval.glo4003.times.TimeInjector;
@@ -34,7 +40,7 @@ public class ApplicationInjector {
 
   private static final boolean IS_DEV = true;
 
-  private static final AccessInjector ACCESS_INJECTOR = new AccessInjector();
+  private static final AccessPassInjector ACCESS_PASS_INJECTOR = new AccessPassInjector();
   private static final AccountInjector ACCOUNT_INJECTOR = new AccountInjector();
   private static final CarInjector CAR_INJECTOR = new CarInjector();
   private static final CommunicationInjector COMMUNICATION_INJECTOR = new CommunicationInjector();
@@ -45,6 +51,8 @@ public class ApplicationInjector {
   private static final ParkingInjector PARKING_INJECTOR = new ParkingInjector();
   private static final TimeInjector TIME_INJECTOR = new TimeInjector();
   private static final UserInjector USER_INJECTOR = new UserInjector();
+  private static final CarbonCreditInjector CARBON_CREDIT_INJECTOR = new CarbonCreditInjector();
+  private static final InitiativeInjector INITIATIVE_INJECTOR = new InitiativeInjector();
 
   public UserResource createUserResource() {
     List<ParkingStickerCreationObserver> parkingStickerCreationObservers =
@@ -56,7 +64,7 @@ public class ApplicationInjector {
         ACCOUNT_INJECTOR.createAccountFactory(),
         ACCOUNT_INJECTOR.createAccountIdAssembler(),
         TIME_INJECTOR.createCustomDateAssembler(),
-        ACCESS_INJECTOR.createAccessPassService(
+        ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
@@ -78,6 +86,7 @@ public class ApplicationInjector {
 
   public OffenseResource createOffenseResource() {
     return OFFENSE_INJECTOR.createOffenseResource(
+        PARKING_INJECTOR.getParkingAreaRepository(),
         PARKING_INJECTOR.getParkingStickerRepository(),
         PARKING_INJECTOR.createParkingStickerCodeAssembler(),
         PARKING_INJECTOR.createParkingAreaCodeAssembler(),
@@ -89,7 +98,7 @@ public class ApplicationInjector {
 
   public GateEntryResource createGateEntryResource() {
     return GATE_ENTRY_INJECTOR.createGateEntryResource(
-        ACCESS_INJECTOR.createAccessPassService(
+        ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(FUND_INJECTOR.createBillService()),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
@@ -97,18 +106,41 @@ public class ApplicationInjector {
             FUND_INJECTOR.createBillService()));
   }
 
+  public CarbonCreditResource createCarbonCreditResource() {
+    return CARBON_CREDIT_INJECTOR.createCarbonCreditResource();
+  }
+
+  public ParkingAreaResource createParkingAreaResource() {
+    return PARKING_INJECTOR.createParkingAreaResource();
+  }
+
+  public InitiativeResource createInitiativeResource() {
+    return INITIATIVE_INJECTOR.createInitiativeResource(
+        INITIATIVE_INJECTOR.createService(
+            INITIATIVE_INJECTOR.createInitiativeFactory(
+                INITIATIVE_INJECTOR.getInitiativeCodeGenerator()),
+            INITIATIVE_INJECTOR.getInitiativeRepository(),
+            INITIATIVE_INJECTOR.createInitiativeCodeAssembler(),
+            INITIATIVE_INJECTOR.createInitiativeAvailableAmountAssembler(),
+            INITIATIVE_INJECTOR.createInitiativeAssembler(FUND_INJECTOR.createMoneyAssembler()),
+            INITIATIVE_INJECTOR.createInitiativeAddAllocatedAmountAssembler(
+                FUND_INJECTOR.createMoneyAssembler()),
+            FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
+  }
+
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
     return Arrays.asList(
         CatchAllExceptionMapper.class,
+        AccessPassExceptionMapper.class,
         AccountExceptionMapper.class,
         CarExceptionMapper.class,
         CommunicationExceptionMapper.class,
         FileExceptionMapper.class,
+        FundExceptionMapper.class,
+        InitiativeExceptionMapper.class,
         LocationExceptionMapper.class,
         ParkingExceptionMapper.class,
         TimeExceptionMapper.class,
-        UserExceptionMapper.class,
-        AccessExceptionMapper.class,
-        FundExceptionMapper.class);
+        UserExceptionMapper.class);
   }
 }

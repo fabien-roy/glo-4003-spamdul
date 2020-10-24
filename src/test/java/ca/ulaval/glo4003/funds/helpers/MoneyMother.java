@@ -6,6 +6,11 @@ import com.github.javafaker.Faker;
 public class MoneyMother {
   public static Money createMoney() {
     double amount = Faker.instance().number().numberBetween(1, 200);
-    return new Money(amount);
+    return Money.fromDouble(amount);
+  }
+
+  public static Money createMoneyBelowAmount(Money maxAmount) {
+    double amount = Faker.instance().number().numberBetween(1, (int) maxAmount.toDouble());
+    return Money.fromDouble(amount);
   }
 }

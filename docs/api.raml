@@ -87,6 +87,19 @@ uses:
             description: Error adding car to user
           404:
             description: User not found
+      get:
+        description: Get all cars of user
+        responses:
+          201:
+            description: All cars of user
+            body:
+              application/json:
+                type: types.Car[]
+                example: !include examples/users/get-users-cars-request.json
+          400:
+            description: Error getting cars of user
+          404:
+            description: User not found
     /accessPasses:
       description: Collection of access passes for user
       post:
@@ -129,6 +142,19 @@ uses:
             description: Error adding parking sticker to user
           404:
             description: User not found
+/api/parkingAreas:
+  description: Collection of parking areas
+  get:
+    description: Get all parking areas
+    responses:
+      200:
+        description: All parking areas
+        body:
+          application/json:
+            type: types.ParkingArea[]
+            example: !include examples/parkingAreas/get-parking-areas-response.json
+      400:
+        description: Error getting all parking areas
 /api/gateEntry:
   description: Gate entry for campus access
   /validateAccessPass:
@@ -239,7 +265,7 @@ uses:
       description: Add amount to initiative
       body:
         application/json:
-          type: types.InitiativeAddedAmount
+          type: types.InitiativeAmountToAdd
           example: !include examples/initiatives/post-initiatives-added-amount-request.json
       responses:
         200:
@@ -248,6 +274,19 @@ uses:
           description: Error adding amount to initiative
         404:
           description: Initiative not not found
+    get:
+      description: Get information about an initiative
+      responses:
+        200:
+          description: Information about an initiative
+          body:
+            application/json:
+              type: types.Initiative
+              example: !include examples/initiatives/get-initiative-response.json
+        400:
+          description: Error getting initiative
+        404:
+          description: Initiative not found
   /availableAmount:
     description: Available amount for funding initiatives
     get:
@@ -304,7 +343,7 @@ uses:
 
             Two response types are possible, one of which is the following.  The other possible
             response type, when `byConsumptionType` is false, is a simple JSON object containing
-            only `profits`, like the response of `POST /api/profits/parkingStickers`. The following
+            only `profits`, like the response of `GET /api/profits/parkingStickers`. The following
             examples showcase both possible response types.
 
             RAML documentation currently do not support multiple types if one of them is an array,

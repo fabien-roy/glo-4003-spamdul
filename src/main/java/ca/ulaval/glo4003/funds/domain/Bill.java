@@ -21,7 +21,7 @@ public class Bill {
     this.billType = billType;
     this.description = description;
     this.amountDue = amountDue;
-    this.amountPaid = Money.ZERO();
+    this.amountPaid = Money.zero();
     this.customDateTime = customDateTime;
   }
 
@@ -56,5 +56,9 @@ public class Bill {
 
   public CustomDateTime getCustomDateTime() {
     return customDateTime;
+  }
+
+  public boolean isBillTypeEqual(BillType billType) {
+    return this.billType.equals(billType);
   }
 }

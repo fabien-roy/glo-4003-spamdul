@@ -14,6 +14,10 @@
 
 ## Project setup
 
+### Prepare SMTP properties
+
+To send emails, we need to have the file `data/emailSmtp.properties` set correctly. An example file is provided to present how this file should be made.
+
 ### Install dependencies and build project
 
 Maven is used as a built automation tool, as well as a dependency manager. To build the application, use : 
@@ -68,7 +72,7 @@ mvn git-code-format:validate-code-format -Dgcf.globPattern=**/*
 
 ### API documentation generation
 
-As said above, all requests for this app are listed on our GitHubPages. We used RAML 1.0. To render documentation, you must install `npm` dependencies and start the script : 
+As said above, all requests for this app are listed on our GitHub Pages. We used RAML 1.0. To render documentation, you must install `npm` dependencies and start the script : 
 
 ```
 cd /docs
