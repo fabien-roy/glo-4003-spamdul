@@ -112,6 +112,7 @@ public class ApplicationInjector {
 
   public ParkingAreaResource createParkingAreaResource() {
     return PARKING_INJECTOR.createParkingAreaResource();
+  }
 
   public InitiativeResource createInitiativeResource() {
     return INITIATIVE_INJECTOR.createInitiativeResource(
