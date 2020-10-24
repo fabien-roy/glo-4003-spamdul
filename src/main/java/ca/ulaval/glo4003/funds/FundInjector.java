@@ -35,8 +35,7 @@ public class FundInjector {
     BillQueryFactory billQueryFactory =
         new BillQueryFactory(billQueryBuilderInMemory, billQueryParamAssemblers);
 
-    return new BillService(
-        billFactory, billRepository, new BillAssembler(), billQueryFactory, billProfitsCalculator);
+    return new BillService(billFactory, billRepository, new BillAssembler(), billQueryFactory);
   }
 
   public MoneyAssembler createMoneyAssembler() {

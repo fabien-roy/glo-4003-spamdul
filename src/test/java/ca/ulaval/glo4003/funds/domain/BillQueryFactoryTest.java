@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamAssembler;
+import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
 import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +21,7 @@ public class BillQueryFactoryTest {
   @Mock private BillQueryParamAssembler firstQueryAssembler;
   @Mock private BillQuery query;
   @Mock private BillQuery filteredQuery;
-
-  private Map<String, List<String>> params = new HashMap<>();
+  @Mock private BillQueryParams billQueryParams;
 
   private Set<BillQueryParamAssembler> queryParamAssemblers = new HashSet<>();
 
@@ -32,7 +32,7 @@ public class BillQueryFactoryTest {
     when(billQueryBuilder.aBillQuery()).thenReturn(billQueryBuilder);
     when(billQueryBuilder.build()).thenReturn(query);
     when(filteredBillQueryBuilder.build()).thenReturn(filteredQuery);
-    when(firstQueryAssembler.assemble(billQueryBuilder, params))
+    when(firstQueryAssembler.assemble(billQueryBuilder, billQueryParams))
         .thenReturn(filteredBillQueryBuilder);
   }
 
@@ -40,7 +40,7 @@ public class BillQueryFactoryTest {
   public void create_withoutAssembler_shouldCreateQuery() {
     billQueryFactory = new BillQueryFactory(billQueryBuilder, Collections.emptySet());
 
-    BillQuery actualQuery = billQueryFactory.create(params);
+    BillQuery actualQuery = billQueryFactory.create(billQueryParams);
 
     assertThat(query).isEqualTo(actualQuery);
   }
@@ -49,7 +49,7 @@ public class BillQueryFactoryTest {
   public void create_withAssemblers_shouldCreateQuery() {
     billQueryFactory = new BillQueryFactory(billQueryBuilder, queryParamAssemblers);
 
-    BillQuery actualQuery = billQueryFactory.create(params);
+    BillQuery actualQuery = billQueryFactory.create(billQueryParams);
 
     assertThat(filteredQuery).isSameInstanceAs(actualQuery);
   }

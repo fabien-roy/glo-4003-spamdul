@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
+import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
@@ -27,12 +28,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class BillServiceTest {
 
-  @Mock BillFactory billFactory;
-  @Mock BillRepository<BillQuery> billRepository;
-  @Mock BillAssembler billAssembler;
-  @Mock BillQueryFactory billQueryFactory;
-  @Mock BillQuery billQuery;
-  @Mock BillProfitsCalculator billProfitsCalculator;
+  @Mock private BillFactory billFactory;
+  @Mock private BillRepository<BillQuery> billRepository;
+  @Mock private BillAssembler billAssembler;
+  @Mock private BillQueryFactory billQueryFactory;
+  @Mock private BillQuery billQuery;
+  @Mock private BillProfitsCalculator billProfitsCalculator;
+  @Mock private BillQueryParams billQueryParams;
 
   private BillService billService;
 
@@ -47,9 +49,7 @@ public class BillServiceTest {
 
   @Before
   public void setUp() {
-    billService =
-        new BillService(
-            billFactory, billRepository, billAssembler, billQueryFactory, billProfitsCalculator);
+    billService = new BillService(billFactory, billRepository, billAssembler, billQueryFactory);
 
     Map<ParkingPeriod, Money> feePerPeriod = new HashMap<>();
     feePerPeriod.put(ParkingPeriod.ONE_DAY, parkingPeriodFee);
@@ -63,7 +63,7 @@ public class BillServiceTest {
         .thenReturn(bill);
     when(billFactory.createForAccessPass(fee, accessPassCode)).thenReturn(bill);
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
-    when(billQueryFactory.create(params)).thenReturn(billQuery);
+    when(billQueryFactory.create(billQueryParams)).thenReturn(billQuery);
     when(billRepository.getBill(bill.getId())).thenReturn(bill);
     when(billRepository.getAll(billQuery)).thenReturn(bills);
     when(billProfitsCalculator.calculate(bills)).thenReturn(fee);
@@ -152,11 +152,4 @@ public class BillServiceTest {
   }
 
   // TODO : Manque un test getAll est pas tester lol
-
-  @Test
-  public void whenGettingAllBills_thenShouldUseProfitsCalculator() {
-    Money total = billService.getAllBills(params);
-
-    assertThat(total).isSameInstanceAs(fee);
-  }
 }
