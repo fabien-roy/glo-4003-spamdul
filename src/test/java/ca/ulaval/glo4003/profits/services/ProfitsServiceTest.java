@@ -11,7 +11,9 @@ import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamsAssembler;
 import ca.ulaval.glo4003.funds.services.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.profits.assemblers.ProfitByConsumptionTypeAssembler;
 import ca.ulaval.glo4003.profits.assemblers.ProfitsAssembler;
+import ca.ulaval.glo4003.profits.domain.ProfitByConsumptionTypeFactory;
 import ca.ulaval.glo4003.times.helpers.CustomDateMother;
 import java.util.List;
 import org.junit.Before;
@@ -35,13 +37,20 @@ public class ProfitsServiceTest {
   @Mock private BillQueryParams billQueryParams;
   @Mock private BillService billService;
   @Mock private BillProfitsCalculator billProfitsCalculator;
+  @Mock private ProfitByConsumptionTypeFactory profitByConsumptionTypeFactory;
+  @Mock private ProfitByConsumptionTypeAssembler profitByConsumptionTypeAssembler;
 
   @Before
   public void setup() {
     profitsAssembler = new ProfitsAssembler();
     profitsService =
         new ProfitsService(
-            profitsAssembler, billService, billQueryParamsAssembler, billProfitsCalculator);
+            profitsAssembler,
+            billService,
+            billQueryParamsAssembler,
+            billProfitsCalculator,
+            profitByConsumptionTypeFactory,
+            profitByConsumptionTypeAssembler);
     when(billQueryParamsAssembler.assembleWithYear(A_YEAR, BillType.PARKING_STICKER))
         .thenReturn(billQueryParams);
     when(billQueryParamsAssembler.assembleWithYear(A_YEAR, BillType.OFFENSE))
