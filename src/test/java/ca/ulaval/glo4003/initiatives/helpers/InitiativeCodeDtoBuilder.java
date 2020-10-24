@@ -5,7 +5,7 @@ import static ca.ulaval.glo4003.initiatives.helpers.InitiativeMother.*;
 import ca.ulaval.glo4003.initiatives.api.dto.InitiativeCodeDto;
 
 public class InitiativeCodeDtoBuilder {
-  private String initiativeCode = createCode().toString();
+  private String initiativeCode = createInitiativeCode().toString();
 
   private InitiativeCodeDtoBuilder() {}
 

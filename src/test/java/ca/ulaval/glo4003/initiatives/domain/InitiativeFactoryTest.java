@@ -16,8 +16,8 @@ public class InitiativeFactoryTest {
   @Mock private InitiativeCodeGenerator initiativeCodeGenerator;
   private InitiativeFactory initiativeFactory;
 
-  private String NAME = createName();
-  private InitiativeCode INITIATIVE_CODE = createCode();
+  private String NAME = createInitiativeName();
+  private InitiativeCode INITIATIVE_CODE = createInitiativeCode();
   private Initiative initiative = anInitiative().withInitiativeCode(null).build();
 
   @Before

@@ -6,8 +6,8 @@ import static ca.ulaval.glo4003.initiatives.helpers.InitiativeMother.*;
 import ca.ulaval.glo4003.initiatives.api.dto.InitiativeDto;
 
 public class InitiativeDtoBuilder {
-  private String code = createCode().toString();
-  private String name = createName();
+  private String code = createInitiativeCode().toString();
+  private String name = createInitiativeName();
   private double allocatedAmount = createMoney().toDouble();
 
   private InitiativeDtoBuilder() {}

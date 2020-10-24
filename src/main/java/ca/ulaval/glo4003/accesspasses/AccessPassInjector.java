@@ -19,6 +19,7 @@ import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,8 @@ public class AccessPassInjector {
       new AccessPassTypeInMemoryRepository();
   private final AccessPassInMemoryRepository accessPassInMemoryRepository =
       new AccessPassInMemoryRepository();
-  private final AccessPassCodeGenerator accessPassCodeGenerator = new AccessPassCodeGenerator();
+  private final AccessPassCodeGenerator accessPassCodeGenerator =
+      new AccessPassCodeGenerator(new StringCodeGenerator());
   private final StringMatrixFileReader fileReader = new CsvFileReader();
 
   public AccessPassInjector() {

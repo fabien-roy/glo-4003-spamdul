@@ -1,56 +1,35 @@
 package ca.ulaval.glo4003.accesspasses.domain;
 
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
-import java.util.List;
+import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AccessPassCodeGeneratorTest {
+  @Mock private StringCodeGenerator stringCodeGenerator;
+
   private AccessPassCodeGenerator accessPassCodeGenerator;
+
+  private final AccessPassCode accessPassCode = createAccessPassCode();
 
   @Before
   public void setUp() {
-    accessPassCodeGenerator = new AccessPassCodeGenerator();
+    accessPassCodeGenerator = new AccessPassCodeGenerator(stringCodeGenerator);
   }
 
   @Test
-  public void whenGenerating_thenReturnDifferentCodes() {
-    AccessPassCode firstCode = accessPassCodeGenerator.generate();
-    AccessPassCode secondCode = accessPassCodeGenerator.generate();
-
-    assertThat(firstCode).isNotEqualTo(secondCode);
-  }
-
-  @Test
-  public void whenGenerating_thenReturnCodeWithPassKeyword() {
-    String passKeyword = "PASS";
+  public void givenPassKeyword_whenGenerating_thenUseCodeFromStringCodeGenerator() {
+    when(stringCodeGenerator.generate("PASS")).thenReturn(accessPassCode.toString());
 
     AccessPassCode code = accessPassCodeGenerator.generate();
 
-    assertThat(code.toString()).contains(passKeyword);
-  }
-
-  @Test
-  public void whenGenerating_thenReturnTwoPartedCode() {
-    String separator = "-";
-
-    AccessPassCode code = accessPassCodeGenerator.generate();
-    List<String> codeParts = Arrays.asList(code.toString().split(separator));
-
-    assertThat(codeParts).hasSize(2);
-  }
-
-  @Test
-  public void whenGenerating_thenReturnCodeWithSixAlphanumericalCharactersAsSecondPart() {
-    String separator = "-";
-    String alphanumericalRegex = "[A-Z0-9]+";
-
-    AccessPassCode code = accessPassCodeGenerator.generate();
-    String secondPart = code.toString().split(separator)[1];
-
-    assertThat(secondPart).hasLength(6);
-    assertThat(secondPart).matches(alphanumericalRegex);
+    assertThat(code).isEqualTo(accessPassCode);
   }
 }
