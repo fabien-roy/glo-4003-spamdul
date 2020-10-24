@@ -5,16 +5,21 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
+import ca.ulaval.glo4003.funds.assemblers.ParkingPeriodPriceAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaResourceImplementation;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingStickerRepositoryInMemory;
+import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +36,13 @@ public class ParkingInjector {
 
   public ParkingAreaRepository getParkingAreaRepository() {
     return parkingAreaRepository;
+  }
+
+  public ParkingAreaResource createParkingAreaResource() {
+    ParkingAreaService parkingAreaService =
+        new ParkingAreaService(
+            parkingAreaRepository, new ParkingAreaAssembler(new ParkingPeriodPriceAssembler()));
+    return new ParkingAreaResourceImplementation(parkingAreaService);
   }
 
   public ParkingStickerRepository getParkingStickerRepository() {
