@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.carboncredits.domain;
 
+import ca.ulaval.glo4003.funds.domain.Money;
 import java.util.Objects;
 
 public class CarbonCredit {
@@ -23,6 +24,10 @@ public class CarbonCredit {
 
   public static CarbonCredit fromDouble(double amount) {
     return new CarbonCredit(amount);
+  }
+
+  public static CarbonCredit fromMoney(Money money) {
+    return new CarbonCredit(money.toDouble());
   }
 
   @Override
