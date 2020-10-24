@@ -248,11 +248,22 @@ uses:
     uriParameters:
       initiativeCode:
         type: types.InitiativeCode
+    get:
+      description: Get initiative information
+      responses:
+        200:
+          description: initiative information
+          body:
+            application/json:
+              type: types.Initiative
+              example: !include examples/initiatives/get-initiative-response.json
+        404:
+          description: Initiative not found
     post:
       description: Add amount to initiative
       body:
         application/json:
-          type: types.InitiativeAddedAmount
+          type: types.InitiativeAmountToAdd
           example: !include examples/initiatives/post-initiatives-added-amount-request.json
       responses:
         200:
