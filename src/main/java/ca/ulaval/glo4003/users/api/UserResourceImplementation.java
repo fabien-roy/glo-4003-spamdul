@@ -85,6 +85,17 @@ public class UserResourceImplementation implements UserResource {
   }
 
   @Override
+  public Response getCars(String accountId) {
+    List<CarDto> carsDto = carService.getCars(accountId);
+    GenericEntity<List<CarDto>> entities = new GenericEntity<List<CarDto>>(carsDto) {};
+
+    return Response.status(Response.Status.OK)
+        .entity(entities)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
+
+  @Override
   public Response getBills(String accountId) {
     List<BillDto> billsDto = accountService.getBills(accountId);
     GenericEntity<List<BillDto>> entities = new GenericEntity<List<BillDto>>(billsDto) {};

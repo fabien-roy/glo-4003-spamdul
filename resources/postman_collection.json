@@ -179,6 +179,50 @@
 					"response": []
 				},
 				{
+					"name": "Get user's cars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1d7a7203-9b83-4a06-a4ac-40ffcd9a3644",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Add car to user",
 					"event": [
 						{

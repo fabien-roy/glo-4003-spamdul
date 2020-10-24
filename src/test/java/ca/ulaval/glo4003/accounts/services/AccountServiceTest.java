@@ -6,6 +6,7 @@ import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePla
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingStickerCode;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
@@ -22,7 +23,6 @@ import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
-import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -72,7 +72,7 @@ public class AccountServiceTest {
   public void whenAddingCar_shouldAddLicensePlateToAccount() {
     accountService.addLicensePlateToAccount(account.getId(), licensePlate);
 
-    Truth.assertThat(account.getLicensePlates()).contains(licensePlate);
+    assertThat(account.getLicensePlates()).contains(licensePlate);
   }
 
   @Test
@@ -86,14 +86,14 @@ public class AccountServiceTest {
   public void whenAddingParkingSticker_shouldAddParkingStickerCodeToAccount() {
     accountService.addParkingStickerToAccount(account.getId(), parkingStickerCode, billId);
 
-    Truth.assertThat(account.getParkingStickerCodes()).contains(parkingStickerCode);
+    assertThat(account.getParkingStickerCodes()).contains(parkingStickerCode);
   }
 
   @Test
   public void whenAddingParkingSticker_shouldAddBillIdToAccount() {
     accountService.addParkingStickerToAccount(account.getId(), parkingStickerCode, billId);
 
-    Truth.assertThat(account.getBillIds()).contains(billId);
+    assertThat(account.getBillIds()).contains(billId);
   }
 
   @Test
@@ -107,14 +107,14 @@ public class AccountServiceTest {
   public void whenAddingAccessCode_shouldAddAccessCodeToAccount() {
     accountService.addAccessCodeToAccount(account.getId(), accessPassCode, billId);
 
-    Truth.assertThat(account.getAccessPassCodes()).contains(accessPassCode);
+    assertThat(account.getAccessPassCodes()).contains(accessPassCode);
   }
 
   @Test
   public void whenAddingAccessCode_shouldAddBillIdToAccount() {
     accountService.addAccessCodeToAccount(account.getId(), accessPassCode, billId);
 
-    Truth.assertThat(account.getBillIds()).contains(billId);
+    assertThat(account.getBillIds()).contains(billId);
   }
 
   @Test
@@ -128,7 +128,7 @@ public class AccountServiceTest {
   public void whenAddingOffense_shouldAddBillIdToAccount() {
     accountService.addOffenseToAccount(account.getId(), billId);
 
-    Truth.assertThat(account.getBillIds()).contains(billId);
+    assertThat(account.getBillIds()).contains(billId);
   }
 
   @Test

@@ -15,6 +15,9 @@ import ca.ulaval.glo4003.funds.FundInjector;
 import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
 import ca.ulaval.glo4003.gateentries.GateEntryInjector;
 import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
+import ca.ulaval.glo4003.initiatives.InitiativeInjector;
+import ca.ulaval.glo4003.initiatives.api.InitiativeExceptionMapper;
+import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
 import ca.ulaval.glo4003.interfaces.api.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.locations.LocationInjector;
 import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
@@ -49,6 +52,7 @@ public class ApplicationInjector {
   private static final TimeInjector TIME_INJECTOR = new TimeInjector();
   private static final UserInjector USER_INJECTOR = new UserInjector();
   private static final CarbonCreditInjector CARBON_CREDIT_INJECTOR = new CarbonCreditInjector();
+  private static final InitiativeInjector INITIATIVE_INJECTOR = new InitiativeInjector();
 
   public UserResource createUserResource() {
     List<ParkingStickerCreationObserver> parkingStickerCreationObservers =
@@ -108,20 +112,34 @@ public class ApplicationInjector {
 
   public ParkingAreaResource createParkingAreaResource() {
     return PARKING_INJECTOR.createParkingAreaResource();
+
+  public InitiativeResource createInitiativeResource() {
+    return INITIATIVE_INJECTOR.createInitiativeResource(
+        INITIATIVE_INJECTOR.createService(
+            INITIATIVE_INJECTOR.createInitiativeFactory(
+                INITIATIVE_INJECTOR.getInitiativeCodeGenerator()),
+            INITIATIVE_INJECTOR.getInitiativeRepository(),
+            INITIATIVE_INJECTOR.createInitiativeCodeAssembler(),
+            INITIATIVE_INJECTOR.createInitiativeAvailableAmountAssembler(),
+            INITIATIVE_INJECTOR.createInitiativeAssembler(FUND_INJECTOR.createMoneyAssembler()),
+            INITIATIVE_INJECTOR.createInitiativeAddAllocatedAmountAssembler(
+                FUND_INJECTOR.createMoneyAssembler()),
+            FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
     return Arrays.asList(
         CatchAllExceptionMapper.class,
+        AccessPassExceptionMapper.class,
         AccountExceptionMapper.class,
         CarExceptionMapper.class,
         CommunicationExceptionMapper.class,
         FileExceptionMapper.class,
+        FundExceptionMapper.class,
+        InitiativeExceptionMapper.class,
         LocationExceptionMapper.class,
         ParkingExceptionMapper.class,
         TimeExceptionMapper.class,
-        UserExceptionMapper.class,
-        AccessPassExceptionMapper.class,
-        FundExceptionMapper.class);
+        UserExceptionMapper.class);
   }
 }
