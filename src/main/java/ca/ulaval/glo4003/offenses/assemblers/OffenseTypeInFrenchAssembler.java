@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
-import ca.ulaval.glo4003.offenses.filesystem.dto.OffenseInFrenchDto;
+import ca.ulaval.glo4003.offenses.filesystem.dto.OffenseDtoInFrench;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,14 +19,14 @@ public class OffenseTypeInFrenchAssembler {
     this.moneyAssembler = moneyAssembler;
   }
 
-  public OffenseType assemble(OffenseInFrenchDto offenseInFrenchDto) {
-    OffenseCode offenseCode = offenseCodeAssembler.assemble(offenseInFrenchDto.code);
-    Money amount = moneyAssembler.assemble(offenseInFrenchDto.montant);
+  public OffenseType assemble(OffenseDtoInFrench offenseDtoInFrench) {
+    OffenseCode offenseCode = offenseCodeAssembler.assemble(offenseDtoInFrench.code);
+    Money amount = moneyAssembler.assemble(offenseDtoInFrench.montant);
 
-    return new OffenseType(offenseInFrenchDto.infraction, offenseCode, amount);
+    return new OffenseType(offenseDtoInFrench.infraction, offenseCode, amount);
   }
 
-  public List<OffenseType> assembleMany(List<OffenseInFrenchDto> offensesInFrenchDto) {
+  public List<OffenseType> assembleMany(List<OffenseDtoInFrench> offensesInFrenchDto) {
     return offensesInFrenchDto.stream().map(this::assemble).collect(Collectors.toList());
   }
 }
