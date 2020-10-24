@@ -3898,8 +3898,8 @@
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid initiative amount\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative amount\")",
+															"pm.test(\"Returns invalid amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount of money\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -3943,8 +3943,8 @@
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid initiative amount\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative amount\")",
+															"pm.test(\"Returns invalid amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount of money\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -3988,8 +3988,8 @@
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid initiative amount\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative amount\")",
+															"pm.test(\"Returns invalid amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount of money\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -4033,8 +4033,8 @@
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid initiative amount\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative amount\")",
+															"pm.test(\"Returns negative amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Negative amount of money\")",
 															"});"
 														],
 														"type": "text/javascript"

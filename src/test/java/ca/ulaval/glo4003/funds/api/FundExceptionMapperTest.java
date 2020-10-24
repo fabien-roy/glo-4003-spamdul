@@ -34,6 +34,15 @@ public class FundExceptionMapperTest {
   }
 
   @Test
+  public void givenInvalidMoneyException_whenResponding_thenStatusIsBadRequest() {
+    FundException amountDueExceededException = new InvalidMoneyException();
+
+    Response response = fundExceptionMapper.toResponse(amountDueExceededException);
+
+    assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+  }
+
+  @Test
   public void givenNegativeMoneyException_whenResponding_thenStatusIsBadRequest() {
     FundException amountDueExceededException = new NegativeMoneyException();
 
