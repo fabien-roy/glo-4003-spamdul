@@ -33,6 +33,10 @@ public class BillServiceTest {
   @Mock BillQueryFactory billQueryFactory;
   @Mock BillQuery billQuery;
   @Mock BillProfitsCalculator billProfitsCalculator;
+  @Mock SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
+
+  @Mock
+  SustainableMobilityProgramAllocationCalculator sustainableMobilityProgramAllocationCalculator;
 
   private BillService billService;
 
@@ -50,7 +54,13 @@ public class BillServiceTest {
   public void setUp() {
     billService =
         new BillService(
-            billFactory, billRepository, billAssembler, billQueryFactory, billProfitsCalculator);
+            billFactory,
+            billRepository,
+            billAssembler,
+            billQueryFactory,
+            billProfitsCalculator,
+            sustainableMobilityProgramBankRepository,
+            sustainableMobilityProgramAllocationCalculator);
 
     Map<ParkingPeriod, Money> feePerPeriod = new HashMap<>();
     feePerPeriod.put(ParkingPeriod.ONE_DAY, parkingPeriodFee);
