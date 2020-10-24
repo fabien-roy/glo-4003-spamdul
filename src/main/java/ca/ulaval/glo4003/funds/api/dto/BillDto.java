@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.funds.api.dto;
 
-
 import java.util.Optional;
 
 public class BillDto {

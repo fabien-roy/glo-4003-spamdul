@@ -134,11 +134,13 @@ public class AccessPassServiceTest {
         .thenReturn(notZeroPollutionAccessPassType);
     when(billService.addBillForAccessCode(
             zeroPollutionAccessPassType.getFeeForPeriod(AccessPeriod.ONE_DAY),
-            accessPass.getCode()))
+            accessPass.getCode(),
+            car.getConsumptionType()))
         .thenReturn(zeroPollutionBillId);
     when(billService.addBillForAccessCode(
             notZeroPollutionAccessPassType.getFeeForPeriod(AccessPeriod.ONE_DAY),
-            accessPass.getCode()))
+            accessPass.getCode(),
+            car.getConsumptionType()))
         .thenReturn(notZeroPollutionBillId);
     when(accessPassRepository.save(accessPass)).thenReturn(accessPass.getCode());
     when(accessPassCodeAssembler.assemble(accessPass.getCode())).thenReturn(accessPassCodeDto);
