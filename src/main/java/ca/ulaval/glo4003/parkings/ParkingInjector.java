@@ -10,6 +10,7 @@ import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingPeriodAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.*;
@@ -28,6 +29,7 @@ public class ParkingInjector {
   private final ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
   private final ParkingStickerRepository parkingStickerRepository =
       new ParkingStickerRepositoryInMemory();
+  private final ParkingPeriodAssembler parkingPeriodAssembler = new ParkingPeriodAssembler();
 
   public ParkingAreaRepository getParkingAreaRepository() {
     return parkingAreaRepository;
@@ -102,10 +104,9 @@ public class ParkingInjector {
                   .keySet()
                   .forEach(
                       period -> {
-                        ParkingPeriod parkingPeriod =
-                            ParkingPeriod.get(period); // TODO translate in english
+                        ParkingFrenchPeriod parkingPeriod = ParkingFrenchPeriod.get(period);
                         Money fee = Money.fromDouble(zonesAndFees.get(zone).get(period));
-                        feesPerPeriod.put(parkingPeriod, fee);
+                        feesPerPeriod.put(parkingPeriodAssembler.assemble(parkingPeriod), fee);
                       });
               parkingAreas.add(new ParkingArea(parkingAreaCode, feesPerPeriod));
             });

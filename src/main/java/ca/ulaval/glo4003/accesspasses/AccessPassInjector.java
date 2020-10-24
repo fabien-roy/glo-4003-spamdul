@@ -2,10 +2,8 @@ package ca.ulaval.glo4003.accesspasses;
 
 import ca.ulaval.glo4003.accesspasses.assembler.AccessPassAssembler;
 import ca.ulaval.glo4003.accesspasses.assembler.AccessPassCodeAssembler;
-import ca.ulaval.glo4003.accesspasses.domain.AccessPassCodeGenerator;
-import ca.ulaval.glo4003.accesspasses.domain.AccessPassFactory;
-import ca.ulaval.glo4003.accesspasses.domain.AccessPassType;
-import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
+import ca.ulaval.glo4003.accesspasses.assembler.AccessPassPeriodAssembler;
+import ca.ulaval.glo4003.accesspasses.domain.*;
 import ca.ulaval.glo4003.accesspasses.infrastructure.AccessPassInMemoryRepository;
 import ca.ulaval.glo4003.accesspasses.infrastructure.AccessPassTypeInMemoryRepository;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
@@ -34,6 +32,8 @@ public class AccessPassInjector {
   private final AccessPassCodeGenerator accessPassCodeGenerator = new AccessPassCodeGenerator();
   private final StringMatrixFileReader fileReader = new CsvFileReader();
   private final ConsumptionAssembler consumptionAssembler = new ConsumptionAssembler();
+  private final AccessPassPeriodAssembler accessPassPeriodAssembler =
+      new AccessPassPeriodAssembler();
 
   public AccessPassInjector() {
     addAccessPassByConsumptionTypesToRepository();
@@ -77,10 +77,9 @@ public class AccessPassInjector {
                   .keySet()
                   .forEach(
                       period -> {
-                        AccessPeriod accessPeriod =
-                            AccessPeriod.get(period); // TODO translate in english
+                        AccessFrenchPeriod accessPeriod = AccessFrenchPeriod.get(period);
                         Money fee = Money.fromDouble(zonesAndFees.get(consommation).get(period));
-                        feesPerPeriod.put(accessPeriod, fee);
+                        feesPerPeriod.put(accessPassPeriodAssembler.assemble(accessPeriod), fee);
                       });
               accessConsumption.add(
                   new AccessPassType(
