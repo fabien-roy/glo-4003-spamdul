@@ -1,12 +1,12 @@
 package ca.ulaval.glo4003.parkings.assemblers;
 
-import ca.ulaval.glo4003.parkings.domain.ParkingFrenchPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
+import ca.ulaval.glo4003.parkings.domain.ParkingPeriodInFrench;
 import ca.ulaval.glo4003.parkings.exceptions.InvalidParkingPeriodException;
 
 public class ParkingPeriodAssembler {
-  public ParkingPeriod assemble(ParkingFrenchPeriod parkingFrenchPeriod) {
-    switch (parkingFrenchPeriod) {
+  public ParkingPeriod assemble(ParkingPeriodInFrench parkingPeriodInFrench) {
+    switch (parkingPeriodInFrench) {
       case UNE_JOURNEE:
         return ParkingPeriod.ONE_DAY;
       case MENSUEL:

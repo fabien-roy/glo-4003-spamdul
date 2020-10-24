@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.parkings.exceptions.InvalidParkingPeriodException;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ParkingFrenchPeriod {
+public enum ParkingPeriodInFrench {
   UNE_JOURNEE("1j/sem/session"),
   MENSUEL("mensuel"),
   UNE_SESSION("1 session"),
@@ -12,22 +12,22 @@ public enum ParkingFrenchPeriod {
   TROIS_SESSIONS("3 session");
 
   private String period;
-  private static final Map<String, ParkingFrenchPeriod> lookup = new HashMap<>();
+  private static final Map<String, ParkingPeriodInFrench> lookup = new HashMap<>();
 
   static {
-    for (ParkingFrenchPeriod period : ParkingFrenchPeriod.values()) {
+    for (ParkingPeriodInFrench period : ParkingPeriodInFrench.values()) {
       lookup.put(period.toString(), period);
     }
   }
 
-  ParkingFrenchPeriod(String period) {
+  ParkingPeriodInFrench(String period) {
     this.period = period;
   }
 
-  public static ParkingFrenchPeriod get(String period) {
+  public static ParkingPeriodInFrench get(String period) {
     if (period == null) throw new InvalidParkingPeriodException();
 
-    ParkingFrenchPeriod foundPeriod = lookup.get(period.toLowerCase());
+    ParkingPeriodInFrench foundPeriod = lookup.get(period.toLowerCase());
 
     if (foundPeriod == null) throw new InvalidParkingPeriodException();
 

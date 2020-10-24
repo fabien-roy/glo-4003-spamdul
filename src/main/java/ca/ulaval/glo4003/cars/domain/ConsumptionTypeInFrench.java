@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum ConsommationType {
+public enum ConsumptionTypeInFrench {
   GOURMANDE("gourmande"),
   ECONOMIQUE("économique"),
   HYBRIDE_ECONOMIQUE("hybride économique"),
@@ -13,22 +13,22 @@ public enum ConsommationType {
   ZERO_POLLUTION("0 pollution");
 
   String consommationType;
-  private static final Map<String, ConsommationType> lookup = new HashMap<>();
+  private static final Map<String, ConsumptionTypeInFrench> lookup = new HashMap<>();
 
   static {
-    for (ConsommationType name : ConsommationType.values()) {
+    for (ConsumptionTypeInFrench name : ConsumptionTypeInFrench.values()) {
       lookup.put(name.toString(), name);
     }
   }
 
-  ConsommationType(String consumptionType) {
+  ConsumptionTypeInFrench(String consumptionType) {
     this.consommationType = consumptionType;
   }
 
-  public static ConsommationType get(String type) {
+  public static ConsumptionTypeInFrench get(String type) {
     if (type == null) throw new InvalidConsumptionTypeException();
 
-    ConsommationType foundType = lookup.get(type.toLowerCase());
+    ConsumptionTypeInFrench foundType = lookup.get(type.toLowerCase());
 
     if (foundType == null) {
       byte[] consumptionTypeUtf8 = type.getBytes();

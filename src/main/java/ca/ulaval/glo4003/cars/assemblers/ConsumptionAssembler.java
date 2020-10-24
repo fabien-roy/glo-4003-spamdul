@@ -1,13 +1,13 @@
 package ca.ulaval.glo4003.cars.assemblers;
 
-import ca.ulaval.glo4003.cars.domain.ConsommationType;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
+import ca.ulaval.glo4003.cars.domain.ConsumptionTypeInFrench;
 import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
 
 public class ConsumptionAssembler {
 
-  public ConsumptionType assemble(ConsommationType consommationType) {
-    switch (consommationType) {
+  public ConsumptionType assemble(ConsumptionTypeInFrench consumptionTypeInFrench) {
+    switch (consumptionTypeInFrench) {
       case GOURMANDE:
         return ConsumptionType.GREEDY;
       case ECONOMIQUE:

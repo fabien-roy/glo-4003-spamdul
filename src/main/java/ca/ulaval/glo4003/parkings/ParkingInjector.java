@@ -104,7 +104,7 @@ public class ParkingInjector {
                   .keySet()
                   .forEach(
                       period -> {
-                        ParkingFrenchPeriod parkingPeriod = ParkingFrenchPeriod.get(period);
+                        ParkingPeriodInFrench parkingPeriod = ParkingPeriodInFrench.get(period);
                         Money fee = Money.fromDouble(zonesAndFees.get(zone).get(period));
                         feesPerPeriod.put(parkingPeriodAssembler.assemble(parkingPeriod), fee);
                       });

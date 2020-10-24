@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPeriodException;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum AccessFrenchPeriod {
+public enum AccessPeriodInFrench {
   UNE_HEURE("1h"),
   UNE_JOURNEE("1j"),
   UNE_JOURNEE_PAR_SEMAINE_POUR_SESSION("1j/semaine/session"),
@@ -13,15 +13,15 @@ public enum AccessFrenchPeriod {
   TROIS_SESSIONS("3 session");
 
   private String period;
-  private static final Map<String, AccessFrenchPeriod> lookup = new HashMap<>();
+  private static final Map<String, AccessPeriodInFrench> lookup = new HashMap<>();
 
   static {
-    for (AccessFrenchPeriod period : AccessFrenchPeriod.values()) {
+    for (AccessPeriodInFrench period : AccessPeriodInFrench.values()) {
       lookup.put(period.toString(), period);
     }
   }
 
-  AccessFrenchPeriod(String period) {
+  AccessPeriodInFrench(String period) {
     this.period = period;
   }
 
@@ -30,10 +30,10 @@ public enum AccessFrenchPeriod {
     return period;
   }
 
-  public static AccessFrenchPeriod get(String period) {
+  public static AccessPeriodInFrench get(String period) {
     if (period == null) throw new InvalidAccessPeriodException();
 
-    AccessFrenchPeriod foundPeriod = lookup.get(period.toLowerCase());
+    AccessPeriodInFrench foundPeriod = lookup.get(period.toLowerCase());
 
     if (foundPeriod == null) throw new InvalidAccessPeriodException();
 
