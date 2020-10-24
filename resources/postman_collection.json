@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fec73825-e53e-4944-8f85-95ef7d515cce",
+		"_postman_id": "76c8c28b-8a33-47f1-bc6f-5cc1a01415f8",
 		"name": "SPAMD-UL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ceaf5b39-6925-478b-b2f0-0911334576e7",
+								"id": "0eb7ea63-8b35-40fb-9cd6-109167fe5361",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
@@ -54,7 +54,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4a70557f-d5d4-44de-8beb-08a9fe968bf8",
+								"id": "38542a10-347b-4481-b05a-40830773e488",
 								"exec": [
 									""
 								],
@@ -97,7 +97,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "47118fd1-0421-46da-a807-5eac329646c1",
+								"id": "4b3ac8ad-8c22-49b4-a814-37315f11e71d",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.billId\", jsonData[0].billId);"
@@ -142,7 +142,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3e0970fd-d645-4062-bbc2-60745d4e5a04",
+								"id": "31a57d77-984f-4aa1-acaa-9b0a12c14ae6",
 								"exec": [
 									""
 								],
@@ -184,7 +184,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1d7a7203-9b83-4a06-a4ac-40ffcd9a3644",
+								"id": "1bb75ab9-0341-4fc5-8cfb-9b60e97ac5dd",
 								"exec": [
 									""
 								],
@@ -228,7 +228,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d8a1e46f-d00a-4ba4-9914-e8d0581ecafb",
+								"id": "3b668a9f-5b9f-4bf1-a012-9be5f366a6f5",
 								"exec": [
 									""
 								],
@@ -269,7 +269,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0d837524-508c-40e0-8600-7bb004994456",
+								"id": "e09c6ceb-522b-4c9e-b768-a28e69266f86",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
@@ -311,7 +311,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "aa424acc-1539-4981-be1b-5d8603294f81",
+								"id": "e8c530b9-e3e4-4011-a182-b6f94a3d1ff6",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
@@ -353,7 +353,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "fa188b49-16d0-4d82-bf18-70eacd498ef8",
+								"id": "a27a8811-e50e-4bec-b38c-d1f82f243430",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
@@ -393,6 +393,54 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "Parking areas",
+			"item": [
+				{
+					"name": "Get parking areas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cd7621bd-39dd-4d23-b8b9-f2705dd0a2a7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/parkingAreas",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"parkingAreas"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Gate entry",
 			"item": [
 				{
@@ -401,7 +449,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "47267477-5c4f-483b-ae9b-f569a748531c",
+								"id": "719dd764-32aa-40e4-b78e-2b08362d5f6f",
 								"exec": [
 									""
 								],
@@ -448,7 +496,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "249e3ec7-99d2-4dc2-91c9-e8cba88f1967",
+								"id": "e6a1b223-d40f-4f06-9557-769090711a0f",
 								"exec": [
 									""
 								],
@@ -491,7 +539,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c313947b-bb6b-44eb-a4c0-d2b425eda3c2",
+								"id": "ce4e93ea-45ec-4680-a12c-ea2cb77ceb4e",
 								"exec": [
 									""
 								],
@@ -537,7 +585,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "cf3e622d-d0ec-4964-903a-6e99a548b477",
+								"id": "b8a7ffc6-0f49-4ef8-bf71-735a7e1bfd47",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.initiativeCode\", jsonData.initiativeCode);"
@@ -650,7 +698,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e5413957-3fe2-4c71-82fb-b00115442dff",
+								"id": "04920dd2-dabf-4b1d-b32b-08eb3549f69e",
 								"exec": [
 									""
 								],
@@ -727,7 +775,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "91b81b74-c5d2-43dc-bbff-d18de54a2fe4",
+								"id": "16a96754-fd07-407e-bfc4-0ff64bf898b9",
 								"exec": [
 									""
 								],
@@ -776,7 +824,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "994fd4fc-95da-4f71-a92e-b83090478b60",
+								"id": "df7d1a3a-02bf-4b48-8baf-59903c9c1ff9",
 								"exec": [
 									""
 								],
@@ -825,7 +873,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "84e01870-9a0d-46ee-b0af-daffe4026ffa",
+								"id": "276733c0-5354-4736-acbe-fe68b9266e44",
 								"exec": [
 									""
 								],
@@ -878,7 +926,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6648dfd2-e8b5-4d93-8a91-7de35fc22290",
+								"id": "40ca22dd-d6d9-4916-9c8c-79e002eab433",
 								"exec": [
 									""
 								],
@@ -933,7 +981,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "598b6dae-be1b-4c88-9e3a-c683eaa125b4",
+								"id": "a72a1883-130c-49fa-a7af-51e863b885de",
 								"exec": [
 									""
 								],
@@ -972,7 +1020,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "28da7bda-3065-43a3-81b2-caf98599d183",
+								"id": "794c4b3a-2d59-4c55-ad07-ffcbd1f8b0be",
 								"exec": [
 									""
 								],
