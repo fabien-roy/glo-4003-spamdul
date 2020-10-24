@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.offenses.domain;
+package ca.ulaval.glo4003.initiatives.domain;
 
-public class OffenseCode {
+public class InitiativeCode {
   private final String code;
 
-  public OffenseCode(String code) {
+  public InitiativeCode(String code) {
     this.code = code;
   }
 
@@ -16,9 +16,9 @@ public class OffenseCode {
   public boolean equals(Object object) {
     if (object == null || getClass() != object.getClass()) return false;
 
-    OffenseCode offenseCode = (OffenseCode) object;
+    InitiativeCode initiativeCode = (InitiativeCode) object;
 
-    return this.code.equals(offenseCode.toString());
+    return code.equals(initiativeCode.toString());
   }
 
   @Override

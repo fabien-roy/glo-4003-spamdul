@@ -15,14 +15,14 @@ import java.util.logging.Logger;
 public class BillService {
   private final Logger logger = Logger.getLogger(BillService.class.getName());
   private final BillFactory billFactory;
-  private final BillRepository billRepository;
+  private final BillRepository<BillQuery> billRepository;
   private final BillAssembler billAssembler;
   private final BillQueryFactory billQueryFactory;
   private final BillProfitsCalculator billProfitsCalculator;
 
   public BillService(
       BillFactory billFactory,
-      BillRepository billRepository,
+      BillRepository<BillQuery> billRepository,
       BillAssembler billAssembler,
       BillQueryFactory billQueryFactory,
       BillProfitsCalculator billProfitsCalculator) {
@@ -34,7 +34,7 @@ public class BillService {
   }
 
   public BillId addBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
-    logger.info(String.format("Create bill for parking sticker %s", parkingSticker));
+    logger.info(String.format("Create bill for parking sticker %s", parkingSticker.getCode()));
 
     Money feeForPeriod =
         parkingArea.getFeeForPeriod(ParkingPeriod.ONE_DAY); // TODO : Will this always be one day?
@@ -48,6 +48,8 @@ public class BillService {
   }
 
   public BillId addBillForAccessCode(Money fee, AccessPassCode accessPassCode) {
+    logger.info(String.format("Create bill for access code %s", accessPassCode));
+
     Bill bill = billFactory.createForAccessPass(fee, accessPassCode);
 
     billRepository.save(bill);
@@ -56,6 +58,8 @@ public class BillService {
   }
 
   public BillId addBillOffense(Money fee, OffenseCode offenseCode) {
+    logger.info(String.format("Create bill for offense %s", offenseCode));
+
     Bill bill = billFactory.createForOffense(fee, offenseCode);
 
     billRepository.save(bill);
@@ -64,6 +68,8 @@ public class BillService {
   }
 
   public BillDto payBill(BillId billId, Money amountToPay) {
+    logger.info(String.format("Paying bill %s an amount of %s", billId, amountToPay));
+
     Bill bill = getBill(billId);
     bill.pay(amountToPay);
     billRepository.updateBill(bill);

@@ -28,7 +28,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class BillServiceTest {
 
   @Mock BillFactory billFactory;
-  @Mock BillRepository billRepository;
+  @Mock BillRepository<BillQuery> billRepository;
   @Mock BillAssembler billAssembler;
   @Mock BillQueryFactory billQueryFactory;
   @Mock BillQuery billQuery;
@@ -44,7 +44,7 @@ public class BillServiceTest {
   private final Money amountDue = Money.fromDouble(1);
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final OffenseCode offenseCode = createOffenseCode();
-  private Map<String, List<String>> params = new HashMap<>();
+  private final Map<String, List<String>> params = new HashMap<>();
 
   @Before
   public void setUp() {
