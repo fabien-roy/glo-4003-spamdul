@@ -2,15 +2,17 @@
   {
     "billId": "e5258b65-06e3-477b-9119-8da7aeab98a0",
     "billType": "offense",
-    "description": "Offense with offense code 31165661-962c-4bb5-befd-1f9f44f253df",
+    "description": "Offense with offense code ZONE_01",
     "amountDue": 100.0,
-    "amountPaid": 0.0
+    "amountPaid": 0.0,
+    "time": "2020-10-24T12:16:03.022795"
   },
   {
     "billId": "e78e9362-93a8-46a7-badf-d849b0d09c4c",
     "billType": "parkingSticker",
-    "description": "Purchase of a parking sticker with code a2cc479c-6889-45cc-8f6c-97eb64127399",
+    "description": "Purchase of a parking sticker with code PARK-12345",
     "amountDue": 80.0,
-    "amountPaid": 20.0
+    "amountPaid": 20.0,
+    "time": "2020-10-24T12:16:31.73571"
   }
 ]
