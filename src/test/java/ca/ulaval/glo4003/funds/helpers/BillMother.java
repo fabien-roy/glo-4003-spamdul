@@ -19,8 +19,4 @@ public class BillMother {
   public static BillType createBillType() {
     return randomEnum(BillType.class);
   }
-
-  public static int createYear() {
-    return Faker.instance().number().numberBetween(2000, 2020);
-  }
 }
