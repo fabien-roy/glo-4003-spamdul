@@ -24,8 +24,7 @@ public class ParkingStickerRepositoryInMemoryTest {
   public void whenSavingParkingSticker_thenParkingStickerCanBeFound() {
     parkingStickerRepository.save(parkingSticker);
 
-    ParkingSticker foundParkingSticker =
-        parkingStickerRepository.findByCode(parkingSticker.getCode());
+    ParkingSticker foundParkingSticker = parkingStickerRepository.get(parkingSticker.getCode());
 
     Truth.assertThat(foundParkingSticker).isSameInstanceAs(parkingSticker);
   }
@@ -33,6 +32,6 @@ public class ParkingStickerRepositoryInMemoryTest {
   @Test(expected = NotFoundParkingStickerException.class)
   public void
       givenNonExistentParkingStickerCode_whenGettingParkingSticker_thenThrowNotFoundParkingStickerCodeException() {
-    parkingStickerRepository.findByCode(parkingSticker.getCode());
+    parkingStickerRepository.get(parkingSticker.getCode());
   }
 }

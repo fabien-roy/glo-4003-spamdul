@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.communications.assemblers;
 
-import static ca.ulaval.glo4003.communications.helpers.EmailAddressMother.createEmailAddress;
+import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAddress;
 
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
 import ca.ulaval.glo4003.communications.exceptions.InvalidEmailAddressException;
@@ -25,7 +25,6 @@ public class EmailAddressAssemblerTest {
     Truth.assertThat(postalCode).isEqualTo(EMAIL_ADDRESS);
   }
 
-  // TODO : A parametrized test would allow us to test many invalid email addresses, but JUnit 4.
   @Test(expected = InvalidEmailAddressException.class)
   public void givenInvalidEmailAddress_whenAssembling_thenThrowInvalidEmailAddressException() {
     String invalidEmailAddress = "invalidEmailAddress";

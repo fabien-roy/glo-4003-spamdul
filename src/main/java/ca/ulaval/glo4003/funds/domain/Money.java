@@ -25,12 +25,16 @@ public class Money {
     return amount;
   }
 
-  public static Money ZERO() {
+  public static Money zero() {
     return new Money(0);
   }
 
   public static Money fromDouble(double amount) {
     return new Money(amount);
+  }
+
+  public boolean isLessThan(Money money) {
+    return this.amount < money.toDouble();
   }
 
   @Override

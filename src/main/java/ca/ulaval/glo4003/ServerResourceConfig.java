@@ -17,8 +17,11 @@ public class ServerResourceConfig {
               public Set<Object> getSingletons() {
                 HashSet<Object> resources = new HashSet<>();
                 resources.add(APPLICATION_INJECTOR.createUserResource());
-                resources.add(APPLICATION_INJECTOR.createParkingResource());
                 resources.add(APPLICATION_INJECTOR.createOffenseResource());
+                resources.add(APPLICATION_INJECTOR.createGateEntryResource());
+                resources.add(APPLICATION_INJECTOR.createCarbonCreditResource());
+                resources.add(APPLICATION_INJECTOR.createParkingAreaResource());
+                resources.add(APPLICATION_INJECTOR.createInitiativeResource());
                 return resources;
               }
 

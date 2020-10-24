@@ -1,11 +1,12 @@
 package ca.ulaval.glo4003.users;
 
-import ca.ulaval.glo4003.access.services.AccessPassService;
+import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.services.CarService;
+import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
 import ca.ulaval.glo4003.users.api.UserResource;
 import ca.ulaval.glo4003.users.api.UserResourceImplementation;
@@ -21,13 +22,14 @@ public class UserInjector {
       CustomDateAssembler customDateAssembler,
       AccessPassService accessPassService,
       CarService carService,
-      AccountService accountService) {
+      AccountService accountService,
+      ParkingStickerService parkingStickerService) {
     UserAssembler userAssembler = new UserAssembler(customDateAssembler);
 
     UserService userService =
         new UserService(accountRepository, accountFactory, accountIdAssembler, userAssembler);
 
     return new UserResourceImplementation(
-        userService, accessPassService, carService, accountService);
+        userService, accessPassService, carService, accountService, parkingStickerService);
   }
 }

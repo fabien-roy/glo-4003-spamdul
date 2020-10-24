@@ -20,6 +20,4 @@ public class CustomDateAssembler {
 
     return new CustomDate(localDate);
   }
-
-  // TODO : Should CustomDateAssembler convert date to string?
 }

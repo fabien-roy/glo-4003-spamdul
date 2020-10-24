@@ -5,19 +5,23 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
+import ca.ulaval.glo4003.funds.assemblers.ParkingPeriodPriceAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
-import ca.ulaval.glo4003.parkings.api.ParkingResource;
-import ca.ulaval.glo4003.parkings.api.ParkingResourceImplementation;
-import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaResourceImplementation;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingPeriodAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingStickerRepositoryInMemory;
+import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,12 +31,36 @@ import java.util.Map;
 public class ParkingInjector {
 
   private final ParkingStickerCodeGenerator parkingStickerCodeGenerator =
-      new ParkingStickerCodeGenerator();
+      new ParkingStickerCodeGenerator(new StringCodeGenerator());
   private final ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
   private final ParkingStickerRepository parkingStickerRepository =
       new ParkingStickerRepositoryInMemory();
+  private final ParkingPeriodAssembler parkingPeriodAssembler = new ParkingPeriodAssembler();
 
-  public ParkingResource createParkingResource(
+  public ParkingAreaRepository getParkingAreaRepository() {
+    return parkingAreaRepository;
+  }
+
+  public ParkingAreaResource createParkingAreaResource() {
+    ParkingAreaService parkingAreaService =
+        new ParkingAreaService(
+            parkingAreaRepository, new ParkingAreaAssembler(new ParkingPeriodPriceAssembler()));
+    return new ParkingAreaResourceImplementation(parkingAreaService);
+  }
+
+  public ParkingStickerRepository getParkingStickerRepository() {
+    return parkingStickerRepository;
+  }
+
+  public ParkingStickerCodeAssembler createParkingStickerCodeAssembler() {
+    return new ParkingStickerCodeAssembler();
+  }
+
+  public ParkingAreaCodeAssembler createParkingAreaCodeAssembler() {
+    return new ParkingAreaCodeAssembler();
+  }
+
+  public ParkingStickerService createParkingStickerService(
       boolean isDev,
       AccountIdAssembler accountIdAssembler,
       PostalCodeAssembler postalCodeAssembler,
@@ -46,6 +74,8 @@ public class ParkingInjector {
       addParkingAreasToRepository(parkingAreaCodeAssembler);
     }
 
+    ParkingStickerFactory parkingStickerFactory =
+        new ParkingStickerFactory(parkingStickerCodeGenerator);
     ParkingStickerAssembler parkingStickerAssembler =
         new ParkingStickerAssembler(
             parkingAreaCodeAssembler,
@@ -53,10 +83,6 @@ public class ParkingInjector {
             postalCodeAssembler,
             emailAddressAssembler);
     ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
-    AccessStatusAssembler accessStatusAssembler = new AccessStatusAssembler();
-
-    ParkingStickerFactory parkingStickerFactory =
-        new ParkingStickerFactory(parkingStickerCodeGenerator);
 
     ParkingStickerService parkingStickerService =
         new ParkingStickerService(
@@ -66,24 +92,10 @@ public class ParkingInjector {
             accountService,
             parkingAreaRepository,
             parkingStickerRepository,
-            accessStatusAssembler,
             billService);
-
     parkingStickerCreationObservers.forEach(parkingStickerService::register);
 
-    return new ParkingResourceImplementation(parkingStickerService);
-  }
-
-  public ParkingStickerRepository getParkingStickerRepository() {
-    return parkingStickerRepository;
-  }
-
-  public ParkingStickerCodeAssembler createParkingStickerCodeAssembler() {
-    return new ParkingStickerCodeAssembler();
-  }
-
-  public ParkingAreaCodeAssembler createParkingAreaCodeAssembler() {
-    return new ParkingAreaCodeAssembler();
+    return parkingStickerService;
   }
 
   private void addParkingAreasToRepository(ParkingAreaCodeAssembler parkingAreaCodeAssembler) {
@@ -99,20 +111,15 @@ public class ParkingInjector {
         .forEach(
             zone -> {
               ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(zone);
-              Map<ParkingPeriods, Money> feesPerPeriod = new HashMap<>();
+              Map<ParkingPeriod, Money> feesPerPeriod = new HashMap<>();
               zonesAndFees
                   .get(zone)
                   .keySet()
                   .forEach(
                       period -> {
-                        ParkingPeriods parkingPeriod = ParkingPeriods.get(period);
-                        Money fee =
-                            new Money(
-                                zonesAndFees
-                                    .get(zone)
-                                    .get(period)); // TODO : We could use money assembler (but this
-                        // is the injector, it's not that important)
-                        feesPerPeriod.put(parkingPeriod, fee);
+                        ParkingPeriodInFrench parkingPeriod = ParkingPeriodInFrench.get(period);
+                        Money fee = Money.fromDouble(zonesAndFees.get(zone).get(period));
+                        feesPerPeriod.put(parkingPeriodAssembler.assemble(parkingPeriod), fee);
                       });
               parkingAreas.add(new ParkingArea(parkingAreaCode, feesPerPeriod));
             });

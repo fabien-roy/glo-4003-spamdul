@@ -41,13 +41,4 @@ public class UserExceptionMapperTest {
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
   }
-
-  @Test
-  public void givenInvalidAccessDayException_whenResponding_thenStatusIsBadRequest() {
-    UserException userException = new InvalidAccessDayException();
-
-    Response response = userExceptionMapper.toResponse(userException);
-
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
-  }
 }

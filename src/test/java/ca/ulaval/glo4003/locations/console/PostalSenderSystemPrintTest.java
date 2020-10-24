@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.locations.console;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethods;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import com.google.common.truth.Truth;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -33,7 +33,7 @@ public class PostalSenderSystemPrintTest {
 
   @Test
   public void givenPostalReceptionMethod_whenListeningParkingStickerCreation_thenPrintMessage() {
-    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethods.POSTAL).build();
+    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethod.POSTAL).build();
 
     postalSenderSystemPrint.listenParkingStickerCreated(parkingSticker);
 
@@ -44,7 +44,7 @@ public class PostalSenderSystemPrintTest {
   @Test
   public void
       givenEmailReceptionMethod_whenListeningParkingStickerCreation_thenDoNotPrintAnything() {
-    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethods.EMAIL).build();
+    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethod.EMAIL).build();
 
     postalSenderSystemPrint.listenParkingStickerCreated(parkingSticker);
 

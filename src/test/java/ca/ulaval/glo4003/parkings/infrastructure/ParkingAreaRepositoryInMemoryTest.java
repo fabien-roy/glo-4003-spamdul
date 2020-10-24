@@ -1,37 +1,45 @@
 package ca.ulaval.glo4003.parkings.infrastructure;
 
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
+import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingAreaException;
-import com.google.common.truth.Truth;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ParkingAreaRepositoryInMemoryTest {
-  private ParkingArea parkingArea;
-
   private ParkingAreaRepository parkingAreaRepository;
+
+  private final ParkingArea parkingArea = aParkingArea().build();
 
   @Before
   public void setUp() {
     parkingAreaRepository = new ParkingAreaRepositoryInMemory();
-    parkingArea = aParkingArea().build();
   }
 
   @Test
-  public void whenSavingParkingArea_thenParkingAreaCanBeFound() {
+  public void givenSavedParkingArea_whenGetting_thenReturnParkingArea() {
     parkingAreaRepository.save(parkingArea);
 
-    ParkingArea foundParkingArea = parkingAreaRepository.findByCode(parkingArea.getCode());
+    ParkingArea foundParkingArea = parkingAreaRepository.get(parkingArea.getCode());
 
-    Truth.assertThat(foundParkingArea).isSameInstanceAs(parkingArea);
+    assertThat(foundParkingArea).isSameInstanceAs(parkingArea);
+  }
+
+  @Test
+  public void whenGettingAllParkingArea_thenReturnAllParkingArea() {
+    parkingAreaRepository.save(parkingArea);
+
+    List<ParkingArea> parkingArea = parkingAreaRepository.getAll();
+
+    assertThat(parkingArea.size()).isEqualTo(1);
   }
 
   @Test(expected = NotFoundParkingAreaException.class)
-  public void
-      givenNonExistentParkingArea_whenGettingParkingArea_thenThrowNotFoundParkingAreaException() {
-    parkingAreaRepository.findByCode(parkingArea.getCode());
+  public void givenNoSavedParkingArea_whenGetting_thenThrowNotFoundParkingAreaException() {
+    parkingAreaRepository.get(parkingArea.getCode());
   }
 }

@@ -9,7 +9,6 @@ public class UserDtoBuilder {
   private String name = createName();
   private String birthDate = createPastDate().toString();
   private String sex = createSex().toString();
-  private String accessDay = createAccessDay().toString();
 
   private UserDtoBuilder() {}
 
@@ -32,17 +31,11 @@ public class UserDtoBuilder {
     return this;
   }
 
-  public UserDtoBuilder withAccessDay(String accessDay) {
-    this.accessDay = accessDay;
-    return this;
-  }
-
   public UserDto build() {
     UserDto userDto = new UserDto();
     userDto.name = name;
     userDto.birthDate = birthDate;
     userDto.sex = sex;
-    userDto.accessDay = accessDay;
     return userDto;
   }
 }

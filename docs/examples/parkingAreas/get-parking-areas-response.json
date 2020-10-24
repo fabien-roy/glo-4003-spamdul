@@ -1,0 +1,28 @@
+[
+  {
+    "parkingArea": "Zone1",
+    "parkingPeriodPrice": [
+      {
+        "period": "Mensuel 1",
+        "price": 183
+      },
+      {
+        "period": "1 session",
+        "price": 544
+      }
+    ]
+  },
+  {
+    "parkingArea": "Zone2",
+    "parkingPeriodPrice": [
+      {
+        "period": "Mensuel 1",
+        "price": 121
+      },
+      {
+        "period": "1 session",
+        "price": 366
+      }
+    ]
+  }
+]

@@ -24,6 +24,10 @@ public class OffenseTypeFactory {
     return offenseTypeRepository.findByCode(assembleOffenseCode("VIG_02"));
   }
 
+  public OffenseType createAbsentStickerOffense() {
+    return offenseTypeRepository.findByCode(assembleOffenseCode("VIG_03"));
+  }
+
   private OffenseCode assembleOffenseCode(String code) {
     return offenseCodeAssembler.assemble(code);
   }

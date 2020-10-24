@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.accounts.services;
 
-import ca.ulaval.glo4003.access.domain.AccessPassCode;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
@@ -8,9 +8,9 @@ import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.api.dto.BillPaymentDto;
+import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillIdAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillPaymentAssembler;
-import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
@@ -23,7 +23,7 @@ public class AccountService {
   private final AccountRepository accountRepository;
   private final AccountIdAssembler accountIdAssembler;
   private final BillService billService;
-  private final BillsAssembler billsAssembler;
+  private final BillAssembler billAssembler;
   private final BillIdAssembler billIdAssembler;
   private final BillPaymentAssembler billPaymentAssembler;
 
@@ -31,13 +31,13 @@ public class AccountService {
       AccountRepository accountRepository,
       AccountIdAssembler accountIdAssembler,
       BillService billService,
-      BillsAssembler billsAssembler,
+      BillAssembler billAssembler,
       BillIdAssembler billIdAssembler,
       BillPaymentAssembler billPaymentAssembler) {
     this.accountRepository = accountRepository;
     this.accountIdAssembler = accountIdAssembler;
     this.billService = billService;
-    this.billsAssembler = billsAssembler;
+    this.billAssembler = billAssembler;
     this.billIdAssembler = billIdAssembler;
     this.billPaymentAssembler = billPaymentAssembler;
   }
@@ -74,26 +74,29 @@ public class AccountService {
   }
 
   public List<BillDto> getBills(String accountId) {
-    AccountId id = accountIdAssembler.assemble(accountId);
-    Account account = getAccount(id);
+    Account account = getAccount(accountId);
     List<BillId> billIds = account.getBillIds();
     List<Bill> bills = billService.getBillsByIds(billIds);
 
-    return billsAssembler.assemble(bills);
+    return billAssembler.assemble(bills);
   }
 
   public BillDto payBill(BillPaymentDto billPaymentDto, String accountId, String billId) {
     Money amountToPay = billPaymentAssembler.assemble(billPaymentDto);
-    AccountId id = accountIdAssembler.assemble(accountId);
     BillId billNumber = billIdAssembler.assemble(billId);
 
-    Account account = getAccount(id);
+    Account account = getAccount(accountId);
     account.verifyAccountHasBillId(billNumber);
 
     return billService.payBill(billNumber, amountToPay);
   }
 
-  public Account getAccount(AccountId id) {
-    return accountRepository.findById(id);
+  public Account getAccount(String accountId) {
+    AccountId id = accountIdAssembler.assemble(accountId);
+    return getAccount(id);
+  }
+
+  public Account getAccount(AccountId accountId) {
+    return accountRepository.findById(accountId);
   }
 }
