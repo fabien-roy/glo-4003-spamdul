@@ -3,7 +3,7 @@
     "parkingArea": "Zone1",
     "parkingPeriodPrice": [
       {
-        "period": "Mensuel 1",
+        "period": "monthly",
         "price": 183
       },
       {
@@ -16,7 +16,7 @@
     "parkingArea": "Zone2",
     "parkingPeriodPrice": [
       {
-        "period": "Mensuel 1",
+        "period": "monthly",
         "price": 121
       },
       {
