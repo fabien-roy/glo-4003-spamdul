@@ -1,8 +1,10 @@
 package ca.ulaval.glo4003.funds.services;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
+import ca.ulaval.glo4003.funds.assemblers.BillsByConsumptionsTypeAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
@@ -18,16 +20,19 @@ public class BillService {
   private final BillRepository<BillQuery> billRepository;
   private final BillAssembler billAssembler;
   private final BillQueryFactory billQueryFactory;
+  private final BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler;
 
   public BillService(
       BillFactory billFactory,
       BillRepository<BillQuery> billRepository,
       BillAssembler billAssembler,
-      BillQueryFactory billQueryFactory) {
+      BillQueryFactory billQueryFactory,
+      BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler) {
     this.billFactory = billFactory;
     this.billRepository = billRepository;
     this.billAssembler = billAssembler;
     this.billQueryFactory = billQueryFactory;
+    this.billsByConsumptionsTypeAssembler = billsByConsumptionsTypeAssembler;
   }
 
   public BillId addBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
@@ -44,10 +49,11 @@ public class BillService {
     return bill.getId();
   }
 
-  public BillId addBillForAccessCode(Money fee, AccessPassCode accessPassCode) {
+  public BillId addBillForAccessCode(
+      Money fee, AccessPassCode accessPassCode, ConsumptionType consumptionType) {
     logger.info(String.format("Create bill for access code %s", accessPassCode));
 
-    Bill bill = billFactory.createForAccessPass(fee, accessPassCode);
+    Bill bill = billFactory.createForAccessPass(fee, accessPassCode, consumptionType);
 
     billRepository.save(bill);
 
@@ -86,5 +92,11 @@ public class BillService {
     BillQuery billQuery = billQueryFactory.create(billQueryParams);
 
     return billRepository.getAll(billQuery);
+  }
+
+  public BillsByConsumptionTypes getBillsByConsumptionsType(BillQueryParams billQueryParams) {
+    List<Bill> bills = getAllBillsByQueryParams(billQueryParams);
+
+    return billsByConsumptionsTypeAssembler.assemble(bills);
   }
 }

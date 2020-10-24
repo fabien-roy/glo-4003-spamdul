@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.profits.services;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillType;
+import ca.ulaval.glo4003.funds.domain.BillsByConsumptionTypes;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamsAssembler;
@@ -48,7 +49,17 @@ public class ProfitsService {
     return profitsAssembler.assemble(profits);
   }
 
-  public ProfitsByConsumptionTypeDto getAccessPassProfitsByConsumptionType(int year) {
+  public List<ProfitsByConsumptionTypeDto> getAccessPassProfitsByConsumptionType(int year) {
+    BillQueryParams billQueryParams =
+        billQueryParamsAssembler.assembleWithYear(year, BillType.ACCESS_PASS);
+
+    BillsByConsumptionTypes billsByConsumptionTypes =
+        billService.getBillsByConsumptionsType(billQueryParams);
+
+    // List<ProfitsByConsumptionTypeDto> profitsByConsumptionTypeDto = new
+    // BillPriceByConsumptionsTypeAssembler(billsByConsumptionTypes);
+    // TODO for each key price and consumptionsType
+
     return null;
   }
 
