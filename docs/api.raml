@@ -142,6 +142,19 @@ uses:
             description: Error adding parking sticker to user
           404:
             description: User not found
+/api/parkingAreas:
+  description: Collection of parking areas
+  get:
+    description: Get all parking areas
+    responses:
+      200:
+        description: All parking areas
+        body:
+          application/json:
+            type: types.ParkingArea[]
+            example: !include examples/parkingAreas/get-parking-areas-response.json
+      400:
+        description: Error getting all parking areas
 /api/gateEntry:
   description: Gate entry for campus access
   /validateAccessPass:
