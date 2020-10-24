@@ -45,7 +45,7 @@ public class BillServiceTest {
   private final Money fee = createMoney();
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final OffenseCode offenseCode = createOffenseCode();
-  private final Map<String, List<String>> params = new HashMap<>();
+  private final BillQueryParams params = new BillQueryParams();
 
   @Before
   public void setUp() {
@@ -151,5 +151,9 @@ public class BillServiceTest {
     verify(billAssembler).assemble(bill);
   }
 
-  // TODO : Manque un test getAll est pas tester lol
+  @Test
+  public void whenGettingAllBills_thenShouldUseProfitsCalculator() {
+    // TODO : Manque un test getAll est pas tester lol
+    billService.getAllBillsByQueryParams(params);
+  }
 }

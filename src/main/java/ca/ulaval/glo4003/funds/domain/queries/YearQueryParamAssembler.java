@@ -5,7 +5,7 @@ import java.util.List;
 
 public class YearQueryParamAssembler implements BillQueryParamAssembler {
 
-  public static final String YEAR_PARAM = "year";
+  public static final BillQueryParam YEAR_PARAM = BillQueryParam.YEAR;
 
   @Override
   public BillQueryBuilder assemble(BillQueryBuilder builder, BillQueryParams params) {

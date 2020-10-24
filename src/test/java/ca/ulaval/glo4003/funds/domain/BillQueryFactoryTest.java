@@ -21,7 +21,8 @@ public class BillQueryFactoryTest {
   @Mock private BillQueryParamAssembler firstQueryAssembler;
   @Mock private BillQuery query;
   @Mock private BillQuery filteredQuery;
-  @Mock private BillQueryParams billQueryParams;
+
+  private BillQueryParams params = new BillQueryParams();
 
   private Set<BillQueryParamAssembler> queryParamAssemblers = new HashSet<>();
 
@@ -32,7 +33,7 @@ public class BillQueryFactoryTest {
     when(billQueryBuilder.aBillQuery()).thenReturn(billQueryBuilder);
     when(billQueryBuilder.build()).thenReturn(query);
     when(filteredBillQueryBuilder.build()).thenReturn(filteredQuery);
-    when(firstQueryAssembler.assemble(billQueryBuilder, billQueryParams))
+    when(firstQueryAssembler.assemble(billQueryBuilder, params))
         .thenReturn(filteredBillQueryBuilder);
   }
 
@@ -40,7 +41,7 @@ public class BillQueryFactoryTest {
   public void create_withoutAssembler_shouldCreateQuery() {
     billQueryFactory = new BillQueryFactory(billQueryBuilder, Collections.emptySet());
 
-    BillQuery actualQuery = billQueryFactory.create(billQueryParams);
+    BillQuery actualQuery = billQueryFactory.create(params);
 
     assertThat(query).isEqualTo(actualQuery);
   }
@@ -49,7 +50,7 @@ public class BillQueryFactoryTest {
   public void create_withAssemblers_shouldCreateQuery() {
     billQueryFactory = new BillQueryFactory(billQueryBuilder, queryParamAssemblers);
 
-    BillQuery actualQuery = billQueryFactory.create(billQueryParams);
+    BillQuery actualQuery = billQueryFactory.create(params);
 
     assertThat(filteredQuery).isSameInstanceAs(actualQuery);
   }
