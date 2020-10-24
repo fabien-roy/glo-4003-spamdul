@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.initiatives.helpers.AddInitiativeDtoBuilder.anAd
 import static ca.ulaval.glo4003.initiatives.helpers.InitiativeAddAllocatedAmountDtoBuilder.aInitiativeAddAllocatedAmountDTO;
 import static ca.ulaval.glo4003.initiatives.helpers.InitiativeCodeDtoBuilder.aInitiativeCodeDto;
 import static ca.ulaval.glo4003.initiatives.helpers.InitiativeDtoBuilder.anInitiativeDto;
-import static ca.ulaval.glo4003.initiatives.helpers.InitiativeMother.createCode;
+import static ca.ulaval.glo4003.initiatives.helpers.InitiativeMother.createInitiativeCode;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -33,7 +33,7 @@ public class InitiativeResourceImplementationTest {
   private final AddInitiativeDto addInitiativeDto = anAddInitiativeDto().build();
   private final InitiativeCodeDto initiativeCodeDto = aInitiativeCodeDto().build();
   private final InitiativeDto initiativeDto = anInitiativeDto().build();
-  private final InitiativeCode initiativeCode = createCode();
+  private final InitiativeCode initiativeCode = createInitiativeCode();
   private final InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDto =
       aInitiativeAddAllocatedAmountDTO().build();
   private final List<InitiativeDto> initiativeDtoList = Collections.singletonList(initiativeDto);

@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
@@ -24,7 +25,7 @@ import java.util.Map;
 public class ParkingInjector {
 
   private final ParkingStickerCodeGenerator parkingStickerCodeGenerator =
-      new ParkingStickerCodeGenerator();
+      new ParkingStickerCodeGenerator(new StringCodeGenerator());
   private final ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
   private final ParkingStickerRepository parkingStickerRepository =
       new ParkingStickerRepositoryInMemory();

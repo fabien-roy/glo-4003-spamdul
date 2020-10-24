@@ -1,56 +1,35 @@
 package ca.ulaval.glo4003.parkings.domain;
 
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingStickerCode;
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
-import java.util.List;
+import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ParkingStickerCodeGeneratorTest {
+  @Mock private StringCodeGenerator stringCodeGenerator;
+
   private ParkingStickerCodeGenerator parkingStickerCodeGenerator;
+
+  private final ParkingStickerCode parkingStickerCode = createParkingStickerCode();
 
   @Before
   public void setUp() {
-    parkingStickerCodeGenerator = new ParkingStickerCodeGenerator();
+    parkingStickerCodeGenerator = new ParkingStickerCodeGenerator(stringCodeGenerator);
   }
 
   @Test
-  public void whenGenerating_thenReturnDifferentCodes() {
-    ParkingStickerCode firstCode = parkingStickerCodeGenerator.generate();
-    ParkingStickerCode secondCode = parkingStickerCodeGenerator.generate();
-
-    assertThat(firstCode).isNotEqualTo(secondCode);
-  }
-
-  @Test
-  public void whenGenerating_thenReturnCodeWithParkKeyword() {
-    String parkKeyword = "PARK";
+  public void givenParkKeyword_whenGenerating_thenUseCodeFromStringCodeGenerator() {
+    when(stringCodeGenerator.buildCode("PARK")).thenReturn(parkingStickerCode.toString());
 
     ParkingStickerCode code = parkingStickerCodeGenerator.generate();
 
-    assertThat(code.toString()).contains(parkKeyword);
-  }
-
-  @Test
-  public void whenGenerating_thenReturnTwoPartedCode() {
-    String separator = "-";
-
-    ParkingStickerCode code = parkingStickerCodeGenerator.generate();
-    List<String> codeParts = Arrays.asList(code.toString().split(separator));
-
-    assertThat(codeParts).hasSize(2);
-  }
-
-  @Test
-  public void whenGenerating_thenReturnCodeWithSixAlphanumericalCharactersAsSecondPart() {
-    String separator = "-";
-    String alphanumericalRegex = "[A-Z0-9]+";
-
-    ParkingStickerCode code = parkingStickerCodeGenerator.generate();
-    String secondPart = code.toString().split(separator)[1];
-
-    assertThat(secondPart).hasLength(6);
-    assertThat(secondPart).matches(alphanumericalRegex);
+    assertThat(code).isEqualTo(parkingStickerCode);
   }
 }

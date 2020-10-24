@@ -1,18 +1,17 @@
 package ca.ulaval.glo4003.accesspasses.domain;
 
-import com.github.javafaker.Faker;
+import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 
 public class AccessPassCodeGenerator {
   private static final String KEYWORD = "PASS";
-  private static final String SEPARATOR = "-";
-  private static final String PATTERN = "[A-Z0-9]{6}";
+  private final StringCodeGenerator stringCodeGenerator;
 
-  public AccessPassCode generate() {
-    return new AccessPassCode(buildCode());
+  public AccessPassCodeGenerator(StringCodeGenerator stringCodeGenerator) {
+    this.stringCodeGenerator = stringCodeGenerator;
   }
 
-  private String buildCode() {
-    String generatedCode = Faker.instance().regexify(PATTERN);
-    return KEYWORD.concat(SEPARATOR).concat(generatedCode);
+  public AccessPassCode generate() {
+    String code = stringCodeGenerator.buildCode(KEYWORD);
+    return new AccessPassCode(code);
   }
 }

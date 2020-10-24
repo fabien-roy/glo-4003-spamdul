@@ -1,56 +1,35 @@
 package ca.ulaval.glo4003.initiatives.domain;
 
+import static ca.ulaval.glo4003.initiatives.helpers.InitiativeMother.createInitiativeCode;
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
-import java.util.List;
+import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class InitiativeCodeGeneratorTest {
+  @Mock private StringCodeGenerator stringCodeGenerator;
+
   private InitiativeCodeGenerator initiativeCodeGenerator;
+
+  private final InitiativeCode initiativeCode = createInitiativeCode();
 
   @Before
   public void setUp() {
-    initiativeCodeGenerator = new InitiativeCodeGenerator();
+    initiativeCodeGenerator = new InitiativeCodeGenerator(stringCodeGenerator);
   }
 
   @Test
-  public void whenGenerating_thenReturnDifferentCodes() {
-    InitiativeCode firstCode = initiativeCodeGenerator.generate();
-    InitiativeCode secondCode = initiativeCodeGenerator.generate();
-
-    assertThat(firstCode).isNotEqualTo(secondCode);
-  }
-
-  @Test
-  public void whenGenerating_thenReturnCodeWithInitKeyword() {
-    String initKeyword = "INIT";
+  public void givenInitKeyword_whenGenerating_thenUseCodeFromStringCodeGenerator() {
+    when(stringCodeGenerator.buildCode("INIT")).thenReturn(initiativeCode.toString());
 
     InitiativeCode code = initiativeCodeGenerator.generate();
 
-    assertThat(code.toString()).contains(initKeyword);
-  }
-
-  @Test
-  public void whenGenerating_thenReturnTwoPartedCode() {
-    String separator = "-";
-
-    InitiativeCode code = initiativeCodeGenerator.generate();
-    List<String> codeParts = Arrays.asList(code.toString().split(separator));
-
-    assertThat(codeParts).hasSize(2);
-  }
-
-  @Test
-  public void whenGenerating_thenReturnCodeWithSixAlphanumericalCharactersAsSecondPart() {
-    String separator = "-";
-    String alphanumericalRegex = "[A-Z0-9]+";
-
-    InitiativeCode code = initiativeCodeGenerator.generate();
-    String secondPart = code.toString().split(separator)[1];
-
-    assertThat(secondPart).hasLength(6);
-    assertThat(secondPart).matches(alphanumericalRegex);
+    assertThat(code).isEqualTo(initiativeCode);
   }
 }

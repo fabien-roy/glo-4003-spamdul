@@ -1,18 +1,17 @@
 package ca.ulaval.glo4003.initiatives.domain;
 
-import com.github.javafaker.Faker;
+import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 
 public class InitiativeCodeGenerator {
   private static final String KEYWORD = "INIT";
-  private static final String SEPARATOR = "-";
-  private static final String PATTERN = "[A-Z0-9]{6}";
+  private final StringCodeGenerator stringCodeGenerator;
 
-  public InitiativeCode generate() {
-    return new InitiativeCode(buildCode());
+  public InitiativeCodeGenerator(StringCodeGenerator stringCodeGenerator) {
+    this.stringCodeGenerator = stringCodeGenerator;
   }
 
-  private String buildCode() {
-    String generatedCode = Faker.instance().regexify(PATTERN);
-    return KEYWORD.concat(SEPARATOR).concat(generatedCode);
+  public InitiativeCode generate() {
+    String code = stringCodeGenerator.buildCode(KEYWORD);
+    return new InitiativeCode(code);
   }
 }
