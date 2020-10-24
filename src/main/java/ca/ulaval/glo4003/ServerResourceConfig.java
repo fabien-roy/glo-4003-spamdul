@@ -22,6 +22,7 @@ public class ServerResourceConfig {
                 resources.add(APPLICATION_INJECTOR.createCarbonCreditResource());
                 resources.add(APPLICATION_INJECTOR.createParkingAreaResource());
                 resources.add(APPLICATION_INJECTOR.createInitiativeResource());
+                resources.add(APPLICATION_INJECTOR.createProfitsResource());
                 return resources;
               }
 
