@@ -7,17 +7,17 @@ import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.offenses.api.OffenseResourceImplementation;
-import ca.ulaval.glo4003.offenses.assemblers.InfractionAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseCodeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
+import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeInFrenchAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
 import ca.ulaval.glo4003.offenses.console.OffenseNotifierSystemPrint;
 import ca.ulaval.glo4003.offenses.domain.OffenseNotifier;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeFactory;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
-import ca.ulaval.glo4003.offenses.filesystem.InfractionFileHelper;
-import ca.ulaval.glo4003.offenses.filesystem.dto.InfractionDto;
+import ca.ulaval.glo4003.offenses.filesystem.OffenseFileHelper;
+import ca.ulaval.glo4003.offenses.filesystem.dto.OffenseInFrenchDto;
 import ca.ulaval.glo4003.offenses.infrastructure.OffenseTypeRepositoryInMemory;
 import ca.ulaval.glo4003.offenses.services.OffenseTypeService;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
@@ -57,13 +57,13 @@ public class OffenseInjector {
   }
 
   private void addOffenseTypesToRepository(MoneyAssembler moneyAssembler) {
-    InfractionFileHelper infractionFileHelper = new InfractionFileHelper(fileReader);
-    List<InfractionDto> infractions = infractionFileHelper.getInfractions();
+    OffenseFileHelper offenseFileHelper = new OffenseFileHelper(fileReader);
+    List<OffenseInFrenchDto> offensesInFrenchDto = offenseFileHelper.getOffenseInFrench();
 
     OffenseCodeAssembler offenseCodeAssembler = new OffenseCodeAssembler();
-    InfractionAssembler infractionAssembler =
-        new InfractionAssembler(offenseCodeAssembler, moneyAssembler);
-    List<OffenseType> offenseTypes = infractionAssembler.assembleMany(infractions);
+    OffenseTypeInFrenchAssembler offenseTypeInFrenchAssembler =
+        new OffenseTypeInFrenchAssembler(offenseCodeAssembler, moneyAssembler);
+    List<OffenseType> offenseTypes = offenseTypeInFrenchAssembler.assembleMany(offensesInFrenchDto);
 
     for (OffenseType offenseType : offenseTypes) {
       offenseTypeRepository.save(offenseType);

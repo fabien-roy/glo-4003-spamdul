@@ -1,18 +1,17 @@
 package ca.ulaval.glo4003.parkings.domain;
 
-import com.github.javafaker.Faker;
+import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 
 public class ParkingStickerCodeGenerator {
-  private static final String CODE_KEYWORD = "PARK";
-  private static final String SEPARATOR = "-";
-  private static final String CODE_PATTERN = "[A-Z0-9]{6}";
+  private static final String KEYWORD = "PARK";
+  private final StringCodeGenerator stringCodeGenerator;
 
-  public ParkingStickerCode generate() {
-    return new ParkingStickerCode(buildCode());
+  public ParkingStickerCodeGenerator(StringCodeGenerator stringCodeGenerator) {
+    this.stringCodeGenerator = stringCodeGenerator;
   }
 
-  private String buildCode() {
-    String generatedCode = Faker.instance().regexify(CODE_PATTERN);
-    return CODE_KEYWORD.concat(SEPARATOR).concat(generatedCode);
+  public ParkingStickerCode generate() {
+    String code = stringCodeGenerator.generate(KEYWORD);
+    return new ParkingStickerCode(code);
   }
 }

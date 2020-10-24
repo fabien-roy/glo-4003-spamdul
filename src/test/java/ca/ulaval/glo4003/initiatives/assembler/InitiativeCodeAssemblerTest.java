@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.initiatives.assembler;
 
-import static ca.ulaval.glo4003.initiatives.helpers.InitiativeMother.createCode;
+import static ca.ulaval.glo4003.initiatives.helpers.InitiativeMother.createInitiativeCode;
 
 import ca.ulaval.glo4003.initiatives.api.dto.InitiativeCodeDto;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class InitiativeCodeAssemblerTest {
   private InitiativeCodeAssembler initiativeCodeAssembler;
-  private InitiativeCode INITIATIVE_CODE = createCode();
+  private InitiativeCode INITIATIVE_CODE = createInitiativeCode();
 
   @Before
   public void setUp() {

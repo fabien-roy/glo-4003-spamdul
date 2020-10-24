@@ -16,6 +16,7 @@ import ca.ulaval.glo4003.initiatives.domain.InitiativeFactory;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeRepository;
 import ca.ulaval.glo4003.initiatives.infrastructure.InitiativeRepositoryInMemory;
 import ca.ulaval.glo4003.initiatives.services.InitiativeService;
+import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 
 public class InitiativeInjector {
 
@@ -71,6 +72,6 @@ public class InitiativeInjector {
   }
 
   public InitiativeCodeGenerator getInitiativeCodeGenerator() {
-    return new InitiativeCodeGenerator();
+    return new InitiativeCodeGenerator(new StringCodeGenerator());
   }
 }

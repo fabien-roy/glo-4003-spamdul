@@ -1,15 +1,14 @@
 package ca.ulaval.glo4003.cars.domain;
 
 import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 public enum ConsumptionType {
-  GREEDY("gourmande"),
-  ECONOMIC("économique"),
-  ECONOMICAL_HYBRID("hybride économique"),
-  SUPER_ECONOMICAL("super économique"),
+  GREEDY("greedy"),
+  ECONOMIC("economic"),
+  ECONOMICAL_HYBRID("economical hybrid"),
+  SUPER_ECONOMICAL("super economical"),
   ZERO_POLLUTION("0 pollution");
 
   String consumptionType;
@@ -31,14 +30,7 @@ public enum ConsumptionType {
     ConsumptionType foundType = lookup.get(type.toLowerCase());
 
     if (foundType == null) {
-      byte[] consumptionTypeUtf8 = type.getBytes();
-      String consumptionFrenchType = new String(consumptionTypeUtf8, StandardCharsets.UTF_8);
-
-      foundType = lookup.get(consumptionFrenchType);
-
-      if (foundType == null) {
-        throw new InvalidConsumptionTypeException();
-      }
+      throw new InvalidConsumptionTypeException();
     }
 
     return foundType;
