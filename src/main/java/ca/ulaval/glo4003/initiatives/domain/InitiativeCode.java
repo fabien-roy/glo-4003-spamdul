@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.initiatives.domain;
 
 public class InitiativeCode {
-  private String code;
+  private final String code;
 
   public InitiativeCode(String code) {
     this.code = code;
@@ -9,7 +9,7 @@ public class InitiativeCode {
 
   @Override
   public String toString() {
-    return code.toString();
+    return code;
   }
 
   @Override

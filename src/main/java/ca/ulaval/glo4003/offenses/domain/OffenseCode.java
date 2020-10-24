@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.offenses.domain;
 
 public class OffenseCode {
-  private String code;
+  private final String code;
 
   public OffenseCode(String code) {
     this.code = code;
