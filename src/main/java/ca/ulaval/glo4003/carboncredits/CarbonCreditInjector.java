@@ -11,12 +11,18 @@ import ca.ulaval.glo4003.carboncredits.infrastructure.MonthlyPaymentStatusReposi
 import ca.ulaval.glo4003.carboncredits.services.CarbonCreditService;
 import ca.ulaval.glo4003.carboncredits.services.ConvertCarbonCreditJob;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
+import ca.ulaval.glo4003.funds.infrastructure.SustainableMobilityProgramBankRepositoryInMemory;
+import ca.ulaval.glo4003.funds.services.SustainableMobilityProgramBankService;
 
 public class CarbonCreditInjector {
   private final CarbonCreditRepository carbonCreditRepository =
       new CarbonCreditRepositoryInMemory();
   private final MonthlyPaymentStatusRepository monthlyPaymentStatusRepository =
       new MonthlyPaymentStatusRepositoryInMemory();
+  private final SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository =
+      new SustainableMobilityProgramBankRepositoryInMemory();
+  private final SustainableMobilityProgramBankService sustainableMobilityProgramBankService =
+      new SustainableMobilityProgramBankService(sustainableMobilityProgramBankRepository);
 
   public CarbonCreditResource createCarbonCreditResource() {
     CarbonCreditAssembler carbonCreditAssembler = new CarbonCreditAssembler();
@@ -27,7 +33,8 @@ public class CarbonCreditInjector {
             carbonCreditRepository,
             carbonCreditAssembler,
             carbonCreditMonthlyPaymentStatusAssembler,
-            monthlyPaymentStatusRepository);
+            monthlyPaymentStatusRepository,
+            sustainableMobilityProgramBankService);
 
     return new CarbonCreditResourceImplementation(carbonCreditService);
   }
