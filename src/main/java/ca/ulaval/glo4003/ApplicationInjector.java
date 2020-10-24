@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.accesspasses.api.AccessPassExceptionMapper;
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
 import ca.ulaval.glo4003.carboncredits.CarbonCreditInjector;
+import ca.ulaval.glo4003.carboncredits.api.CarbonCreditExceptionMapper;
 import ca.ulaval.glo4003.carboncredits.api.CarbonCreditResource;
 import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.cars.api.CarExceptionMapper;
@@ -134,6 +135,7 @@ public class ApplicationInjector {
         AccessPassExceptionMapper.class,
         AccountExceptionMapper.class,
         CarExceptionMapper.class,
+        CarbonCreditExceptionMapper.class,
         CommunicationExceptionMapper.class,
         FileExceptionMapper.class,
         FundExceptionMapper.class,
