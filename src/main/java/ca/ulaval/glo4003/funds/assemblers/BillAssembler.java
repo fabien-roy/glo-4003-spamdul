@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.funds.assemblers;
 import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class BillAssembler {
@@ -19,6 +20,7 @@ public class BillAssembler {
     billDto.amountDue = bill.getAmountDue().toDouble();
     billDto.amountPaid = bill.getAmountPaid().toDouble();
     billDto.time = bill.getCustomDateTime().toString();
+    billDto.consumptionType = Optional.of(bill.getConsumptionType().toString());
 
     return billDto;
   }
