@@ -26,7 +26,7 @@ public class ParkingStickerCodeGeneratorTest {
 
   @Test
   public void givenParkKeyword_whenGenerating_thenUseCodeFromStringCodeGenerator() {
-    when(stringCodeGenerator.buildCode("PARK")).thenReturn(parkingStickerCode.toString());
+    when(stringCodeGenerator.generate("PARK")).thenReturn(parkingStickerCode.toString());
 
     ParkingStickerCode code = parkingStickerCodeGenerator.generate();
 

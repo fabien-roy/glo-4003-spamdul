@@ -18,36 +18,36 @@ public class StringCodeGeneratorTest {
   }
 
   @Test
-  public void whenBuildingCode_thenReturnDifferentCodes() {
-    String firstCode = stringCodeGenerator.buildCode(KEYWORD);
-    String secondCode = stringCodeGenerator.buildCode(KEYWORD);
+  public void whenGenerating_thenReturnDifferentCodes() {
+    String firstCode = stringCodeGenerator.generate(KEYWORD);
+    String secondCode = stringCodeGenerator.generate(KEYWORD);
 
     assertThat(firstCode).isNotEqualTo(secondCode);
   }
 
   @Test
-  public void whenBuildingCode_thenReturnCodeWithKeyword() {
-    String code = stringCodeGenerator.buildCode(KEYWORD);
+  public void whenGenerating_thenReturnCodeWithKeyword() {
+    String code = stringCodeGenerator.generate(KEYWORD);
 
     assertThat(code).contains(KEYWORD);
   }
 
   @Test
-  public void whenBuildingCode_thenReturnTwoPartedCode() {
+  public void whenGenerating_thenReturnTwoPartedCode() {
     String separator = "-";
 
-    String code = stringCodeGenerator.buildCode(KEYWORD);
+    String code = stringCodeGenerator.generate(KEYWORD);
     List<String> codeParts = Arrays.asList(code.split(separator));
 
     assertThat(codeParts).hasSize(2);
   }
 
   @Test
-  public void whenBuildingCode_thenReturnCodeWithSixAlphanumericalCharactersAsSecondPart() {
+  public void whenGenerating_thenReturnCodeWithSixAlphanumericalCharactersAsSecondPart() {
     String separator = "-";
     String alphanumericalRegex = "[A-Z0-9]+";
 
-    String code = stringCodeGenerator.buildCode(KEYWORD);
+    String code = stringCodeGenerator.generate(KEYWORD);
     String secondPart = code.split(separator)[1];
 
     assertThat(secondPart).hasLength(6);

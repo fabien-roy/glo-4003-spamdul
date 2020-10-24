@@ -6,7 +6,7 @@ public class StringCodeGenerator {
   private static final String SEPARATOR = "-";
   private static final String PATTERN = "[A-Z0-9]{6}";
 
-  public String buildCode(String keyword) {
+  public String generate(String keyword) {
     String generatedCode = Faker.instance().regexify(PATTERN);
     return keyword.concat(SEPARATOR).concat(generatedCode);
   }

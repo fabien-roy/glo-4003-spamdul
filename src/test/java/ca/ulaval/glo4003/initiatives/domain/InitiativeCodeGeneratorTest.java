@@ -26,7 +26,7 @@ public class InitiativeCodeGeneratorTest {
 
   @Test
   public void givenInitKeyword_whenGenerating_thenUseCodeFromStringCodeGenerator() {
-    when(stringCodeGenerator.buildCode("INIT")).thenReturn(initiativeCode.toString());
+    when(stringCodeGenerator.generate("INIT")).thenReturn(initiativeCode.toString());
 
     InitiativeCode code = initiativeCodeGenerator.generate();
 

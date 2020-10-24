@@ -11,7 +11,7 @@ public class InitiativeCodeGenerator {
   }
 
   public InitiativeCode generate() {
-    String code = stringCodeGenerator.buildCode(KEYWORD);
+    String code = stringCodeGenerator.generate(KEYWORD);
     return new InitiativeCode(code);
   }
 }

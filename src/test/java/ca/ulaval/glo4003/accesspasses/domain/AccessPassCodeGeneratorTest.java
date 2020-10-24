@@ -26,7 +26,7 @@ public class AccessPassCodeGeneratorTest {
 
   @Test
   public void givenPassKeyword_whenGenerating_thenUseCodeFromStringCodeGenerator() {
-    when(stringCodeGenerator.buildCode("PASS")).thenReturn(accessPassCode.toString());
+    when(stringCodeGenerator.generate("PASS")).thenReturn(accessPassCode.toString());
 
     AccessPassCode code = accessPassCodeGenerator.generate();
 

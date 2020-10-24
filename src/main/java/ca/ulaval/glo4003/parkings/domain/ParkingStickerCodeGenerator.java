@@ -11,7 +11,7 @@ public class ParkingStickerCodeGenerator {
   }
 
   public ParkingStickerCode generate() {
-    String code = stringCodeGenerator.buildCode(KEYWORD);
+    String code = stringCodeGenerator.generate(KEYWORD);
     return new ParkingStickerCode(code);
   }
 }

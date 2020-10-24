@@ -11,7 +11,7 @@ public class AccessPassCodeGenerator {
   }
 
   public AccessPassCode generate() {
-    String code = stringCodeGenerator.buildCode(KEYWORD);
+    String code = stringCodeGenerator.generate(KEYWORD);
     return new AccessPassCode(code);
   }
 }
