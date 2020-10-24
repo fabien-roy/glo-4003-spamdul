@@ -34,7 +34,6 @@ public class BillServiceTest {
   @Mock private BillQueryFactory billQueryFactory;
   @Mock private BillQuery billQuery;
   @Mock private BillProfitsCalculator billProfitsCalculator;
-  @Mock private BillQueryParams billQueryParams;
 
   private BillService billService;
 
@@ -63,7 +62,7 @@ public class BillServiceTest {
         .thenReturn(bill);
     when(billFactory.createForAccessPass(fee, accessPassCode)).thenReturn(bill);
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
-    when(billQueryFactory.create(billQueryParams)).thenReturn(billQuery);
+    when(billQueryFactory.create(params)).thenReturn(billQuery);
     when(billRepository.getBill(bill.getId())).thenReturn(bill);
     when(billRepository.getAll(billQuery)).thenReturn(bills);
     when(billProfitsCalculator.calculate(bills)).thenReturn(fee);
@@ -152,8 +151,9 @@ public class BillServiceTest {
   }
 
   @Test
-  public void whenGettingAllBills_thenShouldUseProfitsCalculator() {
-    // TODO : Manque un test getAll est pas tester lol
+  public void whenGettingAllBills_thenRepositoryIscalled() {
     billService.getAllBillsByQueryParams(params);
+
+    verify(billRepository).getAll(billQuery);
   }
 }

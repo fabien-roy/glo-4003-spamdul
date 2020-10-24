@@ -83,8 +83,6 @@ public class BillService {
   }
 
   public List<Bill> getAllBillsByQueryParams(BillQueryParams billQueryParams) {
-    BillQuery billQuery = billQueryFactory.create(billQueryParams);
-
-    return billRepository.getAll(billQuery);
+    return billRepository.getAll(billQueryFactory.create(billQueryParams));
   }
 }
