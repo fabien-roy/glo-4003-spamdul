@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003;
 
+import ca.ulaval.glo4003.times.services.TimeScheduler;
 import java.util.Optional;
 import java.util.logging.Logger;
 import org.eclipse.jetty.server.Handler;
@@ -28,6 +29,8 @@ public class Main {
     contexts.setHandlers(new Handler[] {context});
     Server server = new Server(retrievePortNumber());
     server.setHandler(contexts);
+
+    TimeScheduler quartzTimeScheduler = ServerResourceConfig.startQuartzTimeScheduler();
 
     try {
       server.start();

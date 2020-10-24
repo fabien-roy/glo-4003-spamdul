@@ -12,7 +12,7 @@ public class TimeService {
   }
 
   public void startTimeScheduler() {
-    timeScheduler.start(this);
+    timeScheduler.start();
   }
 
   public void timeToExtract() {

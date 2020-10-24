@@ -1,6 +1,8 @@
 package ca.ulaval.glo4003;
 
 import ca.ulaval.glo4003.interfaces.http.CORSResponseFilter;
+import ca.ulaval.glo4003.times.services.TimeScheduler;
+import ca.ulaval.glo4003.times.systemtime.QuartzTimeScheduler;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Application;
@@ -33,5 +35,11 @@ public class ServerResourceConfig {
     resourceConfig.register(CORSResponseFilter.class);
 
     return resourceConfig;
+  }
+
+  public static TimeScheduler startQuartzTimeScheduler() {
+    TimeScheduler quartzTimeScheduler = new QuartzTimeScheduler();
+    quartzTimeScheduler.start();
+    return quartzTimeScheduler;
   }
 }

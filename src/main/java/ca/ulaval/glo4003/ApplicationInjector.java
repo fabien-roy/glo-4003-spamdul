@@ -109,6 +109,9 @@ public class ApplicationInjector {
     return CARBON_CREDIT_INJECTOR.createCarbonCreditResource();
   }
 
+  // public ConverCarbonCreditJob createConvertCarbonCreditJob(){
+  // }
+
   public InitiativeResource createInitiativeResource() {
     return INITIATIVE_INJECTOR.createInitiativeResource(
         INITIATIVE_INJECTOR.createService(
@@ -122,6 +125,8 @@ public class ApplicationInjector {
                 FUND_INJECTOR.createMoneyAssembler()),
             FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
   }
+
+
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
     return Arrays.asList(
