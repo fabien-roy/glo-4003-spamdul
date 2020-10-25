@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.carboncredits.api;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
-import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditMonthlyPaymentStatusDto;
+import ca.ulaval.glo4003.carboncredits.api.dto.MonthlyPaymentStatusDto;
 import ca.ulaval.glo4003.carboncredits.services.CarbonCreditService;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
@@ -17,8 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class CarbonCreditResourceImplementationTest {
   @Mock private CarbonCreditService carbonCreditService;
   private final CarbonCreditDto carbonCreditDto = new CarbonCreditDto();
-  private final CarbonCreditMonthlyPaymentStatusDto carbonCreditMonthlyPaymentStatusDto =
-      new CarbonCreditMonthlyPaymentStatusDto();
+  private final MonthlyPaymentStatusDto monthlyPaymentStatusDto = new MonthlyPaymentStatusDto();
 
   private CarbonCreditResource carbonCreditResource;
 
@@ -33,8 +32,7 @@ public class CarbonCreditResourceImplementationTest {
   public void
       givenCarbonCreditMonthlyPaymentStatusDto_whenModifyingCarbonCreditMonthlyPaymentStatus_thenMonthlyPaymentStatusIsChanged() {
     Response response =
-        carbonCreditResource.modifyCarbonCreditMonthlyPaymentStatus(
-            carbonCreditMonthlyPaymentStatusDto);
+        carbonCreditResource.modifyCarbonCreditMonthlyPaymentStatus(monthlyPaymentStatusDto);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }

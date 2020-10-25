@@ -9,6 +9,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.quartz.Scheduler;
 
 public class Main {
   private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
@@ -28,6 +29,9 @@ public class Main {
     contexts.setHandlers(new Handler[] {context});
     Server server = new Server(retrievePortNumber());
     server.setHandler(contexts);
+
+    Scheduler scheduler = ServerResourceConfig.getScheduler();
+    scheduler.start();
 
     try {
       server.start();

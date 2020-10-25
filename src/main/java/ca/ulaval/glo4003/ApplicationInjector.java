@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003;
 
+import static ca.ulaval.glo4003.interfaces.systemtime.SchedulerBuilder.newScheduler;
+
 import ca.ulaval.glo4003.accesspasses.AccessPassInjector;
 import ca.ulaval.glo4003.accesspasses.api.AccessPassExceptionMapper;
 import ca.ulaval.glo4003.accounts.AccountInjector;
@@ -37,8 +39,10 @@ import ca.ulaval.glo4003.users.UserInjector;
 import ca.ulaval.glo4003.users.api.UserExceptionMapper;
 import ca.ulaval.glo4003.users.api.UserResource;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import javax.ws.rs.ext.ExceptionMapper;
+import org.quartz.Scheduler;
 
 public class ApplicationInjector {
 
@@ -153,5 +157,12 @@ public class ApplicationInjector {
         TimeExceptionMapper.class,
         UserExceptionMapper.class,
         InvalidBillQueryParamExceptionMapper.class);
+  }
+
+  public Scheduler createScheduler() {
+    return newScheduler()
+        .withJobHandlers(
+            Collections.singletonList(CARBON_CREDIT_INJECTOR.createConvertCarbonCreditHandler()))
+        .build();
   }
 }

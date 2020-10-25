@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.carboncredits.api;
 
-import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditMonthlyPaymentStatusDto;
+import ca.ulaval.glo4003.carboncredits.api.dto.MonthlyPaymentStatusDto;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -13,8 +13,7 @@ public interface CarbonCreditResource {
 
   @POST
   @Produces(MediaType.APPLICATION_JSON)
-  Response modifyCarbonCreditMonthlyPaymentStatus(
-      CarbonCreditMonthlyPaymentStatusDto carbonCreditMonthlyPaymentStatusDto);
+  Response modifyCarbonCreditMonthlyPaymentStatus(MonthlyPaymentStatusDto monthlyPaymentStatusDto);
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)

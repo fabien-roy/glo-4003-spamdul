@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.carboncredits.api.dto;
 
-public class CarbonCreditMonthlyPaymentStatusDto {
+public class MonthlyPaymentStatusDto {
   public String monthlyPaymentStatus;
 
   @Override
