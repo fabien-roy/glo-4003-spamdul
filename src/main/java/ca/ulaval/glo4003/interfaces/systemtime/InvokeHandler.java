@@ -4,7 +4,6 @@ import java.util.List;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 
-// TODO : Test
 public class InvokeHandler implements Job {
   @Override
   public void execute(JobExecutionContext jobExecutionContext) {
