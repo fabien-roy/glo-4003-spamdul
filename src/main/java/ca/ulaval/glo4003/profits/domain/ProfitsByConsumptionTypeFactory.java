@@ -8,10 +8,10 @@ import ca.ulaval.glo4003.funds.services.BillProfitsCalculator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfitByConsumptionTypeFactory {
+public class ProfitsByConsumptionTypeFactory {
   private final BillProfitsCalculator billProfitsCalculator;
 
-  public ProfitByConsumptionTypeFactory(BillProfitsCalculator billProfitsCalculator) {
+  public ProfitsByConsumptionTypeFactory(BillProfitsCalculator billProfitsCalculator) {
     this.billProfitsCalculator = billProfitsCalculator;
   }
 

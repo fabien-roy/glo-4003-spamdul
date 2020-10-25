@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.funds.infrastructure.filters;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class YearFilterInMemory implements BillFilterInMemory {
 
@@ -13,7 +14,8 @@ public class YearFilterInMemory implements BillFilterInMemory {
 
   @Override
   public List<Bill> filter(List<Bill> filteredBills) {
-    // TODO : Bill curently has no notion of the time of billing
-    return null;
+    return filteredBills.stream()
+        .filter(bill -> bill.isYearEqual(year))
+        .collect(Collectors.toList());
   }
 }

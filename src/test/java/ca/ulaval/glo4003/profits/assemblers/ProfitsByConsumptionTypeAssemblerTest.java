@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 
-public class ProfitByConsumptionTypeAssemblerTest {
+public class ProfitsByConsumptionTypeAssemblerTest {
 
-  private ProfitByConsumptionTypeAssembler profitByConsumptionTypeAssembler =
-      new ProfitByConsumptionTypeAssembler();
+  private ProfitsByConsumptionTypeAssembler profitsByConsumptionTypeAssembler =
+      new ProfitsByConsumptionTypeAssembler();
   private static ConsumptionType consumptionType = createNotZeroPullutionConsumptionTypes();
   private static Money money = createMoney();
 
@@ -27,7 +27,7 @@ public class ProfitByConsumptionTypeAssemblerTest {
 
     profitByConsumptionTypes.add(profitByConsumptionType);
     List<ProfitsByConsumptionTypeDto> profitsByConsumptionTypeDtos =
-        profitByConsumptionTypeAssembler.assembleMany(profitByConsumptionTypes);
+        profitsByConsumptionTypeAssembler.assembleMany(profitByConsumptionTypes);
 
     assertThat(profitsByConsumptionTypeDtos.get(0).consumptionType)
         .isEqualTo(consumptionType.toString());

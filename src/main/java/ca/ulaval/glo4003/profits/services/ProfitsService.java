@@ -10,10 +10,10 @@ import ca.ulaval.glo4003.funds.services.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.profits.api.dto.ProfitsByConsumptionTypeDto;
 import ca.ulaval.glo4003.profits.api.dto.ProfitsDto;
-import ca.ulaval.glo4003.profits.assemblers.ProfitByConsumptionTypeAssembler;
 import ca.ulaval.glo4003.profits.assemblers.ProfitsAssembler;
+import ca.ulaval.glo4003.profits.assemblers.ProfitsByConsumptionTypeAssembler;
 import ca.ulaval.glo4003.profits.domain.ProfitByConsumptionType;
-import ca.ulaval.glo4003.profits.domain.ProfitByConsumptionTypeFactory;
+import ca.ulaval.glo4003.profits.domain.ProfitsByConsumptionTypeFactory;
 import java.util.List;
 
 public class ProfitsService {
@@ -22,22 +22,22 @@ public class ProfitsService {
   private BillService billService;
   private BillQueryParamsAssembler billQueryParamsAssembler;
   private BillProfitsCalculator billProfitsCalculator;
-  private ProfitByConsumptionTypeFactory profitByConsumptionTypeFactory;
-  private ProfitByConsumptionTypeAssembler profitByConsumptionTypeAssembler;
+  private ProfitsByConsumptionTypeFactory profitsByConsumptionTypeFactory;
+  private ProfitsByConsumptionTypeAssembler profitsByConsumptionTypeAssembler;
 
   public ProfitsService(
       ProfitsAssembler profitsAssembler,
       BillService billService,
       BillQueryParamsAssembler billQueryParamsAssembler,
       BillProfitsCalculator billProfitsCalculator,
-      ProfitByConsumptionTypeFactory profitByConsumptionTypeFactory,
-      ProfitByConsumptionTypeAssembler profitByConsumptionTypeAssembler) {
+      ProfitsByConsumptionTypeFactory profitsByConsumptionTypeFactory,
+      ProfitsByConsumptionTypeAssembler profitsByConsumptionTypeAssembler) {
     this.profitsAssembler = profitsAssembler;
     this.billService = billService;
     this.billQueryParamsAssembler = billQueryParamsAssembler;
     this.billProfitsCalculator = billProfitsCalculator;
-    this.profitByConsumptionTypeFactory = profitByConsumptionTypeFactory;
-    this.profitByConsumptionTypeAssembler = profitByConsumptionTypeAssembler;
+    this.profitsByConsumptionTypeFactory = profitsByConsumptionTypeFactory;
+    this.profitsByConsumptionTypeAssembler = profitsByConsumptionTypeAssembler;
   }
 
   public ProfitsDto getParkingStickerProfits(int year) {
@@ -66,8 +66,8 @@ public class ProfitsService {
         billService.getBillsByConsumptionsType(billQueryParams);
 
     List<ProfitByConsumptionType> profitByConsumptionTypes =
-        profitByConsumptionTypeFactory.create(billsByConsumptionTypes);
-    return profitByConsumptionTypeAssembler.assembleMany(profitByConsumptionTypes);
+        profitsByConsumptionTypeFactory.create(billsByConsumptionTypes);
+    return profitsByConsumptionTypeAssembler.assembleMany(profitByConsumptionTypes);
   }
 
   public ProfitsDto getOffenseProfits(int year) {

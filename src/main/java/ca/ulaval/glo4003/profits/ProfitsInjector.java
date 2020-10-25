@@ -5,9 +5,9 @@ import ca.ulaval.glo4003.funds.services.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.profits.api.ProfitsResource;
 import ca.ulaval.glo4003.profits.api.ProfitsResourceImplementation;
-import ca.ulaval.glo4003.profits.assemblers.ProfitByConsumptionTypeAssembler;
 import ca.ulaval.glo4003.profits.assemblers.ProfitsAssembler;
-import ca.ulaval.glo4003.profits.domain.ProfitByConsumptionTypeFactory;
+import ca.ulaval.glo4003.profits.assemblers.ProfitsByConsumptionTypeAssembler;
+import ca.ulaval.glo4003.profits.domain.ProfitsByConsumptionTypeFactory;
 import ca.ulaval.glo4003.profits.services.ProfitsService;
 
 public class ProfitsInjector {
@@ -19,8 +19,8 @@ public class ProfitsInjector {
             billService,
             new BillQueryParamsAssembler(),
             new BillProfitsCalculator(),
-            new ProfitByConsumptionTypeFactory(new BillProfitsCalculator()),
-            new ProfitByConsumptionTypeAssembler());
+            new ProfitsByConsumptionTypeFactory(new BillProfitsCalculator()),
+            new ProfitsByConsumptionTypeAssembler());
     return new ProfitsResourceImplementation(profitsService);
   }
 }

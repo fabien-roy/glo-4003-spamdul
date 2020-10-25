@@ -10,7 +10,7 @@ public class CustomDateTime {
     return new CustomDateTime(LocalDateTime.now());
   }
 
-  private CustomDateTime(LocalDateTime localDateTime) {
+  public CustomDateTime(LocalDateTime localDateTime) {
     this.localDateTime = localDateTime;
   }
 
