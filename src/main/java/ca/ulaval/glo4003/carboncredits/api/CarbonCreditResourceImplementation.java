@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.carboncredits.api;
 
 import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
-import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditMonthlyPaymentStatusDto;
+import ca.ulaval.glo4003.carboncredits.api.dto.MonthlyPaymentStatusDto;
 import ca.ulaval.glo4003.carboncredits.services.CarbonCreditService;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -15,8 +15,8 @@ public class CarbonCreditResourceImplementation implements CarbonCreditResource 
 
   @Override
   public Response modifyCarbonCreditMonthlyPaymentStatus(
-      CarbonCreditMonthlyPaymentStatusDto carbonCreditMonthlyPaymentStatusDto) {
-    carbonCreditService.modifyCarbonCreditMonthlyPaymentStatus(carbonCreditMonthlyPaymentStatusDto);
+      MonthlyPaymentStatusDto monthlyPaymentStatusDto) {
+    carbonCreditService.modifyMonthlyPaymentStatus(monthlyPaymentStatusDto);
     return Response.status(Response.Status.OK).build();
   }
 
