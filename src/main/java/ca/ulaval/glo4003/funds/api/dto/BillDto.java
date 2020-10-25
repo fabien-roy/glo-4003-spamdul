@@ -4,7 +4,6 @@ public class BillDto {
   public String billId;
   public String billType;
   public String description;
-  public String consumptionType;
   public double amountDue;
   public double amountPaid;
   public String time;

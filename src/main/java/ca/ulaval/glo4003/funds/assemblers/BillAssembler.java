@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.funds.assemblers;
 
-import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import java.util.List;
@@ -20,10 +19,6 @@ public class BillAssembler {
     billDto.amountDue = bill.getAmountDue().toDouble();
     billDto.amountPaid = bill.getAmountPaid().toDouble();
     billDto.time = bill.getCustomDateTime().toString();
-    ConsumptionType consumptionType = bill.getConsumptionType().orElse(null);
-    if (consumptionType != null) {
-      billDto.consumptionType = consumptionType.toString();
-    }
 
     return billDto;
   }
