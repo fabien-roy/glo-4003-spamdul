@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.funds.domain.queries;
 
 import static ca.ulaval.glo4003.funds.domain.queries.YearQueryParamAssembler.YEAR_PARAM;
+import static ca.ulaval.glo4003.times.helpers.CustomDateTimeMother.createDateTime;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -19,7 +20,7 @@ public class YearQueryParamAssemblerTest {
   @Mock private static BillQueryBuilder queryBuilder;
   @Mock private static BillQueryBuilder assembledQueryBuilder;
 
-  private static final int A_YEAR = 2020; // TODO : Add to Bill Object Mother
+  private int A_YEAR = createDateTime().getYear();
   private BillQueryParams params = new BillQueryParams();
 
   @Before
