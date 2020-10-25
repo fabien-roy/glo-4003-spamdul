@@ -15,7 +15,7 @@ public class SchedulerBuilder {
   private static final String MINUTE_CRON_EXPRESSION = "0 * * ? * *";
   private List<JobHandler> jobHandlers = new ArrayList<>();
 
-  public static SchedulerBuilder newSchedule() {
+  public static SchedulerBuilder newScheduler() {
     return new SchedulerBuilder();
   }
 

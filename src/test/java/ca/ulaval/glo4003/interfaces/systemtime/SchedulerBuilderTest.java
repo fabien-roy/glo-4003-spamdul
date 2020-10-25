@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.interfaces.systemtime;
 
-import static ca.ulaval.glo4003.interfaces.systemtime.SchedulerBuilder.newSchedule;
+import static ca.ulaval.glo4003.interfaces.systemtime.SchedulerBuilder.newScheduler;
 import static com.google.common.truth.Truth.assertThat;
 
 import java.util.Collections;
@@ -17,7 +17,7 @@ public class SchedulerBuilderTest {
 
   @Test
   public void whenBuilding_thenReturnScheduler() {
-    Scheduler scheduler = newSchedule().build();
+    Scheduler scheduler = newScheduler().build();
 
     assertThat(scheduler).isNotNull();
   }
@@ -26,7 +26,7 @@ public class SchedulerBuilderTest {
   public void givenJobHandlers_whenBuilding_thenReturnScheduler() {
     List<JobHandler> jobHandlers = Collections.singletonList(jobHandler);
 
-    Scheduler scheduler = newSchedule().withJobHandlers(jobHandlers).build();
+    Scheduler scheduler = newScheduler().withJobHandlers(jobHandlers).build();
 
     assertThat(scheduler).isNotNull();
   }

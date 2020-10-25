@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003;
 
-import static ca.ulaval.glo4003.interfaces.systemtime.SchedulerBuilder.newSchedule;
+import static ca.ulaval.glo4003.interfaces.systemtime.SchedulerBuilder.newScheduler;
 
 import ca.ulaval.glo4003.accesspasses.AccessPassInjector;
 import ca.ulaval.glo4003.accesspasses.api.AccessPassExceptionMapper;
@@ -152,7 +152,7 @@ public class ApplicationInjector {
 
   // TODO : Test this
   public Scheduler createScheduler() {
-    return newSchedule()
+    return newScheduler()
         .withJobHandlers(
             Collections.singletonList(CARBON_CREDIT_INJECTOR.createConvertCarbonCreditHandler()))
         .build();
