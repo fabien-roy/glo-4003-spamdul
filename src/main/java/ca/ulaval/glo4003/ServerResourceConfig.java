@@ -1,11 +1,11 @@
 package ca.ulaval.glo4003;
 
 import ca.ulaval.glo4003.interfaces.http.CORSResponseFilter;
-import ca.ulaval.glo4003.times.systemtime.QuartzTimeScheduler;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.quartz.Scheduler;
 
 public class ServerResourceConfig {
   private static final ApplicationInjector APPLICATION_INJECTOR = new ApplicationInjector();
@@ -36,9 +36,7 @@ public class ServerResourceConfig {
     return resourceConfig;
   }
 
-  public static QuartzTimeScheduler getQuartzTimeScheduler() {
-    QuartzTimeScheduler quartzTimeScheduler = new QuartzTimeScheduler();
-    quartzTimeScheduler.SubscribeJob(APPLICATION_INJECTOR.createConvertCarbonCreditJob());
-    return quartzTimeScheduler;
+  public static Scheduler getScheduler() {
+    return APPLICATION_INJECTOR.createScheduler();
   }
 }

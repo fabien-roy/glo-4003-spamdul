@@ -31,6 +31,7 @@ public class CarbonCreditService {
     this.sustainableMobilityProgramBankService = sustainableMobilityProgramBankService;
   }
 
+  // TODO : Test
   public void modifyCarbonCreditMonthlyPaymentStatus(
       CarbonCreditMonthlyPaymentStatusDto carbonCreditMonthlyPaymentStatusDto) {
     MonthlyPaymentStatus monthlyPaymentStatus =
@@ -42,7 +43,8 @@ public class CarbonCreditService {
     return carbonCreditAssembler.assemble(carbonCreditRepository.get());
   }
 
-  public void listenTimeToExtractMoneyFromSustainableMobilityProgramBank() {
+  // TODO : Test
+  public void extractMoneyFromSustainableMobilityProgramBank() {
     Money sustainableMobilityProgramBankAvailableMoney =
         sustainableMobilityProgramBankService.extractSustainableMobilityProgramBankAvailableMoney();
     CarbonCredit carbonCredit =

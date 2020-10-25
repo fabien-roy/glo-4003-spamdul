@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003;
 
-import ca.ulaval.glo4003.times.systemtime.QuartzTimeScheduler;
 import java.util.Optional;
 import java.util.logging.Logger;
 import org.eclipse.jetty.server.Handler;
@@ -10,6 +9,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.quartz.Scheduler;
 
 public class Main {
   private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
@@ -30,8 +30,8 @@ public class Main {
     Server server = new Server(retrievePortNumber());
     server.setHandler(contexts);
 
-    QuartzTimeScheduler quartzTimeScheduler = ServerResourceConfig.getQuartzTimeScheduler();
-    quartzTimeScheduler.start();
+    Scheduler scheduler = ServerResourceConfig.getScheduler();
+    scheduler.start();
 
     try {
       server.start();

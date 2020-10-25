@@ -1,12 +1,13 @@
 package ca.ulaval.glo4003;
 
+import static ca.ulaval.glo4003.interfaces.systemtime.SchedulerBuilder.newSchedule;
+
 import ca.ulaval.glo4003.accesspasses.AccessPassInjector;
 import ca.ulaval.glo4003.accesspasses.api.AccessPassExceptionMapper;
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
 import ca.ulaval.glo4003.carboncredits.CarbonCreditInjector;
 import ca.ulaval.glo4003.carboncredits.api.CarbonCreditResource;
-import ca.ulaval.glo4003.carboncredits.services.ConvertCarbonCreditJob;
 import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.cars.api.CarExceptionMapper;
 import ca.ulaval.glo4003.communications.CommunicationInjector;
@@ -33,8 +34,10 @@ import ca.ulaval.glo4003.users.UserInjector;
 import ca.ulaval.glo4003.users.api.UserExceptionMapper;
 import ca.ulaval.glo4003.users.api.UserResource;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import javax.ws.rs.ext.ExceptionMapper;
+import org.quartz.Scheduler;
 
 public class ApplicationInjector {
 
@@ -110,10 +113,12 @@ public class ApplicationInjector {
     return CARBON_CREDIT_INJECTOR.createCarbonCreditResource();
   }
 
-  public ConvertCarbonCreditJob createConvertCarbonCreditJob() {
-    return CARBON_CREDIT_INJECTOR.createConvertCarbonCreditJob(
-        FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
-        CARBON_CREDIT_INJECTOR.getCarbonCreditRepository());
+  // TODO : Test this
+  public Scheduler createScheduler() {
+    return newSchedule()
+        .withJobHandlers(
+            Collections.singletonList(CARBON_CREDIT_INJECTOR.createConvertCarbonCreditHandler()))
+        .build();
   }
 
   public InitiativeResource createInitiativeResource() {

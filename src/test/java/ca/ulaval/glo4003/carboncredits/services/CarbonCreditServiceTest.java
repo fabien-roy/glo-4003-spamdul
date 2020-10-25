@@ -41,8 +41,6 @@ public class CarbonCreditServiceTest {
         .thenReturn(carbonCreditDto); // TODO : Do not use any()
   }
 
-  // TODO : Test modifyCarbonCreditMonthlyPaymentStatus
-
   @Test
   public void whenGettingCarbonCredits_thenReturnCarbonCreditAmount() {
     Truth.assertThat(carbonCreditService.getCarbonCredits()).isSameInstanceAs(carbonCreditDto);
