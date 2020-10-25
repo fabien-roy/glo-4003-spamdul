@@ -22,7 +22,7 @@ public class MoneyTest {
     double multiplicationFactor = 2;
     Money expectedMoney = Money.fromDouble(10);
 
-    Money actualMoney = money.multiply(money, multiplicationFactor);
+    Money actualMoney = money.multiply(multiplicationFactor);
 
     Truth.assertThat(actualMoney).isEqualTo(expectedMoney);
   }

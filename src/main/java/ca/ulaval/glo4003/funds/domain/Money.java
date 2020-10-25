@@ -21,8 +21,8 @@ public class Money {
     return new Money(amount - money.toDouble());
   }
 
-  public static Money multiply(Money money, double mulplicationFactor) {
-    return new Money(money.toDouble() * mulplicationFactor);
+  public Money multiply(double multiplicationFactor) {
+    return new Money(amount * multiplicationFactor);
   }
 
   public double toDouble() {
