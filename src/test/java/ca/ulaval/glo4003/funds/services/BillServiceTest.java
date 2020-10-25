@@ -78,7 +78,9 @@ public class BillServiceTest {
     bills.add(bill);
 
     when(billFactory.createForParkingSticker(
-            parkingPeriodFee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
+            any(Money.class),
+            eq(parkingSticker.getCode()),
+            eq(parkingSticker.getReceptionMethod())))
         .thenReturn(bill);
     when(billFactory.createForAccessPass(fee, accessPassCode, consumptionType)).thenReturn(bill);
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
