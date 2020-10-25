@@ -11,6 +11,7 @@ import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.initiatives.api.dto.AddInitiativeDto;
 import ca.ulaval.glo4003.initiatives.api.dto.InitiativeDto;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;
+import ca.ulaval.glo4003.initiatives.exception.InvalidInitiativeNameException;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -26,7 +27,7 @@ public class InitiativeAssemblerTest {
   private InitiativeAssembler initiativeAssembler;
 
   private final Initiative initiative = anInitiative().build();
-  private final AddInitiativeDto addInitiativeDto = anAddInitiativeDto().build();
+  private AddInitiativeDto addInitiativeDto = anAddInitiativeDto().build();
   private final Money allocatedAmount = createMoney();
 
   @Before
@@ -41,6 +42,13 @@ public class InitiativeAssemblerTest {
     Initiative initiative = initiativeAssembler.assemble(addInitiativeDto);
 
     assertThat(initiative.getName()).isEqualTo(addInitiativeDto.name);
+  }
+
+  @Test(expected = InvalidInitiativeNameException.class)
+  public void givenNullInitiativeName_whenAssembling_thenThrowInvalidInitiativeNameException() {
+    addInitiativeDto = anAddInitiativeDto().withName(null).build();
+
+    initiativeAssembler.assemble(addInitiativeDto);
   }
 
   @Test

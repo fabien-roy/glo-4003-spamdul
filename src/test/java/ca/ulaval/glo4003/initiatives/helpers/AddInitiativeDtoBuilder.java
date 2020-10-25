@@ -15,6 +15,11 @@ public class AddInitiativeDtoBuilder {
     return new AddInitiativeDtoBuilder();
   }
 
+  public AddInitiativeDtoBuilder withName(String name) {
+    this.name = name;
+    return this;
+  }
+
   public AddInitiativeDto build() {
     AddInitiativeDto addInitiativeDto = new AddInitiativeDto();
     addInitiativeDto.name = name;
