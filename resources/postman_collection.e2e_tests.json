@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "75b16215-7d49-48b2-a6a1-7c4629be6711",
+		"_postman_id": "e396d1b2-f46d-4412-9000-170488e42b47",
 		"name": "SPAMD-UL End-to-end tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3bbd6d87-078b-4e16-92d1-1f3522ab48f6",
+								"id": "541fbdb2-dafc-424f-900d-81c3f8a5b9b3",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
@@ -54,7 +54,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ead72ada-2438-4601-b02e-c32d1e74cc63",
+								"id": "6d60932e-2923-4bda-b516-6847507ff671",
 								"exec": [
 									""
 								],
@@ -95,7 +95,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0ad8036e-a26c-46ea-974f-ff0030201cb5",
+								"id": "32bef4f1-7ed5-4dc2-a8f9-0b2949c3a0b4",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
@@ -137,7 +137,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a702ad4e-1c41-46e6-8b0f-27dc9c23ffb0",
+								"id": "22b63949-9253-469a-8f60-1678e90f0803",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.initiativeCode\", jsonData.initiativeCode);"
@@ -170,6 +170,95 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get user's bills",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "76e9e79d-d3b7-444a-a212-611ff48dac54",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"if (jsonData.length > 0) {",
+									"  postman.setEnvironmentVariable(\"param.billId\", jsonData[0].billId);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/bills",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"bills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay user's bill",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "523f1570-372e-4727-ab31-59f7dc931f02",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amountToPay\": {{request.bill.amountToPay}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{param.accountId}}/bills/{{param.billId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{param.accountId}}",
+								"bills",
+								"{{param.billId}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -192,7 +281,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "c45ab985-b219-4a5a-a36f-dac7f3528061",
+														"id": "88ef9abe-e3ef-49d8-bab5-d717585d868b",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -237,7 +326,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "cb1bd970-64b7-480a-9ff4-28fa735aa161",
+														"id": "cf5134ab-e098-4f3b-8c68-71d9e3364804",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -289,7 +378,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "032a2891-4b6f-4b45-84ff-38c5616077b0",
+														"id": "dac8213f-6421-4464-8fd7-d7c5046b735b",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -334,7 +423,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "c87f156c-9796-4a77-9d32-c46f762c917e",
+														"id": "0067c935-3efc-4ed3-af99-855e8282c3f6",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -379,7 +468,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "857bf1e7-7709-40b7-a775-f78b1f94ac07",
+														"id": "87856330-41d3-4ea1-ad22-f42aef87f074",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -424,7 +513,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "92862aca-1037-4a2c-bd2f-3cc0ca505541",
+														"id": "c885f111-175e-4016-be4a-8446fafd6aab",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -476,7 +565,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "0e4183bd-b7ab-4d6b-b784-5f19c0c4be03",
+														"id": "5dab9fbf-bbeb-4798-82ee-a0b885156a55",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -521,7 +610,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "38841e5b-0ef7-4047-86a5-57dc8ae2661e",
+														"id": "f92c310d-6210-4bad-a37b-41a15f163d4c",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -566,7 +655,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "f8600f6c-16f3-4f22-9dde-b0df8fb1627e",
+														"id": "2764cdf1-8a3f-40ef-98d5-5fa1c9d60183",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -615,7 +704,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "1ab88a3d-76c4-40d5-ad90-42e9d0124bee",
+												"id": "d13616ad-6738-4da0-9364-b83699f2a3ac",
 												"exec": [
 													"pm.test(\"Returns status 201\", function () {",
 													"    pm.response.to.have.status(201);",
@@ -667,7 +756,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "72f0a273-862c-4471-9884-3e1f7aa8f292",
+												"id": "40482ca9-d88d-4758-adc2-ae0c123585ac",
 												"exec": [
 													"pm.test(\"Returns status 404\", function () {",
 													"    pm.response.to.have.status(404);",
@@ -704,7 +793,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "9f86e6ad-0b3c-4703-aad1-bb28da0c3819",
+												"id": "981dc72d-11f7-4b86-b8af-e07ad82abe8b",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -731,7 +820,7 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "43aca1c3-b7bc-4264-a9a2-ee4171b47148",
+												"id": "d7df2841-c5df-4c8f-8f46-2d9686605001",
 												"exec": [
 													""
 												],
@@ -784,7 +873,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "5d8cdb3f-30d4-40ea-a3e0-c24285a62c5b",
+														"id": "6a199761-0e43-4f0e-8580-d72b3ba368fe",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -838,10 +927,38 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "bd17ca4b-89d0-4421-82ba-4db83fdccc27",
+												"id": "780dfe3e-b044-4ad0-814f-5389b1488ec6",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Returns bills\", function () {",
+													"    pm.expect(pm.response.json().length).to.be.greaterThan(0);",
+													"});",
+													"",
+													"pm.test(\"Returns bill with id\", function () {",
+													"    pm.expect(pm.response.json()[0].billId).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns bill with type\", function () {",
+													"    pm.expect(pm.response.json()[0].billType).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns bill with description\", function () {",
+													"    pm.expect(pm.response.json()[0].description).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns bill with amount due\", function () {",
+													"    pm.expect(pm.response.json()[0].amountDue).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns bill with amount paid\", function () {",
+													"    pm.expect(pm.response.json()[0].amountPaid).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns bill with time\", function () {",
+													"    pm.expect(pm.response.json()[0].time).to.not.be.null;",
 													"});"
 												],
 												"type": "text/javascript"
@@ -883,6 +1000,438 @@
 							"_postman_isSubFolder": true
 						},
 						{
+							"name": "Pay user's bill",
+							"item": [
+								{
+									"name": "Account id",
+									"item": [
+										{
+											"name": "Non existent account id",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "02e2fcbb-897b-4f63-aecf-93a8f78a34d4",
+														"exec": [
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"Returns account not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Account not found\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"amountToPay\": {{request.bill.amountToPay}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/dcbf4b65-c58e-40c4-b974-90c47bcd421a/bills/{{param.billId}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"dcbf4b65-c58e-40c4-b974-90c47bcd421a",
+														"bills",
+														"{{param.billId}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Bill id",
+									"item": [
+										{
+											"name": "Non existent bill id",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "ec3377ae-7910-4128-9b1b-a416dacbbf30",
+														"exec": [
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"Returns bill not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Bill not found\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"amountToPay\": {{request.bill.amountToPay}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/bills/dcbf4b65-c58e-40c4-b974-90c47bcd421a",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"bills",
+														"dcbf4b65-c58e-40c4-b974-90c47bcd421a"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Amount to pay",
+									"item": [
+										{
+											"name": "Invalid amount to pay (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "78b6b870-bf5c-4b4b-b201-4a73f818cc1f",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount of money\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"amountToPay\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/bills/{{param.billId}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"bills",
+														"{{param.billId}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid amount to pay (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "73b698b9-c026-4dcf-9f88-26b8f375483b",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount of money\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/bills/{{param.billId}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"bills",
+														"{{param.billId}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid amount to pay (string)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "97a67674-7164-49c0-bbbd-367b13c60338",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount of money\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"amountToPay\": \"amountToPay\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/bills/{{param.billId}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"bills",
+														"{{param.billId}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid amount to pay (negative)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "cec4b83e-06a1-47ba-aca8-90d0e2e0aeb1",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns negative amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Negative amount of money\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"amountToPay\": -1\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/bills/{{param.billId}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"bills",
+														"{{param.billId}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid amount to pay (exceeding)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bbceb2ae-97d0-44ab-b842-8f37cc09b5c2",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns amount due exceeded\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Amount due exceeded\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"amountToPay\": 10000000000\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/bills/{{param.billId}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"bills",
+														"{{param.billId}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Valid bill",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "c98c6791-8f01-4fce-83f2-0a0213d6a7be",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Returns bill with id\", function () {",
+													"    pm.expect(pm.response.json().billId).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns bill with type\", function () {",
+													"    pm.expect(pm.response.json().billType).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns bill with description\", function () {",
+													"    pm.expect(pm.response.json().description).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns bill with amount due\", function () {",
+													"    pm.expect(pm.response.json().amountDue).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns bill with amount paid\", function () {",
+													"    pm.expect(pm.response.json().amountPaid).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns bill with time\", function () {",
+													"    pm.expect(pm.response.json().time).to.not.be.null;",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"amountToPay\": {{request.bill.amountToPay}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/bills/{{param.billId}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"bills",
+												"{{param.billId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
 							"name": "Get user's cars",
 							"item": [
 								{
@@ -894,7 +1443,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "c2b9b8bf-e16c-43b9-af2c-f7490d2f83f1",
+														"id": "acfaf2a5-692b-4dd1-9900-5790c6581016",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -948,7 +1497,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c70f7a0b-353a-4ef7-93a0-abbcfdeffcad",
+												"id": "a5529b7d-4dbc-4b06-8bf9-30555dc05fde",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -1033,7 +1582,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "4dc6289d-3d25-480a-94d8-85ea46bc6673",
+														"id": "6646e2ba-b4c8-4482-8ec3-e9557737d5dc",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -1087,7 +1636,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2c2dfffc-0904-43a0-b0ee-85253b489818",
+														"id": "cd5f3ca5-a372-4ab3-8392-187400a6eeee",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1134,7 +1683,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "4fad014a-8fbf-4a9f-bd8f-961a17ab4345",
+														"id": "42cddc27-c09b-46da-8154-4a8268a2b4c2",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1181,7 +1730,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "dae9c522-5e6c-4dd7-bf1f-8b8ffc609c65",
+														"id": "554442fa-0916-41ca-b206-722262dc44fd",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1228,7 +1777,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "aa0c7c26-7011-4829-b66b-ba3e945d3d3c",
+														"id": "591630f2-08d6-4837-822b-80d6d7e52776",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1282,7 +1831,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "c69c897c-dc35-40b0-a22b-d4da6641312c",
+														"id": "9279192d-4829-41bb-8a4b-facc82db7b25",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1329,7 +1878,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "3c2b0145-eaf3-4546-8aa3-27fb8b92d02e",
+														"id": "a2278c37-166d-4519-a80a-945d59ea53c6",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1383,7 +1932,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "e9633902-93f6-47d8-a7b8-7e08aef0ffda",
+														"id": "2cfee8ed-902e-4aa9-8212-d014ab478e85",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1430,7 +1979,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "d5cdb26e-f15a-4d2f-98fb-f69ac27f222e",
+														"id": "614a5e9f-87d0-4053-afc2-254706c34d7a",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1484,7 +2033,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "c8331e31-c051-4c73-b9f8-ca466e35f4ed",
+														"id": "bf3932eb-70b1-41cf-b611-7764710fa9db",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1531,7 +2080,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "3302b9bd-96c8-4036-a62e-13662196cff3",
+														"id": "db8cca23-46e8-440d-8590-4d352711b24c",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1578,7 +2127,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "bdce7ecb-c752-426c-a711-99e57ebf7dc1",
+														"id": "e368c560-4c87-4946-a9c4-a664533cf649",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1632,7 +2181,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "3a6a9756-47b8-43d3-ad11-2ce9830b1589",
+														"id": "bc7ad191-fdb4-4a75-afa6-127162700b49",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1679,7 +2228,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "32c52582-71c1-4832-ae9a-f821d7267287",
+														"id": "102db7bc-5335-46e6-aa05-883222147577",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1726,7 +2275,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "d7adee0f-ec9f-4272-973c-388e0a4bbc9b",
+														"id": "a1745fb1-0aee-47dd-9a4a-4d6f330f484d",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1777,7 +2326,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c8ade80d-d5cb-4af6-bde6-070ef595362f",
+												"id": "5989a7bd-22c6-4ebd-b022-114f39aa0dea",
 												"exec": [
 													"pm.test(\"Returns status 201\", function () {",
 													"    pm.response.to.have.status(201);",
@@ -1830,7 +2379,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "1390e650-253d-466c-9bd7-ed11d285f702",
+														"id": "1d659278-d236-469f-990e-18dbe8531f5f",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -1884,7 +2433,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "7c51a634-08a7-4e6b-b82b-5770552158a3",
+														"id": "77584838-675e-4b55-8a94-0678e8b93f78",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1931,7 +2480,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "1b78ff2a-f553-412d-a33d-e2d0dcb2ac82",
+														"id": "47cfd176-d8a6-4501-bde5-3145c254d244",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1978,7 +2527,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ef6614b-4334-4247-b9aa-432e073900c5",
+														"id": "2cdbd733-e221-4996-a5bb-0180afbfad6e",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2032,7 +2581,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "3bd53d93-e64a-410e-b31e-4e74fc7ff98a",
+														"id": "25e5d335-3560-455b-86a6-b3cbfbb1cac4",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -2083,7 +2632,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "6bb197fe-06da-413a-a642-30805892f15f",
+												"id": "76e42348-ff6b-431f-bfc1-b3b9d79467e8",
 												"exec": [
 													"pm.test(\"Returns status 201\", function () {",
 													"    pm.response.to.have.status(201);",
@@ -2140,7 +2689,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "cd9939ed-d0df-4bf3-bdf4-6fbdaa110c42",
+														"id": "afe31e99-0326-4346-81d8-ac2aa5b064cd",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -2194,7 +2743,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "51104580-3f8d-4c9e-bc14-b66f1e20c200",
+														"id": "4842d05d-0510-44a7-8033-132e627f312b",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -2241,7 +2790,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "5cfe5089-fcdd-485a-84a1-2627e4da4e78",
+														"id": "b3bd4123-46ff-4c70-890e-abb7986f6f0d",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2288,7 +2837,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "24df4b5f-abe0-47e1-9866-7bc5c288ab8b",
+														"id": "8c05aa87-4457-464c-bfa9-13d9a72de2db",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2342,7 +2891,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "c23facda-1ee6-4a48-8a41-d2557e685f1d",
+														"id": "f0ace6c6-a929-4a69-a22a-a2deef4c80e0",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2389,7 +2938,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "96a8da6d-2d4d-4cba-9c10-e405f36cd9a8",
+														"id": "c4bafbc8-9a08-466f-9b3c-f60e6a3dd56c",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2436,7 +2985,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "4b99f00a-bbff-49aa-bd35-ad8a163efc7b",
+														"id": "143ef4bd-cf93-4829-a699-9dbe4c643d0d",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2490,7 +3039,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "e317ad3b-2494-4a52-8e94-6912c01afc27",
+														"id": "2ee725c3-179a-46ae-88bb-0ea4339d35ac",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2537,7 +3086,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "aafae85a-fdc7-4f51-b6cf-6fa51601998d",
+														"id": "a2661efb-d36c-4895-a149-e44f920b2ad0",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2584,7 +3133,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "bd5a5e70-21d1-49a5-a47b-bde4e9437967",
+														"id": "762f67fd-3412-4cc0-a4c2-18c22f777b35",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2638,7 +3187,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "7f1f2721-a0ec-4c04-9616-fa3bdf80c1fd",
+														"id": "40ee8527-1ba7-44f3-a5f5-c0b1f4866831",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2685,7 +3234,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "05c7b4ab-88e3-405b-bd51-2e763b77b40b",
+														"id": "431366f6-b1ef-4a9e-801f-36e5fd9d6bbb",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2732,7 +3281,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "4ae8f710-92af-437a-8a52-4642dd373c84",
+														"id": "2397b029-d1df-4622-9245-8ef2fdb042b0",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2783,7 +3332,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "031b7dc3-d3c0-45c2-8520-902984bd14fb",
+												"id": "9211c859-c102-4e75-aba4-c4b37c262d66",
 												"exec": [
 													"pm.test(\"Returns status 201\", function () {",
 													"    pm.response.to.have.status(201);",
@@ -2830,7 +3379,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "64027418-55a1-424a-b53d-9c9e81633ccd",
+												"id": "a0474a43-e519-44ad-ac58-a00ba89fd5c9",
 												"exec": [
 													"pm.test(\"Returns status 201\", function () {",
 													"    pm.response.to.have.status(201);",
@@ -2880,6 +3429,84 @@
 					"_postman_isSubFolder": true
 				},
 				{
+					"name": "Parking areas",
+					"item": [
+						{
+							"name": "Get parking areas",
+							"item": [
+								{
+									"name": "Get parking areas",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "26c65f33-cfd3-45a7-8013-b1b0c2fcc56a",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Returns parking areas\", function () {",
+													"    pm.expect(pm.response.json().length).to.be.greaterThan(0);",
+													"});",
+													"",
+													"pm.test(\"Returns parking area with parking area code\", function () {",
+													"    pm.expect(pm.response.json()[0].parkingArea).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns parking area with period prices\", function () {",
+													"    pm.expect(pm.response.json()[0].parkingPeriodPrice.length).to.be.greaterThan(0);",
+													"});",
+													"",
+													"pm.test(\"Returns parking area with period price with period\", function () {",
+													"    pm.expect(pm.response.json()[0].parkingPeriodPrice[0].period).to.not.be.null;",
+													"});",
+													"",
+													"pm.test(\"Returns parking area with period price with price\", function () {",
+													"    pm.expect(pm.response.json()[0].parkingPeriodPrice[0].price).to.not.be.null;",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/parkingAreas",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"parkingAreas"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "Gate entry",
 					"item": [
 						{
@@ -2894,7 +3521,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "56f69183-b3aa-436a-b61a-560ac44e6377",
+														"id": "23542ddf-e1ac-4e9c-b778-1f4971ed98c0",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -2948,7 +3575,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "5ad1c519-6c56-4351-be24-b5d00cd0958e",
+														"id": "81b5c0e4-2e18-41ef-8108-cc7ddd937a1c",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2995,7 +3622,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "9be9994e-e9df-4ab1-aeda-14ec6dbe9a29",
+														"id": "d45442ee-177c-4079-a55f-0ef20335eb26",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3042,7 +3669,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "739b5583-2e3e-464a-a3a8-fb7cccd0e4e0",
+														"id": "9f255607-edc5-448a-82d0-62a78d054de5",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3093,7 +3720,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "22e3a096-fd35-468f-94a4-8b6a617e3eef",
+												"id": "e0f0b597-e27c-4b42-b11a-4eeddf124e74",
 												"exec": [
 													"pm.test(\"Returns status 202\", function () {",
 													"    pm.response.to.have.status(202);",
@@ -3140,7 +3767,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "ccf07472-c251-4291-8f81-8b2abb7c8183",
+												"id": "e4d69f03-2ca1-4156-9980-35e2d14ad521",
 												"exec": [
 													"pm.test(\"Returns status 403\", function () {",
 													"    pm.response.to.have.status(403);",
@@ -3201,7 +3828,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "b4a35788-9bd7-45fe-a9a0-417060d1a79f",
+												"id": "e26415e2-5bba-48b3-8b47-bc34f2e6c5e6",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -3272,7 +3899,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "9d7b0eda-fd54-4d1a-a7a4-43bc7741eb8b",
+														"id": "6830ff3b-921f-45ba-b664-47c9b25dda89",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3318,7 +3945,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "c4fd87a6-1bc0-45a0-bbd5-66c0cc8898d6",
+														"id": "eeaaf349-8282-4d31-a2d3-799dcf338f42",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3371,7 +3998,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "01e75800-0322-41e4-ad0d-14c361448e99",
+														"id": "344eb59e-021a-4828-8fec-08526b57add8",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -3417,7 +4044,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "ef45542b-40af-4b43-876e-0fe5c495ad18",
+														"id": "1c9fcc8a-a014-4102-9b4c-b956e4f3116b",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3463,7 +4090,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "df344351-d851-4717-b13c-2106dd070dbd",
+														"id": "3cbc31f3-80fb-4f74-a98d-491e12f4047c",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3516,7 +4143,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ad75fd1-0c6f-4e4a-b61c-c6ef0697222f",
+														"id": "a83e0681-ae3f-4aaa-905e-921eed0a255f",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3562,7 +4189,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "3fccd34c-a9dd-4f1d-bfc4-0659388da38c",
+														"id": "b3c6c16a-0b11-4d78-b03f-13bb123624d3",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3608,7 +4235,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "f11e1525-de5b-4821-ab8b-c0e390e12f8b",
+														"id": "ca4111a7-7c43-45be-a701-19317e0dcbde",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3658,7 +4285,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "123c41fa-f6b5-456a-9114-8c6374b673f9",
+												"id": "aa21794a-9787-440b-8571-b1a2675f6395",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -3717,7 +4344,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "6b85c2a6-82d8-4737-b9b7-c4cb15fb20cd",
+														"id": "ee2df680-2967-4def-8222-91f8a4ee3c73",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3762,7 +4389,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "f58ba875-c125-4d95-b976-60e555d25e39",
+														"id": "873e1b6b-4b70-4cbc-ab02-2561a7fe3463",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3814,14 +4441,14 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "7b25d027-2706-4fdb-a907-385d3723bd85",
+														"id": "9206845e-171d-4eb9-af7e-10c149e16749",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid initiative amount\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative amount\")",
+															"pm.test(\"Returns invalid amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount of money\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -3859,14 +4486,14 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "71de716e-3218-45ec-b248-376b7f34ce18",
+														"id": "7c74dca2-1abc-4635-ba9a-d6db460d13fc",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid initiative amount\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative amount\")",
+															"pm.test(\"Returns invalid amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount of money\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -3904,14 +4531,14 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "7f65325c-a741-44b2-b88e-2f46ef7062b8",
+														"id": "ec358de9-cc83-43a6-80d4-c0233c24ae32",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid initiative amount\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative amount\")",
+															"pm.test(\"Returns invalid amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount of money\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -3949,14 +4576,14 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "b64456ec-87f5-47db-8673-cc1d9cad3307",
+														"id": "4750992d-8b22-4c66-8f9e-abd5ac0fa111",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid initiative amount\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid initiative amount\")",
+															"pm.test(\"Returns negative amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Negative amount of money\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -3998,7 +4625,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "64981f75-f0fc-4f94-9561-360e34384370",
+												"id": "4a275453-1fe2-4669-8d5c-56775efd9216",
 												"exec": [
 													"pm.test(\"Returns status 201\", function () {",
 													"    pm.response.to.have.status(201);",
@@ -4042,6 +4669,128 @@
 							"_postman_isSubFolder": true
 						},
 						{
+							"name": "Get initiative",
+							"item": [
+								{
+									"name": "Initiative code",
+									"item": [
+										{
+											"name": "Non existent initiative code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "bf40a3a7-8e01-449f-9969-d36c51df3088",
+														"exec": [
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"Returns initiative not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Initiative not found\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{host}}/api/initiatives/nonExistent",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"initiatives",
+														"nonExistent"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Valid initiative",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2984bd27-4439-4d36-9369-a0623a01c399",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Returns correct code\", function () {",
+													"    var code = postman.getEnvironmentVariable(\"param.initiativeCode\");",
+													"    pm.expect(code).to.contain(pm.response.json().code);",
+													"});",
+													"",
+													"pm.test(\"Returns correct name\", function () {",
+													"    var name = postman.getEnvironmentVariable(\"request.initiative.name\");",
+													"    pm.expect(name).to.contain(pm.response.json().name);",
+													"});",
+													"",
+													"pm.test(\"Returns correct amount\", function () {",
+													"    var amount = postman.getEnvironmentVariable(\"request.initiative.amount\");",
+													"    pm.expect(amount).to.contain(pm.response.json().allocatedAmount);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "ad548737-a00d-4870-b301-7496f4131d0c",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/initiatives/{{param.initiativeCode}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"initiatives",
+												"{{param.initiativeCode}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
 							"name": "Get initiatives",
 							"item": [
 								{
@@ -4050,7 +4799,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "b41de95d-de93-4312-903c-1eda77eb6b5b",
+												"id": "a83cd07c-1832-4950-8ca6-9c78912db467",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -4123,7 +4872,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "d359da9b-5d1c-4ad1-b298-01d8943f60cd",
+														"id": "96e360f9-a436-41c0-88f6-6138c59851a4",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -4176,7 +4925,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "ad284d95-4355-42e8-a626-7600425b5aba",
+														"id": "7c5ebb37-f372-44a0-82f9-e235f41ac367",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4222,7 +4971,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "5383fedf-18fb-43a7-a181-2b898a86c619",
+														"id": "93ea74dd-0627-49c8-a776-1e2a9c2bee5b",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4268,7 +5017,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "381a22af-6929-4413-8cc7-ae90e987bf3d",
+														"id": "f89e5c56-b88a-4d98-b624-f58695c51127",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4314,7 +5063,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "08669718-b99a-4a06-9304-05bf5221545f",
+														"id": "48d8b9b0-dea9-4098-ad74-a8604f581cd7",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4364,7 +5113,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "5c9cafd7-635b-46f0-92ad-d27dfca9d7cd",
+												"id": "8bfa37c7-90d6-4e93-8697-1dc4f1e04aeb",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -4413,7 +5162,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c7af80cf-4b8e-4333-b863-91dae426b5d2",
+												"id": "67669f7c-6909-4099-9cc9-13ac08826e93",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -4461,7 +5210,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "c790078c-d4a1-431b-bb73-596bd335adb1",
+										"id": "803b0cce-aee6-497d-a412-f7326a17e933",
 										"type": "text/javascript",
 										"exec": [
 											""
@@ -4471,7 +5220,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9cff4d61-1f57-4d4f-afcb-a3df1e13a69c",
+										"id": "c9d92d50-87e3-4e43-a1e5-f930943b32d6",
 										"type": "text/javascript",
 										"exec": [
 											""
@@ -4501,7 +5250,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "57371ef4-6235-4122-a86b-5773f379be7f",
+														"id": "f85e4fe2-f3b5-4e80-bc8b-822b6a488140",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4556,7 +5305,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "b3048eb7-2ca3-4a0b-ab68-7b3d13a20b1d",
+														"id": "64edf242-de83-4662-aca1-bca3124646a2",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4615,7 +5364,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "37e6429e-d1ef-4bf7-877a-66b7001b45cf",
+												"id": "1ace12df-3788-4069-b199-227ad5397223",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -4674,7 +5423,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "14dddf64-919f-4d65-9711-6aa87ecc87d4",
+														"id": "1859b12b-4adb-43fe-857f-c6d0b756e1fd",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4729,7 +5478,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "a5553ce0-a617-4e9c-a795-628f1b243e8f",
+														"id": "b56b4675-af7a-4f65-88c2-de1a27074c20",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4783,7 +5532,7 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "bae2acff-775e-4ae5-8c62-e823238c4114",
+												"id": "77414bc8-fa88-4c46-bf80-dd041328e373",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -4793,7 +5542,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "93c629d4-6d14-4db1-a661-b494e76bb236",
+												"id": "4209c665-e83d-41da-8be9-2147d40d73e2",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -4813,7 +5562,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "50dade6f-6375-4e64-bdeb-d1d22785ce29",
+														"id": "5f14ed7c-31a0-4ed6-881e-f2163e7a7036",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4867,7 +5616,7 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "4a3de8b7-4462-4f12-b42b-f22baa7be8ec",
+												"id": "0e28fc1a-0af1-4f1b-8217-f2fc8676b01b",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -4877,7 +5626,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "38d71869-ecd2-4f64-b222-59271e93bf51",
+												"id": "ad954c18-5502-4288-9838-705abb82aa85",
 												"type": "text/javascript",
 												"exec": [
 													""
@@ -4894,7 +5643,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "885f13f2-2faa-4be9-b140-7bbb278157e6",
+												"id": "1fc97488-af2b-41f9-95dd-0ce280dd0c27",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -4943,7 +5692,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "9331b4a2-1114-43d2-bda1-6f819ef5521b",
+												"id": "5195110b-6e62-4c7f-9b92-a8013cd1dcd0",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -5034,7 +5783,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "a47cd891-5897-47ed-8dd4-900155d25fa6",
+														"id": "dcf7803b-d248-46b7-a23e-bfce2a260f45",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -5089,7 +5838,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "ff31f2fb-d0e0-412c-9ee5-1c3538b07d2b",
+														"id": "0d865b57-f220-4798-bea1-37f80add4924",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -5148,7 +5897,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "5ff8eb5d-9da7-4504-8989-c9094b276e96",
+												"id": "65e60a99-0258-4bca-8431-453b454b36ae",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -5214,7 +5963,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "526daa94-9afb-4e2b-869a-8cb3e8125e13",
+														"id": "1842b317-a467-463b-82fb-a7d9c25ff446",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -5259,7 +6008,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "39a557ea-511f-4106-9f68-8d80f24d9bdb",
+														"id": "895494fb-affb-4549-a60c-d75365d41ae9",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -5304,7 +6053,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "c4f594e8-2c6f-415e-9c11-455e5005f969",
+														"id": "0767832a-60c2-4525-a119-9f1b3edffe49",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -5353,7 +6102,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "ebe61bca-b694-4227-83f9-3a3351cb2d01",
+												"id": "85a5c346-0cf6-4e6f-85e5-ecba418b06be",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -5394,7 +6143,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "1d942b4b-d582-44ce-a3b2-e5e6a836ba5b",
+												"id": "39247552-e7a6-4681-9d86-041101df5cb2",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -5434,7 +6183,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "1abec94e-4676-4c05-848a-fc17732b04fa",
+										"id": "fc933054-573f-4f69-aca1-2d3559aad28e",
 										"type": "text/javascript",
 										"exec": [
 											""
@@ -5444,7 +6193,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ad62450-c33f-4bbe-b564-251c8aa29d64",
+										"id": "862e5874-e4e1-4b39-bff3-277c6c448f70",
 										"type": "text/javascript",
 										"exec": [
 											""
@@ -5464,7 +6213,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "313571cb-6156-4523-87eb-382e9e612c80",
+												"id": "61177fc6-e4a6-424a-92f0-a59287a9b033",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -5515,7 +6264,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "a7186bfb-6764-41fb-a971-a26b8cd77158",
+								"id": "8c1538b2-6c08-4f26-bdd8-a089b83c8b5e",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -5525,7 +6274,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "185fce9a-1f03-45b2-ad9b-a3694fb15bb5",
+								"id": "a3c7fd31-0065-49e4-bb06-82778283bb92",
 								"type": "text/javascript",
 								"exec": [
 									""

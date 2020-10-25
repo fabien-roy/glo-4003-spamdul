@@ -38,7 +38,7 @@ public class BillServiceTest {
 
   private final ParkingSticker parkingSticker = aParkingSticker().build();
   private final Money parkingPeriodFee = createMoney();
-  private final Bill bill = aBill().build();
+  private final Bill bill = aBill().withAmountDue(Money.fromDouble(1000)).build();
   private ParkingArea parkingArea;
   private final Money fee = createMoney();
   private final Money amountDue = Money.fromDouble(1);

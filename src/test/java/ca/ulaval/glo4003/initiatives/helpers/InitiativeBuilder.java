@@ -8,8 +8,8 @@ import ca.ulaval.glo4003.initiatives.domain.Initiative;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
 
 public class InitiativeBuilder {
-  private String name = createName();
-  private InitiativeCode code = createCode();
+  private String name = createInitiativeName();
+  private InitiativeCode code = createInitiativeCode();
   private Money allocatedAmount = createMoney();
 
   private InitiativeBuilder() {}

@@ -51,20 +51,25 @@ public class OffenseTypeService {
     return offenseTypeAssembler.assembleMany(offenseTypeRepository.getAll());
   }
 
+  // TODO : OffenseTypeService.validateOffense could surely be refactored
   public List<OffenseTypeDto> validateOffense(OffenseValidationDto offenseValidationDto) {
     OffenseValidation offenseValidation = offenseValidationAssembler.assemble(offenseValidationDto);
-
-    List<OffenseType> offenseTypes = new ArrayList<>();
-
     parkingAreaRepository.get(offenseValidation.getParkingAreaCode());
-
+    List<OffenseType> offenseTypes = new ArrayList<>();
     ParkingSticker parkingSticker = null;
-    try {
-      parkingSticker = parkingStickerRepository.get(offenseValidation.getParkingStickerCode());
-    } catch (NotFoundParkingStickerException exception) {
-      OffenseType invalidStickerOffense = offenseTypeFactory.createInvalidStickerOffense();
-      offenseTypes.add(invalidStickerOffense);
-      offenseNotifier.notifyOffenseWithoutParkingSticker(invalidStickerOffense);
+
+    if (offenseValidation.getParkingStickerCode() == null) {
+      OffenseType absentStickerOffense = offenseTypeFactory.createAbsentStickerOffense();
+      offenseTypes.add(absentStickerOffense);
+      offenseNotifier.notifyOffenseWithoutParkingSticker(absentStickerOffense);
+    } else {
+      try {
+        parkingSticker = parkingStickerRepository.get(offenseValidation.getParkingStickerCode());
+      } catch (NotFoundParkingStickerException exception) {
+        OffenseType invalidStickerOffense = offenseTypeFactory.createInvalidStickerOffense();
+        offenseTypes.add(invalidStickerOffense);
+        offenseNotifier.notifyOffenseWithoutParkingSticker(invalidStickerOffense);
+      }
     }
 
     if (parkingSticker != null

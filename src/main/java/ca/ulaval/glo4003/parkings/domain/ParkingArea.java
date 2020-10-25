@@ -19,4 +19,8 @@ public class ParkingArea {
   public Money getFeeForPeriod(ParkingPeriod period) {
     return feePerPeriod.get(period);
   }
+
+  public Map<ParkingPeriod, Money> getFeeForAllPeriod() {
+    return this.feePerPeriod;
+  }
 }

@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.funds.api.dto;
 
 public class BillPaymentDto {
-  public Double amountToPay;
+  public double amountToPay;
 
   @Override
   public String toString() {

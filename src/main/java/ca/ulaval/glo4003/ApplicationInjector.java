@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.accesspasses.api.AccessPassExceptionMapper;
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.accounts.api.AccountExceptionMapper;
 import ca.ulaval.glo4003.carboncredits.CarbonCreditInjector;
+import ca.ulaval.glo4003.carboncredits.api.CarbonCreditExceptionMapper;
 import ca.ulaval.glo4003.carboncredits.api.CarbonCreditResource;
 import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.cars.api.CarExceptionMapper;
@@ -26,6 +27,7 @@ import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
 import ca.ulaval.glo4003.offenses.OffenseInjector;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.ParkingInjector;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
 import ca.ulaval.glo4003.parkings.api.ParkingExceptionMapper;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
 import ca.ulaval.glo4003.times.TimeInjector;
@@ -113,12 +115,8 @@ public class ApplicationInjector {
     return CARBON_CREDIT_INJECTOR.createCarbonCreditResource();
   }
 
-  // TODO : Test this
-  public Scheduler createScheduler() {
-    return newSchedule()
-        .withJobHandlers(
-            Collections.singletonList(CARBON_CREDIT_INJECTOR.createConvertCarbonCreditHandler()))
-        .build();
+  public ParkingAreaResource createParkingAreaResource() {
+    return PARKING_INJECTOR.createParkingAreaResource();
   }
 
   public InitiativeResource createInitiativeResource() {
@@ -141,6 +139,7 @@ public class ApplicationInjector {
         AccessPassExceptionMapper.class,
         AccountExceptionMapper.class,
         CarExceptionMapper.class,
+        CarbonCreditExceptionMapper.class,
         CommunicationExceptionMapper.class,
         FileExceptionMapper.class,
         FundExceptionMapper.class,
@@ -149,5 +148,13 @@ public class ApplicationInjector {
         ParkingExceptionMapper.class,
         TimeExceptionMapper.class,
         UserExceptionMapper.class);
+  }
+
+  // TODO : Test this
+  public Scheduler createScheduler() {
+    return newSchedule()
+        .withJobHandlers(
+            Collections.singletonList(CARBON_CREDIT_INJECTOR.createConvertCarbonCreditHandler()))
+        .build();
   }
 }

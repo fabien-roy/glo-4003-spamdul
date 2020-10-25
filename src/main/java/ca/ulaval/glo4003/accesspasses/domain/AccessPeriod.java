@@ -6,8 +6,8 @@ import java.util.Map;
 
 public enum AccessPeriod {
   ONE_HOUR("1h"),
-  ONE_DAY("1j"),
-  ONE_DAY_BY_WEEK_FOR_SESSION("1j/semaine/session"),
+  ONE_DAY("1d"),
+  ONE_DAY_BY_WEEK_FOR_SESSION("1d/week/session"),
   ONE_SESSION("1 session"),
   TWO_SESSIONS("2 session"),
   THREE_SESSIONS("3 session");

@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.offenses.filesystem.dto;
 
-public class InfractionDto {
+public class OffenseDtoInFrench {
   public String infraction;
   public String code;
   public int montant;

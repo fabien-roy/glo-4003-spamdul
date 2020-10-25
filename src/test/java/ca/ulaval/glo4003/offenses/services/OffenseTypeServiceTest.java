@@ -48,12 +48,14 @@ public class OffenseTypeServiceTest {
   private final List<OffenseType> offenseTypes = Collections.singletonList(offenseType);
   private final OffenseTypeDto offenseTypeDto = anOffenseTypeDto().build();
   private final List<OffenseTypeDto> offenseTypeDtos = Collections.singletonList(offenseTypeDto);
-  private final OffenseValidation offenseValidation = anOffenseValidation().build();
+  private OffenseValidation offenseValidation = anOffenseValidation().build();
   private final OffenseValidationDto offenseValidationDto = anOffenseValidationDto().build();
   private final OffenseType wrongZoneOffenseType = anOffenseType().build();
   private final OffenseType invalidStickerOffenseType = anOffenseType().build();
+  private final OffenseType absentStickerOffenseType = anOffenseType().build();
   private final OffenseTypeDto wrongZoneOffenseTypeDto = anOffenseTypeDto().build();
   private final OffenseTypeDto invalidStickerOffenseTypeDto = anOffenseTypeDto().build();
+  private final OffenseTypeDto absentStickerOffenseTypeDto = anOffenseTypeDto().build();
   private final BillId billId = createBillId();
 
   @Before
@@ -70,6 +72,10 @@ public class OffenseTypeServiceTest {
             accountService,
             offenseNotifier);
 
+    setUpMocks();
+  }
+
+  private void setUpMocks() {
     when(offenseTypeRepository.getAll()).thenReturn(offenseTypes);
     when(offenseTypeAssembler.assembleMany(offenseTypes)).thenReturn(offenseTypeDtos);
 
@@ -80,10 +86,13 @@ public class OffenseTypeServiceTest {
         .thenReturn(parkingSticker);
     when(offenseTypeFactory.createWrongZoneOffense()).thenReturn(wrongZoneOffenseType);
     when(offenseTypeFactory.createInvalidStickerOffense()).thenReturn(invalidStickerOffenseType);
+    when(offenseTypeFactory.createAbsentStickerOffense()).thenReturn(absentStickerOffenseType);
     when(offenseTypeAssembler.assembleMany(Collections.singletonList(wrongZoneOffenseType)))
         .thenReturn(Collections.singletonList(wrongZoneOffenseTypeDto));
     when(offenseTypeAssembler.assembleMany(Collections.singletonList(invalidStickerOffenseType)))
         .thenReturn(Collections.singletonList(invalidStickerOffenseTypeDto));
+    when(offenseTypeAssembler.assembleMany(Collections.singletonList(absentStickerOffenseType)))
+        .thenReturn(Collections.singletonList(absentStickerOffenseTypeDto));
     when(billService.addBillOffense(offenseType.getAmount(), offenseType.getCode()))
         .thenReturn(billId);
   }
@@ -103,7 +112,7 @@ public class OffenseTypeServiceTest {
   }
 
   @Test
-  public void givenValidOffenseValidationDto_whenValidatingOffense_thenNoOffenseIsReturned() {
+  public void givenOffenseValidationWithoutOffense_whenValidatingOffense_thenReturnNoOffenseType() {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(true);
 
@@ -114,7 +123,29 @@ public class OffenseTypeServiceTest {
 
   @Test
   public void
-      givenValidOffenseValidationDto_whenValidatingOffense_thenInvalidStickerOffenseIsReturned() {
+      givenValidationWithNoParkingSticker_whenValidatingOffense_thenReturnAbsentStickerOffenseType() {
+    offenseValidation = anOffenseValidation().withParkingStickerCode(null).build();
+    setUpMocks();
+
+    List<OffenseTypeDto> offenseTypeDtos = offenseTypeService.validateOffense(offenseValidationDto);
+
+    assertThat(offenseTypeDtos).contains(absentStickerOffenseTypeDto);
+  }
+
+  @Test
+  public void
+      givenValidationWithNoParkingSticker_whenValidatingOffense_thenOffenseIsNotifiedForAbsentParkingSticker() {
+    offenseValidation = anOffenseValidation().withParkingStickerCode(null).build();
+    setUpMocks();
+
+    offenseTypeService.validateOffense(offenseValidationDto);
+
+    verify(offenseNotifier).notifyOffenseWithoutParkingSticker(absentStickerOffenseType);
+  }
+
+  @Test
+  public void
+      givenValidationWithInvalidParkingSticker_whenValidatingOffense_thenReturnInvalidParkingStickerOffenseType() {
     when(parkingStickerRepository.get(offenseValidation.getParkingStickerCode()))
         .thenThrow(new NotFoundParkingStickerException());
 
@@ -125,7 +156,7 @@ public class OffenseTypeServiceTest {
 
   @Test
   public void
-      givenValidOffenseValidationDto_whenValidatingOffense_thenOffenseIsNotifiedForInvalidParkingSticker() {
+      givenValidationWithInvalidParkingSticker_whenValidatingOffense_thenOffenseIsNotifiedForInvalidParkingSticker() {
     when(parkingStickerRepository.get(offenseValidation.getParkingStickerCode()))
         .thenThrow(new NotFoundParkingStickerException());
 
@@ -135,8 +166,7 @@ public class OffenseTypeServiceTest {
   }
 
   @Test
-  public void
-      givenValidOffenseValidationDto_whenValidatingOffense_thenWrongZoneOffenseIsReturned() {
+  public void givenValidationWithWrongZone_whenValidatingOffense_thenReturnWrongZoneOffenseType() {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(false);
 
@@ -146,7 +176,7 @@ public class OffenseTypeServiceTest {
   }
 
   @Test
-  public void givenWrongZoneOffense_whenValidatingOffense_thenBillFactoryIsCalled() {
+  public void givenValidationWithWrongZone_whenValidatingOffense_thenCreateBill() {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(false);
 
@@ -157,7 +187,7 @@ public class OffenseTypeServiceTest {
   }
 
   @Test
-  public void givenWrongZoneOffense_whenValidatingOffense_thenAddBillToAccountIsCalled() {
+  public void givenValidationWithWrongZone_whenValidatingOffense_thenAddBillToAccount() {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(false);
     when(billService.addBillOffense(

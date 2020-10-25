@@ -1,6 +1,7 @@
 #%RAML 1.0 Library
 types:
   Date: !include ../types/times/date.raml
+  DateTime: !include ../types/times/date-time.raml
   Year: !include ../types/times/year.raml
   Day: !include ../types/times/day.raml
   DayOfWeekObject: !include ../types/times/day-of-week-object.raml
@@ -35,7 +36,10 @@ types:
   AccessPass: !include ../types/access/access-pass.raml
 
   ReceptionMethod: !include ../types/parkings/reception-method.raml
+  ParkingPeriod: !include ../types/parkings/parking-period.raml
   ParkingAreaCode: !include ../types/parkings/parking-area-code.raml
+  ParkingAreaPrice: !include ../types/parkings/parking-area-price.raml
+  ParkingArea: !include ../types/parkings/parking-area.raml
   ParkingStickerCode: !include ../types/parkings/parking-sticker-code.raml
   ParkingStickerCodeObject: !include ../types/parkings/parking-sticker-code-object.raml
   ParkingSticker: !include ../types/parkings/parking-sticker.raml

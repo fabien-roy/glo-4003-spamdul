@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum ParkingPeriod {
-  ONE_DAY("1j/sem/session"),
-  MONTHLY("mensuel"),
+  ONE_DAY("1d/week/session"),
+  MONTHLY("monthly"),
   ONE_SESSION("1 session"),
   TWO_SESSIONS("2 session"),
   THREE_SESSIONS("3 session");

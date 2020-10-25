@@ -5,16 +5,23 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
+import ca.ulaval.glo4003.funds.assemblers.ParkingPeriodPriceAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
+import ca.ulaval.glo4003.parkings.api.ParkingAreaResourceImplementation;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingPeriodAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingStickerRepositoryInMemory;
+import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,13 +31,21 @@ import java.util.Map;
 public class ParkingInjector {
 
   private final ParkingStickerCodeGenerator parkingStickerCodeGenerator =
-      new ParkingStickerCodeGenerator();
+      new ParkingStickerCodeGenerator(new StringCodeGenerator());
   private final ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
   private final ParkingStickerRepository parkingStickerRepository =
       new ParkingStickerRepositoryInMemory();
+  private final ParkingPeriodAssembler parkingPeriodAssembler = new ParkingPeriodAssembler();
 
   public ParkingAreaRepository getParkingAreaRepository() {
     return parkingAreaRepository;
+  }
+
+  public ParkingAreaResource createParkingAreaResource() {
+    ParkingAreaService parkingAreaService =
+        new ParkingAreaService(
+            parkingAreaRepository, new ParkingAreaAssembler(new ParkingPeriodPriceAssembler()));
+    return new ParkingAreaResourceImplementation(parkingAreaService);
   }
 
   public ParkingStickerRepository getParkingStickerRepository() {
@@ -102,9 +117,9 @@ public class ParkingInjector {
                   .keySet()
                   .forEach(
                       period -> {
-                        ParkingPeriod parkingPeriod = ParkingPeriod.get(period);
+                        ParkingPeriodInFrench parkingPeriod = ParkingPeriodInFrench.get(period);
                         Money fee = Money.fromDouble(zonesAndFees.get(zone).get(period));
-                        feesPerPeriod.put(parkingPeriod, fee);
+                        feesPerPeriod.put(parkingPeriodAssembler.assemble(parkingPeriod), fee);
                       });
               parkingAreas.add(new ParkingArea(parkingAreaCode, feesPerPeriod));
             });

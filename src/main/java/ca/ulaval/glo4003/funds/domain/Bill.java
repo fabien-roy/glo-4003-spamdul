@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.funds.domain;
 
 import ca.ulaval.glo4003.funds.exception.AmountDueExceededException;
+import ca.ulaval.glo4003.times.domain.CustomDateTime;
 
 public class Bill {
   private final BillId id;
@@ -8,13 +9,20 @@ public class Bill {
   private final String description;
   private Money amountDue;
   private Money amountPaid;
+  private CustomDateTime customDateTime;
 
-  public Bill(BillId id, BillType billType, String description, Money amountDue) {
+  public Bill(
+      BillId id,
+      BillType billType,
+      String description,
+      Money amountDue,
+      CustomDateTime customDateTime) {
     this.id = id;
     this.billType = billType;
     this.description = description;
     this.amountDue = amountDue;
     this.amountPaid = Money.zero();
+    this.customDateTime = customDateTime;
   }
 
   public void pay(Money amountToPay) {
@@ -44,6 +52,10 @@ public class Bill {
 
   public Money getAmountPaid() {
     return amountPaid;
+  }
+
+  public CustomDateTime getCustomDateTime() {
+    return customDateTime;
   }
 
   public boolean isBillTypeEqual(BillType billType) {
