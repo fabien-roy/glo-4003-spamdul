@@ -16,15 +16,15 @@ public class MonthlyPaymentStatusRepositoryInMemoryTest {
   }
 
   @Test
-  public void whenGetting_thenReturnDisabled() {
+  public void whenGetting_thenReturnEnable() {
     MonthlyPaymentStatus monthlyPaymentStatus = monthlyPaymentStatusRepository.get();
 
-    assertThat(monthlyPaymentStatus).isEqualTo(MonthlyPaymentStatus.DISABLE);
+    assertThat(monthlyPaymentStatus).isEqualTo(MonthlyPaymentStatus.ENABLE);
   }
 
   @Test
   public void givenSavedMonthlyPaymentStatus_whenGetting_thenReturnNewlySavedStatus() {
-    MonthlyPaymentStatus monthlyPaymentStatus = MonthlyPaymentStatus.ENABLE;
+    MonthlyPaymentStatus monthlyPaymentStatus = MonthlyPaymentStatus.DISABLE;
 
     monthlyPaymentStatusRepository.save(monthlyPaymentStatus);
     MonthlyPaymentStatus savedMonthlyPaymentStatus = monthlyPaymentStatusRepository.get();
