@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BillsByConsumptionTypes {
-  Map<ConsumptionType, List<Bill>> billsByConsumptionsType = new HashMap<>();
+  private Map<ConsumptionType, List<Bill>> billsByConsumptionsType = new HashMap<>();
 
   public BillsByConsumptionTypes() {
     for (ConsumptionType consumptionType : ConsumptionType.values()) {
