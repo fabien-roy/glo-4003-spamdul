@@ -84,8 +84,11 @@ public class BillService {
     bill.pay(amountToPay);
     billRepository.updateBill(bill);
 
-    sustainableMobilityProgramBankRepository.add(
-        sustainableMobilityProgramAllocationCalculator.calculate(amountToPay));
+    if (bill.isBillTypeEqual(BillType.ACCESS_PASS)
+        || bill.isBillTypeEqual(BillType.PARKING_STICKER)) {
+      sustainableMobilityProgramBankRepository.add(
+          sustainableMobilityProgramAllocationCalculator.calculate(amountToPay));
+    }
 
     return billAssembler.assemble(bill);
   }

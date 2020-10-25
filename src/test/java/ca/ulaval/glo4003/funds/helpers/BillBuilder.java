@@ -26,6 +26,11 @@ public class BillBuilder {
     return this;
   }
 
+  public BillBuilder withBillType(BillType billType) {
+    this.billType = billType;
+    return this;
+  }
+
   public Bill build() {
     return new Bill(id, billType, description, amountDue, customDateTime);
   }
