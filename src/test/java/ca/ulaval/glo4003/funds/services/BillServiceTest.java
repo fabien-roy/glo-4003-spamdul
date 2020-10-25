@@ -20,6 +20,7 @@ import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +46,7 @@ public class BillServiceTest {
   private BillService billService;
 
   private final ParkingSticker parkingSticker = aParkingSticker().build();
+  private final Money POSTAL_FEE = BillService.POSTAL_CODE_FEE;
   private final Money parkingPeriodFee = createMoney();
   private final Bill bill = aBill().build();
   private ParkingArea parkingArea;
@@ -78,6 +80,11 @@ public class BillServiceTest {
     when(billFactory.createForParkingSticker(
             parkingPeriodFee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
         .thenReturn(bill);
+    when(billFactory.createForParkingSticker(
+            parkingPeriodFee.plus(POSTAL_FEE),
+            parkingSticker.getCode(),
+            parkingSticker.getReceptionMethod()))
+        .thenReturn(bill);
     when(billFactory.createForAccessPass(fee, accessPassCode, consumptionType)).thenReturn(bill);
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
     when(billQueryFactory.create(params)).thenReturn(billQuery);
@@ -101,6 +108,24 @@ public class BillServiceTest {
     billService.addBillForParkingSticker(parkingSticker, parkingArea);
 
     verify(billRepository).save(bill);
+  }
+
+  @Test
+  public void givenPostalParkingSticker_whenAddingBill_thenAddPostalFee() {
+    ParkingSticker postalParkingSticker =
+        aParkingSticker().withReceptionMethod(ReceptionMethod.POSTAL).build();
+    when(billFactory.createForParkingSticker(
+            parkingPeriodFee.plus(POSTAL_FEE),
+            postalParkingSticker.getCode(),
+            postalParkingSticker.getReceptionMethod()))
+        .thenReturn(bill);
+
+    billService.addBillForParkingSticker(postalParkingSticker, parkingArea);
+    Money expectedFee = parkingPeriodFee.plus(POSTAL_FEE);
+
+    verify(billFactory)
+        .createForParkingSticker(
+            expectedFee, postalParkingSticker.getCode(), postalParkingSticker.getReceptionMethod());
   }
 
   @Test

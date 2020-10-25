@@ -9,7 +9,7 @@
 **This is our project for course GLO-4003 at Laval University. We are team 4 : L'inquisition espagnole.**
 
  - [:books: API documentation](https://glo4003ul.github.io/a20-eq4/)
- - [:black_nib: Project report](https://glo4003ul.github.io/a20-eq4/)
+ - [:black_nib: Project report](https://github.com/GLO4003UL/a20-eq4/wiki)
  - [:rocket: Development environment](https://glo4003-a20-eq4.herokuapp.com/api)
 
 ## Project setup
@@ -20,7 +20,7 @@ To send emails, we need to have the file `data/emailSmtp.properties` set correct
 
 ### Install dependencies and build project
 
-Maven is used as a built automation tool, as well as a dependency manager. To build the application, use : 
+Maven is used as a build automation tool, as well as a dependency manager. To build the application, use : 
 
 ```
 mvn clean install

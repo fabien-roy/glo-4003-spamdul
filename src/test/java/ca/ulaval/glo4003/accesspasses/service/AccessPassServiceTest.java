@@ -83,9 +83,6 @@ public class AccessPassServiceTest {
         .addAccessCodeToAccount(account.getId(), accessPass.getCode(), notZeroPollutionBillId);
   }
 
-  // TODO : This test is flaky, it must be solved
-  /*
-  @Test
   public void givenNoLicensePlate_whenAddingAccessPass_thenAddZeroPollutionBillToAccount() {
     givenAccessPassDtoWithLicensePlate(null);
 
@@ -94,7 +91,6 @@ public class AccessPassServiceTest {
     verify(accountService)
         .addAccessCodeToAccount(account.getId(), accessPass.getCode(), zeroPollutionBillId);
   }
-  */
 
   @Test
   public void whenAddingAccessPass_thenReturnAccessPassCode() {
