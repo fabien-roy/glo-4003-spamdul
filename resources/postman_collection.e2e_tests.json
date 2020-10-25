@@ -4810,8 +4810,7 @@
 													"});",
 													"",
 													"pm.test(\"Returns initiative with correct code\", function () {",
-													"    var initiativeCode = postman.getEnvironmentVariable(\"param.initiativeCode\");",
-													"    pm.expect(initiativeCode).to.contain(pm.response.json()[0].initiativeCode);",
+													"    pm.expect(pm.response.json()[0].code).to.not.be.null;",
 													"});",
 													"",
 													"pm.test(\"Returns initiative with correct name\", function () {",
@@ -4819,9 +4818,9 @@
 													"    pm.expect(name).to.contain(pm.response.json()[0].name);",
 													"});",
 													"",
-													"pm.test(\"Returns initiative with correct amount\", function () {",
-													"    var amount = postman.getEnvironmentVariable(\"request.initiative.amount\");",
-													"    pm.expect(amount).to.contain(pm.response.json()[0].amount);",
+													"pm.test(\"Returns initiative with correct allocated amount\", function () {",
+													"    var allocatedAmount = postman.getEnvironmentVariable(\"request.initiative.amount\");",
+													"    pm.expect(allocatedAmount).to.contain(pm.response.json()[0].allocatedAmount);",
 													"});"
 												],
 												"type": "text/javascript"
@@ -5070,7 +5069,7 @@
 															"});",
 															"",
 															"pm.test(\"Returns negative amount of money\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid negative amount of money\")",
+															"    pm.expect(pm.response.json().error).to.equal(\"Negative amount of money\")",
 															"});"
 														],
 														"type": "text/javascript"
