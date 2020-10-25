@@ -150,7 +150,6 @@ public class ApplicationInjector {
         UserExceptionMapper.class);
   }
 
-  // TODO : Test this
   public Scheduler createScheduler() {
     return newScheduler()
         .withJobHandlers(

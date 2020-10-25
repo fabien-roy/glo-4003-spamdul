@@ -35,7 +35,7 @@ public class SchedulerBuilder {
 
       Trigger trigger =
           newTrigger()
-              .withSchedule(CronScheduleBuilder.cronSchedule(SECOND_CRON_EXPRESSION))
+              .withSchedule(CronScheduleBuilder.cronSchedule(MONTHLY_CRON_EXPRESSION))
               .build();
 
       scheduler.scheduleJob(job, trigger);
