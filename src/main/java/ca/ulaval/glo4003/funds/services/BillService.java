@@ -11,10 +11,12 @@ import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class BillService {
+  public static final Money POSTAL_CODE_FEE = Money.fromDouble(5);
   private final Logger logger = Logger.getLogger(BillService.class.getName());
   private final BillFactory billFactory;
   private final BillRepository<BillQuery> billRepository;
@@ -49,6 +51,11 @@ public class BillService {
 
     Money feeForPeriod =
         parkingArea.getFeeForPeriod(ParkingPeriod.ONE_DAY); // TODO : Will this always be one day?
+
+    if (parkingSticker.getReceptionMethod().equals(ReceptionMethod.POSTAL)) {
+      feeForPeriod = feeForPeriod.plus(POSTAL_CODE_FEE);
+    }
+
     Bill bill =
         billFactory.createForParkingSticker(
             feeForPeriod, parkingSticker.getCode(), parkingSticker.getReceptionMethod());
