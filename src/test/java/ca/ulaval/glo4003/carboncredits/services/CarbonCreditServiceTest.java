@@ -34,7 +34,8 @@ public class CarbonCreditServiceTest {
             carbonCreditRepository,
             carbonCreditAssembler,
             carbonCreditMonthlyPaymentStatusAssembler,
-            monthlyPaymentStatusRepository);
+            monthlyPaymentStatusRepository,
+            null);
 
     when(carbonCreditAssembler.assemble(any()))
         .thenReturn(carbonCreditDto); // TODO : Do not use any()

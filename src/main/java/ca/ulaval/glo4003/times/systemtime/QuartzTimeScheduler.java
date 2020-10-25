@@ -10,15 +10,16 @@ import org.quartz.impl.StdSchedulerFactory;
 
 public class QuartzTimeScheduler implements TimeScheduler {
   private static final String MONTHLY_CRON_EXPRESSION = "0 0 0 L * ?";
-  private static final String SECOND_CRON_EXPRESSION = "* 0 0 ? * * *";
+  private static final String SECOND_CRON_EXPRESSION = "* * * ? * * *";
+  private static final String MINUTE_CRON_EXPRESSION = "0 * * ? * *";
   private List<JobHandler> JobList = new ArrayList();
-  private Scheduler scheduler;
 
   public void start() {
     try {
-      scheduler = new StdSchedulerFactory().getScheduler();
+      Scheduler scheduler = new StdSchedulerFactory().getScheduler();
 
       JobDetail job = newJob(ExecuteHandlerJob.class).build();
+      job.getJobDataMap().put("JobList", JobList);
 
       Trigger trigger =
           TriggerBuilder.newTrigger()
@@ -30,6 +31,7 @@ public class QuartzTimeScheduler implements TimeScheduler {
       scheduler.start();
 
       System.out.println("Scheduler ready");
+
     } catch (SchedulerException se) {
       se.printStackTrace();
     }
@@ -38,16 +40,5 @@ public class QuartzTimeScheduler implements TimeScheduler {
   @Override
   public void SubscribeJob(JobHandler job) {
     JobList.add(job);
-  }
-
-  public class ExecuteHandlerJob implements Job {
-
-    @Override
-    public void execute(JobExecutionContext jobExecutionContext) {
-      System.out.println("Launching stuff");
-      for (JobHandler job : JobList) {
-        job.invoke();
-      }
-    }
   }
 }

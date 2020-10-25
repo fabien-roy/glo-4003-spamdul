@@ -13,10 +13,7 @@ public class ConvertCarbonCreditJob implements JobHandler {
 
   public ConvertCarbonCreditJob(
       CarbonCreditRepository carbonCreditRepository,
-      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
-    this.carbonCreditRepository = carbonCreditRepository;
-    this.sustainableMobilityProgramBankRepository = sustainableMobilityProgramBankRepository;
-  }
+      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {}
 
   public void invoketest() {
     Money removedMoney = sustainableMobilityProgramBankRepository.takeAll();
