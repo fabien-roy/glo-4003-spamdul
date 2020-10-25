@@ -5,6 +5,7 @@ import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoneyBelowAmount
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
+import ca.ulaval.glo4003.funds.domain.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.domain.Money;
 import java.util.ArrayList;
 import java.util.List;

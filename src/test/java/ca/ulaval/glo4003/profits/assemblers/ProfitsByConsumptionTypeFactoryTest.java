@@ -7,9 +7,9 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.Bill;
+import ca.ulaval.glo4003.funds.domain.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.domain.BillsByConsumptionTypes;
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.services.BillProfitsCalculator;
 import ca.ulaval.glo4003.profits.domain.ProfitByConsumptionType;
 import ca.ulaval.glo4003.profits.domain.ProfitsByConsumptionTypeFactory;
 import java.util.ArrayList;

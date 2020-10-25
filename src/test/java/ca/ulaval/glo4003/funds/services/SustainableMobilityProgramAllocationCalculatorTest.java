@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.funds.services;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 
 import ca.ulaval.glo4003.funds.domain.Money;
+import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramAllocationCalculator;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,7 +1,5 @@
-package ca.ulaval.glo4003.funds.services;
+package ca.ulaval.glo4003.funds.domain;
 
-import ca.ulaval.glo4003.funds.domain.Bill;
-import ca.ulaval.glo4003.funds.domain.Money;
 import java.util.List;
 
 public class BillProfitsCalculator {

@@ -29,7 +29,7 @@ public class ProfitsResourceImplementation implements ProfitsResource {
   public Response getAccessPassProfits(int year, String isByConsumptionType) {
     Object entity;
 
-    if (Boolean.valueOf(isByConsumptionType)) {
+    if (Boolean.parseBoolean(isByConsumptionType)) {
       List<ProfitsByConsumptionTypeDto> profitsByConsumptionTypesDto =
           profitsService.getAccessPassProfitsByConsumptionType(year);
       entity =

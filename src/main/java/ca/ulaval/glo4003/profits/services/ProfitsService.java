@@ -1,12 +1,12 @@
 package ca.ulaval.glo4003.profits.services;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
+import ca.ulaval.glo4003.funds.domain.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.domain.BillType;
 import ca.ulaval.glo4003.funds.domain.BillsByConsumptionTypes;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamsAssembler;
-import ca.ulaval.glo4003.funds.services.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.profits.api.dto.ProfitsByConsumptionTypeDto;
 import ca.ulaval.glo4003.profits.api.dto.ProfitsDto;

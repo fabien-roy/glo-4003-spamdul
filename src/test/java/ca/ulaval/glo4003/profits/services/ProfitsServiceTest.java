@@ -5,11 +5,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
+import ca.ulaval.glo4003.funds.domain.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.domain.BillType;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamsAssembler;
-import ca.ulaval.glo4003.funds.services.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.profits.assemblers.ProfitsAssembler;
 import ca.ulaval.glo4003.profits.assemblers.ProfitsByConsumptionTypeAssembler;
