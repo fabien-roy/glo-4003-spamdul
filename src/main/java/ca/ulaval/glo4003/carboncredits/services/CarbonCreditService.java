@@ -42,10 +42,13 @@ public class CarbonCreditService {
   }
 
   public void extractMoneyFromSustainableMobilityProgramBank() {
-    Money sustainableMobilityProgramBankAvailableMoney =
-        sustainableMobilityProgramBankService.extractSustainableMobilityProgramBankAvailableMoney();
-    CarbonCredit carbonCredit =
-        CarbonCredit.fromMoney(sustainableMobilityProgramBankAvailableMoney);
-    carbonCreditRepository.add(carbonCredit);
+    if (monthlyPaymentStatusRepository.get().equals(MonthlyPaymentStatus.ENABLE)) {
+      Money sustainableMobilityProgramBankAvailableMoney =
+          sustainableMobilityProgramBankService
+              .extractSustainableMobilityProgramBankAvailableMoney();
+      CarbonCredit carbonCredit =
+          CarbonCredit.fromMoney(sustainableMobilityProgramBankAvailableMoney);
+      carbonCreditRepository.add(carbonCredit);
+    }
   }
 }
