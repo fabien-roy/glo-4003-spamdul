@@ -15,7 +15,7 @@ public class CatchAllExceptionMapper implements ExceptionMapper<Exception> {
   private static final String BAD_REQUEST_DESCRIPTION = "Request cannot be interpreted";
 
   private static final String INTERNAL_SERVER_ERROR = "Unexpected error";
-  private static final String INTERNAL_SERVER_DESCRIPTION = "An unexpected error as occurred";
+  private static final String INTERNAL_SERVER_DESCRIPTION = "An unexpected error has occurred";
 
   private static final String CANNOT_BUILD_SCHEDULER_ERROR = "Cannot build scheduler";
   private static final String CANNOT_BUILD_SCHEDULER_DESCRIPTION = "Scheduler could not be built";
