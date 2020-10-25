@@ -49,8 +49,7 @@ public class BillService {
   public BillId addBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
     logger.info(String.format("Create bill for parking sticker %s", parkingSticker.getCode()));
 
-    Money feeForPeriod =
-        parkingArea.getFeeForPeriod(ParkingPeriod.ONE_DAY); // TODO : Will this always be one day?
+    Money feeForPeriod = parkingArea.getFeeForPeriod(ParkingPeriod.ONE_DAY);
 
     if (parkingSticker.getReceptionMethod().equals(ReceptionMethod.POSTAL)) {
       feeForPeriod = feeForPeriod.plus(POSTAL_CODE_FEE);

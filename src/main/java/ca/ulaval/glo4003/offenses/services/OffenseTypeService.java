@@ -51,7 +51,6 @@ public class OffenseTypeService {
     return offenseTypeAssembler.assembleMany(offenseTypeRepository.getAll());
   }
 
-  // TODO : OffenseTypeService.validateOffense could surely be refactored
   public List<OffenseTypeDto> validateOffense(OffenseValidationDto offenseValidationDto) {
     OffenseValidation offenseValidation = offenseValidationAssembler.assemble(offenseValidationDto);
     parkingAreaRepository.get(offenseValidation.getParkingAreaCode());
