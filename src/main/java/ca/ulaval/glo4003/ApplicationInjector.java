@@ -126,14 +126,7 @@ public class ApplicationInjector {
   public InitiativeResource createInitiativeResource() {
     return INITIATIVE_INJECTOR.createInitiativeResource(
         INITIATIVE_INJECTOR.createService(
-            INITIATIVE_INJECTOR.createInitiativeFactory(
-                INITIATIVE_INJECTOR.getInitiativeCodeGenerator()),
-            INITIATIVE_INJECTOR.getInitiativeRepository(),
-            INITIATIVE_INJECTOR.createInitiativeCodeAssembler(),
-            INITIATIVE_INJECTOR.createInitiativeAvailableAmountAssembler(),
-            INITIATIVE_INJECTOR.createInitiativeAssembler(FUND_INJECTOR.createMoneyAssembler()),
-            INITIATIVE_INJECTOR.createInitiativeAddAllocatedAmountAssembler(
-                FUND_INJECTOR.createMoneyAssembler()),
+            FUND_INJECTOR.createMoneyAssembler(),
             FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
   }
 

@@ -1,8 +1,5 @@
 package ca.ulaval.glo4003.initiatives;
 
-import ca.ulaval.glo4003.accounts.domain.AccountIdGenerator;
-import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.accounts.infrastructure.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
@@ -19,22 +16,25 @@ import ca.ulaval.glo4003.initiatives.services.InitiativeService;
 import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 
 public class InitiativeInjector {
-
-  private final AccountRepository accountRepository = new AccountRepositoryInMemory();
-  private final AccountIdGenerator accountIdGenerator = new AccountIdGenerator();
+  private final InitiativeRepository initiativeRepository = new InitiativeRepositoryInMemory();
+  private final InitiativeCodeGenerator initiativeCodeGenerator =
+      new InitiativeCodeGenerator(new StringCodeGenerator());
 
   public InitiativeResource createInitiativeResource(InitiativeService initiativeService) {
     return new InitiativeResourceImplementation(initiativeService);
   }
 
   public InitiativeService createService(
-      InitiativeFactory initiativeFactory,
-      InitiativeRepository initiativeRepository,
-      InitiativeCodeAssembler initiativeCodeAssembler,
-      InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler,
-      InitiativeAssembler initiativeAssembler,
-      InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler,
+      MoneyAssembler moneyAssembler,
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
+    InitiativeFactory initiativeFactory = new InitiativeFactory(initiativeCodeGenerator);
+    InitiativeCodeAssembler initiativeCodeAssembler = new InitiativeCodeAssembler();
+    InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler =
+        new InitiativeAvailableAmountAssembler();
+    InitiativeAssembler initiativeAssembler = new InitiativeAssembler(moneyAssembler);
+    InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler =
+        new InitiativeAddAllocatedAmountAssembler(moneyAssembler);
+
     return new InitiativeService(
         initiativeFactory,
         initiativeRepository,
@@ -43,35 +43,5 @@ public class InitiativeInjector {
         initiativeAssembler,
         initiativeAddAllocatedAmountAssembler,
         sustainableMobilityProgramBankRepository);
-  }
-
-  public InitiativeFactory createInitiativeFactory(
-      InitiativeCodeGenerator initiativeCodeGenerator) {
-    return new InitiativeFactory(initiativeCodeGenerator);
-  }
-
-  public InitiativeRepository getInitiativeRepository() {
-    return new InitiativeRepositoryInMemory();
-  }
-
-  public InitiativeCodeAssembler createInitiativeCodeAssembler() {
-    return new InitiativeCodeAssembler();
-  }
-
-  public InitiativeAssembler createInitiativeAssembler(MoneyAssembler moneyAssembler) {
-    return new InitiativeAssembler(moneyAssembler);
-  }
-
-  public InitiativeAddAllocatedAmountAssembler createInitiativeAddAllocatedAmountAssembler(
-      MoneyAssembler moneyAssembler) {
-    return new InitiativeAddAllocatedAmountAssembler(moneyAssembler);
-  }
-
-  public InitiativeAvailableAmountAssembler createInitiativeAvailableAmountAssembler() {
-    return new InitiativeAvailableAmountAssembler();
-  }
-
-  public InitiativeCodeGenerator getInitiativeCodeGenerator() {
-    return new InitiativeCodeGenerator(new StringCodeGenerator());
   }
 }
