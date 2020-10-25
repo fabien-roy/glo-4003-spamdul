@@ -15,4 +15,15 @@ public class MoneyTest {
 
     Truth.assertThat(actualMoney).isEqualTo(expectedMoney);
   }
+
+  @Test
+  public void givenMoneyAndMulplicationFactor_whenMultiplying_thenReturnMultipledMoney() {
+    Money money = Money.fromDouble(5);
+    double multiplicationFactor = 2;
+    Money expectedMoney = Money.fromDouble(10);
+
+    Money actualMoney = money.multiply(multiplicationFactor);
+
+    Truth.assertThat(actualMoney).isEqualTo(expectedMoney);
+  }
 }
