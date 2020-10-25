@@ -46,6 +46,7 @@ public class BillServiceTest {
   private ParkingArea parkingArea;
   private final Money fee = createMoney();
   private final Money amountDue = Money.fromDouble(1);
+  private final Money amountKeptForSustainabilityProgram = amountDue.multiply(0.4);
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final OffenseCode offenseCode = createOffenseCode();
   private final Map<String, List<String>> params = new HashMap<>();
@@ -78,8 +79,8 @@ public class BillServiceTest {
     when(billRepository.getBill(bill.getId())).thenReturn(bill);
     when(billRepository.getAll(billQuery)).thenReturn(bills);
     when(billProfitsCalculator.calculate(bills)).thenReturn(fee);
-    when(sustainableMobilityProgramAllocationCalculator.calculate(amountDue, 0.4))
-        .thenReturn(Money.fromDouble(0.4));
+    when(sustainableMobilityProgramAllocationCalculator.calculate(amountDue))
+        .thenReturn(amountKeptForSustainabilityProgram);
   }
 
   @Test
@@ -169,7 +170,7 @@ public class BillServiceTest {
     billService.payBill(bill.getId(), amountDue);
     bill.pay(amountDue);
 
-    verify(sustainableMobilityProgramBankRepository).add(Money.fromDouble(0.4));
+    verify(sustainableMobilityProgramBankRepository).add(amountKeptForSustainabilityProgram);
   }
 
   @Test

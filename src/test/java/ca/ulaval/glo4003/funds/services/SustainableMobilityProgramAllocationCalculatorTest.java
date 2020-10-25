@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.funds.services;
 
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
-import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createRatio;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import com.google.common.truth.Truth;
@@ -13,7 +12,8 @@ public class SustainableMobilityProgramAllocationCalculatorTest {
   private SustainableMobilityProgramAllocationCalculator
       sustainableMobilityProgramAllocationCalculator;
   private Money amountCalculated = createMoney();
-  private double ratio = createRatio();
+  private double ratio =
+      SustainableMobilityProgramAllocationCalculator.RATIO_KEPT_FOR_SUSTAINABLE_MOBILITY_PROGRAM;
 
   @Before
   public void setUp() {
@@ -24,7 +24,7 @@ public class SustainableMobilityProgramAllocationCalculatorTest {
   @Test
   public void givenRatio_whenMoneyIsCalculated_thenReturnCalculatedMoney() {
     Money calculatedMoney =
-        sustainableMobilityProgramAllocationCalculator.calculate(amountCalculated, ratio);
+        sustainableMobilityProgramAllocationCalculator.calculate(amountCalculated);
 
     Money expectedMoney = Money.fromDouble(ratio * amountCalculated.toDouble());
 
