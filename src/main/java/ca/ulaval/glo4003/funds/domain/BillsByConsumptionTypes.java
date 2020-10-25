@@ -10,11 +10,9 @@ public class BillsByConsumptionTypes {
   Map<ConsumptionType, List<Bill>> billsByConsumptionsType = new HashMap<>();
 
   public BillsByConsumptionTypes() {
-    billsByConsumptionsType.put(ConsumptionType.ZERO_POLLUTION, new ArrayList<>());
-    billsByConsumptionsType.put(ConsumptionType.ECONOMIC, new ArrayList<>());
-    billsByConsumptionsType.put(ConsumptionType.ECONOMICAL_HYBRID, new ArrayList<>());
-    billsByConsumptionsType.put(ConsumptionType.GREEDY, new ArrayList<>());
-    billsByConsumptionsType.put(ConsumptionType.SUPER_ECONOMICAL, new ArrayList<>());
+    for (ConsumptionType consumptionType : ConsumptionType.values()) {
+      billsByConsumptionsType.put(consumptionType, new ArrayList<>());
+    }
   }
 
   public void addBillWithConsumptionsType(ConsumptionType consumptionType, Bill bill) {
