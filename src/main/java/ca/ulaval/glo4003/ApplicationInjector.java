@@ -26,6 +26,7 @@ import ca.ulaval.glo4003.interfaces.api.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.locations.LocationInjector;
 import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
 import ca.ulaval.glo4003.offenses.OffenseInjector;
+import ca.ulaval.glo4003.offenses.api.OffenseExceptionMapper;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.ParkingInjector;
 import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
@@ -149,7 +150,8 @@ public class ApplicationInjector {
         ParkingExceptionMapper.class,
         TimeExceptionMapper.class,
         UserExceptionMapper.class,
-        InvalidBillQueryParamExceptionMapper.class);
+        InvalidBillQueryParamExceptionMapper.class,
+        OffenseExceptionMapper.class);
   }
 
   public Scheduler createScheduler() {
