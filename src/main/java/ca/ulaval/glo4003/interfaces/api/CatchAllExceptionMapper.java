@@ -30,6 +30,7 @@ public class CatchAllExceptionMapper implements ExceptionMapper<Exception> {
       errorDto.error = BAD_REQUEST_ERROR;
       errorDto.description = BAD_REQUEST_DESCRIPTION;
     } else if (exception instanceof CannotBuildSchedulerException) {
+      responseStatus = Response.Status.INTERNAL_SERVER_ERROR;
       errorDto.error = CANNOT_BUILD_SCHEDULER_ERROR;
       errorDto.description = CANNOT_BUILD_SCHEDULER_DESCRIPTION;
     } else {
