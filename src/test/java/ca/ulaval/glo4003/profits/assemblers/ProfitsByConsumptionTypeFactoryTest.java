@@ -38,7 +38,7 @@ public class ProfitsByConsumptionTypeFactoryTest {
     profitsByConsumptionTypeFactory = new ProfitsByConsumptionTypeFactory(billProfitsCalculator);
     billsByConsumptionTypes = new BillsByConsumptionTypes();
     billsByConsumptionTypes.addBillWithConsumptionsType(consumptionType, bill);
-    when(billProfitsCalculator.calculate(
+    when(billProfitsCalculator.calculateTotalPrice(
             billsByConsumptionTypes.getBillByConsumptionType(consumptionType)))
         .thenReturn(total);
   }

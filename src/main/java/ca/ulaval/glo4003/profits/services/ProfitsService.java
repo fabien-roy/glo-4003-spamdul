@@ -45,7 +45,7 @@ public class ProfitsService {
         billQueryParamsAssembler.assembleWithYear(year, BillType.PARKING_STICKER);
 
     List<Bill> bills = billService.getAllBillsByQueryParams(billQueryParams);
-    Money profits = billProfitsCalculator.calculate(bills);
+    Money profits = billProfitsCalculator.calculateTotalPrice(bills);
     return profitsAssembler.assemble(profits);
   }
 
@@ -54,7 +54,7 @@ public class ProfitsService {
         billQueryParamsAssembler.assembleWithYear(year, BillType.ACCESS_PASS);
 
     List<Bill> bills = billService.getAllBillsByQueryParams(billQueryParams);
-    Money profits = billProfitsCalculator.calculate(bills);
+    Money profits = billProfitsCalculator.calculateTotalPrice(bills);
     return profitsAssembler.assemble(profits);
   }
 
@@ -75,7 +75,7 @@ public class ProfitsService {
         billQueryParamsAssembler.assembleWithYear(year, BillType.OFFENSE);
 
     List<Bill> bills = billService.getAllBillsByQueryParams(billQueryParams);
-    Money profits = billProfitsCalculator.calculate(bills);
+    Money profits = billProfitsCalculator.calculatePaidPrice(bills);
     return profitsAssembler.assemble(profits);
   }
 }
