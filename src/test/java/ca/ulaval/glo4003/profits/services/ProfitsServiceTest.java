@@ -53,11 +53,10 @@ public class ProfitsServiceTest {
             billProfitsCalculator,
             profitsByConsumptionTypeFactory,
             profitsByConsumptionTypeAssembler);
-    when(billQueryParamsAssembler.assembleWithYear(A_YEAR, BillType.PARKING_STICKER))
+    when(billQueryParamsAssembler.assemble(A_YEAR, BillType.PARKING_STICKER))
         .thenReturn(billQueryParams);
-    when(billQueryParamsAssembler.assembleWithYear(A_YEAR, BillType.OFFENSE))
-        .thenReturn(billQueryParams);
-    when(billQueryParamsAssembler.assembleWithYear(A_YEAR, BillType.ACCESS_PASS))
+    when(billQueryParamsAssembler.assemble(A_YEAR, BillType.OFFENSE)).thenReturn(billQueryParams);
+    when(billQueryParamsAssembler.assemble(A_YEAR, BillType.ACCESS_PASS))
         .thenReturn(billQueryParams);
     when(billService.getAllBillsByQueryParams(billQueryParams)).thenReturn(bills);
     when(billProfitsCalculator.calculatePaidPrice(bills)).thenReturn(AN_AMOUNT);

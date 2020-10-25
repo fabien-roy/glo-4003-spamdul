@@ -42,7 +42,7 @@ public class ProfitsService {
 
   public ProfitsDto getParkingStickerProfits(int year) {
     BillQueryParams billQueryParams =
-        billQueryParamsAssembler.assembleWithYear(year, BillType.PARKING_STICKER);
+        billQueryParamsAssembler.assemble(year, BillType.PARKING_STICKER);
 
     List<Bill> bills = billService.getAllBillsByQueryParams(billQueryParams);
     Money profits = billProfitsCalculator.calculateTotalPrice(bills);
@@ -50,8 +50,7 @@ public class ProfitsService {
   }
 
   public ProfitsDto getAccessPassProfits(int year) {
-    BillQueryParams billQueryParams =
-        billQueryParamsAssembler.assembleWithYear(year, BillType.ACCESS_PASS);
+    BillQueryParams billQueryParams = billQueryParamsAssembler.assemble(year, BillType.ACCESS_PASS);
 
     List<Bill> bills = billService.getAllBillsByQueryParams(billQueryParams);
     Money profits = billProfitsCalculator.calculateTotalPrice(bills);
@@ -59,8 +58,7 @@ public class ProfitsService {
   }
 
   public List<ProfitsByConsumptionTypeDto> getAccessPassProfitsByConsumptionType(int year) {
-    BillQueryParams billQueryParams =
-        billQueryParamsAssembler.assembleWithYear(year, BillType.ACCESS_PASS);
+    BillQueryParams billQueryParams = billQueryParamsAssembler.assemble(year, BillType.ACCESS_PASS);
 
     BillsByConsumptionTypes billsByConsumptionTypes =
         billService.getBillsByConsumptionsType(billQueryParams);
@@ -71,8 +69,7 @@ public class ProfitsService {
   }
 
   public ProfitsDto getOffenseProfits(int year) {
-    BillQueryParams billQueryParams =
-        billQueryParamsAssembler.assembleWithYear(year, BillType.OFFENSE);
+    BillQueryParams billQueryParams = billQueryParamsAssembler.assemble(year, BillType.OFFENSE);
 
     List<Bill> bills = billService.getAllBillsByQueryParams(billQueryParams);
     Money profits = billProfitsCalculator.calculatePaidPrice(bills);

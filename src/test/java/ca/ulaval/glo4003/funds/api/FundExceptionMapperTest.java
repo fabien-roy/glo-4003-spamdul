@@ -61,4 +61,13 @@ public class FundExceptionMapperTest {
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
   }
+
+  @Test
+  public void givenInvalidYearException_whenResponding_thenStatusIsBadRequest() {
+    FundException amountDueExceededException = new InvalidYearException();
+
+    Response response = fundExceptionMapper.toResponse(amountDueExceededException);
+
+    assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+  }
 }

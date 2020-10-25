@@ -5297,61 +5297,6 @@
 												}
 											},
 											"response": []
-										},
-										{
-											"name": "Invalid year (string)",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"id": "64edf242-de83-4662-aca1-bca3124646a2",
-														"exec": [
-															"pm.test(\"Returns status 400\", function () {",
-															"    pm.response.to.have.status(400);",
-															"});",
-															"",
-															"pm.test(\"Returns invalid year\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\");",
-															"});"
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"protocolProfileBehavior": {
-												"disableBodyPruning": true
-											},
-											"request": {
-												"method": "GET",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{host}}/api/profits/parkingStickers?year=year",
-													"host": [
-														"{{host}}"
-													],
-													"path": [
-														"api",
-														"profits",
-														"parkingStickers"
-													],
-													"query": [
-														{
-															"key": "year",
-															"value": "year"
-														}
-													]
-												}
-											},
-											"response": []
 										}
 									],
 									"protocolProfileBehavior": {},
@@ -5465,61 +5410,6 @@
 														{
 															"key": "year",
 															"value": "-2000"
-														}
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Invalid year (string)",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"id": "b56b4675-af7a-4f65-88c2-de1a27074c20",
-														"exec": [
-															"pm.test(\"Returns status 400\", function () {",
-															"    pm.response.to.have.status(400);",
-															"});",
-															"",
-															"pm.test(\"Returns invalid year\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\");",
-															"});"
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"protocolProfileBehavior": {
-												"disableBodyPruning": true
-											},
-											"request": {
-												"method": "GET",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{host}}/api/profits/accessPasses?year=year",
-													"host": [
-														"{{host}}"
-													],
-													"path": [
-														"api",
-														"profits",
-														"accessPasses"
-													],
-													"query": [
-														{
-															"key": "year",
-															"value": "year"
 														}
 													]
 												}
@@ -5707,24 +5597,24 @@
 													"  }",
 													"});",
 													"",
-													"pm.test(\"Contains profits for gourmande\", function () {",
-													"    pm.expect(pm.response.json()).to.contain(\"gourmande\");",
+													"pm.test(\"Contains profits for greedy\", function () {",
+													"    pm.expect(pm.response.text()).to.contain(\"greedy\");",
 													"});",
 													"",
-													"pm.test(\"Contains profits for économique\", function () {",
-													"    pm.expect(pm.response.json()).to.contain(\"économique\");",
+													"pm.test(\"Contains profits for economic\", function () {",
+													"    pm.expect(pm.response.text()).to.contain(\"economic\");",
 													"});",
 													"",
-													"pm.test(\"Contains profits for hybride économique\", function () {",
-													"    pm.expect(pm.response.json()).to.contain(\"hybride économique\");",
+													"pm.test(\"Contains profits for economical hybrid\", function () {",
+													"    pm.expect(pm.response.text()).to.contain(\"economical hybrid\");",
 													"});",
 													"",
-													"pm.test(\"Contains profits for super économique\", function () {",
-													"    pm.expect(pm.response.json()).to.contain(\"super économique\");",
+													"pm.test(\"Contains profits for super economical\", function () {",
+													"    pm.expect(pm.response.text()).to.contain(\"super economical\");",
 													"});",
 													"",
 													"pm.test(\"Contains profits for 0 pollution\", function () {",
-													"    pm.expect(pm.response.json()).to.contain(\"0 pollution\");",
+													"    pm.expect(pm.response.text()).to.contain(\"0 pollution\");",
 													"});"
 												],
 												"type": "text/javascript"
@@ -5825,61 +5715,6 @@
 														{
 															"key": "year",
 															"value": "-2000"
-														}
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Invalid year (string)",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"id": "0d865b57-f220-4798-bea1-37f80add4924",
-														"exec": [
-															"pm.test(\"Returns status 400\", function () {",
-															"    pm.response.to.have.status(400);",
-															"});",
-															"",
-															"pm.test(\"Returns invalid year\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\");",
-															"});"
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"protocolProfileBehavior": {
-												"disableBodyPruning": true
-											},
-											"request": {
-												"method": "GET",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{host}}/api/profits/offenses?year=year",
-													"host": [
-														"{{host}}"
-													],
-													"path": [
-														"api",
-														"profits",
-														"offenses"
-													],
-													"query": [
-														{
-															"key": "year",
-															"value": "year"
 														}
 													]
 												}
