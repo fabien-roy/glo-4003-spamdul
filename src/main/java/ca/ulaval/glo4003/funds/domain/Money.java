@@ -21,6 +21,10 @@ public class Money {
     return new Money(amount - money.toDouble());
   }
 
+  public Money multiply(double multiplicationFactor) {
+    return new Money(amount * multiplicationFactor);
+  }
+
   public double toDouble() {
     return amount;
   }

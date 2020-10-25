@@ -7,8 +7,7 @@ import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffense
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
@@ -33,6 +32,10 @@ public class BillServiceTest {
   @Mock BillQueryFactory billQueryFactory;
   @Mock BillQuery billQuery;
   @Mock BillProfitsCalculator billProfitsCalculator;
+  @Mock SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
+
+  @Mock
+  SustainableMobilityProgramAllocationCalculator sustainableMobilityProgramAllocationCalculator;
 
   private BillService billService;
 
@@ -42,6 +45,7 @@ public class BillServiceTest {
   private ParkingArea parkingArea;
   private final Money fee = createMoney();
   private final Money amountDue = Money.fromDouble(1);
+  private final Money amountKeptForSustainabilityProgram = amountDue.multiply(0.4);
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final OffenseCode offenseCode = createOffenseCode();
   private final Map<String, List<String>> params = new HashMap<>();
@@ -50,7 +54,13 @@ public class BillServiceTest {
   public void setUp() {
     billService =
         new BillService(
-            billFactory, billRepository, billAssembler, billQueryFactory, billProfitsCalculator);
+            billFactory,
+            billRepository,
+            billAssembler,
+            billQueryFactory,
+            billProfitsCalculator,
+            sustainableMobilityProgramBankRepository,
+            sustainableMobilityProgramAllocationCalculator);
 
     Map<ParkingPeriod, Money> feePerPeriod = new HashMap<>();
     feePerPeriod.put(ParkingPeriod.ONE_DAY, parkingPeriodFee);
@@ -68,6 +78,8 @@ public class BillServiceTest {
     when(billRepository.getBill(bill.getId())).thenReturn(bill);
     when(billRepository.getAll(billQuery)).thenReturn(bills);
     when(billProfitsCalculator.calculate(bills)).thenReturn(fee);
+    when(sustainableMobilityProgramAllocationCalculator.calculate(amountDue))
+        .thenReturn(amountKeptForSustainabilityProgram);
   }
 
   @Test
@@ -150,6 +162,45 @@ public class BillServiceTest {
     bill.pay(amountDue);
 
     verify(billAssembler).assemble(bill);
+  }
+
+  @Test
+  public void
+      givenBillTypeParkingSticker_whenPayingBill_thenSustainableMobilityProgramBankRepositoryIsCalled() {
+    Bill parkingBill =
+        aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.PARKING_STICKER).build();
+    when(billRepository.getBill(parkingBill.getId())).thenReturn(parkingBill);
+
+    billService.payBill(parkingBill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(sustainableMobilityProgramBankRepository).add(amountKeptForSustainabilityProgram);
+  }
+
+  @Test
+  public void
+      givenBillTypeAccessPass_whenPayingBill_thenSustainableMobilityProgramBankRepositoryIsCalled() {
+    Bill accessPassBill =
+        aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.ACCESS_PASS).build();
+    when(billRepository.getBill(accessPassBill.getId())).thenReturn(accessPassBill);
+
+    billService.payBill(accessPassBill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(sustainableMobilityProgramBankRepository).add(amountKeptForSustainabilityProgram);
+  }
+
+  @Test
+  public void
+      givenBillTypeOffense_whenPayingBill_thenSustainableMobilityProgramBankRepositoryIsCalled() {
+    Bill offenseBill =
+        aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.OFFENSE).build();
+    when(billRepository.getBill(offenseBill.getId())).thenReturn(offenseBill);
+
+    billService.payBill(offenseBill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(sustainableMobilityProgramBankRepository, never()).add(any(Money.class));
   }
 
   @Test
