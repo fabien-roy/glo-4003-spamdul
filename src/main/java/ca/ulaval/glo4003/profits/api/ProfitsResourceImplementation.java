@@ -1,7 +1,10 @@
 package ca.ulaval.glo4003.profits.api;
 
+import ca.ulaval.glo4003.profits.api.dto.ProfitsByConsumptionTypeDto;
 import ca.ulaval.glo4003.profits.api.dto.ProfitsDto;
 import ca.ulaval.glo4003.profits.services.ProfitsService;
+import java.util.List;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -23,11 +26,14 @@ public class ProfitsResourceImplementation implements ProfitsResource {
   }
 
   @Override
-  public Response getAccessPassProfits(int year, boolean isByConsumptionType) {
+  public Response getAccessPassProfits(int year, String isByConsumptionType) {
     Object entity;
 
-    if (isByConsumptionType) {
-      entity = profitsService.getAccessPassProfitsByConsumptionType(year);
+    if (Boolean.valueOf(isByConsumptionType)) {
+      List<ProfitsByConsumptionTypeDto> profitsByConsumptionTypesDto =
+          profitsService.getAccessPassProfitsByConsumptionType(year);
+      entity =
+          new GenericEntity<List<ProfitsByConsumptionTypeDto>>(profitsByConsumptionTypesDto) {};
     } else {
       entity = profitsService.getAccessPassProfits(year);
     }

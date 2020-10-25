@@ -17,7 +17,7 @@ public interface ProfitsResource {
   @Path("/accessPasses")
   Response getAccessPassProfits(
       @DefaultValue("2020") @QueryParam("year") int year,
-      @DefaultValue("false") @QueryParam("byConsumptionType") boolean isByConsumptionType);
+      @DefaultValue("false") @QueryParam("byConsumptionType") String isByConsumptionType);
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)

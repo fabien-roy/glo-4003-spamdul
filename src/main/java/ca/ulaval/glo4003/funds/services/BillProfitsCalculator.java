@@ -9,7 +9,7 @@ public class BillProfitsCalculator {
   public Money calculate(List<Bill> bills) {
     Money total = Money.zero();
     for (Bill bill : bills) {
-      total.plus(bill.getAmountPaid());
+      total = total.plus(bill.getAmountPaid());
     }
     return total;
   }

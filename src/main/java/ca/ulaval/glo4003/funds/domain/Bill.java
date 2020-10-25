@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.funds.domain;
 
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
-import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
 import ca.ulaval.glo4003.funds.exception.AmountDueExceededException;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import java.util.Optional;
@@ -15,8 +14,8 @@ public class Bill {
   private Money amountPaid;
   private CustomDateTime customDateTime;
 
-  public ConsumptionType getConsumptionType() {
-    return consumptionType.orElseThrow(InvalidConsumptionTypeException::new);
+  public Optional<ConsumptionType> getConsumptionType() {
+    return consumptionType;
   }
 
   public Bill(
@@ -31,6 +30,7 @@ public class Bill {
     this.amountDue = amountDue;
     this.amountPaid = Money.zero();
     this.customDateTime = customDateTime;
+    this.consumptionType = Optional.empty();
   }
 
   public Bill(

@@ -17,7 +17,7 @@ public class BillProfitsCalculatorTest {
   private Bill bill = aBill().build();
   private Bill anotherBill = aBill().build();
   private final List<Bill> bills = new ArrayList<>();
-  private final Money expectedAmount = Money.zero();
+  private Money expectedAmount = Money.zero();
 
   @Before
   public void setUp() {
@@ -28,8 +28,8 @@ public class BillProfitsCalculatorTest {
     bills.add(bill);
     bills.add(anotherBill);
 
-    expectedAmount.plus(bill.getAmountPaid());
-    expectedAmount.plus(anotherBill.getAmountPaid());
+    expectedAmount = expectedAmount.plus(bill.getAmountPaid());
+    expectedAmount = expectedAmount.plus(anotherBill.getAmountPaid());
   }
 
   @Test

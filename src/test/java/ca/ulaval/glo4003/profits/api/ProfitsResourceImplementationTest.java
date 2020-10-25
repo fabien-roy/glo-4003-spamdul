@@ -42,7 +42,7 @@ public class ProfitsResourceImplementationTest {
 
   @Test
   public void whenGettingProfitsFromAccessPass_ifAskedByConsumptionType_shouldCallProfitsService() {
-    boolean isByConsumptionType = true;
+    String isByConsumptionType = "true";
     profitsResourceImplementation.getAccessPassProfits(A_YEAR, isByConsumptionType);
 
     verify(profitsService).getAccessPassProfitsByConsumptionType(A_YEAR);
@@ -51,7 +51,7 @@ public class ProfitsResourceImplementationTest {
   @Test
   public void
       whenGettingProfitsFromAccessPass_ifNotAskedByConsumptionType_shouldCallProfitsService() {
-    boolean isByConsumptionType = false;
+    String isByConsumptionType = "false";
     profitsResourceImplementation.getAccessPassProfits(A_YEAR, isByConsumptionType);
 
     verify(profitsService).getAccessPassProfits(A_YEAR);
@@ -59,7 +59,7 @@ public class ProfitsResourceImplementationTest {
 
   @Test
   public void whenGettingProfitsFromAccessPass_shouldResponseWithOkStatus() {
-    boolean isByConsumptionType = false;
+    String isByConsumptionType = "false";
     Response response =
         profitsResourceImplementation.getAccessPassProfits(A_YEAR, isByConsumptionType);
 
