@@ -9,7 +9,6 @@ import java.util.List;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
-// TODO : Test
 public class SchedulerBuilder {
   private static final String MONTHLY_CRON_EXPRESSION = "0 0 0 L * ?";
   private static final String SECOND_CRON_EXPRESSION = "* * * ? * * *";
