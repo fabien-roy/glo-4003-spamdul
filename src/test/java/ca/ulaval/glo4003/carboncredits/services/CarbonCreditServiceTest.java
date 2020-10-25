@@ -6,8 +6,7 @@ import static ca.ulaval.glo4003.carboncredits.helpers.MonthlyPaymentStatusDtoBui
 import static ca.ulaval.glo4003.carboncredits.helpers.MonthlyPaymentStatusMother.createMonthlyPaymentStatus;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
 import ca.ulaval.glo4003.carboncredits.api.dto.MonthlyPaymentStatusDto;
@@ -77,12 +76,25 @@ public class CarbonCreditServiceTest {
 
   @Test
   public void
-      whenExtractingMoneyFromSustainableMobilityProgramBank_thenAddAllAvailableMoneyToRepository() {
+      givenEnabledMonthlyPaymentStatus_whenExtractingMoneyFromSustainableMobilityProgramBank_thenAddAllAvailableMoneyToRepository() {
+    when(monthlyPaymentStatusRepository.get()).thenReturn(MonthlyPaymentStatus.ENABLE);
     CarbonCredit expectedCarbonCredit =
         CarbonCredit.fromMoney(sustainableMobilityProgramBankAvailableMoney);
 
     carbonCreditService.extractMoneyFromSustainableMobilityProgramBank();
 
     verify(carbonCreditRepository).add(expectedCarbonCredit);
+  }
+
+  @Test
+  public void
+      givenDisabledMonthlyPaymentStatus_whenExtractingMoneyFromSustainableMobilityProgramBank_thenDoNotAddAllAvailableMoneyToRepository() {
+    when(monthlyPaymentStatusRepository.get()).thenReturn(MonthlyPaymentStatus.DISABLE);
+    CarbonCredit expectedCarbonCredit =
+        CarbonCredit.fromMoney(sustainableMobilityProgramBankAvailableMoney);
+
+    carbonCreditService.extractMoneyFromSustainableMobilityProgramBank();
+
+    verify(carbonCreditRepository, never()).add(expectedCarbonCredit);
   }
 }
