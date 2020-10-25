@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamAssembler;
+import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
 import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class BillQueryFactoryTest {
   @Mock private BillQuery query;
   @Mock private BillQuery filteredQuery;
 
-  private Map<String, List<String>> params = new HashMap<>();
+  private BillQueryParams params = new BillQueryParams();
 
   private Set<BillQueryParamAssembler> queryParamAssemblers = new HashSet<>();
 

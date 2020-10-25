@@ -14,6 +14,7 @@ import ca.ulaval.glo4003.communications.api.CommunicationExceptionMapper;
 import ca.ulaval.glo4003.files.api.FileExceptionMapper;
 import ca.ulaval.glo4003.funds.FundInjector;
 import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
+import ca.ulaval.glo4003.funds.api.InvalidBillQueryParamExceptionMapper;
 import ca.ulaval.glo4003.gateentries.GateEntryInjector;
 import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
 import ca.ulaval.glo4003.initiatives.InitiativeInjector;
@@ -28,6 +29,8 @@ import ca.ulaval.glo4003.parkings.ParkingInjector;
 import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
 import ca.ulaval.glo4003.parkings.api.ParkingExceptionMapper;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
+import ca.ulaval.glo4003.profits.ProfitsInjector;
+import ca.ulaval.glo4003.profits.api.ProfitsResource;
 import ca.ulaval.glo4003.times.TimeInjector;
 import ca.ulaval.glo4003.times.api.TimeExceptionMapper;
 import ca.ulaval.glo4003.users.UserInjector;
@@ -54,6 +57,7 @@ public class ApplicationInjector {
   private static final UserInjector USER_INJECTOR = new UserInjector();
   private static final CarbonCreditInjector CARBON_CREDIT_INJECTOR = new CarbonCreditInjector();
   private static final InitiativeInjector INITIATIVE_INJECTOR = new InitiativeInjector();
+  private static final ProfitsInjector PROFITS_INJECTOR = new ProfitsInjector();
 
   public UserResource createUserResource() {
     List<ParkingStickerCreationObserver> parkingStickerCreationObservers =
@@ -129,6 +133,10 @@ public class ApplicationInjector {
             FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
   }
 
+  public ProfitsResource createProfitsResource() {
+    return PROFITS_INJECTOR.createProfitsResource(FUND_INJECTOR.createBillService());
+  }
+
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
     return Arrays.asList(
         CatchAllExceptionMapper.class,
@@ -143,6 +151,7 @@ public class ApplicationInjector {
         LocationExceptionMapper.class,
         ParkingExceptionMapper.class,
         TimeExceptionMapper.class,
-        UserExceptionMapper.class);
+        UserExceptionMapper.class,
+        InvalidBillQueryParamExceptionMapper.class);
   }
 }

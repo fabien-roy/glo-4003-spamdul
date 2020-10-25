@@ -1,15 +1,17 @@
 package ca.ulaval.glo4003.funds.services;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
+import ca.ulaval.glo4003.funds.assemblers.BillsByConsumptionsTypeAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
+import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 public class BillService {
@@ -18,28 +20,28 @@ public class BillService {
   private final BillRepository<BillQuery> billRepository;
   private final BillAssembler billAssembler;
   private final BillQueryFactory billQueryFactory;
-  private final BillProfitsCalculator billProfitsCalculator;
+
   private final SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
   private final SustainableMobilityProgramAllocationCalculator
       sustainableMobilityProgramAllocationCalculator;
+  private final BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler;
 
   public BillService(
       BillFactory billFactory,
       BillRepository<BillQuery> billRepository,
       BillAssembler billAssembler,
       BillQueryFactory billQueryFactory,
-      BillProfitsCalculator billProfitsCalculator,
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository,
-      SustainableMobilityProgramAllocationCalculator
-          sustainableMobilityProgramAllocationCalculator) {
+      SustainableMobilityProgramAllocationCalculator sustainableMobilityProgramAllocationCalculator,
+      BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler) {
     this.billFactory = billFactory;
     this.billRepository = billRepository;
     this.billAssembler = billAssembler;
     this.billQueryFactory = billQueryFactory;
-    this.billProfitsCalculator = billProfitsCalculator;
     this.sustainableMobilityProgramBankRepository = sustainableMobilityProgramBankRepository;
     this.sustainableMobilityProgramAllocationCalculator =
         sustainableMobilityProgramAllocationCalculator;
+    this.billsByConsumptionsTypeAssembler = billsByConsumptionsTypeAssembler;
   }
 
   public BillId addBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
@@ -56,10 +58,11 @@ public class BillService {
     return bill.getId();
   }
 
-  public BillId addBillForAccessCode(Money fee, AccessPassCode accessPassCode) {
+  public BillId addBillForAccessCode(
+      Money fee, AccessPassCode accessPassCode, ConsumptionType consumptionType) {
     logger.info(String.format("Create bill for access code %s", accessPassCode));
 
-    Bill bill = billFactory.createForAccessPass(fee, accessPassCode);
+    Bill bill = billFactory.createForAccessPass(fee, accessPassCode, consumptionType);
 
     billRepository.save(bill);
 
@@ -100,11 +103,13 @@ public class BillService {
     return billRepository.getBill(billId);
   }
 
-  public Money getAllBills(Map<String, List<String>> params) {
-    BillQuery billQuery = billQueryFactory.create(params);
+  public List<Bill> getAllBillsByQueryParams(BillQueryParams billQueryParams) {
+    return billRepository.getAll(billQueryFactory.create(billQueryParams));
+  }
 
-    List<Bill> bills = billRepository.getAll(billQuery);
+  public BillsByConsumptionTypes getBillsByConsumptionsType(BillQueryParams billQueryParams) {
+    List<Bill> bills = getAllBillsByQueryParams(billQueryParams);
 
-    return billProfitsCalculator.calculate(bills);
+    return billsByConsumptionsTypeAssembler.assemble(bills);
   }
 }

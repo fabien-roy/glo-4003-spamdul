@@ -1,8 +1,7 @@
 package ca.ulaval.glo4003.funds.domain;
 
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamAssembler;
-import java.util.List;
-import java.util.Map;
+import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
 import java.util.Set;
 
 public class BillQueryFactory {
@@ -16,11 +15,11 @@ public class BillQueryFactory {
     this.queryParamAssemblers = queryParamAssemblers;
   }
 
-  public BillQuery create(Map<String, List<String>> params) {
+  public BillQuery create(BillQueryParams billQueryParams) {
     BillQueryBuilder builder = billQueryBuilder.aBillQuery();
 
     for (BillQueryParamAssembler queryParamAssembler : queryParamAssemblers)
-      builder = queryParamAssembler.assemble(builder, params);
+      builder = queryParamAssembler.assemble(builder, billQueryParams);
 
     return builder.build();
   }

@@ -1,14 +1,12 @@
 package ca.ulaval.glo4003.funds.domain.queries;
 
 import static ca.ulaval.glo4003.funds.domain.queries.YearQueryParamAssembler.YEAR_PARAM;
+import static ca.ulaval.glo4003.times.helpers.CustomDateTimeMother.createDateTime;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.BillQueryBuilder;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,8 +20,8 @@ public class YearQueryParamAssemblerTest {
   @Mock private static BillQueryBuilder queryBuilder;
   @Mock private static BillQueryBuilder assembledQueryBuilder;
 
-  private static final int A_YEAR = 2020; // TODO : Add to Bill Object Mother
-  private Map<String, List<String>> params = new HashMap<>();
+  private int A_YEAR = createDateTime().getYear();
+  private BillQueryParams params = new BillQueryParams();
 
   @Before
   public void setUp() {
@@ -40,7 +38,7 @@ public class YearQueryParamAssemblerTest {
 
   @Test
   public void assemble_withYear_shouldAssembleBuilder() {
-    params.put(YEAR_PARAM, Collections.singletonList(String.valueOf(A_YEAR)));
+    params.add(YEAR_PARAM, Collections.singletonList(String.valueOf(A_YEAR)));
 
     BillQueryBuilder actualQueryBuilder = queryAssembler.assemble(queryBuilder, params);
 

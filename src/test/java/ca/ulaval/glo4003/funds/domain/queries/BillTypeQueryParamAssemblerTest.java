@@ -9,9 +9,6 @@ import ca.ulaval.glo4003.funds.domain.BillQueryBuilder;
 import ca.ulaval.glo4003.funds.domain.BillType;
 import ca.ulaval.glo4003.funds.exception.InvalidBillTypeException;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +23,7 @@ public class BillTypeQueryParamAssemblerTest {
   @Mock private BillQueryBuilder assembledQueryBuilder;
 
   private BillType billType = createBillType();
-  private Map<String, List<String>> params = new HashMap<>();
+  private BillQueryParams params = new BillQueryParams();
 
   @Before
   public void setUp() {
@@ -43,7 +40,7 @@ public class BillTypeQueryParamAssemblerTest {
 
   @Test
   public void whenAssemblingWithBillType_thenShouldAssembleBuilder() {
-    params.put(BILL_TYPE_PARAM, Collections.singletonList(billType.toString()));
+    params.add(BILL_TYPE_PARAM, Collections.singletonList(billType.toString()));
 
     BillQueryBuilder actualQueryBuilder = queryAssembler.assemble(queryBuilder, params);
 
@@ -52,7 +49,7 @@ public class BillTypeQueryParamAssemblerTest {
 
   @Test(expected = InvalidBillTypeException.class)
   public void whenAssemblingWithInvalidBillType_thenShouldThrowInvalidPackageException() {
-    params.put(BILL_TYPE_PARAM, Collections.singletonList("invalidBillType"));
+    params.add(BILL_TYPE_PARAM, Collections.singletonList("invalidBillType"));
 
     queryAssembler.assemble(queryBuilder, params);
   }

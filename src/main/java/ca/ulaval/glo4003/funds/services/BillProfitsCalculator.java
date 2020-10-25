@@ -6,11 +6,21 @@ import java.util.List;
 
 public class BillProfitsCalculator {
 
-  public Money calculate(List<Bill> bills) {
+  public Money calculatePaidPrice(List<Bill> bills) {
     Money total = Money.zero();
     for (Bill bill : bills) {
-      total.plus(bill.getAmountPaid());
+      total = total.plus(bill.getAmountPaid());
     }
+    return total;
+  }
+
+  public Money calculateTotalPrice(List<Bill> bills) {
+    Money total = Money.zero();
+    for (Bill bill : bills) {
+      total = total.plus(bill.getAmountDue());
+      total = total.plus(bill.getAmountPaid());
+    }
+
     return total;
   }
 }

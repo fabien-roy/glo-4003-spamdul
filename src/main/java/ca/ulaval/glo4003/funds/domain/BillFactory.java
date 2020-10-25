@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.funds.domain;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
@@ -37,13 +38,14 @@ public class BillFactory {
     return new Bill(id, billType, description, amount, CustomDateTime.now());
   }
 
-  public Bill createForAccessPass(Money feeForPeriod, AccessPassCode accessPassCode) {
+  public Bill createForAccessPass(
+      Money feeForPeriod, AccessPassCode accessPassCode, ConsumptionType consumptionType) {
     BillId id = generateBillId();
     String description = String.format(ACCESS_PASS_BILL_DESCRIPTION, accessPassCode.toString());
 
     BillType billType = BillType.ACCESS_PASS;
 
-    return new Bill(id, billType, description, feeForPeriod, CustomDateTime.now());
+    return new Bill(id, billType, description, feeForPeriod, CustomDateTime.now(), consumptionType);
   }
 
   public Bill createForOffense(Money fee, OffenseCode offenseCode) {

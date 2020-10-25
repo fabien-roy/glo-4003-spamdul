@@ -20,7 +20,7 @@ public class CarMother {
     return Faker.instance().number().numberBetween(1960, 2010);
   }
 
-  public static ConsumptionType createConsumptionTypes() {
+  public static ConsumptionType createConsumptionType() {
     return randomEnum(ConsumptionType.class);
   }
 

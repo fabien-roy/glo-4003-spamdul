@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.funds;
 
 import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
+import ca.ulaval.glo4003.funds.assemblers.BillsByConsumptionsTypeAssembler;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamAssembler;
@@ -9,7 +10,6 @@ import ca.ulaval.glo4003.funds.domain.queries.YearQueryParamAssembler;
 import ca.ulaval.glo4003.funds.infrastructure.BillQueryBuilderInMemory;
 import ca.ulaval.glo4003.funds.infrastructure.BillRepositoryInMemory;
 import ca.ulaval.glo4003.funds.infrastructure.SustainableMobilityProgramBankRepositoryInMemory;
-import ca.ulaval.glo4003.funds.services.BillProfitsCalculator;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.SustainableMobilityProgramAllocationCalculator;
 import java.util.HashSet;
@@ -23,7 +23,8 @@ public class FundInjector {
   private final BillTypeQueryParamAssembler billTypeQueryParamAssembler =
       new BillTypeQueryParamAssembler();
   private final YearQueryParamAssembler yearQueryParamAssembler = new YearQueryParamAssembler();
-  private final BillProfitsCalculator billProfitsCalculator = new BillProfitsCalculator();
+  private final BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler =
+      new BillsByConsumptionsTypeAssembler();
   private final SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository =
       new SustainableMobilityProgramBankRepositoryInMemory();
   private final SustainableMobilityProgramAllocationCalculator
@@ -44,9 +45,9 @@ public class FundInjector {
         billRepository,
         new BillAssembler(),
         billQueryFactory,
-        billProfitsCalculator,
         sustainableMobilityProgramBankRepository,
-        sustainableMobilityProgramAllocationCalculator);
+        sustainableMobilityProgramAllocationCalculator,
+        new BillsByConsumptionsTypeAssembler());
   }
 
   public MoneyAssembler createMoneyAssembler() {

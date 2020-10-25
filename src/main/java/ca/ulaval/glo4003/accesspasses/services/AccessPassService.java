@@ -62,7 +62,8 @@ public class AccessPassService {
     AccessPassType accessPassType = accessPassTypeRepository.findByConsumptionType(consumptionType);
 
     Money moneyDue = accessPassType.getFeeForPeriod(AccessPeriod.ONE_DAY);
-    BillId billId = billService.addBillForAccessCode(moneyDue, accessPass.getCode());
+    BillId billId =
+        billService.addBillForAccessCode(moneyDue, accessPass.getCode(), consumptionType);
     accountService.addAccessCodeToAccount(account.getId(), accessPass.getCode(), billId);
 
     AccessPassCode accessPassCode = accessPassRepository.save(accessPass);

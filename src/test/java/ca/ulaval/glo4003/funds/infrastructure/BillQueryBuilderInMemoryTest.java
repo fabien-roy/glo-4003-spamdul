@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.funds.infrastructure;
 
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillType;
+import static ca.ulaval.glo4003.times.helpers.CustomDateTimeMother.createDateTime;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.funds.domain.BillQuery;
@@ -13,8 +14,8 @@ import org.junit.Test;
 public class BillQueryBuilderInMemoryTest {
 
   private BillQueryBuilderInMemory billQueryBuilderInMemory;
-  private final BillType billType = createBillType();
-  private static final int A_YEAR = 2020; // TODO : Create an Object Mother
+  private BillType billType = createBillType();
+  private int A_YEAR = createDateTime().getYear();
 
   @Before
   public void setUp() {
