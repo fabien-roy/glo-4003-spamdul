@@ -24,11 +24,11 @@ public enum BillQueryParam {
   public static BillQueryParam get(String param) {
     if (param == null) throw new InvalidBillQueryParamException();
 
-    BillQueryParam foundSex = lookup.get(param.toLowerCase());
+    BillQueryParam billQueryParam = lookup.get(param.toLowerCase());
 
-    if (foundSex == null) throw new InvalidBillQueryParamException();
+    if (billQueryParam == null) throw new InvalidBillQueryParamException();
 
-    return foundSex;
+    return billQueryParam;
   }
 
   @Override

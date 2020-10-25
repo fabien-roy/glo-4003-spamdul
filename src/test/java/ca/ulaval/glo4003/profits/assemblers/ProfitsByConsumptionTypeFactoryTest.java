@@ -34,7 +34,7 @@ public class ProfitsByConsumptionTypeFactoryTest {
   private List<ProfitByConsumptionType> profitByConsumptionTypes = new ArrayList<>();
 
   @Before
-  public void setup() {
+  public void setUp() {
     profitsByConsumptionTypeFactory = new ProfitsByConsumptionTypeFactory(billProfitsCalculator);
     billsByConsumptionTypes = new BillsByConsumptionTypes();
     billsByConsumptionTypes.addBillWithConsumptionsType(consumptionType, bill);
