@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.profits.assemblers;
 
 import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionType;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
-import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoneyBelowAmount;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -31,7 +30,7 @@ public class ProfitsByConsumptionTypeFactoryTest {
   private BillsByConsumptionTypes billsByConsumptionTypes;
   private ConsumptionType consumptionType = createConsumptionType();
   private Bill bill = aBill().build();
-  private Money money = createMoneyBelowAmount(bill.getAmountDue());
+  private Money total = bill.getAmountDue().plus(bill.getAmountPaid());
   private List<ProfitByConsumptionType> profitByConsumptionTypes = new ArrayList<>();
 
   @Before
@@ -41,7 +40,7 @@ public class ProfitsByConsumptionTypeFactoryTest {
     billsByConsumptionTypes.addBillWithConsumptionsType(consumptionType, bill);
     when(billProfitsCalculator.calculate(
             billsByConsumptionTypes.getBillByConsumptionType(consumptionType)))
-        .thenReturn(money);
+        .thenReturn(total);
   }
 
   @Test
@@ -51,7 +50,7 @@ public class ProfitsByConsumptionTypeFactoryTest {
     assertThat(profitByConsumptionTypes.size()).isEqualTo(SIZE_OF_ARRAY);
     assertThat(
             findProfitByConsumptionTypeFromConsumptionType(consumptionType).getMoney().toDouble())
-        .isEqualTo(money.toDouble());
+        .isEqualTo(total.toDouble());
   }
 
   private ProfitByConsumptionType findProfitByConsumptionTypeFromConsumptionType(
