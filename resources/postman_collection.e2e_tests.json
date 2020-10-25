@@ -132,46 +132,6 @@
 					"response": []
 				},
 				{
-					"name": "Add initiative",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "22b63949-9253-469a-8f60-1678e90f0803",
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"param.initiativeCode\", jsonData.initiativeCode);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": {{request.initiative.name}},\n  \"amount\": {{request.initiative.amount}}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/initiatives",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"initiatives"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Get user's bills",
 					"event": [
 						{
@@ -255,6 +215,46 @@
 								"{{param.accountId}}",
 								"bills",
 								"{{param.billId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add initiative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "22b63949-9253-469a-8f60-1678e90f0803",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"param.initiativeCode\", jsonData.initiativeCode);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": {{request.initiative.name}},\n  \"amount\": {{request.initiative.amount}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/initiatives",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"initiatives"
 							]
 						}
 					},
@@ -4931,8 +4931,8 @@
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid amount to add\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount to add\")",
+															"pm.test(\"Returns invalid amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount of money\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -4977,8 +4977,8 @@
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid amount to add\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount to add\");",
+															"pm.test(\"Returns invalid amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount of money\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -5023,8 +5023,8 @@
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid amount to add\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount to add\")",
+															"pm.test(\"Returns invalid amount of money\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid amount of money\")",
 															"});"
 														],
 														"type": "text/javascript"
