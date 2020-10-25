@@ -8,8 +8,7 @@ import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffense
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
@@ -31,13 +30,17 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class BillServiceTest {
 
-  @Mock private BillFactory billFactory;
-  @Mock private BillRepository<BillQuery> billRepository;
-  @Mock private BillAssembler billAssembler;
-  @Mock private BillQueryFactory billQueryFactory;
+  @Mock BillFactory billFactory;
+  @Mock BillRepository<BillQuery> billRepository;
+  @Mock BillAssembler billAssembler;
+  @Mock BillQueryFactory billQueryFactory;
+  @Mock BillQuery billQuery;
+  @Mock BillProfitsCalculator billProfitsCalculator;
+  @Mock SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
   @Mock private BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler;
-  @Mock private BillQuery billQuery;
-  @Mock private BillProfitsCalculator billProfitsCalculator;
+
+  @Mock
+  SustainableMobilityProgramAllocationCalculator sustainableMobilityProgramAllocationCalculator;
 
   private BillService billService;
 
@@ -46,6 +49,8 @@ public class BillServiceTest {
   private final Bill bill = aBill().build();
   private ParkingArea parkingArea;
   private final Money fee = createMoney();
+  private final Money amountDue = Money.fromDouble(1);
+  private final Money amountKeptForSustainabilityProgram = amountDue.multiply(0.4);
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final ConsumptionType consumptionType = createConsumptionType();
   private final OffenseCode offenseCode = createOffenseCode();
@@ -59,6 +64,8 @@ public class BillServiceTest {
             billRepository,
             billAssembler,
             billQueryFactory,
+            sustainableMobilityProgramBankRepository,
+            sustainableMobilityProgramAllocationCalculator,
             billsByConsumptionsTypeAssembler);
 
     Map<ParkingPeriod, Money> feePerPeriod = new HashMap<>();
@@ -78,6 +85,8 @@ public class BillServiceTest {
     when(billRepository.getAll(billQuery)).thenReturn(bills);
     when(billProfitsCalculator.calculateTotalPrice(bills)).thenReturn(fee);
     when(billProfitsCalculator.calculatePaidPrice(bills)).thenReturn(fee);
+    when(sustainableMobilityProgramAllocationCalculator.calculate(amountDue))
+        .thenReturn(amountKeptForSustainabilityProgram);
   }
 
   @Test
@@ -160,6 +169,45 @@ public class BillServiceTest {
     bill.pay(bill.getAmountDue());
 
     verify(billAssembler).assemble(bill);
+  }
+
+  @Test
+  public void
+      givenBillTypeParkingSticker_whenPayingBill_thenSustainableMobilityProgramBankRepositoryIsCalled() {
+    Bill parkingBill =
+        aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.PARKING_STICKER).build();
+    when(billRepository.getBill(parkingBill.getId())).thenReturn(parkingBill);
+
+    billService.payBill(parkingBill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(sustainableMobilityProgramBankRepository).add(amountKeptForSustainabilityProgram);
+  }
+
+  @Test
+  public void
+      givenBillTypeAccessPass_whenPayingBill_thenSustainableMobilityProgramBankRepositoryIsCalled() {
+    Bill accessPassBill =
+        aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.ACCESS_PASS).build();
+    when(billRepository.getBill(accessPassBill.getId())).thenReturn(accessPassBill);
+
+    billService.payBill(accessPassBill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(sustainableMobilityProgramBankRepository).add(amountKeptForSustainabilityProgram);
+  }
+
+  @Test
+  public void
+      givenBillTypeOffense_whenPayingBill_thenSustainableMobilityProgramBankRepositoryIsCalled() {
+    Bill offenseBill =
+        aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.OFFENSE).build();
+    when(billRepository.getBill(offenseBill.getId())).thenReturn(offenseBill);
+
+    billService.payBill(offenseBill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(sustainableMobilityProgramBankRepository, never()).add(any(Money.class));
   }
 
   @Test

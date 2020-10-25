@@ -20,6 +20,10 @@ public class BillService {
   private final BillRepository<BillQuery> billRepository;
   private final BillAssembler billAssembler;
   private final BillQueryFactory billQueryFactory;
+
+  private final SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
+  private final SustainableMobilityProgramAllocationCalculator
+      sustainableMobilityProgramAllocationCalculator;
   private final BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler;
 
   public BillService(
@@ -27,11 +31,16 @@ public class BillService {
       BillRepository<BillQuery> billRepository,
       BillAssembler billAssembler,
       BillQueryFactory billQueryFactory,
+      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository,
+      SustainableMobilityProgramAllocationCalculator sustainableMobilityProgramAllocationCalculator,
       BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler) {
     this.billFactory = billFactory;
     this.billRepository = billRepository;
     this.billAssembler = billAssembler;
     this.billQueryFactory = billQueryFactory;
+    this.sustainableMobilityProgramBankRepository = sustainableMobilityProgramBankRepository;
+    this.sustainableMobilityProgramAllocationCalculator =
+        sustainableMobilityProgramAllocationCalculator;
     this.billsByConsumptionsTypeAssembler = billsByConsumptionsTypeAssembler;
   }
 
@@ -76,6 +85,12 @@ public class BillService {
     Bill bill = getBill(billId);
     bill.pay(amountToPay);
     billRepository.updateBill(bill);
+
+    if (bill.isBillTypeEqual(BillType.ACCESS_PASS)
+        || bill.isBillTypeEqual(BillType.PARKING_STICKER)) {
+      sustainableMobilityProgramBankRepository.add(
+          sustainableMobilityProgramAllocationCalculator.calculate(amountToPay));
+    }
 
     return billAssembler.assemble(bill);
   }
