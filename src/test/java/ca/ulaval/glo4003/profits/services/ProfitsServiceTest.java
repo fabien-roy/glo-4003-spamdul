@@ -60,7 +60,8 @@ public class ProfitsServiceTest {
     when(billQueryParamsAssembler.assembleWithYear(A_YEAR, BillType.ACCESS_PASS))
         .thenReturn(billQueryParams);
     when(billService.getAllBillsByQueryParams(billQueryParams)).thenReturn(bills);
-    when(billProfitsCalculator.calculate(bills)).thenReturn(AN_AMOUNT);
+    when(billProfitsCalculator.calculatePaidPrice(bills)).thenReturn(AN_AMOUNT);
+    when(billProfitsCalculator.calculateTotalPrice(bills)).thenReturn(AN_AMOUNT);
   }
 
   @Test

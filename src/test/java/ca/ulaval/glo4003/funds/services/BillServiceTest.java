@@ -76,7 +76,8 @@ public class BillServiceTest {
     when(billQueryFactory.create(params)).thenReturn(billQuery);
     when(billRepository.getBill(bill.getId())).thenReturn(bill);
     when(billRepository.getAll(billQuery)).thenReturn(bills);
-    when(billProfitsCalculator.calculate(bills)).thenReturn(fee);
+    when(billProfitsCalculator.calculateTotalPrice(bills)).thenReturn(fee);
+    when(billProfitsCalculator.calculatePaidPrice(bills)).thenReturn(fee);
   }
 
   @Test

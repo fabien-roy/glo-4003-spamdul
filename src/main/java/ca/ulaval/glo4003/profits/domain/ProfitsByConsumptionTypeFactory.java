@@ -27,7 +27,7 @@ public class ProfitsByConsumptionTypeFactory {
   }
 
   private ProfitByConsumptionType create(ConsumptionType consumptionType, List<Bill> bills) {
-    Money profits = billProfitsCalculator.calculate(bills);
+    Money profits = billProfitsCalculator.calculateTotalPrice(bills);
     return new ProfitByConsumptionType(consumptionType, profits);
   }
 }

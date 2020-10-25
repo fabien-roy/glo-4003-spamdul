@@ -22,20 +22,29 @@ public class BillProfitsCalculatorTest {
   @Before
   public void setUp() {
     billProfitsCalculator = new BillProfitsCalculator();
-    bill.pay(createMoneyBelowAmount(bill.getAmountDue()));
     anotherBill.pay(createMoneyBelowAmount(anotherBill.getAmountDue()));
 
     bills.add(bill);
     bills.add(anotherBill);
-
-    expectedAmount = expectedAmount.plus(bill.getAmountPaid());
-    expectedAmount = expectedAmount.plus(anotherBill.getAmountPaid());
   }
 
   @Test
-  public void whenCalculatingProfits_thenShouldReturnCorrectAmount() {
-    Money total = billProfitsCalculator.calculate(bills);
+  public void whenCalculatingPaidProfits_thenShouldReturnCorrectAmount() {
+    expectedAmount = expectedAmount.plus(anotherBill.getAmountPaid());
 
-    assertThat(total.toDouble()).isEqualTo(expectedAmount.toDouble());
+    Money profits = billProfitsCalculator.calculatePaidPrice(bills);
+
+    assertThat(profits.toDouble()).isEqualTo(expectedAmount.toDouble());
+  }
+
+  @Test
+  public void whenCalculatingTotalProfits_thenShouldReturnCorrectAmount() {
+    expectedAmount = expectedAmount.plus(anotherBill.getAmountPaid());
+    expectedAmount = expectedAmount.plus(anotherBill.getAmountDue());
+    expectedAmount = expectedAmount.plus(bill.getAmountDue());
+
+    Money profits = billProfitsCalculator.calculateTotalPrice(bills);
+
+    assertThat(profits.toDouble()).isEqualTo(expectedAmount.toDouble());
   }
 }
