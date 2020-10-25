@@ -25,6 +25,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ProfitsByConsumptionTypeFactoryTest {
 
   private ProfitsByConsumptionTypeFactory profitsByConsumptionTypeFactory;
+  private static final int SIZE_OF_ARRAY = 5;
 
   @Mock private BillProfitsCalculator billProfitsCalculator;
   private BillsByConsumptionTypes billsByConsumptionTypes;
@@ -47,7 +48,7 @@ public class ProfitsByConsumptionTypeFactoryTest {
   public void whenCreatingProfitByConsumptionTypes_thenReturnProfitByConsumptionTypes() {
     profitByConsumptionTypes = profitsByConsumptionTypeFactory.create(billsByConsumptionTypes);
 
-    assertThat(profitByConsumptionTypes.size()).isEqualTo(5);
+    assertThat(profitByConsumptionTypes.size()).isEqualTo(SIZE_OF_ARRAY);
     assertThat(
             findProfitByConsumptionTypeFromConsumptionType(consumptionType).getMoney().toDouble())
         .isEqualTo(money.toDouble());
