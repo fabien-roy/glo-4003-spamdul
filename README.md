@@ -20,7 +20,7 @@ To send emails, we need to have the file `data/emailSmtp.properties` set correct
 
 ### Install dependencies and build project
 
-Maven is used as a built automation tool, as well as a dependency manager. To build the application, use : 
+Maven is used as a build automation tool, as well as a dependency manager. To build the application, use : 
 
 ```
 mvn clean install
