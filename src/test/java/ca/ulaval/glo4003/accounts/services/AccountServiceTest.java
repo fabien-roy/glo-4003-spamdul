@@ -1,28 +1,28 @@
 package ca.ulaval.glo4003.accounts.services;
 
-import static ca.ulaval.glo4003.access.helpers.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingStickerCode;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
-import ca.ulaval.glo4003.access.domain.AccessPassCode;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.api.dto.BillPaymentDto;
+import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillIdAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillPaymentAssembler;
-import ca.ulaval.glo4003.funds.assemblers.BillsAssembler;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
-import com.google.common.truth.Truth;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +38,7 @@ public class AccountServiceTest {
   @Mock private AccountRepository accountRepository;
   @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private BillService billService;
-  @Mock private BillsAssembler billsAssembler;
+  @Mock private BillAssembler billAssembler;
   @Mock private BillIdAssembler billIdAssembler;
   @Mock private BillPaymentAssembler billPaymentAssembler;
   @Mock private BillPaymentDto billPaymentDto;
@@ -55,13 +55,13 @@ public class AccountServiceTest {
       anAccount().withBillIds(Collections.singletonList(bill.getId())).build();
 
   @Before
-  public void setup() {
+  public void setUp() {
     accountService =
         new AccountService(
             accountRepository,
             accountIdAssembler,
             billService,
-            billsAssembler,
+            billAssembler,
             billIdAssembler,
             billPaymentAssembler);
 
@@ -72,7 +72,7 @@ public class AccountServiceTest {
   public void whenAddingCar_shouldAddLicensePlateToAccount() {
     accountService.addLicensePlateToAccount(account.getId(), licensePlate);
 
-    Truth.assertThat(account.getLicensePlates()).contains(licensePlate);
+    assertThat(account.getLicensePlates()).contains(licensePlate);
   }
 
   @Test
@@ -86,14 +86,14 @@ public class AccountServiceTest {
   public void whenAddingParkingSticker_shouldAddParkingStickerCodeToAccount() {
     accountService.addParkingStickerToAccount(account.getId(), parkingStickerCode, billId);
 
-    Truth.assertThat(account.getParkingStickerCodes()).contains(parkingStickerCode);
+    assertThat(account.getParkingStickerCodes()).contains(parkingStickerCode);
   }
 
   @Test
   public void whenAddingParkingSticker_shouldAddBillIdToAccount() {
     accountService.addParkingStickerToAccount(account.getId(), parkingStickerCode, billId);
 
-    Truth.assertThat(account.getBillIds()).contains(billId);
+    assertThat(account.getBillIds()).contains(billId);
   }
 
   @Test
@@ -107,14 +107,14 @@ public class AccountServiceTest {
   public void whenAddingAccessCode_shouldAddAccessCodeToAccount() {
     accountService.addAccessCodeToAccount(account.getId(), accessPassCode, billId);
 
-    Truth.assertThat(account.getAccessPassCodes()).contains(accessPassCode);
+    assertThat(account.getAccessPassCodes()).contains(accessPassCode);
   }
 
   @Test
   public void whenAddingAccessCode_shouldAddBillIdToAccount() {
     accountService.addAccessCodeToAccount(account.getId(), accessPassCode, billId);
 
-    Truth.assertThat(account.getBillIds()).contains(billId);
+    assertThat(account.getBillIds()).contains(billId);
   }
 
   @Test
@@ -128,7 +128,7 @@ public class AccountServiceTest {
   public void whenAddingOffense_shouldAddBillIdToAccount() {
     accountService.addOffenseToAccount(account.getId(), billId);
 
-    Truth.assertThat(account.getBillIds()).contains(billId);
+    assertThat(account.getBillIds()).contains(billId);
   }
 
   @Test
@@ -184,12 +184,12 @@ public class AccountServiceTest {
 
     accountService.getBills(accountWithBill.getId().toString());
 
-    verify(billsAssembler).assemble(bills);
+    verify(billAssembler).assemble(bills);
   }
 
   @Test
   public void givenAccountWithBill_whenPayingBill_shouldCallPayBillAssembler() {
-    setupPayBill();
+    setUpPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
@@ -199,7 +199,7 @@ public class AccountServiceTest {
 
   @Test
   public void givenAccountWithBill_whenPayingBill_shouldCallAccountIdAssembler() {
-    setupPayBill();
+    setUpPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
@@ -209,7 +209,7 @@ public class AccountServiceTest {
 
   @Test
   public void givenAccountWithBill_whenPayingBill_shouldCallBillIdAssembler() {
-    setupPayBill();
+    setUpPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
@@ -219,16 +219,16 @@ public class AccountServiceTest {
 
   @Test
   public void givenAccountWithBill_whenPayingBill_shouldCallPayBillService() {
-    setupPayBill();
+    setUpPayBill();
 
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
 
-    verify(billService).payBill(bill.getId(), new Money(1));
+    verify(billService).payBill(bill.getId(), Money.fromDouble(1));
   }
 
-  private void setupPayBill() {
-    when(billPaymentAssembler.assemble(billPaymentDto)).thenReturn(new Money(1));
+  private void setUpPayBill() {
+    when(billPaymentAssembler.assemble(billPaymentDto)).thenReturn(Money.fromDouble(1));
     when(accountIdAssembler.assemble(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());
     when(billIdAssembler.assemble(bill.getId().toString())).thenReturn(bill.getId());

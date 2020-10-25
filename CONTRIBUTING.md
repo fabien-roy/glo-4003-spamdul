@@ -25,8 +25,7 @@ Issues must be placed on the [project board](https://github.com/GLO4003UL/a20-eq
 - Maybe : Optionnal issues to improve the codebase but with no direct value to the main features
 - To do : Issues that must be done to deliver the current iteration
 - In progress : Self-explanatory
-- Review in progress : Issues currently in review
-- Reviewer approved : Issues to be merged
+- Under review : Issues currently in review or waiting to be merged
 - Done : Closed issues (see : Definition of done)
 
 The person in charge of an issue is in charge of moving it across the project board.

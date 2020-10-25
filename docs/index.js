@@ -7,7 +7,10 @@ const path = require('path');
 const fs = require('fs');
 
 const ramlFile = path.join(__dirname, 'api.raml');
-const config = raml2html.getConfigForTheme();
+// This style is copied from the default raml2html style, but was made dark theme because it is
+// our duty as developers to fight against all light themes.
+// All rights to https://github.com/raml2html/default-theme
+const config = raml2html.getConfigForTemplate('./themes/dark-theme/index.nunjucks');
 
 const logError = (error) => console.log('error : ' + error);
 

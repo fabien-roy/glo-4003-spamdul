@@ -1,11 +1,11 @@
 package ca.ulaval.glo4003.gateentries.api.helpers;
 
-import static ca.ulaval.glo4003.times.helpers.DayMother.createDay;
+import static ca.ulaval.glo4003.times.helpers.DayOfWeekMother.createDayOfWeek;
 
 import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
 
 public class DayOfWeekDtoBuilder {
-  private String dayOfWeek = createDay().toString();
+  private String dayOfWeek = createDayOfWeek().toString();
 
   private DayOfWeekDtoBuilder() {}
 

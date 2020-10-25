@@ -1,0 +1,16 @@
+[
+  {
+    "licensePlate": "123 ABC",
+    "manufacturer": "Toyota",
+    "model": "Camry",
+    "year": 2006,
+    "consumptionType": "economic"
+  },
+  {
+    "licensePlate": "234FEFG",
+    "manufacturer": "Jeep",
+    "model": "Cherokee",
+    "year": 1999,
+    "consumptionType": "greedy"
+  }
+]

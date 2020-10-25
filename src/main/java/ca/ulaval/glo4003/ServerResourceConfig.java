@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.quartz.Scheduler;
 
 public class ServerResourceConfig {
   private static final ApplicationInjector APPLICATION_INJECTOR = new ApplicationInjector();
@@ -19,6 +20,10 @@ public class ServerResourceConfig {
                 resources.add(APPLICATION_INJECTOR.createUserResource());
                 resources.add(APPLICATION_INJECTOR.createOffenseResource());
                 resources.add(APPLICATION_INJECTOR.createGateEntryResource());
+                resources.add(APPLICATION_INJECTOR.createCarbonCreditResource());
+                resources.add(APPLICATION_INJECTOR.createParkingAreaResource());
+                resources.add(APPLICATION_INJECTOR.createInitiativeResource());
+                resources.add(APPLICATION_INJECTOR.createProfitsResource());
                 return resources;
               }
 
@@ -31,5 +36,9 @@ public class ServerResourceConfig {
     resourceConfig.register(CORSResponseFilter.class);
 
     return resourceConfig;
+  }
+
+  public static Scheduler getScheduler() {
+    return APPLICATION_INJECTOR.createScheduler();
   }
 }

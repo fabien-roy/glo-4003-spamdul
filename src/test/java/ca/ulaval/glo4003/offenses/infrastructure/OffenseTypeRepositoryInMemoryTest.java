@@ -17,7 +17,7 @@ public class OffenseTypeRepositoryInMemoryTest {
   private OffenseTypeRepository offenseTypeRepository;
 
   @Before
-  public void setup() {
+  public void setUp() {
     offenseTypeRepository = new OffenseTypeRepositoryInMemory();
   }
 

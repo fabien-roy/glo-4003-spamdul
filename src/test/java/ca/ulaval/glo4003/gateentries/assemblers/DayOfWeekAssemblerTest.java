@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.gateentries.assemblers;
 
 import static ca.ulaval.glo4003.gateentries.api.helpers.DayOfWeekDtoBuilder.aDayOfWeekDto;
-import static ca.ulaval.glo4003.times.helpers.DayMother.createDay;
+import static ca.ulaval.glo4003.times.helpers.DayOfWeekMother.createDayOfWeek;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
@@ -21,7 +21,7 @@ public class DayOfWeekAssemblerTest {
 
   @Test
   public void givenValidDayOfWeek_whenAssembling_thenReturnDayOfWeek() {
-    DayOfWeek dayOfWeek = createDay();
+    DayOfWeek dayOfWeek = createDayOfWeek();
     DayOfWeekDto dayOfWeekDto = aDayOfWeekDto().withDayOfWeek(dayOfWeek.toString()).build();
 
     DayOfWeek assembledDayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);

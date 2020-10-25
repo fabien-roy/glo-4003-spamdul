@@ -23,6 +23,11 @@ public class CarBuilder {
     return new CarBuilder();
   }
 
+  public CarBuilder withLicensePlate(LicensePlate licensePlate) {
+    this.licensePlate = licensePlate;
+    return this;
+  }
+
   public Car build() {
     return new Car(licensePlate, accountId, manufacturer, model, year, consumptionType);
   }

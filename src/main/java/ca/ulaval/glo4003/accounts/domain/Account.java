@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.accounts.domain;
 
-import ca.ulaval.glo4003.access.domain.AccessPassCode;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.exception.BillNotFoundException;

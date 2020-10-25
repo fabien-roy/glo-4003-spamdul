@@ -6,9 +6,9 @@ import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 
 public class PostalSenderSystemPrint implements PostalSender {
-  private static final String POSTAL_MESSAGE = "Envoie a la boîte postal %s :";
+  private static final String POSTAL_MESSAGE = "Sending to postal code %s :";
   private static final String PARKING_STICKER_CREATION_MESSAGE =
-      "Votre code de vignette SPAMD-UL est %s";
+      "Your SPAMD-UL parking sticker code is %s";
 
   @Override
   public void sendPostal(PostalCode postalCode, String message) {

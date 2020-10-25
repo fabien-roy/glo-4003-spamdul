@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -8,15 +9,12 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.quartz.Scheduler;
 
-@SuppressWarnings("all")
 public class Main {
+  private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
   private static final int DEFAULT_PORT = 8080;
   private static final String PORT_ENV_VAR = "PORT";
-  private static final String PROVIDED_PORT_MESSAGE = "INFO: Using the provided server port (%d).";
-  private static final String MISSING_PORT_WARNING_MESSAGE =
-      "INFO: The server port could not be found with '%s' env var. "
-          + "\nINFO: Using the default one (%d).";
 
   public static void main(String[] args) throws Exception {
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -31,6 +29,9 @@ public class Main {
     contexts.setHandlers(new Handler[] {context});
     Server server = new Server(retrievePortNumber());
     server.setHandler(contexts);
+
+    Scheduler scheduler = ServerResourceConfig.getScheduler();
+    scheduler.start();
 
     try {
       server.start();
@@ -48,13 +49,16 @@ public class Main {
 
   private static Integer useProvidedPort(String providedPortValue) {
     Integer providedPort = Integer.valueOf(providedPortValue);
-    System.out.println(String.format(PROVIDED_PORT_MESSAGE, providedPort));
+    LOGGER.info(String.format("Using the provided server port (%d)", providedPort));
 
     return providedPort;
   }
 
   private static Integer useDefaultPort() {
-    System.out.println(String.format(MISSING_PORT_WARNING_MESSAGE, PORT_ENV_VAR, DEFAULT_PORT));
+    LOGGER.info(
+        String.format("The server port could not be found with '%s' env var.", PORT_ENV_VAR));
+    LOGGER.info(String.format("Using the default one (%d)", DEFAULT_PORT));
+
     return DEFAULT_PORT;
   }
 }

@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum ConsumptionType {
-  GREEDY("gourmande"),
-  ECONOMIC("économique"),
-  ECONOMICAL_HYBRID("hybride économique"),
-  SUPER_ECONOMICAL("super économique"),
+  GREEDY("greedy"),
+  ECONOMIC("economic"),
+  ECONOMICAL_HYBRID("economical hybrid"),
+  SUPER_ECONOMICAL("super economical"),
   ZERO_POLLUTION("0 pollution");
 
   String consumptionType;
@@ -29,7 +29,9 @@ public enum ConsumptionType {
 
     ConsumptionType foundType = lookup.get(type.toLowerCase());
 
-    if (foundType == null) throw new InvalidConsumptionTypeException();
+    if (foundType == null) {
+      throw new InvalidConsumptionTypeException();
+    }
 
     return foundType;
   }

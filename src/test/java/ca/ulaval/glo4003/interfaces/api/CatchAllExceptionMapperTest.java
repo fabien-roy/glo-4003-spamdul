@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.interfaces.api;
 
+import ca.ulaval.glo4003.interfaces.exceptions.CannotBuildSchedulerException;
 import com.google.common.truth.Truth;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -22,6 +23,16 @@ public class CatchAllExceptionMapperTest {
     Response response = catchAllExceptionMapper.toResponse(exception);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+  }
+
+  @Test
+  public void givenCannotBuildSchedulerException_whenResponding_thenStatusIsInternServerError() {
+    Exception exception = new CannotBuildSchedulerException();
+
+    Response response = catchAllExceptionMapper.toResponse(exception);
+
+    Truth.assertThat(response.getStatus())
+        .isEqualTo(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
   }
 
   @Test

@@ -1,13 +1,15 @@
 package ca.ulaval.glo4003.funds.domain;
 
-import static ca.ulaval.glo4003.access.helpers.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionType;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.*;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.access.domain.AccessPassCode;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
@@ -31,6 +33,7 @@ public class BillFactoryTest {
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final ReceptionMethod receptionMethod = createReceptionMethod();
   private final OffenseCode offenseCode = createOffenseCode();
+  private final ConsumptionType consumptionType = createConsumptionType();
 
   @Before
   public void setUp() {
@@ -84,28 +87,28 @@ public class BillFactoryTest {
 
   @Test
   public void whenCreatingForAccessPass_thenReturnBillWithId() {
-    Bill bill = billFactory.createForAccessPass(fee, accessPassCode);
+    Bill bill = billFactory.createForAccessPass(fee, accessPassCode, consumptionType);
 
     Truth.assertThat(bill.getId()).isSameInstanceAs(billId);
   }
 
   @Test
   public void whenCreatingForAccessPass_thenReturnBillWithDescriptionContainingAccessPassCode() {
-    Bill bill = billFactory.createForAccessPass(fee, accessPassCode);
+    Bill bill = billFactory.createForAccessPass(fee, accessPassCode, consumptionType);
 
     Truth.assertThat(bill.getDescription()).contains(accessPassCode.toString());
   }
 
   @Test
   public void whenCreatingForAccessPass_thenReturnBillWithAmountEqualToFee() {
-    Bill bill = billFactory.createForAccessPass(fee, accessPassCode);
+    Bill bill = billFactory.createForAccessPass(fee, accessPassCode, consumptionType);
 
     Truth.assertThat(bill.getAmountDue()).isEqualTo(fee);
   }
 
   @Test
   public void whenCreatingForAccessPass_thenReturnBillWithAccessPassType() {
-    Bill bill = billFactory.createForAccessPass(fee, accessPassCode);
+    Bill bill = billFactory.createForAccessPass(fee, accessPassCode, consumptionType);
 
     Truth.assertThat(bill.getBillTypes()).isEqualTo(BillType.ACCESS_PASS);
   }

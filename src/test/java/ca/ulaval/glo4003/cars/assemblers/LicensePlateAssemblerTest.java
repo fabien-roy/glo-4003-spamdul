@@ -17,7 +17,7 @@ public class LicensePlateAssemblerTest {
   private LicensePlateAssembler licensePlateAssembler;
 
   @Before
-  public void setup() {
+  public void setUp() {
     licensePlateAssembler = new LicensePlateAssembler();
   }
 
@@ -38,5 +38,11 @@ public class LicensePlateAssemblerTest {
   public void
       givenLicensePlateWithInvalidLength_whenAssemblingLicensePlate_shouldThrowInvalidLicensePlateException() {
     licensePlateAssembler.assemble(LICENSE_PLATE_WITH_INVALID_LENGTH);
+  }
+
+  @Test(expected = InvalidLicensePlateException.class)
+  public void
+      givenNullLicensePlate_whenAssemblingLicensePlate_shouldThrowInvalidLicensePlateException() {
+    licensePlateAssembler.assemble(null);
   }
 }

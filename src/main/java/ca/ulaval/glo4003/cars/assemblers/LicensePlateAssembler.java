@@ -8,7 +8,9 @@ public class LicensePlateAssembler {
   private static final Pattern PATTERN = Pattern.compile("[A-Z0-9]{3}[A-Z0-9 ][A-Z0-9]{3}");
 
   public LicensePlate assemble(String licensePlate) {
-    if (licensePlate.length() < 2 || licensePlate.length() > 7) {
+    if (licensePlate == null) {
+      throw new InvalidLicensePlateException();
+    } else if (licensePlate.length() < 2 || licensePlate.length() > 7) {
       throw new InvalidLicensePlateException();
     } else if (!PATTERN.matcher(licensePlate).matches()) {
       throw new InvalidLicensePlateException();
