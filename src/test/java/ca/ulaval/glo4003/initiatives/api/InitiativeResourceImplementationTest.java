@@ -77,12 +77,12 @@ public class InitiativeResourceImplementationTest {
   }
 
   @Test
-  public void whenGettingInitiative_thenResponseFoundStatus() {
+  public void whenGettingInitiative_thenResponseOkStatus() {
     when(initiativeService.getInitiative(initiativeCode.toString())).thenReturn(initiativeDto);
 
     Response response = initiativeResource.getInitiative(initiativeCode.toString());
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.FOUND.getStatusCode());
+    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }
 
   @Test

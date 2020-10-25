@@ -48,7 +48,7 @@ public class InitiativeResourceImplementation implements InitiativeResource {
   @Override
   public Response getInitiative(String initiativeCode) {
     InitiativeDto initiativeDto = initiativeService.getInitiative(initiativeCode);
-    return Response.status(Response.Status.FOUND)
+    return Response.status(Response.Status.OK)
         .entity(initiativeDto)
         .type(MediaType.APPLICATION_JSON)
         .build();
