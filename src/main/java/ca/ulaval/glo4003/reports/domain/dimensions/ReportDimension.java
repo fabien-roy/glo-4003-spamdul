@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 // TODO : Make sure all is used in ReportDimension
 public abstract class ReportDimension<T> {
@@ -16,15 +17,11 @@ public abstract class ReportDimension<T> {
   protected abstract boolean filter(ReportEvent reportEvent, T value);
 
   public List<ReportPeriodData> splitAll(List<ReportPeriodData> data) {
-    List<ReportPeriodData> splitData = new ArrayList<>();
-    data.forEach(datum -> splitData.addAll(split(datum)));
-    return splitData;
+    return data.stream().flatMap(this::split).collect(Collectors.toList());
   }
 
-  private List<ReportPeriodData> split(ReportPeriodData data) {
-    List<ReportPeriodData> splitData = new ArrayList<>();
-    getValues().forEach(value -> splitData.add(filterAll(data, value)));
-    return splitData;
+  private Stream<ReportPeriodData> split(ReportPeriodData data) {
+    return getValues().stream().map(value -> filterAll(data, value));
   }
 
   protected ReportPeriodData filterAll(ReportPeriodData data, T value) {
@@ -32,9 +29,11 @@ public abstract class ReportDimension<T> {
         data.getEvents().stream()
             .filter(event -> filter(event, value))
             .collect(Collectors.toList());
+
     ReportPeriodData filteredData = new ReportPeriodData(splitEvents);
     filteredData.setDimensions(new ArrayList<>(data.getDimensions()));
     filteredData.addDimension(toDimensionData(value));
+
     return filteredData;
   }
 
