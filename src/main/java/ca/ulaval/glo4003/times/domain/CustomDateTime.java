@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CustomDateTime {
-  private LocalDateTime localDateTime;
-
-  public static CustomDateTime now() {
-    return new CustomDateTime(LocalDateTime.now());
-  }
+  private final LocalDateTime localDateTime;
 
   public CustomDateTime(LocalDateTime localDateTime) {
     this.localDateTime = localDateTime;
+  }
+
+  public static CustomDateTime now() {
+    return new CustomDateTime(LocalDateTime.now());
   }
 
   public int getYear() {
