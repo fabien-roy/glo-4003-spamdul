@@ -24,7 +24,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-// TODO : Refactor as much as possible, remove any() and alikes
+// TODO : Refactor this test class, removing usage of any()
 @RunWith(MockitoJUnitRunner.class)
 public class InMemoryReportQueryTest {
 
@@ -64,9 +64,9 @@ public class InMemoryReportQueryTest {
     setUpDimensions();
 
     givenScopeWithSinglePeriod();
-    setUpScopeWithSingleMetric();
-    setUpScopeWithNoDimension();
-    setUpScopeWithSingleEvent();
+    givenScopeWithSingleMetric();
+    givenScopeWithNoDimension();
+    givenScopeWithSingleEvent();
   }
 
   private void setUpPeriods() {
@@ -95,7 +95,7 @@ public class InMemoryReportQueryTest {
     setUpQuery();
   }
 
-  private void setUpScopeWithSingleMetric() {
+  private void givenScopeWithSingleMetric() {
     metrics = Collections.singletonList(firstMetric);
     setUpQuery();
   }
@@ -105,7 +105,7 @@ public class InMemoryReportQueryTest {
     setUpQuery();
   }
 
-  private void setUpScopeWithNoDimension() {
+  private void givenScopeWithNoDimension() {
     dimensions = Collections.emptyList();
     setUpQuery();
   }
@@ -120,7 +120,7 @@ public class InMemoryReportQueryTest {
     setUpQuery();
   }
 
-  private void setUpScopeWithSingleEvent() {
+  private void givenScopeWithSingleEvent() {
     events = Collections.singletonList(firstEvent);
     setUpQuery();
   }
