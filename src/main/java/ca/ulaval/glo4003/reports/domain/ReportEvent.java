@@ -18,4 +18,8 @@ public class ReportEvent {
     this.type = type;
     this.dateTime = dateTime;
   }
+
+  public CustomDateTime getDateTime() {
+    return dateTime;
+  }
 }
