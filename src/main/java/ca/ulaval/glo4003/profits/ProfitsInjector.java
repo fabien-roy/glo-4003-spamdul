@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.profits;
 
 import ca.ulaval.glo4003.funds.domain.BillProfitsCalculator;
-import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamsAssembler;
+import ca.ulaval.glo4003.funds.domain.queryparams.BillQueryParamsAssembler;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.profits.api.ProfitsResource;
 import ca.ulaval.glo4003.profits.api.ProfitsResourceImplementation;

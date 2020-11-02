@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.funds.domain.queries;
+package ca.ulaval.glo4003.funds.domain.queryparams;
 
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillType;
 import static ca.ulaval.glo4003.times.helpers.CustomDateTimeMother.createDateTime;

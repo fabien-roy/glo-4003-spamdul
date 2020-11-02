@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.funds.domain;
 
-import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamAssembler;
-import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
+import ca.ulaval.glo4003.funds.domain.queryparams.BillQueryParamAssembler;
+import ca.ulaval.glo4003.funds.domain.queryparams.BillQueryParams;
 import java.util.Set;
 
 public class BillQueryFactory {

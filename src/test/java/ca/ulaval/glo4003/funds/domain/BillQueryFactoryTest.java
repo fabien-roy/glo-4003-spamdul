@@ -3,8 +3,8 @@ package ca.ulaval.glo4003.funds.domain;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.funds.domain.queries.BillQueryParamAssembler;
-import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
+import ca.ulaval.glo4003.funds.domain.queryparams.BillQueryParamAssembler;
+import ca.ulaval.glo4003.funds.domain.queryparams.BillQueryParams;
 import java.util.*;
 import org.junit.Before;
 import org.junit.Test;

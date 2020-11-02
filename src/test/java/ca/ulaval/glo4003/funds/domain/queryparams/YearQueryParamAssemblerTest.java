@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.funds.domain.queries;
+package ca.ulaval.glo4003.funds.domain.queryparams;
 
-import static ca.ulaval.glo4003.funds.domain.queries.YearQueryParamAssembler.YEAR_PARAM;
+import static ca.ulaval.glo4003.funds.domain.queryparams.YearQueryParamAssembler.YEAR_PARAM;
 import static ca.ulaval.glo4003.times.helpers.CustomDateTimeMother.createDateTime;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;

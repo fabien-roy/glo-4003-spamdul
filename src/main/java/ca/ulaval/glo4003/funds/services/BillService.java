@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.assemblers.BillsByConsumptionsTypeAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
-import ca.ulaval.glo4003.funds.domain.queries.BillQueryParams;
+import ca.ulaval.glo4003.funds.domain.queryparams.BillQueryParams;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.funds.domain.queries;
+package ca.ulaval.glo4003.funds.domain.queryparams;
 
 import ca.ulaval.glo4003.funds.domain.BillType;
 import ca.ulaval.glo4003.funds.exception.InvalidYearException;

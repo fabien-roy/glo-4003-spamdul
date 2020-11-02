@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.funds.domain.queries;
+package ca.ulaval.glo4003.funds.domain.queryparams;
 
 import java.util.HashMap;
 import java.util.List;
