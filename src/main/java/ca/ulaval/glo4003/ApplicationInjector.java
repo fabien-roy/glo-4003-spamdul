@@ -16,7 +16,6 @@ import ca.ulaval.glo4003.communications.api.CommunicationExceptionMapper;
 import ca.ulaval.glo4003.files.api.FileExceptionMapper;
 import ca.ulaval.glo4003.funds.FundInjector;
 import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
-import ca.ulaval.glo4003.funds.api.InvalidBillQueryParamExceptionMapper;
 import ca.ulaval.glo4003.gateentries.GateEntryInjector;
 import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
 import ca.ulaval.glo4003.initiatives.InitiativeInjector;
@@ -34,6 +33,7 @@ import ca.ulaval.glo4003.parkings.api.ParkingExceptionMapper;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
 import ca.ulaval.glo4003.profits.ProfitsInjector;
 import ca.ulaval.glo4003.profits.api.ProfitsResource;
+import ca.ulaval.glo4003.reports.api.ReportExceptionMapper;
 import ca.ulaval.glo4003.times.TimeInjector;
 import ca.ulaval.glo4003.times.api.TimeExceptionMapper;
 import ca.ulaval.glo4003.users.UserInjector;
@@ -148,9 +148,9 @@ public class ApplicationInjector {
         InitiativeExceptionMapper.class,
         LocationExceptionMapper.class,
         ParkingExceptionMapper.class,
+        ReportExceptionMapper.class,
         TimeExceptionMapper.class,
         UserExceptionMapper.class,
-        InvalidBillQueryParamExceptionMapper.class,
         OffenseExceptionMapper.class);
   }
 
