@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
+import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.gateentries.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
 import ca.ulaval.glo4003.gateentries.assemblers.DayOfWeekAssembler;
@@ -27,6 +28,7 @@ public class GateEntryServiceTest {
   @Mock private DayOfWeekAssembler dayOfWeekAssembler;
   @Mock private AccessStatusAssembler accessStatusAssembler;
   @Mock private AccessPass accessPass;
+  @Mock private LicensePlateAssembler licensePlateAssembler;
 
   private GateEntryService gateEntryService;
 
@@ -39,7 +41,8 @@ public class GateEntryServiceTest {
   @Before
   public void setUp() {
     gateEntryService =
-        new GateEntryService(accessPassService, dayOfWeekAssembler, accessStatusAssembler);
+        new GateEntryService(
+            accessPassService, dayOfWeekAssembler, accessStatusAssembler, licensePlateAssembler);
 
     when(dayOfWeekAssembler.assemble(dayOfWeekDto)).thenReturn(dayOfWeek);
     when(accessPassService.getAccessPass(accessPassCode)).thenReturn(accessPass);
@@ -68,4 +71,7 @@ public class GateEntryServiceTest {
 
     assertThat(accessStatusDto).isSameInstanceAs(refusedAccessStatusDto);
   }
+
+  @Test
+  public void givenValidAccessDayAndValidLicensePlate_whenValidatingCar_thenReturnAccesGranted() {}
 }

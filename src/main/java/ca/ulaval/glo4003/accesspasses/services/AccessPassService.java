@@ -75,4 +75,8 @@ public class AccessPassService {
     AccessPassCode accessPassCode = accessPassCodeAssembler.assemble(code);
     return accessPassRepository.get(accessPassCode);
   }
+
+  public AccessPass getAccessPassByLicensePlate(LicensePlate licensePlate) {
+    return accessPassRepository.get(licensePlate);
+  }
 }
