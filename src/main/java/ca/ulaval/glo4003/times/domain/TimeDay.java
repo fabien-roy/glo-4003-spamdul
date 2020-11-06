@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.times.domain;
 
-public class TimeMonth extends TimeCalendar {
+public class TimeDay extends TimeCalendar {
   // TODO : #248
 
-  public TimeMonth(CustomDateTime customDateTime) {
+  public TimeDay(CustomDateTime customDateTime) {
     super(customDateTime);
   }
 

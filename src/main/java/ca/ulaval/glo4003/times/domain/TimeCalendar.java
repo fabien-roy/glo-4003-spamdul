@@ -7,9 +7,9 @@ public abstract class TimeCalendar implements Comparable<TimeCalendar> {
     // TODO
   }
 
-  protected abstract CustomDate firstDate();
+  protected abstract CustomDateTime firstDateTime();
 
-  protected abstract CustomDate lastDate();
+  protected abstract CustomDateTime lastDateTime();
 
   public TimePeriod toPeriod() {
     // TODO

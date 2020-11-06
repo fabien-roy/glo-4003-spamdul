@@ -20,4 +20,9 @@ public class TimePeriod {
     // TODO
     return Collections.emptyList();
   }
+
+  public List<TimeCalendar> getDays() {
+    // TODO
+    return Collections.emptyList();
+  }
 }

@@ -8,13 +8,13 @@ public class TimeYear extends TimeCalendar {
   }
 
   @Override
-  protected CustomDate firstDate() {
+  protected CustomDateTime firstDateTime() {
     // TODO
     return null;
   }
 
   @Override
-  protected CustomDate lastDate() {
+  protected CustomDateTime lastDateTime() {
     // TODO
     return null;
   }
