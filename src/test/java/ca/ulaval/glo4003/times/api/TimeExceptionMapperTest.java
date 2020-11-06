@@ -1,9 +1,10 @@
 package ca.ulaval.glo4003.times.api;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
 import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
 import ca.ulaval.glo4003.times.exceptions.TimeException;
-import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class TimeExceptionMapperTest {
 
     Response response = timeExceptionMapper.toResponse(timeException);
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+    assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
   }
 
   @Test
@@ -32,6 +33,6 @@ public class TimeExceptionMapperTest {
 
     Response response = timeExceptionMapper.toResponse(timeException);
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+    assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
   }
 }

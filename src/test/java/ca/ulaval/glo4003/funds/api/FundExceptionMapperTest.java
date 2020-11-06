@@ -70,4 +70,13 @@ public class FundExceptionMapperTest {
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
   }
+
+  @Test
+  public void givenInvalidBillQueryParamException_whenResponding_thenStatusIsBadRequest() {
+    FundException invalidBillQueryParamException = new InvalidBillQueryParamException();
+
+    Response response = fundExceptionMapper.toResponse(invalidBillQueryParamException);
+
+    assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+  }
 }
