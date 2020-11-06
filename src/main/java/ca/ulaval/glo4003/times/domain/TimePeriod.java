@@ -15,4 +15,9 @@ public class TimePeriod {
     // TODO
     return Collections.emptyList();
   }
+
+  public List<TimeCalendar> getMonths() {
+    // TODO
+    return Collections.emptyList();
+  }
 }
