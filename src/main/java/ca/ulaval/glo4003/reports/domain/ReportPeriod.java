@@ -15,6 +15,14 @@ public class ReportPeriod {
     this.period = period;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public TimePeriod getPeriod() {
+    return period;
+  }
+
   public List<ReportPeriodData> getData() {
     return data;
   }
