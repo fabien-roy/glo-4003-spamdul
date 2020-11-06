@@ -14,6 +14,7 @@ public class CustomDateTime {
     return new CustomDateTime(LocalDateTime.now());
   }
 
+  // TODO : Pretty sure this will be useless when bill reporting will be refactored.
   public int getYear() {
     return localDateTime.getYear();
   }

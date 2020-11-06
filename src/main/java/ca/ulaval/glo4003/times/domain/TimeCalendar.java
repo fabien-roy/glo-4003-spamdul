@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.times.domain;
 
 public abstract class TimeCalendar implements Comparable<TimeCalendar> {
-  // TODO : #248
+  // TODO : #266
 
   public TimeCalendar(CustomDateTime customDateTime) {
     // TODO

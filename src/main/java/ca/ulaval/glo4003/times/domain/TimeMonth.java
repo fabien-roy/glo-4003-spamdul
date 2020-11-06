@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.times.domain;
 
 public class TimeMonth extends TimeCalendar {
-  // TODO : #248
+  // TODO : #266
 
   public TimeMonth(CustomDateTime customDateTime) {
     super(customDateTime);
