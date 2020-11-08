@@ -25,7 +25,7 @@ public class YearFilterInMemoryTest {
 
   @Before
   public void setUp() {
-    yearFilterInMemory = new YearFilterInMemory(A_YEAR.getYear());
+    yearFilterInMemory = new YearFilterInMemory(A_YEAR.getIntYear());
   }
 
   @Test

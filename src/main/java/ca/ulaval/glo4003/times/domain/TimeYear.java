@@ -1,7 +1,9 @@
 package ca.ulaval.glo4003.times.domain;
 
+import java.time.ZoneId;
+import java.util.Calendar;
+
 public class TimeYear extends TimeCalendar {
-  // TODO : #266
 
   public TimeYear(CustomDateTime customDateTime) {
     super(customDateTime);
@@ -9,25 +11,32 @@ public class TimeYear extends TimeCalendar {
 
   @Override
   protected CustomDateTime firstDateTime() {
-    // TODO
-    return null;
+    int firstDayOfYear = calendar.getActualMinimum(Calendar.DAY_OF_YEAR);
+    return thatDateTime(firstDayOfYear);
   }
 
   @Override
   protected CustomDateTime lastDateTime() {
-    // TODO
-    return null;
+    int lastDayOfYear = calendar.getActualMaximum(Calendar.DAY_OF_YEAR);
+    return thatDateTime(lastDayOfYear);
+  }
+
+  private CustomDateTime thatDateTime(int dayOfYear) {
+    Calendar date = Calendar.getInstance();
+    date.set(Calendar.YEAR, getYear());
+    date.set(Calendar.DAY_OF_YEAR, dayOfYear);
+    setAtMidnight(date);
+    return new CustomDateTime(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
   }
 
   @Override
   public String toString() {
-    // TODO
+    // TODO : #266
     return "";
   }
 
   @Override
   public int compareTo(TimeCalendar other) {
-    // TODO
-    return 1;
+    return getYear() - other.getYear();
   }
 }

@@ -1,10 +1,20 @@
 package ca.ulaval.glo4003.times.domain;
 
-public abstract class TimeCalendar implements Comparable<TimeCalendar> {
-  // TODO : #266
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
-  public TimeCalendar(CustomDateTime customDateTime) {
-    // TODO
+public abstract class TimeCalendar implements Comparable<TimeCalendar> {
+  protected Calendar calendar;
+  protected TimePeriod period;
+
+  public TimeCalendar(CustomDateTime dateTime) {
+    calendar = GregorianCalendar.from(dateTime.toZonedDateTime());
+    calendar.setFirstDayOfWeek(Calendar.MONDAY);
+    period = new TimePeriod(firstDateTime(), lastDateTime());
+  }
+
+  protected int getYear() {
+    return calendar.get(Calendar.YEAR);
   }
 
   protected abstract CustomDateTime firstDateTime();
@@ -12,7 +22,27 @@ public abstract class TimeCalendar implements Comparable<TimeCalendar> {
   protected abstract CustomDateTime lastDateTime();
 
   public TimePeriod toPeriod() {
-    // TODO
-    return null;
+    return period;
+  }
+
+  protected void setAtMidnight(Calendar date) {
+    date.set(Calendar.HOUR_OF_DAY, 0);
+    date.clear(Calendar.MINUTE);
+    date.clear(Calendar.SECOND);
+    date.clear(Calendar.MILLISECOND);
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    if (object == null || getClass() != object.getClass()) return false;
+
+    TimeCalendar other = (TimeCalendar) object;
+
+    return toPeriod().equals(other.toPeriod());
+  }
+
+  @Override
+  public int hashCode() {
+    return period.hashCode();
   }
 }
