@@ -4,6 +4,6 @@ import com.github.javafaker.Faker;
 
 public class TimePeriodMother {
   public static int createAmountOfDays() {
-    return Faker.instance().number().numberBetween(2, 10);
+    return Faker.instance().number().numberBetween(3, 10);
   }
 }

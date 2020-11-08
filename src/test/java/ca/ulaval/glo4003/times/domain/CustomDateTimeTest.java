@@ -28,4 +28,67 @@ public class CustomDateTimeTest {
 
     assertThat(actualDateTime.toLocalDateTime()).isEqualTo(dateTimePlusDays);
   }
+
+  @Test
+  public void whenRemovingDays_thenReturnDateTimeMinusDays() {
+    LocalDateTime dateTimeMinusDays = localDateTime.minusDays(amountOfDays);
+
+    CustomDateTime actualDateTime = dateTime.minusDays(amountOfDays);
+
+    assertThat(actualDateTime.toLocalDateTime()).isEqualTo(dateTimeMinusDays);
+  }
+
+  @Test
+  public void givenBeforeDateTime_whenCheckingIfIsBefore_thenReturnFalse() {
+    CustomDateTime dateTimeBefore = new CustomDateTime(localDateTime.minusDays(1));
+
+    boolean result = dateTime.isBefore(dateTimeBefore);
+
+    assertThat(result).isFalse();
+  }
+
+  @Test
+  public void givenEqualDateTime_whenCheckingIfIsBefore_thenReturnFalse() {
+    CustomDateTime dateTimeEqual = new CustomDateTime(localDateTime);
+
+    boolean result = dateTime.isBefore(dateTimeEqual);
+
+    assertThat(result).isFalse();
+  }
+
+  @Test
+  public void givenAfterDateTime_whenCheckingIfIsBefore_thenReturnTrue() {
+    CustomDateTime dateTimeAfter = new CustomDateTime(localDateTime.plusDays(1));
+
+    boolean result = dateTime.isBefore(dateTimeAfter);
+
+    assertThat(result).isTrue();
+  }
+
+  @Test
+  public void givenBeforeDateTime_whenCheckingIfIsAfter_thenReturnTrue() {
+    CustomDateTime dateTimeBefore = new CustomDateTime(localDateTime.minusDays(1));
+
+    boolean result = dateTime.isAfter(dateTimeBefore);
+
+    assertThat(result).isTrue();
+  }
+
+  @Test
+  public void givenEqualDateTime_whenCheckingIfIsAfter_thenReturnFalse() {
+    CustomDateTime dateTimeEqual = new CustomDateTime(localDateTime);
+
+    boolean result = dateTime.isAfter(dateTimeEqual);
+
+    assertThat(result).isFalse();
+  }
+
+  @Test
+  public void givenAfterDateTime_whenCheckingIfIsAfter_thenReturnFalse() {
+    CustomDateTime dateTimeAfter = new CustomDateTime(localDateTime.plusDays(1));
+
+    boolean result = dateTime.isAfter(dateTimeAfter);
+
+    assertThat(result).isFalse();
+  }
 }

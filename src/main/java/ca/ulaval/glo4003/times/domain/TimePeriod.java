@@ -22,8 +22,7 @@ public class TimePeriod {
   }
 
   public boolean contains(CustomDateTime dateTime) {
-    // TODO : #266
-    return false;
+    return !(start.isAfter(dateTime) || end.isBefore(dateTime));
   }
 
   public List<TimeCalendar> getYears() {

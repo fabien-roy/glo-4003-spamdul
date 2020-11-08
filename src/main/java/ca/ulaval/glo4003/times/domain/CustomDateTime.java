@@ -24,9 +24,16 @@ public class CustomDateTime {
     return new CustomDateTime(dateTime.plusDays(days));
   }
 
+  public CustomDateTime minusDays(int days) {
+    return new CustomDateTime(dateTime.minusDays(days));
+  }
+
   public boolean isBefore(CustomDateTime other) {
-    // TODO : #266
-    return false;
+    return dateTime.isBefore(other.toLocalDateTime());
+  }
+
+  public boolean isAfter(CustomDateTime other) {
+    return dateTime.isAfter(other.toLocalDateTime());
   }
 
   // TODO : Pretty sure this will be useless when bill reporting will be refactored.
