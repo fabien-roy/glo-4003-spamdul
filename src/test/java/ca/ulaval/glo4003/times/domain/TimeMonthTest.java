@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 import org.junit.Before;
 import org.junit.Test;
 
+// TODO : Fixed values would test this better (ex : tests for toString())
 public class TimeMonthTest {
 
   private final CustomDateTime dateTime = aDateTime().build();
@@ -35,6 +36,13 @@ public class TimeMonthTest {
     CustomDateTime monthEnd = aDateTime().withDateTime(getMonthEnd()).build();
 
     assertThat(month.toPeriod().getEnd()).isEqualTo(monthEnd);
+  }
+
+  @Test
+  public void whenConvertingToString_thenReturnMonthInString() {
+    String expectedString = dateTime.toLocalDateTime().getMonth().toString().toLowerCase();
+
+    assertThat(month.toString()).isEqualTo(expectedString);
   }
 
   private LocalDateTime getMonthStart() {

@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.times.domain;
 
 import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class TimeMonth extends TimeCalendar {
   public TimeMonth(CustomDateTime customDateTime) {
@@ -31,8 +32,7 @@ public class TimeMonth extends TimeCalendar {
 
   @Override
   public String toString() {
-    // TODO : #266
-    return "";
+    return calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US).toLowerCase();
   }
 
   @Override
