@@ -1,5 +1,8 @@
 package ca.ulaval.glo4003.times.domain;
 
+import java.time.ZoneId;
+import java.util.Calendar;
+
 public class TimeMonth extends TimeCalendar {
   public TimeMonth(CustomDateTime customDateTime) {
     super(customDateTime);
@@ -7,14 +10,23 @@ public class TimeMonth extends TimeCalendar {
 
   @Override
   protected CustomDateTime firstDateTime() {
-    // TODO : #266
-    return null;
+    int firstDayOfMonth = calendar.getActualMinimum(Calendar.DAY_OF_MONTH);
+    return thatDate(firstDayOfMonth);
   }
 
   @Override
   protected CustomDateTime lastDateTime() {
-    // TODO : #266
-    return null;
+    int lastDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    return thatDate(lastDayOfMonth);
+  }
+
+  private CustomDateTime thatDate(int dayOfMonth) {
+    Calendar date = Calendar.getInstance();
+    date.set(Calendar.YEAR, getYear());
+    date.set(Calendar.MONTH, getMonth());
+    date.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+    setAtMidnight(date);
+    return new CustomDateTime(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
   }
 
   @Override

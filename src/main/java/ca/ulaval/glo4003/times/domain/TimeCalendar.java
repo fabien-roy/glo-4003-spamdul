@@ -17,6 +17,15 @@ public abstract class TimeCalendar implements Comparable<TimeCalendar> {
     return calendar.get(Calendar.YEAR);
   }
 
+  protected int getMonth() {
+    return calendar.get(Calendar.MONTH);
+  }
+
+  protected int getDay() {
+    // TODO : #266
+    return 0;
+  }
+
   protected abstract CustomDateTime firstDateTime();
 
   protected abstract CustomDateTime lastDateTime();

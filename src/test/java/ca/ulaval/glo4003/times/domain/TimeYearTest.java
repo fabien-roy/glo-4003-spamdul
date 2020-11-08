@@ -23,14 +23,14 @@ public class TimeYearTest {
 
   @Test
   public void whenConstructing_thenSetPeriodStartToYearStart() {
-    CustomDateTime yearStart = aDateTime().withDateTime(getYearStart(year.getYear())).build();
+    CustomDateTime yearStart = aDateTime().withDateTime(getYearStart()).build();
 
     assertThat(year.toPeriod().getStart()).isEqualTo(yearStart);
   }
 
   @Test
   public void whenConstructing_thenSetPeriodEndToYearEnd() {
-    CustomDateTime yearEnd = aDateTime().withDateTime(getYearEnd(year.getYear())).build();
+    CustomDateTime yearEnd = aDateTime().withDateTime(getYearEnd()).build();
 
     assertThat(year.toPeriod().getEnd()).isEqualTo(yearEnd);
   }
@@ -53,11 +53,13 @@ public class TimeYearTest {
     assertThat(comparison).isEqualTo(differenceInYears);
   }
 
-  private LocalDateTime getYearStart(int year) {
+  private LocalDateTime getYearStart() {
+    int year = dateTime.toLocalDateTime().getYear();
     return LocalDateTime.of(year, 1, 1, 0, 0);
   }
 
-  private LocalDateTime getYearEnd(int year) {
+  private LocalDateTime getYearEnd() {
+    int year = dateTime.toLocalDateTime().getYear();
     return LocalDateTime.of(year, 12, 31, 0, 0);
   }
 }

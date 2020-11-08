@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class TimeCalendarTest {
 
-  private CustomDateTime dateTime = aDateTime().build();
+  private final CustomDateTime dateTime = aDateTime().build();
 
   private TimeCalendar calendar;
 
@@ -18,5 +18,15 @@ public class TimeCalendarTest {
     int year = calendar.getYear();
 
     assertThat(year).isEqualTo(dateTime.toLocalDateTime().getYear());
+  }
+
+  @Test
+  public void whenGettingMonth_thenGetMonth() {
+    calendar = new TimeMonth(dateTime);
+    int expectedMonth = dateTime.toLocalDateTime().getMonthValue() - 1; // JavaTime to JavaCalendar
+
+    int month = calendar.getMonth();
+
+    assertThat(month).isEqualTo(expectedMonth);
   }
 }
