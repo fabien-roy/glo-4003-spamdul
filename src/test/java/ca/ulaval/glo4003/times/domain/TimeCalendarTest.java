@@ -29,4 +29,16 @@ public class TimeCalendarTest {
 
     assertThat(month).isEqualTo(expectedMonth);
   }
+
+  @Test
+  public void whenGettingYearMonth_thenGetYearMonth() {
+    calendar = new TimeMonth(dateTime);
+    int expectedYear = dateTime.toLocalDateTime().getYear();
+    int expectedMonth = dateTime.toLocalDateTime().getMonthValue() - 1; // JavaTime to JavaCalendar
+    int expectedYearMonth = expectedYear * 12 + expectedMonth;
+
+    int yearMonth = calendar.getYearMonth();
+
+    assertThat(yearMonth).isEqualTo(expectedYearMonth);
+  }
 }

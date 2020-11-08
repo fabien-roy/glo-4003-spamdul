@@ -45,6 +45,17 @@ public class TimeMonthTest {
     assertThat(month.toString()).isEqualTo(expectedString);
   }
 
+  @Test
+  public void whenComparingMonths_thenReturnDifferenceInMonths() {
+    int intMonth = getTotalMonthsInteger(dateTime.toLocalDateTime());
+    int otherIntMonth = getTotalMonthsInteger(otherDateTime.toLocalDateTime());
+    int differenceInMonths = intMonth - otherIntMonth;
+
+    int comparison = month.compareTo(otherMonth);
+
+    assertThat(comparison).isEqualTo(differenceInMonths);
+  }
+
   private LocalDateTime getMonthStart() {
     int year = dateTime.toLocalDateTime().getYear();
     int month = dateTime.toLocalDateTime().getMonthValue();
@@ -62,5 +73,9 @@ public class TimeMonthTest {
     int calendarMonth = month - 1; // JavaTime to JavaCalendar
     Calendar calendar = new GregorianCalendar(year, calendarMonth, 1);
     return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+  }
+
+  private int getTotalMonthsInteger(LocalDateTime dateTime) {
+    return (dateTime.getYear() * 12) + dateTime.getMonthValue();
   }
 }

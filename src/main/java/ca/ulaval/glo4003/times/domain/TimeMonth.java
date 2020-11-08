@@ -37,7 +37,6 @@ public class TimeMonth extends TimeCalendar {
 
   @Override
   public int compareTo(TimeCalendar other) {
-    // TODO : #266
-    return 1;
+    return getYearMonth() - other.getYearMonth();
   }
 }
