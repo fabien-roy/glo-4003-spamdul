@@ -31,8 +31,7 @@ public class TimeYear extends TimeCalendar {
 
   @Override
   public String toString() {
-    // TODO : #266
-    return "";
+    return Integer.toString(calendar.get(Calendar.YEAR));
   }
 
   @Override
