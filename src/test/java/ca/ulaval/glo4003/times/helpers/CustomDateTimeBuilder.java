@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.times.helpers;
 
+import static ca.ulaval.glo4003.times.helpers.CalendarHelper.toJavaCalendarMonth;
+import static ca.ulaval.glo4003.times.helpers.CalendarHelper.validDayOfMonth;
 import static ca.ulaval.glo4003.times.helpers.CustomDateTimeMother.createLocalDateTime;
 
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
@@ -30,6 +32,17 @@ public class CustomDateTimeBuilder {
 
   public CustomDateTimeBuilder withYear(int year) {
     this.year = year;
+    return this;
+  }
+
+  public CustomDateTimeBuilder withMonth(int month) {
+    this.month = month;
+    this.dayOfMonth = validDayOfMonth(year, toJavaCalendarMonth(month));
+    return this;
+  }
+
+  public CustomDateTimeBuilder withDayOfMonth(int dayOfMonth) {
+    this.dayOfMonth = dayOfMonth;
     return this;
   }
 

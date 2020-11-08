@@ -1,11 +1,10 @@
 package ca.ulaval.glo4003.times.domain;
 
+import static ca.ulaval.glo4003.times.helpers.CalendarHelper.lastDayOfMonth;
 import static ca.ulaval.glo4003.times.helpers.CustomDateTimeBuilder.aDateTime;
 import static com.google.common.truth.Truth.assertThat;
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -65,14 +64,8 @@ public class TimeMonthTest {
   private LocalDateTime getMonthEnd() {
     int year = dateTime.toLocalDateTime().getYear();
     int month = dateTime.toLocalDateTime().getMonthValue();
-    int dayOfMonth = getLastDayOfMonth(year, month);
+    int dayOfMonth = lastDayOfMonth(year, month - 1);
     return LocalDateTime.of(year, month, dayOfMonth, 0, 0);
-  }
-
-  private int getLastDayOfMonth(int year, int month) {
-    int calendarMonth = month - 1; // JavaTime to JavaCalendar
-    Calendar calendar = new GregorianCalendar(year, calendarMonth, 1);
-    return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
   }
 
   private int getTotalMonthsInteger(LocalDateTime dateTime) {

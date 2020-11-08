@@ -30,8 +30,7 @@ public class TimePeriod {
   }
 
   public List<TimeCalendar> getMonths() {
-    // TODO : #266
-    return Collections.emptyList();
+    return getCalendars(CustomDateTime::getMonth);
   }
 
   public List<TimeCalendar> getDays() {

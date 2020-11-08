@@ -20,6 +20,10 @@ public class CustomDateTime {
     return new TimeYear(this);
   }
 
+  public TimeMonth getMonth() {
+    return new TimeMonth(this);
+  }
+
   public CustomDateTime plusDays(int days) {
     return new CustomDateTime(dateTime.plusDays(days));
   }
