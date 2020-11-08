@@ -1,33 +1,31 @@
 package ca.ulaval.glo4003.times.domain;
 
 public class TimeDay extends TimeCalendar {
-  // TODO : #266
-
   public TimeDay(CustomDateTime customDateTime) {
     super(customDateTime);
   }
 
   @Override
   protected CustomDateTime firstDateTime() {
-    // TODO
+    // TODO : #266
     return null;
   }
 
   @Override
   protected CustomDateTime lastDateTime() {
-    // TODO
+    // TODO : #266
     return null;
   }
 
   @Override
   public String toString() {
-    // TODO
+    // TODO : #266
     return "";
   }
 
   @Override
   public int compareTo(TimeCalendar other) {
-    // TODO
+    // TODO : #266
     return 1;
   }
 }
