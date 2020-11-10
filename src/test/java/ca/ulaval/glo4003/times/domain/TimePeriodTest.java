@@ -9,13 +9,15 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-// TODO : Refactor this test class to use random values
+// TODO : Refactor this test class to use random values and simplify tests
 public class TimePeriodTest {
 
   private static final int FIRST_YEAR = 2020;
   private static final int SECOND_YEAR = 2021;
   private static final int FIRST_MONTH = 1;
   private static final int SECOND_MONTH = 2;
+  private static final int FIRST_DAY_OF_MONTH = 1;
+  private static final int SECOND_DAY_OF_MONTH = 14;
 
   private TimePeriod period;
 
@@ -96,6 +98,83 @@ public class TimePeriodTest {
     assertThat(months.get(months.size() - 1).getYear()).isEqualTo(SECOND_YEAR);
     assertThat(months.get(months.size() - 1).getMonth())
         .isEqualTo(toJavaCalendarMonth(SECOND_MONTH));
+  }
+
+  @Test
+  public void givenSingleDayPeriod_whenGettingDays_thenGetDays() {
+    TimePeriod singleDayPeriod =
+        aTimePeriod()
+            .withYears(FIRST_YEAR, FIRST_YEAR)
+            .withMonths(FIRST_MONTH, FIRST_MONTH)
+            .withDaysOfMonth(FIRST_DAY_OF_MONTH, FIRST_DAY_OF_MONTH)
+            .build();
+
+    List<TimeCalendar> days = singleDayPeriod.getDays();
+
+    assertThat(days).hasSize(1);
+    assertThat(days.get(0).getYear()).isEqualTo(FIRST_YEAR);
+    assertThat(days.get(0).getMonth()).isEqualTo(toJavaCalendarMonth(FIRST_MONTH));
+    assertThat(days.get(0).getDayOfYear()).isEqualTo(1); // jan 1 2020
+  }
+
+  @Test
+  public void givenMultipleDaysPeriod_whenGettingDays_thenGetDays() {
+    TimePeriod multipleDaysPeriod =
+        aTimePeriod()
+            .withYears(FIRST_YEAR, FIRST_YEAR)
+            .withMonths(FIRST_MONTH, FIRST_MONTH)
+            .withDaysOfMonth(FIRST_DAY_OF_MONTH, SECOND_DAY_OF_MONTH)
+            .build();
+
+    List<TimeCalendar> days = multipleDaysPeriod.getDays();
+
+    assertThat(days).hasSize(14); // jan 1 2020 to jan 14 2020
+    assertThat(days.get(0).getYear()).isEqualTo(FIRST_YEAR);
+    assertThat(days.get(0).getMonth()).isEqualTo(toJavaCalendarMonth(FIRST_MONTH));
+    assertThat(days.get(0).getDayOfYear()).isEqualTo(1); // jan 1 2020
+    assertThat(days.get(days.size() - 1).getYear()).isEqualTo(FIRST_YEAR);
+    assertThat(days.get(days.size() - 1).getMonth()).isEqualTo(toJavaCalendarMonth(FIRST_MONTH));
+    assertThat(days.get(days.size() - 1).getDayOfYear()).isEqualTo(14); // jan 14 2020
+  }
+
+  @Test
+  public void givenMultipleMonthsAndDaysPeriod_whenGettingDays_thenGetDays() {
+    TimePeriod multipleDaysPeriod =
+        aTimePeriod()
+            .withYears(FIRST_YEAR, FIRST_YEAR)
+            .withMonths(FIRST_MONTH, SECOND_MONTH)
+            .withDaysOfMonth(FIRST_DAY_OF_MONTH, SECOND_DAY_OF_MONTH)
+            .build();
+
+    List<TimeCalendar> days = multipleDaysPeriod.getDays();
+
+    assertThat(days).hasSize(45); // jan 1 2020 to feb 14 2020
+    assertThat(days.get(0).getYear()).isEqualTo(FIRST_YEAR);
+    assertThat(days.get(0).getMonth()).isEqualTo(toJavaCalendarMonth(FIRST_MONTH));
+    assertThat(days.get(0).getDayOfYear()).isEqualTo(1); // jan 1 2020
+    assertThat(days.get(days.size() - 1).getYear()).isEqualTo(FIRST_YEAR);
+    assertThat(days.get(days.size() - 1).getMonth()).isEqualTo(toJavaCalendarMonth(SECOND_MONTH));
+    assertThat(days.get(days.size() - 1).getDayOfYear()).isEqualTo(45); // fev 14 2020
+  }
+
+  @Test
+  public void givenMultipleYearsAndMonthsAndDaysPeriod_whenGettingDays_thenGetDays() {
+    TimePeriod multipleDaysPeriod =
+        aTimePeriod()
+            .withYears(FIRST_YEAR, SECOND_YEAR)
+            .withMonths(FIRST_MONTH, SECOND_MONTH)
+            .withDaysOfMonth(FIRST_DAY_OF_MONTH, SECOND_DAY_OF_MONTH)
+            .build();
+
+    List<TimeCalendar> days = multipleDaysPeriod.getDays();
+
+    assertThat(days).hasSize(411); // jan 1 2020 to feb 14 2021
+    assertThat(days.get(0).getYear()).isEqualTo(FIRST_YEAR);
+    assertThat(days.get(0).getMonth()).isEqualTo(toJavaCalendarMonth(FIRST_MONTH));
+    assertThat(days.get(0).getDayOfYear()).isEqualTo(1); // jan 1 2020
+    assertThat(days.get(days.size() - 1).getYear()).isEqualTo(SECOND_YEAR);
+    assertThat(days.get(days.size() - 1).getMonth()).isEqualTo(toJavaCalendarMonth(SECOND_MONTH));
+    assertThat(days.get(days.size() - 1).getDayOfYear()).isEqualTo(45); // fev 14 2021
   }
 
   @Test

@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 
-// TODO : Fixed values would test this better (ex : tests for toString())
 public class TimeYearTest {
 
   private final CustomDateTime dateTime = aDateTime().build();
@@ -38,6 +37,7 @@ public class TimeYearTest {
     assertThat(year.toPeriod().getEnd()).isEqualTo(yearEnd);
   }
 
+  // TODO : Fixed values would test this better.
   @Test
   public void whenConvertingToString_thenReturnYearAsString() {
     String expectedString = Integer.toString(dateTime.toLocalDateTime().getYear());

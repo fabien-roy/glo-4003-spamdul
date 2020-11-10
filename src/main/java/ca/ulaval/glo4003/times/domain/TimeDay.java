@@ -39,6 +39,7 @@ public class TimeDay extends TimeCalendar {
   public int compareTo(TimeCalendar other) {
     LocalDateTime day = toPeriod().getStart().toLocalDateTime();
     LocalDateTime otherDay = other.toPeriod().getStart().toLocalDateTime();
-    return (int) ChronoUnit.DAYS.between(day, otherDay);
+    int daysBetween = (int) ChronoUnit.DAYS.between(day, otherDay);
+    return day.isBefore(otherDay) ? daysBetween : -daysBetween;
   }
 }

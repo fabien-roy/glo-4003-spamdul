@@ -34,8 +34,7 @@ public class TimePeriod {
   }
 
   public List<TimeCalendar> getDays() {
-    // TODO : #266
-    return Collections.emptyList();
+    return getCalendars(CustomDateTime::getDay);
   }
 
   private List<CustomDateTime> getDateTimes() {

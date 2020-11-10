@@ -50,6 +50,7 @@ public class TimeDayTest {
     assertThat(actualString).isEqualTo(expectedString);
   }
 
+  // TODO : This doesn't test much, the logic is just pasted here. Fixed values would work better.
   @Test
   public void whenComparingDays_thenReturnDifferenceInDays() {
     LocalDateTime dateTimeAtMinimumTime = dateTimeAtMinimumTime(dateTime.toLocalDateTime());
@@ -57,10 +58,14 @@ public class TimeDayTest {
         dateTimeAtMinimumTime(otherDateTime.toLocalDateTime());
     int differenceInDays =
         (int) dateTimeAtMinimumTime.until(otherDateTimeAtMinimumTime, ChronoUnit.DAYS);
+    int comparisonInDays =
+        dateTimeAtMinimumTime.isBefore(otherDateTimeAtMinimumTime)
+            ? differenceInDays
+            : -differenceInDays;
 
     int comparison = day.compareTo(otherDay);
 
-    assertThat(comparison).isEqualTo(differenceInDays);
+    assertThat(comparison).isEqualTo(comparisonInDays);
   }
 
   private LocalDateTime getDayStart() {
