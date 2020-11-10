@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.times.domain;
 
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -29,6 +30,11 @@ public abstract class TimeCalendar implements Comparable<TimeCalendar> {
     return calendar.get(Calendar.DAY_OF_YEAR);
   }
 
+  protected CustomDateTime toDateTime(Calendar calendar) {
+    return new CustomDateTime(
+        calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+  }
+
   protected abstract CustomDateTime firstDateTime();
 
   protected abstract CustomDateTime lastDateTime();
@@ -37,11 +43,18 @@ public abstract class TimeCalendar implements Comparable<TimeCalendar> {
     return period;
   }
 
-  protected void setAtMinimumTime(Calendar date) {
-    date.set(Calendar.HOUR_OF_DAY, 0);
-    date.clear(Calendar.MINUTE);
-    date.clear(Calendar.SECOND);
-    date.clear(Calendar.MILLISECOND);
+  protected void setAtMinimumTime(Calendar calendar) {
+    calendar.set(Calendar.HOUR_OF_DAY, 0);
+    calendar.clear(Calendar.MINUTE);
+    calendar.clear(Calendar.SECOND);
+    calendar.clear(Calendar.MILLISECOND);
+  }
+
+  protected void setAtMaximumTime(Calendar calendar) {
+    calendar.set(Calendar.HOUR_OF_DAY, 23);
+    calendar.set(Calendar.MINUTE, 59);
+    calendar.set(Calendar.SECOND, 59);
+    calendar.set(Calendar.MILLISECOND, 999);
   }
 
   @Override

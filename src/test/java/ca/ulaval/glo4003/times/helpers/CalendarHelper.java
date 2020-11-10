@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.times.helpers;
 
 import com.github.javafaker.Faker;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -27,5 +28,13 @@ public class CalendarHelper {
 
   public static int toJavaCalendarMonth(int month) {
     return month - 1;
+  }
+
+  public static LocalDateTime dateTimeAtMinimumTime(int year, int month, int dayOfMonth) {
+    return LocalDateTime.of(year, month, dayOfMonth, 0, 0, 0);
+  }
+
+  public static LocalDateTime dateTimeAtMaximumTime(int year, int month, int dayOfMonth) {
+    return LocalDateTime.of(year, month, dayOfMonth, 23, 59, 59, 999000000);
   }
 }

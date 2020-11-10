@@ -16,6 +16,8 @@ public class CustomDateTimeBuilder {
   private int dayOfMonth = defaultDateTime.getDayOfMonth();
   private int hour = defaultDateTime.getHour();
   private int minute = defaultDateTime.getMinute();
+  private int seconds = defaultDateTime.getSecond();
+  private int nanoseconds = defaultDateTime.getNano();
 
   public static CustomDateTimeBuilder aDateTime() {
     return new CustomDateTimeBuilder();
@@ -27,6 +29,8 @@ public class CustomDateTimeBuilder {
     this.dayOfMonth = dateTime.getDayOfMonth();
     this.hour = dateTime.getHour();
     this.minute = dateTime.getMinute();
+    this.seconds = dateTime.getSecond();
+    this.nanoseconds = dateTime.getNano();
     return this;
   }
 
@@ -47,7 +51,8 @@ public class CustomDateTimeBuilder {
   }
 
   public CustomDateTime build() {
-    LocalDateTime localDateTime = LocalDateTime.of(year, month, dayOfMonth, hour, minute);
+    LocalDateTime localDateTime =
+        LocalDateTime.of(year, month, dayOfMonth, hour, minute, seconds, nanoseconds);
     return new CustomDateTime(localDateTime);
   }
 }
