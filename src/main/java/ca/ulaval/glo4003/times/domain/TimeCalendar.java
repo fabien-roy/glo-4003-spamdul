@@ -25,9 +25,8 @@ public abstract class TimeCalendar implements Comparable<TimeCalendar> {
     return getYear() * 12 + getMonth();
   }
 
-  protected int getDay() {
-    // TODO : #266
-    return 0;
+  protected int getDayOfYear() {
+    return calendar.get(Calendar.DAY_OF_YEAR);
   }
 
   protected abstract CustomDateTime firstDateTime();
@@ -38,7 +37,7 @@ public abstract class TimeCalendar implements Comparable<TimeCalendar> {
     return period;
   }
 
-  protected void setAtMidnight(Calendar date) {
+  protected void setAtMinimumTime(Calendar date) {
     date.set(Calendar.HOUR_OF_DAY, 0);
     date.clear(Calendar.MINUTE);
     date.clear(Calendar.SECOND);

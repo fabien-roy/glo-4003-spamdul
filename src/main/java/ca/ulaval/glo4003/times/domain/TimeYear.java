@@ -22,11 +22,12 @@ public class TimeYear extends TimeCalendar {
   }
 
   private CustomDateTime thatDateTime(int dayOfYear) {
-    Calendar date = Calendar.getInstance();
-    date.set(Calendar.YEAR, getYear());
-    date.set(Calendar.DAY_OF_YEAR, dayOfYear);
-    setAtMidnight(date);
-    return new CustomDateTime(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(Calendar.YEAR, getYear());
+    calendar.set(Calendar.DAY_OF_YEAR, dayOfYear);
+    setAtMinimumTime(calendar);
+    return new CustomDateTime(
+        calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
   }
 
   @Override

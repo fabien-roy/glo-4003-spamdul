@@ -59,6 +59,7 @@ public class TimeYearTest {
     return LocalDateTime.of(year, 1, 1, 0, 0);
   }
 
+  // TODO : #266 : This should be at max time
   private LocalDateTime getYearEnd() {
     int year = dateTime.toLocalDateTime().getYear();
     return LocalDateTime.of(year, 12, 31, 0, 0);
