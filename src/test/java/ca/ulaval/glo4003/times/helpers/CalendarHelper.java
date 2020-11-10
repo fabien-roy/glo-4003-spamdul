@@ -30,6 +30,11 @@ public class CalendarHelper {
     return month - 1;
   }
 
+  public static LocalDateTime dateTimeAtMinimumTime(LocalDateTime dateTime) {
+    return LocalDateTime.of(
+        dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth(), 0, 0, 0);
+  }
+
   public static LocalDateTime dateTimeAtMinimumTime(int year, int month, int dayOfMonth) {
     return LocalDateTime.of(year, month, dayOfMonth, 0, 0, 0);
   }

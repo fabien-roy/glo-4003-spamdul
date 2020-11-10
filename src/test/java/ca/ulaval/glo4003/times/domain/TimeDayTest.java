@@ -6,6 +6,7 @@ import static ca.ulaval.glo4003.times.helpers.CustomDateTimeBuilder.aDateTime;
 import static com.google.common.truth.Truth.assertThat;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,12 +14,15 @@ import org.junit.Test;
 public class TimeDayTest {
 
   private final CustomDateTime dateTime = aDateTime().build();
+  private final CustomDateTime otherDateTime = aDateTime().build();
 
   private TimeDay day;
+  private TimeDay otherDay;
 
   @Before
   public void setUp() {
     day = new TimeDay(dateTime);
+    otherDay = new TimeDay(otherDateTime);
   }
 
   @Test
@@ -33,6 +37,19 @@ public class TimeDayTest {
     CustomDateTime dayEnd = aDateTime().withDateTime(getDayEnd()).build();
 
     assertThat(day.toPeriod().getEnd()).isEqualTo(dayEnd);
+  }
+
+  @Test
+  public void whenComparingDays_thenReturnDifferenceInDays() {
+    LocalDateTime dateTimeAtMinumumTime = dateTimeAtMinimumTime(dateTime.toLocalDateTime());
+    LocalDateTime otherDateTimeAtMinumumTime =
+        dateTimeAtMinimumTime(otherDateTime.toLocalDateTime());
+    int differenceInDays =
+        (int) dateTimeAtMinumumTime.until(otherDateTimeAtMinumumTime, ChronoUnit.DAYS);
+
+    int comparison = day.compareTo(otherDay);
+
+    assertThat(comparison).isEqualTo(differenceInDays);
   }
 
   private LocalDateTime getDayStart() {

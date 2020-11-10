@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.times.domain;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 
 public class TimeDay extends TimeCalendar {
@@ -36,7 +38,8 @@ public class TimeDay extends TimeCalendar {
 
   @Override
   public int compareTo(TimeCalendar other) {
-    // TODO : #266
-    return 1;
+    LocalDateTime day = toPeriod().getStart().toLocalDateTime();
+    LocalDateTime otherDay = other.toPeriod().getStart().toLocalDateTime();
+    return (int) ChronoUnit.DAYS.between(day, otherDay);
   }
 }
