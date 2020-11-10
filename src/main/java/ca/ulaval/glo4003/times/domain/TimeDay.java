@@ -32,8 +32,7 @@ public class TimeDay extends TimeCalendar {
 
   @Override
   public String toString() {
-    // TODO : #266
-    return "";
+    return toPeriod().getStart().toDate().toString();
   }
 
   @Override

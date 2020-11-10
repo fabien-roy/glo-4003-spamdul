@@ -39,7 +39,7 @@ public class TimeYearTest {
   }
 
   @Test
-  public void whenConvertingToString_thenReturnYearInString() {
+  public void whenConvertingToString_thenReturnYearAsString() {
     String expectedString = Integer.toString(dateTime.toLocalDateTime().getYear());
 
     assertThat(year.toString()).isEqualTo(expectedString);

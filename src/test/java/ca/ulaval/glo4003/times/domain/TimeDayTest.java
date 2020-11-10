@@ -10,7 +10,6 @@ import java.time.temporal.ChronoUnit;
 import org.junit.Before;
 import org.junit.Test;
 
-// TODO : Fixed values would test this better (ex : tests for toString())
 public class TimeDayTest {
 
   private final CustomDateTime dateTime = aDateTime().build();
@@ -40,12 +39,24 @@ public class TimeDayTest {
   }
 
   @Test
+  public void whenConvertingToString_thenReturnsDayAsString() {
+    String expectedString = "02-02-2010";
+    LocalDateTime localDateTime = LocalDateTime.of(2010, 2, 2, 0, 0, 0);
+    CustomDateTime dateTime = new CustomDateTime(localDateTime);
+    TimeDay day = new TimeDay(dateTime);
+
+    String actualString = day.toString();
+
+    assertThat(actualString).isEqualTo(expectedString);
+  }
+
+  @Test
   public void whenComparingDays_thenReturnDifferenceInDays() {
-    LocalDateTime dateTimeAtMinumumTime = dateTimeAtMinimumTime(dateTime.toLocalDateTime());
-    LocalDateTime otherDateTimeAtMinumumTime =
+    LocalDateTime dateTimeAtMinimumTime = dateTimeAtMinimumTime(dateTime.toLocalDateTime());
+    LocalDateTime otherDateTimeAtMinimumTime =
         dateTimeAtMinimumTime(otherDateTime.toLocalDateTime());
     int differenceInDays =
-        (int) dateTimeAtMinumumTime.until(otherDateTimeAtMinumumTime, ChronoUnit.DAYS);
+        (int) dateTimeAtMinimumTime.until(otherDateTimeAtMinimumTime, ChronoUnit.DAYS);
 
     int comparison = day.compareTo(otherDay);
 

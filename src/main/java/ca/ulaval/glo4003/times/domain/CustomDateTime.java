@@ -59,6 +59,10 @@ public class CustomDateTime {
     return dateTime.atZone(ZoneId.systemDefault());
   }
 
+  public CustomDate toDate() {
+    return new CustomDate(dateTime.toLocalDate());
+  }
+
   @Override
   public boolean equals(Object object) {
     if (object == null || getClass() != object.getClass()) return false;

@@ -38,7 +38,7 @@ public class TimeMonthTest {
   }
 
   @Test
-  public void whenConvertingToString_thenReturnMonthInString() {
+  public void whenConvertingToString_thenReturnMonthAsString() {
     String expectedString = dateTime.toLocalDateTime().getMonth().toString().toLowerCase();
 
     assertThat(month.toString()).isEqualTo(expectedString);
@@ -61,7 +61,6 @@ public class TimeMonthTest {
     return dateTimeAtMinimumTime(year, month, 1);
   }
 
-  // TODO : #266 : This should be at max time
   private LocalDateTime getMonthEnd() {
     int year = dateTime.toLocalDateTime().getYear();
     int month = dateTime.toLocalDateTime().getMonthValue();
