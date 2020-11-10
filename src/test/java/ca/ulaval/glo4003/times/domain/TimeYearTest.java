@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.times.domain;
 
+import static ca.ulaval.glo4003.times.helpers.CalendarHelper.dateTimeAtMaximumTime;
+import static ca.ulaval.glo4003.times.helpers.CalendarHelper.dateTimeAtMinimumTime;
 import static ca.ulaval.glo4003.times.helpers.CustomDateTimeBuilder.aDateTime;
 import static com.google.common.truth.Truth.assertThat;
 
@@ -56,12 +58,11 @@ public class TimeYearTest {
 
   private LocalDateTime getYearStart() {
     int year = dateTime.toLocalDateTime().getYear();
-    return LocalDateTime.of(year, 1, 1, 0, 0);
+    return dateTimeAtMinimumTime(year, 1, 1);
   }
 
-  // TODO : #266 : This should be at max time
   private LocalDateTime getYearEnd() {
     int year = dateTime.toLocalDateTime().getYear();
-    return LocalDateTime.of(year, 12, 31, 0, 0);
+    return dateTimeAtMaximumTime(year, 12, 31);
   }
 }

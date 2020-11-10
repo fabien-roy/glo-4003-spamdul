@@ -9,16 +9,16 @@ public class TimeDay extends TimeCalendar {
 
   @Override
   protected CustomDateTime firstDateTime() {
-    Calendar calendar = thatDay();
-    setAtMinimumTime(calendar);
-    return toDateTime(calendar);
+    Calendar day = thatDay();
+    setAtMinimumTime(day);
+    return toDateTime(day);
   }
 
   @Override
   protected CustomDateTime lastDateTime() {
-    Calendar calendar = thatDay();
-    setAtMaximumTime(calendar);
-    return toDateTime(calendar);
+    Calendar day = thatDay();
+    setAtMaximumTime(day);
+    return toDateTime(day);
   }
 
   private Calendar thatDay() {

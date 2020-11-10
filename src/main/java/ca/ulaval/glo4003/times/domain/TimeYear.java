@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.times.domain;
 
-import java.time.ZoneId;
 import java.util.Calendar;
 
 public class TimeYear extends TimeCalendar {
@@ -11,23 +10,26 @@ public class TimeYear extends TimeCalendar {
 
   @Override
   protected CustomDateTime firstDateTime() {
+    Calendar year = thatYear();
     int firstDayOfYear = calendar.getActualMinimum(Calendar.DAY_OF_YEAR);
-    return thatDateTime(firstDayOfYear);
+    year.set(Calendar.DAY_OF_YEAR, firstDayOfYear);
+    setAtMinimumTime(year);
+    return toDateTime(year);
   }
 
   @Override
   protected CustomDateTime lastDateTime() {
+    Calendar year = thatYear();
     int lastDayOfYear = calendar.getActualMaximum(Calendar.DAY_OF_YEAR);
-    return thatDateTime(lastDayOfYear);
+    year.set(Calendar.DAY_OF_YEAR, lastDayOfYear);
+    setAtMaximumTime(year);
+    return toDateTime(year);
   }
 
-  private CustomDateTime thatDateTime(int dayOfYear) {
+  private Calendar thatYear() {
     Calendar calendar = Calendar.getInstance();
     calendar.set(Calendar.YEAR, getYear());
-    calendar.set(Calendar.DAY_OF_YEAR, dayOfYear);
-    setAtMinimumTime(calendar);
-    return new CustomDateTime(
-        calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+    return calendar;
   }
 
   @Override
