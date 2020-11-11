@@ -24,17 +24,21 @@ public class TimeYearTest {
   }
 
   @Test
-  public void whenConstructing_thenSetPeriodStartToYearStart() {
-    CustomDateTime yearStart = aDateTime().withDateTime(getYearStart()).build();
+  public void whenGettingPeriodStart_thenGetYearStart() {
+    CustomDateTime expectedYearStart = aDateTime().withDateTime(getYearStart()).build();
 
-    assertThat(year.toPeriod().getStart()).isEqualTo(yearStart);
+    CustomDateTime yearStart = year.toPeriod().getStart();
+
+    assertThat(yearStart).isEqualTo(expectedYearStart);
   }
 
   @Test
-  public void whenConstructing_thenSetPeriodEndToYearEnd() {
-    CustomDateTime yearEnd = aDateTime().withDateTime(getYearEnd()).build();
+  public void whenGettingPeriodEnd_thenGetYearEnd() {
+    CustomDateTime expectedYearEnd = aDateTime().withDateTime(getYearEnd()).build();
 
-    assertThat(year.toPeriod().getEnd()).isEqualTo(yearEnd);
+    CustomDateTime yearEnd = year.toPeriod().getEnd();
+
+    assertThat(yearEnd).isEqualTo(expectedYearEnd);
   }
 
   // TODO : Fixed values would test this better.

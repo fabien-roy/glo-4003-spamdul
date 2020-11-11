@@ -25,17 +25,21 @@ public class TimeDayTest {
   }
 
   @Test
-  public void whenConstructing_thenSetPeriodStartToDayStart() {
-    CustomDateTime dayStart = aDateTime().withDateTime(getDayStart()).build();
+  public void whenGettingPeriodStart_thenGetDayStart() {
+    CustomDateTime expectedDayStart = aDateTime().withDateTime(getDayStart()).build();
 
-    assertThat(day.toPeriod().getStart()).isEqualTo(dayStart);
+    CustomDateTime dayStart = day.toPeriod().getStart();
+
+    assertThat(dayStart).isEqualTo(expectedDayStart);
   }
 
   @Test
-  public void whenConstructing_thenSetPeriodStartToDayEnd() {
-    CustomDateTime dayEnd = aDateTime().withDateTime(getDayEnd()).build();
+  public void whenGettingPeriodEnd_thenGetDayEnd() {
+    CustomDateTime expectedDayEnd = aDateTime().withDateTime(getDayEnd()).build();
 
-    assertThat(day.toPeriod().getEnd()).isEqualTo(dayEnd);
+    CustomDateTime dayEnd = day.toPeriod().getEnd();
+
+    assertThat(dayEnd).isEqualTo(expectedDayEnd);
   }
 
   @Test

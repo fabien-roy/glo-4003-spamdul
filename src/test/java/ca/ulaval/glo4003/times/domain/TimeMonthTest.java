@@ -23,17 +23,21 @@ public class TimeMonthTest {
   }
 
   @Test
-  public void whenConstructing_thenSetPeriodStartToMonthStart() {
-    CustomDateTime monthStart = aDateTime().withDateTime(getMonthStart()).build();
+  public void whenGettingPeriodStart_thenGetMonthStart() {
+    CustomDateTime expectedMonthStart = aDateTime().withDateTime(getMonthStart()).build();
 
-    assertThat(month.toPeriod().getStart()).isEqualTo(monthStart);
+    CustomDateTime monthStart = month.toPeriod().getStart();
+
+    assertThat(monthStart).isEqualTo(expectedMonthStart);
   }
 
   @Test
-  public void whenConstructing_thenSetPeriodEndToMonthEnd() {
-    CustomDateTime monthEnd = aDateTime().withDateTime(getMonthEnd()).build();
+  public void whenGettingPeriodEnd_thenGetMonthEnd() {
+    CustomDateTime expectedMonthEnd = aDateTime().withDateTime(getMonthEnd()).build();
 
-    assertThat(month.toPeriod().getEnd()).isEqualTo(monthEnd);
+    CustomDateTime monthEnd = month.toPeriod().getEnd();
+
+    assertThat(monthEnd).isEqualTo(expectedMonthEnd);
   }
 
   // TODO : Fixed values would test this better.

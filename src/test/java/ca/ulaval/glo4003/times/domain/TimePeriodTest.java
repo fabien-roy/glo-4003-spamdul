@@ -84,7 +84,7 @@ public class TimePeriodTest {
   }
 
   @Test
-  public void givenMultipleYearsAndMonthsMonthsPeriod_whenGettingMonths_thenGetMonths() {
+  public void givenMultipleYearsAndMonthsPeriod_whenGettingMonths_thenGetMonths() {
     TimePeriod multipleMonthsPeriod =
         aTimePeriod()
             .withYears(FIRST_YEAR, SECOND_YEAR)
