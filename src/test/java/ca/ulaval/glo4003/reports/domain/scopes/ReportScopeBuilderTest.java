@@ -23,7 +23,7 @@ public class ReportScopeBuilderTest {
 
   @Test
   public void givenPeriod_whenBuilding_thenBuildReportScopeWithPeriod() {
-    ReportScope reportScope = reportScopeBuilder.aScope().withPeriod(timePeriod).build();
+    ReportScope reportScope = reportScopeBuilder.aReportScope().withPeriod(timePeriod).build();
 
     assertThat(reportScope.getPeriod()).isSameInstanceAs(timePeriod);
   }
@@ -32,7 +32,7 @@ public class ReportScopeBuilderTest {
   public void givenYearlyReportScopeType_whenBuilding_thenBuildYearlyReportScope() {
     ReportScopeType yearlyScopeType = ReportScopeType.YEARLY;
 
-    ReportScope reportScope = reportScopeBuilder.aScope().withType(yearlyScopeType).build();
+    ReportScope reportScope = reportScopeBuilder.aReportScope().withType(yearlyScopeType).build();
 
     assertThat(reportScope).isInstanceOf(YearlyScope.class);
   }
@@ -41,7 +41,7 @@ public class ReportScopeBuilderTest {
   public void givenMonthlyReportScopeType_whenBuilding_thenBuildMonthlyReportScope() {
     ReportScopeType monthlyScopeType = ReportScopeType.MONTHLY;
 
-    ReportScope reportScope = reportScopeBuilder.aScope().withType(monthlyScopeType).build();
+    ReportScope reportScope = reportScopeBuilder.aReportScope().withType(monthlyScopeType).build();
 
     assertThat(reportScope).isInstanceOf(MonthlyScope.class);
   }
@@ -50,7 +50,7 @@ public class ReportScopeBuilderTest {
   public void givenDailyReportScopeType_whenBuilding_thenBuildDailyReportScope() {
     ReportScopeType dailyScopeType = ReportScopeType.DAILY;
 
-    ReportScope reportScope = reportScopeBuilder.aScope().withType(dailyScopeType).build();
+    ReportScope reportScope = reportScopeBuilder.aReportScope().withType(dailyScopeType).build();
 
     assertThat(reportScope).isInstanceOf(DailyScope.class);
   }
