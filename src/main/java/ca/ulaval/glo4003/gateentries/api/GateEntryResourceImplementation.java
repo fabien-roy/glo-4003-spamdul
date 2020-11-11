@@ -15,7 +15,7 @@ public class GateEntryResourceImplementation implements GateEntryResource {
   }
 
   @Override
-  public Response validateAccessPass(DayOfWeekDto dayOfWeekDto, String accessPassCode) {
+  public Response enterWithAccessPass(DayOfWeekDto dayOfWeekDto, String accessPassCode) {
     AccessStatusDto accessStatusDto =
         gateEntryService.validateAccessPass(dayOfWeekDto, accessPassCode);
 

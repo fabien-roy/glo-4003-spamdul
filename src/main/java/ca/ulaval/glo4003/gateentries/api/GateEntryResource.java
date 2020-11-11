@@ -11,6 +11,10 @@ public interface GateEntryResource {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("/validateAccessPass/{code}")
-  Response validateAccessPass(DayOfWeekDto dayOfWeekDto, @PathParam("code") String accessPassCode);
+  @Path("/enter/withAccessPass/{code}")
+  Response enterWithAccessPass(DayOfWeekDto dayOfWeekDto, @PathParam("code") String accessPassCode);
+
+  @POST
+  @Path("/exit/withAccessPass/{accessPassCode}")
+  Response exitWithAccessPass() {}
 }

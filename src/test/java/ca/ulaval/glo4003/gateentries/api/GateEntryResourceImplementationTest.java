@@ -36,33 +36,33 @@ public class GateEntryResourceImplementationTest {
   }
 
   @Test
-  public void whenValidatingAccessPass_thenValidateAccessPassWithService() {
-    Response response = gateEntryResource.validateAccessPass(dayOfWeekDto, accessPassCode);
+  public void whenEnteringWithAccessPass_thenValidateAccessPassWithService() {
+    Response response = gateEntryResource.enterWithAccessPass(dayOfWeekDto, accessPassCode);
     AccessStatusDto receivedAccessStatusDto = (AccessStatusDto) response.getEntity();
 
     Truth.assertThat(receivedAccessStatusDto.accessStatus).isEqualTo(accessStatusDto.accessStatus);
   }
 
   @Test
-  public void givenValidAccessPass_whenValidatingAccessPass_thenRespondWithAcceptedStatus() {
+  public void givenValidAccessPass_whenEnteringWithAccessPass_thenRespondWithAcceptedStatus() {
     accessStatusDto =
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_GRANTED.toString()).build();
     when(gateEntryService.validateAccessPass(dayOfWeekDto, accessPassCode))
         .thenReturn(accessStatusDto);
 
-    Response response = gateEntryResource.validateAccessPass(dayOfWeekDto, accessPassCode);
+    Response response = gateEntryResource.enterWithAccessPass(dayOfWeekDto, accessPassCode);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.ACCEPTED.getStatusCode());
   }
 
   @Test
-  public void givenInvalidAccessPass_whenValidatingAccessPass_thenRespondWithForbiddenStatus() {
+  public void givenInvalidAccessPass_whenEnteringWithAccessPass_thenRespondWithForbiddenStatus() {
     accessStatusDto =
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_REFUSED.toString()).build();
     when(gateEntryService.validateAccessPass(dayOfWeekDto, accessPassCode))
         .thenReturn(accessStatusDto);
 
-    Response response = gateEntryResource.validateAccessPass(dayOfWeekDto, accessPassCode);
+    Response response = gateEntryResource.enterWithAccessPass(dayOfWeekDto, accessPassCode);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.FORBIDDEN.getStatusCode());
   }
