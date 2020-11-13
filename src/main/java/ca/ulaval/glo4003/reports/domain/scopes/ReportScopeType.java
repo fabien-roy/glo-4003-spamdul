@@ -6,7 +6,8 @@ import java.util.Map;
 
 public enum ReportScopeType {
   YEARLY("yearly"),
-  MONTHLY("monthly");
+  MONTHLY("monthly"),
+  DAILY("daily");
 
   private final String scope;
   private static final Map<String, ReportScopeType> lookup = new HashMap<>();
