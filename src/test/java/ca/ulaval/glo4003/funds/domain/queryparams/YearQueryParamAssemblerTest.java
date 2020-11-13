@@ -20,7 +20,7 @@ public class YearQueryParamAssemblerTest {
   @Mock private static BillQueryBuilder queryBuilder;
   @Mock private static BillQueryBuilder assembledQueryBuilder;
 
-  private int A_YEAR = createDateTime().getYear();
+  private int A_YEAR = createDateTime().getIntYear();
   private BillQueryParams params = new BillQueryParams();
 
   @Before

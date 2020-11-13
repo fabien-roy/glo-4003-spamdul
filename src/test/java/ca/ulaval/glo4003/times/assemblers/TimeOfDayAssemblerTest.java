@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TimeofDayAssemblerTest {
+public class TimeOfDayAssemblerTest {
   private static final TimeOfDay TIME = createTimeOfDay();
 
   private TimeOfDayAssembler timeOfDayAssembler;

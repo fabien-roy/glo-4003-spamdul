@@ -15,7 +15,7 @@ public class BillQueryBuilderInMemoryTest {
 
   private BillQueryBuilderInMemory billQueryBuilderInMemory;
   private BillType billType = createBillType();
-  private int A_YEAR = createDateTime().getYear();
+  private int A_YEAR = createDateTime().getIntYear();
 
   @Before
   public void setUp() {

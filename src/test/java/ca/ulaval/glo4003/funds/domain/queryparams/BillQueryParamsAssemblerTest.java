@@ -12,7 +12,7 @@ import org.junit.Test;
 public class BillQueryParamsAssemblerTest {
   private BillQueryParamsAssembler billQueryParamsAssembler;
 
-  private int year = createDateTime().getYear();
+  private int year = createDateTime().getIntYear();
   private BillType billType = createBillType();
 
   @Before

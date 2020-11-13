@@ -1,18 +1,15 @@
 package ca.ulaval.glo4003.reports.domain.scopes;
 
+import static ca.ulaval.glo4003.times.helpers.TimePeriodBuilder.aTimePeriod;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ReportScopeBuilderTest {
 
-  @Mock private TimePeriod timePeriod; // TODO : Use TimePeriodBuilder (you're in for a ride)
+  private final TimePeriod timePeriod = aTimePeriod().build();
 
   private ReportScopeBuilder reportScopeBuilder;
 
