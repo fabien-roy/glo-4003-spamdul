@@ -27,7 +27,7 @@ public class InMemoryReportQueryBuilder implements ReportQueryBuilder<InMemoryRe
   private ReportScopeType scopeType;
   private List<ReportDimensionType> dimensionTypes;
   private List<ReportMetricType> metricTypes;
-  private List<InMemoryReportFilter> filters = new ArrayList<>();
+  private final List<InMemoryReportFilter> filters = new ArrayList<>();
 
   public InMemoryReportQueryBuilder(
       ReportScopeBuilder scopeBuilder,
@@ -43,28 +43,24 @@ public class InMemoryReportQueryBuilder implements ReportQueryBuilder<InMemoryRe
     return new InMemoryReportQueryBuilder(scopeBuilder, metricBuilder, dimensionBuilder);
   }
 
-  // TODO #264 : Test
   @Override
   public ReportQueryBuilder<InMemoryReportQuery> withPeriod(TimePeriod period) {
     this.period = period;
     return this;
   }
 
-  // TODO #264 : Test
   @Override
   public ReportQueryBuilder<InMemoryReportQuery> withScope(ReportScopeType scopeType) {
     this.scopeType = scopeType;
     return this;
   }
 
-  // TODO #264 : Test
   @Override
   public ReportQueryBuilder<InMemoryReportQuery> withMetrics(List<ReportMetricType> metricTypes) {
     this.metricTypes = metricTypes;
     return this;
   }
 
-  // TODO #264 : Test
   @Override
   public ReportQueryBuilder<InMemoryReportQuery> withDimensions(
       List<ReportDimensionType> dimensionTypes) {
@@ -83,9 +79,10 @@ public class InMemoryReportQueryBuilder implements ReportQueryBuilder<InMemoryRe
 
   @Override
   public InMemoryReportQuery build() {
-    ReportScope scope = scopeBuilder.withPeriod(period).withType(scopeType).build();
-    List<ReportMetric> metrics = metricBuilder.withTypes(metricTypes).buildMany();
-    List<ReportDimension> dimensions = dimensionBuilder.withTypes(dimensionTypes).buildMany();
+    ReportScope scope = scopeBuilder.aReportScope().withPeriod(period).withType(scopeType).build();
+    List<ReportMetric> metrics = metricBuilder.someMetrics().withTypes(metricTypes).buildMany();
+    List<ReportDimension> dimensions =
+        dimensionBuilder.someDimensions().withTypes(dimensionTypes).buildMany();
     return new InMemoryReportQuery(scope, metrics, dimensions, filters);
   }
 }
