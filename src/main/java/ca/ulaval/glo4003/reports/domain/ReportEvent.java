@@ -9,7 +9,7 @@ public class ReportEvent {
 
   public final ReportEventType type;
   public final CustomDateTime dateTime;
-  public Money profits; // TODO : Use ReportEvent.profits
+  public Money profits;
   public int gateEntries; // TODO : Use ReportEvent.gateEntries
   public ConsumptionType consumptionType; // TODO : Use ReportEvent.consumptionType
   public ParkingAreaCode parkingAreaCode; // TODO : Use ReportEvent.parkingAreaCode
@@ -25,5 +25,9 @@ public class ReportEvent {
 
   public ReportEventType getType() {
     return type;
+  }
+
+  public Money getProfits() {
+    return profits;
   }
 }
