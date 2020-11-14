@@ -47,6 +47,10 @@ public class InMemoryReportQuery implements ReportQuery {
     return dimensions;
   }
 
+  public List<InMemoryReportFilter> getFilters() {
+    return filters;
+  }
+
   public List<ReportPeriod> execute() {
     List<ReportPeriod> queriedPeriods = new ArrayList<>();
     List<ReportEvent> filteredEvents = getFilteredEvents();

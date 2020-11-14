@@ -1,12 +1,14 @@
 package ca.ulaval.glo4003.reports.infrastructure;
 
 import static ca.ulaval.glo4003.reports.helpers.ReportDimensionMother.createReportDimensionType;
+import static ca.ulaval.glo4003.reports.helpers.ReportEventMother.createReportEventType;
 import static ca.ulaval.glo4003.reports.helpers.ReportMetricMother.createReportMetricType;
 import static ca.ulaval.glo4003.reports.helpers.ReportScopeMother.createReportScopeType;
 import static ca.ulaval.glo4003.times.helpers.TimePeriodBuilder.aTimePeriod;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.reports.domain.ReportEventType;
 import ca.ulaval.glo4003.reports.domain.ReportQueryBuilder;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimension;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionBuilder;
@@ -17,6 +19,7 @@ import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScope;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeBuilder;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
+import ca.ulaval.glo4003.reports.infrastructure.filters.InMemoryReportEventTypeFilter;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +47,7 @@ public class InMemoryReportQueryBuilderTest {
   private final List<ReportMetricType> metricTypes = Collections.singletonList(metricType);
   private final ReportDimensionType dimensionType = createReportDimensionType();
   private final List<ReportDimensionType> dimensionTypes = Collections.singletonList(dimensionType);
+  private final ReportEventType reportEventType = createReportEventType();
 
   @Before
   public void setUp() {
@@ -91,6 +95,14 @@ public class InMemoryReportQueryBuilderTest {
     assertThat(reportQuery.getDimensions().get(0)).isSameInstanceAs(dimension);
   }
 
+  @Test
+  public void givenReportEventType_whenBuilding_thenReturnReportQueryWithReportEventTypeFilter() {
+    InMemoryReportQuery reportQuery = buildReportQuery();
+
+    assertThat(reportQuery.getFilters()).hasSize(1);
+    assertThat(reportQuery.getFilters().get(0)).isInstanceOf(InMemoryReportEventTypeFilter.class);
+  }
+
   private InMemoryReportQuery buildReportQuery() {
     return reportQueryBuilder
         .aReportQuery()
@@ -98,6 +110,7 @@ public class InMemoryReportQueryBuilderTest {
         .withScope(scopeType)
         .withMetrics(metricTypes)
         .withDimensions(dimensionTypes)
+        .withReportEventType(reportEventType)
         .build();
   }
 }

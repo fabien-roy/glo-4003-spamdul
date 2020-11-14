@@ -68,7 +68,6 @@ public class InMemoryReportQueryBuilder implements ReportQueryBuilder<InMemoryRe
     return this;
   }
 
-  // TODO #264 : Test
   @Override
   public ReportQueryBuilder<InMemoryReportQuery> withReportEventType(
       ReportEventType reportEventType) {
