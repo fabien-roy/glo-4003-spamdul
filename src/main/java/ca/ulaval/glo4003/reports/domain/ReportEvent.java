@@ -9,15 +9,20 @@ public class ReportEvent {
 
   public final ReportEventType type;
   public final CustomDateTime dateTime;
-  public Money profits;
+  public final Money profits;
   public int gateEntries; // TODO #249 : Use ReportEvent.gateEntries
-  public ConsumptionType consumptionType;
+  public final ConsumptionType consumptionType;
   public ParkingAreaCode parkingAreaCode; // TODO #263 : Use ReportEvent.parkingAreaCode
 
-  public ReportEvent(ReportEventType type, CustomDateTime dateTime, Money profits) {
+  public ReportEvent(
+      ReportEventType type,
+      CustomDateTime dateTime,
+      Money profits,
+      ConsumptionType consumptionType) {
     this.type = type;
     this.dateTime = dateTime;
     this.profits = profits;
+    this.consumptionType = consumptionType;
   }
 
   public CustomDateTime getDateTime() {

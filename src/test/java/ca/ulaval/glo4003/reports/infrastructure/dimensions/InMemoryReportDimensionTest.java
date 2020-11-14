@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.reports.infrastructure.dimensions;
 
+import static ca.ulaval.glo4003.reports.helpers.ReportPeriodDataBuilder.aReportPeriodData;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -10,17 +11,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public abstract class InMemoryReportDimensionTest {
 
   protected ReportDimension dimension;
-
-  @Mock private ReportPeriodData data;
-  @Mock private ReportPeriodData otherData;
 
   protected List<ReportPeriodData> singleData;
   private List<ReportPeriodData> multipleData;
@@ -29,13 +23,12 @@ public abstract class InMemoryReportDimensionTest {
 
   protected abstract int numberOfValues();
 
-  public void setUp() {
+  protected void setUp() {
+    ReportPeriodData data = aReportPeriodData().withEvents(buildEvents()).build();
+    ReportPeriodData otherData = aReportPeriodData().build();
+
     singleData = Collections.singletonList(data);
     multipleData = Arrays.asList(data, otherData);
-
-    reset(data, otherData);
-    when(data.getEvents()).thenReturn(buildEvents());
-    when(otherData.getEvents()).thenReturn(Collections.emptyList());
   }
 
   @Test

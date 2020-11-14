@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.reports.infrastructure.dimensions;
 
+import static ca.ulaval.glo4003.reports.helpers.ReportEventBuilder.aReportEvent;
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.reports.domain.ReportEvent;
@@ -12,29 +12,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class InMemoryConsumptionTypeDimensionTest extends InMemoryReportDimensionTest {
-
-  @Mock private ReportEvent firstEvent;
-  @Mock private ReportEvent secondEvent;
 
   private final ConsumptionType firstConsumptionType = ConsumptionType.ZERO_POLLUTION;
   private final ConsumptionType secondConsumptionType = ConsumptionType.ECONOMIC;
+  private final ReportEvent firstEvent =
+      aReportEvent().withConsumptionType(firstConsumptionType).build();
+  private final ReportEvent secondEvent =
+      aReportEvent().withConsumptionType(secondConsumptionType).build();
 
   @Before
   public void setUp() {
     super.setUp();
     dimension = new InMemoryConsumptionTypeDimension();
-    setUpEvents();
-  }
-
-  private void setUpEvents() {
-    when(firstEvent.getConsumptionType()).thenReturn(firstConsumptionType);
-    when(secondEvent.getConsumptionType()).thenReturn(secondConsumptionType);
   }
 
   @Override
