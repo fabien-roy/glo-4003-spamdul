@@ -3,20 +3,22 @@ package ca.ulaval.glo4003.reports.domain;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
+import ca.ulaval.glo4003.times.domain.TimePeriod;
 import java.util.List;
 
-// TODO #246 : Implement and test report query builder
 public interface ReportQueryBuilder<Q extends ReportQuery> {
 
   ReportQueryBuilder<Q> aReportQuery();
 
   ReportQueryBuilder<Q> withReportEventType(ReportEventType reportEventType);
 
-  ReportQueryBuilder<Q> withScope(ReportScopeType scope);
+  ReportQueryBuilder<Q> withPeriod(TimePeriod period);
 
-  ReportQueryBuilder<Q> withMetrics(List<ReportMetricType> metrics);
+  ReportQueryBuilder<Q> withScope(ReportScopeType scopeType);
 
-  ReportQueryBuilder<Q> withDimensions(List<ReportDimensionType> dimensions);
+  ReportQueryBuilder<Q> withMetrics(List<ReportMetricType> metricTypes);
+
+  ReportQueryBuilder<Q> withDimensions(List<ReportDimensionType> dimensionTypes);
 
   Q build();
 }
