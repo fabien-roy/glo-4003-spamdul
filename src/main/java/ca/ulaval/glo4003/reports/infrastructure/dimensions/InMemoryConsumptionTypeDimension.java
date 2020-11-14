@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import java.util.Arrays;
 import java.util.List;
 
-// TODO : Test InMemoryConsumptionTypeDimension
 public class InMemoryConsumptionTypeDimension extends ReportDimension<ConsumptionType> {
 
   @Override
