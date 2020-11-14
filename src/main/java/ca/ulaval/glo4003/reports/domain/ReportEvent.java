@@ -14,9 +14,10 @@ public class ReportEvent {
   public ConsumptionType consumptionType; // TODO : Use ReportEvent.consumptionType
   public ParkingAreaCode parkingAreaCode; // TODO : Use ReportEvent.parkingAreaCode
 
-  public ReportEvent(ReportEventType type, CustomDateTime dateTime) {
+  public ReportEvent(ReportEventType type, CustomDateTime dateTime, Money profits) {
     this.type = type;
     this.dateTime = dateTime;
+    this.profits = profits;
   }
 
   public CustomDateTime getDateTime() {

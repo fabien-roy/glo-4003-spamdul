@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.reports.domain.metrics.ReportMetric;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import java.util.List;
 
-// TODO : Test InMemoryProfitsMetric
 public class InMemoryProfitsMetric extends ReportMetric<Double> {
 
   @Override
