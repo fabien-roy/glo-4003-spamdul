@@ -1,18 +1,17 @@
-package ca.ulaval.glo4003.funds.api;
+package ca.ulaval.glo4003.reports.api;
 
-import ca.ulaval.glo4003.funds.exception.InvalidBillQueryParamException;
 import ca.ulaval.glo4003.interfaces.api.dto.ErrorDto;
+import ca.ulaval.glo4003.reports.exceptions.ReportException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class InvalidBillQueryParamExceptionMapper
-    implements ExceptionMapper<InvalidBillQueryParamException> {
+public class ReportExceptionMapper implements ExceptionMapper<ReportException> {
 
   @Override
-  public Response toResponse(InvalidBillQueryParamException exception) {
+  public Response toResponse(ReportException exception) {
     Response.Status responseStatus = Response.Status.BAD_REQUEST;
 
     ErrorDto errorDto = new ErrorDto();
