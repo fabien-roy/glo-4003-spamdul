@@ -15,6 +15,11 @@ public class ReportEventBuilder {
     return new ReportEventBuilder();
   }
 
+  public ReportEventBuilder withType(ReportEventType type) {
+    this.type = type;
+    return this;
+  }
+
   public ReportEventBuilder withDateTime(CustomDateTime dateTime) {
     this.dateTime = dateTime;
     return this;

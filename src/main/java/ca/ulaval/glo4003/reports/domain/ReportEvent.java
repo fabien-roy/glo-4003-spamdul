@@ -22,4 +22,8 @@ public class ReportEvent {
   public CustomDateTime getDateTime() {
     return dateTime;
   }
+
+  public ReportEventType getType() {
+    return type;
+  }
 }

@@ -18,6 +18,7 @@ public class InMemoryReportQuery implements ReportQuery {
   private final List<ReportDimension> dimensions;
   private List<ReportEvent> events;
 
+  // TODO #246 : Add a List<InMemoryReportFilter> and test it
   public InMemoryReportQuery(
       ReportScope scope, List<ReportMetric> metrics, List<ReportDimension> dimensions) {
     this.scope = scope;
