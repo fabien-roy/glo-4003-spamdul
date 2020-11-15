@@ -60,7 +60,7 @@ public class GateEntryServiceTest {
     when(accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED))
         .thenReturn(refusedAccessStatusDto);
     when(licensePlateAssembler.assemble(accessPassLicensePlate)).thenReturn(LICENSE_PLATE);
-    when(accessPassService.getAccessPassByLicensePlate(LICENSE_PLATE)).thenReturn(accessPasses);
+    when(accessPassService.getAccessPassesByLicensePlate(LICENSE_PLATE)).thenReturn(accessPasses);
   }
 
   @Test

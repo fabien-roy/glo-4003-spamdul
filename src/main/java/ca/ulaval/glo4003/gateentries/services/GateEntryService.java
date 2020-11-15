@@ -52,7 +52,7 @@ public class GateEntryService {
     DayOfWeek dayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
     LicensePlate licensePlateAssembled = licensePlateAssembler.assemble(licensePlate);
     List<AccessPass> accessPasses =
-        accessPassService.getAccessPassByLicensePlate(licensePlateAssembled);
+        accessPassService.getAccessPassesByLicensePlate(licensePlateAssembled);
 
     for (AccessPass accessPass : accessPasses) {
       AccessStatus fak = getAccessStatus(dayOfWeek, accessPass);

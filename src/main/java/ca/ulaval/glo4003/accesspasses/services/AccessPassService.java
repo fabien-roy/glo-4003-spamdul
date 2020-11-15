@@ -77,7 +77,7 @@ public class AccessPassService {
     return accessPassRepository.get(accessPassCode);
   }
 
-  public List<AccessPass> getAccessPassByLicensePlate(LicensePlate licensePlate) {
+  public List<AccessPass> getAccessPassesByLicensePlate(LicensePlate licensePlate) {
     return accessPassRepository.get(licensePlate);
   }
 }
