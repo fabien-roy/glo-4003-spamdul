@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO #246 : Test ReportPeriodDataAssembler
 public class ReportPeriodDataAssembler {
 
   private final ReportDimensionDataAssembler reportDimensionDataAssembler;
