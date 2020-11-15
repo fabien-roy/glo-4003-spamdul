@@ -40,6 +40,7 @@ public class ParkingStickerAssemblerTest {
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   @Mock private PostalCodeAssembler postalCodeAssembler;
   @Mock private EmailAddressAssembler emailAddressAssembler;
+  @Mock private ParkingPeriodAssembler parkingPeriodAssembler;
 
   private ParkingStickerDto parkingStickerDto;
 
@@ -52,7 +53,8 @@ public class ParkingStickerAssemblerTest {
             parkingAreaCodeAssembler,
             accountIdAssembler,
             postalCodeAssembler,
-            emailAddressAssembler);
+            emailAddressAssembler,
+            parkingPeriodAssembler);
 
     when(accountIdAssembler.assemble(ACCOUNT_ID.toString())).thenReturn(ACCOUNT_ID);
     when(parkingAreaCodeAssembler.assemble(PARKING_AREA.toString())).thenReturn(PARKING_AREA);

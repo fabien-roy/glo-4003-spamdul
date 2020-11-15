@@ -81,7 +81,8 @@ public class ParkingInjector {
             parkingAreaCodeAssembler,
             accountIdAssembler,
             postalCodeAssembler,
-            emailAddressAssembler);
+            emailAddressAssembler,
+            new ParkingPeriodAssembler());
     ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
 
     ParkingStickerService parkingStickerService =

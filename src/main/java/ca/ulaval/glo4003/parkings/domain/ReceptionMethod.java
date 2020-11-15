@@ -6,7 +6,8 @@ import java.util.Map;
 
 public enum ReceptionMethod {
   POSTAL("postal"),
-  EMAIL("email");
+  EMAIL("email"),
+  SSP("ssp");
 
   private String method;
   private static final Map<String, ReceptionMethod> lookup = new HashMap<>();

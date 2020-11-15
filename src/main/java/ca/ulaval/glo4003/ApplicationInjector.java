@@ -67,7 +67,9 @@ public class ApplicationInjector {
   public UserResource createUserResource() {
     List<ParkingStickerCreationObserver> parkingStickerCreationObservers =
         Arrays.asList(
-            COMMUNICATION_INJECTOR.createEmailSender(), LOCATION_INJECTOR.createPostalCodeSender());
+            COMMUNICATION_INJECTOR.createEmailSender(),
+            LOCATION_INJECTOR.createPostalCodeSender(),
+            LOCATION_INJECTOR.createSspCodeSender());
 
     return USER_INJECTOR.createUserResource(
         ACCOUNT_INJECTOR.getAccountRepository(),
