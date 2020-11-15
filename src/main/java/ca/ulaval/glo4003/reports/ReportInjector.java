@@ -18,7 +18,6 @@ import ca.ulaval.glo4003.reports.infrastructure.dimensions.InMemoryReportDimensi
 import ca.ulaval.glo4003.reports.infrastructure.metrics.InMemoryReportMetricBuilder;
 import ca.ulaval.glo4003.reports.services.ReportService;
 
-// TODO #246 : Test ReportInjector
 public class ReportInjector {
 
   private ReportRepository reportRepository = new InMemoryReportRepository();
