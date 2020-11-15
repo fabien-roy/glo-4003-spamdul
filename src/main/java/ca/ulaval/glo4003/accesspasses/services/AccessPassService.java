@@ -14,6 +14,7 @@ import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
+import java.util.List;
 
 public class AccessPassService {
   private final AccessPassAssembler accessPassAssembler;
@@ -76,7 +77,7 @@ public class AccessPassService {
     return accessPassRepository.get(accessPassCode);
   }
 
-  public AccessPass getAccessPassByLicensePlate(LicensePlate licensePlate) {
+  public List<AccessPass> getAccessPassByLicensePlate(LicensePlate licensePlate) {
     return accessPassRepository.get(licensePlate);
   }
 }

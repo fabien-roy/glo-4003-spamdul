@@ -15,9 +15,9 @@ public class GateEntryResourceImplementation implements GateEntryResource {
   }
 
   @Override
-  public Response validateAccessPass(DayOfWeekDto dayOfWeekDto, String accessPassCode) {
+  public Response validateAccessPassWithCode(DayOfWeekDto dayOfWeekDto, String accessPassCode) {
     AccessStatusDto accessStatusDto =
-        gateEntryService.validateAccessPass(dayOfWeekDto, accessPassCode);
+        gateEntryService.validateAccessPassWithCode(dayOfWeekDto, accessPassCode);
 
     Response.Status status =
         accessStatusDto.accessStatus.equals(AccessStatus.ACCESS_GRANTED.toString())
@@ -27,10 +27,11 @@ public class GateEntryResourceImplementation implements GateEntryResource {
     return Response.status(status).entity(accessStatusDto).type(MediaType.APPLICATION_JSON).build();
   }
 
-  // TODO: validateAccessPass?
   @Override
-  public Response validateCar(DayOfWeekDto dayOfWeekDto, String licensePlate) {
-    AccessStatusDto accessStatusDto = gateEntryService.validateCar(dayOfWeekDto, licensePlate);
+  public Response validateAccessPassWithLicensePlate(
+      DayOfWeekDto dayOfWeekDto, String licensePlate) {
+    AccessStatusDto accessStatusDto =
+        gateEntryService.validateAccessPassWithLicensePlate(dayOfWeekDto, licensePlate);
 
     Response.Status status =
         accessStatusDto.accessStatus.equals(AccessStatus.ACCESS_GRANTED.toString())

@@ -10,6 +10,8 @@ import ca.ulaval.glo4003.gateentries.assemblers.DayOfWeekAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class GateEntryService {
@@ -30,8 +32,8 @@ public class GateEntryService {
     this.licensePlateAssembler = licensePlateAssembler;
   }
 
-  // TODO: refator ? validateAccessPassWithCode
-  public AccessStatusDto validateAccessPass(DayOfWeekDto dayOfWeekDto, String accessPassCode) {
+  public AccessStatusDto validateAccessPassWithCode(
+      DayOfWeekDto dayOfWeekDto, String accessPassCode) {
     logger.info(String.format("Validate access pass code %s", accessPassCode));
 
     DayOfWeek dayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
@@ -42,17 +44,30 @@ public class GateEntryService {
     return accessStatusAssembler.assemble(accessStatus);
   }
 
-  // TODO refactor ? validateCar
-  public AccessStatusDto validateCar(DayOfWeekDto dayOfWeekDto, String licensePlate) {
+  public AccessStatusDto validateAccessPassWithLicensePlate(
+      DayOfWeekDto dayOfWeekDto, String licensePlate) {
     logger.info(String.format("Validate for license plate %s", licensePlate));
+    List<AccessStatus> accessStatuses = new ArrayList<>();
 
     DayOfWeek dayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
     LicensePlate licensePlateAssembled = licensePlateAssembler.assemble(licensePlate);
-    AccessPass accessPass = accessPassService.getAccessPassByLicensePlate(licensePlateAssembled);
+    List<AccessPass> accessPasses =
+        accessPassService.getAccessPassByLicensePlate(licensePlateAssembled);
 
-    AccessStatus accessStatus = getAccessStatus(dayOfWeek, accessPass);
+    for (AccessPass accessPass : accessPasses) {
+      AccessStatus fak = getAccessStatus(dayOfWeek, accessPass);
+      accessStatuses.add(fak);
+    }
 
-    return accessStatusAssembler.assemble(accessStatus);
+    boolean isAccessStatusGranted =
+        accessStatuses.stream()
+            .anyMatch(accessStatus -> accessStatus.equals(AccessStatus.ACCESS_GRANTED));
+
+    if (isAccessStatusGranted) {
+      return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED);
+    }
+
+    return accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED);
   }
 
   private AccessStatus getAccessStatus(DayOfWeek dayOfWeek, AccessPass accessPass) {

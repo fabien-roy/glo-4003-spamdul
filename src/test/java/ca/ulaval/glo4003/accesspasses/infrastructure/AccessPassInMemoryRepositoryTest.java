@@ -7,6 +7,8 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassRepository;
 import ca.ulaval.glo4003.accesspasses.exceptions.NotFoundAccessPassException;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,11 +46,13 @@ public class AccessPassInMemoryRepositoryTest {
 
   @Test
   public void givenSavedAccessPass_whenGettingAccessPassWithLicensePlate_thenReturnAccessPass() {
+    List<AccessPass> accessPassInList = new ArrayList<>();
+    accessPassInList.add(accessPass);
     accessPassRepository.save(accessPass);
 
-    AccessPass receivedAccessPass = accessPassRepository.get(accessPass.getLicensePlate());
+    List<AccessPass> receivedAccessPasses = accessPassRepository.get(accessPass.getLicensePlate());
 
-    assertThat(receivedAccessPass).isEqualTo(accessPass);
+    assertThat(receivedAccessPasses).isEqualTo(accessPassInList);
   }
 
   @Test(expected = NotFoundAccessPassException.class)

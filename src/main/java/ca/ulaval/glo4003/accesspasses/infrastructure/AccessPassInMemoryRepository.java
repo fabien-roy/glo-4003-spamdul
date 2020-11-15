@@ -6,27 +6,23 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPassRepository;
 import ca.ulaval.glo4003.accesspasses.exceptions.NotFoundAccessPassException;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AccessPassInMemoryRepository implements AccessPassRepository {
-  private HashMap<AccessPassCode, AccessPass> accessPassesByCode = new HashMap<>();
-  private HashMap<LicensePlate, AccessPass> accessPassesByLicense = new HashMap<>();
+  private HashMap<AccessPassCode, AccessPass> accessPasses = new HashMap<>();
 
   @Override
   public AccessPassCode save(AccessPass accessPass) {
-    accessPassesByCode.put(accessPass.getCode(), accessPass);
-
-    // TODO should have something to represent null license plate for accessPass instead of null
-    // value
-    if (!accessPass.getLicensePlate().equals(null)) {
-      accessPassesByLicense.put(accessPass.getLicensePlate(), accessPass);
-    }
+    accessPasses.put(accessPass.getCode(), accessPass);
 
     return accessPass.getCode();
   }
 
   @Override
   public AccessPass get(AccessPassCode code) {
-    AccessPass accessPass = accessPassesByCode.get(code);
+    AccessPass accessPass = accessPasses.get(code);
 
     if (accessPass == null) throw new NotFoundAccessPassException();
 
@@ -34,11 +30,15 @@ public class AccessPassInMemoryRepository implements AccessPassRepository {
   }
 
   @Override
-  public AccessPass get(LicensePlate licensePlate) {
-    AccessPass accessPass = accessPassesByLicense.get(licensePlate);
+  public List<AccessPass> get(LicensePlate licensePlate) {
+    List<AccessPass> accessPassesFound =
+        accessPasses.entrySet().stream()
+            .filter(accessPass -> accessPass.getValue().getLicensePlate().equals(licensePlate))
+            .map(Map.Entry::getValue)
+            .collect(Collectors.toList());
 
-    if (accessPass == null) throw new NotFoundAccessPassException();
+    if (accessPassesFound.isEmpty()) throw new NotFoundAccessPassException();
 
-    return accessPass;
+    return accessPassesFound;
   }
 }
