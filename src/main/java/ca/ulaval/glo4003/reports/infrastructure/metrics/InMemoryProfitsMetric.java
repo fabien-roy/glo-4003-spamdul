@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.reports.domain.ReportEvent;
 import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetric;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
-
 import java.util.List;
 
 public class InMemoryProfitsMetric extends ReportMetric {

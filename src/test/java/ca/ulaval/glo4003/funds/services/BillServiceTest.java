@@ -214,6 +214,19 @@ public class BillServiceTest {
 
   @Test
   public void
+      givenBillTypeParkingSticker_whenPayingBill_thenReportBillPaidForParkingStickerEvent() {
+    Bill parkingBill =
+        aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.PARKING_STICKER).build();
+    when(billRepository.getBill(parkingBill.getId())).thenReturn(parkingBill);
+
+    billService.payBill(parkingBill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(reportService).addBillPaidForParkingStickerEvent(amountDue);
+  }
+
+  @Test
+  public void
       givenBillTypeAccessPass_whenPayingBill_thenSustainableMobilityProgramBankRepositoryIsCalled() {
     Bill accessPassBill =
         aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.ACCESS_PASS).build();
@@ -223,6 +236,19 @@ public class BillServiceTest {
     bill.pay(amountDue);
 
     verify(sustainableMobilityProgramBankRepository).add(amountKeptForSustainabilityProgram);
+  }
+
+  @Test
+  public void givenBillTypeAccessPass_whenPayingBill_thenReportBillPaidForAccessPassEvent() {
+    Bill accessPassBill =
+        aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.ACCESS_PASS).build();
+    when(billRepository.getBill(accessPassBill.getId())).thenReturn(accessPassBill);
+
+    billService.payBill(accessPassBill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(reportService)
+        .addBillPaidForAccessPassEvent(amountDue, accessPassBill.getConsumptionType().get());
   }
 
   @Test
@@ -239,7 +265,20 @@ public class BillServiceTest {
   }
 
   @Test
-  public void whenGettingAllBills_thenRepositoryIscalled() {
+  public void givenBillTypeOffense_whenPayingBill_thenReportBillPaidForOffenseEvent() {
+    Bill offenseBill =
+        aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.OFFENSE).build();
+    when(billRepository.getBill(offenseBill.getId())).thenReturn(offenseBill);
+
+    billService.payBill(offenseBill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(reportService).addBillPaidForOffenseEvent(amountDue);
+  }
+
+  // TODO : This verify doesn't really test the logic
+  @Test
+  public void whenGettingAllBills_thenRepositoryIsCalled() {
     billService.getAllBillsByQueryParams(params);
 
     verify(billRepository).getAll(billQuery);

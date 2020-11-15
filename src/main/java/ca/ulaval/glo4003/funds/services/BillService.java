@@ -127,16 +127,18 @@ public class BillService {
     return billsByConsumptionsTypeAssembler.assemble(bills);
   }
 
-  // TODO #246 : Test reportBillPaidEvent
   private void reportBillPaidEvent(Bill bill, Money amountToPay) {
     switch (bill.getBillType()) {
       case PARKING_STICKER:
         reportService.addBillPaidForParkingStickerEvent(amountToPay);
+        break;
       case ACCESS_PASS:
         reportService.addBillPaidForAccessPassEvent(amountToPay, bill.getConsumptionType().get());
+        break;
       default:
       case OFFENSE:
         reportService.addBillPaidForOffenseEvent(amountToPay);
+        break;
     }
   }
 }
