@@ -13,9 +13,9 @@ public class TimePeriod {
     this.end = end;
   }
 
-  // TODO : TimePeriod.fromYear
+  // TODO : TimePeriod.fromYear (this logic is not correct)
   public static TimePeriod fromYear(int year) {
-    return null;
+    return new TimeYear(CustomDateTime.now()).toPeriod();
   }
 
   public CustomDateTime getStart() {

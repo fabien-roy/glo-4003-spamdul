@@ -15,19 +15,19 @@ public class ReportMetricDataAssembler {
   }
 
   private ReportMetricDataDto assembleOne(ReportMetricData data) {
-    String name = data.getType().toString();
+    String name = data.getType().toString().toLowerCase();
     Object value = data.getValue();
 
     switch (data.getValueType()) {
       case DOUBLE:
-        return assembleDoubleReportMetricDataDto(name, (double) value);
+        return assembleDoubleReportMetricDataDto(name, (Double) value);
       default:
       case INTEGER:
         return assembleIntegerReportMetricDataDto(name, (int) value);
     }
   }
 
-  private ReportMetricDataDto assembleDoubleReportMetricDataDto(String name, double value) {
+  private ReportMetricDataDto assembleDoubleReportMetricDataDto(String name, Double value) {
     DoubleReportMetricDataDto reportMetricDataDto = new DoubleReportMetricDataDto();
     reportMetricDataDto.name = name;
     reportMetricDataDto.value = value;
