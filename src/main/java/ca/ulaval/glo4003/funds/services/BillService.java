@@ -12,6 +12,8 @@ import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
+import ca.ulaval.glo4003.reports.services.ReportService;
+
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -22,6 +24,7 @@ public class BillService {
   private final BillRepository<BillQuery> billRepository;
   private final BillAssembler billAssembler;
   private final BillQueryFactory billQueryFactory;
+  private final ReportService reportService;
 
   private final SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
   private final SustainableMobilityProgramAllocationCalculator
@@ -33,6 +36,7 @@ public class BillService {
       BillRepository<BillQuery> billRepository,
       BillAssembler billAssembler,
       BillQueryFactory billQueryFactory,
+      ReportService reportService,
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository,
       SustainableMobilityProgramAllocationCalculator sustainableMobilityProgramAllocationCalculator,
       BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler) {
@@ -40,6 +44,7 @@ public class BillService {
     this.billRepository = billRepository;
     this.billAssembler = billAssembler;
     this.billQueryFactory = billQueryFactory;
+    this.reportService = reportService;
     this.sustainableMobilityProgramBankRepository = sustainableMobilityProgramBankRepository;
     this.sustainableMobilityProgramAllocationCalculator =
         sustainableMobilityProgramAllocationCalculator;
@@ -92,6 +97,8 @@ public class BillService {
     bill.pay(amountToPay);
     billRepository.updateBill(bill);
 
+    reportBillPaidEvent(bill, amountToPay);
+
     if (bill.isBillTypeEqual(BillType.ACCESS_PASS)
         || bill.isBillTypeEqual(BillType.PARKING_STICKER)) {
       sustainableMobilityProgramBankRepository.add(
@@ -109,13 +116,28 @@ public class BillService {
     return billRepository.getBill(billId);
   }
 
+  // TODO #246 : Remove getAllBillsByQueryParams
   public List<Bill> getAllBillsByQueryParams(BillQueryParams billQueryParams) {
     return billRepository.getAll(billQueryFactory.create(billQueryParams));
   }
 
+  // TODO #246 : Remove getAllBillsConsumptionsType
   public BillsByConsumptionTypes getBillsByConsumptionsType(BillQueryParams billQueryParams) {
     List<Bill> bills = getAllBillsByQueryParams(billQueryParams);
 
     return billsByConsumptionsTypeAssembler.assemble(bills);
+  }
+
+  // TODO #246 : Test reportBillPaidEvent
+  private void reportBillPaidEvent(Bill bill, Money amountToPay) {
+    switch (bill.getBillType()) {
+      case PARKING_STICKER:
+        reportService.addBillPaidForParkingStickerEvent(amountToPay);
+      case ACCESS_PASS:
+        reportService.addBillPaidForAccessPassEvent(amountToPay, bill.getConsumptionType().get());
+      default:
+      case OFFENSE:
+        reportService.addBillPaidForOffenseEvent(amountToPay);
+    }
   }
 }

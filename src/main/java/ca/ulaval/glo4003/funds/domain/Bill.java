@@ -62,7 +62,7 @@ public class Bill {
     return id;
   }
 
-  public BillType getBillTypes() {
+  public BillType getBillType() {
     return billType;
   }
 

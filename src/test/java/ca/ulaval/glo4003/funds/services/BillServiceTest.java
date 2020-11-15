@@ -66,7 +66,7 @@ public class BillServiceTest {
             billRepository,
             billAssembler,
             billQueryFactory,
-            sustainableMobilityProgramBankRepository,
+                reportService, sustainableMobilityProgramBankRepository,
             sustainableMobilityProgramAllocationCalculator,
             billsByConsumptionsTypeAssembler);
 

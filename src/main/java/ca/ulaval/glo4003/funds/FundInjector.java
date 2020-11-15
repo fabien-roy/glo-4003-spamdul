@@ -43,7 +43,7 @@ public class FundInjector {
         billRepository,
         new BillAssembler(),
         billQueryFactory,
-        sustainableMobilityProgramBankRepository,
+            reportService, sustainableMobilityProgramBankRepository,
         sustainableMobilityProgramAllocationCalculator,
         new BillsByConsumptionsTypeAssembler());
   }

@@ -14,7 +14,7 @@ public class BillAssembler {
   public BillDto assemble(Bill bill) {
     BillDto billDto = new BillDto();
     billDto.billId = bill.getId().toString();
-    billDto.billType = bill.getBillTypes().toString();
+    billDto.billType = bill.getBillType().toString();
     billDto.description = bill.getDescription();
     billDto.amountDue = bill.getAmountDue().toDouble();
     billDto.amountPaid = bill.getAmountPaid().toDouble();
