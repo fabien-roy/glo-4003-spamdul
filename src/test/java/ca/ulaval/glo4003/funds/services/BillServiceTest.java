@@ -13,9 +13,7 @@ import static org.mockito.Mockito.*;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
-import ca.ulaval.glo4003.funds.assemblers.BillsByConsumptionsTypeAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
-import ca.ulaval.glo4003.funds.domain.queryparams.BillQueryParams;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
@@ -33,13 +31,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class BillServiceTest {
 
   @Mock BillFactory billFactory;
-  @Mock BillRepository<BillQuery> billRepository;
+  @Mock BillRepository billRepository;
   @Mock BillAssembler billAssembler;
-  @Mock BillQueryFactory billQueryFactory;
-  @Mock BillQuery billQuery;
-  @Mock BillProfitsCalculator billProfitsCalculator;
+  @Mock BillPriceCalculator billPriceCalculator;
   @Mock SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
-  @Mock private BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler;
   @Mock private ReportService reportService;
 
   @Mock
@@ -58,7 +53,6 @@ public class BillServiceTest {
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final ConsumptionType consumptionType = createConsumptionType();
   private final OffenseCode offenseCode = createOffenseCode();
-  private final BillQueryParams params = new BillQueryParams();
 
   @Before
   public void setUp() {
@@ -67,18 +61,15 @@ public class BillServiceTest {
             billFactory,
             billRepository,
             billAssembler,
-            billQueryFactory,
             reportService,
             sustainableMobilityProgramBankRepository,
-            sustainableMobilityProgramAllocationCalculator,
-            billsByConsumptionsTypeAssembler);
+            sustainableMobilityProgramAllocationCalculator);
 
     Map<ParkingPeriod, Money> feePerPeriod = new HashMap<>();
     feePerPeriod.put(ParkingPeriod.ONE_DAY, parkingPeriodFee);
     parkingArea = aParkingArea().withFeePerPeriod(feePerPeriod).build();
 
-    List<Bill> bills = new ArrayList<>();
-    bills.add(bill);
+    List<Bill> bills = Collections.singletonList(bill);
 
     when(billFactory.createForParkingSticker(
             parkingPeriodFee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
@@ -90,11 +81,9 @@ public class BillServiceTest {
         .thenReturn(bill);
     when(billFactory.createForAccessPass(fee, accessPassCode, consumptionType)).thenReturn(bill);
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
-    when(billQueryFactory.create(params)).thenReturn(billQuery);
     when(billRepository.getBill(bill.getId())).thenReturn(bill);
-    when(billRepository.getAll(billQuery)).thenReturn(bills);
-    when(billProfitsCalculator.calculateTotalPrice(bills)).thenReturn(fee);
-    when(billProfitsCalculator.calculatePaidPrice(bills)).thenReturn(fee);
+    when(billPriceCalculator.calculateTotalPrice(bills)).thenReturn(fee);
+    when(billPriceCalculator.calculatePaidPrice(bills)).thenReturn(fee);
     when(sustainableMobilityProgramAllocationCalculator.calculate(amountDue))
         .thenReturn(amountKeptForSustainabilityProgram);
   }
@@ -274,13 +263,5 @@ public class BillServiceTest {
     bill.pay(amountDue);
 
     verify(reportService).addBillPaidForOffenseEvent(amountDue);
-  }
-
-  // TODO : This verify doesn't really test the logic
-  @Test
-  public void whenGettingAllBills_thenRepositoryIsCalled() {
-    billService.getAllBillsByQueryParams(params);
-
-    verify(billRepository).getAll(billQuery);
   }
 }

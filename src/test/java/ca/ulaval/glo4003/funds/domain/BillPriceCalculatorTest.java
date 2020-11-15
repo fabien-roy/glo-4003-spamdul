@@ -1,20 +1,17 @@
-package ca.ulaval.glo4003.funds.services;
+package ca.ulaval.glo4003.funds.domain;
 
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoneyBelowAmount;
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.funds.domain.Bill;
-import ca.ulaval.glo4003.funds.domain.BillProfitsCalculator;
-import ca.ulaval.glo4003.funds.domain.Money;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BillProfitsCalculatorTest {
+public class BillPriceCalculatorTest {
 
-  private BillProfitsCalculator billProfitsCalculator;
+  private BillPriceCalculator billPriceCalculator;
   private Bill bill = aBill().build();
   private Bill anotherBill = aBill().build();
   private final List<Bill> bills = new ArrayList<>();
@@ -22,7 +19,7 @@ public class BillProfitsCalculatorTest {
 
   @Before
   public void setUp() {
-    billProfitsCalculator = new BillProfitsCalculator();
+    billPriceCalculator = new BillPriceCalculator();
     anotherBill.pay(createMoneyBelowAmount(anotherBill.getAmountDue()));
 
     bills.add(bill);
@@ -33,7 +30,7 @@ public class BillProfitsCalculatorTest {
   public void whenCalculatingPaidProfits_thenShouldReturnCorrectAmount() {
     expectedAmount = expectedAmount.plus(anotherBill.getAmountPaid());
 
-    Money profits = billProfitsCalculator.calculatePaidPrice(bills);
+    Money profits = billPriceCalculator.calculatePaidPrice(bills);
 
     assertThat(profits.toDouble()).isEqualTo(expectedAmount.toDouble());
   }
@@ -44,7 +41,7 @@ public class BillProfitsCalculatorTest {
     expectedAmount = expectedAmount.plus(anotherBill.getAmountDue());
     expectedAmount = expectedAmount.plus(bill.getAmountDue());
 
-    Money profits = billProfitsCalculator.calculateTotalPrice(bills);
+    Money profits = billPriceCalculator.calculateTotalPrice(bills);
 
     assertThat(profits.toDouble()).isEqualTo(expectedAmount.toDouble());
   }
