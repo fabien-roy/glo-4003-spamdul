@@ -62,7 +62,6 @@ public class ReportService {
     return reportPeriodAssembler.assembleMany(periods);
   }
 
-  // TODO #246 : Test addBillPaidForParkingStickerEvent
   public void addBillPaidForParkingStickerEvent(Money profits) {
     logger.info(
         String.format(
@@ -74,7 +73,6 @@ public class ReportService {
     reportRepository.addEvent(reportEvent);
   }
 
-  // TODO #246 : Test addBillPaidForAccessPassEvent
   public void addBillPaidForAccessPassEvent(Money profits, ConsumptionType consumptionType) {
     logger.info(
         String.format(
@@ -86,7 +84,6 @@ public class ReportService {
     reportRepository.addEvent(reportEvent);
   }
 
-  // TODO #246 : Test addBillPaidForOffenseEvent
   public void addBillPaidForOffenseEvent(Money profits) {
     logger.info(
         String.format(
