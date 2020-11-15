@@ -6,4 +6,6 @@ public interface ReportMetricData<T> {
   ReportMetricType getType();
 
   T getValue();
+
+  ReportMetricValueType getValueType();
 }

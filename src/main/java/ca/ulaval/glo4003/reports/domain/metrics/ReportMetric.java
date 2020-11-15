@@ -7,6 +7,8 @@ public abstract class ReportMetric<T> {
 
   public abstract ReportMetricType getType();
 
+  public abstract ReportMetricValueType getValueType();
+
   public abstract void calculate(ReportPeriodData data);
 
   protected ReportMetricData<T> toMetricData(T value) {
@@ -19,6 +21,11 @@ public abstract class ReportMetric<T> {
       @Override
       public T getValue() {
         return value;
+      }
+
+      @Override
+      public ReportMetricValueType getValueType() {
+        return ReportMetric.this.getValueType();
       }
     };
   }

@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.reports.domain.ReportEvent;
 import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetric;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
+import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricValueType;
 import java.util.List;
 
 public class InMemoryProfitsMetric extends ReportMetric<Double> {
@@ -12,6 +13,11 @@ public class InMemoryProfitsMetric extends ReportMetric<Double> {
   @Override
   public ReportMetricType getType() {
     return ReportMetricType.PROFITS;
+  }
+
+  @Override
+  public ReportMetricValueType getValueType() {
+    return ReportMetricValueType.DOUBLE;
   }
 
   @Override
