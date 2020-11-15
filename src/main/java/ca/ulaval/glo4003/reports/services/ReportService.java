@@ -33,12 +33,10 @@ public class ReportService {
     this.reportEventFactory = reportEventFactory;
   }
 
-  // TODO #246 : Test ReportService.getAllProfits
   public List<ReportPeriodDto> getAllProfits(ReportEventType reportEventType, int year) {
     return getAllProfits(reportEventType, year, false);
   }
 
-  // TODO #246 : Test ReportService.getAllProfits
   public List<ReportPeriodDto> getAllProfits(
       ReportEventType reportEventType, int year, boolean isByConsumptionType) {
     logger.info(
