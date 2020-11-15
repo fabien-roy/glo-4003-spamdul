@@ -16,11 +16,11 @@ public class InMemoryProfitsMetric extends ReportMetric<Double> {
 
   @Override
   public void calculate(ReportPeriodData data) {
-    Money profits = sumProfits(data.getEvents());
+    Money profits = calculateTotalProfits(data.getEvents());
     data.addMetric(toMetricData(profits.toDouble()));
   }
 
-  public Money sumProfits(List<ReportEvent> events) {
+  private Money calculateTotalProfits(List<ReportEvent> events) {
     Money profits = Money.zero();
 
     for (ReportEvent event : events) profits = profits.plus(event.getProfits());
