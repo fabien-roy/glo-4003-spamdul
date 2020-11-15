@@ -44,12 +44,6 @@ public class CustomDateTime {
     return dateTime.isAfter(other.toLocalDateTime());
   }
 
-  // TODO : Pretty sure this will be useless when bill reporting will be refactored.
-  @Deprecated
-  public int getIntYear() {
-    return dateTime.getYear();
-  }
-
   @Override
   public String toString() {
     return dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
