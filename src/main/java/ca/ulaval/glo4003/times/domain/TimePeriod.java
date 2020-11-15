@@ -13,11 +13,6 @@ public class TimePeriod {
     this.end = end;
   }
 
-  // TODO #246 : TimePeriod.fromYear (this logic is not correct)
-  public static TimePeriod fromYear(int year) {
-    return new TimeYear(CustomDateTime.now()).toPeriod();
-  }
-
   public CustomDateTime getStart() {
     return start;
   }

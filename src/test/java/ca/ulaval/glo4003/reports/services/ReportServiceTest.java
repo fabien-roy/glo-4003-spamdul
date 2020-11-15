@@ -16,7 +16,7 @@ import ca.ulaval.glo4003.reports.domain.*;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
-import ca.ulaval.glo4003.times.domain.TimePeriod;
+import ca.ulaval.glo4003.times.domain.TimeYear;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -117,7 +117,8 @@ public class ReportServiceTest {
   }
 
   private void setUpReportQueryBuilderForProfits(List<ReportDimensionType> dimensions) {
-    when(reportQueryBuilder.withPeriod(TimePeriod.fromYear(year))).thenReturn(reportQueryBuilder);
+    when(reportQueryBuilder.withPeriod(new TimeYear(year).toPeriod()))
+        .thenReturn(reportQueryBuilder);
     when(reportQueryBuilder.withScope(ReportScopeType.YEARLY)).thenReturn(reportQueryBuilder);
     when(reportQueryBuilder.withMetrics(Collections.singletonList(ReportMetricType.PROFITS)))
         .thenReturn(reportQueryBuilder);

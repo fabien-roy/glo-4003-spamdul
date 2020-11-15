@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.reports.domain.ReportEventFactory;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
-import ca.ulaval.glo4003.times.domain.TimePeriod;
+import ca.ulaval.glo4003.times.domain.TimeYear;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
@@ -46,7 +46,7 @@ public class ReportService {
         reportQueryBuilder
             .aReportQuery()
             .withReportEventType(reportEventType)
-            .withPeriod(TimePeriod.fromYear(year))
+            .withPeriod(new TimeYear(year).toPeriod())
             .withScope(ReportScopeType.YEARLY)
             .withMetrics(Collections.singletonList(ReportMetricType.PROFITS))
             .withDimensions(
