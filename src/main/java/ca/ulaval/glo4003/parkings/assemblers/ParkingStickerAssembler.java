@@ -39,8 +39,7 @@ public class ParkingStickerAssembler {
     ParkingAreaCode parkingAreaCode =
         parkingAreaCodeAssembler.assemble(parkingStickerDto.parkingArea);
 
-    ParkingPeriod parkingPeriod =
-        parkingPeriodAssembler.assemble(parkingStickerDto.parkingPeriod); // TODO test
+    ParkingPeriod parkingPeriod = parkingPeriodAssembler.assemble(parkingStickerDto.parkingPeriod);
     ReceptionMethod receptionMethod = ReceptionMethod.get(parkingStickerDto.receptionMethod);
 
     switch (receptionMethod) {
@@ -53,8 +52,7 @@ public class ParkingStickerAssembler {
               accountId, parkingAreaCode, receptionMethod, postalCode, parkingPeriod);
         }
       case SSP:
-        return new ParkingSticker(
-            accountId, parkingAreaCode, receptionMethod, parkingPeriod); // TODO test
+        return new ParkingSticker(accountId, parkingAreaCode, receptionMethod, parkingPeriod);
       default:
       case EMAIL:
         if (parkingStickerDto.email == null) {

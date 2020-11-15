@@ -23,6 +23,6 @@ public class ParkingPeriodAssembler {
   }
 
   public ParkingPeriod assemble(String parkingPeriod) {
-    return ParkingPeriod.get(parkingPeriod); // TODO test
+    return ParkingPeriod.get(parkingPeriod);
   }
 }

@@ -59,4 +59,13 @@ public class ParkingPeriodAssemblerTest {
 
     assertThat(parkingPeriod).isEqualTo(ParkingPeriod.THREE_SESSIONS);
   }
+
+  @Test
+  public void givenParkingPeriod_whenAssembling_thenReturnParkingPeriod() {
+    String anyParkingPeriod = "monthly";
+
+    ParkingPeriod parkingPeriod = parkingPeriodAssembler.assemble(anyParkingPeriod);
+
+    assertThat(parkingPeriod).isEqualTo(ParkingPeriod.MONTHLY);
+  }
 }

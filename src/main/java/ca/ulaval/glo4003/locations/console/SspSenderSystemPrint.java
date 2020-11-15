@@ -8,8 +8,6 @@ public class SspSenderSystemPrint implements SspSender {
   private static final String PARKING_STICKER_CREATION_MESSAGE =
       "Your SPAMD-UL parking sticker code is %s";
 
-  // TODO TEST
-
   @Override
   public void sendSSP(String message) {
     System.out.println(message);
