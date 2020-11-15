@@ -14,7 +14,7 @@ public class ReportDimensionDataAssembler {
 
   private ReportDimensionDataDto assembleOne(ReportDimensionData data) {
     ReportDimensionDataDto reportDimensionDataDto = new ReportDimensionDataDto();
-    reportDimensionDataDto.name = data.getType().toString().toLowerCase();
+    reportDimensionDataDto.name = data.getType().name();
     reportDimensionDataDto.value = data.getValue().toString();
     return reportDimensionDataDto;
   }
