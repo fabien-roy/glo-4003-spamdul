@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricData;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO #246 : Test ReportMetricDataAssembler
 public class ReportMetricDataAssembler {
 
   public List<ReportMetricDataDto> assembleMany(List<ReportMetricData> metrics) {
