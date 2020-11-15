@@ -55,8 +55,7 @@ public class GateEntryService {
         accessPassService.getAccessPassesByLicensePlate(licensePlateAssembled);
 
     for (AccessPass accessPass : accessPasses) {
-      AccessStatus fak = getAccessStatus(dayOfWeek, accessPass);
-      accessStatuses.add(fak);
+      accessStatuses.add(getAccessStatus(dayOfWeek, accessPass));
     }
 
     boolean isAccessStatusGranted =
