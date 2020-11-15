@@ -4,13 +4,14 @@ import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDto;
 import ca.ulaval.glo4003.reports.assemblers.ReportPeriodAssembler;
-import ca.ulaval.glo4003.reports.domain.ReportPeriod;
-import ca.ulaval.glo4003.reports.domain.ReportQuery;
-import ca.ulaval.glo4003.reports.domain.ReportQueryBuilder;
-import ca.ulaval.glo4003.reports.domain.ReportRepository;
+import ca.ulaval.glo4003.reports.domain.*;
+import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
+import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
+import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
+import ca.ulaval.glo4003.times.domain.TimePeriod;
+import java.util.Collections;
 import java.util.List;
 
-// TODO #246 : Test report service
 public class ReportService {
 
   private final ReportRepository reportRepository;
@@ -26,14 +27,29 @@ public class ReportService {
     this.reportPeriodAssembler = reportPeriodAssembler;
   }
 
-  public List<ReportPeriodDto> getAllProfits(int year) {
-    return getAllProfits(year, false);
+  // TODO #246 : Test ReportService.getAll
+  public List<ReportPeriodDto> getAllProfits(ReportEventType reportEventType, int year) {
+    return getAllProfits(reportEventType, year, false);
   }
 
-  public List<ReportPeriodDto> getAllProfits(int year, boolean isByConsumptionType) {
+  // TODO #246 : Test ReportService.getAll
+  public List<ReportPeriodDto> getAllProfits(
+      ReportEventType reportEventType, int year, boolean isByConsumptionType) {
     ReportQuery reportQuery =
-        reportQueryBuilder.aReportQuery().build(); // TODO #246 : Use correctly query builder
+        reportQueryBuilder
+            .aReportQuery()
+            .withReportEventType(reportEventType)
+            .withPeriod(TimePeriod.fromYear(year))
+            .withScope(ReportScopeType.YEARLY)
+            .withMetrics(Collections.singletonList(ReportMetricType.PROFITS))
+            .withDimensions(
+                isByConsumptionType
+                    ? Collections.singletonList(ReportDimensionType.CONSUMPTION_TYPE)
+                    : Collections.emptyList())
+            .build();
+
     List<ReportPeriod> periods = reportRepository.getPeriods(reportQuery);
+
     return reportPeriodAssembler.assembleMany(periods);
   }
 

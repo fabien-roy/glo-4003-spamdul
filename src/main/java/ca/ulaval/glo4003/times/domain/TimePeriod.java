@@ -13,6 +13,11 @@ public class TimePeriod {
     this.end = end;
   }
 
+  // TODO : TimePeriod.fromYear
+  public static TimePeriod fromYear(int year) {
+    return null;
+  }
+
   public CustomDateTime getStart() {
     return start;
   }
