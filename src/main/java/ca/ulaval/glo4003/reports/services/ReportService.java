@@ -53,11 +53,11 @@ public class ReportService {
     return reportPeriodAssembler.assembleMany(periods);
   }
 
-  public void addPaymentEvent(Money payment) {
+  public void addBillPaymentEvent(Money payment) {
     // TODO #246
   }
 
-  public void addPaymentEvent(Money payment, ConsumptionType consumptionType) {
+  public void addBillPaymentEvent(Money payment, ConsumptionType consumptionType) {
     // TODO #246
   }
 }
