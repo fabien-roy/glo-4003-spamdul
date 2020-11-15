@@ -12,6 +12,7 @@ import ca.ulaval.glo4003.funds.infrastructure.BillQueryBuilderInMemory;
 import ca.ulaval.glo4003.funds.infrastructure.BillRepositoryInMemory;
 import ca.ulaval.glo4003.funds.infrastructure.SustainableMobilityProgramBankRepositoryInMemory;
 import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.reports.services.ReportService;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class FundInjector {
       sustainableMobilityProgramAllocationCalculator =
           new SustainableMobilityProgramAllocationCalculator();
 
-  public BillService createBillService() {
+  public BillService createBillService(ReportService reportService) {
     Set<BillQueryParamAssembler> billQueryParamAssemblers = new HashSet<>();
     billQueryParamAssemblers.add(billTypeQueryParamAssembler);
     billQueryParamAssemblers.add(yearQueryParamAssembler);
@@ -43,7 +44,8 @@ public class FundInjector {
         billRepository,
         new BillAssembler(),
         billQueryFactory,
-            reportService, sustainableMobilityProgramBankRepository,
+        reportService,
+        sustainableMobilityProgramBankRepository,
         sustainableMobilityProgramAllocationCalculator,
         new BillsByConsumptionsTypeAssembler());
   }

@@ -2,15 +2,14 @@ package ca.ulaval.glo4003.reports.services;
 
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.reports.ReportEventFactory;
 import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDto;
 import ca.ulaval.glo4003.reports.assemblers.ReportPeriodAssembler;
 import ca.ulaval.glo4003.reports.domain.*;
+import ca.ulaval.glo4003.reports.domain.ReportEventFactory;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
@@ -42,7 +41,8 @@ public class ReportService {
   // TODO #246 : Test ReportService.getAllProfits
   public List<ReportPeriodDto> getAllProfits(
       ReportEventType reportEventType, int year, boolean isByConsumptionType) {
-    logger.info(String.format("Getting report for %s at year %s", reportEventType.toString(), year));
+    logger.info(
+        String.format("Getting report for %s at year %s", reportEventType.toString(), year));
 
     ReportQuery reportQuery =
         reportQueryBuilder
@@ -64,7 +64,10 @@ public class ReportService {
 
   // TODO #246 : Test addBillPaidForParkingStickerEvent
   public void addBillPaidForParkingStickerEvent(Money profits) {
-    logger.info(String.format("Adding report event for paid parking sticker bill with %s profits", profits.toString()));
+    logger.info(
+        String.format(
+            "Adding report event for paid parking sticker bill with %s profits",
+            profits.toString()));
 
     ReportEvent reportEvent =
         reportEventFactory.create(ReportEventType.BILL_PAID_FOR_PARKING_STICKER, profits);
@@ -73,7 +76,9 @@ public class ReportService {
 
   // TODO #246 : Test addBillPaidForAccessPassEvent
   public void addBillPaidForAccessPassEvent(Money profits, ConsumptionType consumptionType) {
-    logger.info(String.format("Adding report event for paid access pass bill with %s profits", profits.toString()));
+    logger.info(
+        String.format(
+            "Adding report event for paid access pass bill with %s profits", profits.toString()));
 
     ReportEvent reportEvent =
         reportEventFactory.create(
@@ -83,7 +88,9 @@ public class ReportService {
 
   // TODO #246 : Test addBillPaidForOffenseEvent
   public void addBillPaidForOffenseEvent(Money profits) {
-    logger.info(String.format("Adding report event for paid offense bill with %s profits", profits.toString()));
+    logger.info(
+        String.format(
+            "Adding report event for paid offense bill with %s profits", profits.toString()));
 
     ReportEvent reportEvent =
         reportEventFactory.create(ReportEventType.BILL_PAID_FOR_OFFENSE, profits);

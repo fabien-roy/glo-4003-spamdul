@@ -24,6 +24,7 @@ public class ServerResourceConfig {
                 resources.add(APPLICATION_INJECTOR.createParkingAreaResource());
                 resources.add(APPLICATION_INJECTOR.createInitiativeResource());
                 resources.add(APPLICATION_INJECTOR.createProfitsResource());
+                resources.add(APPLICATION_INJECTOR.createReportResource());
                 return resources;
               }
 

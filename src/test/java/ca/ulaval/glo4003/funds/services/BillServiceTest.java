@@ -21,6 +21,7 @@ import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
+import ca.ulaval.glo4003.reports.services.ReportService;
 import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +40,7 @@ public class BillServiceTest {
   @Mock BillProfitsCalculator billProfitsCalculator;
   @Mock SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
   @Mock private BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler;
+  @Mock private ReportService reportService;
 
   @Mock
   SustainableMobilityProgramAllocationCalculator sustainableMobilityProgramAllocationCalculator;
@@ -66,7 +68,8 @@ public class BillServiceTest {
             billRepository,
             billAssembler,
             billQueryFactory,
-                reportService, sustainableMobilityProgramBankRepository,
+            reportService,
+            sustainableMobilityProgramBankRepository,
             sustainableMobilityProgramAllocationCalculator,
             billsByConsumptionsTypeAssembler);
 
