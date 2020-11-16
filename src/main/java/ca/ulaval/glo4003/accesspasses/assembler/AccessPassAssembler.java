@@ -28,6 +28,6 @@ public class AccessPassAssembler {
     } else {
       licensePlate = null;
     }
-    return new AccessPass(id, dayOfWeek, licensePlate);
+    return new AccessPass(id, dayOfWeek, licensePlate, false);
   }
 }

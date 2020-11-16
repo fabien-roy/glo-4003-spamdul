@@ -1,28 +1,42 @@
 package ca.ulaval.glo4003.reports.domain;
 
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
-import java.util.ArrayList;
+import ca.ulaval.glo4003.times.domain.TimePeriod;
+import java.util.Collections;
 import java.util.List;
 
 public class ReportPeriod {
-  // TODO : #248
-  // https://github.com/ExiledNarwal28/glo-2003-airbnb/blob/master/src/main/java/ca/ulaval/glo2003/reports/domain/ReportPeriod.java
+  private final String name;
+  private final TimePeriod period;
+  private List<ReportPeriodData> data;
+
+  public ReportPeriod(String name, TimePeriod period) {
+    this.name = name;
+    this.period = period;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public TimePeriod getPeriod() {
+    return period;
+  }
 
   public List<ReportPeriodData> getData() {
-    // TODO
-    return new ArrayList<>();
+    return data;
   }
 
   public void setData(List<ReportPeriodData> data) {
-    // TODO
+    this.data = data;
   }
 
-  public void setSingleData(List<ReportEvent> periodEvents) {
-    // TODO
+  public void setSingleData(List<ReportEvent> events) {
+    ReportPeriodData singleData = new ReportPeriodData(events);
+    this.data = Collections.singletonList(singleData);
   }
 
   public boolean contains(CustomDateTime dateTime) {
-    // TODO
-    return false;
+    return period.contains(dateTime);
   }
 }

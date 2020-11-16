@@ -50,4 +50,13 @@ public class PostalSenderSystemPrintTest {
 
     Truth.assertThat(outContent.toString()).isEmpty();
   }
+
+  @Test
+  public void givenSSPReceptionMethod_whenListeningParkingStickerCreation_thenDoNotPrintAnything() {
+    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethod.SSP).build();
+
+    postalSenderSystemPrint.listenParkingStickerCreated(parkingSticker);
+
+    Truth.assertThat(outContent.toString()).isEmpty();
+  }
 }

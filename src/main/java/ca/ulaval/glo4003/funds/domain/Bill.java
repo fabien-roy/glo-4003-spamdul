@@ -87,6 +87,6 @@ public class Bill {
   }
 
   public boolean isYearEqual(int year) {
-    return this.customDateTime.getYear() == year;
+    return this.customDateTime.getIntYear() == year;
   }
 }

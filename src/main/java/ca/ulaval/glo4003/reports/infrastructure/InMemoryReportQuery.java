@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.reports.domain.ReportQuery;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimension;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetric;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScope;
+import ca.ulaval.glo4003.reports.infrastructure.filters.InMemoryReportFilter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,13 +17,18 @@ public class InMemoryReportQuery implements ReportQuery {
   private final ReportScope scope;
   private final List<ReportMetric> metrics;
   private final List<ReportDimension> dimensions;
+  private final List<InMemoryReportFilter> filters;
   private List<ReportEvent> events;
 
   public InMemoryReportQuery(
-      ReportScope scope, List<ReportMetric> metrics, List<ReportDimension> dimensions) {
+      ReportScope scope,
+      List<ReportMetric> metrics,
+      List<ReportDimension> dimensions,
+      List<InMemoryReportFilter> filters) {
     this.scope = scope;
     this.metrics = metrics;
     this.dimensions = dimensions;
+    this.filters = filters;
   }
 
   public void setEvents(List<ReportEvent> events) {
@@ -41,11 +47,16 @@ public class InMemoryReportQuery implements ReportQuery {
     return dimensions;
   }
 
+  public List<InMemoryReportFilter> getFilters() {
+    return filters;
+  }
+
   public List<ReportPeriod> execute() {
     List<ReportPeriod> queriedPeriods = new ArrayList<>();
+    List<ReportEvent> filteredEvents = getFilteredEvents();
 
     for (ReportPeriod period : scope.getReportPeriods()) {
-      List<ReportEvent> periodEvents = getEventsForPeriod(period);
+      List<ReportEvent> periodEvents = getEventsForPeriod(filteredEvents, period);
       period.setSingleData(periodEvents);
 
       List<ReportPeriodData> data = splitDataInDimensions(period.getData());
@@ -58,7 +69,15 @@ public class InMemoryReportQuery implements ReportQuery {
     return queriedPeriods;
   }
 
-  private List<ReportEvent> getEventsForPeriod(ReportPeriod period) {
+  private List<ReportEvent> getFilteredEvents() {
+    List<ReportEvent> filteredEvents = events;
+
+    for (InMemoryReportFilter filter : filters) filteredEvents = filter.filter(filteredEvents);
+
+    return filteredEvents;
+  }
+
+  private List<ReportEvent> getEventsForPeriod(List<ReportEvent> events, ReportPeriod period) {
     return events.stream()
         .filter(event -> period.contains(event.getDateTime()))
         .collect(Collectors.toList());
