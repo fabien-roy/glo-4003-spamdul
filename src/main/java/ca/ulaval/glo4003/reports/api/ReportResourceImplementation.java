@@ -8,7 +8,6 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-// TODO : Test ReportResource
 public class ReportResourceImplementation implements ReportResource {
   private final ReportService reportService;
 
