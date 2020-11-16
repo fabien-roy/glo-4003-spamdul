@@ -79,6 +79,26 @@ public class GateEntryService {
     return accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED);
   }
 
+  public void exitWithAccessPass(String accessPassCode) {
+    AccessPass accessPass = accessPassService.getAccessPass(accessPassCode);
+    accessPass.exitCampus();
+  }
+
+  public void exitWithLicensePlate(String licensePlate, DayOfWeekDto dayOfWeekDto) {
+    // TODO : How the fuck do i get this?
+    LicensePlate licensePlateAssembled = licensePlateAssembler.assemble(licensePlate);
+    List<AccessPass> accessPasses =
+        accessPassService.getAccessPassesByLicensePlate(licensePlateAssembled);
+
+    // TODO : Trier selon la journée
+
+    // TODO : Trier en fonction de si ils sont "in-use"
+
+    // TODO : Si aucun...throw?
+
+    // Est-ce qu'on peut avoir plusieurs
+  }
+
   private AccessStatus getAccessStatus(DayOfWeek dayOfWeek, AccessPass accessPass) {
     return accessPass.validateAccessDay(dayOfWeek) && !accessPass.isAdmittedOnCampus()
         ? AccessStatus.ACCESS_GRANTED
