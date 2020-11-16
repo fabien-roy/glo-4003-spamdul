@@ -9,9 +9,22 @@ public class ReportEvent {
 
   public final ReportEventType type;
   public final CustomDateTime dateTime;
-  public final Money profits;
-  public final ConsumptionType consumptionType;
-  public ParkingAreaCode parkingAreaCode; // TODO #263 : Use ReportEvent.parkingAreaCode
+  public Money profits;
+  public ConsumptionType consumptionType;
+  public ParkingAreaCode parkingAreaCode;
+
+  public ReportEvent(
+      ReportEventType type, CustomDateTime dateTime, ParkingAreaCode parkingAreaCode) {
+    this.type = type;
+    this.dateTime = dateTime;
+    this.parkingAreaCode = parkingAreaCode;
+  }
+
+  public ReportEvent(ReportEventType type, CustomDateTime dateTime, Money profits) {
+    this.type = type;
+    this.dateTime = dateTime;
+    this.profits = profits;
+  }
 
   public ReportEvent(
       ReportEventType type,
@@ -38,5 +51,9 @@ public class ReportEvent {
 
   public ConsumptionType getConsumptionType() {
     return consumptionType;
+  }
+
+  public ParkingAreaCode getParkingAreaCode() {
+    return parkingAreaCode;
   }
 }
