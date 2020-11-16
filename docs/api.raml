@@ -333,6 +333,30 @@ uses:
               example: !include examples/initiatives/get-initiatives-available-amount-response.json
         400:
           description: Error getting funding initiative
+/api/carbonCredits:
+  description: Information about carbon credits purchased with generated profits
+  post:
+    description: Enable or disabled monthly payment of carbon credits
+    body:
+      application/json:
+        type: types.CarbonCreditMonthlyPaymentStatusObject
+        example: !include examples/carbonCredits/post-carbon-credits-request.json
+    responses:
+      200:
+        description: Carbon credit monthly payment status successfully changed
+      400:
+        description: Error changing carbon credit monthly payment status
+  get:
+    description: Get amount of purchased carbon credits
+    responses:
+      200:
+        description: Amount of purchased carbon credits
+        body:
+          application/json:
+            type: types.CarbonCreditAmount
+            example: !include examples/carbonCredits/get-carbon-credits-request.json
+      400:
+        description: Error getting amount of purchased carbon credits
 /api/reports:
   description: Various reports available for the application
   /profits:
@@ -401,27 +425,3 @@ uses:
                 example: !include examples/reports/get-reports-profits-offenses-response.json
           400:
             description: Error getting profits for offenses
-/api/carbonCredits:
-  description: Information about carbon credits purchased with generated profits
-  post:
-    description: Enable or disabled monthly payment of carbon credits
-    body:
-      application/json:
-        type: types.CarbonCreditMonthlyPaymentStatusObject
-        example: !include examples/carbonCredits/post-carbon-credits-request.json
-    responses:
-      200:
-        description: Carbon credit monthly payment status successfully changed
-      400:
-        description: Error changing carbon credit monthly payment status
-  get:
-    description: Get amount of purchased carbon credits
-    responses:
-      200:
-        description: Amount of purchased carbon credits
-        body:
-          application/json:
-            type: types.CarbonCreditAmount
-            example: !include examples/carbonCredits/get-carbon-credits-request.json
-      400:
-        description: Error getting amount of purchased carbon credits
