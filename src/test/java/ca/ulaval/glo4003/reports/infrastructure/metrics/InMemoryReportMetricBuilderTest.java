@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.reports.infrastructure.metrics;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetric;
+import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricBuilder;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +12,7 @@ import org.junit.Test;
 
 public class InMemoryReportMetricBuilderTest {
 
-  private InMemoryReportMetricBuilder reportMetricBuilder;
+  private ReportMetricBuilder reportMetricBuilder;
 
   @Before
   public void setUp() {
@@ -34,5 +35,16 @@ public class InMemoryReportMetricBuilderTest {
 
     assertThat(metrics).hasSize(1);
     assertThat(metrics.get(0)).isInstanceOf(InMemoryProfitsMetric.class);
+  }
+
+  @Test
+  public void givenGateEntriesMetricType_whenBuildingMany_thenReturnGateEntriesMetric() {
+    List<ReportMetricType> metricTypes = Collections.singletonList(ReportMetricType.GATE_ENTRIES);
+
+    List<ReportMetric> metrics =
+        reportMetricBuilder.someMetrics().withTypes(metricTypes).buildMany();
+
+    assertThat(metrics).hasSize(1);
+    assertThat(metrics.get(0)).isInstanceOf(InMemoryGateEntriesMetric.class);
   }
 }
