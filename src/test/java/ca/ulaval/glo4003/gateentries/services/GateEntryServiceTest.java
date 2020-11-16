@@ -6,6 +6,7 @@ import static ca.ulaval.glo4003.gateentries.api.helpers.AccessStatusDtoBuilder.a
 import static ca.ulaval.glo4003.gateentries.api.helpers.DayOfWeekDtoBuilder.aDayOfWeekDto;
 import static ca.ulaval.glo4003.times.helpers.DayOfWeekMother.createDayOfWeek;
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
@@ -74,6 +75,15 @@ public class GateEntryServiceTest {
   }
 
   @Test
+  public void givenValidAccessDay_whenValidatingAccessPassWithCode_theShouldAdmitOnCampus() {
+    when(accessPass.validateAccessDay(dayOfWeek)).thenReturn(true);
+
+    gateEntryService.validateAccessPassWithCode(dayOfWeekDto, accessPassCode);
+
+    verify(accessPass).enterCampus();
+  }
+
+  @Test
   public void givenInvalidAccessDay_whenValidatingAccessPassWithCode_thenReturnAccessRefused() {
     when(accessPass.validateAccessDay(dayOfWeek)).thenReturn(false);
 
@@ -92,6 +102,16 @@ public class GateEntryServiceTest {
         gateEntryService.validateAccessPassWithLicensePlate(dayOfWeekDto, accessPassLicensePlate);
 
     assertThat(accessStatusDto).isSameInstanceAs(grantedAccessStatusDto);
+  }
+
+  @Test
+  public void
+      givenValidAccessDay_whenValidatingAccessPassWithLicensePlate_theShouldAdmitOnCampus() {
+    when(accessPass.validateAccessDay(dayOfWeek)).thenReturn(true);
+
+    gateEntryService.validateAccessPassWithLicensePlate(dayOfWeekDto, accessPassLicensePlate);
+
+    verify(accessPass).enterCampus();
   }
 
   @Test

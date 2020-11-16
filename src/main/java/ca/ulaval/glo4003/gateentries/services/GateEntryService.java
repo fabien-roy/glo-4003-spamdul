@@ -41,6 +41,10 @@ public class GateEntryService {
 
     AccessStatus accessStatus = getAccessStatus(dayOfWeek, accessPass);
 
+    if (accessStatus == AccessStatus.ACCESS_GRANTED) {
+      accessPass.enterCampus();
+    }
+
     return accessStatusAssembler.assemble(accessStatus);
   }
 
@@ -54,7 +58,12 @@ public class GateEntryService {
     List<AccessPass> accessPasses =
         accessPassService.getAccessPassesByLicensePlate(licensePlateAssembled);
 
+    AccessPass associatedAccessPass = null;
+
     for (AccessPass accessPass : accessPasses) {
+      if (getAccessStatus(dayOfWeek, accessPass) == AccessStatus.ACCESS_GRANTED) {
+        associatedAccessPass = accessPass;
+      }
       accessStatuses.add(getAccessStatus(dayOfWeek, accessPass));
     }
 
@@ -63,6 +72,7 @@ public class GateEntryService {
             .anyMatch(accessStatus -> accessStatus.equals(AccessStatus.ACCESS_GRANTED));
 
     if (isAccessStatusGranted) {
+      associatedAccessPass.enterCampus();
       return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED);
     }
 
@@ -70,7 +80,7 @@ public class GateEntryService {
   }
 
   private AccessStatus getAccessStatus(DayOfWeek dayOfWeek, AccessPass accessPass) {
-    return accessPass.validateAccessDay(dayOfWeek)
+    return accessPass.validateAccessDay(dayOfWeek) && !accessPass.isAdmittedOnCampus()
         ? AccessStatus.ACCESS_GRANTED
         : AccessStatus.ACCESS_REFUSED;
   }
