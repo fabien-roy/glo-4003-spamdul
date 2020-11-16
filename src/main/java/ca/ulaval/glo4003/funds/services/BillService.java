@@ -9,7 +9,6 @@ import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.funds.domain.queryparams.BillQueryParams;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
-import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import java.util.List;
@@ -49,7 +48,7 @@ public class BillService {
   public BillId addBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
     logger.info(String.format("Create bill for parking sticker %s", parkingSticker.getCode()));
 
-    Money feeForPeriod = parkingArea.getFeeForPeriod(ParkingPeriod.ONE_DAY);
+    Money feeForPeriod = parkingArea.getFeeForPeriod(parkingSticker.getParkingPeriod());
 
     if (parkingSticker.getReceptionMethod().equals(ReceptionMethod.POSTAL)) {
       feeForPeriod = feeForPeriod.plus(POSTAL_CODE_FEE);

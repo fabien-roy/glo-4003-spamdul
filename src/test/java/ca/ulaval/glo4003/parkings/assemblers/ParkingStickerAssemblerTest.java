@@ -6,6 +6,7 @@ import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalC
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerDtoBuilder.aParkingStickerDto;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createReceptionMethod;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
@@ -40,6 +41,7 @@ public class ParkingStickerAssemblerTest {
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   @Mock private PostalCodeAssembler postalCodeAssembler;
   @Mock private EmailAddressAssembler emailAddressAssembler;
+  @Mock private ParkingPeriodAssembler parkingPeriodAssembler;
 
   private ParkingStickerDto parkingStickerDto;
 
@@ -52,7 +54,8 @@ public class ParkingStickerAssemblerTest {
             parkingAreaCodeAssembler,
             accountIdAssembler,
             postalCodeAssembler,
-            emailAddressAssembler);
+            emailAddressAssembler,
+            parkingPeriodAssembler);
 
     when(accountIdAssembler.assemble(ACCOUNT_ID.toString())).thenReturn(ACCOUNT_ID);
     when(parkingAreaCodeAssembler.assemble(PARKING_AREA.toString())).thenReturn(PARKING_AREA);
@@ -169,5 +172,22 @@ public class ParkingStickerAssemblerTest {
     ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
 
     Truth.assertThat(parkingSticker.getEmailAddress()).isEqualTo(EMAIL_ADDRESS);
+  }
+
+  @Test
+  public void givenSSPReceptionMethod_whenAssembling_thenReturnParkingStickerWithoutEmailAddress() {
+    parkingStickerDto =
+        aParkingStickerDto().withReceptionMethod(ReceptionMethod.SSP.toString()).build();
+
+    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+
+    Truth.assertThat(parkingSticker.getEmailAddress()).isNotEqualTo(EMAIL_ADDRESS);
+  }
+
+  @Test
+  public void whenAssembling_thenAssembleParkingPeriod() {
+    parkingStickerAssembler.assemble(parkingStickerDto);
+
+    verify(parkingPeriodAssembler).assemble(parkingStickerDto.parkingPeriod);
   }
 }

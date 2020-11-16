@@ -5,7 +5,6 @@ import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionType;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
-import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
@@ -18,7 +17,6 @@ import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.funds.domain.queryparams.BillQueryParams;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
-import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import java.util.*;
@@ -38,7 +36,8 @@ public class BillServiceTest {
   @Mock BillQuery billQuery;
   @Mock BillProfitsCalculator billProfitsCalculator;
   @Mock SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
-  @Mock private BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler;
+  @Mock BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler;
+  @Mock ParkingArea parkingArea;
 
   @Mock
   SustainableMobilityProgramAllocationCalculator sustainableMobilityProgramAllocationCalculator;
@@ -47,9 +46,7 @@ public class BillServiceTest {
 
   private final ParkingSticker parkingSticker = aParkingSticker().build();
   private final Money POSTAL_FEE = BillService.POSTAL_CODE_FEE;
-  private final Money parkingPeriodFee = createMoney();
   private final Bill bill = aBill().build();
-  private ParkingArea parkingArea;
   private final Money fee = createMoney();
   private final Money amountDue = Money.fromDouble(1);
   private final Money amountKeptForSustainabilityProgram = amountDue.multiply(0.4);
@@ -70,20 +67,15 @@ public class BillServiceTest {
             sustainableMobilityProgramAllocationCalculator,
             billsByConsumptionsTypeAssembler);
 
-    Map<ParkingPeriod, Money> feePerPeriod = new HashMap<>();
-    feePerPeriod.put(ParkingPeriod.ONE_DAY, parkingPeriodFee);
-    parkingArea = aParkingArea().withFeePerPeriod(feePerPeriod).build();
-
     List<Bill> bills = new ArrayList<>();
     bills.add(bill);
 
+    when(parkingArea.getFeeForPeriod(parkingSticker.getParkingPeriod())).thenReturn(fee);
     when(billFactory.createForParkingSticker(
-            parkingPeriodFee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
+            fee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
         .thenReturn(bill);
     when(billFactory.createForParkingSticker(
-            parkingPeriodFee.plus(POSTAL_FEE),
-            parkingSticker.getCode(),
-            parkingSticker.getReceptionMethod()))
+            fee.plus(POSTAL_FEE), parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
         .thenReturn(bill);
     when(billFactory.createForAccessPass(fee, accessPassCode, consumptionType)).thenReturn(bill);
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
@@ -114,14 +106,15 @@ public class BillServiceTest {
   public void givenPostalParkingSticker_whenAddingBill_thenAddPostalFee() {
     ParkingSticker postalParkingSticker =
         aParkingSticker().withReceptionMethod(ReceptionMethod.POSTAL).build();
+    when(parkingArea.getFeeForPeriod(postalParkingSticker.getParkingPeriod())).thenReturn(fee);
     when(billFactory.createForParkingSticker(
-            parkingPeriodFee.plus(POSTAL_FEE),
+            fee.plus(POSTAL_FEE),
             postalParkingSticker.getCode(),
             postalParkingSticker.getReceptionMethod()))
         .thenReturn(bill);
 
     billService.addBillForParkingSticker(postalParkingSticker, parkingArea);
-    Money expectedFee = parkingPeriodFee.plus(POSTAL_FEE);
+    Money expectedFee = fee.plus(POSTAL_FEE);
 
     verify(billFactory)
         .createForParkingSticker(
