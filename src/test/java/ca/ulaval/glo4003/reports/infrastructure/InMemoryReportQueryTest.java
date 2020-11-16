@@ -12,6 +12,7 @@ import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimension;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetric;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScope;
+import ca.ulaval.glo4003.reports.infrastructure.filters.InMemoryReportFilter;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,16 +36,19 @@ public class InMemoryReportQueryTest {
   @Mock private ReportMetric secondMetric;
   @Mock private ReportDimension firstDimension;
   @Mock private ReportDimension secondDimension;
+  @Mock private InMemoryReportFilter filter;
 
   private InMemoryReportQuery query;
 
   private List<ReportMetric> metrics = new ArrayList<>();
   private List<ReportDimension> dimensions = new ArrayList<>();
+  private List<InMemoryReportFilter> filters = new ArrayList<>();
   private List<ReportEvent> events = new ArrayList<>();
   private final CustomDateTime dateTime = createDateTime();
   private final CustomDateTime otherDateTime = createDateTime();
   private final ReportEvent firstEvent = aReportEvent().withDateTime(dateTime).build();
   private final ReportEvent secondEvent = aReportEvent().withDateTime(otherDateTime).build();
+  private final ReportEvent eventOutsideFilter = aReportEvent().build();
   private final ReportPeriodData firstData = aReportPeriodData().build();
   private final ReportPeriodData secondData = aReportPeriodData().build();
   private final ReportPeriodData dimensionedData = aReportPeriodData().build();
@@ -52,7 +56,7 @@ public class InMemoryReportQueryTest {
   private final int numberOfSecondDimensions = 6;
 
   private void setUpQuery() {
-    query = new InMemoryReportQuery(scope, metrics, dimensions);
+    query = new InMemoryReportQuery(scope, metrics, dimensions, filters);
     query.setEvents(events);
   }
 
@@ -62,6 +66,7 @@ public class InMemoryReportQueryTest {
 
     setUpPeriods();
     setUpDimensions();
+    setUpFilters();
 
     givenScopeWithSinglePeriod();
     givenScopeWithSingleMetric();
@@ -83,6 +88,11 @@ public class InMemoryReportQueryTest {
         .thenReturn(Collections.nCopies(numberOfFirstDimensions, dimensionedData));
     when(secondDimension.splitAll(anyList()))
         .thenReturn(Collections.nCopies(numberOfSecondDimensions, dimensionedData));
+  }
+
+  private void setUpFilters() {
+    when(filter.filter(Arrays.asList(firstEvent, secondEvent, eventOutsideFilter)))
+        .thenReturn(Arrays.asList(firstEvent, secondEvent));
   }
 
   private void givenScopeWithSinglePeriod() {
@@ -130,13 +140,31 @@ public class InMemoryReportQueryTest {
     setUpQuery();
   }
 
+  private void givenEventsOutsideOfFilter() {
+    filters = Collections.singletonList(filter);
+    events = Arrays.asList(firstEvent, secondEvent, eventOutsideFilter);
+    setUpQuery();
+  }
+
+  @Test
+  public void givenEventsOutsideFilter_whenExecuting_thenFilterEvents() {
+    givenEventsOutsideOfFilter();
+    givenScopeWithSinglePeriod();
+
+    query.execute();
+
+    verify(firstPeriod).contains(firstEvent.getDateTime());
+    verify(firstPeriod).contains(secondEvent.getDateTime());
+    verify(firstPeriod, never()).contains(eventOutsideFilter.getDateTime());
+  }
+
   @Test
   public void givenSinglePeriod_whenExecuting_thenReturnSinglePeriod() {
     givenScopeWithSinglePeriod();
 
     List<ReportPeriod> periods = query.execute();
 
-    assertThat(periods.size()).isEqualTo(1);
+    assertThat(periods).hasSize(1);
   }
 
   @Test
@@ -145,7 +173,7 @@ public class InMemoryReportQueryTest {
 
     List<ReportPeriod> periods = query.execute();
 
-    assertThat(periods.size()).isEqualTo(2);
+    assertThat(periods).hasSize(2);
   }
 
   @Test
@@ -167,7 +195,7 @@ public class InMemoryReportQueryTest {
 
     ArgumentCaptor<List> captor = ArgumentCaptor.forClass(List.class);
     verify(firstPeriod).setData(captor.capture());
-    assertThat(captor.getValue().size()).isEqualTo(numberOfFirstDimensions);
+    assertThat(captor.getValue()).hasSize(numberOfFirstDimensions);
   }
 
   @Test
@@ -178,7 +206,7 @@ public class InMemoryReportQueryTest {
 
     ArgumentCaptor<List> captor = ArgumentCaptor.forClass(List.class);
     verify(firstPeriod).setData(captor.capture());
-    assertThat(captor.getValue().size()).isEqualTo(numberOfSecondDimensions);
+    assertThat(captor.getValue()).hasSize(numberOfSecondDimensions);
   }
 
   @Test

@@ -25,7 +25,12 @@ public class InMemoryReportMetricBuilder implements ReportMetricBuilder {
   }
 
   private ReportMetric buildOne(ReportMetricType metricType) {
-    // TODO : InMemoryReportMetricBuilder.buildOne (switch-case for each ReportMetric)
-    return null;
+    switch (metricType) {
+      default:
+      case PROFITS:
+        return new InMemoryProfitsMetric();
+      case GATE_ENTRIES:
+        return null; // TODO #249
+    }
   }
 }

@@ -25,7 +25,12 @@ public class InMemoryReportDimensionBuilder implements ReportDimensionBuilder {
   }
 
   private ReportDimension buildOne(ReportDimensionType dimensionType) {
-    // TODO : InMemoryReportDimensionBuilder.buildOne (switch-case for each ReportDimension)
-    return null;
+    switch (dimensionType) {
+      default:
+      case CONSUMPTION_TYPE:
+        return new InMemoryConsumptionTypeDimension();
+      case PARKING_AREA_CODE:
+        return null; // TODO #263
+    }
   }
 }
