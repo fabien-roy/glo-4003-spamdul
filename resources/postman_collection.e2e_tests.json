@@ -6339,6 +6339,157 @@
 									],
 									"protocolProfileBehavior": {},
 									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Get profits report for offenses",
+									"item": [
+										{
+											"name": "Year",
+											"item": [
+												{
+													"name": "Invalid year (string)",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "df14eb8a-cbce-43e3-9624-ea14332fafab",
+																"exec": [
+																	"pm.test(\"Returns status 400\", function () {",
+																	"    pm.response.to.have.status(400);",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/api/reports/profits/offenses?year=invalid",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"api",
+																"reports",
+																"profits",
+																"offenses"
+															],
+															"query": [
+																{
+																	"key": "year",
+																	"value": "invalid"
+																}
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"protocolProfileBehavior": {},
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "Valid profits report query",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "44acafcb-ce03-4c1d-bdeb-30ef68807cda",
+														"exec": [
+															"pm.test(\"Returns status 200\", function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test(\"Returns periods array\", function () {",
+															"    pm.expect(pm.response.json().length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns period for given year\", function () {",
+															"    var year = postman.getEnvironmentVariable(\"queryParam.profits.year\");",
+															"    pm.expect(pm.response.json()[0].period).to.equal(year);",
+															"});",
+															"",
+															"pm.test(\"Returns period data\", function () {",
+															"    pm.expect(pm.response.json()[0].data).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns period data has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns dimensions has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].dimensions.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns metrics has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns profits metric\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics[0].name).to.equal(\"profits\");",
+															"});",
+															"",
+															"pm.test(\"Returns profits metric with value\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics[0].value).to.not.be.null;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/reports/profits/offenses?year={{queryParam.profits.year}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"reports",
+														"profits",
+														"offenses"
+													],
+													"query": [
+														{
+															"key": "year",
+															"value": "{{queryParam.profits.year}}"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
 								}
 							],
 							"protocolProfileBehavior": {},
