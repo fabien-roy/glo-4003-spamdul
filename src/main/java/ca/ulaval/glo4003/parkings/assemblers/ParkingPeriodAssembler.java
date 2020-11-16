@@ -21,4 +21,8 @@ public class ParkingPeriodAssembler {
 
     throw new InvalidParkingPeriodException();
   }
+
+  public ParkingPeriod assemble(String parkingPeriod) {
+    return ParkingPeriod.get(parkingPeriod);
+  }
 }

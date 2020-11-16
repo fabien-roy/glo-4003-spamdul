@@ -11,27 +11,47 @@ public class ParkingSticker {
   private final ReceptionMethod receptionMethod;
   private PostalCode postalCode;
   private EmailAddress emailAddress;
+  private ParkingPeriod parkingPeriod;
 
-  public ParkingSticker(
-      AccountId accountId,
-      ParkingAreaCode parkingAreaCode,
-      ReceptionMethod receptionMethod,
-      PostalCode postalCode) {
-    this.accountId = accountId;
-    this.parkingAreaCode = parkingAreaCode;
-    this.receptionMethod = receptionMethod;
-    this.postalCode = postalCode;
+  public ParkingPeriod getParkingPeriod() {
+    return parkingPeriod;
   }
 
   public ParkingSticker(
       AccountId accountId,
       ParkingAreaCode parkingAreaCode,
       ReceptionMethod receptionMethod,
-      EmailAddress emailAddress) {
+      PostalCode postalCode,
+      ParkingPeriod parkingPeriod) {
+    this.accountId = accountId;
+    this.parkingAreaCode = parkingAreaCode;
+    this.receptionMethod = receptionMethod;
+    this.postalCode = postalCode;
+    this.parkingPeriod = parkingPeriod;
+  }
+
+  public ParkingSticker(
+      AccountId accountId,
+      ParkingAreaCode parkingAreaCode,
+      ReceptionMethod receptionMethod,
+      EmailAddress emailAddress,
+      ParkingPeriod parkingPeriod) {
     this.accountId = accountId;
     this.parkingAreaCode = parkingAreaCode;
     this.receptionMethod = receptionMethod;
     this.emailAddress = emailAddress;
+    this.parkingPeriod = parkingPeriod;
+  }
+
+  public ParkingSticker(
+      AccountId accountId,
+      ParkingAreaCode parkingAreaCode,
+      ReceptionMethod receptionMethod,
+      ParkingPeriod parkingPeriod) {
+    this.accountId = accountId;
+    this.parkingAreaCode = parkingAreaCode;
+    this.receptionMethod = receptionMethod;
+    this.parkingPeriod = parkingPeriod;
   }
 
   public ParkingStickerCode getCode() {

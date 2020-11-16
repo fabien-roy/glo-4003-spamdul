@@ -11,11 +11,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PostalSenderSystemPrintTest {
+public class SspSenderSystemPrintTest {
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
   private final PrintStream originalOut = System.out;
 
-  private PostalSenderSystemPrint postalSenderSystemPrint;
+  private SspSenderSystemPrint sspSenderSystemPrint;
 
   private ParkingSticker parkingSticker;
 
@@ -23,7 +23,7 @@ public class PostalSenderSystemPrintTest {
   public void setUp() {
     System.setOut(new PrintStream(outContent));
 
-    postalSenderSystemPrint = new PostalSenderSystemPrint();
+    sspSenderSystemPrint = new SspSenderSystemPrint();
   }
 
   @After
@@ -33,11 +33,10 @@ public class PostalSenderSystemPrintTest {
 
   @Test
   public void givenPostalReceptionMethod_whenListeningParkingStickerCreation_thenPrintMessage() {
-    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethod.POSTAL).build();
+    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethod.SSP).build();
 
-    postalSenderSystemPrint.listenParkingStickerCreated(parkingSticker);
+    sspSenderSystemPrint.listenParkingStickerCreated(parkingSticker);
 
-    Truth.assertThat(outContent.toString()).contains(parkingSticker.getPostalCode().toString());
     Truth.assertThat(outContent.toString()).contains(parkingSticker.getCode().toString());
   }
 
@@ -46,16 +45,17 @@ public class PostalSenderSystemPrintTest {
       givenEmailReceptionMethod_whenListeningParkingStickerCreation_thenDoNotPrintAnything() {
     parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethod.EMAIL).build();
 
-    postalSenderSystemPrint.listenParkingStickerCreated(parkingSticker);
+    sspSenderSystemPrint.listenParkingStickerCreated(parkingSticker);
 
     Truth.assertThat(outContent.toString()).isEmpty();
   }
 
   @Test
-  public void givenSSPReceptionMethod_whenListeningParkingStickerCreation_thenDoNotPrintAnything() {
-    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethod.SSP).build();
+  public void
+      givenPostalReceptionMethod_whenListeningParkingStickerCreation_thenDoNotPrintAnything() {
+    parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethod.POSTAL).build();
 
-    postalSenderSystemPrint.listenParkingStickerCreated(parkingSticker);
+    sspSenderSystemPrint.listenParkingStickerCreated(parkingSticker);
 
     Truth.assertThat(outContent.toString()).isEmpty();
   }

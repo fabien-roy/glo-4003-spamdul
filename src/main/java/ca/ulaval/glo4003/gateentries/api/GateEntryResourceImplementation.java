@@ -15,9 +15,23 @@ public class GateEntryResourceImplementation implements GateEntryResource {
   }
 
   @Override
-  public Response validateAccessPass(DayOfWeekDto dayOfWeekDto, String accessPassCode) {
+  public Response validateAccessPassWithCode(DayOfWeekDto dayOfWeekDto, String accessPassCode) {
     AccessStatusDto accessStatusDto =
-        gateEntryService.validateAccessPass(dayOfWeekDto, accessPassCode);
+        gateEntryService.validateAccessPassWithCode(dayOfWeekDto, accessPassCode);
+
+    Response.Status status =
+        accessStatusDto.accessStatus.equals(AccessStatus.ACCESS_GRANTED.toString())
+            ? Response.Status.ACCEPTED
+            : Response.Status.FORBIDDEN;
+
+    return Response.status(status).entity(accessStatusDto).type(MediaType.APPLICATION_JSON).build();
+  }
+
+  @Override
+  public Response validateAccessPassWithLicensePlate(
+      DayOfWeekDto dayOfWeekDto, String licensePlate) {
+    AccessStatusDto accessStatusDto =
+        gateEntryService.validateAccessPassWithLicensePlate(dayOfWeekDto, licensePlate);
 
     Response.Status status =
         accessStatusDto.accessStatus.equals(AccessStatus.ACCESS_GRANTED.toString())

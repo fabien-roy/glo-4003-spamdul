@@ -7,6 +7,7 @@ import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingPeriod;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -42,17 +43,20 @@ public class BillServiceTest {
 
   private BillService billService;
 
-  private final ParkingSticker parkingSticker = aParkingSticker().build();
+  private final ParkingPeriod parkingPeriod = createParkingPeriod();
+  private final ParkingSticker parkingSticker =
+      aParkingSticker().withParkingPeriod(parkingPeriod).build();
   private final Money POSTAL_FEE = BillService.POSTAL_CODE_FEE;
-  private final Money parkingPeriodFee = createMoney();
   private final Bill bill = aBill().build();
-  private ParkingArea parkingArea;
   private final Money fee = createMoney();
   private final Money amountDue = Money.fromDouble(1);
   private final Money amountKeptForSustainabilityProgram = amountDue.multiply(0.4);
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final ConsumptionType consumptionType = createConsumptionType();
   private final OffenseCode offenseCode = createOffenseCode();
+  private final Map<ParkingPeriod, Money> feePerPeriod =
+      Collections.singletonMap(parkingPeriod, fee);
+  private final ParkingArea parkingArea = aParkingArea().withFeePerPeriod(feePerPeriod).build();
 
   @Before
   public void setUp() {
@@ -65,19 +69,13 @@ public class BillServiceTest {
             sustainableMobilityProgramBankRepository,
             sustainableMobilityProgramAllocationCalculator);
 
-    Map<ParkingPeriod, Money> feePerPeriod = new HashMap<>();
-    feePerPeriod.put(ParkingPeriod.ONE_DAY, parkingPeriodFee);
-    parkingArea = aParkingArea().withFeePerPeriod(feePerPeriod).build();
-
     List<Bill> bills = Collections.singletonList(bill);
 
     when(billFactory.createForParkingSticker(
-            parkingPeriodFee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
+            fee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
         .thenReturn(bill);
     when(billFactory.createForParkingSticker(
-            parkingPeriodFee.plus(POSTAL_FEE),
-            parkingSticker.getCode(),
-            parkingSticker.getReceptionMethod()))
+            fee.plus(POSTAL_FEE), parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
         .thenReturn(bill);
     when(billFactory.createForAccessPass(fee, accessPassCode, consumptionType)).thenReturn(bill);
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
@@ -105,15 +103,18 @@ public class BillServiceTest {
   @Test
   public void givenPostalParkingSticker_whenAddingBill_thenAddPostalFee() {
     ParkingSticker postalParkingSticker =
-        aParkingSticker().withReceptionMethod(ReceptionMethod.POSTAL).build();
+        aParkingSticker()
+            .withReceptionMethod(ReceptionMethod.POSTAL)
+            .withParkingPeriod(parkingPeriod)
+            .build();
     when(billFactory.createForParkingSticker(
-            parkingPeriodFee.plus(POSTAL_FEE),
+            fee.plus(POSTAL_FEE),
             postalParkingSticker.getCode(),
             postalParkingSticker.getReceptionMethod()))
         .thenReturn(bill);
 
     billService.addBillForParkingSticker(postalParkingSticker, parkingArea);
-    Money expectedFee = parkingPeriodFee.plus(POSTAL_FEE);
+    Money expectedFee = fee.plus(POSTAL_FEE);
 
     verify(billFactory)
         .createForParkingSticker(

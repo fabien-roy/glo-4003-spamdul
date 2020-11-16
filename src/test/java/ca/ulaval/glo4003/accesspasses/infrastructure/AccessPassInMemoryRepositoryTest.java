@@ -6,6 +6,9 @@ import static com.google.common.truth.Truth.assertThat;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassRepository;
+import ca.ulaval.glo4003.accesspasses.exceptions.NotFoundAccessPassException;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,11 +30,34 @@ public class AccessPassInMemoryRepositoryTest {
   }
 
   @Test
-  public void givenSavedAccessPass_whenGettingAccessPass_thenReturnAccessPass() {
+  public void givenSavedAccessPass_whenGettingAccessPassWithCode_thenReturnAccessPass() {
     accessPassRepository.save(accessPass);
 
     AccessPass receivedAccessPass = accessPassRepository.get(accessPass.getCode());
 
     assertThat(receivedAccessPass).isEqualTo(accessPass);
+  }
+
+  @Test(expected = NotFoundAccessPassException.class)
+  public void
+      givenEmptyRepositoryInMemory_whenGettingAccessPassWithCode_thenThrowNotFoundAccessPassException() {
+    accessPassRepository.get(accessPass.getCode());
+  }
+
+  @Test
+  public void givenSavedAccessPass_whenGettingAccessPassWithLicensePlate_thenReturnAccessPass() {
+    List<AccessPass> accessPassInList = new ArrayList<>();
+    accessPassInList.add(accessPass);
+    accessPassRepository.save(accessPass);
+
+    List<AccessPass> receivedAccessPasses = accessPassRepository.get(accessPass.getLicensePlate());
+
+    assertThat(receivedAccessPasses).isEqualTo(accessPassInList);
+  }
+
+  @Test(expected = NotFoundAccessPassException.class)
+  public void
+      givenEmptyRepositoryInMemory_whenGettingAccessPassWithLicensePlate_thenThrowNotFoundAccessPassException() {
+    accessPassRepository.get(accessPass.getLicensePlate());
   }
 }
