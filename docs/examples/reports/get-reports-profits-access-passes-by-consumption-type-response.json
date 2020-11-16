@@ -1,0 +1,77 @@
+[
+  {
+    "period": "2020",
+    "data": [
+      {
+        "dimensions": [
+          {
+            "name": "consumptionType",
+            "value": "greedy"
+          }
+        ],
+        "metrics": [
+          {
+            "name": "profits",
+            "value": 100.0
+          }
+        ]
+      },
+      {
+        "dimensions": [
+          {
+            "name": "consumptionType",
+            "value": "economic"
+          }
+        ],
+        "metrics": [
+          {
+            "name": "profits",
+            "value": 80.0
+          }
+        ]
+      },
+      {
+        "dimensions": [
+          {
+            "name": "consumptionType",
+            "value": "economical hybrid"
+          }
+        ],
+        "metrics": [
+          {
+            "name": "profits",
+            "value": 102.0
+          }
+        ]
+      },
+      {
+        "dimensions": [
+          {
+            "name": "consumptionType",
+            "value": "super economical"
+          }
+        ],
+        "metrics": [
+          {
+            "name": "profits",
+            "value": 500.0
+          }
+        ]
+      },
+      {
+        "dimensions": [
+          {
+            "name": "consumptionType",
+            "value": "0 pollution"
+          }
+        ],
+        "metrics": [
+          {
+            "name": "profits",
+            "value": 120.0
+          }
+        ]
+      }
+    ]
+  }
+]

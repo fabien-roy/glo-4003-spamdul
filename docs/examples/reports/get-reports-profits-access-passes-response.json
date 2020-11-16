@@ -1,0 +1,16 @@
+[
+  {
+    "period": "2020",
+    "data": [
+      {
+        "dimensions": [],
+        "metrics": [
+          {
+            "name": "profits",
+            "value": 100.0
+          }
+        ]
+      }
+    ]
+  }
+]
