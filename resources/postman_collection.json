@@ -859,208 +859,215 @@
 			"name": "Reports",
 			"item": [
 				{
-					"name": "Get profits report for parking stickers",
-					"event": [
+					"name": "Profits",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"id": "0553b2b8-35f3-4be5-af57-7becde86fd81",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/reports/profits/parkingStickers?year={{queryParam.profits.year}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"reports",
-								"profits",
-								"parkingStickers"
-							],
-							"query": [
+							"name": "Get profits report for parking stickers",
+							"event": [
 								{
-									"key": "year",
-									"value": "{{queryParam.profits.year}}"
+									"listen": "test",
+									"script": {
+										"id": "0553b2b8-35f3-4be5-af57-7becde86fd81",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get profits report for access passes",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "ecfab159-d747-47af-bd70-5b78ae44cfe2",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/reports/profits/accessPasses?year={{queryParam.profits.year}}",
-							"host": [
-								"{{host}}"
 							],
-							"path": [
-								"api",
-								"reports",
-								"profits",
-								"accessPasses"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "{{queryParam.profits.year}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get profits report for access passes (by consumption type)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "250c6b57-87a5-4fae-9bfd-4c23a2b4e20e",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/reports/profits/accessPasses?year={{queryParam.profits.year}}&byConsumptionType=true",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"reports",
-								"profits",
-								"accessPasses"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "{{queryParam.profits.year}}"
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
 								},
-								{
-									"key": "byConsumptionType",
-									"value": "true"
+								"url": {
+									"raw": "{{host}}/api/reports/profits/parkingStickers?year={{queryParam.profits.year}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"profits",
+										"parkingStickers"
+									],
+									"query": [
+										{
+											"key": "year",
+											"value": "{{queryParam.profits.year}}"
+										}
+									]
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get profits report for offenses",
-					"event": [
+							},
+							"response": []
+						},
 						{
-							"listen": "test",
-							"script": {
-								"id": "93002301-2a74-43fb-98f7-7c5e1bf3eee4",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
+							"name": "Get profits report for access passes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ecfab159-d747-47af-bd70-5b78ae44cfe2",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/reports/profits/accessPasses?year={{queryParam.profits.year}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"profits",
+										"accessPasses"
+									],
+									"query": [
+										{
+											"key": "year",
+											"value": "{{queryParam.profits.year}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get profits report for access passes (by consumption type)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "250c6b57-87a5-4fae-9bfd-4c23a2b4e20e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/reports/profits/accessPasses?year={{queryParam.profits.year}}&byConsumptionType=true",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"profits",
+										"accessPasses"
+									],
+									"query": [
+										{
+											"key": "year",
+											"value": "{{queryParam.profits.year}}"
+										},
+										{
+											"key": "byConsumptionType",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get profits report for offenses",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "93002301-2a74-43fb-98f7-7c5e1bf3eee4",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/reports/profits/offenses?year={{queryParam.profits.year}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"profits",
+										"offenses"
+									],
+									"query": [
+										{
+											"key": "year",
+											"value": "{{queryParam.profits.year}}"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/reports/profits/offenses?year={{queryParam.profits.year}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"reports",
-								"profits",
-								"offenses"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "{{queryParam.profits.year}}"
-								}
-							]
-						}
-					},
-					"response": []
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
