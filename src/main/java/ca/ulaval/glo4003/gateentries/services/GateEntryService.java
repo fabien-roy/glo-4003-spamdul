@@ -31,10 +31,14 @@ public class GateEntryService {
     DayOfWeek dayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
     AccessPass accessPass = accessPassService.getAccessPass(accessPassCode);
 
+    // TODO : On doit valider que le char n'est pas déjà sur le site
+
     AccessStatus accessStatus =
         accessPass.validateAccessDay(dayOfWeek)
             ? AccessStatus.ACCESS_GRANTED
             : AccessStatus.ACCESS_REFUSED;
+
+    // TODO : Si Access GRANTED, add ça à BD
 
     return accessStatusAssembler.assemble(accessStatus);
   }

@@ -26,4 +26,11 @@ public class GateEntryResourceImplementation implements GateEntryResource {
 
     return Response.status(status).entity(accessStatusDto).type(MediaType.APPLICATION_JSON).build();
   }
+
+  @Override
+  public Response exitWithAccessPass(DayOfWeekDto dayOfWeekDto, String accessPassCode) {
+    // On doit regarder que le char est encore là (pas sortie deux fois)
+    // On doit retirer le char (il n'est plus là)
+    return null;
+  }
 }

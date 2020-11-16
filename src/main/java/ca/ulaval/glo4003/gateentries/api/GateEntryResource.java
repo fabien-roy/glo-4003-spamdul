@@ -15,6 +15,8 @@ public interface GateEntryResource {
   Response enterWithAccessPass(DayOfWeekDto dayOfWeekDto, @PathParam("code") String accessPassCode);
 
   @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON) // TODO : I have no idea what this returns
   @Path("/exit/withAccessPass/{accessPassCode}")
-  Response exitWithAccessPass() {}
+  Response exitWithAccessPass(DayOfWeekDto dayOfWeekDto, @PathParam("code") String accessPassCode);
 }
