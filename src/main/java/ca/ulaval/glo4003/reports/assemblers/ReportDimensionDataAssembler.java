@@ -13,7 +13,7 @@ public class ReportDimensionDataAssembler {
 
   private ReportDimensionDataDto assembleOne(ReportDimensionData data) {
     ReportDimensionDataDto reportDimensionDataDto = new ReportDimensionDataDto();
-    reportDimensionDataDto.name = data.getType().name();
+    reportDimensionDataDto.name = data.getType().toString();
     reportDimensionDataDto.value = data.getValue().toString();
     return reportDimensionDataDto;
   }

@@ -13,7 +13,7 @@ public class ReportMetricDataAssembler {
 
   private ReportMetricDataDto assembleOne(ReportMetricData data) {
     ReportMetricDataDto reportMetricDataDto = new ReportMetricDataDto();
-    reportMetricDataDto.name = data.getType().name();
+    reportMetricDataDto.name = data.getType().toString();
     reportMetricDataDto.value = data.getValue();
     return reportMetricDataDto;
   }
