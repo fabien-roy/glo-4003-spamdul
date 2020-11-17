@@ -107,17 +107,17 @@ public class BillService {
     return billRepository.getBill(billId);
   }
 
-  private void reportBillPaidEvent(Bill bill, Money amountToPay) {
+  private void reportBillPaidEvent(Bill bill, Money amountPaid) {
     switch (bill.getBillType()) {
       case PARKING_STICKER:
-        reportService.addBillPaidForParkingStickerEvent(amountToPay);
+        reportService.addBillPaidForParkingStickerEvent(amountPaid);
         break;
       case ACCESS_PASS:
-        reportService.addBillPaidForAccessPassEvent(amountToPay, bill.getConsumptionType().get());
+        reportService.addBillPaidForAccessPassEvent(amountPaid, bill.getConsumptionType().get());
         break;
       default:
       case OFFENSE:
-        reportService.addBillPaidForOffenseEvent(amountToPay);
+        reportService.addBillPaidForOffenseEvent(amountPaid);
         break;
     }
   }
