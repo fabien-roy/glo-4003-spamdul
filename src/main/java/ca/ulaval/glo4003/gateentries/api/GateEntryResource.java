@@ -11,28 +11,26 @@ public interface GateEntryResource {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("/entry/validateAccessPassWithCode/{code}")
-  Response validateAccessPassWithCode(
+  @Path("/entry/validateAccessPassEntryWithCode/{code}")
+  Response validateAccessPassEntryWithCode(
       DayOfWeekDto dayOfWeekDto, @PathParam("code") String accessPassCode);
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("/entry/validateAccessPassWithLicensePlate/{licensePlate}")
-  Response validateAccessPassWithLicensePlate(
+  @Path("/entry/validateAccessPassEntryWithLicensePlate/{licensePlate}")
+  Response validateAccessPassEntryWithLicensePlate(
       DayOfWeekDto dayOfWeekDto, @PathParam("licensePlate") String licensePlate);
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON) // TODO : I have no idea what this returns
-  @Path("/exit/withAccessPass/{accessPassCode}")
-  Response exitWithAccessPass(
-      DayOfWeekDto dayOfWeekDto, @PathParam("accessPassCode") String accessPassCode);
+  @Path("/exit/validateAccessPassEntryWithCode/{code}")
+  Response validateAccessPassExitWithCode(@PathParam("code") String accessPassCode);
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON) // TODO : I have no idea what this returns
-  @Path("/exit/withLicensePlate/{licensePlate}")
-  Response exitWithLicensePlate(
-      DayOfWeekDto dayOfWeekDto, @PathParam("licensePlate") String licensePlate);
+  @Path("/exit/validateAccessPassEntryWithLicensePlate/{licensePlate}")
+  Response validateAccessPassExitWithLicensePlate(@PathParam("licensePlate") String licensePlate);
 }

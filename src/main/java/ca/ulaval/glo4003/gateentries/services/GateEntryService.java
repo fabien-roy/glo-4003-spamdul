@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.gateentries.services;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
+import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
@@ -10,7 +11,6 @@ import ca.ulaval.glo4003.gateentries.assemblers.DayOfWeekAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -32,9 +32,9 @@ public class GateEntryService {
     this.licensePlateAssembler = licensePlateAssembler;
   }
 
-  public AccessStatusDto validateAccessPassWithCode(
+  public AccessStatusDto validateAccessPassEntryWithCode(
       DayOfWeekDto dayOfWeekDto, String accessPassCode) {
-    logger.info(String.format("Validate access pass code %s", accessPassCode));
+    logger.info(String.format("Validate entry with access pass code %s", accessPassCode));
 
     DayOfWeek dayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
     AccessPass accessPass = accessPassService.getAccessPass(accessPassCode);
@@ -48,30 +48,21 @@ public class GateEntryService {
     return accessStatusAssembler.assemble(accessStatus);
   }
 
-  public AccessStatusDto validateAccessPassWithLicensePlate(
+  public AccessStatusDto validateAccessPassEntryWithLicensePlate(
       DayOfWeekDto dayOfWeekDto, String licensePlate) {
-    logger.info(String.format("Validate for license plate %s", licensePlate));
-    List<AccessStatus> accessStatuses = new ArrayList<>();
-
-    DayOfWeek dayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
-    LicensePlate licensePlateAssembled = licensePlateAssembler.assemble(licensePlate);
-    List<AccessPass> accessPasses =
-        accessPassService.getAccessPassesByLicensePlate(licensePlateAssembled);
-
+    logger.info(String.format("Validate entry with license plate %s", licensePlate));
     AccessPass associatedAccessPass = null;
 
+    DayOfWeek dayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
+    List<AccessPass> accessPasses = getAccessPasses(licensePlate);
+
     for (AccessPass accessPass : accessPasses) {
-      if (getAccessStatus(dayOfWeek, accessPass) == AccessStatus.ACCESS_GRANTED) {
+      if (getAccessStatus(dayOfWeek, accessPass).equals(AccessStatus.ACCESS_GRANTED)) {
         associatedAccessPass = accessPass;
       }
-      accessStatuses.add(getAccessStatus(dayOfWeek, accessPass));
     }
 
-    boolean isAccessStatusGranted =
-        accessStatuses.stream()
-            .anyMatch(accessStatus -> accessStatus.equals(AccessStatus.ACCESS_GRANTED));
-
-    if (isAccessStatusGranted) {
+    if (associatedAccessPass != null) {
       associatedAccessPass.enterCampus();
       return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED);
     }
@@ -79,29 +70,38 @@ public class GateEntryService {
     return accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED);
   }
 
-  public void exitWithAccessPass(String accessPassCode) {
+  public void validateAccessPassExitWithCode(String accessPassCode) {
     AccessPass accessPass = accessPassService.getAccessPass(accessPassCode);
     accessPass.exitCampus();
   }
 
-  public void exitWithLicensePlate(String licensePlate, DayOfWeekDto dayOfWeekDto) {
-    // TODO : How the fuck do i get this?
-    LicensePlate licensePlateAssembled = licensePlateAssembler.assemble(licensePlate);
-    List<AccessPass> accessPasses =
-        accessPassService.getAccessPassesByLicensePlate(licensePlateAssembled);
+  public void validateAccessPassExitWithLicensePlate(String licensePlate) {
+    logger.info(String.format("Validate exit with license plate %s", licensePlate));
+    List<AccessPass> accessPasses = getAccessPasses(licensePlate);
+    AccessPass associatedAccessPass = null;
 
-    // TODO : Trier selon la journée
+    for (AccessPass accessPass : accessPasses) {
+      if (accessPass.isAdmittedOnCampus()) {
+        associatedAccessPass = accessPass;
+      }
+    }
 
-    // TODO : Trier en fonction de si ils sont "in-use"
-
-    // TODO : Si aucun...throw?
-
-    // Est-ce qu'on peut avoir plusieurs
+    if (associatedAccessPass != null) {
+      associatedAccessPass.exitCampus();
+    } else {
+      throw new InvalidAccessPassExitException();
+    }
   }
 
   private AccessStatus getAccessStatus(DayOfWeek dayOfWeek, AccessPass accessPass) {
     return accessPass.validateAccessDay(dayOfWeek) && !accessPass.isAdmittedOnCampus()
         ? AccessStatus.ACCESS_GRANTED
         : AccessStatus.ACCESS_REFUSED;
+  }
+
+  private List<AccessPass> getAccessPasses(String licensePlate) {
+    LicensePlate licensePlateAssembled = licensePlateAssembler.assemble(licensePlate);
+
+    return accessPassService.getAccessPassesByLicensePlate(licensePlateAssembled);
   }
 }

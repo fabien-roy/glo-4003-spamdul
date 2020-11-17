@@ -52,19 +52,19 @@ public class AccessPass {
     return this.accessDay.equals(accessDay);
   }
 
-  public void exitCampus() {
-    if (isAdmittedOnCampus) {
-      isAdmittedOnCampus = false;
-    } else {
-      throw new InvalidAccessPassExitException();
-    }
-  }
-
   public void enterCampus() {
     if (!isAdmittedOnCampus) {
       isAdmittedOnCampus = true;
     } else {
       throw new InvalidAccessPassEntryException();
+    }
+  }
+
+  public void exitCampus() {
+    if (isAdmittedOnCampus) {
+      isAdmittedOnCampus = false;
+    } else {
+      throw new InvalidAccessPassExitException();
     }
   }
 }

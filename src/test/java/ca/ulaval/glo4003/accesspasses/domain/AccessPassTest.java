@@ -33,6 +33,20 @@ public class AccessPassTest {
   }
 
   @Test
+  public void givenAccessPassNotAdmittedOnCampus_whenEnteringCampus_shouldBeAdmittedOnCampus() {
+    AccessPass accessPassWithNoCampusAccess = anAccessPass().withValidDay(VALID_DAY).build();
+
+    accessPassWithNoCampusAccess.enterCampus();
+
+    assertThat(accessPassWithNoCampusAccess.isAdmittedOnCampus()).isTrue();
+  }
+
+  @Test(expected = InvalidAccessPassEntryException.class)
+  public void givenAccessPassAlreadyOnCampus_whenEnteringCampus_thenThrowException() {
+    accessPassWithCampusAccess.enterCampus();
+  }
+
+  @Test
   public void givenAccessPassAdmittedOnCampus_whenExitingCampus_shouldNoLongerBeAdmittedOnCampus() {
     AccessPass accessPassWithCampusAccess =
         anAccessPass().withValidDay(VALID_DAY).withAccessToCampus().build();
@@ -45,19 +59,5 @@ public class AccessPassTest {
   @Test(expected = InvalidAccessPassExitException.class)
   public void givenAccessPassNotAdmittedOnCampus_whenExitingCampus_thenThrowException() {
     accessPassWithNoCampusAccess.exitCampus();
-  }
-
-  @Test
-  public void givenAccessPassNotAdmittedOnCampus_whenEnteringCampus_shouldBeAdmittedOnCampus() {
-    AccessPass accessPassWithNoCampusAccess = anAccessPass().withValidDay(VALID_DAY).build();
-
-    accessPassWithNoCampusAccess.enterCampus();
-
-    assertThat(accessPassWithNoCampusAccess.isAdmittedOnCampus()).isTrue();
-  }
-
-  @Test(expected = InvalidAccessPassEntryException.class)
-  public void givenAccessPassAlreadyOnCampus_whenEnteringCampus_thenThrowException() {
-    accessPassWithCampusAccess.enterCampus();
   }
 }

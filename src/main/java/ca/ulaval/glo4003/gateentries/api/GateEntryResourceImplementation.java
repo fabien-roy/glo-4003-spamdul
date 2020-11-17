@@ -15,9 +15,10 @@ public class GateEntryResourceImplementation implements GateEntryResource {
   }
 
   @Override
-  public Response validateAccessPassWithCode(DayOfWeekDto dayOfWeekDto, String accessPassCode) {
+  public Response validateAccessPassEntryWithCode(
+      DayOfWeekDto dayOfWeekDto, String accessPassCode) {
     AccessStatusDto accessStatusDto =
-        gateEntryService.validateAccessPassWithCode(dayOfWeekDto, accessPassCode);
+        gateEntryService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
 
     Response.Status status =
         accessStatusDto.accessStatus.equals(AccessStatus.ACCESS_GRANTED.toString())
@@ -28,10 +29,10 @@ public class GateEntryResourceImplementation implements GateEntryResource {
   }
 
   @Override
-  public Response validateAccessPassWithLicensePlate(
+  public Response validateAccessPassEntryWithLicensePlate(
       DayOfWeekDto dayOfWeekDto, String licensePlate) {
     AccessStatusDto accessStatusDto =
-        gateEntryService.validateAccessPassWithLicensePlate(dayOfWeekDto, licensePlate);
+        gateEntryService.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, licensePlate);
 
     Response.Status status =
         accessStatusDto.accessStatus.equals(AccessStatus.ACCESS_GRANTED.toString())
@@ -42,15 +43,16 @@ public class GateEntryResourceImplementation implements GateEntryResource {
   }
 
   @Override
-  public Response exitWithAccessPass(DayOfWeekDto dayOfWeekDto, String accessPassCode) {
-    // TODO : On fait .exit et si ça throw pas, retourner un Reponse.Status.OK
-    return null;
+  public Response validateAccessPassExitWithCode(String accessPassCode) {
+    gateEntryService.validateAccessPassExitWithCode(accessPassCode);
+
+    return Response.status(Response.Status.OK).build();
   }
 
   @Override
-  public Response exitWithLicensePlate(DayOfWeekDto dayOfWeekDto, String licensePlate) {
-    // On doit regarder que le char est encore là (pas sortie deux fois)
-    // On doit retirer le char (il n'est plus là)
-    return null;
+  public Response validateAccessPassExitWithLicensePlate(String licensePlate) {
+    gateEntryService.validateAccessPassExitWithLicensePlate(licensePlate);
+
+    return Response.status(Response.Status.OK).build();
   }
 }

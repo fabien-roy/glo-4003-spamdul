@@ -1,9 +1,8 @@
 package ca.ulaval.glo4003.accesspasses.exceptions;
 
 public class InvalidAccessPassExitException extends AccessPassException {
-  private static final String ERROR = "Impossible to exit campus";
-  private static final String DESCRIPTION =
-      "This accessPass was not admitted on campus and so, cannot exit";
+  private static final String ERROR = "Invalid access pass exit";
+  private static final String DESCRIPTION = "This access pass has never been admitted on campus";
 
   public InvalidAccessPassExitException() {
     super(ERROR, DESCRIPTION);
