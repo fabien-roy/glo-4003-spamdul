@@ -1,6 +1,8 @@
 package ca.ulaval.glo4003.initiatives;
 
+import ca.ulaval.glo4003.carboncredits.configuration.CarbonCreditConfiguration;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResourceImplementation;
@@ -8,9 +10,7 @@ import ca.ulaval.glo4003.initiatives.assembler.InitiativeAddAllocatedAmountAssem
 import ca.ulaval.glo4003.initiatives.assembler.InitiativeAssembler;
 import ca.ulaval.glo4003.initiatives.assembler.InitiativeAvailableAmountAssembler;
 import ca.ulaval.glo4003.initiatives.assembler.InitiativeCodeAssembler;
-import ca.ulaval.glo4003.initiatives.domain.InitiativeCodeGenerator;
-import ca.ulaval.glo4003.initiatives.domain.InitiativeFactory;
-import ca.ulaval.glo4003.initiatives.domain.InitiativeRepository;
+import ca.ulaval.glo4003.initiatives.domain.*;
 import ca.ulaval.glo4003.initiatives.infrastructure.InitiativeRepositoryInMemory;
 import ca.ulaval.glo4003.initiatives.services.InitiativeService;
 import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
@@ -19,6 +19,16 @@ public class InitiativeInjector {
   private final InitiativeRepository initiativeRepository = new InitiativeRepositoryInMemory();
   private final InitiativeCodeGenerator initiativeCodeGenerator =
       new InitiativeCodeGenerator(new StringCodeGenerator());
+
+  public InitiativeInjector() {
+    CarbonCreditConfiguration carbonCreditConfiguration =
+        CarbonCreditConfiguration.getConfiguration();
+
+    Initiative carbonCreditInitiative =
+        new Initiative(carbonCreditConfiguration.getCarbonCreditInitiativeName(), Money.zero());
+    carbonCreditInitiative.setCode(carbonCreditConfiguration.getCarbonCreditInitiativeCode());
+    initiativeRepository.save(carbonCreditInitiative);
+  }
 
   public InitiativeResource createInitiativeResource(InitiativeService initiativeService) {
     return new InitiativeResourceImplementation(initiativeService);

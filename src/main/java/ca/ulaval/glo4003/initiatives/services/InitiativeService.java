@@ -80,5 +80,7 @@ public class InitiativeService {
     initiative.addAllocatedAmount(money);
 
     initiativeRepository.update(initiative);
+
+    // TODO call observer
   }
 }
