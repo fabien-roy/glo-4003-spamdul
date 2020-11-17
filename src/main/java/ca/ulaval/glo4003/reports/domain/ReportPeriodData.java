@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricData;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO : Make sure all is used in ReportPeriodData
 public class ReportPeriodData {
 
   private List<ReportEvent> events;

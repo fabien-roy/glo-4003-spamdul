@@ -31,6 +31,11 @@ public class ParkingStickerBuilder {
     return this;
   }
 
+  public ParkingStickerBuilder withParkingPeriod(ParkingPeriod parkingPeriod) {
+    this.parkingPeriod = parkingPeriod;
+    return this;
+  }
+
   public ParkingSticker build() {
     ParkingSticker parkingSticker;
 

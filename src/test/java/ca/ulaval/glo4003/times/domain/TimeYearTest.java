@@ -33,9 +33,29 @@ public class TimeYearTest {
   }
 
   @Test
+  public void givenConstructionWithYear_whenGettingPeriodStart_thenGetYearStart() {
+    CustomDateTime expectedYearStart = aDateTime().withDateTime(getYearStart()).build();
+
+    TimeYear year = new TimeYear(dateTime.toLocalDateTime().getYear());
+    CustomDateTime yearStart = year.toPeriod().getStart();
+
+    assertThat(yearStart).isEqualTo(expectedYearStart);
+  }
+
+  @Test
   public void whenGettingPeriodEnd_thenGetYearEnd() {
     CustomDateTime expectedYearEnd = aDateTime().withDateTime(getYearEnd()).build();
 
+    CustomDateTime yearEnd = year.toPeriod().getEnd();
+
+    assertThat(yearEnd).isEqualTo(expectedYearEnd);
+  }
+
+  @Test
+  public void givenConstructionWithYear_whenGettingPeriodEnd_thenGetYearEnd() {
+    CustomDateTime expectedYearEnd = aDateTime().withDateTime(getYearEnd()).build();
+
+    TimeYear year = new TimeYear(dateTime.toLocalDateTime().getYear());
     CustomDateTime yearEnd = year.toPeriod().getEnd();
 
     assertThat(yearEnd).isEqualTo(expectedYearEnd);

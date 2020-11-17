@@ -5,20 +5,22 @@ import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionType;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingPeriod;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
-import ca.ulaval.glo4003.funds.assemblers.BillsByConsumptionsTypeAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
-import ca.ulaval.glo4003.funds.domain.queryparams.BillQueryParams;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
+import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
+import ca.ulaval.glo4003.reports.services.ReportService;
 import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,21 +32,20 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class BillServiceTest {
 
   @Mock BillFactory billFactory;
-  @Mock BillRepository<BillQuery> billRepository;
+  @Mock BillRepository billRepository;
   @Mock BillAssembler billAssembler;
-  @Mock BillQueryFactory billQueryFactory;
-  @Mock BillQuery billQuery;
-  @Mock BillProfitsCalculator billProfitsCalculator;
+  @Mock BillPriceCalculator billPriceCalculator;
   @Mock SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
-  @Mock BillsByConsumptionsTypeAssembler billsByConsumptionsTypeAssembler;
-  @Mock ParkingArea parkingArea;
+  @Mock private ReportService reportService;
 
   @Mock
   SustainableMobilityProgramAllocationCalculator sustainableMobilityProgramAllocationCalculator;
 
   private BillService billService;
 
-  private final ParkingSticker parkingSticker = aParkingSticker().build();
+  private final ParkingPeriod parkingPeriod = createParkingPeriod();
+  private final ParkingSticker parkingSticker =
+      aParkingSticker().withParkingPeriod(parkingPeriod).build();
   private final Money POSTAL_FEE = BillService.POSTAL_CODE_FEE;
   private final Bill bill = aBill().build();
   private final Money fee = createMoney();
@@ -53,7 +54,9 @@ public class BillServiceTest {
   private final AccessPassCode accessPassCode = createAccessPassCode();
   private final ConsumptionType consumptionType = createConsumptionType();
   private final OffenseCode offenseCode = createOffenseCode();
-  private final BillQueryParams params = new BillQueryParams();
+  private final Map<ParkingPeriod, Money> feePerPeriod =
+      Collections.singletonMap(parkingPeriod, fee);
+  private final ParkingArea parkingArea = aParkingArea().withFeePerPeriod(feePerPeriod).build();
 
   @Before
   public void setUp() {
@@ -62,15 +65,12 @@ public class BillServiceTest {
             billFactory,
             billRepository,
             billAssembler,
-            billQueryFactory,
+            reportService,
             sustainableMobilityProgramBankRepository,
-            sustainableMobilityProgramAllocationCalculator,
-            billsByConsumptionsTypeAssembler);
+            sustainableMobilityProgramAllocationCalculator);
 
-    List<Bill> bills = new ArrayList<>();
-    bills.add(bill);
+    List<Bill> bills = Collections.singletonList(bill);
 
-    when(parkingArea.getFeeForPeriod(parkingSticker.getParkingPeriod())).thenReturn(fee);
     when(billFactory.createForParkingSticker(
             fee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
         .thenReturn(bill);
@@ -79,11 +79,9 @@ public class BillServiceTest {
         .thenReturn(bill);
     when(billFactory.createForAccessPass(fee, accessPassCode, consumptionType)).thenReturn(bill);
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
-    when(billQueryFactory.create(params)).thenReturn(billQuery);
     when(billRepository.getBill(bill.getId())).thenReturn(bill);
-    when(billRepository.getAll(billQuery)).thenReturn(bills);
-    when(billProfitsCalculator.calculateTotalPrice(bills)).thenReturn(fee);
-    when(billProfitsCalculator.calculatePaidPrice(bills)).thenReturn(fee);
+    when(billPriceCalculator.calculateTotalPrice(bills)).thenReturn(fee);
+    when(billPriceCalculator.calculatePaidPrice(bills)).thenReturn(fee);
     when(sustainableMobilityProgramAllocationCalculator.calculate(amountDue))
         .thenReturn(amountKeptForSustainabilityProgram);
   }
@@ -105,8 +103,10 @@ public class BillServiceTest {
   @Test
   public void givenPostalParkingSticker_whenAddingBill_thenAddPostalFee() {
     ParkingSticker postalParkingSticker =
-        aParkingSticker().withReceptionMethod(ReceptionMethod.POSTAL).build();
-    when(parkingArea.getFeeForPeriod(postalParkingSticker.getParkingPeriod())).thenReturn(fee);
+        aParkingSticker()
+            .withReceptionMethod(ReceptionMethod.POSTAL)
+            .withParkingPeriod(parkingPeriod)
+            .build();
     when(billFactory.createForParkingSticker(
             fee.plus(POSTAL_FEE),
             postalParkingSticker.getCode(),
@@ -204,6 +204,19 @@ public class BillServiceTest {
 
   @Test
   public void
+      givenBillTypeParkingSticker_whenPayingBill_thenReportBillPaidForParkingStickerEvent() {
+    Bill parkingBill =
+        aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.PARKING_STICKER).build();
+    when(billRepository.getBill(parkingBill.getId())).thenReturn(parkingBill);
+
+    billService.payBill(parkingBill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(reportService).addBillPaidForParkingStickerEvent(amountDue);
+  }
+
+  @Test
+  public void
       givenBillTypeAccessPass_whenPayingBill_thenSustainableMobilityProgramBankRepositoryIsCalled() {
     Bill accessPassBill =
         aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.ACCESS_PASS).build();
@@ -213,6 +226,19 @@ public class BillServiceTest {
     bill.pay(amountDue);
 
     verify(sustainableMobilityProgramBankRepository).add(amountKeptForSustainabilityProgram);
+  }
+
+  @Test
+  public void givenBillTypeAccessPass_whenPayingBill_thenReportBillPaidForAccessPassEvent() {
+    Bill accessPassBill =
+        aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.ACCESS_PASS).build();
+    when(billRepository.getBill(accessPassBill.getId())).thenReturn(accessPassBill);
+
+    billService.payBill(accessPassBill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(reportService)
+        .addBillPaidForAccessPassEvent(amountDue, accessPassBill.getConsumptionType().get());
   }
 
   @Test
@@ -229,9 +255,14 @@ public class BillServiceTest {
   }
 
   @Test
-  public void whenGettingAllBills_thenRepositoryIscalled() {
-    billService.getAllBillsByQueryParams(params);
+  public void givenBillTypeOffense_whenPayingBill_thenReportBillPaidForOffenseEvent() {
+    Bill offenseBill =
+        aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.OFFENSE).build();
+    when(billRepository.getBill(offenseBill.getId())).thenReturn(offenseBill);
 
-    verify(billRepository).getAll(billQuery);
+    billService.payBill(offenseBill.getId(), amountDue);
+    bill.pay(amountDue);
+
+    verify(reportService).addBillPaidForOffenseEvent(amountDue);
   }
 }

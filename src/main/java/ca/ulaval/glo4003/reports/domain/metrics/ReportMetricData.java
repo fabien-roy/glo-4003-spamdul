@@ -1,9 +1,8 @@
 package ca.ulaval.glo4003.reports.domain.metrics;
 
-public interface ReportMetricData<T> {
+public interface ReportMetricData {
 
-  // TODO : Is this used?
   ReportMetricType getType();
 
-  T getValue();
+  double getValue();
 }
