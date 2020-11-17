@@ -12,7 +12,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InMemoryReportDimensionBuilderTest {
+public class ReportDimensionBuilderInMemoryTest {
 
   private ReportDimensionBuilder reportDimensionBuilder;
 
@@ -50,7 +50,7 @@ public class InMemoryReportDimensionBuilderTest {
         reportDimensionBuilder.someDimensions().withTypes(dimensionTypes).buildMany();
 
     assertThat(dimensions).hasSize(1);
-    assertThat(dimensions.get(0)).isInstanceOf(InMemoryParkingAreaDimension.class);
+    assertThat(dimensions.get(0)).isInstanceOf(ParkingAreaDimensionInMemory.class);
   }
 
   @Test

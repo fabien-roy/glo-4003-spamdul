@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import java.util.Arrays;
 import java.util.List;
 
-public class InMemoryConsumptionTypeDimension extends ReportDimension<ConsumptionType> {
+public class ConsumptionTypeDimensionInMemory extends ReportDimension<ConsumptionType> {
 
   @Override
   protected ReportDimensionType getType() {

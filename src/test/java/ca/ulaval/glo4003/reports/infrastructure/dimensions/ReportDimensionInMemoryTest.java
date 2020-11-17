@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
 
-public abstract class InMemoryReportDimensionTest {
+public abstract class ReportDimensionInMemoryTest {
 
   protected ReportDimension dimension;
 

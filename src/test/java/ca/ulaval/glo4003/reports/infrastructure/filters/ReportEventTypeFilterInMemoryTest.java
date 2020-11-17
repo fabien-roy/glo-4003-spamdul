@@ -10,9 +10,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InMemoryReportEventTypeFilterTest {
+public class ReportEventTypeFilterInMemoryTest {
 
-  private InMemoryReportFilter filter;
+  private ReportFilterInMemory filter;
 
   private final ReportEventType type = ReportEventType.GATE_ENTERED;
   private final ReportEventType otherType = ReportEventType.BILL_PAID_FOR_OFFENSE;
@@ -21,7 +21,7 @@ public class InMemoryReportEventTypeFilterTest {
 
   @Before
   public void setUp() {
-    filter = new InMemoryReportEventTypeFilter(type);
+    filter = new ReportEventTypeFilterInMemory(type);
   }
 
   @Test

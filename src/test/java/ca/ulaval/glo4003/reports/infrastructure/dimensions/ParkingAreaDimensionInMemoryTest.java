@@ -1,9 +1,10 @@
 package ca.ulaval.glo4003.reports.infrastructure.dimensions;
 
+import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.reports.helpers.ReportEventBuilder.aReportEvent;
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.cars.domain.ConsumptionType;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.reports.domain.ReportEvent;
 import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
@@ -13,19 +14,21 @@ import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InMemoryConsumptionTypeDimensionTest extends InMemoryReportDimensionTest {
+public class ParkingAreaDimensionInMemoryTest extends ReportDimensionInMemoryTest {
 
-  private final ConsumptionType firstConsumptionType = ConsumptionType.ZERO_POLLUTION;
-  private final ConsumptionType secondConsumptionType = ConsumptionType.ECONOMIC;
+  private final ParkingAreaCode firstParkingAreaCode = createParkingAreaCode();
+  private final ParkingAreaCode secondParkingAreaCode = createParkingAreaCode();
+  private final List<ParkingAreaCode> parkingAreaCodes =
+      Arrays.asList(firstParkingAreaCode, secondParkingAreaCode);
   private final ReportEvent firstEvent =
-      aReportEvent().withConsumptionType(firstConsumptionType).build();
+      aReportEvent().withParkingAreaCode(firstParkingAreaCode).build();
   private final ReportEvent secondEvent =
-      aReportEvent().withConsumptionType(secondConsumptionType).build();
+      aReportEvent().withParkingAreaCode(secondParkingAreaCode).build();
 
   @Before
   public void setUp() {
     super.setUp();
-    dimension = new InMemoryConsumptionTypeDimension();
+    dimension = new ParkingAreaDimensionInMemory(parkingAreaCodes);
   }
 
   @Override
@@ -35,24 +38,24 @@ public class InMemoryConsumptionTypeDimensionTest extends InMemoryReportDimensio
 
   @Override
   protected int numberOfValues() {
-    return ConsumptionType.values().length;
+    return parkingAreaCodes.size();
   }
 
   @Test
-  public void whenSplittingAll_thenSplitWithConsumptionTypeValues() {
+  public void whenSplittingAll_thenSplitWithParkingAreaCodeValues() {
     List<ReportPeriodData> splitData = dimension.splitAll(singleData);
 
     assertThat(
         splitData.stream()
-            .anyMatch(data -> data.getDimensions().get(0).getValue().equals(firstConsumptionType)));
+            .anyMatch(data -> data.getDimensions().get(0).getValue().equals(firstParkingAreaCode)));
     assertThat(
         splitData.stream()
             .anyMatch(
-                data -> data.getDimensions().get(0).getValue().equals(secondConsumptionType)));
+                data -> data.getDimensions().get(0).getValue().equals(secondParkingAreaCode)));
   }
 
   @Test
-  public void whenSplittingAll_thenSplitWithConsumptionTypeDimensionType() {
+  public void whenSplittingAll_thenSplitWithParkingAreaDimensionType() {
     List<ReportPeriodData> splitData = dimension.splitAll(singleData);
 
     assertThat(
@@ -62,17 +65,17 @@ public class InMemoryConsumptionTypeDimensionTest extends InMemoryReportDimensio
                     data.getDimensions()
                         .get(0)
                         .getType()
-                        .equals(ReportDimensionType.CONSUMPTION_TYPE)));
+                        .equals(ReportDimensionType.PARKING_AREA)));
   }
 
   @Test
   public void
       givenSingleEventPerConsumptionType_whenSplittingAll_thenSplitEventsByConsumptionType() {
-    assertSplitEventsByConsumptionType(firstEvent, firstConsumptionType);
-    assertSplitEventsByConsumptionType(secondEvent, secondConsumptionType);
+    assertSplitEventsByParkingArea(firstEvent, firstParkingAreaCode);
+    assertSplitEventsByParkingArea(secondEvent, secondParkingAreaCode);
   }
 
-  private void assertSplitEventsByConsumptionType(ReportEvent event, ConsumptionType value) {
+  private void assertSplitEventsByParkingArea(ReportEvent event, ParkingAreaCode value) {
     List<ReportPeriodData> splitData = dimension.splitAll(singleData);
     List<ReportPeriodData> filteredData = filterData(splitData, value);
 
@@ -81,7 +84,7 @@ public class InMemoryConsumptionTypeDimensionTest extends InMemoryReportDimensio
     assertThat(filteredData.get(0).getEvents().get(0)).isSameInstanceAs(event);
   }
 
-  private List<ReportPeriodData> filterData(List<ReportPeriodData> data, ConsumptionType value) {
+  private List<ReportPeriodData> filterData(List<ReportPeriodData> data, ParkingAreaCode value) {
     return data.stream()
         .filter(datum -> datum.getDimensions().get(0).getValue().equals(value))
         .collect(Collectors.toList());

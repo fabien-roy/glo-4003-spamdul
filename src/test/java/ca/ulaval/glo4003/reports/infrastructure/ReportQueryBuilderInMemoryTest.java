@@ -19,7 +19,7 @@ import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScope;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeBuilder;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
-import ca.ulaval.glo4003.reports.infrastructure.filters.InMemoryReportEventTypeFilter;
+import ca.ulaval.glo4003.reports.infrastructure.filters.ReportEventTypeFilterInMemory;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +30,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class InMemoryReportQueryBuilderTest {
+public class ReportQueryBuilderInMemoryTest {
 
   @Mock private ReportScopeBuilder scopeBuilder;
   @Mock private ReportMetricBuilder metricBuilder;
@@ -39,7 +39,7 @@ public class InMemoryReportQueryBuilderTest {
   @Mock private ReportMetric metric;
   @Mock private ReportDimension dimension;
 
-  private ReportQueryBuilder<InMemoryReportQuery> reportQueryBuilder;
+  private ReportQueryBuilder<ReportQueryInMemory> reportQueryBuilder;
 
   private final TimePeriod period = aTimePeriod().build();
   private final ReportScopeType scopeType = createReportScopeType();
@@ -69,19 +69,19 @@ public class InMemoryReportQueryBuilderTest {
     when(dimensionBuilder.someDimensions()).thenReturn(dimensionBuilder);
 
     reportQueryBuilder =
-        new InMemoryReportQueryBuilder(scopeBuilder, metricBuilder, dimensionBuilder);
+        new ReportQueryBuilderInMemory(scopeBuilder, metricBuilder, dimensionBuilder);
   }
 
   @Test
   public void givenPeriodAndScope_whenBuilding_thenReturnReportQueryWithScope() {
-    InMemoryReportQuery reportQuery = buildReportQuery();
+    ReportQueryInMemory reportQuery = buildReportQuery();
 
     assertThat(reportQuery.getScope()).isSameInstanceAs(scope);
   }
 
   @Test
   public void givenMetricTypes_whenBuilding_thenReturnReportQueryWithMetrics() {
-    InMemoryReportQuery reportQuery = buildReportQuery();
+    ReportQueryInMemory reportQuery = buildReportQuery();
 
     assertThat(reportQuery.getMetrics()).hasSize(1);
     assertThat(reportQuery.getMetrics().get(0)).isSameInstanceAs(metric);
@@ -89,7 +89,7 @@ public class InMemoryReportQueryBuilderTest {
 
   @Test
   public void givenDimensionTypes_whenBuilding_thenReturnReportQueryWithDimensions() {
-    InMemoryReportQuery reportQuery = buildReportQuery();
+    ReportQueryInMemory reportQuery = buildReportQuery();
 
     assertThat(reportQuery.getDimensions()).hasSize(1);
     assertThat(reportQuery.getDimensions().get(0)).isSameInstanceAs(dimension);
@@ -97,13 +97,13 @@ public class InMemoryReportQueryBuilderTest {
 
   @Test
   public void givenReportEventType_whenBuilding_thenReturnReportQueryWithReportEventTypeFilter() {
-    InMemoryReportQuery reportQuery = buildReportQuery();
+    ReportQueryInMemory reportQuery = buildReportQuery();
 
     assertThat(reportQuery.getFilters()).hasSize(1);
-    assertThat(reportQuery.getFilters().get(0)).isInstanceOf(InMemoryReportEventTypeFilter.class);
+    assertThat(reportQuery.getFilters().get(0)).isInstanceOf(ReportEventTypeFilterInMemory.class);
   }
 
-  private InMemoryReportQuery buildReportQuery() {
+  private ReportQueryInMemory buildReportQuery() {
     return reportQueryBuilder
         .aReportQuery()
         .withPeriod(period)

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // TODO : We should make sure all in memory infrastructure follow the same naming
-public class InMemoryReportRepository implements ReportRepository<InMemoryReportQuery> {
+public class ReportRepositoryInMemory implements ReportRepository<ReportQueryInMemory> {
   private final List<ReportEvent> events = new ArrayList<>();
 
   @Override
@@ -16,7 +16,7 @@ public class InMemoryReportRepository implements ReportRepository<InMemoryReport
   }
 
   @Override
-  public List<ReportPeriod> getPeriods(InMemoryReportQuery query) {
+  public List<ReportPeriod> getPeriods(ReportQueryInMemory query) {
     query.setEvents(events);
     return query.execute();
   }

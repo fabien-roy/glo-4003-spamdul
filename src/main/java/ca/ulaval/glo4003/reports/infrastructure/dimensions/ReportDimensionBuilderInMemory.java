@@ -8,23 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InMemoryReportDimensionBuilder implements ReportDimensionBuilder {
+public class ReportDimensionBuilderInMemory implements ReportDimensionBuilder {
 
   private List<ReportDimensionType> dimensionTypes = new ArrayList<>();
   private List<ParkingAreaCode> parkingAreaCodes = new ArrayList<>();
 
-  public InMemoryReportDimensionBuilder someDimensions() {
-    return new InMemoryReportDimensionBuilder();
+  public ReportDimensionBuilderInMemory someDimensions() {
+    return new ReportDimensionBuilderInMemory();
   }
 
-  public InMemoryReportDimensionBuilder withTypes(List<ReportDimensionType> dimensionTypes) {
+  public ReportDimensionBuilderInMemory withTypes(List<ReportDimensionType> dimensionTypes) {
     this.dimensionTypes = dimensionTypes;
     return this;
   }
 
   // TODO #262 : Send existing parking area codes to report dimension builder when requesting
   //             parking area dimension
-  public InMemoryReportDimensionBuilder withParkingAreaCodes(
+  public ReportDimensionBuilderInMemory withParkingAreaCodes(
       List<ParkingAreaCode> parkingAreaCodes) {
     this.parkingAreaCodes = parkingAreaCodes;
     return this;
@@ -38,9 +38,9 @@ public class InMemoryReportDimensionBuilder implements ReportDimensionBuilder {
     switch (dimensionType) {
       default:
       case CONSUMPTION_TYPE:
-        return new InMemoryConsumptionTypeDimension();
+        return new ConsumptionTypeDimensionInMemory();
       case PARKING_AREA:
-        return new InMemoryParkingAreaDimension(parkingAreaCodes);
+        return new ParkingAreaDimensionInMemory(parkingAreaCodes);
     }
   }
 }

@@ -12,7 +12,7 @@ import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimension;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetric;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScope;
-import ca.ulaval.glo4003.reports.infrastructure.filters.InMemoryReportFilter;
+import ca.ulaval.glo4003.reports.infrastructure.filters.ReportFilterInMemory;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +27,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 // TODO : Refactor this test class, removing usage of any()
 @RunWith(MockitoJUnitRunner.class)
-public class InMemoryReportQueryTest {
+public class ReportQueryInMemoryTest {
 
   @Mock private ReportScope scope;
   @Mock private ReportPeriod firstPeriod;
@@ -36,13 +36,13 @@ public class InMemoryReportQueryTest {
   @Mock private ReportMetric secondMetric;
   @Mock private ReportDimension firstDimension;
   @Mock private ReportDimension secondDimension;
-  @Mock private InMemoryReportFilter filter;
+  @Mock private ReportFilterInMemory filter;
 
-  private InMemoryReportQuery query;
+  private ReportQueryInMemory query;
 
   private List<ReportMetric> metrics = new ArrayList<>();
   private List<ReportDimension> dimensions = new ArrayList<>();
-  private List<InMemoryReportFilter> filters = new ArrayList<>();
+  private List<ReportFilterInMemory> filters = new ArrayList<>();
   private List<ReportEvent> events = new ArrayList<>();
   private final CustomDateTime dateTime = createDateTime();
   private final CustomDateTime otherDateTime = createDateTime();
@@ -56,7 +56,7 @@ public class InMemoryReportQueryTest {
   private final int numberOfSecondDimensions = 6;
 
   private void setUpQuery() {
-    query = new InMemoryReportQuery(scope, metrics, dimensions, filters);
+    query = new ReportQueryInMemory(scope, metrics, dimensions, filters);
     query.setEvents(events);
   }
 

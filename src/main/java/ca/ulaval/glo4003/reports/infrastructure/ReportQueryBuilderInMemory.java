@@ -11,13 +11,13 @@ import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScope;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeBuilder;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
-import ca.ulaval.glo4003.reports.infrastructure.filters.InMemoryReportEventTypeFilter;
-import ca.ulaval.glo4003.reports.infrastructure.filters.InMemoryReportFilter;
+import ca.ulaval.glo4003.reports.infrastructure.filters.ReportEventTypeFilterInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.filters.ReportFilterInMemory;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryReportQueryBuilder implements ReportQueryBuilder<InMemoryReportQuery> {
+public class ReportQueryBuilderInMemory implements ReportQueryBuilder<ReportQueryInMemory> {
 
   private final ReportScopeBuilder scopeBuilder;
   private final ReportMetricBuilder metricBuilder;
@@ -27,9 +27,9 @@ public class InMemoryReportQueryBuilder implements ReportQueryBuilder<InMemoryRe
   private ReportScopeType scopeType;
   private List<ReportDimensionType> dimensionTypes;
   private List<ReportMetricType> metricTypes;
-  private final List<InMemoryReportFilter> filters = new ArrayList<>();
+  private final List<ReportFilterInMemory> filters = new ArrayList<>();
 
-  public InMemoryReportQueryBuilder(
+  public ReportQueryBuilderInMemory(
       ReportScopeBuilder scopeBuilder,
       ReportMetricBuilder metricBuilder,
       ReportDimensionBuilder dimensionBuilder) {
@@ -39,49 +39,49 @@ public class InMemoryReportQueryBuilder implements ReportQueryBuilder<InMemoryRe
   }
 
   @Override
-  public ReportQueryBuilder<InMemoryReportQuery> aReportQuery() {
-    return new InMemoryReportQueryBuilder(scopeBuilder, metricBuilder, dimensionBuilder);
+  public ReportQueryBuilder<ReportQueryInMemory> aReportQuery() {
+    return new ReportQueryBuilderInMemory(scopeBuilder, metricBuilder, dimensionBuilder);
   }
 
   @Override
-  public ReportQueryBuilder<InMemoryReportQuery> withPeriod(TimePeriod period) {
+  public ReportQueryBuilder<ReportQueryInMemory> withPeriod(TimePeriod period) {
     this.period = period;
     return this;
   }
 
   @Override
-  public ReportQueryBuilder<InMemoryReportQuery> withScope(ReportScopeType scopeType) {
+  public ReportQueryBuilder<ReportQueryInMemory> withScope(ReportScopeType scopeType) {
     this.scopeType = scopeType;
     return this;
   }
 
   @Override
-  public ReportQueryBuilder<InMemoryReportQuery> withMetrics(List<ReportMetricType> metricTypes) {
+  public ReportQueryBuilder<ReportQueryInMemory> withMetrics(List<ReportMetricType> metricTypes) {
     this.metricTypes = metricTypes;
     return this;
   }
 
   @Override
-  public ReportQueryBuilder<InMemoryReportQuery> withDimensions(
+  public ReportQueryBuilder<ReportQueryInMemory> withDimensions(
       List<ReportDimensionType> dimensionTypes) {
     this.dimensionTypes = dimensionTypes;
     return this;
   }
 
   @Override
-  public ReportQueryBuilder<InMemoryReportQuery> withReportEventType(
+  public ReportQueryBuilder<ReportQueryInMemory> withReportEventType(
       ReportEventType reportEventType) {
-    InMemoryReportFilter typeFilter = new InMemoryReportEventTypeFilter(reportEventType);
+    ReportFilterInMemory typeFilter = new ReportEventTypeFilterInMemory(reportEventType);
     filters.add(typeFilter);
     return this;
   }
 
   @Override
-  public InMemoryReportQuery build() {
+  public ReportQueryInMemory build() {
     ReportScope scope = scopeBuilder.aReportScope().withPeriod(period).withType(scopeType).build();
     List<ReportMetric> metrics = metricBuilder.someMetrics().withTypes(metricTypes).buildMany();
     List<ReportDimension> dimensions =
         dimensionBuilder.someDimensions().withTypes(dimensionTypes).buildMany();
-    return new InMemoryReportQuery(scope, metrics, dimensions, filters);
+    return new ReportQueryInMemory(scope, metrics, dimensions, filters);
   }
 }

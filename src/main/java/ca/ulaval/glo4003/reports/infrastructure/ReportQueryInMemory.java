@@ -7,24 +7,24 @@ import ca.ulaval.glo4003.reports.domain.ReportQuery;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimension;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetric;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScope;
-import ca.ulaval.glo4003.reports.infrastructure.filters.InMemoryReportFilter;
+import ca.ulaval.glo4003.reports.infrastructure.filters.ReportFilterInMemory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InMemoryReportQuery implements ReportQuery {
+public class ReportQueryInMemory implements ReportQuery {
 
   private final ReportScope scope;
   private final List<ReportMetric> metrics;
   private final List<ReportDimension> dimensions;
-  private final List<InMemoryReportFilter> filters;
+  private final List<ReportFilterInMemory> filters;
   private List<ReportEvent> events;
 
-  public InMemoryReportQuery(
+  public ReportQueryInMemory(
       ReportScope scope,
       List<ReportMetric> metrics,
       List<ReportDimension> dimensions,
-      List<InMemoryReportFilter> filters) {
+      List<ReportFilterInMemory> filters) {
     this.scope = scope;
     this.metrics = metrics;
     this.dimensions = dimensions;
@@ -47,7 +47,7 @@ public class InMemoryReportQuery implements ReportQuery {
     return dimensions;
   }
 
-  public List<InMemoryReportFilter> getFilters() {
+  public List<ReportFilterInMemory> getFilters() {
     return filters;
   }
 
@@ -72,7 +72,7 @@ public class InMemoryReportQuery implements ReportQuery {
   private List<ReportEvent> getFilteredEvents() {
     List<ReportEvent> filteredEvents = events;
 
-    for (InMemoryReportFilter filter : filters) filteredEvents = filter.filter(filteredEvents);
+    for (ReportFilterInMemory filter : filters) filteredEvents = filter.filter(filteredEvents);
 
     return filteredEvents;
   }

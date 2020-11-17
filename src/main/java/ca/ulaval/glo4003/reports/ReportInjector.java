@@ -14,21 +14,21 @@ import ca.ulaval.glo4003.reports.domain.ReportRepository;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionBuilder;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricBuilder;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeBuilder;
-import ca.ulaval.glo4003.reports.infrastructure.InMemoryReportQueryBuilder;
-import ca.ulaval.glo4003.reports.infrastructure.InMemoryReportRepository;
-import ca.ulaval.glo4003.reports.infrastructure.dimensions.InMemoryReportDimensionBuilder;
-import ca.ulaval.glo4003.reports.infrastructure.metrics.InMemoryReportMetricBuilder;
+import ca.ulaval.glo4003.reports.infrastructure.ReportQueryBuilderInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.ReportRepositoryInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.dimensions.ReportDimensionBuilderInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.metrics.ReportMetricBuilderInMemory;
 import ca.ulaval.glo4003.reports.services.ReportParkingAreasService;
 import ca.ulaval.glo4003.reports.services.ReportProfitService;
 
 public class ReportInjector {
 
-  private ReportRepository reportRepository = new InMemoryReportRepository();
-  private ReportMetricBuilder metricBuilder = new InMemoryReportMetricBuilder();
-  private ReportDimensionBuilder dimensionBuilder = new InMemoryReportDimensionBuilder();
+  private ReportRepository reportRepository = new ReportRepositoryInMemory();
+  private ReportMetricBuilder metricBuilder = new ReportMetricBuilderInMemory();
+  private ReportDimensionBuilder dimensionBuilder = new ReportDimensionBuilderInMemory();
   private ReportScopeBuilder scopeBuilder = new ReportScopeBuilder();
   private ReportQueryBuilder reportQueryBuilder =
-      new InMemoryReportQueryBuilder(scopeBuilder, metricBuilder, dimensionBuilder);
+      new ReportQueryBuilderInMemory(scopeBuilder, metricBuilder, dimensionBuilder);
 
   public ReportProfitService createReportProfitService() {
 
