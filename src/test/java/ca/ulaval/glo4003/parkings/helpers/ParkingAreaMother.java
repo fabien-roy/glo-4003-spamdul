@@ -13,7 +13,8 @@ import java.util.Map;
 
 public class ParkingAreaMother {
   public static ParkingAreaCode createParkingAreaCode() {
-    return new ParkingAreaCode("Zone1");
+    String parkingAreaCode = Faker.instance().beer().name();
+    return new ParkingAreaCode(parkingAreaCode);
   }
 
   public static Map<ParkingPeriod, Money> createFeePerPeriod() {

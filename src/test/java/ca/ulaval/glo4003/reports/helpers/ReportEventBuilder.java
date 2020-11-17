@@ -5,6 +5,7 @@ import static ca.ulaval.glo4003.times.helpers.CustomDateTimeMother.createDateTim
 
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.Money;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.reports.domain.ReportEvent;
 import ca.ulaval.glo4003.reports.domain.ReportEventType;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
@@ -14,6 +15,7 @@ public class ReportEventBuilder {
   private CustomDateTime dateTime = createDateTime();
   private Money profits = null;
   private ConsumptionType consumptionType = null;
+  private ParkingAreaCode parkingAreaCode = null;
 
   public static ReportEventBuilder aReportEvent() {
     return new ReportEventBuilder();
@@ -39,7 +41,18 @@ public class ReportEventBuilder {
     return this;
   }
 
+  public ReportEventBuilder withParkingAreaCode(ParkingAreaCode parkingAreaCode) {
+    this.parkingAreaCode = parkingAreaCode;
+    return this;
+  }
+
   public ReportEvent build() {
-    return new ReportEvent(type, dateTime, profits, consumptionType);
+    if (parkingAreaCode == null) {
+      return consumptionType == null
+          ? new ReportEvent(type, dateTime, profits)
+          : new ReportEvent(type, dateTime, profits, consumptionType);
+    }
+
+    return new ReportEvent(type, dateTime, parkingAreaCode);
   }
 }
