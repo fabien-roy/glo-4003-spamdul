@@ -12,7 +12,7 @@ import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InMemoryGateEntriesMetricTest extends InMemoryReportMetricTest {
+public class GateEntriesMetricInMemoryTest extends ReportMetricInMemoryTest {
 
   private final ReportEvent firstGateEnteredEvent =
       aReportEvent().withType(ReportEventType.GATE_ENTERED).build();
@@ -28,7 +28,7 @@ public class InMemoryGateEntriesMetricTest extends InMemoryReportMetricTest {
 
   @Before
   public void setUp() {
-    metric = new InMemoryGateEntriesMetric();
+    metric = new GateEntriesMetricInMemory();
   }
 
   @Test

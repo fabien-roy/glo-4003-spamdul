@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.reports.domain.metrics.ReportMetric;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import java.util.List;
 
-public class InMemoryGateEntriesMetric extends ReportMetric {
+public class GateEntriesMetricInMemory extends ReportMetric {
 
   @Override
   public ReportMetricType getType() {

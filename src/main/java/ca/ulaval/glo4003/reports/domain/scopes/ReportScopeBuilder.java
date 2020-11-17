@@ -4,9 +4,8 @@ import ca.ulaval.glo4003.times.domain.TimePeriod;
 
 public class ReportScopeBuilder {
 
-  private ReportScopeType reportScopeType =
-      ReportScopeType.YEARLY; // TODO : Should yearly be default?
-  private TimePeriod period; // TODO : Should there be a default period? The whole year?
+  private ReportScopeType reportScopeType = ReportScopeType.YEARLY;
+  private TimePeriod period;
 
   public ReportScopeBuilder aReportScope() {
     return new ReportScopeBuilder();

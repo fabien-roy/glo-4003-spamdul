@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-// TODO : Make sure all is used in ReportDimension
 public abstract class ReportDimension<T> {
 
   protected abstract ReportDimensionType getType();
