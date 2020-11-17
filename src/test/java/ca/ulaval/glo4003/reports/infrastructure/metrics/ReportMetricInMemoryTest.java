@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import org.junit.Before;
 import org.junit.Test;
 
-public abstract class InMemoryReportMetricTest {
+public abstract class ReportMetricInMemoryTest {
 
   protected ReportMetric metric;
   protected ReportPeriodData data;

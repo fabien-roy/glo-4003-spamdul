@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InMemoryReportDimensionBuilder implements ReportDimensionBuilder {
+public class ReportDimensionBuilderInMemory implements ReportDimensionBuilder {
 
   private List<ReportDimensionType> dimensionTypes = new ArrayList<>();
 
-  public InMemoryReportDimensionBuilder someDimensions() {
-    return new InMemoryReportDimensionBuilder();
+  public ReportDimensionBuilderInMemory someDimensions() {
+    return new ReportDimensionBuilderInMemory();
   }
 
-  public InMemoryReportDimensionBuilder withTypes(List<ReportDimensionType> dimensionTypes) {
+  public ReportDimensionBuilderInMemory withTypes(List<ReportDimensionType> dimensionTypes) {
     this.dimensionTypes = dimensionTypes;
     return this;
   }
@@ -28,7 +28,7 @@ public class InMemoryReportDimensionBuilder implements ReportDimensionBuilder {
     switch (dimensionType) {
       default:
       case CONSUMPTION_TYPE:
-        return new InMemoryConsumptionTypeDimension();
+        return new ConsumptionTypeDimensionInMemory();
       case PARKING_AREA_CODE:
         return null; // TODO #263
     }

@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InMemoryReportMetricBuilder implements ReportMetricBuilder {
+public class ReportMetricBuilderInMemory implements ReportMetricBuilder {
 
   private List<ReportMetricType> metricTypes = new ArrayList<>();
 
-  public InMemoryReportMetricBuilder someMetrics() {
-    return new InMemoryReportMetricBuilder();
+  public ReportMetricBuilderInMemory someMetrics() {
+    return new ReportMetricBuilderInMemory();
   }
 
-  public InMemoryReportMetricBuilder withTypes(List<ReportMetricType> metricTypes) {
+  public ReportMetricBuilderInMemory withTypes(List<ReportMetricType> metricTypes) {
     this.metricTypes = metricTypes;
     return this;
   }
@@ -28,7 +28,7 @@ public class InMemoryReportMetricBuilder implements ReportMetricBuilder {
     switch (metricType) {
       default:
       case PROFITS:
-        return new InMemoryProfitsMetric();
+        return new ProfitsMetricInMemory();
       case GATE_ENTRIES:
         return null; // TODO #249
     }

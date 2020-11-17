@@ -9,13 +9,13 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InMemoryReportDimensionBuilderTest {
+public class ReportDimensionBuilderInMemoryTest {
 
-  private InMemoryReportDimensionBuilder reportDimensionBuilder;
+  private ReportDimensionBuilderInMemory reportDimensionBuilder;
 
   @Before
   public void setUp() {
-    reportDimensionBuilder = new InMemoryReportDimensionBuilder();
+    reportDimensionBuilder = new ReportDimensionBuilderInMemory();
   }
 
   @Test
@@ -35,6 +35,6 @@ public class InMemoryReportDimensionBuilderTest {
         reportDimensionBuilder.someDimensions().withTypes(dimensionTypes).buildMany();
 
     assertThat(dimensions).hasSize(1);
-    assertThat(dimensions.get(0)).isInstanceOf(InMemoryConsumptionTypeDimension.class);
+    assertThat(dimensions.get(0)).isInstanceOf(ConsumptionTypeDimensionInMemory.class);
   }
 }

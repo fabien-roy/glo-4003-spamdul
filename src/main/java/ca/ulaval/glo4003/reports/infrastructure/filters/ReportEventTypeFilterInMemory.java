@@ -5,11 +5,11 @@ import ca.ulaval.glo4003.reports.domain.ReportEventType;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InMemoryReportEventTypeFilter implements InMemoryReportFilter {
+public class ReportEventTypeFilterInMemory implements ReportFilterInMemory {
 
   private final ReportEventType reportEventType;
 
-  public InMemoryReportEventTypeFilter(ReportEventType reportEventType) {
+  public ReportEventTypeFilterInMemory(ReportEventType reportEventType) {
     this.reportEventType = reportEventType;
   }
 

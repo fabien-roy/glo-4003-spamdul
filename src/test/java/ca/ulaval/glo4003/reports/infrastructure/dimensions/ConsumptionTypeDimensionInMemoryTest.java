@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InMemoryConsumptionTypeDimensionTest extends InMemoryReportDimensionTest {
+public class ConsumptionTypeDimensionInMemoryTest extends ReportDimensionInMemoryTest {
 
   private final ConsumptionType firstConsumptionType = ConsumptionType.ZERO_POLLUTION;
   private final ConsumptionType secondConsumptionType = ConsumptionType.ECONOMIC;
@@ -25,7 +25,7 @@ public class InMemoryConsumptionTypeDimensionTest extends InMemoryReportDimensio
   @Before
   public void setUp() {
     super.setUp();
-    dimension = new InMemoryConsumptionTypeDimension();
+    dimension = new ConsumptionTypeDimensionInMemory();
   }
 
   @Override

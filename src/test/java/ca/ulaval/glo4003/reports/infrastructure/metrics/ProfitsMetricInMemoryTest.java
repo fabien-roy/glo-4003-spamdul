@@ -13,7 +13,7 @@ import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InMemoryProfitsMetricTest extends InMemoryReportMetricTest {
+public class ProfitsMetricInMemoryTest extends ReportMetricInMemoryTest {
 
   private final Money firstProfit = createMoney();
   private final Money secondProfit = createMoney();
@@ -27,7 +27,7 @@ public class InMemoryProfitsMetricTest extends InMemoryReportMetricTest {
 
   @Before
   public void setUp() {
-    metric = new InMemoryProfitsMetric();
+    metric = new ProfitsMetricInMemory();
   }
 
   @Test

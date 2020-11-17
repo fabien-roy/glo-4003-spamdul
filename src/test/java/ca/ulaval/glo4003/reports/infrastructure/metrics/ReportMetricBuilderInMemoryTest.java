@@ -9,13 +9,13 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InMemoryReportMetricBuilderTest {
+public class ReportMetricBuilderInMemoryTest {
 
-  private InMemoryReportMetricBuilder reportMetricBuilder;
+  private ReportMetricBuilderInMemory reportMetricBuilder;
 
   @Before
   public void setUp() {
-    reportMetricBuilder = new InMemoryReportMetricBuilder();
+    reportMetricBuilder = new ReportMetricBuilderInMemory();
   }
 
   @Test
@@ -33,6 +33,6 @@ public class InMemoryReportMetricBuilderTest {
         reportMetricBuilder.someMetrics().withTypes(metricTypes).buildMany();
 
     assertThat(metrics).hasSize(1);
-    assertThat(metrics.get(0)).isInstanceOf(InMemoryProfitsMetric.class);
+    assertThat(metrics.get(0)).isInstanceOf(ProfitsMetricInMemory.class);
   }
 }
