@@ -30,7 +30,7 @@ public class ReportMetricBuilderInMemory implements ReportMetricBuilder {
       case PROFITS:
         return new ProfitsMetricInMemory();
       case GATE_ENTRIES:
-        return null; // TODO #249
+        return new GateEntriesMetricInMemory();
     }
   }
 }

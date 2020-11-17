@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.reports.domain.metrics;
 
 import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
 
-// TODO : Make sure all is used in ReportMetric
 public abstract class ReportMetric {
 
   public abstract ReportMetricType getType();
