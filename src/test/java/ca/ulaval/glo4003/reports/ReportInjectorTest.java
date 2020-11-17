@@ -2,7 +2,9 @@ package ca.ulaval.glo4003.reports;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import ca.ulaval.glo4003.reports.api.ReportParkingAreasResource;
 import ca.ulaval.glo4003.reports.api.ReportProfitResource;
+import ca.ulaval.glo4003.reports.services.ReportParkingAreasService;
 import ca.ulaval.glo4003.reports.services.ReportProfitService;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,16 +19,32 @@ public class ReportInjectorTest {
   }
 
   @Test
-  public void whenCreatingReportService_thenReturnIt() {
-    ReportProfitService reportProfitService = reportInjector.createReportService();
+  public void whenCreatingReportProfitService_thenReturnIt() {
+    ReportProfitService reportProfitService = reportInjector.createReportProfitService();
 
     assertThat(reportProfitService).isNotNull();
   }
 
   @Test
-  public void whenCreatingReportResource_thenReturnIt() {
-    ReportProfitResource reportProfitResource = reportInjector.createReportResource();
+  public void whenCreatingReportProfitResource_thenReturnIt() {
+    ReportProfitResource reportProfitResource = reportInjector.createReportProfitResource();
 
     assertThat(reportProfitResource).isNotNull();
+  }
+
+  @Test
+  public void whenCreatingReportParkingAreasResource_thenReturnIt() {
+    ReportParkingAreasResource reportParkingAreasResource =
+        reportInjector.createReportParkingAreaResource();
+
+    assertThat(reportParkingAreasResource).isNotNull();
+  }
+
+  @Test
+  public void whenCreatingReportParkingAreasService_thenReturnIt() {
+    ReportParkingAreasService reportParkingAreasService =
+        reportInjector.createReportParkingAreaService();
+
+    assertThat(reportParkingAreasService).isNotNull();
   }
 }
