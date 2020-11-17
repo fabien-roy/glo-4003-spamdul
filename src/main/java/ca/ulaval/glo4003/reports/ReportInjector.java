@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.reports;
 
-import ca.ulaval.glo4003.reports.api.ReportResource;
-import ca.ulaval.glo4003.reports.api.ReportResourceImplementation;
+import ca.ulaval.glo4003.reports.api.ReportProfitResource;
+import ca.ulaval.glo4003.reports.api.ReportProfitResourceImplementation;
 import ca.ulaval.glo4003.reports.assemblers.ReportDimensionDataAssembler;
 import ca.ulaval.glo4003.reports.assemblers.ReportMetricDataAssembler;
 import ca.ulaval.glo4003.reports.assemblers.ReportPeriodAssembler;
@@ -16,13 +16,13 @@ import ca.ulaval.glo4003.reports.infrastructure.InMemoryReportQueryBuilder;
 import ca.ulaval.glo4003.reports.infrastructure.InMemoryReportRepository;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.InMemoryReportDimensionBuilder;
 import ca.ulaval.glo4003.reports.infrastructure.metrics.InMemoryReportMetricBuilder;
-import ca.ulaval.glo4003.reports.services.ReportService;
+import ca.ulaval.glo4003.reports.services.ReportProfitService;
 
 public class ReportInjector {
 
   private ReportRepository reportRepository = new InMemoryReportRepository();
 
-  public ReportService createReportService() {
+  public ReportProfitService createReportService() {
     ReportScopeBuilder scopeBuilder = new ReportScopeBuilder();
     ReportMetricBuilder metricBuilder = new InMemoryReportMetricBuilder();
     ReportDimensionBuilder dimensionBuilder = new InMemoryReportDimensionBuilder();
@@ -36,11 +36,11 @@ public class ReportInjector {
     ReportPeriodAssembler reportPeriodAssembler =
         new ReportPeriodAssembler(reportPeriodDataAssembler);
 
-    return new ReportService(
+    return new ReportProfitService(
         reportRepository, reportQueryBuilder, reportPeriodAssembler, new ReportEventFactory());
   }
 
-  public ReportResource createReportResource() {
-    return new ReportResourceImplementation(createReportService());
+  public ReportProfitResource createReportResource() {
+    return new ReportProfitResourceImplementation(createReportService());
   }
 }

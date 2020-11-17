@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramAllocationCalcul
 import ca.ulaval.glo4003.funds.infrastructure.BillRepositoryInMemory;
 import ca.ulaval.glo4003.funds.infrastructure.SustainableMobilityProgramBankRepositoryInMemory;
 import ca.ulaval.glo4003.funds.services.BillService;
-import ca.ulaval.glo4003.reports.services.ReportService;
+import ca.ulaval.glo4003.reports.services.ReportProfitService;
 
 public class FundInjector {
 
@@ -19,14 +19,14 @@ public class FundInjector {
       sustainableMobilityProgramAllocationCalculator =
           new SustainableMobilityProgramAllocationCalculator();
 
-  public BillService createBillService(ReportService reportService) {
+  public BillService createBillService(ReportProfitService reportProfitService) {
     BillFactory billFactory = new BillFactory(billIdGenerator);
 
     return new BillService(
         billFactory,
         billRepository,
         new BillAssembler(),
-        reportService,
+        reportProfitService,
         sustainableMobilityProgramBankRepository,
         sustainableMobilityProgramAllocationCalculator);
   }

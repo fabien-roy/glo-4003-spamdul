@@ -14,15 +14,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class ReportService {
+public class ReportProfitService {
 
-  private final Logger logger = Logger.getLogger(ReportService.class.getName());
+  private final Logger logger = Logger.getLogger(ReportProfitService.class.getName());
   private final ReportRepository reportRepository;
   private final ReportQueryBuilder reportQueryBuilder;
   private final ReportPeriodAssembler reportPeriodAssembler;
   private final ReportEventFactory reportEventFactory;
 
-  public ReportService(
+  public ReportProfitService(
       ReportRepository reportRepository,
       ReportQueryBuilder reportQueryBuilder,
       ReportPeriodAssembler reportPeriodAssembler,

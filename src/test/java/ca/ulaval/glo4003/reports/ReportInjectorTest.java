@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.reports;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.reports.api.ReportResource;
-import ca.ulaval.glo4003.reports.services.ReportService;
+import ca.ulaval.glo4003.reports.api.ReportProfitResource;
+import ca.ulaval.glo4003.reports.services.ReportProfitService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,15 +18,15 @@ public class ReportInjectorTest {
 
   @Test
   public void whenCreatingReportService_thenReturnIt() {
-    ReportService reportService = reportInjector.createReportService();
+    ReportProfitService reportProfitService = reportInjector.createReportService();
 
-    assertThat(reportService).isNotNull();
+    assertThat(reportProfitService).isNotNull();
   }
 
   @Test
   public void whenCreatingReportResource_thenReturnIt() {
-    ReportResource reportResource = reportInjector.createReportResource();
+    ReportProfitResource reportProfitResource = reportInjector.createReportResource();
 
-    assertThat(reportResource).isNotNull();
+    assertThat(reportProfitResource).isNotNull();
   }
 }

@@ -26,7 +26,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ReportServiceTest {
+public class ReportProfitServiceTest {
 
   @Mock private ReportRepository reportRepository;
   @Mock private ReportQueryBuilder reportQueryBuilder;
@@ -36,7 +36,7 @@ public class ReportServiceTest {
   @Mock private ReportQuery reportQueryForAccessPassEvents;
   @Mock private ReportQuery reportQueryForOffenseEvents;
 
-  private ReportService reportService;
+  private ReportProfitService reportProfitService;
 
   private final int year = 2020;
   private final ReportPeriod reportPeriodForParkingStickerEvents = aReportPeriod().build();
@@ -53,8 +53,8 @@ public class ReportServiceTest {
 
   @Before
   public void setUp() {
-    reportService =
-        new ReportService(
+    reportProfitService =
+        new ReportProfitService(
             reportRepository, reportQueryBuilder, reportPeriodAssembler, reportEventFactory);
 
     when(reportRepository.getPeriods(reportQueryForParkingStickerEvents))
@@ -130,7 +130,7 @@ public class ReportServiceTest {
     givenQueryForParkingStickerEvents();
 
     List<ReportPeriodDto> reportPeriodDtos =
-        reportService.getAllProfits(ReportEventType.BILL_PAID_FOR_PARKING_STICKER, year);
+        reportProfitService.getAllProfits(ReportEventType.BILL_PAID_FOR_PARKING_STICKER, year);
 
     assertThat(reportPeriodDtos).hasSize(1);
     assertThat(reportPeriodDtos.get(0)).isSameInstanceAs(reportPeriodForParkingStickerEventsDto);
@@ -143,7 +143,7 @@ public class ReportServiceTest {
     givenQueryForAccessPassEvents(isByConsumptionType);
 
     List<ReportPeriodDto> reportPeriodDtos =
-        reportService.getAllProfits(
+        reportProfitService.getAllProfits(
             ReportEventType.BILL_PAID_FOR_ACCESS_PASS, year, isByConsumptionType);
 
     assertThat(reportPeriodDtos).hasSize(1);
@@ -157,7 +157,7 @@ public class ReportServiceTest {
     givenQueryForAccessPassEvents(isByConsumptionType);
 
     List<ReportPeriodDto> reportPeriodDtos =
-        reportService.getAllProfits(
+        reportProfitService.getAllProfits(
             ReportEventType.BILL_PAID_FOR_ACCESS_PASS, year, isByConsumptionType);
 
     assertThat(reportPeriodDtos).hasSize(1);
@@ -169,7 +169,7 @@ public class ReportServiceTest {
     givenQueryForOffenseEvents();
 
     List<ReportPeriodDto> reportPeriodDtos =
-        reportService.getAllProfits(ReportEventType.BILL_PAID_FOR_OFFENSE, year);
+        reportProfitService.getAllProfits(ReportEventType.BILL_PAID_FOR_OFFENSE, year);
 
     assertThat(reportPeriodDtos).hasSize(1);
     assertThat(reportPeriodDtos.get(0)).isSameInstanceAs(reportPeriodForOffenseEventsDto);
@@ -177,21 +177,21 @@ public class ReportServiceTest {
 
   @Test
   public void whenAddingBillPaidForParkingStickerEvent_thenAddReportEventToRepository() {
-    reportService.addBillPaidForParkingStickerEvent(profits);
+    reportProfitService.addBillPaidForParkingStickerEvent(profits);
 
     verify(reportRepository).addEvent(billPaidForParkingStickerEvent);
   }
 
   @Test
   public void whenAddingBillPaidForAccessPassEvent_thenAddReportEventToRepository() {
-    reportService.addBillPaidForAccessPassEvent(profits, consumptionType);
+    reportProfitService.addBillPaidForAccessPassEvent(profits, consumptionType);
 
     verify(reportRepository).addEvent(billPaidForAccessPassEvent);
   }
 
   @Test
   public void whenAddingBillPaidForOffenseEvent_thenAddReportEventToRepository() {
-    reportService.addBillPaidForOffenseEvent(profits);
+    reportProfitService.addBillPaidForOffenseEvent(profits);
 
     verify(reportRepository).addEvent(billPaidForOffenseEvent);
   }

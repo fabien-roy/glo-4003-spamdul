@@ -33,7 +33,7 @@ import ca.ulaval.glo4003.parkings.api.ParkingExceptionMapper;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
 import ca.ulaval.glo4003.reports.ReportInjector;
 import ca.ulaval.glo4003.reports.api.ReportExceptionMapper;
-import ca.ulaval.glo4003.reports.api.ReportResource;
+import ca.ulaval.glo4003.reports.api.ReportProfitResource;
 import ca.ulaval.glo4003.times.TimeInjector;
 import ca.ulaval.glo4003.times.api.TimeExceptionMapper;
 import ca.ulaval.glo4003.users.UserInjector;
@@ -141,7 +141,7 @@ public class ApplicationInjector {
             FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
   }
 
-  public ReportResource createReportResource() {
+  public ReportProfitResource createReportResource() {
     return REPORT_INJECTOR.createReportResource();
   }
 

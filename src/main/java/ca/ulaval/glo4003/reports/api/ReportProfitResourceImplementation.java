@@ -2,23 +2,23 @@ package ca.ulaval.glo4003.reports.api;
 
 import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDto;
 import ca.ulaval.glo4003.reports.domain.ReportEventType;
-import ca.ulaval.glo4003.reports.services.ReportService;
+import ca.ulaval.glo4003.reports.services.ReportProfitService;
 import java.util.List;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public class ReportResourceImplementation implements ReportResource {
-  private final ReportService reportService;
+public class ReportProfitResourceImplementation implements ReportProfitResource {
+  private final ReportProfitService reportProfitService;
 
-  public ReportResourceImplementation(ReportService reportService) {
-    this.reportService = reportService;
+  public ReportProfitResourceImplementation(ReportProfitService reportProfitService) {
+    this.reportProfitService = reportProfitService;
   }
 
   @Override
   public Response getParkingStickerProfits(int year) {
     List<ReportPeriodDto> periodDtos =
-        reportService.getAllProfits(ReportEventType.BILL_PAID_FOR_PARKING_STICKER, year);
+        reportProfitService.getAllProfits(ReportEventType.BILL_PAID_FOR_PARKING_STICKER, year);
 
     return buildResponse(periodDtos);
   }
@@ -26,7 +26,7 @@ public class ReportResourceImplementation implements ReportResource {
   @Override
   public Response getAccessPassProfits(int year, String isByConsumptionType) {
     List<ReportPeriodDto> periodDtos =
-        reportService.getAllProfits(
+        reportProfitService.getAllProfits(
             ReportEventType.BILL_PAID_FOR_ACCESS_PASS,
             year,
             Boolean.parseBoolean(isByConsumptionType));
@@ -37,12 +37,13 @@ public class ReportResourceImplementation implements ReportResource {
   @Override
   public Response getOffenseProfits(int year) {
     List<ReportPeriodDto> periodDtos =
-        reportService.getAllProfits(ReportEventType.BILL_PAID_FOR_OFFENSE, year);
+        reportProfitService.getAllProfits(ReportEventType.BILL_PAID_FOR_OFFENSE, year);
 
     return buildResponse(periodDtos);
   }
 
-  private Response buildResponse(List<ReportPeriodDto> periodDtos) {
+  // TODO should not be there
+  public static Response buildResponse(List<ReportPeriodDto> periodDtos) {
     GenericEntity<List<ReportPeriodDto>> entities =
         new GenericEntity<List<ReportPeriodDto>>(periodDtos) {};
 
