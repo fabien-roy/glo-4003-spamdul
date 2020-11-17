@@ -7,7 +7,7 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 public class ReportParkingAreasResourceImplementation implements ReportParkingAreasResource {
-  // TODO test
+
   private ReportParkingAreasService reportParkingAreasService;
 
   public ReportParkingAreasResourceImplementation(
