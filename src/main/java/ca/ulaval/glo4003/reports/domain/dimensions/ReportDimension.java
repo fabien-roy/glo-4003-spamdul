@@ -9,9 +9,9 @@ import java.util.stream.Stream;
 
 public abstract class ReportDimension<T> {
 
-  protected abstract ReportDimensionType getType();
+  public abstract List<T> getValues();
 
-  protected abstract List<T> getValues();
+  protected abstract ReportDimensionType getType();
 
   protected abstract boolean filter(ReportEvent reportEvent, T value);
 

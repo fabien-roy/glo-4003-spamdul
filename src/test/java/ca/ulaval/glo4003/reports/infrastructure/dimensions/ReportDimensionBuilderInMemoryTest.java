@@ -1,8 +1,11 @@
 package ca.ulaval.glo4003.reports.infrastructure.dimensions;
 
+import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static com.google.common.truth.Truth.assertThat;
 
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimension;
+import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionBuilder;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +14,7 @@ import org.junit.Test;
 
 public class ReportDimensionBuilderInMemoryTest {
 
-  private ReportDimensionBuilderInMemory reportDimensionBuilder;
+  private ReportDimensionBuilder reportDimensionBuilder;
 
   @Before
   public void setUp() {
@@ -36,5 +39,35 @@ public class ReportDimensionBuilderInMemoryTest {
 
     assertThat(dimensions).hasSize(1);
     assertThat(dimensions.get(0)).isInstanceOf(ConsumptionTypeDimensionInMemory.class);
+  }
+
+  @Test
+  public void givenParkingAreaDimensionType_whenBuildingMany_thenReturnParkingAreaDimension() {
+    List<ReportDimensionType> dimensionTypes =
+        Collections.singletonList(ReportDimensionType.PARKING_AREA);
+
+    List<ReportDimension> dimensions =
+        reportDimensionBuilder.someDimensions().withTypes(dimensionTypes).buildMany();
+
+    assertThat(dimensions).hasSize(1);
+    assertThat(dimensions.get(0)).isInstanceOf(ParkingAreaDimensionInMemory.class);
+  }
+
+  @Test
+  public void
+      givenParkingAreaDimensionTypeAndParkingAreaCodes_whenBuildingMany_thenReturnParkingAreaDimensionWithParkingAreaCodes() {
+    ParkingAreaCode parkingAreaCode = createParkingAreaCode();
+    List<ReportDimensionType> dimensionTypes =
+        Collections.singletonList(ReportDimensionType.PARKING_AREA);
+
+    List<ReportDimension> dimensions =
+        reportDimensionBuilder
+            .someDimensions()
+            .withTypes(dimensionTypes)
+            .withParkingAreaCodes(Collections.singletonList(parkingAreaCode))
+            .buildMany();
+
+    assertThat(dimensions.get(0).getValues()).hasSize(1);
+    assertThat(dimensions.get(0).getValues().get(0)).isSameInstanceAs(parkingAreaCode);
   }
 }

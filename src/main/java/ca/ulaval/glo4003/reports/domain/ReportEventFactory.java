@@ -6,8 +6,10 @@ import ca.ulaval.glo4003.times.domain.CustomDateTime;
 
 public class ReportEventFactory {
 
+  // TODO #262 : Create with ReportEvent.parkingAreaCode
+
   public ReportEvent create(ReportEventType type, Money profits) {
-    return new ReportEvent(type, CustomDateTime.now(), profits, null);
+    return new ReportEvent(type, CustomDateTime.now(), profits);
   }
 
   public ReportEvent create(ReportEventType type, Money profits, ConsumptionType consumptionType) {

@@ -24,7 +24,7 @@ public class ReportDimensionDataAssemblerTest {
   private ReportDimensionDataAssembler reportDimensionDataAssembler;
 
   private final ReportDimensionType dimensionType = ReportDimensionType.CONSUMPTION_TYPE;
-  private final ReportDimensionType otherDimensionType = ReportDimensionType.PARKING_AREA_CODE;
+  private final ReportDimensionType otherDimensionType = ReportDimensionType.PARKING_AREA;
   private final String dimensionValue = "dimensionValue";
   private final String otherDimensionValue = "otherDimensionValue";
   private List<ReportDimensionData> singleDimension;
