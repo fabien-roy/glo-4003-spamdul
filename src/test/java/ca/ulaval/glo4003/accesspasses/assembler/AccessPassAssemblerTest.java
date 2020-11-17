@@ -70,6 +70,13 @@ public class AccessPassAssemblerTest {
   }
 
   @Test
+  public void whenAssembling_thenReturnIsAdmittedOnCampusAtFalse() {
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
+
+    assertThat(accessPass.isAdmittedOnCampus()).isSameInstanceAs(false);
+  }
+
+  @Test
   public void givenNoLicensePlate_whenAssembling_thenReturnAccessPassWithoutLicensePlate() {
     accessPassDto = anAccessPassDto().withLicensePlate(null).build();
 
