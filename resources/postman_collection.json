@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bb58e346-fc47-4dbe-adf6-1c3ad158d653",
+		"_postman_id": "f5269adf-0b72-494e-94c2-2f7c202be0c7",
 		"name": "SPAMD-UL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6fb1f875-7e98-4715-a369-ccea09584768",
+								"id": "63be662b-91b5-419e-a5b9-f27f5eb58918",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
@@ -54,7 +54,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "bd3ea1a1-a2fe-4619-96f8-54d561df3236",
+								"id": "2a4348ae-83bd-4677-8b9c-55d0ed836666",
 								"exec": [
 									""
 								],
@@ -97,7 +97,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "be71c510-5348-49d1-b3d8-39f882877c2f",
+								"id": "b74ca2f0-3857-4bd1-bc25-bb19bdea8103",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"if (jsonData.length > 0) {",
@@ -144,7 +144,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "75b9cca9-0c7f-4407-a058-5bc995c07fb0",
+								"id": "0411c99d-c1ec-490a-a2b1-fbbfb75cb5da",
 								"exec": [
 									""
 								],
@@ -186,7 +186,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "71e77be6-db6a-4c32-89cd-1be7f154f457",
+								"id": "96705435-a7a8-41e0-b6d8-24c669656dba",
 								"exec": [
 									""
 								],
@@ -230,7 +230,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "33bec704-2cc4-401d-990c-97d4353232df",
+								"id": "117fecb9-6b1c-4b3c-957a-72b591993368",
 								"exec": [
 									""
 								],
@@ -271,7 +271,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "99537a29-c98f-49a8-9b48-e3f534cc58ca",
+								"id": "d60421d7-e782-46ef-a953-9e28eb7ec6b3",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
@@ -313,7 +313,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3a063e5d-982d-40ab-a44a-d59a8aaa9d55",
+								"id": "34c43862-1f6c-47a0-887e-3a3f6d2479d8",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
@@ -327,7 +327,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+							"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -355,7 +355,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f21d646b-8439-4ef4-9f7e-cc9a444947bf",
+								"id": "2ed394e8-19d8-42df-b7ea-05e18ead0129",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
@@ -369,7 +369,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": {{request.parkingSticker.email}}\n}",
+							"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": {{request.parkingSticker.email}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -403,7 +403,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "065e26dc-e668-44cd-9dcc-40652fb3db87",
+								"id": "8c9353dc-9cd5-4506-916d-f5aa2bda8676",
 								"exec": [
 									""
 								],
@@ -451,7 +451,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "09022941-dfa2-4026-a75b-e04cca08da46",
+								"id": "6313341b-980a-4055-a29b-367573200852",
 								"exec": [
 									""
 								],
@@ -498,7 +498,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0f3582ff-bc38-43e6-9949-25d0760e8e18",
+								"id": "fe114a8e-eaaa-45b6-bd17-13601743dc40",
 								"exec": [
 									""
 								],
@@ -541,7 +541,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a91b9c05-8098-4606-84ec-295e98caff15",
+								"id": "b09c0d12-715d-436f-adcc-b1b0815b054e",
 								"exec": [
 									""
 								],
@@ -587,7 +587,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7b549e7b-9a17-4920-9050-173a628aeb5c",
+								"id": "fe004abc-997b-4ec1-a2c8-566c5f8a9864",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.initiativeCode\", jsonData.initiativeCode);"
@@ -627,7 +627,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "591ae1e9-332d-42da-98e3-386df626b89b",
+								"id": "4604e8e8-64ee-4d4a-aa8c-ce322efea4e6",
 								"exec": [
 									""
 								],
@@ -700,7 +700,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2ff47ea1-7a83-48a4-a1c1-bf2e81c6b0f0",
+								"id": "38e6ddcc-9d7b-4427-8d09-3065842e225a",
 								"exec": [
 									""
 								],
@@ -769,212 +769,6 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Profits",
-			"item": [
-				{
-					"name": "Get profits for parking stickers",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "1a24e2cd-787d-44f5-a69f-80d2be7cd5ea",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/profits/parkingStickers?year={{queryParam.profits.year}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"profits",
-								"parkingStickers"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "{{queryParam.profits.year}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get profits for access passes",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "4a948cd4-0544-4ce6-9ec2-b6eb56f1ab17",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/profits/accessPasses?year={{queryParam.profits.year}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"profits",
-								"accessPasses"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "{{queryParam.profits.year}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get profits for access passes (by consumption type)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "f88e8926-6dc3-439b-a0b8-dffda950838e",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/profits/accessPasses?year={{queryParam.profits.year}}&byConsumptionType=true",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"profits",
-								"accessPasses"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "{{queryParam.profits.year}}"
-								},
-								{
-									"key": "byConsumptionType",
-									"value": "true"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get profits for offenses",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "47954495-7ff7-4be8-952f-17987302a0aa",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/profits/offenses?year={{queryParam.profits.year}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"profits",
-								"offenses"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "{{queryParam.profits.year}}"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
 			"name": "Carbon credits",
 			"item": [
 				{
@@ -983,7 +777,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "fa73ec5f-033c-4461-b934-f2287dce61b1",
+								"id": "5930041e-6290-4e00-b54b-8ebfda87b649",
 								"exec": [
 									""
 								],
@@ -1022,7 +816,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "786dfc62-fbba-417f-b5f5-c4a407caf3db",
+								"id": "a29f909a-90f0-4183-ba24-c81883c429e8",
 								"exec": [
 									""
 								],
@@ -1057,6 +851,223 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Reports",
+			"item": [
+				{
+					"name": "Profits",
+					"item": [
+						{
+							"name": "Get profits report for parking stickers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0553b2b8-35f3-4be5-af57-7becde86fd81",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/reports/profits/parkingStickers?year={{queryParam.profits.year}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"profits",
+										"parkingStickers"
+									],
+									"query": [
+										{
+											"key": "year",
+											"value": "{{queryParam.profits.year}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get profits report for access passes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ecfab159-d747-47af-bd70-5b78ae44cfe2",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/reports/profits/accessPasses?year={{queryParam.profits.year}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"profits",
+										"accessPasses"
+									],
+									"query": [
+										{
+											"key": "year",
+											"value": "{{queryParam.profits.year}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get profits report for access passes (by consumption type)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "250c6b57-87a5-4fae-9bfd-4c23a2b4e20e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/reports/profits/accessPasses?year={{queryParam.profits.year}}&byConsumptionType=true",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"profits",
+										"accessPasses"
+									],
+									"query": [
+										{
+											"key": "year",
+											"value": "{{queryParam.profits.year}}"
+										},
+										{
+											"key": "byConsumptionType",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get profits report for offenses",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "93002301-2a74-43fb-98f7-7c5e1bf3eee4",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/reports/profits/offenses?year={{queryParam.profits.year}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"profits",
+										"offenses"
+									],
+									"query": [
+										{
+											"key": "year",
+											"value": "{{queryParam.profits.year}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
