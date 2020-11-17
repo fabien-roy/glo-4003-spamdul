@@ -24,13 +24,13 @@ public interface GateEntryResource {
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON) // TODO : I have no idea what this returns
+  @Produces(MediaType.APPLICATION_JSON)
   @Path("/exit/validateAccessPassEntryWithCode/{code}")
   Response validateAccessPassExitWithCode(@PathParam("code") String accessPassCode);
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON) // TODO : I have no idea what this returns
+  @Produces(MediaType.APPLICATION_JSON)
   @Path("/exit/validateAccessPassEntryWithLicensePlate/{licensePlate}")
   Response validateAccessPassExitWithLicensePlate(@PathParam("licensePlate") String licensePlate);
 }
