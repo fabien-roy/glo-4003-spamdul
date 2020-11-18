@@ -16,7 +16,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MaximumAggregateFunctionInMemoryTest {
+public class MinimumAggregateFunctionInMemoryTest {
 
   private AggregateFunction aggregateFunction;
 
@@ -31,7 +31,7 @@ public class MaximumAggregateFunctionInMemoryTest {
 
   @Before
   public void setUp() {
-    aggregateFunction = new MaximumAggregateFunctionInMemory();
+    aggregateFunction = new MinimumAggregateFunctionInMemory();
   }
 
   @Test
@@ -71,7 +71,7 @@ public class MaximumAggregateFunctionInMemoryTest {
 
   @Test
   public void
-      givenMultiplePeriodsWithMetricType_whenAggregating_thenReturnPeriodWithHighestMetricValue() {
+      givenMultiplePeriodsWithMetricType_whenAggregating_thenReturnPeriodWithLowestMetricValue() {
     ReportPeriodData periodDataWithHighestMetricType =
         aReportPeriodData().withMetrics(Collections.singletonList(highestMetricData)).build();
     ReportPeriodData periodDataWithLowestMetricType =
@@ -87,12 +87,12 @@ public class MaximumAggregateFunctionInMemoryTest {
 
     ReportPeriod period = aggregateFunction.aggregate(periods, metricType);
 
-    assertThat(period).isSameInstanceAs(periodWithHighestMetricType);
+    assertThat(period).isSameInstanceAs(periodWithLowestMetricType);
   }
 
   @Test
   public void
-      givenMultiplePeriodsWithDifferentMetricTypes_whenAggregating_thenReturnPeriodWithHighestMetricValueForMetricType() {
+      givenMultiplePeriodsWithDifferentMetricTypes_whenAggregating_thenReturnPeriodWithLowestMetricValueForMetricType() {
     ReportPeriodData periodDataWithMetricType =
         aReportPeriodData().withMetrics(Collections.singletonList(lowestMetricData)).build();
     ReportPeriodData periodDataWithOtherMetricType =
