@@ -36,7 +36,6 @@ public class ReportParkingAreaService {
 
     List<ReportPeriod> periods = reportRepository.getPeriods(reportQuery);
 
-    // TODO #238 : Test ReportParkingAreaService for summary type
     if (reportType.equals(ReportType.SUMMARY)) {
       periods = getSummaryPeriods(periods);
     }
