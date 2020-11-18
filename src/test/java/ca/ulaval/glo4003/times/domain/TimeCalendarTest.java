@@ -52,4 +52,13 @@ public class TimeCalendarTest {
 
     assertThat(month).isEqualTo(expectedDayOfYear);
   }
+
+  @Test
+  public void givenStringMonth_whenGettingMonth_thenReturnMatchingMonth() {
+    calendar = new TimeMonth("january");
+
+    int mont = calendar.getMonth();
+
+    assertThat(mont).isEqualTo(0);
+  }
 }

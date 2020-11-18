@@ -33,16 +33,15 @@ public class ReportParkingAreasResourceImplementationTest {
 
   @Test
   public void whenGettingParkingAreas_thenGetParkingAreasReport() {
-    reportParkingAreasResourceImplementation.getParkingAreas(year, reportEventType, reportPeriod);
+    reportParkingAreasResourceImplementation.getParkingAreas(reportEventType, reportPeriod);
 
-    verify(reportParkingAreasService).getReports(year, reportEventType, reportPeriod);
+    verify(reportParkingAreasService).getReports(reportEventType, reportPeriod);
   }
 
   @Test
   public void whenGettingParkingAreas_thenRespondOkStatus() {
     Response response =
-        reportParkingAreasResourceImplementation.getParkingAreas(
-            year, reportEventType, reportPeriod);
+        reportParkingAreasResourceImplementation.getParkingAreas(reportEventType, reportPeriod);
     int respondedStatus = response.getStatus();
 
     assertThat(respondedStatus).isEqualTo(HttpStatus.OK_200);

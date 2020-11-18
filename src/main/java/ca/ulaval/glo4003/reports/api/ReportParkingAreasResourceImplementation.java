@@ -15,10 +15,10 @@ public class ReportParkingAreasResourceImplementation implements ReportParkingAr
   }
 
   @Override
-  public Response getParkingAreas(int year, String reportType, String month) {
+  public Response getParkingAreas(String reportType, String month) {
 
     List<ReportPeriodDto> reportPeriodsDto =
-        reportParkingAreasService.getReports(year, reportType, month);
+        reportParkingAreasService.getReports(reportType, month);
 
     return ReportProfitResourceImplementation.buildResponse(reportPeriodsDto);
   }

@@ -4,10 +4,7 @@ import ca.ulaval.glo4003.reports.api.ReportParkingAreasResource;
 import ca.ulaval.glo4003.reports.api.ReportParkingAreasResourceImplementation;
 import ca.ulaval.glo4003.reports.api.ReportProfitResource;
 import ca.ulaval.glo4003.reports.api.ReportProfitResourceImplementation;
-import ca.ulaval.glo4003.reports.assemblers.ReportDimensionDataAssembler;
-import ca.ulaval.glo4003.reports.assemblers.ReportMetricDataAssembler;
-import ca.ulaval.glo4003.reports.assemblers.ReportPeriodAssembler;
-import ca.ulaval.glo4003.reports.assemblers.ReportPeriodDataAssembler;
+import ca.ulaval.glo4003.reports.assemblers.*;
 import ca.ulaval.glo4003.reports.domain.ReportEventFactory;
 import ca.ulaval.glo4003.reports.domain.ReportQueryBuilder;
 import ca.ulaval.glo4003.reports.domain.ReportRepository;
@@ -48,9 +45,9 @@ public class ReportInjector {
   }
 
   public ReportParkingAreasService createReportParkingAreaService() {
-
+    ReportQueryAssembler reportQueryAssembler = new ReportQueryAssembler(reportQueryBuilder);
     return new ReportParkingAreasService(
-        reportRepository, reportQueryBuilder, createReportPeriodAssembler());
+        reportRepository, createReportPeriodAssembler(), reportQueryAssembler);
   }
 
   private ReportPeriodAssembler createReportPeriodAssembler() {

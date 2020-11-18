@@ -10,7 +10,6 @@ public interface ReportParkingAreasResource {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   Response getParkingAreas(
-      @DefaultValue("2020") @QueryParam("year") int year,
       @DefaultValue("monthly") @QueryParam("reportType") String reportType,
       @DefaultValue("november") @QueryParam("month") String month);
 }
