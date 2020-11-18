@@ -7,7 +7,6 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.reports.domain.ReportPeriod;
 import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
-import ca.ulaval.glo4003.reports.domain.aggregatefunctions.AggregateFunction;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricData;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import java.util.Arrays;
@@ -18,7 +17,7 @@ import org.junit.Test;
 
 public class AverageAggregateFunctionInMemoryTest {
 
-  private AggregateFunction aggregateFunction;
+  private ReportAggregateFunctionInMemory aggregateFunction;
 
   private final ReportMetricType metricType = ReportMetricType.PROFITS;
   private final ReportMetricType otherMetricType = ReportMetricType.GATE_ENTRIES;

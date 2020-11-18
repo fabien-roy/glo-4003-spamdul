@@ -1,10 +1,9 @@
-package ca.ulaval.glo4003.reports.domain.aggregatefunctions;
+package ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions;
 
 import ca.ulaval.glo4003.reports.domain.ReportPeriod;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import java.util.List;
 
-// TODO #238 : Should AggregateFunction interface be moved to infrastructure?
-public interface AggregateFunction {
+public interface ReportAggregateFunctionInMemory {
   ReportPeriod aggregate(List<ReportPeriod> periods, ReportMetricType metricType);
 }

@@ -2,13 +2,12 @@ package ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions;
 
 import ca.ulaval.glo4003.reports.domain.ReportPeriod;
 import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
-import ca.ulaval.glo4003.reports.domain.aggregatefunctions.AggregateFunction;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricData;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import java.util.Collections;
 import java.util.List;
 
-public class AverageAggregateFunctionInMemory implements AggregateFunction {
+public class AverageAggregateFunctionInMemory implements ReportAggregateFunctionInMemory {
 
   private static final String AVERAGE_PERIOD_NAME = "average";
 

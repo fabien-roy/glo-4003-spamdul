@@ -14,22 +14,26 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+// TODO : Refactor this test class and remove most of verify()
 @RunWith(MockitoJUnitRunner.class)
 public class ReportParkingAreaServiceTest {
   @Mock private ReportRepository reportRepository;
   @Mock private ReportPeriodAssembler reportPeriodAssembler;
   @Mock private ReportQueryFactory reportQueryFactory;
+  @Mock private ReportSummaryBuilder reportSummaryBuilder;
   @Mock private ReportQuery reportQuery;
-  @Mock private ReportPeriod reportPeriod;
+  @Mock private ReportPeriod reportPeriod; // TODO : Why mock ReportPeriod?
 
   private ReportParkingAreaService reportParkingAreaService;
-  private String reportType = createReportType().toString();
-  private String month = CustomDateTimeMother.createMonth().toString();
+
+  private final String reportType = createReportType().toString();
+  private final String month = CustomDateTimeMother.createMonth().toString();
 
   @Before
   public void setUp() {
     reportParkingAreaService =
-        new ReportParkingAreaService(reportRepository, reportPeriodAssembler, reportQueryFactory);
+        new ReportParkingAreaService(
+            reportRepository, reportPeriodAssembler, reportQueryFactory, reportSummaryBuilder);
 
     when(reportQueryFactory.create(ReportType.get(reportType), month)).thenReturn(reportQuery);
     when(reportRepository.getPeriods(reportQuery))
