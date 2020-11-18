@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO #238 : Test ReportSummaryBuilderInMemory
 public class ReportSummaryBuilderInMemory implements ReportSummaryBuilder {
 
   private final ReportAggregateFunctionBuilderInMemory aggregateFunctionBuilder;
