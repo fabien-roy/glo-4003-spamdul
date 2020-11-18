@@ -5,12 +5,13 @@ import ca.ulaval.glo4003.reports.assemblers.ReportPeriodAssembler;
 import ca.ulaval.glo4003.reports.domain.*;
 import ca.ulaval.glo4003.reports.domain.ReportQueryFactory;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ReportParkingAreasService {
-  // TODO test
-  private ReportRepository reportRepository;
-  private ReportPeriodAssembler reportPeriodAssembler;
-  private ReportQueryFactory reportQueryFactory;
+  private final Logger logger = Logger.getLogger(ReportParkingAreasService.class.getName());
+  private final ReportRepository reportRepository;
+  private final ReportPeriodAssembler reportPeriodAssembler;
+  private final ReportQueryFactory reportQueryFactory;
 
   public ReportParkingAreasService(
       ReportRepository reportRepository,
@@ -21,7 +22,9 @@ public class ReportParkingAreasService {
     this.reportQueryFactory = reportQueryFactory;
   }
 
-  public List<ReportPeriodDto> getReports(String reportName, String month) {
+  public List<ReportPeriodDto> getAllParkingAreaReports(String reportName, String month) {
+    logger.info(String.format("Getting report for type %s at month %s", reportName, month));
+
     ReportType reportType = ReportType.get(reportName);
     ReportQuery reportQuery = reportQueryFactory.create(reportType, month);
 

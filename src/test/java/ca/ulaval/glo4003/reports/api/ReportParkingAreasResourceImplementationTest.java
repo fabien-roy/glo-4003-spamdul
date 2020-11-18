@@ -35,7 +35,7 @@ public class ReportParkingAreasResourceImplementationTest {
   public void whenGettingParkingAreas_thenGetParkingAreasReport() {
     reportParkingAreasResourceImplementation.getParkingAreas(reportEventType, reportPeriod);
 
-    verify(reportParkingAreasService).getReports(reportEventType, reportPeriod);
+    verify(reportParkingAreasService).getAllParkingAreaReports(reportEventType, reportPeriod);
   }
 
   @Test

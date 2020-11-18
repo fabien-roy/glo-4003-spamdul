@@ -3,27 +3,26 @@ package ca.ulaval.glo4003.reports.domain;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
-import ca.ulaval.glo4003.reports.exceptions.InvalidReportTypeException;
 import ca.ulaval.glo4003.times.domain.TimeMonth;
 import ca.ulaval.glo4003.times.domain.TimeYear;
 import java.time.Year;
 import java.util.Collections;
 
 public class ReportQueryFactory {
-  private ReportQueryBuilder reportQueryBuilder;
+  private final ReportQueryBuilder reportQueryBuilder;
 
   public ReportQueryFactory(ReportQueryBuilder reportQueryBuilder) {
     this.reportQueryBuilder = reportQueryBuilder;
   }
 
   public ReportQuery create(ReportType reportType, String month) {
-
-    if (reportType.equals(ReportType.MONTHLY)) {
-      return getParkingAreasByMonthReports();
-    } else if (reportType.equals(ReportType.DAY_OF_MONTH)) {
-      return getParkingAreasByDayOfMonthReports(month);
-    } else {
-      throw new InvalidReportTypeException();
+    switch (reportType) {
+      default:
+      case MONTHLY:
+        return getParkingAreasByMonthReports();
+      case DAY_OF_MONTH:
+      case SUMMARY:
+        return getParkingAreasByDayOfMonthReports(month);
     }
   }
 

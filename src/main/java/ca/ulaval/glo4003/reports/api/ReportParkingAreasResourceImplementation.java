@@ -20,7 +20,7 @@ public class ReportParkingAreasResourceImplementation implements ReportParkingAr
   public Response getParkingAreas(String reportType, String month) {
 
     List<ReportPeriodDto> reportPeriodsDto =
-        reportParkingAreasService.getReports(reportType, month);
+        reportParkingAreasService.getAllParkingAreaReports(reportType, month);
 
     return buildResponse(reportPeriodsDto);
   }

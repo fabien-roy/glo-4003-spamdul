@@ -38,21 +38,21 @@ public class ReportParkingAreasServiceTest {
 
   @Test
   public void whenGettingReports_thenCreateReportQuery() {
-    reportParkingAreasService.getReports(reportType, month);
+    reportParkingAreasService.getAllParkingAreaReports(reportType, month);
 
     verify(reportQueryFactory).create(ReportType.get(reportType), month);
   }
 
   @Test
   public void whenGettingReports_thenGetReportsPeriods() {
-    reportParkingAreasService.getReports(reportType, month);
+    reportParkingAreasService.getAllParkingAreaReports(reportType, month);
 
     verify(reportRepository).getPeriods(reportQuery);
   }
 
   @Test
   public void whenGettingReports_thenAssembleReports() {
-    reportParkingAreasService.getReports(reportType, month);
+    reportParkingAreasService.getAllParkingAreaReports(reportType, month);
 
     verify(reportPeriodAssembler).assembleMany(Collections.singletonList(reportPeriod));
   }

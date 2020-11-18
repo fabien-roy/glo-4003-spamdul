@@ -21,11 +21,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ReportQueryFactoryTest {
 
-  private String month = createMonth().toString();
-
   @Mock private ReportQueryBuilder reportQueryBuilder;
   @Mock private ReportQuery reportQuery;
+
   private ReportQueryFactory reportQueryFactory;
+
+  private final String month = createMonth().toString();
 
   @Before
   public void setUp() {
@@ -61,6 +62,15 @@ public class ReportQueryFactoryTest {
   @Test
   public void givenDayOfMonthReportType_whenCreating_thenReturnDayOfMonthReportQuery() {
     ReportType reportType = ReportType.DAY_OF_MONTH;
+
+    ReportQuery reportQueryCreated = reportQueryFactory.create(reportType, month);
+
+    assertThat(reportQuery).isEqualTo(reportQueryCreated);
+  }
+
+  @Test
+  public void givenSummaryReportType_whenCreating_thenReturnDayOfMonthReportQuery() {
+    ReportType reportType = ReportType.SUMMARY;
 
     ReportQuery reportQueryCreated = reportQueryFactory.create(reportType, month);
 
