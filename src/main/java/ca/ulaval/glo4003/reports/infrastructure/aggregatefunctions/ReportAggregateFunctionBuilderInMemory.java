@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO #238 : Test ReportAggregateFunctionBuilderInMemory
 public class ReportAggregateFunctionBuilderInMemory {
   private List<ReportAggregateFunctionType> aggregateFunctionTypes = new ArrayList<>();
 
