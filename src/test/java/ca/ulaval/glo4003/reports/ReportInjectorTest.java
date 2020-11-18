@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.reports.api.ReportParkingAreasResource;
 import ca.ulaval.glo4003.reports.api.ReportProfitResource;
+import ca.ulaval.glo4003.reports.services.ReportEventService;
 import ca.ulaval.glo4003.reports.services.ReportParkingAreasService;
 import ca.ulaval.glo4003.reports.services.ReportProfitService;
 import org.junit.Before;
@@ -46,5 +47,12 @@ public class ReportInjectorTest {
         reportInjector.createReportParkingAreaService();
 
     assertThat(reportParkingAreasService).isNotNull();
+  }
+
+  @Test
+  public void whenCreatingReportEventService_thenReturnIt() {
+    ReportEventService reportEventService = reportInjector.createReportEventService();
+
+    assertThat(reportEventService).isNotNull();
   }
 }

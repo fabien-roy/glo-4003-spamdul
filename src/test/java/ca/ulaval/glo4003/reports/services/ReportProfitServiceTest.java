@@ -1,15 +1,10 @@
 package ca.ulaval.glo4003.reports.services;
 
-import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionType;
-import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
-import static ca.ulaval.glo4003.reports.helpers.ReportEventBuilder.aReportEvent;
 import static ca.ulaval.glo4003.reports.helpers.ReportPeriodBuilder.aReportPeriod;
 import static ca.ulaval.glo4003.reports.helpers.ReportPeriodDtoBuilder.aReportPeriodDto;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
-import ca.ulaval.glo4003.cars.domain.ConsumptionType;
-import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDto;
 import ca.ulaval.glo4003.reports.assemblers.ReportPeriodAssembler;
 import ca.ulaval.glo4003.reports.domain.*;
@@ -31,7 +26,6 @@ public class ReportProfitServiceTest {
   @Mock private ReportRepository reportRepository;
   @Mock private ReportQueryBuilder reportQueryBuilder;
   @Mock private ReportPeriodAssembler reportPeriodAssembler;
-  @Mock private ReportEventFactory reportEventFactory;
   @Mock private ReportQuery reportQueryForParkingStickerEvents;
   @Mock private ReportQuery reportQueryForAccessPassEvents;
   @Mock private ReportQuery reportQueryForOffenseEvents;
@@ -45,17 +39,11 @@ public class ReportProfitServiceTest {
   private final ReportPeriodDto reportPeriodForParkingStickerEventsDto = aReportPeriodDto().build();
   private final ReportPeriodDto reportPeriodForAccessPassEventsDto = aReportPeriodDto().build();
   private final ReportPeriodDto reportPeriodForOffenseEventsDto = aReportPeriodDto().build();
-  private final Money profits = createMoney();
-  private final ConsumptionType consumptionType = createConsumptionType();
-  private final ReportEvent billPaidForParkingStickerEvent = aReportEvent().build();
-  private final ReportEvent billPaidForAccessPassEvent = aReportEvent().build();
-  private final ReportEvent billPaidForOffenseEvent = aReportEvent().build();
 
   @Before
   public void setUp() {
     reportProfitService =
-        new ReportProfitService(
-            reportRepository, reportQueryBuilder, reportPeriodAssembler, reportEventFactory);
+        new ReportProfitService(reportRepository, reportQueryBuilder, reportPeriodAssembler);
 
     when(reportRepository.getPeriods(reportQueryForParkingStickerEvents))
         .thenReturn(Collections.singletonList(reportPeriodForParkingStickerEvents));
@@ -73,14 +61,6 @@ public class ReportProfitServiceTest {
     when(reportPeriodAssembler.assembleMany(
             Collections.singletonList(reportPeriodForOffenseEvents)))
         .thenReturn(Collections.singletonList(reportPeriodForOffenseEventsDto));
-
-    when(reportEventFactory.create(ReportEventType.BILL_PAID_FOR_PARKING_STICKER, profits))
-        .thenReturn(billPaidForParkingStickerEvent);
-    when(reportEventFactory.create(
-            ReportEventType.BILL_PAID_FOR_ACCESS_PASS, profits, consumptionType))
-        .thenReturn(billPaidForAccessPassEvent);
-    when(reportEventFactory.create(ReportEventType.BILL_PAID_FOR_OFFENSE, profits))
-        .thenReturn(billPaidForOffenseEvent);
   }
 
   private void givenQueryForParkingStickerEvents() {
@@ -173,26 +153,5 @@ public class ReportProfitServiceTest {
 
     assertThat(reportPeriodDtos).hasSize(1);
     assertThat(reportPeriodDtos.get(0)).isSameInstanceAs(reportPeriodForOffenseEventsDto);
-  }
-
-  @Test
-  public void whenAddingBillPaidForParkingStickerEvent_thenAddReportEventToRepository() {
-    reportProfitService.addBillPaidForParkingStickerEvent(profits);
-
-    verify(reportRepository).addEvent(billPaidForParkingStickerEvent);
-  }
-
-  @Test
-  public void whenAddingBillPaidForAccessPassEvent_thenAddReportEventToRepository() {
-    reportProfitService.addBillPaidForAccessPassEvent(profits, consumptionType);
-
-    verify(reportRepository).addEvent(billPaidForAccessPassEvent);
-  }
-
-  @Test
-  public void whenAddingBillPaidForOffenseEvent_thenAddReportEventToRepository() {
-    reportProfitService.addBillPaidForOffenseEvent(profits);
-
-    verify(reportRepository).addEvent(billPaidForOffenseEvent);
   }
 }

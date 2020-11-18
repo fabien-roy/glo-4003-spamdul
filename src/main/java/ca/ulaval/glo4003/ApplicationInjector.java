@@ -80,26 +80,26 @@ public class ApplicationInjector {
         ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(
-                    FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportProfitService())),
+                    FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
             ACCOUNT_INJECTOR.createAccountService(
-                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportProfitService())),
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportProfitService())),
+                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
         CAR_INJECTOR.createCarService(
             ACCOUNT_INJECTOR.createAccountService(
-                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportProfitService())),
+                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
             ACCOUNT_INJECTOR.createAccountIdAssembler()),
         ACCOUNT_INJECTOR.createAccountService(
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportProfitService())),
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
         PARKING_INJECTOR.createParkingStickerService(
             IS_DEV,
             ACCOUNT_INJECTOR.createAccountIdAssembler(),
             LOCATION_INJECTOR.createPostalCodeAssembler(),
             COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
             ACCOUNT_INJECTOR.createAccountService(
-                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportProfitService())),
+                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
             parkingStickerCreationObservers,
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportProfitService())));
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())));
   }
 
   public OffenseResource createOffenseResource() {
@@ -110,9 +110,9 @@ public class ApplicationInjector {
         PARKING_INJECTOR.createParkingAreaCodeAssembler(),
         TIME_INJECTOR.createTimeOfDayAssembler(),
         FUND_INJECTOR.createMoneyAssembler(),
-        FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportProfitService()),
+        FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()),
         ACCOUNT_INJECTOR.createAccountService(
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportProfitService())));
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())));
   }
 
   public GateEntryResource createGateEntryResource() {
@@ -120,11 +120,11 @@ public class ApplicationInjector {
         ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(
-                    FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportProfitService())),
+                    FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
             ACCOUNT_INJECTOR.createAccountService(
-                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportProfitService())),
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportProfitService())));
+                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())));
   }
 
   public CarbonCreditResource createCarbonCreditResource() {

@@ -20,7 +20,7 @@ import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
-import ca.ulaval.glo4003.reports.services.ReportProfitService;
+import ca.ulaval.glo4003.reports.services.ReportEventService;
 import java.util.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,12 +31,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class BillServiceTest {
 
-  @Mock BillFactory billFactory;
-  @Mock BillRepository billRepository;
-  @Mock BillAssembler billAssembler;
-  @Mock BillPriceCalculator billPriceCalculator;
-  @Mock SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
-  @Mock private ReportProfitService reportProfitService;
+  @Mock private BillFactory billFactory;
+  @Mock private BillRepository billRepository;
+  @Mock private BillAssembler billAssembler;
+  @Mock private BillPriceCalculator billPriceCalculator;
+  @Mock private SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
+  @Mock private ReportEventService reportEventService;
 
   @Mock
   SustainableMobilityProgramAllocationCalculator sustainableMobilityProgramAllocationCalculator;
@@ -65,7 +65,7 @@ public class BillServiceTest {
             billFactory,
             billRepository,
             billAssembler,
-            reportProfitService,
+            reportEventService,
             sustainableMobilityProgramBankRepository,
             sustainableMobilityProgramAllocationCalculator);
 
@@ -212,7 +212,7 @@ public class BillServiceTest {
     billService.payBill(parkingBill.getId(), amountDue);
     bill.pay(amountDue);
 
-    verify(reportProfitService).addBillPaidForParkingStickerEvent(amountDue);
+    verify(reportEventService).addBillPaidForParkingStickerEvent(amountDue);
   }
 
   @Test
@@ -237,7 +237,7 @@ public class BillServiceTest {
     billService.payBill(accessPassBill.getId(), amountDue);
     bill.pay(amountDue);
 
-    verify(reportProfitService)
+    verify(reportEventService)
         .addBillPaidForAccessPassEvent(amountDue, accessPassBill.getConsumptionType().get());
   }
 
@@ -263,6 +263,6 @@ public class BillServiceTest {
     billService.payBill(offenseBill.getId(), amountDue);
     bill.pay(amountDue);
 
-    verify(reportProfitService).addBillPaidForOffenseEvent(amountDue);
+    verify(reportEventService).addBillPaidForOffenseEvent(amountDue);
   }
 }

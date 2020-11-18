@@ -16,6 +16,7 @@ import ca.ulaval.glo4003.reports.infrastructure.ReportQueryBuilderInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportRepositoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.ReportDimensionBuilderInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.metrics.ReportMetricBuilderInMemory;
+import ca.ulaval.glo4003.reports.services.ReportEventService;
 import ca.ulaval.glo4003.reports.services.ReportParkingAreasService;
 import ca.ulaval.glo4003.reports.services.ReportProfitService;
 
@@ -31,10 +32,11 @@ public class ReportInjector {
   public ReportProfitService createReportProfitService() {
 
     return new ReportProfitService(
-        reportRepository,
-        reportQueryBuilder,
-        createReportPeriodAssembler(),
-        new ReportEventFactory());
+        reportRepository, reportQueryBuilder, createReportPeriodAssembler());
+  }
+
+  public ReportEventService createReportEventService() {
+    return new ReportEventService(reportRepository, new ReportEventFactory());
   }
 
   public ReportProfitResource createReportProfitResource() {
