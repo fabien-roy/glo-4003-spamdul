@@ -1,16 +1,15 @@
 package ca.ulaval.glo4003.reports.domain;
 
-import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
+import ca.ulaval.glo4003.reports.exceptions.InvalidReportTypeException;
 import ca.ulaval.glo4003.times.domain.TimeMonth;
 import ca.ulaval.glo4003.times.domain.TimeYear;
 import java.time.Year;
 import java.util.Collections;
 
 public class ReportQueryFactory {
-  // TODO test
   private ReportQueryBuilder reportQueryBuilder;
 
   public ReportQueryFactory(ReportQueryBuilder reportQueryBuilder) {
@@ -24,7 +23,7 @@ public class ReportQueryFactory {
     } else if (reportType.equals(ReportType.DAY_OF_MONTH)) {
       return getParkingAreasByDayOfMonthReports(month);
     } else {
-      throw new InvalidConsumptionTypeException();
+      throw new InvalidReportTypeException();
     }
   }
 
