@@ -81,7 +81,7 @@ public class GateEntryServiceTest {
 
     gateEntryService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
 
-    verify(accessPass).enterCampus();
+    verify(accessPassService).enterCampus(accessPass);
   }
 
   @Test
@@ -114,7 +114,7 @@ public class GateEntryServiceTest {
 
     gateEntryService.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, accessPassLicensePlate);
 
-    verify(accessPass).enterCampus();
+    verify(accessPassService).enterCampus(accessPass);
   }
 
   @Test
@@ -133,7 +133,7 @@ public class GateEntryServiceTest {
   public void whenValidateAccessPassExitWithCode_thenExitCampusHasBeenCalled() {
     gateEntryService.validateAccessPassExitWithCode(accessPassCode);
 
-    verify(accessPass).exitCampus();
+    verify(accessPassService).exitCampus(accessPass);
   }
 
   @Test
@@ -143,7 +143,7 @@ public class GateEntryServiceTest {
 
     gateEntryService.validateAccessPassExitWithLicensePlate(accessPassLicensePlate);
 
-    verify(accessPass).exitCampus();
+    verify(accessPassService).exitCampus(accessPass);
   }
 
   @Test(expected = InvalidAccessPassExitException.class)

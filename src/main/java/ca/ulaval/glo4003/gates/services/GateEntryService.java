@@ -42,7 +42,7 @@ public class GateEntryService {
     AccessStatus accessStatus = getAccessStatus(dayOfWeek, accessPass);
 
     if (accessStatus == AccessStatus.ACCESS_GRANTED) {
-      accessPass.enterCampus(); // TODO : This no more be
+      accessPassService.enterCampus(accessPass);
     }
 
     return accessStatusAssembler.assemble(accessStatus);
@@ -63,7 +63,7 @@ public class GateEntryService {
     }
 
     if (associatedAccessPass != null) {
-      associatedAccessPass.enterCampus(); // TODO : This no more be
+      accessPassService.enterCampus(associatedAccessPass);
       return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED);
     }
 
@@ -72,7 +72,7 @@ public class GateEntryService {
 
   public void validateAccessPassExitWithCode(String accessPassCode) {
     AccessPass accessPass = accessPassService.getAccessPass(accessPassCode);
-    accessPass.exitCampus(); // TODO : This no more be
+    accessPassService.exitCampus(accessPass);
   }
 
   public void validateAccessPassExitWithLicensePlate(String licensePlate) {
@@ -87,7 +87,7 @@ public class GateEntryService {
     }
 
     if (associatedAccessPass != null) {
-      associatedAccessPass.exitCampus(); // TODO : This no more be
+      accessPassService.exitCampus(associatedAccessPass);
     } else {
       throw new InvalidAccessPassExitException();
     }
