@@ -1,34 +1,30 @@
-package ca.ulaval.glo4003.reports.assemblers;
+package ca.ulaval.glo4003.reports.domain;
 
-import ca.ulaval.glo4003.reports.domain.ReportEventType;
-import ca.ulaval.glo4003.reports.domain.ReportQuery;
-import ca.ulaval.glo4003.reports.domain.ReportQueryBuilder;
+import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
-import ca.ulaval.glo4003.reports.exceptions.InvalidReportTypeException;
 import ca.ulaval.glo4003.times.domain.TimeMonth;
 import ca.ulaval.glo4003.times.domain.TimeYear;
 import java.time.Year;
 import java.util.Collections;
 
-public class ReportQueryAssembler {
+public class ReportQueryFactory {
   // TODO test
   private ReportQueryBuilder reportQueryBuilder;
 
-  public ReportQueryAssembler(ReportQueryBuilder reportQueryBuilder) {
+  public ReportQueryFactory(ReportQueryBuilder reportQueryBuilder) {
     this.reportQueryBuilder = reportQueryBuilder;
   }
 
-  public ReportQuery assemble(String reportType, String month) {
-    if (reportType.equals("summary")) {
-      return getParkingAreasSummaryReport();
-    } else if (reportType.equals("monthly")) {
+  public ReportQuery create(ReportType reportType, String month) {
+
+    if (reportType.equals(ReportType.MONTHLY)) {
       return getParkingAreasByMonthReports();
-    } else if (reportType.equals("dayOfMonth")) {
+    } else if (reportType.equals(ReportType.DAY_OF_MONTH)) {
       return getParkingAreasByDayOfMonthReports(month);
     } else {
-      throw new InvalidReportTypeException();
+      throw new InvalidConsumptionTypeException();
     }
   }
 
@@ -52,10 +48,5 @@ public class ReportQueryAssembler {
         .withMetrics(Collections.singletonList(ReportMetricType.GATE_ENTRIES))
         .withDimensions(Collections.singletonList(ReportDimensionType.PARKING_AREA))
         .build();
-  }
-
-  private ReportQuery getParkingAreasSummaryReport() {
-    // TODO
-    return null;
   }
 }

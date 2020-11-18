@@ -57,8 +57,17 @@ public class TimeCalendarTest {
   public void givenStringMonth_whenGettingMonth_thenReturnMatchingMonth() {
     calendar = new TimeMonth("january");
 
-    int mont = calendar.getMonth();
+    int month = calendar.getMonth();
 
-    assertThat(mont).isEqualTo(0);
+    assertThat(month).isEqualTo(0);
   }
+
+  //  @Test
+  //  public void givenEmptyStringMonth_whenGettingMonth_thenReturnActualMonth(){
+  //    calendar = new TimeMonth("null");
+  //
+  //    int month = calendar.getMonth();
+  //
+  //    assertThat(month).isEqualTo(LocalDate.now().getMonthValue());
+  //  }
 }

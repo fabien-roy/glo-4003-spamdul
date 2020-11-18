@@ -15,9 +15,11 @@ public abstract class TimeCalendar implements Comparable<TimeCalendar> {
   }
 
   public TimeCalendar(String monthName) {
-    LocalDateTime currentLocalDateTime = LocalDateTime.now();
-    LocalDateTime localDateTime =
-        currentLocalDateTime.withMonth(Month.valueOf(monthName.toUpperCase()).getValue());
+    LocalDateTime localDateTime = LocalDateTime.now();
+
+    if (!monthName.equals("null")) {
+      localDateTime = localDateTime.withMonth(Month.valueOf(monthName.toUpperCase()).getValue());
+    }
 
     CustomDateTime customDate = new CustomDateTime(localDateTime);
     setUpCustomDateTime(customDate);

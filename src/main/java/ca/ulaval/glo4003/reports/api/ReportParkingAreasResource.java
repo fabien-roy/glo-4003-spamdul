@@ -11,5 +11,5 @@ public interface ReportParkingAreasResource {
   @Produces(MediaType.APPLICATION_JSON)
   Response getParkingAreas(
       @DefaultValue("monthly") @QueryParam("reportType") String reportType,
-      @DefaultValue("november") @QueryParam("month") String month); // TODO do not hardcode month
+      @DefaultValue("null") @QueryParam("month") String month);
 }
