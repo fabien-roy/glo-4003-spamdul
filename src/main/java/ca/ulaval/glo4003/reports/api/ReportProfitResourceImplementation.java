@@ -42,8 +42,7 @@ public class ReportProfitResourceImplementation implements ReportProfitResource 
     return buildResponse(periodDtos);
   }
 
-  // TODO should not be there
-  public static Response buildResponse(List<ReportPeriodDto> periodDtos) {
+  private Response buildResponse(List<ReportPeriodDto> periodDtos) {
     GenericEntity<List<ReportPeriodDto>> entities =
         new GenericEntity<List<ReportPeriodDto>>(periodDtos) {};
 

@@ -4,6 +4,7 @@ import static ca.ulaval.glo4003.times.helpers.CalendarHelper.toJavaCalendarMonth
 import static ca.ulaval.glo4003.times.helpers.CustomDateTimeBuilder.aDateTime;
 import static com.google.common.truth.Truth.assertThat;
 
+import java.util.Calendar;
 import org.junit.Test;
 
 public class TimeCalendarTest {
@@ -62,12 +63,21 @@ public class TimeCalendarTest {
     assertThat(month).isEqualTo(0);
   }
 
-  //  @Test
-  //  public void givenEmptyStringMonth_whenGettingMonth_thenReturnActualMonth(){
-  //    calendar = new TimeMonth("null");
-  //
-  //    int month = calendar.getMonth();
-  //
-  //    assertThat(month).isEqualTo(LocalDate.now().getMonthValue());
-  //  }
+  @Test
+  public void givenEmptyStringMonth_whenGettingMonth_thenReturnActualMonth() {
+    calendar = new TimeMonth("null");
+
+    int month = calendar.getMonth();
+
+    assertThat(month).isEqualTo(Calendar.getInstance().get(Calendar.MONTH));
+  }
+
+  @Test
+  public void givenEmptyInt_whenGettingYear_thenReturnActualYear() {
+    calendar = new TimeYear(-1);
+
+    int year = calendar.getYear();
+
+    assertThat(year).isEqualTo(Calendar.getInstance().get(Calendar.YEAR));
+  }
 }

@@ -14,6 +14,14 @@ public abstract class TimeCalendar implements Comparable<TimeCalendar> {
     setUpCustomDateTime(dateTime);
   }
 
+  public TimeCalendar(int year) {
+    if (year == -1) {
+      year = Calendar.getInstance().get(Calendar.YEAR);
+    }
+    CustomDateTime customDateTime = new CustomDateTime(LocalDateTime.of(year, 1, 1, 0, 0, 0));
+    setUpCustomDateTime(customDateTime);
+  }
+
   public TimeCalendar(String monthName) {
     LocalDateTime localDateTime = LocalDateTime.now();
 

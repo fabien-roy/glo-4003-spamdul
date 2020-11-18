@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.times.domain;
 
-import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class TimeYear extends TimeCalendar {
@@ -10,7 +9,7 @@ public class TimeYear extends TimeCalendar {
   }
 
   public TimeYear(int year) {
-    super(new CustomDateTime(LocalDateTime.of(year, 1, 1, 0, 0, 0)));
+    super(year);
   }
 
   @Override
