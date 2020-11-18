@@ -1,12 +1,11 @@
 package ca.ulaval.glo4003.reports.domain;
 
 import ca.ulaval.glo4003.reports.exceptions.InvalidReportTypeException;
-import ca.ulaval.glo4003.users.exceptions.InvalidSexException;
 import java.util.HashMap;
 import java.util.Map;
 
 public enum ReportType {
-  DAY_OF_MONTH("dayOfMonth"),
+  DAY_OF_MONTH("dayofmonth"),
   MONTHLY("monthly"),
   SUMMARY("summary");
 
@@ -28,7 +27,7 @@ public enum ReportType {
 
     ReportType foundReportType = lookup.get(reportType.toLowerCase());
 
-    if (foundReportType == null) throw new InvalidSexException();
+    if (foundReportType == null) throw new InvalidReportTypeException();
 
     return foundReportType;
   }
