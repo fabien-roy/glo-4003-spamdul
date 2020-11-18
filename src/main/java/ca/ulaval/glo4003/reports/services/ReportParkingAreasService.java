@@ -25,12 +25,11 @@ public class ReportParkingAreasService {
     this.reportPeriodAssembler = reportPeriodAssembler;
   }
 
-  public List<ReportPeriodDto> getReports(
-      ReportEventType reportEventType, int year, String reportType, String scope) {
+  public List<ReportPeriodDto> getReports(int year, String reportType, String scope) {
     ReportQuery reportQuery =
         reportQueryBuilder
             .aReportQuery()
-            .withReportEventType(reportEventType)
+            .withReportEventType(ReportEventType.GATE_ENTERED)
             .withPeriod(new TimeYear(year).toPeriod())
             .withScope(ReportScopeType.get(scope))
             .withMetrics(

@@ -6,7 +6,6 @@ import static ca.ulaval.glo4003.reports.helpers.ReportScopeMother.createYear;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 
-import ca.ulaval.glo4003.reports.domain.ReportEventType;
 import ca.ulaval.glo4003.reports.services.ReportParkingAreasService;
 import javax.ws.rs.core.Response;
 import org.eclipse.jetty.http.HttpStatus;
@@ -36,8 +35,7 @@ public class ReportParkingAreasResourceImplementationTest {
   public void whenGettingParkingAreas_thenGetParkingAreasReport() {
     reportParkingAreasResourceImplementation.getParkingAreas(year, reportEventType, reportPeriod);
 
-    verify(reportParkingAreasService)
-        .getReports(ReportEventType.PARKING_AREAS, year, reportEventType, reportPeriod);
+    verify(reportParkingAreasService).getReports(year, reportEventType, reportPeriod);
   }
 
   @Test
