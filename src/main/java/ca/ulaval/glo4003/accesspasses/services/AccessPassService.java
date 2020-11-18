@@ -81,5 +81,7 @@ public class AccessPassService {
     return accessPassRepository.get(licensePlate);
   }
 
-  public void updateAccessPass(AccessPass accessPass) {}
+  public void updateAccessPass(AccessPass accessPass) {
+    accessPassRepository.update(accessPass);
+  }
 }

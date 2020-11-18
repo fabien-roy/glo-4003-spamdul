@@ -110,6 +110,13 @@ public class AccessPassServiceTest {
     assertThat(receivedAccessPass).isSameInstanceAs(accessPass);
   }
 
+  @Test
+  public void whenUpdatingAccessPass_thenCallAccessPassRepository() {
+    accessPassService.updateAccessPass(accessPass);
+
+    verify(accessPassRepository).update(accessPass);
+  }
+
   private void givenAccessPassDtoWithLicensePlate(LicensePlate licensePlate) {
     String stringLicensePlate = licensePlate == null ? null : licensePlate.toString();
     accessPassDto = anAccessPassDto().withLicensePlate(stringLicensePlate).build();
