@@ -191,7 +191,7 @@ uses:
                     example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-refused.json
               404:
                 description: Access pass not found
-    /validateAccessPassEntryWithLicensePlate
+    /validateAccessPassEntryWithLicensePlate:
           /{licensePlate}:
             description: Validates an access pass for given licensePlate
             uriParameters:
@@ -234,23 +234,26 @@ uses:
                 type: types.DayOfWeekObject
                 example: !include examples/gateEntry/post-gate-entry-validate-access-pass-request.json
             responses:
-              202:
+              200:
                 description: Access status of access pass is granted
-                body:
-                  application/json:
-                    type: types.AccessStatusObject
-                    example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-granted.json
               400:
-                description: Error validating access pass
-              403:
-                description: Access status of access pass is refused
-                body:
-                  application/json:
-                    type: types.AccessStatusObject
-                    example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-refused.json
-              404:
-                description: Access pass not found
-
+                description: Invalid access pass exit
+    /validateAccessPassEntryWithLicensePlate:
+          /{licensePlate}:
+            description: Validates an access pass for given licensePlate
+            uriParameters:
+              licensePlate:
+                type: types.LicensePlate
+            post:
+              description: Validate the access pass with given licensePlate
+              body:
+                application/json:
+                  type: types.DayOfWeekObject
+                  example: !include examples/gateEntry/post-gate-entry-validate-access-pass-request.json
+              responses:
+                200 :
+                404 :
+                  description : Access pass not found
 
 /api/offenses:
   description: Collection of offenses
