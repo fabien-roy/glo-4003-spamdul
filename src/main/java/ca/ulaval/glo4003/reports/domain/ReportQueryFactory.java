@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
 import ca.ulaval.glo4003.times.domain.TimeMonth;
 import ca.ulaval.glo4003.times.domain.TimeYear;
-import java.time.Year;
 import java.util.Collections;
 
 public class ReportQueryFactory {
@@ -30,7 +29,7 @@ public class ReportQueryFactory {
     return reportQueryBuilder
         .aReportQuery()
         .withReportEventType(ReportEventType.GATE_ENTERED)
-        .withPeriod(new TimeYear(Year.now().getValue()).toPeriod())
+        .withPeriod(TimeYear.now().toPeriod())
         .withScope(ReportScopeType.MONTHLY)
         .withMetrics(Collections.singletonList(ReportMetricType.GATE_ENTRIES))
         .withDimensions(Collections.singletonList(ReportDimensionType.PARKING_AREA))

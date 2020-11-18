@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
-import ca.ulaval.glo4003.reports.exceptions.InvalidReportTypeException;
 import ca.ulaval.glo4003.times.domain.TimeMonth;
 import ca.ulaval.glo4003.times.domain.TimeYear;
 import java.time.Year;
@@ -75,12 +74,5 @@ public class ReportQueryFactoryTest {
     ReportQuery reportQueryCreated = reportQueryFactory.create(reportType, month);
 
     assertThat(reportQuery).isEqualTo(reportQueryCreated);
-  }
-
-  @Test(expected = InvalidReportTypeException.class)
-  public void givenInvalidReportType_whenCreating_thenThrowInvalidReportType() {
-    ReportType reportType = ReportType.SUMMARY;
-
-    reportQueryFactory.create(reportType, month);
   }
 }

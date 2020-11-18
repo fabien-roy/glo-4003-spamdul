@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum ReportType {
-  DAY_OF_MONTH("dayofmonth"),
+  DAY_OF_MONTH("dayOfMonth"),
   MONTHLY("monthly"),
   SUMMARY("summary");
 
@@ -14,7 +14,7 @@ public enum ReportType {
 
   static {
     for (ReportType reportTypeName : ReportType.values()) {
-      lookup.put(reportTypeName.toString(), reportTypeName);
+      lookup.put(reportTypeName.toString().toLowerCase(), reportTypeName);
     }
   }
 
