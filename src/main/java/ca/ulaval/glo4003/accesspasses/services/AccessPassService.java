@@ -80,4 +80,6 @@ public class AccessPassService {
   public List<AccessPass> getAccessPassesByLicensePlate(LicensePlate licensePlate) {
     return accessPassRepository.get(licensePlate);
   }
+
+  public void updateAccessPass(AccessPass accessPass) {}
 }

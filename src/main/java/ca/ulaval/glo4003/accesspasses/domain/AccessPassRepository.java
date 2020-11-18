@@ -9,4 +9,8 @@ public interface AccessPassRepository {
   AccessPass get(AccessPassCode code);
 
   List<AccessPass> get(LicensePlate licensePlate);
+
+  void update(AccessPass accessPass);
+
+  List<AccessPass> getAll();
 }
