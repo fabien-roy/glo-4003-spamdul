@@ -1,8 +1,8 @@
-package ca.ulaval.glo4003.gateentries.api;
+package ca.ulaval.glo4003.gate.api;
 
-import ca.ulaval.glo4003.gateentries.api.dto.AccessStatusDto;
-import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
-import ca.ulaval.glo4003.gateentries.services.GateEntryService;
+import ca.ulaval.glo4003.gate.api.dto.AccessStatusDto;
+import ca.ulaval.glo4003.gate.api.dto.DayOfWeekDto;
+import ca.ulaval.glo4003.gate.services.GateEntryService;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

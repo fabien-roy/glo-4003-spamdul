@@ -1,14 +1,14 @@
-package ca.ulaval.glo4003.gateentries.api;
+package ca.ulaval.glo4003.gate.api;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
-import static ca.ulaval.glo4003.gateentries.api.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
-import static ca.ulaval.glo4003.gateentries.api.helpers.DayOfWeekDtoBuilder.aDayOfWeekDto;
+import static ca.ulaval.glo4003.gate.api.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
+import static ca.ulaval.glo4003.gate.api.helpers.DayOfWeekDtoBuilder.aDayOfWeekDto;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.gateentries.api.dto.AccessStatusDto;
-import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
-import ca.ulaval.glo4003.gateentries.services.GateEntryService;
+import ca.ulaval.glo4003.gate.api.dto.AccessStatusDto;
+import ca.ulaval.glo4003.gate.api.dto.DayOfWeekDto;
+import ca.ulaval.glo4003.gate.services.GateEntryService;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;

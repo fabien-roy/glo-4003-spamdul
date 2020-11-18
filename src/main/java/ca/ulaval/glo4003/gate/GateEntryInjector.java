@@ -1,11 +1,11 @@
-package ca.ulaval.glo4003.gateentries;
+package ca.ulaval.glo4003.gate;
 
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
-import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
-import ca.ulaval.glo4003.gateentries.api.GateEntryResourceImplementation;
-import ca.ulaval.glo4003.gateentries.assemblers.DayOfWeekAssembler;
-import ca.ulaval.glo4003.gateentries.services.GateEntryService;
+import ca.ulaval.glo4003.gate.api.GateEntryResource;
+import ca.ulaval.glo4003.gate.api.GateEntryResourceImplementation;
+import ca.ulaval.glo4003.gate.assemblers.DayOfWeekAssembler;
+import ca.ulaval.glo4003.gate.services.GateEntryService;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 
 public class GateEntryInjector {

@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.gateentries;
+package ca.ulaval.glo4003.gate;
 
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
-import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
+import ca.ulaval.glo4003.gate.api.GateEntryResource;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

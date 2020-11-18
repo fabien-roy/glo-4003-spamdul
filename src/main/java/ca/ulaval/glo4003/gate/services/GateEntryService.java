@@ -1,13 +1,13 @@
-package ca.ulaval.glo4003.gateentries.services;
+package ca.ulaval.glo4003.gate.services;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.gateentries.api.dto.AccessStatusDto;
-import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
-import ca.ulaval.glo4003.gateentries.assemblers.DayOfWeekAssembler;
+import ca.ulaval.glo4003.gate.api.dto.AccessStatusDto;
+import ca.ulaval.glo4003.gate.api.dto.DayOfWeekDto;
+import ca.ulaval.glo4003.gate.assemblers.DayOfWeekAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;

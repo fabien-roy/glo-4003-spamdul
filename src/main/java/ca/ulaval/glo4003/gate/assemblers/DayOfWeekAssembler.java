@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.gateentries.assemblers;
+package ca.ulaval.glo4003.gate.assemblers;
 
-import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
+import ca.ulaval.glo4003.gate.api.dto.DayOfWeekDto;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 
 public class DayOfWeekAssembler {
