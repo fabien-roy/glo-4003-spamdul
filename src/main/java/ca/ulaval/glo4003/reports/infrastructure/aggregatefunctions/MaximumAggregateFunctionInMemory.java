@@ -9,7 +9,6 @@ import java.util.List;
 
 public class MaximumAggregateFunctionInMemory implements AggregateFunction {
 
-  // TODO #238 : Legend says the best devs can make this in a single line using .stream()
   @Override
   public ReportPeriod aggregate(List<ReportPeriod> periods, ReportMetricType metricType) {
     ReportPeriod highestPeriod = null;
