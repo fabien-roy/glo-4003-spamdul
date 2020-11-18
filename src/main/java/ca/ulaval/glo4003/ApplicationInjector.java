@@ -21,6 +21,7 @@ import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
 import ca.ulaval.glo4003.initiatives.InitiativeInjector;
 import ca.ulaval.glo4003.initiatives.api.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
+import ca.ulaval.glo4003.initiatives.domain.InitiativeAddedAllocatedAmountObserver;
 import ca.ulaval.glo4003.interfaces.api.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.locations.LocationInjector;
 import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
@@ -39,6 +40,7 @@ import ca.ulaval.glo4003.times.api.TimeExceptionMapper;
 import ca.ulaval.glo4003.users.UserInjector;
 import ca.ulaval.glo4003.users.api.UserExceptionMapper;
 import ca.ulaval.glo4003.users.api.UserResource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -127,7 +129,12 @@ public class ApplicationInjector {
   }
 
   public CarbonCreditResource createCarbonCreditResource() {
-    return CARBON_CREDIT_INJECTOR.createCarbonCreditResource();
+    return CARBON_CREDIT_INJECTOR.createCarbonCreditResource(
+        INITIATIVE_INJECTOR.createService(
+            FUND_INJECTOR.createMoneyAssembler(),
+            FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
+            getInitiativeAddedAllocatedAmountObservers()),
+        FUND_INJECTOR.getSustainableMobilityProgramBankRepository());
   }
 
   public ParkingAreaResource createParkingAreaResource() {
@@ -135,10 +142,14 @@ public class ApplicationInjector {
   }
 
   public InitiativeResource createInitiativeResource() {
+    List<InitiativeAddedAllocatedAmountObserver> initiativeAddedAllocatedAmountObservers =
+        getInitiativeAddedAllocatedAmountObservers();
+
     return INITIATIVE_INJECTOR.createInitiativeResource(
         INITIATIVE_INJECTOR.createService(
             FUND_INJECTOR.createMoneyAssembler(),
-            FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
+            FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
+            initiativeAddedAllocatedAmountObservers));
   }
 
   public ReportResource createReportResource() {
@@ -165,9 +176,29 @@ public class ApplicationInjector {
   }
 
   public Scheduler createScheduler() {
+    List<InitiativeAddedAllocatedAmountObserver> initiativeAddedAllocatedAmountObservers =
+        getInitiativeAddedAllocatedAmountObservers();
+
     return newScheduler()
         .withJobHandlers(
-            Collections.singletonList(CARBON_CREDIT_INJECTOR.createConvertCarbonCreditHandler()))
+            Collections.singletonList(
+                CARBON_CREDIT_INJECTOR.createConvertCarbonCreditHandler(
+                    INITIATIVE_INJECTOR.createService(
+                        FUND_INJECTOR.createMoneyAssembler(),
+                        FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
+                        initiativeAddedAllocatedAmountObservers),
+                    FUND_INJECTOR.getSustainableMobilityProgramBankRepository())))
         .build();
+  }
+
+  private List<InitiativeAddedAllocatedAmountObserver>
+      getInitiativeAddedAllocatedAmountObservers() {
+    return Arrays.asList(
+        CARBON_CREDIT_INJECTOR.createCarbonCreditService(
+            INITIATIVE_INJECTOR.createService(
+                FUND_INJECTOR.createMoneyAssembler(),
+                FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
+                new ArrayList<InitiativeAddedAllocatedAmountObserver>() {}),
+            FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
   }
 }

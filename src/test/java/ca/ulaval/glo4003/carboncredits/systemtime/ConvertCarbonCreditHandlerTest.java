@@ -25,6 +25,6 @@ public class ConvertCarbonCreditHandlerTest {
   public void whenInvoking_thenExtractMoneyFromSustainableMobilityProgramBank() {
     convertCarbonCreditHandler.invoke();
 
-    verify(carbonCreditService).extractMoneyFromSustainableMobilityProgramBank();
+    verify(carbonCreditService).allocateRemainingFundToCarbonCreditInitiative();
   }
 }

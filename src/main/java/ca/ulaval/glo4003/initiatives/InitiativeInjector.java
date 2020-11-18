@@ -14,6 +14,7 @@ import ca.ulaval.glo4003.initiatives.domain.*;
 import ca.ulaval.glo4003.initiatives.infrastructure.InitiativeRepositoryInMemory;
 import ca.ulaval.glo4003.initiatives.services.InitiativeService;
 import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
+import java.util.List;
 
 public class InitiativeInjector {
   private final InitiativeRepository initiativeRepository = new InitiativeRepositoryInMemory();
@@ -36,7 +37,8 @@ public class InitiativeInjector {
 
   public InitiativeService createService(
       MoneyAssembler moneyAssembler,
-      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
+      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository,
+      List<InitiativeAddedAllocatedAmountObserver> initiativeAddedAllocatedAmountObservers) {
     InitiativeFactory initiativeFactory = new InitiativeFactory(initiativeCodeGenerator);
     InitiativeCodeAssembler initiativeCodeAssembler = new InitiativeCodeAssembler();
     InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler =
@@ -45,13 +47,17 @@ public class InitiativeInjector {
     InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler =
         new InitiativeAddAllocatedAmountAssembler(moneyAssembler);
 
-    return new InitiativeService(
-        initiativeFactory,
-        initiativeRepository,
-        initiativeCodeAssembler,
-        initiativeAvailableAmountAssembler,
-        initiativeAssembler,
-        initiativeAddAllocatedAmountAssembler,
-        sustainableMobilityProgramBankRepository);
+    InitiativeService initiativeService =
+        new InitiativeService(
+            initiativeFactory,
+            initiativeRepository,
+            initiativeCodeAssembler,
+            initiativeAvailableAmountAssembler,
+            initiativeAssembler,
+            initiativeAddAllocatedAmountAssembler,
+            sustainableMobilityProgramBankRepository);
+
+    initiativeAddedAllocatedAmountObservers.forEach(initiativeService::register);
+    return initiativeService;
   }
 }
