@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.gate.services;
+package ca.ulaval.glo4003.gates.services;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
-import static ca.ulaval.glo4003.gate.api.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
-import static ca.ulaval.glo4003.gate.api.helpers.DayOfWeekDtoBuilder.aDayOfWeekDto;
+import static ca.ulaval.glo4003.gates.api.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
+import static ca.ulaval.glo4003.gates.api.helpers.DayOfWeekDtoBuilder.aDayOfWeekDto;
 import static ca.ulaval.glo4003.times.helpers.DayOfWeekMother.createDayOfWeek;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
@@ -14,9 +14,9 @@ import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.gate.api.dto.AccessStatusDto;
-import ca.ulaval.glo4003.gate.api.dto.DayOfWeekDto;
-import ca.ulaval.glo4003.gate.assemblers.DayOfWeekAssembler;
+import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
+import ca.ulaval.glo4003.gates.api.dto.DayOfWeekDto;
+import ca.ulaval.glo4003.gates.assemblers.DayOfWeekAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;

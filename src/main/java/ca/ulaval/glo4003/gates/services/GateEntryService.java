@@ -1,13 +1,13 @@
-package ca.ulaval.glo4003.gate.services;
+package ca.ulaval.glo4003.gates.services;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.gate.api.dto.AccessStatusDto;
-import ca.ulaval.glo4003.gate.api.dto.DayOfWeekDto;
-import ca.ulaval.glo4003.gate.assemblers.DayOfWeekAssembler;
+import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
+import ca.ulaval.glo4003.gates.api.dto.DayOfWeekDto;
+import ca.ulaval.glo4003.gates.assemblers.DayOfWeekAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
@@ -42,7 +42,7 @@ public class GateEntryService {
     AccessStatus accessStatus = getAccessStatus(dayOfWeek, accessPass);
 
     if (accessStatus == AccessStatus.ACCESS_GRANTED) {
-      accessPass.enterCampus();
+      accessPass.enterCampus(); // TODO : This no more be
     }
 
     return accessStatusAssembler.assemble(accessStatus);
@@ -63,7 +63,7 @@ public class GateEntryService {
     }
 
     if (associatedAccessPass != null) {
-      associatedAccessPass.enterCampus();
+      associatedAccessPass.enterCampus(); // TODO : This no more be
       return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED);
     }
 
@@ -72,7 +72,7 @@ public class GateEntryService {
 
   public void validateAccessPassExitWithCode(String accessPassCode) {
     AccessPass accessPass = accessPassService.getAccessPass(accessPassCode);
-    accessPass.exitCampus();
+    accessPass.exitCampus(); // TODO : This no more be
   }
 
   public void validateAccessPassExitWithLicensePlate(String licensePlate) {
@@ -87,7 +87,7 @@ public class GateEntryService {
     }
 
     if (associatedAccessPass != null) {
-      associatedAccessPass.exitCampus();
+      associatedAccessPass.exitCampus(); // TODO : This no more be
     } else {
       throw new InvalidAccessPassExitException();
     }

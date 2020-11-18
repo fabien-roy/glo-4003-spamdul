@@ -1,11 +1,11 @@
-package ca.ulaval.glo4003.gate.api;
+package ca.ulaval.glo4003.gates.api;
 
-import ca.ulaval.glo4003.gate.api.dto.DayOfWeekDto;
+import ca.ulaval.glo4003.gates.api.dto.DayOfWeekDto;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/gate")
+@Path("/gates")
 public interface GateEntryResource {
 
   @POST

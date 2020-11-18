@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.gate.api.dto;
+package ca.ulaval.glo4003.gates.api.dto;
 
 public class AccessStatusDto {
   public String accessStatus;
