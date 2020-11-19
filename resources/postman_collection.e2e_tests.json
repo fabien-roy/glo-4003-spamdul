@@ -6283,120 +6283,22 @@
 							"name": "Parking areas",
 							"item": [
 								{
-									"name": "With monthly report type",
+									"name": "Report type",
 									"item": [
 										{
-											"name": "Report type",
-											"item": [
-												{
-													"name": "Invalid report type (bad value)",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"id": "f0ddd799-dd47-4eec-9baa-d93e5b52b771",
-																"exec": [
-																	"pm.test(\"Returns status 400\", function () {\r",
-																	"    pm.response.to.have.status(400);\r",
-																	"});\r",
-																	"\r",
-																	"pm.test(\"Returns invalid report type\", function () {\r",
-																	"    pm.expect(pm.response.json().error).to.equal(\"Invalid report type\")\r",
-																	"});"
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"protocolProfileBehavior": {
-														"disableBodyPruning": true
-													},
-													"request": {
-														"method": "GET",
-														"header": [],
-														"body": {
-															"mode": "raw",
-															"raw": "",
-															"options": {
-																"raw": {
-																	"language": "json"
-																}
-															}
-														},
-														"url": {
-															"raw": "{{host}}/api/reports/parkingAreas?reportType=invalid",
-															"host": [
-																"{{host}}"
-															],
-															"path": [
-																"api",
-																"reports",
-																"parkingAreas"
-															],
-															"query": [
-																{
-																	"key": "reportType",
-																	"value": "invalid"
-																}
-															]
-														}
-													},
-													"response": []
-												}
-											],
-											"protocolProfileBehavior": {},
-											"_postman_isSubFolder": true
-										},
-										{
-											"name": "Valid parking areas report query",
+											"name": "Invalid report type (bad value) Copy",
 											"event": [
 												{
 													"listen": "test",
 													"script": {
-														"id": "e3e5171b-f12b-4298-83be-187150c3af21",
+														"id": "ef98f9f2-acef-4ea6-91d0-9064fe62e454",
 														"exec": [
-															"pm.test(\"Returns status 200\", function () {\r",
-															"    pm.response.to.have.status(200);\r",
+															"pm.test(\"Returns status 400\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
 															"});\r",
 															"\r",
-															"pm.test(\"Returns periods array\", function () {\r",
-															"    pm.expect(pm.response.json().length).to.not.be.null;\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Returns period for current year\", function () {\r",
-															"    pm.expect(pm.response.json()[0].period).to.not.be.null;\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Returns period data\", function () {\r",
-															"    pm.expect(pm.response.json()[0].data).to.not.be.null;\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Returns period data has an array\", function () {\r",
-															"    pm.expect(pm.response.json()[0].data.length).to.not.be.null;\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Returns dimensions has an array\", function () {\r",
-															"    pm.expect(pm.response.json()[0].data[0].dimensions.length).to.not.be.null;\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Returns parking area dimension\", function () {\r",
-															"    pm.expect(pm.response.json()[0].data[0].dimensions[0].name).to.equal(\"parkingArea\");\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Returns parking area dimension with value\", function () {\r",
-															"    pm.expect(pm.response.json()[0].data[0].dimensions[0].value).to.not.be.null;\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Returns metrics has an array\", function () {\r",
-															"    pm.expect(pm.response.json()[0].data[0].metrics.length).to.not.be.null;\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Returns gate entries metric\", function () {\r",
-															"    pm.expect(pm.response.json()[0].data[0].metrics[0].name).to.equal(\"gateEntries\");\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Returns gate entries metric with value\", function () {\r",
-															"    pm.expect(pm.response.json()[0].data[0].metrics[0].value).to.not.be.null;\r",
+															"pm.test(\"Returns invalid report type\", function () {\r",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid report type\")\r",
 															"});"
 														],
 														"type": "text/javascript"
@@ -6419,7 +6321,7 @@
 													}
 												},
 												"url": {
-													"raw": "{{host}}/api/reports/parkingAreas?reportType=monthly",
+													"raw": "{{host}}/api/reports/parkingAreas?reportType=invalid",
 													"host": [
 														"{{host}}"
 													],
@@ -6431,7 +6333,7 @@
 													"query": [
 														{
 															"key": "reportType",
-															"value": "monthly"
+															"value": "invalid"
 														}
 													]
 												}
@@ -6441,6 +6343,293 @@
 									],
 									"protocolProfileBehavior": {},
 									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Valid parking areas monthly report type query",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e3e5171b-f12b-4298-83be-187150c3af21",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods array\", function () {\r",
+													"    pm.expect(pm.response.json().length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns period for current year\", function () {\r",
+													"    pm.expect(pm.response.json()[0].period).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns period data\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns period data has an array\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data.length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns dimensions has an array\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions.length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns parking area dimension\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions[0].name).to.equal(\"parkingArea\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns parking area dimension with value\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions[0].value).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns metrics has an array\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics.length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns gate entries metric\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics[0].name).to.equal(\"gateEntries\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns gate entries metric with value\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics[0].value).to.not.be.null;\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/reports/parkingAreas?reportType=monthly",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"reports",
+												"parkingAreas"
+											],
+											"query": [
+												{
+													"key": "reportType",
+													"value": "monthly"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Valid parking areas day of month report type query",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "18d657e6-fb96-411d-a492-ab4c3abf7f63",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods array\", function () {\r",
+													"    pm.expect(pm.response.json().length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns period for given month\", function () {\r",
+													"    pm.expect(pm.response.json()[0].period).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns period data\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns period data has an array\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data.length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns dimensions has an array\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions.length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns parking area dimension\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions[0].name).to.equal(\"parkingArea\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns parking area dimension with value\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions[0].value).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns metrics has an array\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics.length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns gate entries metric\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics[0].name).to.equal(\"gateEntries\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns gate entries metric with value\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics[0].value).to.not.be.null;\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/reports/parkingAreas?reportType=dayOfMonth&month={{queryParam.reportMonth}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"reports",
+												"parkingAreas"
+											],
+											"query": [
+												{
+													"key": "reportType",
+													"value": "dayOfMonth"
+												},
+												{
+													"key": "month",
+													"value": "{{queryParam.reportMonth}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Valid parking areas summary report type query",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ac9d5f8d-665c-4f51-b7f7-99209fdbf0f1",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods array of 3 periods\", function () {\r",
+													"    pm.expect(pm.response.json().length).to.equal(3);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns maximum period\", function () {\r",
+													"    pm.expect(pm.response.json()[0].period).to.contain(\"maximum\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns minimum period\", function () {\r",
+													"    pm.expect(pm.response.json()[1].period).to.contain(\"minimum\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns average period\", function () {\r",
+													"    pm.expect(pm.response.json()[2].period).to.contain(\"average\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods with single data\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data.length).to.equal(1);\r",
+													"    pm.expect(pm.response.json()[1].data.length).to.equal(1);\r",
+													"    pm.expect(pm.response.json()[2].data.length).to.equal(1);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods without dimension\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions.length).to.equal(0);\r",
+													"    pm.expect(pm.response.json()[1].data[0].dimensions.length).to.equal(0);\r",
+													"    pm.expect(pm.response.json()[2].data[0].dimensions.length).to.equal(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods with one metric\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics.length).to.equal(1);\r",
+													"    pm.expect(pm.response.json()[1].data[0].metrics.length).to.equal(1);\r",
+													"    pm.expect(pm.response.json()[2].data[0].metrics.length).to.equal(1);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods with gate entrics metric\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics[0].name).to.equal(\"gateEntries\");\r",
+													"    pm.expect(pm.response.json()[1].data[0].metrics[0].name).to.equal(\"gateEntries\");\r",
+													"    pm.expect(pm.response.json()[2].data[0].metrics[0].name).to.equal(\"gateEntries\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods with gate entrics metric value\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics[0].value).to.not.be.null;\r",
+													"    pm.expect(pm.response.json()[1].data[0].metrics[0].value).to.not.be.null;\r",
+													"    pm.expect(pm.response.json()[2].data[0].metrics[0].value).to.not.be.null;\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/reports/parkingAreas?reportType=summary&month={{queryParam.reportMonth}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"reports",
+												"parkingAreas"
+											],
+											"query": [
+												{
+													"key": "reportType",
+													"value": "summary"
+												},
+												{
+													"key": "month",
+													"value": "{{queryParam.reportMonth}}"
+												}
+											]
+										}
+									},
+									"response": []
 								}
 							],
 							"protocolProfileBehavior": {},
