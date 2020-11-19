@@ -71,6 +71,7 @@ public class GateService {
   }
 
   public void validateAccessPassExitWithCode(String accessPassCode) {
+    logger.info(String.format("Validate exit with access pass code %s", accessPassCode));
     AccessPass accessPass = accessPassService.getAccessPass(accessPassCode);
     accessPassService.exitCampus(accessPass);
   }
