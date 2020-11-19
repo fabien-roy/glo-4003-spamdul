@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f5269adf-0b72-494e-94c2-2f7c202be0c7",
+		"_postman_id": "d08cc984-b3ca-4d3e-af5f-e46b1e4409fd",
 		"name": "SPAMD-UL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "63be662b-91b5-419e-a5b9-f27f5eb58918",
+								"id": "87f30db9-e676-4c35-8256-5bd410cb0cf3",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
@@ -54,7 +54,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2a4348ae-83bd-4677-8b9c-55d0ed836666",
+								"id": "43a45695-3606-4efb-9327-5590fc2d611b",
 								"exec": [
 									""
 								],
@@ -97,7 +97,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b74ca2f0-3857-4bd1-bc25-bb19bdea8103",
+								"id": "69012964-cb94-406b-b6fc-72f4d01ace6b",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"if (jsonData.length > 0) {",
@@ -144,7 +144,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0411c99d-c1ec-490a-a2b1-fbbfb75cb5da",
+								"id": "81262a37-c7b6-4ccc-899b-a583bffcafc8",
 								"exec": [
 									""
 								],
@@ -186,7 +186,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "96705435-a7a8-41e0-b6d8-24c669656dba",
+								"id": "ea4508c0-5b36-45a2-ba51-7d0c38062621",
 								"exec": [
 									""
 								],
@@ -230,7 +230,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "117fecb9-6b1c-4b3c-957a-72b591993368",
+								"id": "57ca9930-784e-4e9e-a5c1-be99a52b491d",
 								"exec": [
 									""
 								],
@@ -271,7 +271,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d60421d7-e782-46ef-a953-9e28eb7ec6b3",
+								"id": "49dad492-939a-4bc2-8309-b882e44f29ce",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
@@ -313,7 +313,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "34c43862-1f6c-47a0-887e-3a3f6d2479d8",
+								"id": "94bb114e-32fe-4fe9-8728-2e1b968ad183",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
@@ -355,7 +355,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2ed394e8-19d8-42df-b7ea-05e18ead0129",
+								"id": "ab7ef770-6d09-4713-b5e2-eee6b002bf58",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
@@ -403,7 +403,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8c9353dc-9cd5-4506-916d-f5aa2bda8676",
+								"id": "f2bf7357-bdff-4476-8402-0b297bf14029",
 								"exec": [
 									""
 								],
@@ -443,15 +443,15 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Gate entry",
+			"name": "Gates",
 			"item": [
 				{
-					"name": "Validate gate entry for access pass",
+					"name": "Validate gate entry with access pass",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "6313341b-980a-4055-a29b-367573200852",
+								"id": "1e0a33e0-e7c9-4ae5-9c84-f172d51413ee",
 								"exec": [
 									""
 								],
@@ -472,14 +472,90 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/gateEntry/validateAccessPass/{{param.accessPassCode}}",
+							"raw": "{{host}}/api/gates/entry/validateAccessPassWithCode/{{param.accessPassCode}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
-								"gateEntry",
-								"validateAccessPass",
+								"gates",
+								"entry",
+								"validateAccessPassWithCode",
+								"{{param.accessPassCode}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate gate exit with license plate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/gates/exit/validateAccessPassWithLicensePlate/{{request.car.licensePlate}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"gates",
+								"exit",
+								"validateAccessPassWithLicensePlate",
+								"{{request.car.licensePlate}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate  gate entry with license plate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{request.car.licensePlate}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"gates",
+								"entry",
+								"validateAccessPassWithLicensePlate",
+								"{{request.car.licensePlate}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate  gate exit with access pass",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/gates/exit/validateAccessPassWithCode/{{param.accessPassCode}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"gates",
+								"exit",
+								"validateAccessPassWithCode",
 								"{{param.accessPassCode}}"
 							]
 						}
@@ -498,7 +574,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "fe114a8e-eaaa-45b6-bd17-13601743dc40",
+								"id": "716f774e-12a1-4d71-8386-2ba2e5c6a841",
 								"exec": [
 									""
 								],
@@ -541,7 +617,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b09c0d12-715d-436f-adcc-b1b0815b054e",
+								"id": "52f5e137-edd4-4548-8212-7d7896bff9b9",
 								"exec": [
 									""
 								],
@@ -587,7 +663,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "fe004abc-997b-4ec1-a2c8-566c5f8a9864",
+								"id": "16546da2-77ce-480e-982e-bb5ad018cf99",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.initiativeCode\", jsonData.initiativeCode);"
@@ -627,7 +703,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4604e8e8-64ee-4d4a-aa8c-ce322efea4e6",
+								"id": "d40541b4-7125-44e1-bc7b-8363687254c0",
 								"exec": [
 									""
 								],
@@ -700,7 +776,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "38e6ddcc-9d7b-4427-8d09-3065842e225a",
+								"id": "fe7ea37f-b564-4cbb-8ea0-c6c17f6ec034",
 								"exec": [
 									""
 								],
@@ -777,7 +853,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5930041e-6290-4e00-b54b-8ebfda87b649",
+								"id": "597a1109-2d66-4d7f-b50f-a4d537e74c94",
 								"exec": [
 									""
 								],
@@ -816,7 +892,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a29f909a-90f0-4183-ba24-c81883c429e8",
+								"id": "191b8ae5-8e70-40e6-a0a4-89c4e0d327e9",
 								"exec": [
 									""
 								],
@@ -867,7 +943,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0553b2b8-35f3-4be5-af57-7becde86fd81",
+										"id": "9d14cc05-75b3-4cc7-9f6b-c3474441b50a",
 										"exec": [
 											""
 										],
@@ -917,7 +993,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "ecfab159-d747-47af-bd70-5b78ae44cfe2",
+										"id": "09ec5c26-fbfe-47ab-80e6-ac639c3c5bcf",
 										"exec": [
 											""
 										],
@@ -967,7 +1043,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "250c6b57-87a5-4fae-9bfd-4c23a2b4e20e",
+										"id": "30bae367-967a-406c-86a2-8385b2943659",
 										"exec": [
 											""
 										],
@@ -1021,7 +1097,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "93002301-2a74-43fb-98f7-7c5e1bf3eee4",
+										"id": "e8baf68d-5285-4d2d-b120-0ac270bc5f14",
 										"exec": [
 											""
 										],
