@@ -4159,7 +4159,7 @@
 													}
 												},
 												"url": {
-													"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{request.car.licensePlate}}",
+													"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{param.licensePlate}}",
 													"host": [
 														"{{host}}"
 													],
@@ -4168,7 +4168,7 @@
 														"gates",
 														"entry",
 														"validateAccessPassWithLicensePlate",
-														"{{request.car.licensePlate}}"
+														"{{param.licensePlate}}"
 													]
 												}
 											},
@@ -4207,7 +4207,7 @@
 													}
 												},
 												"url": {
-													"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{request.car.licensePlate}}",
+													"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{param.licensePlate}}",
 													"host": [
 														"{{host}}"
 													],
@@ -4216,7 +4216,7 @@
 														"gates",
 														"entry",
 														"validateAccessPassWithLicensePlate",
-														"{{request.car.licensePlate}}"
+														"{{param.licensePlate}}"
 													]
 												}
 											},
@@ -4255,7 +4255,7 @@
 													}
 												},
 												"url": {
-													"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{request.car.licensePlate}}",
+													"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{param.licensePlate}}",
 													"host": [
 														"{{host}}"
 													],
@@ -4264,7 +4264,7 @@
 														"gates",
 														"entry",
 														"validateAccessPassWithLicensePlate",
-														"{{request.car.licensePlate}}"
+														"{{param.licensePlate}}"
 													]
 												}
 											},
@@ -4307,7 +4307,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{request.car.licensePlate}}",
+											"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{param.licensePlate}}",
 											"host": [
 												"{{host}}"
 											],
@@ -4316,7 +4316,7 @@
 												"gates",
 												"entry",
 												"validateAccessPassWithLicensePlate",
-												"{{request.car.licensePlate}}"
+												"{{param.licensePlate}}"
 											]
 										}
 									},
@@ -4355,7 +4355,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{request.car.licensePlate}}",
+											"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{param.licensePlate}}",
 											"host": [
 												"{{host}}"
 											],
@@ -4364,7 +4364,7 @@
 												"gates",
 												"entry",
 												"validateAccessPassWithLicensePlate",
-												"{{request.car.licensePlate}}"
+												"{{param.licensePlate}}"
 											]
 										}
 									},
@@ -4387,7 +4387,7 @@
 											"raw": "{\r\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\r\n}"
 										},
 										"url": {
-											"raw": "{{host}}/api/gates/exit/validateAccessPassWithLicensePlate/{{request.car.licensePlate}}",
+											"raw": "{{host}}/api/gates/exit/validateAccessPassWithLicensePlate/{{param.licensePlate}}",
 											"host": [
 												"{{host}}"
 											],
@@ -4396,7 +4396,7 @@
 												"gates",
 												"exit",
 												"validateAccessPassWithLicensePlate",
-												"{{request.car.licensePlate}}"
+												"{{param.licensePlate}}"
 											]
 										}
 									},
