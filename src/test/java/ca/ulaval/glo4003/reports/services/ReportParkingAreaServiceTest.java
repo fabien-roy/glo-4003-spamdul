@@ -1,10 +1,13 @@
 package ca.ulaval.glo4003.reports.services;
 
+import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.reports.helpers.ReportPeriodBuilder.aReportPeriod;
 import static ca.ulaval.glo4003.reports.helpers.ReportPeriodDtoBuilder.aReportPeriodDto;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
+import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDto;
 import ca.ulaval.glo4003.reports.assemblers.ReportPeriodAssembler;
 import ca.ulaval.glo4003.reports.domain.*;
@@ -22,9 +25,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReportParkingAreaServiceTest {
+  @Mock private ParkingAreaService parkingAreaService;
   @Mock private ReportRepository reportRepository;
   @Mock private ReportPeriodAssembler reportPeriodAssembler;
-  @Mock private ReportQueryFactory reportQueryFactory;
+  @Mock private ReportParkingAreaQueryFactory reportParkingAreaQueryFactory;
   @Mock private ReportSummaryBuilder reportSummaryBuilder;
   @Mock private ReportQuery reportQuery;
   @Mock private ReportQuery summaryReportQuery;
@@ -39,20 +43,30 @@ public class ReportParkingAreaServiceTest {
   private final ReportType reportType = ReportType.MONTHLY;
   private final ReportType summaryReportType = ReportType.SUMMARY;
   private final String month = CustomDateTimeMother.createMonth().toString();
+  private final List<ParkingAreaCode> parkingAreaCodes =
+      Collections.singletonList(createParkingAreaCode());
 
   @Before
   public void setUp() {
     reportParkingAreaService =
         new ReportParkingAreaService(
-            reportRepository, reportPeriodAssembler, reportQueryFactory, reportSummaryBuilder);
+            parkingAreaService,
+            reportRepository,
+            reportPeriodAssembler,
+            reportParkingAreaQueryFactory,
+            reportSummaryBuilder);
 
-    when(reportQueryFactory.create(reportType, month)).thenReturn(reportQuery);
+    when(parkingAreaService.getParkingAreaCodes()).thenReturn(parkingAreaCodes);
+
+    when(reportParkingAreaQueryFactory.create(reportType, month, parkingAreaCodes))
+        .thenReturn(reportQuery);
     when(reportRepository.getPeriods(reportQuery))
         .thenReturn(Collections.singletonList(reportPeriod));
     when(reportPeriodAssembler.assembleMany(Collections.singletonList(reportPeriod)))
         .thenReturn(Collections.singletonList(reportPeriodDto));
 
-    when(reportQueryFactory.create(summaryReportType, month)).thenReturn(summaryReportQuery);
+    when(reportParkingAreaQueryFactory.create(summaryReportType, month, parkingAreaCodes))
+        .thenReturn(summaryReportQuery);
     when(reportRepository.getPeriods(summaryReportQuery))
         .thenReturn(Collections.singletonList(summaryReportPeriod));
     when(reportSummaryBuilder.aReportSummary()).thenReturn(reportSummaryBuilder);

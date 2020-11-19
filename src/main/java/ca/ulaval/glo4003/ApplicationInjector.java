@@ -157,7 +157,8 @@ public class ApplicationInjector {
   }
 
   public ReportParkingAreaResource createReportParkingAreaResource() {
-    return REPORT_INJECTOR.createReportParkingAreaResource();
+    return REPORT_INJECTOR.createReportParkingAreaResource(
+        PARKING_INJECTOR.createParkingAreaService());
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {

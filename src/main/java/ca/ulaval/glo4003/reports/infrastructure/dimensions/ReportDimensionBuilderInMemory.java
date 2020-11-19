@@ -22,8 +22,6 @@ public class ReportDimensionBuilderInMemory implements ReportDimensionBuilder {
     return this;
   }
 
-  // TODO #262 : Send existing parking area codes to report dimension builder when requesting
-  //             parking area dimension
   public ReportDimensionBuilderInMemory withParkingAreaCodes(
       List<ParkingAreaCode> parkingAreaCodes) {
     this.parkingAreaCodes = parkingAreaCodes;
