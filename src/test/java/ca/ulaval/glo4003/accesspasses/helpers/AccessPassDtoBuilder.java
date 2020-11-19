@@ -10,6 +10,7 @@ public class AccessPassDtoBuilder {
   private String accessDay = createDayOfWeek().toString();
   private String licensePlate = createLicensePlate().toString();
   private AccessPeriod accessPeriod = AccessPeriod.ONE_SEMESTER;
+  private String[] semesters;
 
   public static AccessPassDtoBuilder anAccessPassDto() {
     return new AccessPassDtoBuilder();
@@ -30,11 +31,17 @@ public class AccessPassDtoBuilder {
     return this;
   }
 
+  public AccessPassDtoBuilder withSemesters(String[] semesters) {
+    this.semesters = semesters;
+    return this;
+  }
+
   public AccessPassDto build() {
     AccessPassDto accessPassDto = new AccessPassDto();
     accessPassDto.accessDay = accessDay;
     accessPassDto.licensePlate = licensePlate;
     accessPassDto.period = accessPeriod.toString();
+    accessPassDto.semesters = semesters;
     return accessPassDto;
   }
 }

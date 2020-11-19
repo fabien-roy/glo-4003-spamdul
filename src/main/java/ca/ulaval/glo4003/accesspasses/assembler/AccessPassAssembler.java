@@ -3,7 +3,8 @@ package ca.ulaval.glo4003.accesspasses.assembler;
 import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPeriodException;
+import ca.ulaval.glo4003.accesspasses.exceptions.UnsupportedAccessPeriodException;
+import ca.ulaval.glo4003.accesspasses.exceptions.WrongAmountOfSemestersForPeriodException;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
@@ -43,22 +44,28 @@ public class AccessPassAssembler {
       dayOfWeek = null;
     }
     AccessPeriod period = AccessPeriod.get(accessPassCodeDto.period);
+    // Will be revised if story 3.1 is chosen
+    if (period == AccessPeriod.ONE_DAY || period == AccessPeriod.ONE_HOUR) {
+      throw new UnsupportedAccessPeriodException();
+    }
+    // Will be revised if story 3.1 is chosen
+    if (accessPassCodeDto.semesters == null || accessPassCodeDto.semesters.length == 0) {
+      throw new WrongAmountOfSemestersForPeriodException();
+    }
     List<TimePeriod> accessPeriods = new ArrayList<>();
-    if (accessPassCodeDto.semesters != null && accessPassCodeDto.semesters.length != 0) {
-      // This checks to see if there are 1, 2, or 3 semesters in the array and if the chosen period
-      // matches that
-      if ((accessPassCodeDto.semesters.length != 1
-              && (period == AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER
-                  || period == AccessPeriod.ONE_SEMESTER))
-          || (accessPassCodeDto.semesters.length != 2 && period == AccessPeriod.TWO_SEMESTERS)
-          || (accessPassCodeDto.semesters.length != 3 && period == AccessPeriod.THREE_SEMESTERS)) {
-        throw new InvalidAccessPeriodException();
-      }
-      for (String semester : accessPassCodeDto.semesters) {
-        SemesterCode code = semesterCodeAssembler.assemble(semester);
-        TimePeriod semesterPeriod = semesterService.getSemester(code);
-        accessPeriods.add(semesterPeriod);
-      }
+    // This checks to see if there are 1, 2, or 3 semesters in the array and if the chosen period
+    // matches that
+    if ((accessPassCodeDto.semesters.length != 1
+            && (period == AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER
+                || period == AccessPeriod.ONE_SEMESTER))
+        || (accessPassCodeDto.semesters.length != 2 && period == AccessPeriod.TWO_SEMESTERS)
+        || (accessPassCodeDto.semesters.length != 3 && period == AccessPeriod.THREE_SEMESTERS)) {
+      throw new WrongAmountOfSemestersForPeriodException();
+    }
+    for (String semester : accessPassCodeDto.semesters) {
+      SemesterCode code = semesterCodeAssembler.assemble(semester);
+      TimePeriod semesterPeriod = semesterService.getSemester(code);
+      accessPeriods.add(semesterPeriod);
     }
     LicensePlate licensePlate;
     if (accessPassCodeDto.licensePlate != null) {

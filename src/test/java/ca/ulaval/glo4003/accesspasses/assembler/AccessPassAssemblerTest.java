@@ -8,6 +8,9 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
+import ca.ulaval.glo4003.accesspasses.exceptions.UnsupportedAccessPeriodException;
+import ca.ulaval.glo4003.accesspasses.exceptions.WrongAmountOfSemestersForPeriodException;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
@@ -34,7 +37,10 @@ public class AccessPassAssemblerTest {
   private final AccountId accountId = createAccountId();
   private final LicensePlate licensePlate = createLicensePlate();
   private AccessPassDto accessPassDto =
-      anAccessPassDto().withLicensePlate(licensePlate.toString()).build();
+      anAccessPassDto()
+          .withLicensePlate(licensePlate.toString())
+          .withSemesters(new String[] {"A20"})
+          .build();
 
   @Before
   public void setUp() {
@@ -84,10 +90,29 @@ public class AccessPassAssemblerTest {
 
   @Test
   public void givenNoLicensePlate_whenAssembling_thenReturnAccessPassWithoutLicensePlate() {
-    accessPassDto = anAccessPassDto().withLicensePlate(null).build();
+    accessPassDto =
+        anAccessPassDto().withLicensePlate(null).withSemesters(new String[] {"A20"}).build();
 
     AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
 
     assertThat(accessPass.getLicensePlate()).isNull();
+  }
+
+  @Test(expected = UnsupportedAccessPeriodException.class)
+  public void givenUnsupportedPeriod_thenThrowUnsupportedPeriodException() {
+    accessPassDto = anAccessPassDto().withAccessPeriod(AccessPeriod.ONE_DAY).build();
+
+    accessPassAssembler.assemble(accessPassDto, accountId.toString());
+  }
+
+  @Test(expected = WrongAmountOfSemestersForPeriodException.class)
+  public void givenWrongAmountOfSemesters_whenAssembling_thenThrowWrongAmountException() {
+    accessPassDto =
+        anAccessPassDto()
+            .withAccessPeriod(AccessPeriod.TWO_SEMESTERS)
+            .withSemesters(new String[] {"A20"})
+            .build();
+
+    accessPassAssembler.assemble(accessPassDto, accountId.toString());
   }
 }

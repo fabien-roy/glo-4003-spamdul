@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
 import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
+import ca.ulaval.glo4003.times.exceptions.SemesterNotFoundException;
 import ca.ulaval.glo4003.times.exceptions.TimeException;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
@@ -34,5 +35,14 @@ public class TimeExceptionMapperTest {
     Response response = timeExceptionMapper.toResponse(timeException);
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+  }
+
+  @Test
+  public void givenSemesterNotFoundException_whenResponding_thenStatusIsNotFound() {
+    TimeException timeException = new SemesterNotFoundException();
+
+    Response response = timeExceptionMapper.toResponse(timeException);
+
+    assertThat(response.getStatus()).isEqualTo(Response.Status.NOT_FOUND.getStatusCode());
   }
 }

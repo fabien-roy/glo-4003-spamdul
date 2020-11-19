@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.accesspasses.api;
 
 import ca.ulaval.glo4003.accesspasses.exceptions.AccessPassException;
 import ca.ulaval.glo4003.accesspasses.exceptions.NotFoundAccessPassException;
+import ca.ulaval.glo4003.accesspasses.exceptions.UnsupportedAccessPeriodException;
 import ca.ulaval.glo4003.interfaces.api.dto.ErrorDto;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -17,6 +18,8 @@ public class AccessPassExceptionMapper implements ExceptionMapper<AccessPassExce
 
     if (exception instanceof NotFoundAccessPassException) {
       responseStatus = Response.Status.NOT_FOUND;
+    } else if (exception instanceof UnsupportedAccessPeriodException) {
+      responseStatus = Response.Status.NOT_IMPLEMENTED;
     }
 
     ErrorDto errorDto = new ErrorDto();
