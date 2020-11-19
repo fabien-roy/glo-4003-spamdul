@@ -159,10 +159,10 @@ uses:
             example: !include examples/parkingAreas/get-parking-areas-response.json
       400:
         description: Error getting all parking areas
-/api/gateEntry:
+/api/gate:
   description: Gate entry for campus access
   /entry:
-    /validateAccessPassEntryWithCode:
+    /validateAccessPassWithCode:
         /{code}:
           description: Validates an access pass for entering with a given code
           uriParameters:
@@ -191,7 +191,7 @@ uses:
                     example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-refused.json
               404:
                 description: Access pass not found
-    /validateAccessPassEntryWithLicensePlate:
+    /validateAccessPassWithLicensePlate:
           /{licensePlate}:
             description: Validates an access pass for given licensePlate
             uriParameters:
@@ -221,7 +221,7 @@ uses:
                 404:
                   description: Access pass not found
   /exit:
-    /validateAccessPassEntryWithCode:
+    /validateAccessPassWithCode:
         /{code}:
           description: Validates an access pass for entering with a given code
           uriParameters:
@@ -238,7 +238,7 @@ uses:
                 description: Access status of access pass is granted
               400:
                 description: Invalid access pass exit
-    /validateAccessPassEntryWithLicensePlate:
+    /validateAccessPassWithLicensePlate:
           /{licensePlate}:
             description: Validates an access pass for given licensePlate
             uriParameters:
@@ -254,7 +254,6 @@ uses:
                 200 :
                 404 :
                   description : Access pass not found
-
 /api/offenses:
   description: Collection of offenses
   /types:
