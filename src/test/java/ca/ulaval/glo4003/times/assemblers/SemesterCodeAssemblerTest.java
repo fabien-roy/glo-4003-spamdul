@@ -24,7 +24,7 @@ public class SemesterCodeAssemblerTest {
   public void whenAssemblingCode_shouldReturnSemesterCode() {
     SemesterCode semesterCode = semesterCodeAssembler.assemble(SEMESTER_CODE.toString());
 
-    assertThat(semesterCode.equals(SEMESTER_CODE));
+    assertThat(semesterCode).isEqualTo(SEMESTER_CODE);
   }
 
   @Test(expected = InvalidSemesterCodeException.class)

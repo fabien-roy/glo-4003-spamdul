@@ -97,6 +97,6 @@ public class CustomDateTimeTest {
     DayOfWeek expectedDay = DayOfWeek.get(dateTime.toLocalDateTime().getDayOfWeek().toString());
     DayOfWeek computedDay = dateTime.getDayOfWeek();
 
-    assertThat(expectedDay.equals(computedDay));
+    assertThat(expectedDay).isEqualTo(computedDay);
   }
 }
