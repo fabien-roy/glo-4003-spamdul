@@ -425,3 +425,27 @@ uses:
                 example: !include examples/reports/get-reports-profits-offenses-response.json
           400:
             description: Error getting profits for offenses
+  /parkingAreas:
+    description: Gate entries by parking areas
+    get:
+      description: Get gate entries by parking areas for given parameters
+      queryParameters:
+        reportType:
+          type: types.ReportType
+          default: monthly
+        month:
+          description: Month for dayOfMonth or summary report type
+          type: String
+          default: Current month
+      responses:
+        200:
+          description: Gate entries by parking areas for given parameters
+          body:
+            application/json:
+              type: types.ReportPeriod[]
+              examples:
+                "Monthly report type": !include examples/reports/get-reports-parking-areas-monthly-response.json
+                "Day of month report type": !include examples/reports/get-reports-parking-areas-day-of-month-response.json
+                "Summary report type": !include examples/reports/get-reports-parking-areas-summary-response.json
+        400:
+          description: Error getting gate entires by parking areas
