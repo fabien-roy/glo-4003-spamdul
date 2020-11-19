@@ -40,7 +40,6 @@ import ca.ulaval.glo4003.times.api.TimeExceptionMapper;
 import ca.ulaval.glo4003.users.UserInjector;
 import ca.ulaval.glo4003.users.api.UserExceptionMapper;
 import ca.ulaval.glo4003.users.api.UserResource;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -198,7 +197,7 @@ public class ApplicationInjector {
             INITIATIVE_INJECTOR.createService(
                 FUND_INJECTOR.createMoneyAssembler(),
                 FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
-                new ArrayList<InitiativeAddedAllocatedAmountObserver>() {}),
+                Collections.emptyList()),
             FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
   }
 }
