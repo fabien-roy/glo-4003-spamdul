@@ -5,15 +5,14 @@ import ca.ulaval.glo4003.reports.api.ReportParkingAreaResourceImplementation;
 import ca.ulaval.glo4003.reports.api.ReportProfitResource;
 import ca.ulaval.glo4003.reports.api.ReportProfitResourceImplementation;
 import ca.ulaval.glo4003.reports.assemblers.*;
-import ca.ulaval.glo4003.reports.domain.ReportEventFactory;
-import ca.ulaval.glo4003.reports.domain.ReportQueryBuilder;
-import ca.ulaval.glo4003.reports.domain.ReportQueryFactory;
-import ca.ulaval.glo4003.reports.domain.ReportRepository;
+import ca.ulaval.glo4003.reports.domain.*;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionBuilder;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricBuilder;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeBuilder;
 import ca.ulaval.glo4003.reports.infrastructure.ReportQueryBuilderInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportRepositoryInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.ReportSummaryBuilderInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions.ReportAggregateFunctionBuilderInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.ReportDimensionBuilderInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.metrics.ReportMetricBuilderInMemory;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
@@ -22,17 +21,11 @@ import ca.ulaval.glo4003.reports.services.ReportProfitService;
 
 public class ReportInjector {
 
-  private ReportRepository reportRepository = new ReportRepositoryInMemory();
-  private ReportMetricBuilder metricBuilder = new ReportMetricBuilderInMemory();
-  private ReportDimensionBuilder dimensionBuilder = new ReportDimensionBuilderInMemory();
-  private ReportScopeBuilder scopeBuilder = new ReportScopeBuilder();
-  private ReportQueryBuilder reportQueryBuilder =
-      new ReportQueryBuilderInMemory(scopeBuilder, metricBuilder, dimensionBuilder);
+  private final ReportRepository reportRepository = new ReportRepositoryInMemory();
 
   public ReportProfitService createReportProfitService() {
-
     return new ReportProfitService(
-        reportRepository, reportQueryBuilder, createReportPeriodAssembler());
+        reportRepository, createReportQueryBuilder(), createReportPeriodAssembler());
   }
 
   public ReportEventService createReportEventService() {
@@ -48,9 +41,14 @@ public class ReportInjector {
   }
 
   public ReportParkingAreaService createReportParkingAreaService() {
-    ReportQueryFactory reportQueryFactory = new ReportQueryFactory(reportQueryBuilder);
+    ReportQueryFactory reportQueryFactory = new ReportQueryFactory(createReportQueryBuilder());
+    ReportAggregateFunctionBuilderInMemory reportAggregateFunctionBuilder =
+        new ReportAggregateFunctionBuilderInMemory();
+    ReportSummaryBuilder reportSummaryBuilder =
+        new ReportSummaryBuilderInMemory(reportAggregateFunctionBuilder);
+
     return new ReportParkingAreaService(
-        reportRepository, createReportPeriodAssembler(), reportQueryFactory);
+        reportRepository, createReportPeriodAssembler(), reportQueryFactory, reportSummaryBuilder);
   }
 
   private ReportPeriodAssembler createReportPeriodAssembler() {
@@ -59,5 +57,13 @@ public class ReportInjector {
     ReportPeriodDataAssembler reportPeriodDataAssembler =
         new ReportPeriodDataAssembler(reportDimensionDataAssembler, reportMetricDataAssembler);
     return new ReportPeriodAssembler(reportPeriodDataAssembler);
+  }
+
+  private ReportQueryBuilder createReportQueryBuilder() {
+    ReportMetricBuilder metricBuilder = new ReportMetricBuilderInMemory();
+    ReportDimensionBuilder dimensionBuilder = new ReportDimensionBuilderInMemory();
+    ReportScopeBuilder scopeBuilder = new ReportScopeBuilder();
+
+    return new ReportQueryBuilderInMemory(scopeBuilder, metricBuilder, dimensionBuilder);
   }
 }
