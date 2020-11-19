@@ -15,21 +15,21 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ReportParkingAreasServiceTest {
+public class ReportParkingAreaServiceTest {
   @Mock private ReportRepository reportRepository;
   @Mock private ReportPeriodAssembler reportPeriodAssembler;
   @Mock private ReportQueryFactory reportQueryFactory;
   @Mock private ReportQuery reportQuery;
   @Mock private ReportPeriod reportPeriod;
 
-  private ReportParkingAreasService reportParkingAreasService;
+  private ReportParkingAreaService reportParkingAreaService;
   private String reportType = createReportType().toString();
   private String month = CustomDateTimeMother.createMonth().toString();
 
   @Before
   public void setUp() {
-    reportParkingAreasService =
-        new ReportParkingAreasService(reportRepository, reportPeriodAssembler, reportQueryFactory);
+    reportParkingAreaService =
+        new ReportParkingAreaService(reportRepository, reportPeriodAssembler, reportQueryFactory);
 
     when(reportQueryFactory.create(ReportType.get(reportType), month)).thenReturn(reportQuery);
     when(reportRepository.getPeriods(reportQuery))
@@ -38,21 +38,21 @@ public class ReportParkingAreasServiceTest {
 
   @Test
   public void whenGettingReports_thenCreateReportQuery() {
-    reportParkingAreasService.getAllParkingAreaReports(reportType, month);
+    reportParkingAreaService.getAllParkingAreaReports(reportType, month);
 
     verify(reportQueryFactory).create(ReportType.get(reportType), month);
   }
 
   @Test
   public void whenGettingReports_thenGetReportsPeriods() {
-    reportParkingAreasService.getAllParkingAreaReports(reportType, month);
+    reportParkingAreaService.getAllParkingAreaReports(reportType, month);
 
     verify(reportRepository).getPeriods(reportQuery);
   }
 
   @Test
   public void whenGettingReports_thenAssembleReports() {
-    reportParkingAreasService.getAllParkingAreaReports(reportType, month);
+    reportParkingAreaService.getAllParkingAreaReports(reportType, month);
 
     verify(reportPeriodAssembler).assembleMany(Collections.singletonList(reportPeriod));
   }

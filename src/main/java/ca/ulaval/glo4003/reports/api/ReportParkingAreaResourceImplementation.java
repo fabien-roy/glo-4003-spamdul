@@ -1,26 +1,26 @@
 package ca.ulaval.glo4003.reports.api;
 
 import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDto;
-import ca.ulaval.glo4003.reports.services.ReportParkingAreasService;
+import ca.ulaval.glo4003.reports.services.ReportParkingAreaService;
 import java.util.List;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public class ReportParkingAreasResourceImplementation implements ReportParkingAreasResource {
+public class ReportParkingAreaResourceImplementation implements ReportParkingAreaResource {
 
-  private ReportParkingAreasService reportParkingAreasService;
+  private final ReportParkingAreaService reportParkingAreaService;
 
-  public ReportParkingAreasResourceImplementation(
-      ReportParkingAreasService reportParkingAreasService) {
-    this.reportParkingAreasService = reportParkingAreasService;
+  public ReportParkingAreaResourceImplementation(
+      ReportParkingAreaService reportParkingAreaService) {
+    this.reportParkingAreaService = reportParkingAreaService;
   }
 
   @Override
   public Response getParkingAreas(String reportType, String month) {
 
     List<ReportPeriodDto> reportPeriodsDto =
-        reportParkingAreasService.getAllParkingAreaReports(reportType, month);
+        reportParkingAreaService.getAllParkingAreaReports(reportType, month);
 
     return buildResponse(reportPeriodsDto);
   }

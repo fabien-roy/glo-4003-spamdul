@@ -7,13 +7,13 @@ import ca.ulaval.glo4003.reports.domain.ReportQueryFactory;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class ReportParkingAreasService {
-  private final Logger logger = Logger.getLogger(ReportParkingAreasService.class.getName());
+public class ReportParkingAreaService {
+  private final Logger logger = Logger.getLogger(ReportParkingAreaService.class.getName());
   private final ReportRepository reportRepository;
   private final ReportPeriodAssembler reportPeriodAssembler;
   private final ReportQueryFactory reportQueryFactory;
 
-  public ReportParkingAreasService(
+  public ReportParkingAreaService(
       ReportRepository reportRepository,
       ReportPeriodAssembler reportPeriodAssembler,
       ReportQueryFactory reportQueryFactory) {

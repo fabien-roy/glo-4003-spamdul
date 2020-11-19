@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.reports;
 
-import ca.ulaval.glo4003.reports.api.ReportParkingAreasResource;
-import ca.ulaval.glo4003.reports.api.ReportParkingAreasResourceImplementation;
+import ca.ulaval.glo4003.reports.api.ReportParkingAreaResource;
+import ca.ulaval.glo4003.reports.api.ReportParkingAreaResourceImplementation;
 import ca.ulaval.glo4003.reports.api.ReportProfitResource;
 import ca.ulaval.glo4003.reports.api.ReportProfitResourceImplementation;
 import ca.ulaval.glo4003.reports.assemblers.*;
@@ -17,7 +17,7 @@ import ca.ulaval.glo4003.reports.infrastructure.ReportRepositoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.ReportDimensionBuilderInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.metrics.ReportMetricBuilderInMemory;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
-import ca.ulaval.glo4003.reports.services.ReportParkingAreasService;
+import ca.ulaval.glo4003.reports.services.ReportParkingAreaService;
 import ca.ulaval.glo4003.reports.services.ReportProfitService;
 
 public class ReportInjector {
@@ -43,13 +43,13 @@ public class ReportInjector {
     return new ReportProfitResourceImplementation(createReportProfitService());
   }
 
-  public ReportParkingAreasResource createReportParkingAreaResource() {
-    return new ReportParkingAreasResourceImplementation(createReportParkingAreaService());
+  public ReportParkingAreaResource createReportParkingAreaResource() {
+    return new ReportParkingAreaResourceImplementation(createReportParkingAreaService());
   }
 
-  public ReportParkingAreasService createReportParkingAreaService() {
+  public ReportParkingAreaService createReportParkingAreaService() {
     ReportQueryFactory reportQueryFactory = new ReportQueryFactory(reportQueryBuilder);
-    return new ReportParkingAreasService(
+    return new ReportParkingAreaService(
         reportRepository, createReportPeriodAssembler(), reportQueryFactory);
   }
 

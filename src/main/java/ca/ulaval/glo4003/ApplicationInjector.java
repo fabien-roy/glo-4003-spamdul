@@ -33,7 +33,7 @@ import ca.ulaval.glo4003.parkings.api.ParkingExceptionMapper;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
 import ca.ulaval.glo4003.reports.ReportInjector;
 import ca.ulaval.glo4003.reports.api.ReportExceptionMapper;
-import ca.ulaval.glo4003.reports.api.ReportParkingAreasResource;
+import ca.ulaval.glo4003.reports.api.ReportParkingAreaResource;
 import ca.ulaval.glo4003.reports.api.ReportProfitResource;
 import ca.ulaval.glo4003.times.TimeInjector;
 import ca.ulaval.glo4003.times.api.TimeExceptionMapper;
@@ -146,7 +146,7 @@ public class ApplicationInjector {
     return REPORT_INJECTOR.createReportProfitResource();
   }
 
-  public ReportParkingAreasResource createReportParkingAreas() {
+  public ReportParkingAreaResource createReportParkingAreaResource() {
     return REPORT_INJECTOR.createReportParkingAreaResource();
   }
 

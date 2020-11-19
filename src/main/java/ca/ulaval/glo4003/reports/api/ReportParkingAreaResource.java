@@ -5,7 +5,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/reports/parkingAreas")
-public interface ReportParkingAreasResource {
+public interface ReportParkingAreaResource {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
