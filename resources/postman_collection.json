@@ -1068,6 +1068,168 @@
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Parking areas",
+					"item": [
+						{
+							"name": "Get gate entries by parking areas (monthly report type)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1658e863-3c39-46fe-be31-0f5f9ae751f3",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/reports/parkingAreas?reportType=monthly",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"parkingAreas"
+									],
+									"query": [
+										{
+											"key": "reportType",
+											"value": "monthly"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get gate entries by parking areas (day of month report type)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5db0000f-b0aa-4104-bc46-281a03fcd5dc",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/reports/parkingAreas?reportType=dayOfMonth&month=january",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"parkingAreas"
+									],
+									"query": [
+										{
+											"key": "reportType",
+											"value": "dayOfMonth"
+										},
+										{
+											"key": "month",
+											"value": "january"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get gate entries by parking areas (summary report type)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9970d06c-43dc-4213-8e33-451dad7e9e1c",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/reports/parkingAreas?reportType=summary&month=january",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"reports",
+										"parkingAreas"
+									],
+									"query": [
+										{
+											"key": "reportType",
+											"value": "summary"
+										},
+										{
+											"key": "month",
+											"value": "january"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
