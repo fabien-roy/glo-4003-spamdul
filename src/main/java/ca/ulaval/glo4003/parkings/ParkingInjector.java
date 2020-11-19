@@ -45,7 +45,6 @@ public class ParkingInjector {
     return new ParkingAreaResourceImplementation(createParkingAreaService());
   }
 
-  // TODO #262 : Test createParkingAreaService
   public ParkingAreaService createParkingAreaService() {
     return new ParkingAreaService(
         parkingAreaRepository, new ParkingAreaAssembler(new ParkingPeriodPriceAssembler()));
