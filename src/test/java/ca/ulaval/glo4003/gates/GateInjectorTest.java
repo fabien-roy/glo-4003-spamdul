@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.gates;
 
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
-import ca.ulaval.glo4003.gates.api.GateEntryResource;
+import ca.ulaval.glo4003.gates.api.GateResource;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,22 +10,21 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GateEntryInjectorTest {
+public class GateInjectorTest {
 
   @Mock AccessPassService accessPassService;
 
-  private GateEntryInjector gateEntryInjector;
+  private GateInjector gateInjector;
 
   @Before
   public void setUp() {
-    gateEntryInjector = new GateEntryInjector();
+    gateInjector = new GateInjector();
   }
 
   @Test
-  public void whenCreatingGateEntryResource_thenReturnIt() {
-    GateEntryResource gateEntryResource =
-        gateEntryInjector.createGateEntryResource(accessPassService);
+  public void whenCreatingGateResource_thenReturnIt() {
+    GateResource gateResource = gateInjector.createGateResource(accessPassService);
 
-    Truth.assertThat(gateEntryResource).isNotNull();
+    Truth.assertThat(gateResource).isNotNull();
   }
 }

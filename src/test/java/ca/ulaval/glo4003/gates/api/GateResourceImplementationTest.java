@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.gates.api.dto.DayOfWeekDto;
-import ca.ulaval.glo4003.gates.services.GateEntryService;
+import ca.ulaval.glo4003.gates.services.GateService;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
@@ -19,10 +19,10 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GateEntryResourceImplementationTest {
-  @Mock GateEntryService gateEntryService;
+public class GateResourceImplementationTest {
+  @Mock GateService gateService;
 
-  private GateEntryResource gateEntryResource;
+  private GateResource gateResource;
 
   private DayOfWeekDto dayOfWeekDto = aDayOfWeekDto().build();
   private String accessPassCode = createAccessPassCode().toString();
@@ -31,20 +31,18 @@ public class GateEntryResourceImplementationTest {
 
   @Before
   public void setUp() {
-    gateEntryResource = new GateEntryResourceImplementation(gateEntryService);
+    gateResource = new GateResourceImplementation(gateService);
 
-    when(gateEntryService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode))
+    when(gateService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode))
         .thenReturn(accessStatusDto);
 
-    when(gateEntryService.validateAccessPassEntryWithLicensePlate(
-            dayOfWeekDto, accessPassLicensePlate))
+    when(gateService.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, accessPassLicensePlate))
         .thenReturn(accessStatusDto);
   }
 
   @Test
   public void whenValidatingAccessPassEntryWithCode_thenValidateAccessPassWithService() {
-    Response response =
-        gateEntryResource.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
+    Response response = gateResource.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
     AccessStatusDto receivedAccessStatusDto = (AccessStatusDto) response.getEntity();
 
     Truth.assertThat(receivedAccessStatusDto.accessStatus).isEqualTo(accessStatusDto.accessStatus);
@@ -55,11 +53,10 @@ public class GateEntryResourceImplementationTest {
       givenValidAccessPass_whenValidatingAccessPassEntryWithCode_thenRespondWithAcceptedStatus() {
     accessStatusDto =
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_GRANTED.toString()).build();
-    when(gateEntryService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode))
+    when(gateService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode))
         .thenReturn(accessStatusDto);
 
-    Response response =
-        gateEntryResource.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
+    Response response = gateResource.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.ACCEPTED.getStatusCode());
   }
@@ -69,11 +66,10 @@ public class GateEntryResourceImplementationTest {
       givenInvalidAccessPass_whenValidatingAccessEntryPassWithCode_thenRespondWithForbiddenStatus() {
     accessStatusDto =
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_REFUSED.toString()).build();
-    when(gateEntryService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode))
+    when(gateService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode))
         .thenReturn(accessStatusDto);
 
-    Response response =
-        gateEntryResource.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
+    Response response = gateResource.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.FORBIDDEN.getStatusCode());
   }
@@ -81,8 +77,7 @@ public class GateEntryResourceImplementationTest {
   @Test
   public void whenValidatingAccessPassEntryWithLicensePlate_thenValidateAccessPassWithService() {
     Response response =
-        gateEntryResource.validateAccessPassEntryWithLicensePlate(
-            dayOfWeekDto, accessPassLicensePlate);
+        gateResource.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, accessPassLicensePlate);
     AccessStatusDto receivedAccessStatusDto = (AccessStatusDto) response.getEntity();
 
     Truth.assertThat(receivedAccessStatusDto.accessStatus).isEqualTo(accessStatusDto.accessStatus);
@@ -93,13 +88,11 @@ public class GateEntryResourceImplementationTest {
       givenValidAccessPass_whenValidatingAccessPassEntryWithLicensePlate_thenRespondWithAcceptedStatus() {
     accessStatusDto =
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_GRANTED.toString()).build();
-    when(gateEntryService.validateAccessPassEntryWithLicensePlate(
-            dayOfWeekDto, accessPassLicensePlate))
+    when(gateService.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, accessPassLicensePlate))
         .thenReturn(accessStatusDto);
 
     Response response =
-        gateEntryResource.validateAccessPassEntryWithLicensePlate(
-            dayOfWeekDto, accessPassLicensePlate);
+        gateResource.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, accessPassLicensePlate);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.ACCEPTED.getStatusCode());
   }
@@ -109,28 +102,25 @@ public class GateEntryResourceImplementationTest {
       givenInvalidAccessPass_whenValidatingAccessPassEntryWithLicensePlate_thenRespondWithForbiddenStatus() {
     accessStatusDto =
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_REFUSED.toString()).build();
-    when(gateEntryService.validateAccessPassEntryWithLicensePlate(
-            dayOfWeekDto, accessPassLicensePlate))
+    when(gateService.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, accessPassLicensePlate))
         .thenReturn(accessStatusDto);
 
     Response response =
-        gateEntryResource.validateAccessPassEntryWithLicensePlate(
-            dayOfWeekDto, accessPassLicensePlate);
+        gateResource.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, accessPassLicensePlate);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.FORBIDDEN.getStatusCode());
   }
 
   @Test
   public void validateAccessPassExitWithCode_thenRespondWithOkStatus() {
-    Response response = gateEntryResource.validateAccessPassExitWithCode(accessPassCode);
+    Response response = gateResource.validateAccessPassExitWithCode(accessPassCode);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }
 
   @Test
   public void validateAccessPassExitWithLicensePlate_thenRespondWithOkStatus() {
-    Response response =
-        gateEntryResource.validateAccessPassExitWithLicensePlate(accessPassLicensePlate);
+    Response response = gateResource.validateAccessPassExitWithLicensePlate(accessPassLicensePlate);
 
     Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }

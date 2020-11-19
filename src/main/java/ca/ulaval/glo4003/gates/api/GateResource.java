@@ -6,7 +6,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/gates")
-public interface GateEntryResource {
+public interface GateResource {
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)

@@ -14,14 +14,14 @@ import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class GateEntryService {
-  private final Logger logger = Logger.getLogger(GateEntryService.class.getName());
+public class GateService {
+  private final Logger logger = Logger.getLogger(GateService.class.getName());
   private final AccessPassService accessPassService;
   private final DayOfWeekAssembler dayOfWeekAssembler;
   private final AccessStatusAssembler accessStatusAssembler;
   private final LicensePlateAssembler licensePlateAssembler;
 
-  public GateEntryService(
+  public GateService(
       AccessPassService accessPassService,
       DayOfWeekAssembler dayOfWeekAssembler,
       AccessStatusAssembler accessStatusAssembler,
