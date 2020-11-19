@@ -1,17 +1,17 @@
 package ca.ulaval.glo4003.times.services;
 
 import ca.ulaval.glo4003.times.domain.SemesterCode;
-import ca.ulaval.glo4003.times.domain.SemestersRepository;
+import ca.ulaval.glo4003.times.domain.SemesterRepository;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 
 public class SemesterService {
-  private final SemestersRepository semestersRepository;
+  private final SemesterRepository semesterRepository;
 
-  public SemesterService(SemestersRepository semestersRepository) {
-    this.semestersRepository = semestersRepository;
+  public SemesterService(SemesterRepository semesterRepository) {
+    this.semesterRepository = semesterRepository;
   }
 
   public TimePeriod getSemester(SemesterCode code) {
-    return semestersRepository.findByCode(code);
+    return semesterRepository.findByCode(code);
   }
 }

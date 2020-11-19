@@ -1,13 +1,13 @@
 package ca.ulaval.glo4003.times.infrastructure;
 
 import ca.ulaval.glo4003.times.domain.SemesterCode;
-import ca.ulaval.glo4003.times.domain.SemestersRepository;
+import ca.ulaval.glo4003.times.domain.SemesterRepository;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 import ca.ulaval.glo4003.times.exceptions.SemesterNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SemestersInMemory implements SemestersRepository {
+public class SemesterRepositoryInMemory implements SemesterRepository {
   private final Map<SemesterCode, TimePeriod> semesters = new HashMap<>();
 
   @Override

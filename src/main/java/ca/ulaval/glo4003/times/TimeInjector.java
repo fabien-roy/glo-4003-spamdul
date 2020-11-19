@@ -6,21 +6,23 @@ import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
 import ca.ulaval.glo4003.times.assemblers.CustomDateTimeAssembler;
 import ca.ulaval.glo4003.times.assemblers.SemesterCodeAssembler;
 import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
-import ca.ulaval.glo4003.times.domain.CustomDateTime;
-import ca.ulaval.glo4003.times.domain.SemesterCode;
-import ca.ulaval.glo4003.times.domain.SemestersRepository;
-import ca.ulaval.glo4003.times.domain.TimePeriod;
+import ca.ulaval.glo4003.times.domain.*;
 import ca.ulaval.glo4003.times.filesystem.SemesterFileHelper;
 import ca.ulaval.glo4003.times.filesystem.dto.SemesterDto;
-import ca.ulaval.glo4003.times.infrastructure.SemestersInMemory;
+import ca.ulaval.glo4003.times.infrastructure.SemesterRepositoryInMemory;
 import ca.ulaval.glo4003.times.services.SemesterService;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class TimeInjector {
-  private final SemestersRepository semestersRepository = new SemestersInMemory();
+  private final SemesterRepository semesterRepository = new SemesterRepositoryInMemory();
   private final StringFileReader fileReader = new JsonFileReader();
+
+  public TimeInjector() {
+    addSemestersToRepository();
+  }
 
   public CustomDateAssembler createCustomDateAssembler() {
     return new CustomDateAssembler();
@@ -35,8 +37,7 @@ public class TimeInjector {
   }
 
   public SemesterService createSemesterService() {
-    addSemestersToRepository();
-    return new SemesterService(semestersRepository);
+    return new SemesterService(semesterRepository);
   }
 
   private void addSemestersToRepository() {
@@ -48,10 +49,12 @@ public class TimeInjector {
 
     for (SemesterDto semester : semesters) {
       SemesterCode code = semesterCodeAssembler.assemble(semester.code);
-      CustomDateTime start = new CustomDateTime(LocalDateTime.parse(semester.start, formatter));
-      CustomDateTime end = new CustomDateTime(LocalDateTime.parse(semester.end, formatter));
+      CustomDateTime start =
+          new CustomDateTime(LocalDate.parse(semester.start, formatter).atTime(LocalTime.MIN));
+      CustomDateTime end =
+          new CustomDateTime(LocalDate.parse(semester.end, formatter).atTime(LocalTime.MAX));
       TimePeriod period = new TimePeriod(start, end);
-      semestersRepository.save(code, period);
+      semesterRepository.save(code, period);
     }
   }
 }

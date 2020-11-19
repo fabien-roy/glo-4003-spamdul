@@ -78,17 +78,17 @@ public class AccessPassInjector {
     zonesAndFees
         .keySet()
         .forEach(
-            consommation -> {
+            consumption -> {
               ConsumptionTypeInFrench consumptionTypeInFrench =
-                  ConsumptionTypeInFrench.get(consommation);
+                  ConsumptionTypeInFrench.get(consumption);
               Map<AccessPeriod, Money> feesPerPeriod = new HashMap<>();
               zonesAndFees
-                  .get(consommation)
+                  .get(consumption)
                   .keySet()
                   .forEach(
                       period -> {
                         AccessPeriodInFrench accessPeriod = AccessPeriodInFrench.get(period);
-                        Money fee = Money.fromDouble(zonesAndFees.get(consommation).get(period));
+                        Money fee = Money.fromDouble(zonesAndFees.get(consumption).get(period));
                         feesPerPeriod.put(accessPassPeriodAssembler.assemble(accessPeriod), fee);
                       });
               accessConsumption.add(
