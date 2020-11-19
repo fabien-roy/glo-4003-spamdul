@@ -83,7 +83,6 @@ public class AccessPassServiceTest {
         .addAccessCodeToAccount(account.getId(), accessPass.getCode(), notZeroPollutionBillId);
   }
 
-  // TODO Make this test work?
   public void givenNoLicensePlate_whenAddingAccessPass_thenAddZeroPollutionBillToAccount() {
     givenAccessPassDtoWithLicensePlate(null);
 

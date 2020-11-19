@@ -12,12 +12,8 @@ import org.junit.Test;
 public class AccessPassTest {
 
   private static final DayOfWeek VALID_DAY = DayOfWeek.MONDAY;
-  private static final DayOfWeek INVALID_DAY = DayOfWeek.FRIDAY;
 
-  private final AccessPass accessPassWithNoCampusAccess =
-      anAccessPass().withValidDay(VALID_DAY).build();
-  private final AccessPass accessPassWithCampusAccess =
-      anAccessPass().withValidDay(VALID_DAY).withAccessToCampus().build();
+  private final AccessPass accessPass = anAccessPass().withValidDay(VALID_DAY).build();
 
   @Test
   public void givenAccessPassNotAdmittedOnCampus_whenEnteringCampus_shouldBeAdmittedOnCampus() {
@@ -30,24 +26,21 @@ public class AccessPassTest {
 
   @Test(expected = InvalidAccessPassEntryException.class)
   public void givenAccessPassAlreadyOnCampus_whenEnteringCampus_thenThrowException() {
-    accessPassWithCampusAccess.enterCampus();
-    accessPassWithCampusAccess.enterCampus();
+    accessPass.enterCampus();
+    accessPass.enterCampus();
   }
 
   @Test
   public void givenAccessPassAdmittedOnCampus_whenExitingCampus_shouldNoLongerBeAdmittedOnCampus() {
-    AccessPass accessPassWithCampusAccess =
-        anAccessPass().withValidDay(VALID_DAY).withAccessToCampus().build();
+    accessPass.enterCampus();
+    accessPass.exitCampus();
 
-    accessPassWithCampusAccess.enterCampus();
-    accessPassWithCampusAccess.exitCampus();
-
-    assertThat(accessPassWithCampusAccess.isAdmittedOnCampus()).isFalse();
+    assertThat(accessPass.isAdmittedOnCampus()).isFalse();
   }
 
   @Test(expected = InvalidAccessPassExitException.class)
   public void givenAccessPassNotAdmittedOnCampus_whenExitingCampus_thenThrowException() {
-    accessPassWithNoCampusAccess.exitCampus();
+    accessPass.exitCampus();
   }
 
   @Test
