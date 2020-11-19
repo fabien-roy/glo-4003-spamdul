@@ -4,10 +4,12 @@ import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePla
 import static ca.ulaval.glo4003.times.helpers.DayOfWeekMother.createDayOfWeek;
 
 import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassDto;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 
 public class AccessPassDtoBuilder {
   private String accessDay = createDayOfWeek().toString();
   private String licensePlate = createLicensePlate().toString();
+  private AccessPeriod accessPeriod = AccessPeriod.ONE_SEMESTER;
 
   public static AccessPassDtoBuilder anAccessPassDto() {
     return new AccessPassDtoBuilder();
@@ -23,10 +25,16 @@ public class AccessPassDtoBuilder {
     return this;
   }
 
+  public AccessPassDtoBuilder withAccessPeriod(AccessPeriod accessPeriod) {
+    this.accessPeriod = accessPeriod;
+    return this;
+  }
+
   public AccessPassDto build() {
     AccessPassDto accessPassDto = new AccessPassDto();
     accessPassDto.accessDay = accessDay;
     accessPassDto.licensePlate = licensePlate;
+    accessPassDto.period = accessPeriod.toString();
     return accessPassDto;
   }
 }

@@ -9,21 +9,38 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
+import ca.ulaval.glo4003.times.domain.TimePeriod;
+import com.github.javafaker.Faker;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccessPassBuilder {
   private AccessPassCode code = createAccessPassCode();
   private AccountId accountId = createAccountId();
-  private DayOfWeek accessDay = createDayOfWeek();
+  private DayOfWeek accessDay;
   private LicensePlate licensePlate = createLicensePlate();
-  private boolean isAdmittedOnCampus = false;
+  private boolean isAdmittedOnCampus = false; // TODO : This is not used
+  private List<TimePeriod> accessPeriods = new ArrayList<>();
 
   public static AccessPassBuilder anAccessPass() {
     return new AccessPassBuilder();
   }
 
+  public AccessPassBuilder withCode(AccessPassCode code) {
+    this.code = code;
+    return this;
+  }
+
+  // TODO Should be good now?
   public AccessPassBuilder withValidDay(DayOfWeek validDay) {
     this.accessDay = validDay;
+    return this;
+  }
+
+  public AccessPassBuilder withRandomValidDay() {
+    this.accessDay = createDayOfWeek();
     return this;
   }
 
@@ -37,8 +54,28 @@ public class AccessPassBuilder {
     return this;
   }
 
+  public AccessPassBuilder addAccessPeriodCurrentlyValid() {
+    int firstUnimportantInt = Faker.instance().number().numberBetween(7, 99);
+    int secondUnimportantInt = Faker.instance().number().numberBetween(14, 99);
+    CustomDateTime start = CustomDateTime.now().minusDays(firstUnimportantInt);
+    CustomDateTime end = CustomDateTime.now().plusDays(secondUnimportantInt);
+    TimePeriod period = new TimePeriod(start, end);
+    this.accessPeriods.add(period);
+    return this;
+  }
+
+  public AccessPassBuilder addAccessPeriodCurrentlyInvalid() {
+    int firstUnimportantInt = Faker.instance().number().numberBetween(49, 99);
+    int secondUnimportantInt = Faker.instance().number().numberBetween(7, 49);
+    CustomDateTime start = CustomDateTime.now().minusDays(firstUnimportantInt);
+    CustomDateTime end = CustomDateTime.now().minusDays(secondUnimportantInt);
+    TimePeriod period = new TimePeriod(start, end);
+    this.accessPeriods.add(period);
+    return this;
+  }
+
   public AccessPass build() {
-    AccessPass accessPass = new AccessPass(accountId, accessDay, licensePlate, isAdmittedOnCampus);
+    AccessPass accessPass = new AccessPass(accountId, accessDay, licensePlate, accessPeriods);
     accessPass.setCode(code);
     return accessPass;
   }

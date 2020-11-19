@@ -75,12 +75,7 @@ public class AccessPassInMemoryRepositoryTest {
   public void whenUpdatingAccessPass_thenReplaceAccessPass() {
     accessPassRepository.save(accessPass);
     int numberOfAccessPassesInRepository = 1;
-    AccessPass updatedAccessPass =
-        new AccessPass(
-            accessPass.getAccountId(),
-            accessPass.getAccessDay(),
-            accessPass.getLicensePlate(),
-            !accessPass.isAdmittedOnCampus());
+    AccessPass updatedAccessPass = anAccessPass().withCode(accessPass.getCode()).build();
     updatedAccessPass.setCode(accessPass.getCode());
 
     accessPassRepository.update(updatedAccessPass);

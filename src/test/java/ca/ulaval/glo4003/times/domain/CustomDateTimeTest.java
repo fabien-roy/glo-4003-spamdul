@@ -91,4 +91,12 @@ public class CustomDateTimeTest {
 
     assertThat(result).isFalse();
   }
+
+  @Test
+  public void whenGetDayOfWeek_thenReturnCorrectDay() {
+    DayOfWeek expectedDay = DayOfWeek.get(dateTime.toLocalDateTime().getDayOfWeek().toString());
+    DayOfWeek computedDay = dateTime.getDayOfWeek();
+
+    assertThat(expectedDay.equals(computedDay));
+  }
 }

@@ -12,7 +12,9 @@ import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.times.assemblers.SemesterCodeAssembler;
 import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
+import ca.ulaval.glo4003.times.services.SemesterService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +26,8 @@ public class AccessPassAssemblerTest {
 
   @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private LicensePlateAssembler licensePlateAssembler;
+  @Mock private SemesterService semesterService;
+  @Mock private SemesterCodeAssembler semesterCodeAssembler;
 
   private AccessPassAssembler accessPassAssembler;
 
@@ -34,7 +38,9 @@ public class AccessPassAssemblerTest {
 
   @Before
   public void setUp() {
-    accessPassAssembler = new AccessPassAssembler(accountIdAssembler, licensePlateAssembler);
+    accessPassAssembler =
+        new AccessPassAssembler(
+            accountIdAssembler, licensePlateAssembler, semesterService, semesterCodeAssembler);
 
     when(accountIdAssembler.assemble(accountId.toString())).thenReturn(accountId);
     when(licensePlateAssembler.assemble(licensePlate.toString())).thenReturn(licensePlate);

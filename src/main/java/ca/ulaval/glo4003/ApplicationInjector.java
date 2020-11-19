@@ -84,7 +84,8 @@ public class ApplicationInjector {
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())),
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())),
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService()),
+            TIME_INJECTOR.createSemesterService()),
         CAR_INJECTOR.createCarService(
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())),
@@ -124,7 +125,9 @@ public class ApplicationInjector {
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())),
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())));
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService()),
+            TIME_INJECTOR.createSemesterService()),
+        TIME_INJECTOR.createCustomDateTimeAssembler());
   }
 
   public CarbonCreditResource createCarbonCreditResource() {

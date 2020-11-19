@@ -6,40 +6,43 @@ import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
-import ca.ulaval.glo4003.gates.api.dto.DayOfWeekDto;
-import ca.ulaval.glo4003.gates.assemblers.DayOfWeekAssembler;
+import ca.ulaval.glo4003.gates.api.dto.DateTimeDto;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
-import ca.ulaval.glo4003.times.domain.DayOfWeek;
+import ca.ulaval.glo4003.times.assemblers.CustomDateTimeAssembler;
+import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
+// TODO : Make sure this service saves access passes
+// TODO : Make sure methods are refactored to generify validation
 public class GateService {
   private final Logger logger = Logger.getLogger(GateService.class.getName());
   private final AccessPassService accessPassService;
-  private final DayOfWeekAssembler dayOfWeekAssembler;
+  private final CustomDateTimeAssembler customDateTimeAssembler;
   private final AccessStatusAssembler accessStatusAssembler;
   private final LicensePlateAssembler licensePlateAssembler;
 
   public GateService(
       AccessPassService accessPassService,
-      DayOfWeekAssembler dayOfWeekAssembler,
+      CustomDateTimeAssembler customDateTimeAssembler,
       AccessStatusAssembler accessStatusAssembler,
       LicensePlateAssembler licensePlateAssembler) {
     this.accessPassService = accessPassService;
-    this.dayOfWeekAssembler = dayOfWeekAssembler;
+    this.customDateTimeAssembler = customDateTimeAssembler;
     this.accessStatusAssembler = accessStatusAssembler;
     this.licensePlateAssembler = licensePlateAssembler;
   }
 
   public AccessStatusDto validateAccessPassEntryWithCode(
-      DayOfWeekDto dayOfWeekDto, String accessPassCode) {
+      DateTimeDto dateTimeDto, String accessPassCode) {
     logger.info(String.format("Validate entry with access pass code %s", accessPassCode));
 
-    DayOfWeek dayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
+    CustomDateTime dateTime =
+        customDateTimeAssembler.assemble(dateTimeDto.dateTime); // TODO : Should we send DTO?
     AccessPass accessPass = accessPassService.getAccessPass(accessPassCode);
 
-    AccessStatus accessStatus = getAccessStatus(dayOfWeek, accessPass);
+    AccessStatus accessStatus = getAccessStatus(dateTime, accessPass);
 
     if (accessStatus == AccessStatus.ACCESS_GRANTED) {
       accessPassService.enterCampus(accessPass);
@@ -49,15 +52,16 @@ public class GateService {
   }
 
   public AccessStatusDto validateAccessPassEntryWithLicensePlate(
-      DayOfWeekDto dayOfWeekDto, String licensePlate) {
+      DateTimeDto dateTimeDto, String licensePlate) {
     logger.info(String.format("Validate entry with license plate %s", licensePlate));
     AccessPass associatedAccessPass = null;
 
-    DayOfWeek dayOfWeek = dayOfWeekAssembler.assemble(dayOfWeekDto);
+    CustomDateTime dateTime =
+        customDateTimeAssembler.assemble(dateTimeDto.dateTime); // TODO : Should we send DTO?
     List<AccessPass> accessPasses = getAccessPasses(licensePlate);
 
     for (AccessPass accessPass : accessPasses) {
-      if (getAccessStatus(dayOfWeek, accessPass).equals(AccessStatus.ACCESS_GRANTED)) {
+      if (getAccessStatus(dateTime, accessPass).equals(AccessStatus.ACCESS_GRANTED)) {
         associatedAccessPass = accessPass;
       }
     }
@@ -93,8 +97,8 @@ public class GateService {
     }
   }
 
-  private AccessStatus getAccessStatus(DayOfWeek dayOfWeek, AccessPass accessPass) {
-    return accessPass.validateAccessDay(dayOfWeek) && !accessPass.isAdmittedOnCampus()
+  private AccessStatus getAccessStatus(CustomDateTime dateTime, AccessPass accessPass) {
+    return accessPass.validateAccess(dateTime) && !accessPass.isAdmittedOnCampus()
         ? AccessStatus.ACCESS_GRANTED
         : AccessStatus.ACCESS_REFUSED;
   }
