@@ -2,10 +2,7 @@ package ca.ulaval.glo4003.times.api;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
-import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
-import ca.ulaval.glo4003.times.exceptions.SemesterNotFoundException;
-import ca.ulaval.glo4003.times.exceptions.TimeException;
+import ca.ulaval.glo4003.times.exceptions.*;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +19,15 @@ public class TimeExceptionMapperTest {
   @Test
   public void givenInvalidDateException_whenResponding_thenStatusIsBadRequest() {
     TimeException timeException = new InvalidDateException();
+
+    Response response = timeExceptionMapper.toResponse(timeException);
+
+    assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+  }
+
+  @Test
+  public void givenInvalidDateTimeException_whenResponding_thenStatusIsBadRequest() {
+    TimeException timeException = new InvalidDateTimeException();
 
     Response response = timeExceptionMapper.toResponse(timeException);
 

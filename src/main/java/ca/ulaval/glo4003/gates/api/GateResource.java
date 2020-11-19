@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.gates.api;
 
-import ca.ulaval.glo4003.gates.api.dto.DateTimeDto;
+import ca.ulaval.glo4003.times.api.dto.DateTimeDto;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
