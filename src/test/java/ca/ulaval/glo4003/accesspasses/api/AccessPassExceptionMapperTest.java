@@ -1,10 +1,8 @@
 package ca.ulaval.glo4003.accesspasses.api;
 
-import ca.ulaval.glo4003.accesspasses.exceptions.AccessPassException;
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassCodeException;
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPeriodException;
-import ca.ulaval.glo4003.accesspasses.exceptions.NotFoundAccessPassException;
-import com.google.common.truth.Truth;
+import static com.google.common.truth.Truth.assertThat;
+
+import ca.ulaval.glo4003.accesspasses.exceptions.*;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +21,7 @@ public class AccessPassExceptionMapperTest {
 
     Response response = accessPassExceptionMapper.toResponse(invalidAccessPeriodException);
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+    assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
   }
 
   @Test
@@ -32,7 +30,7 @@ public class AccessPassExceptionMapperTest {
 
     Response response = accessPassExceptionMapper.toResponse(invalidAccessPeriodException);
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.NOT_FOUND.getStatusCode());
+    assertThat(response.getStatus()).isEqualTo(Response.Status.NOT_FOUND.getStatusCode());
   }
 
   @Test
@@ -41,6 +39,25 @@ public class AccessPassExceptionMapperTest {
 
     Response response = accessPassExceptionMapper.toResponse(invalidAccessPeriodException);
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+    assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+  }
+
+  @Test
+  public void givenUnsupportedAccessPeriodException_whenResponding_thenStatusIsNotImplemented() {
+    AccessPassException unsupportedAccessPeriod = new UnsupportedAccessPeriodException();
+
+    Response response = accessPassExceptionMapper.toResponse(unsupportedAccessPeriod);
+
+    assertThat(response.getStatus()).isEqualTo(Response.Status.NOT_IMPLEMENTED.getStatusCode());
+  }
+
+  @Test
+  public void givenWrongAmountSemestersException_whenResponding_thenStatusIsBadRequest() {
+    AccessPassException wrongAmountOfSemestersException =
+        new WrongAmountOfSemestersForPeriodException();
+
+    Response response = accessPassExceptionMapper.toResponse(wrongAmountOfSemestersException);
+
+    assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
   }
 }

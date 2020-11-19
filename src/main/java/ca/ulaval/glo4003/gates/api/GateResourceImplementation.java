@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.gates.api;
 
 import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
-import ca.ulaval.glo4003.gates.api.dto.DayOfWeekDto;
+import ca.ulaval.glo4003.gates.api.dto.DateTimeDto;
 import ca.ulaval.glo4003.gates.services.GateService;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import javax.ws.rs.core.MediaType;
@@ -15,10 +15,9 @@ public class GateResourceImplementation implements GateResource {
   }
 
   @Override
-  public Response validateAccessPassEntryWithCode(
-      DayOfWeekDto dayOfWeekDto, String accessPassCode) {
+  public Response validateAccessPassEntryWithCode(DateTimeDto dateTimeDto, String accessPassCode) {
     AccessStatusDto accessStatusDto =
-        gateService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
+        gateService.validateAccessPassEntryWithCode(dateTimeDto, accessPassCode);
 
     Response.Status status =
         accessStatusDto.accessStatus.equals(AccessStatus.ACCESS_GRANTED.toString())
@@ -30,9 +29,9 @@ public class GateResourceImplementation implements GateResource {
 
   @Override
   public Response validateAccessPassEntryWithLicensePlate(
-      DayOfWeekDto dayOfWeekDto, String licensePlate) {
+      DateTimeDto dateTimeDto, String licensePlate) {
     AccessStatusDto accessStatusDto =
-        gateService.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, licensePlate);
+        gateService.validateAccessPassEntryWithLicensePlate(dateTimeDto, licensePlate);
 
     Response.Status status =
         accessStatusDto.accessStatus.equals(AccessStatus.ACCESS_GRANTED.toString())

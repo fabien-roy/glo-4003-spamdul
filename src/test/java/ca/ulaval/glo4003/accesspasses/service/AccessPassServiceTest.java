@@ -136,7 +136,11 @@ public class AccessPassServiceTest {
 
   private void givenAccessPassDtoWithLicensePlate(LicensePlate licensePlate) {
     String stringLicensePlate = licensePlate == null ? null : licensePlate.toString();
-    accessPassDto = anAccessPassDto().withLicensePlate(stringLicensePlate).build();
+    accessPassDto =
+        anAccessPassDto()
+            .withLicensePlate(stringLicensePlate)
+            .withAccessPeriod(AccessPeriod.ONE_SEMESTER)
+            .build();
     accessPass = anAccessPass().withLicensePlate(licensePlate).build();
 
     setUpMocks();
@@ -153,12 +157,12 @@ public class AccessPassServiceTest {
     when(accessPassTypeRepository.findByConsumptionType(car.getConsumptionType()))
         .thenReturn(notZeroPollutionAccessPassType);
     when(billService.addBillForAccessCode(
-            zeroPollutionAccessPassType.getFeeForPeriod(AccessPeriod.ONE_DAY),
+            zeroPollutionAccessPassType.getFeeForPeriod(AccessPeriod.ONE_SEMESTER),
             accessPass.getCode(),
             car.getConsumptionType()))
         .thenReturn(zeroPollutionBillId);
     when(billService.addBillForAccessCode(
-            notZeroPollutionAccessPassType.getFeeForPeriod(AccessPeriod.ONE_DAY),
+            notZeroPollutionAccessPassType.getFeeForPeriod(AccessPeriod.ONE_SEMESTER),
             accessPass.getCode(),
             car.getConsumptionType()))
         .thenReturn(notZeroPollutionBillId);

@@ -44,6 +44,10 @@ public class CustomDateTime {
     return dateTime.isAfter(other.toLocalDateTime());
   }
 
+  public DayOfWeek getDayOfWeek() {
+    return DayOfWeek.get(this.dateTime.getDayOfWeek().toString());
+  }
+
   @Override
   public String toString() {
     return dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);

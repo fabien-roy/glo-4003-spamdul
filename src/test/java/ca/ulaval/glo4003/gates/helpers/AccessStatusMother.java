@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.gates.api.helpers;
+package ca.ulaval.glo4003.gates.helpers;
 
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 
