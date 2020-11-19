@@ -8,13 +8,11 @@ import java.util.List;
 
 public class AverageAggregateFunctionInMemory extends ReportAggregateFunctionInMemory {
 
-  private static final String AVERAGE_PERIOD_NAME = "average";
-
   @Override
   public ReportPeriod aggregate(List<ReportPeriod> periods, ReportMetricType metricType) {
     double averageValue = getAverage(periods, metricType);
 
-    return buildAverageReportPeriod(AVERAGE_PERIOD_NAME, metricType, averageValue);
+    return buildReportPeriod("average", metricType, averageValue);
   }
 
   private double getAverage(List<ReportPeriod> periods, ReportMetricType metricType) {

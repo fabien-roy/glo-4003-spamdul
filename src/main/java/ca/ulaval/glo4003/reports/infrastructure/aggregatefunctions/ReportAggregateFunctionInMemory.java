@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class ReportAggregateFunctionInMemory {
   public abstract ReportPeriod aggregate(List<ReportPeriod> periods, ReportMetricType metricType);
 
-  protected ReportPeriod buildAverageReportPeriod(
+  protected ReportPeriod buildReportPeriod(
       String periodName, ReportMetricType metricType, double averageValue) {
     ReportPeriod averagePeriod = new ReportPeriod(periodName, null);
     ReportPeriodData averagePeriodData = new ReportPeriodData(Collections.emptyList());
