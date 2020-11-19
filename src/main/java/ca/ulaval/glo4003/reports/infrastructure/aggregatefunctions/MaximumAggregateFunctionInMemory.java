@@ -15,7 +15,7 @@ public class MaximumAggregateFunctionInMemory extends ReportAggregateFunctionInM
       if (hasMetricsOfType(period, metricType)) {
         double totalValueForPeriod = getTotalValueForPeriod(period, metricType);
 
-        if (highestValue < totalValueForPeriod) {
+        if (highestValue == Double.MIN_VALUE || highestValue < totalValueForPeriod) {
           highestValue = totalValueForPeriod;
           highestPeriod = period;
         }

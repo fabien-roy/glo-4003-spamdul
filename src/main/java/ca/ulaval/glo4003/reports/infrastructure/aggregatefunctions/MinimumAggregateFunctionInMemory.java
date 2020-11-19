@@ -15,7 +15,7 @@ public class MinimumAggregateFunctionInMemory extends ReportAggregateFunctionInM
       if (hasMetricsOfType(period, metricType)) {
         double totalValueForPeriod = getTotalValueForPeriod(period, metricType);
 
-        if (lowestValue > totalValueForPeriod) {
+        if (lowestValue == Double.MAX_VALUE || lowestValue > totalValueForPeriod) {
           lowestValue = totalValueForPeriod;
           lowestPeriod = period;
         }
