@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.times.domain;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -9,6 +11,29 @@ public abstract class TimeCalendar implements Comparable<TimeCalendar> {
   protected TimePeriod period;
 
   public TimeCalendar(CustomDateTime dateTime) {
+    setUpCustomDateTime(dateTime);
+  }
+
+  public TimeCalendar(int year) {
+    if (year == -1) {
+      year = Calendar.getInstance().get(Calendar.YEAR);
+    }
+    CustomDateTime customDateTime = new CustomDateTime(LocalDateTime.of(year, 1, 1, 0, 0, 0));
+    setUpCustomDateTime(customDateTime);
+  }
+
+  public TimeCalendar(String monthName) {
+    LocalDateTime localDateTime = LocalDateTime.now();
+
+    if (!monthName.equals("null")) {
+      localDateTime = localDateTime.withMonth(Month.valueOf(monthName.toUpperCase()).getValue());
+    }
+
+    CustomDateTime customDate = new CustomDateTime(localDateTime);
+    setUpCustomDateTime(customDate);
+  }
+
+  public void setUpCustomDateTime(CustomDateTime dateTime) {
     calendar = GregorianCalendar.from(dateTime.toZonedDateTime());
     calendar.setFirstDayOfWeek(Calendar.MONDAY);
     period = new TimePeriod(firstDateTime(), lastDateTime());

@@ -1,46 +1,69 @@
 package ca.ulaval.glo4003.reports;
 
-import ca.ulaval.glo4003.reports.api.ReportResource;
-import ca.ulaval.glo4003.reports.api.ReportResourceImplementation;
-import ca.ulaval.glo4003.reports.assemblers.ReportDimensionDataAssembler;
-import ca.ulaval.glo4003.reports.assemblers.ReportMetricDataAssembler;
-import ca.ulaval.glo4003.reports.assemblers.ReportPeriodAssembler;
-import ca.ulaval.glo4003.reports.assemblers.ReportPeriodDataAssembler;
-import ca.ulaval.glo4003.reports.domain.ReportEventFactory;
-import ca.ulaval.glo4003.reports.domain.ReportQueryBuilder;
-import ca.ulaval.glo4003.reports.domain.ReportRepository;
+import ca.ulaval.glo4003.reports.api.ReportParkingAreaResource;
+import ca.ulaval.glo4003.reports.api.ReportParkingAreaResourceImplementation;
+import ca.ulaval.glo4003.reports.api.ReportProfitResource;
+import ca.ulaval.glo4003.reports.api.ReportProfitResourceImplementation;
+import ca.ulaval.glo4003.reports.assemblers.*;
+import ca.ulaval.glo4003.reports.domain.*;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionBuilder;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricBuilder;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeBuilder;
 import ca.ulaval.glo4003.reports.infrastructure.ReportQueryBuilderInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportRepositoryInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.ReportSummaryBuilderInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions.ReportAggregateFunctionBuilderInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.ReportDimensionBuilderInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.metrics.ReportMetricBuilderInMemory;
-import ca.ulaval.glo4003.reports.services.ReportService;
+import ca.ulaval.glo4003.reports.services.ReportEventService;
+import ca.ulaval.glo4003.reports.services.ReportParkingAreaService;
+import ca.ulaval.glo4003.reports.services.ReportProfitService;
 
 public class ReportInjector {
 
-  private ReportRepository reportRepository = new ReportRepositoryInMemory();
+  private final ReportRepository reportRepository = new ReportRepositoryInMemory();
 
-  public ReportService createReportService() {
-    ReportScopeBuilder scopeBuilder = new ReportScopeBuilder();
-    ReportMetricBuilder metricBuilder = new ReportMetricBuilderInMemory();
-    ReportDimensionBuilder dimensionBuilder = new ReportDimensionBuilderInMemory();
-    ReportQueryBuilder reportQueryBuilder =
-        new ReportQueryBuilderInMemory(scopeBuilder, metricBuilder, dimensionBuilder);
+  public ReportProfitService createReportProfitService() {
+    return new ReportProfitService(
+        reportRepository, createReportQueryBuilder(), createReportPeriodAssembler());
+  }
 
+  public ReportEventService createReportEventService() {
+    return new ReportEventService(reportRepository, new ReportEventFactory());
+  }
+
+  public ReportProfitResource createReportProfitResource() {
+    return new ReportProfitResourceImplementation(createReportProfitService());
+  }
+
+  public ReportParkingAreaResource createReportParkingAreaResource() {
+    return new ReportParkingAreaResourceImplementation(createReportParkingAreaService());
+  }
+
+  public ReportParkingAreaService createReportParkingAreaService() {
+    ReportQueryFactory reportQueryFactory = new ReportQueryFactory(createReportQueryBuilder());
+    ReportAggregateFunctionBuilderInMemory reportAggregateFunctionBuilder =
+        new ReportAggregateFunctionBuilderInMemory();
+    ReportSummaryBuilder reportSummaryBuilder =
+        new ReportSummaryBuilderInMemory(reportAggregateFunctionBuilder);
+
+    return new ReportParkingAreaService(
+        reportRepository, createReportPeriodAssembler(), reportQueryFactory, reportSummaryBuilder);
+  }
+
+  private ReportPeriodAssembler createReportPeriodAssembler() {
     ReportDimensionDataAssembler reportDimensionDataAssembler = new ReportDimensionDataAssembler();
     ReportMetricDataAssembler reportMetricDataAssembler = new ReportMetricDataAssembler();
     ReportPeriodDataAssembler reportPeriodDataAssembler =
         new ReportPeriodDataAssembler(reportDimensionDataAssembler, reportMetricDataAssembler);
-    ReportPeriodAssembler reportPeriodAssembler =
-        new ReportPeriodAssembler(reportPeriodDataAssembler);
-
-    return new ReportService(
-        reportRepository, reportQueryBuilder, reportPeriodAssembler, new ReportEventFactory());
+    return new ReportPeriodAssembler(reportPeriodDataAssembler);
   }
 
-  public ReportResource createReportResource() {
-    return new ReportResourceImplementation(createReportService());
+  private ReportQueryBuilder createReportQueryBuilder() {
+    ReportMetricBuilder metricBuilder = new ReportMetricBuilderInMemory();
+    ReportDimensionBuilder dimensionBuilder = new ReportDimensionBuilderInMemory();
+    ReportScopeBuilder scopeBuilder = new ReportScopeBuilder();
+
+    return new ReportQueryBuilderInMemory(scopeBuilder, metricBuilder, dimensionBuilder);
   }
 }

@@ -22,6 +22,11 @@ public class ReportPeriodDataBuilder {
     return this;
   }
 
+  public ReportPeriodDataBuilder withMetrics(List<ReportMetricData> metrics) {
+    this.metrics = metrics;
+    return this;
+  }
+
   public ReportPeriodData build() {
     ReportPeriodData data = new ReportPeriodData(events);
     metrics.forEach(data::addMetric);

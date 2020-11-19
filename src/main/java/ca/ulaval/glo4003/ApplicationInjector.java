@@ -34,7 +34,8 @@ import ca.ulaval.glo4003.parkings.api.ParkingExceptionMapper;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
 import ca.ulaval.glo4003.reports.ReportInjector;
 import ca.ulaval.glo4003.reports.api.ReportExceptionMapper;
-import ca.ulaval.glo4003.reports.api.ReportResource;
+import ca.ulaval.glo4003.reports.api.ReportParkingAreaResource;
+import ca.ulaval.glo4003.reports.api.ReportProfitResource;
 import ca.ulaval.glo4003.times.TimeInjector;
 import ca.ulaval.glo4003.times.api.TimeExceptionMapper;
 import ca.ulaval.glo4003.users.UserInjector;
@@ -80,7 +81,7 @@ public class ApplicationInjector {
         ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(
-                    FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())),
+                    FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())),
@@ -88,19 +89,19 @@ public class ApplicationInjector {
             TIME_INJECTOR.createSemesterService()),
         CAR_INJECTOR.createCarService(
             ACCOUNT_INJECTOR.createAccountService(
-                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())),
+                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
             ACCOUNT_INJECTOR.createAccountIdAssembler()),
         ACCOUNT_INJECTOR.createAccountService(
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())),
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
         PARKING_INJECTOR.createParkingStickerService(
             IS_DEV,
             ACCOUNT_INJECTOR.createAccountIdAssembler(),
             LOCATION_INJECTOR.createPostalCodeAssembler(),
             COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
             ACCOUNT_INJECTOR.createAccountService(
-                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())),
+                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
             parkingStickerCreationObservers,
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())));
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())));
   }
 
   public OffenseResource createOffenseResource() {
@@ -111,9 +112,9 @@ public class ApplicationInjector {
         PARKING_INJECTOR.createParkingAreaCodeAssembler(),
         TIME_INJECTOR.createTimeOfDayAssembler(),
         FUND_INJECTOR.createMoneyAssembler(),
-        FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService()),
+        FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()),
         ACCOUNT_INJECTOR.createAccountService(
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())));
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())));
   }
 
   public GateResource createGateResource() {
@@ -121,7 +122,7 @@ public class ApplicationInjector {
         ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(
-                    FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())),
+                    FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())),
@@ -154,8 +155,12 @@ public class ApplicationInjector {
             initiativeAddedAllocatedAmountObservers));
   }
 
-  public ReportResource createReportResource() {
-    return REPORT_INJECTOR.createReportResource();
+  public ReportProfitResource createReportProfitResource() {
+    return REPORT_INJECTOR.createReportProfitResource();
+  }
+
+  public ReportParkingAreaResource createReportParkingAreaResource() {
+    return REPORT_INJECTOR.createReportParkingAreaResource();
   }
 
   public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
