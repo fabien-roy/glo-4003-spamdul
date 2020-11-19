@@ -1151,7 +1151,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/api/reports/parkingAreas?reportType=dayOfMonth&month=january",
+									"raw": "{{host}}/api/reports/parkingAreas?reportType=dayOfMonth&month={{queryParam.reportMonth}}",
 									"host": [
 										"{{host}}"
 									],
@@ -1167,7 +1167,7 @@
 										},
 										{
 											"key": "month",
-											"value": "january"
+											"value": "{{queryParam.reportMonth}}"
 										}
 									]
 								}
@@ -1204,7 +1204,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/api/reports/parkingAreas?reportType=summary&month=january",
+									"raw": "{{host}}/api/reports/parkingAreas?reportType=summary&month={{queryParam.reportMonth}}",
 									"host": [
 										"{{host}}"
 									],
@@ -1220,7 +1220,7 @@
 										},
 										{
 											"key": "month",
-											"value": "january"
+											"value": "{{queryParam.reportMonth}}"
 										}
 									]
 								}
