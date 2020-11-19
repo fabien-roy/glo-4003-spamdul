@@ -7,14 +7,11 @@ import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class CustomDateAssemblerTest {
-  private static final CustomDate DATE = createPastDate();
-
   private CustomDateAssembler customDateAssembler;
+
+  private final CustomDate date = createPastDate();
 
   @Before
   public void setUp() {
@@ -23,9 +20,9 @@ public class CustomDateAssemblerTest {
 
   @Test
   public void whenAssembling_thenReturnCustomDate() {
-    CustomDate customDate = customDateAssembler.assemble(DATE.toString());
+    CustomDate customDate = customDateAssembler.assemble(date.toString());
 
-    Truth.assertThat(customDate).isEqualTo(DATE);
+    Truth.assertThat(customDate).isEqualTo(date);
   }
 
   @Test(expected = InvalidDateException.class)

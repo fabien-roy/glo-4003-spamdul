@@ -6,9 +6,9 @@ import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
-import ca.ulaval.glo4003.gates.api.dto.DateTimeDto;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
+import ca.ulaval.glo4003.times.api.dto.DateTimeDto;
 import ca.ulaval.glo4003.times.assemblers.CustomDateTimeAssembler;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import java.util.List;
@@ -36,8 +36,7 @@ public class GateService {
       DateTimeDto dateTimeDto, String accessPassCode) {
     logger.info(String.format("Validate entry with access pass code %s", accessPassCode));
 
-    CustomDateTime dateTime =
-        customDateTimeAssembler.assemble(dateTimeDto.dateTime); // TODO : Should we send DTO?
+    CustomDateTime dateTime = customDateTimeAssembler.assemble(dateTimeDto);
     AccessPass accessPass = accessPassService.getAccessPass(accessPassCode);
 
     AccessStatus accessStatus = getAccessStatus(dateTime, accessPass);
@@ -54,8 +53,7 @@ public class GateService {
     logger.info(String.format("Validate entry with license plate %s", licensePlate));
     AccessPass associatedAccessPass = null;
 
-    CustomDateTime dateTime =
-        customDateTimeAssembler.assemble(dateTimeDto.dateTime); // TODO : Should we send DTO?
+    CustomDateTime dateTime = customDateTimeAssembler.assemble(dateTimeDto);
     List<AccessPass> accessPasses = getAccessPasses(licensePlate);
 
     for (AccessPass accessPass : accessPasses) {

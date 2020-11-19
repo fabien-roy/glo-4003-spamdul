@@ -15,9 +15,9 @@ import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
-import ca.ulaval.glo4003.gates.api.dto.DateTimeDto;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
+import ca.ulaval.glo4003.times.api.dto.DateTimeDto;
 import ca.ulaval.glo4003.times.assemblers.CustomDateTimeAssembler;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class GateServiceTest {
 
     accessPasses.add(accessPass);
 
-    when(customDateTimeAssembler.assemble(dateTimeDto.dateTime)).thenReturn(dateTime);
+    when(customDateTimeAssembler.assemble(dateTimeDto)).thenReturn(dateTime);
     when(accessPassService.getAccessPass(accessPassCode)).thenReturn(accessPass);
     when(accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED))
         .thenReturn(grantedAccessStatusDto);
