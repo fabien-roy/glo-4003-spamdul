@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.reports.infrastructure.dimensions;
 
-import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.reports.helpers.ReportEventBuilder.aReportEvent;
 import static com.google.common.truth.Truth.assertThat;
 
@@ -16,8 +15,8 @@ import org.junit.Test;
 
 public class ParkingAreaDimensionInMemoryTest extends ReportDimensionInMemoryTest {
 
-  private final ParkingAreaCode firstParkingAreaCode = createParkingAreaCode();
-  private final ParkingAreaCode secondParkingAreaCode = createParkingAreaCode();
+  private final ParkingAreaCode firstParkingAreaCode = new ParkingAreaCode("first");
+  private final ParkingAreaCode secondParkingAreaCode = new ParkingAreaCode("second");
   private final List<ParkingAreaCode> parkingAreaCodes =
       Arrays.asList(firstParkingAreaCode, secondParkingAreaCode);
   private final ReportEvent firstEvent =
