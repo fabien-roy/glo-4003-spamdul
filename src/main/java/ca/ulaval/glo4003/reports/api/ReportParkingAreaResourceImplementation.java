@@ -18,7 +18,6 @@ public class ReportParkingAreaResourceImplementation implements ReportParkingAre
 
   @Override
   public Response getParkingAreas(String reportType, String month) {
-
     List<ReportPeriodDto> reportPeriodsDto =
         reportParkingAreaService.getAllParkingAreaReports(reportType, month);
 
