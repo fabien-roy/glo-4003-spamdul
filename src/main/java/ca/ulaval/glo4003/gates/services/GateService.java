@@ -14,8 +14,6 @@ import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
-// TODO : Make sure this service saves access passes
-// TODO : Make sure methods are refactored to generify validation
 public class GateService {
   private final Logger logger = Logger.getLogger(GateService.class.getName());
   private final AccessPassService accessPassService;
