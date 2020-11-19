@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassRepository;
 import ca.ulaval.glo4003.accesspasses.exceptions.NotFoundAccessPassException;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,5 +41,19 @@ public class AccessPassInMemoryRepository implements AccessPassRepository {
     if (accessPassesFound.isEmpty()) throw new NotFoundAccessPassException();
 
     return accessPassesFound;
+  }
+
+  @Override
+  public void update(AccessPass accessPass) {
+    accessPasses.replace(accessPass.getCode(), accessPass);
+  }
+
+  @Override
+  public List<AccessPass> getAll() {
+    List<AccessPass> accessPassList = new ArrayList<>();
+    for (AccessPassCode accessPassCode : accessPasses.keySet()) {
+      accessPassList.add(accessPasses.get(accessPassCode));
+    }
+    return accessPassList;
   }
 }

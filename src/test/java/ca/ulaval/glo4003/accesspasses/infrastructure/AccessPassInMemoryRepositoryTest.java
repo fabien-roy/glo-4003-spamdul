@@ -16,6 +16,7 @@ public class AccessPassInMemoryRepositoryTest {
   private AccessPassRepository accessPassRepository;
 
   private final AccessPass accessPass = anAccessPass().build();
+  private final AccessPass anotherAccessPass = anAccessPass().build();
 
   @Before
   public void setUp() {
@@ -59,5 +60,32 @@ public class AccessPassInMemoryRepositoryTest {
   public void
       givenEmptyRepositoryInMemory_whenGettingAccessPassWithLicensePlate_thenThrowNotFoundAccessPassException() {
     accessPassRepository.get(accessPass.getLicensePlate());
+  }
+
+  @Test
+  public void whenGettingAll_thenGetAllAccessPasses() {
+    accessPassRepository.save(accessPass);
+    accessPassRepository.save(anotherAccessPass);
+    int numberOfAccessPassesInRepository = 2;
+
+    assertThat(accessPassRepository.getAll().size()).isEqualTo(numberOfAccessPassesInRepository);
+  }
+
+  @Test
+  public void whenUpdatingAccessPass_thenReplaceAccessPass() {
+    accessPassRepository.save(accessPass);
+    int numberOfAccessPassesInRepository = 1;
+    AccessPass updatedAccessPass =
+        new AccessPass(
+            accessPass.getAccountId(),
+            accessPass.getAccessDay(),
+            accessPass.getLicensePlate(),
+            !accessPass.isAdmittedOnCampus());
+    updatedAccessPass.setCode(accessPass.getCode());
+
+    accessPassRepository.update(updatedAccessPass);
+
+    assertThat(accessPassRepository.getAll().size()).isEqualTo(numberOfAccessPassesInRepository);
+    assertThat(accessPassRepository.get(updatedAccessPass.getCode())).isEqualTo(updatedAccessPass);
   }
 }

@@ -16,6 +16,7 @@ public class AccessPassBuilder {
   private AccountId accountId = createAccountId();
   private DayOfWeek accessDay = createDayOfWeek();
   private LicensePlate licensePlate = createLicensePlate();
+  private boolean isAdmittedOnCampus = false;
 
   public static AccessPassBuilder anAccessPass() {
     return new AccessPassBuilder();
@@ -31,8 +32,13 @@ public class AccessPassBuilder {
     return this;
   }
 
+  public AccessPassBuilder withAccessToCampus() {
+    this.isAdmittedOnCampus = true;
+    return this;
+  }
+
   public AccessPass build() {
-    AccessPass accessPass = new AccessPass(accountId, accessDay, licensePlate);
+    AccessPass accessPass = new AccessPass(accountId, accessDay, licensePlate, isAdmittedOnCampus);
     accessPass.setCode(code);
     return accessPass;
   }

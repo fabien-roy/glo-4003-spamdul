@@ -1,20 +1,22 @@
-package ca.ulaval.glo4003.gateentries.services;
+package ca.ulaval.glo4003.gates.services;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
-import static ca.ulaval.glo4003.gateentries.api.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
-import static ca.ulaval.glo4003.gateentries.api.helpers.DayOfWeekDtoBuilder.aDayOfWeekDto;
+import static ca.ulaval.glo4003.gates.api.helpers.AccessStatusDtoBuilder.anAccessStatusDto;
+import static ca.ulaval.glo4003.gates.api.helpers.DayOfWeekDtoBuilder.aDayOfWeekDto;
 import static ca.ulaval.glo4003.times.helpers.DayOfWeekMother.createDayOfWeek;
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
+import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.gateentries.api.dto.AccessStatusDto;
-import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
-import ca.ulaval.glo4003.gateentries.assemblers.DayOfWeekAssembler;
+import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
+import ca.ulaval.glo4003.gates.api.dto.DayOfWeekDto;
+import ca.ulaval.glo4003.gates.assemblers.DayOfWeekAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
@@ -27,14 +29,14 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GateEntryServiceTest {
+public class GateServiceTest {
   @Mock private AccessPassService accessPassService;
   @Mock private DayOfWeekAssembler dayOfWeekAssembler;
   @Mock private AccessStatusAssembler accessStatusAssembler;
   @Mock private AccessPass accessPass;
   @Mock private LicensePlateAssembler licensePlateAssembler;
 
-  private GateEntryService gateEntryService;
+  private GateService gateService;
 
   private final DayOfWeekDto dayOfWeekDto = aDayOfWeekDto().build();
   private final DayOfWeek dayOfWeek = createDayOfWeek();
@@ -47,8 +49,8 @@ public class GateEntryServiceTest {
 
   @Before
   public void setUp() {
-    gateEntryService =
-        new GateEntryService(
+    gateService =
+        new GateService(
             accessPassService, dayOfWeekAssembler, accessStatusAssembler, licensePlateAssembler);
 
     accessPasses.add(accessPass);
@@ -64,44 +66,89 @@ public class GateEntryServiceTest {
   }
 
   @Test
-  public void givenValidAccessDay_whenValidatingAccessPassWithCode_thenReturnAccessGranted() {
+  public void givenValidAccessDay_whenValidatingAccessPassEntryWithCode_thenReturnAccessGranted() {
     when(accessPass.validateAccessDay(dayOfWeek)).thenReturn(true);
 
     AccessStatusDto accessStatusDto =
-        gateEntryService.validateAccessPassWithCode(dayOfWeekDto, accessPassCode);
+        gateService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
 
     assertThat(accessStatusDto).isSameInstanceAs(grantedAccessStatusDto);
   }
 
   @Test
-  public void givenInvalidAccessDay_whenValidatingAccessPassWithCode_thenReturnAccessRefused() {
+  public void givenValidAccessDay_whenValidatingAccessPassEntryWithCode_theShouldAdmitOnCampus() {
+    when(accessPass.validateAccessDay(dayOfWeek)).thenReturn(true);
+
+    gateService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
+
+    verify(accessPassService).enterCampus(accessPass);
+  }
+
+  @Test
+  public void
+      givenInvalidAccessDay_whenValidatingAccessPassEntryWithCode_thenReturnAccessRefused() {
     when(accessPass.validateAccessDay(dayOfWeek)).thenReturn(false);
 
     AccessStatusDto accessStatusDto =
-        gateEntryService.validateAccessPassWithCode(dayOfWeekDto, accessPassCode);
+        gateService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
 
     assertThat(accessStatusDto).isSameInstanceAs(refusedAccessStatusDto);
   }
 
   @Test
   public void
-      givenValidAccessDay_whenValidatingAccessPassWithLicensePlate_thenReturnAccessGranted() {
+      givenValidAccessDay_whenValidatingAccessPassEntryWithLicensePlate_thenReturnAccessGranted() {
     when(accessPass.validateAccessDay(dayOfWeek)).thenReturn(true);
 
     AccessStatusDto accessStatusDto =
-        gateEntryService.validateAccessPassWithLicensePlate(dayOfWeekDto, accessPassLicensePlate);
+        gateService.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, accessPassLicensePlate);
 
     assertThat(accessStatusDto).isSameInstanceAs(grantedAccessStatusDto);
   }
 
   @Test
   public void
-      givenInvalidAccessDay_whenValidatingAccessPassWithLicensePlate_thenReturnAccessRefused() {
+      givenValidAccessDay_whenValidatingAccessPassEntryWithLicensePlate_theShouldAdmitOnCampus() {
+    when(accessPass.validateAccessDay(dayOfWeek)).thenReturn(true);
+
+    gateService.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, accessPassLicensePlate);
+
+    verify(accessPassService).enterCampus(accessPass);
+  }
+
+  @Test
+  public void
+      givenInvalidAccessDay_whenValidatingAccessPassEntryWithLicensePlate_thenReturnAccessRefused() {
     when(accessPass.validateAccessDay(dayOfWeek)).thenReturn(false);
 
     AccessStatusDto accessStatusDto =
-        gateEntryService.validateAccessPassWithLicensePlate(dayOfWeekDto, accessPassLicensePlate);
+        gateService.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, accessPassLicensePlate);
 
     assertThat(accessStatusDto).isSameInstanceAs(refusedAccessStatusDto);
+  }
+
+  @Test
+  public void whenValidateAccessPassExitWithCode_thenExitCampusHasBeenCalled() {
+    gateService.validateAccessPassExitWithCode(accessPassCode);
+
+    verify(accessPassService).exitCampus(accessPass);
+  }
+
+  @Test
+  public void
+      givenAccessPassAdmittedOnCampus_whenValidateAccessPassExitWithLicensePlate_thenExitCampusHasBeenCalled() {
+    when(accessPass.isAdmittedOnCampus()).thenReturn(true);
+
+    gateService.validateAccessPassExitWithLicensePlate(accessPassLicensePlate);
+
+    verify(accessPassService).exitCampus(accessPass);
+  }
+
+  @Test(expected = InvalidAccessPassExitException.class)
+  public void
+      givenAccessPassNotAdmittedOnCampus_whenValidateAccessPassExitWithLicensePlate_thenThrowInvalidAccessPassExitException() {
+    when(accessPass.isAdmittedOnCampus()).thenReturn(false);
+
+    gateService.validateAccessPassExitWithLicensePlate(accessPassLicensePlate);
   }
 }

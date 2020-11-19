@@ -16,8 +16,8 @@ import ca.ulaval.glo4003.communications.api.CommunicationExceptionMapper;
 import ca.ulaval.glo4003.files.api.FileExceptionMapper;
 import ca.ulaval.glo4003.funds.FundInjector;
 import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
-import ca.ulaval.glo4003.gateentries.GateEntryInjector;
-import ca.ulaval.glo4003.gateentries.api.GateEntryResource;
+import ca.ulaval.glo4003.gates.GateInjector;
+import ca.ulaval.glo4003.gates.api.GateResource;
 import ca.ulaval.glo4003.initiatives.InitiativeInjector;
 import ca.ulaval.glo4003.initiatives.api.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
@@ -53,7 +53,7 @@ public class ApplicationInjector {
   private static final AccountInjector ACCOUNT_INJECTOR = new AccountInjector();
   private static final CarInjector CAR_INJECTOR = new CarInjector();
   private static final CommunicationInjector COMMUNICATION_INJECTOR = new CommunicationInjector();
-  private static final GateEntryInjector GATE_ENTRY_INJECTOR = new GateEntryInjector();
+  private static final GateInjector GATE_INJECTOR = new GateInjector();
   private static final FundInjector FUND_INJECTOR = new FundInjector();
   private static final LocationInjector LOCATION_INJECTOR = new LocationInjector();
   private static final OffenseInjector OFFENSE_INJECTOR = new OffenseInjector();
@@ -114,8 +114,8 @@ public class ApplicationInjector {
             FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportService())));
   }
 
-  public GateEntryResource createGateEntryResource() {
-    return GATE_ENTRY_INJECTOR.createGateEntryResource(
+  public GateResource createGateResource() {
+    return GATE_INJECTOR.createGateResource(
         ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(

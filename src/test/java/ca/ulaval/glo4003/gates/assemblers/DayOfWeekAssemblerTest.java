@@ -1,10 +1,10 @@
-package ca.ulaval.glo4003.gateentries.assemblers;
+package ca.ulaval.glo4003.gates.assemblers;
 
-import static ca.ulaval.glo4003.gateentries.api.helpers.DayOfWeekDtoBuilder.aDayOfWeekDto;
+import static ca.ulaval.glo4003.gates.api.helpers.DayOfWeekDtoBuilder.aDayOfWeekDto;
 import static ca.ulaval.glo4003.times.helpers.DayOfWeekMother.createDayOfWeek;
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.gateentries.api.dto.DayOfWeekDto;
+import ca.ulaval.glo4003.gates.api.dto.DayOfWeekDto;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
 import org.junit.Before;
