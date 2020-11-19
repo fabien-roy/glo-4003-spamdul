@@ -8,6 +8,10 @@ public class TimeMonth extends TimeCalendar {
     super(customDateTime);
   }
 
+  public TimeMonth(String monthName) {
+    super(monthName);
+  }
+
   @Override
   protected CustomDateTime firstDateTime() {
     Calendar month = thatMonth();

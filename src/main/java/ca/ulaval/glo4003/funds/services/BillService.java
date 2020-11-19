@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
-import ca.ulaval.glo4003.reports.services.ReportService;
+import ca.ulaval.glo4003.reports.services.ReportEventService;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -19,7 +19,7 @@ public class BillService {
   private final BillFactory billFactory;
   private final BillRepository billRepository;
   private final BillAssembler billAssembler;
-  private final ReportService reportService;
+  private final ReportEventService reportEventService;
 
   private final SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
   private final SustainableMobilityProgramAllocationCalculator
@@ -29,14 +29,14 @@ public class BillService {
       BillFactory billFactory,
       BillRepository billRepository,
       BillAssembler billAssembler,
-      ReportService reportService,
+      ReportEventService reportEventService,
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository,
       SustainableMobilityProgramAllocationCalculator
           sustainableMobilityProgramAllocationCalculator) {
     this.billFactory = billFactory;
     this.billRepository = billRepository;
     this.billAssembler = billAssembler;
-    this.reportService = reportService;
+    this.reportEventService = reportEventService;
     this.sustainableMobilityProgramBankRepository = sustainableMobilityProgramBankRepository;
     this.sustainableMobilityProgramAllocationCalculator =
         sustainableMobilityProgramAllocationCalculator;
@@ -110,14 +110,15 @@ public class BillService {
   private void reportBillPaidEvent(Bill bill, Money amountPaid) {
     switch (bill.getBillType()) {
       case PARKING_STICKER:
-        reportService.addBillPaidForParkingStickerEvent(amountPaid);
+        reportEventService.addBillPaidForParkingStickerEvent(amountPaid);
         break;
       case ACCESS_PASS:
-        reportService.addBillPaidForAccessPassEvent(amountPaid, bill.getConsumptionType().get());
+        reportEventService.addBillPaidForAccessPassEvent(
+            amountPaid, bill.getConsumptionType().get());
         break;
       default:
       case OFFENSE:
-        reportService.addBillPaidForOffenseEvent(amountPaid);
+        reportEventService.addBillPaidForOffenseEvent(amountPaid);
         break;
     }
   }
