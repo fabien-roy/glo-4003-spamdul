@@ -6,7 +6,6 @@ import ca.ulaval.glo4003.reports.domain.ReportRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO : We should make sure all in memory infrastructure follow the same naming
 public class ReportRepositoryInMemory implements ReportRepository<ReportQueryInMemory> {
   private final List<ReportEvent> events = new ArrayList<>();
 

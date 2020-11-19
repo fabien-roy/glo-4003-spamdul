@@ -5,10 +5,13 @@ import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParking
 import static ca.ulaval.glo4003.times.helpers.DayOfWeekMother.createDayOfWeek;
 
 import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassDto;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 
 public class AccessPassDtoBuilder {
   private String accessDay = createDayOfWeek().toString();
   private String licensePlate = createLicensePlate().toString();
+  private AccessPeriod accessPeriod = AccessPeriod.ONE_SEMESTER;
+  private String[] semesters;
   private String parkingAreaCode = createParkingAreaCode().toString();
 
   public static AccessPassDtoBuilder anAccessPassDto() {
@@ -25,6 +28,16 @@ public class AccessPassDtoBuilder {
     return this;
   }
 
+  public AccessPassDtoBuilder withAccessPeriod(AccessPeriod accessPeriod) {
+    this.accessPeriod = accessPeriod;
+    return this;
+  }
+
+  public AccessPassDtoBuilder withSemesters(String[] semesters) {
+    this.semesters = semesters;
+    return this;
+  }
+
   public AccessPassDtoBuilder withParkingAreaCode(String parkingAreaCode) {
     this.parkingAreaCode = parkingAreaCode;
     return this;
@@ -34,6 +47,8 @@ public class AccessPassDtoBuilder {
     AccessPassDto accessPassDto = new AccessPassDto();
     accessPassDto.accessDay = accessDay;
     accessPassDto.licensePlate = licensePlate;
+    accessPassDto.period = accessPeriod.toString();
+    accessPassDto.semesters = semesters;
     accessPassDto.parkingAreaCode = parkingAreaCode;
     return accessPassDto;
   }

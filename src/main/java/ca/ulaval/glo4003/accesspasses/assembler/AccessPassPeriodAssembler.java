@@ -8,17 +8,17 @@ public class AccessPassPeriodAssembler {
   public AccessPeriod assemble(AccessPeriodInFrench accessPeriodInFrench) {
     switch (accessPeriodInFrench) {
       case UNE_HEURE:
-        return AccessPeriod.ONE_HOUR;
+        return AccessPeriod.ONE_HOUR; // TODO put back in for 3.1
       case UNE_JOURNEE:
-        return AccessPeriod.ONE_DAY;
+        return AccessPeriod.ONE_DAY; // TODO idem
       case UNE_JOURNEE_PAR_SEMAINE_POUR_SESSION:
-        return AccessPeriod.ONE_DAY_BY_WEEK_FOR_SESSION;
+        return AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER;
       case UNE_SESSION:
-        return AccessPeriod.ONE_SESSION;
+        return AccessPeriod.ONE_SEMESTER;
       case DEUX_SESSIONS:
-        return AccessPeriod.TWO_SESSIONS;
+        return AccessPeriod.TWO_SEMESTERS;
       case TROIS_SESSIONS:
-        return AccessPeriod.THREE_SESSIONS;
+        return AccessPeriod.THREE_SEMESTERS;
     }
 
     throw new InvalidAccessPeriodException();

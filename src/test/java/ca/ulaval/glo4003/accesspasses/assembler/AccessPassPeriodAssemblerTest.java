@@ -15,23 +15,25 @@ public class AccessPassPeriodAssemblerTest {
     accessPassPeriodAssembler = new AccessPassPeriodAssembler();
   }
 
-  @Test
+  /*@Test
   public void givenUneHeure_whenAssembling_thenReturnOneHour() {
     AccessPeriodInFrench accessPeriodInFrench = AccessPeriodInFrench.UNE_HEURE;
 
     AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
 
     assertThat(accessPeriod).isEqualTo(AccessPeriod.ONE_HOUR);
-  }
+  }*/
+  // TODO Re-enable with 3.1
 
-  @Test
+  /*@Test
   public void givenUneJournee_whenAssembling_thenReturnOneDay() {
     AccessPeriodInFrench accessPeriodInFrench = AccessPeriodInFrench.UNE_JOURNEE;
 
     AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
 
     assertThat(accessPeriod).isEqualTo(AccessPeriod.ONE_DAY);
-  }
+  }*/
+  // TODO Idem
 
   @Test
   public void
@@ -41,7 +43,7 @@ public class AccessPassPeriodAssemblerTest {
 
     AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
 
-    assertThat(accessPeriod).isEqualTo(AccessPeriod.ONE_DAY_BY_WEEK_FOR_SESSION);
+    assertThat(accessPeriod).isEqualTo(AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER);
   }
 
   @Test
@@ -50,7 +52,7 @@ public class AccessPassPeriodAssemblerTest {
 
     AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
 
-    assertThat(accessPeriod).isEqualTo(AccessPeriod.ONE_SESSION);
+    assertThat(accessPeriod).isEqualTo(AccessPeriod.ONE_SEMESTER);
   }
 
   @Test
@@ -59,7 +61,7 @@ public class AccessPassPeriodAssemblerTest {
 
     AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
 
-    assertThat(accessPeriod).isEqualTo(AccessPeriod.TWO_SESSIONS);
+    assertThat(accessPeriod).isEqualTo(AccessPeriod.TWO_SEMESTERS);
   }
 
   @Test
@@ -68,6 +70,6 @@ public class AccessPassPeriodAssemblerTest {
 
     AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
 
-    assertThat(accessPeriod).isEqualTo(AccessPeriod.THREE_SESSIONS);
+    assertThat(accessPeriod).isEqualTo(AccessPeriod.THREE_SEMESTERS);
   }
 }

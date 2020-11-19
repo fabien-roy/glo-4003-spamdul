@@ -1,8 +1,10 @@
 package ca.ulaval.glo4003.times;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
+import ca.ulaval.glo4003.times.assemblers.CustomDateTimeAssembler;
 import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
-import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,13 +21,20 @@ public class TimeInjectorTest {
   public void whenCreatingCustomDateAssembler_thenReturnIt() {
     CustomDateAssembler customDateAssembler = timeInjector.createCustomDateAssembler();
 
-    Truth.assertThat(customDateAssembler).isNotNull();
+    assertThat(customDateAssembler).isNotNull();
+  }
+
+  @Test
+  public void whenCreatingCustomDateTimeAssembler_thenReturnIt() {
+    CustomDateTimeAssembler customDateTimeAssembler = timeInjector.createCustomDateTimeAssembler();
+
+    assertThat(customDateTimeAssembler).isNotNull();
   }
 
   @Test
   public void whenCreatingTimeOfDayAssembler_thenReturnIt() {
     TimeOfDayAssembler timeOfDayAssembler = timeInjector.createTimeOfDayAssembler();
 
-    Truth.assertThat(timeOfDayAssembler).isNotNull();
+    assertThat(timeOfDayAssembler).isNotNull();
   }
 }

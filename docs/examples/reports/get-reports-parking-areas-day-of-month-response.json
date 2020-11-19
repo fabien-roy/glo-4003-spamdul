@@ -1,0 +1,68 @@
+[
+  {
+    "period": "01-01-2020",
+    "data": [
+      {
+        "dimensions": [
+          {
+            "name": "parkingArea",
+            "value": "Zone1"
+          }
+        ],
+        "metrics": [
+          {
+            "name": "gateEntries",
+            "value": 2.0
+          }
+        ]
+      },
+      {
+        "dimensions": [
+          {
+            "name": "parkingArea",
+            "value": "Zone2"
+          }
+        ],
+        "metrics": [
+          {
+            "name": "gateEntries",
+            "value": 1.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "period": "02-01-2020",
+    "data": [
+      {
+        "dimensions": [
+          {
+            "name": "parkingArea",
+            "value": "Zone1"
+          }
+        ],
+        "metrics": [
+          {
+            "name": "gateEntries",
+            "value": 5.0
+          }
+        ]
+      },
+      {
+        "dimensions": [
+          {
+            "name": "parkingArea",
+            "value": "Zone2"
+          }
+        ],
+        "metrics": [
+          {
+            "name": "gateEntries",
+            "value": 1.0
+          }
+        ]
+      }
+    ]
+  }
+]

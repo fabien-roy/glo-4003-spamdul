@@ -20,6 +20,8 @@ import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.times.assemblers.SemesterCodeAssembler;
+import ca.ulaval.glo4003.times.services.SemesterService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,12 +45,20 @@ public class AccessPassInjector {
   }
 
   public AccessPassService createAccessPassService(
-      CarService carService, AccountService accountService, BillService billService) {
+      CarService carService,
+      AccountService accountService,
+      BillService billService,
+      SemesterService semesterService) {
     AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
     LicensePlateAssembler licensePlateAssembler = new LicensePlateAssembler();
+    SemesterCodeAssembler semesterCodeAssembler = new SemesterCodeAssembler();
     AccessPassAssembler accessPassAssembler =
         new AccessPassAssembler(
-            accountIdAssembler, licensePlateAssembler, new ParkingAreaCodeAssembler());
+            accountIdAssembler,
+            licensePlateAssembler,
+            semesterService,
+            semesterCodeAssembler,
+            new ParkingAreaCodeAssembler());
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
     AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
 
@@ -73,17 +83,17 @@ public class AccessPassInjector {
     zonesAndFees
         .keySet()
         .forEach(
-            consommation -> {
+            consumption -> {
               ConsumptionTypeInFrench consumptionTypeInFrench =
-                  ConsumptionTypeInFrench.get(consommation);
+                  ConsumptionTypeInFrench.get(consumption);
               Map<AccessPeriod, Money> feesPerPeriod = new HashMap<>();
               zonesAndFees
-                  .get(consommation)
+                  .get(consumption)
                   .keySet()
                   .forEach(
                       period -> {
                         AccessPeriodInFrench accessPeriod = AccessPeriodInFrench.get(period);
-                        Money fee = Money.fromDouble(zonesAndFees.get(consommation).get(period));
+                        Money fee = Money.fromDouble(zonesAndFees.get(consumption).get(period));
                         feesPerPeriod.put(accessPassPeriodAssembler.assemble(accessPeriod), fee);
                       });
               accessConsumption.add(

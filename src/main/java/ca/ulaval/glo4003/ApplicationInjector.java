@@ -85,7 +85,8 @@ public class ApplicationInjector {
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()),
+            TIME_INJECTOR.createSemesterService()),
         CAR_INJECTOR.createCarService(
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
@@ -125,7 +126,9 @@ public class ApplicationInjector {
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()),
+            TIME_INJECTOR.createSemesterService()),
+        TIME_INJECTOR.createCustomDateTimeAssembler(),
         REPORT_INJECTOR.createReportEventService());
   }
 

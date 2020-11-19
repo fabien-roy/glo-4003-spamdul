@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.gates.api.helpers;
+package ca.ulaval.glo4003.gates.helpers;
 
-import static ca.ulaval.glo4003.gates.api.helpers.AccessStatusMother.createAccessStatus;
+import static ca.ulaval.glo4003.gates.helpers.AccessStatusMother.createAccessStatus;
 
 import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
 
