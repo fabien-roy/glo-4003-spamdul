@@ -125,7 +125,8 @@ public class ApplicationInjector {
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
-            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())));
+            FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
+        REPORT_INJECTOR.createReportEventService());
   }
 
   public CarbonCreditResource createCarbonCreditResource() {

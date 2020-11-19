@@ -80,6 +80,7 @@ public class AccessPassInMemoryRepositoryTest {
             accessPass.getAccountId(),
             accessPass.getAccessDay(),
             accessPass.getLicensePlate(),
+            accessPass.getParkingAreaCode(),
             !accessPass.isAdmittedOnCampus());
     updatedAccessPass.setCode(accessPass.getCode());
 

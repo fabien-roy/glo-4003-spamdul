@@ -3,12 +3,14 @@ package ca.ulaval.glo4003.accesspasses.helpers;
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.times.helpers.DayOfWeekMother.createDayOfWeek;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 
 public class AccessPassBuilder {
@@ -16,6 +18,7 @@ public class AccessPassBuilder {
   private AccountId accountId = createAccountId();
   private DayOfWeek accessDay = createDayOfWeek();
   private LicensePlate licensePlate = createLicensePlate();
+  private ParkingAreaCode parkingAreaCode = createParkingAreaCode();
   private boolean isAdmittedOnCampus = false;
 
   public static AccessPassBuilder anAccessPass() {
@@ -38,7 +41,8 @@ public class AccessPassBuilder {
   }
 
   public AccessPass build() {
-    AccessPass accessPass = new AccessPass(accountId, accessDay, licensePlate, isAdmittedOnCampus);
+    AccessPass accessPass =
+        new AccessPass(accountId, accessDay, licensePlate, parkingAreaCode, isAdmittedOnCampus);
     accessPass.setCode(code);
     return accessPass;
   }

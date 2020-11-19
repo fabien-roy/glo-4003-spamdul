@@ -19,6 +19,7 @@ import ca.ulaval.glo4003.gates.api.dto.DayOfWeekDto;
 import ca.ulaval.glo4003.gates.assemblers.DayOfWeekAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
+import ca.ulaval.glo4003.reports.services.ReportEventService;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class GateServiceTest {
   @Mock private AccessStatusAssembler accessStatusAssembler;
   @Mock private AccessPass accessPass;
   @Mock private LicensePlateAssembler licensePlateAssembler;
+  @Mock private ReportEventService reportEventService;
 
   private GateService gateService;
 
@@ -51,7 +53,11 @@ public class GateServiceTest {
   public void setUp() {
     gateService =
         new GateService(
-            accessPassService, dayOfWeekAssembler, accessStatusAssembler, licensePlateAssembler);
+            accessPassService,
+            dayOfWeekAssembler,
+            accessStatusAssembler,
+            licensePlateAssembler,
+            reportEventService);
 
     accessPasses.add(accessPass);
 
@@ -150,5 +156,23 @@ public class GateServiceTest {
     when(accessPass.isAdmittedOnCampus()).thenReturn(false);
 
     gateService.validateAccessPassExitWithLicensePlate(accessPassLicensePlate);
+  }
+
+  @Test
+  public void whenValidateAccessPassEntryWithLicensePlate_thenAddReportEvent() {
+    when(accessPass.validateAccessDay(dayOfWeek)).thenReturn(true);
+
+    gateService.validateAccessPassEntryWithLicensePlate(dayOfWeekDto, accessPassLicensePlate);
+
+    verify(reportEventService).addAccessAreasCodeEvent(accessPass.getParkingAreaCode());
+  }
+
+  @Test
+  public void whenValidateAccessPassEntryWithCode_thenAddReportEvent() {
+    when(accessPass.validateAccessDay(dayOfWeek)).thenReturn(true);
+
+    gateService.validateAccessPassEntryWithCode(dayOfWeekDto, accessPassCode);
+
+    verify(reportEventService).addAccessAreasCodeEvent(accessPass.getParkingAreaCode());
   }
 }

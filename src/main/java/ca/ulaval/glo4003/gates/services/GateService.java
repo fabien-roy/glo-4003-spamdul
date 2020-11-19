@@ -10,6 +10,7 @@ import ca.ulaval.glo4003.gates.api.dto.DayOfWeekDto;
 import ca.ulaval.glo4003.gates.assemblers.DayOfWeekAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
+import ca.ulaval.glo4003.reports.services.ReportEventService;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import java.util.List;
 import java.util.logging.Logger;
@@ -20,16 +21,19 @@ public class GateService {
   private final DayOfWeekAssembler dayOfWeekAssembler;
   private final AccessStatusAssembler accessStatusAssembler;
   private final LicensePlateAssembler licensePlateAssembler;
+  private final ReportEventService reportEventService;
 
   public GateService(
       AccessPassService accessPassService,
       DayOfWeekAssembler dayOfWeekAssembler,
       AccessStatusAssembler accessStatusAssembler,
-      LicensePlateAssembler licensePlateAssembler) {
+      LicensePlateAssembler licensePlateAssembler,
+      ReportEventService reportEventService) {
     this.accessPassService = accessPassService;
     this.dayOfWeekAssembler = dayOfWeekAssembler;
     this.accessStatusAssembler = accessStatusAssembler;
     this.licensePlateAssembler = licensePlateAssembler;
+    this.reportEventService = reportEventService;
   }
 
   public AccessStatusDto validateAccessPassEntryWithCode(
@@ -42,6 +46,7 @@ public class GateService {
     AccessStatus accessStatus = getAccessStatus(dayOfWeek, accessPass);
 
     if (accessStatus == AccessStatus.ACCESS_GRANTED) {
+      reportEventService.addAccessAreasCodeEvent(accessPass.getParkingAreaCode());
       accessPassService.enterCampus(accessPass);
     }
 
@@ -63,6 +68,7 @@ public class GateService {
     }
 
     if (associatedAccessPass != null) {
+      reportEventService.addAccessAreasCodeEvent(associatedAccessPass.getParkingAreaCode());
       accessPassService.enterCampus(associatedAccessPass);
       return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED);
     }

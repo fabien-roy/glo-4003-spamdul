@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.reports.services;
 
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.Money;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.reports.domain.*;
 import java.util.logging.Logger;
 
@@ -46,5 +47,17 @@ public class ReportEventService {
     ReportEvent reportEvent =
         reportEventFactory.create(ReportEventType.BILL_PAID_FOR_OFFENSE, profits);
     reportRepository.addEvent(reportEvent);
+  }
+
+  public void addAccessAreasCodeEvent(ParkingAreaCode parkingAreaCode) {
+    if (parkingAreaCode != null) {
+      logger.info(
+          String.format(
+              "Adding report event for parking Area Code : %s ", parkingAreaCode.toString()));
+
+      ReportEvent reportEvent =
+          reportEventFactory.create(ReportEventType.GATE_ENTERED, parkingAreaCode);
+      reportRepository.addEvent(reportEvent);
+    }
   }
 }
