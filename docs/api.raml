@@ -173,14 +173,14 @@ uses:
             body:
               application/json:
                 type: types.DayOfWeekObject
-                example: !include examples/gateEntry/post-gate-entry-validate-access-pass-request.json
+                example: !include examples/gates/post-gate-entry-validate-access-pass-request.json
             responses:
               202:
                 description: Access status of access pass is granted
                 body:
                   application/json:
                     type: types.AccessStatusObject
-                    example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-granted.json
+                    example: !include examples/gates/post-gate-entry-validate-access-pass-response-granted.json
               400:
                 description: Error validating access pass
               403:
@@ -188,7 +188,7 @@ uses:
                 body:
                   application/json:
                     type: types.AccessStatusObject
-                    example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-refused.json
+                    example: !include examples/gates/post-gate-entry-validate-access-pass-response-refused.json
               404:
                 description: Access pass not found
     /validateAccessPassWithLicensePlate:
@@ -202,14 +202,14 @@ uses:
               body:
                 application/json:
                   type: types.DayOfWeekObject
-                  example: !include examples/gateEntry/post-gate-entry-validate-access-pass-request.json
+                  example: !include examples/gates/post-gate-entry-validate-access-pass-request.json
               responses:
                 202:
                   description: Access status of access pass is granted
                   body:
                     application/json:
                       type: types.AccessStatusObject
-                      example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-granted.json
+                      example: !include examples/gates/post-gate-entry-validate-access-pass-response-granted.json
                 400:
                   description: Error validating access pass
                 403:
@@ -217,7 +217,7 @@ uses:
                   body:
                     application/json:
                       type: types.AccessStatusObject
-                      example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-refused.json
+                      example: !include examples/gates/post-gate-entry-validate-access-pass-response-refused.json
                 404:
                   description: Access pass not found
   /exit:
@@ -229,10 +229,6 @@ uses:
               type: types.AccessPassCode
           post:
             description: Validate the access pass with given code
-            body:
-              application/json:
-                type: types.DayOfWeekObject
-                example: !include examples/gateEntry/post-gate-entry-validate-access-pass-request.json
             responses:
               200:
                 description: Access status of access pass is granted
@@ -246,10 +242,6 @@ uses:
                 type: types.LicensePlate
             post:
               description: Validate the access pass with given licensePlate
-              body:
-                application/json:
-                  type: types.DayOfWeekObject
-                  example: !include examples/gateEntry/post-gate-entry-validate-access-pass-request.json
               responses:
                 200 :
                 404 :
