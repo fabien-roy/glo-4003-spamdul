@@ -33,4 +33,18 @@ public abstract class ReportAggregateFunctionInMemory {
 
     return averagePeriod;
   }
+
+  protected double getTotalValueForPeriod(ReportPeriod period, ReportMetricType metricType) {
+    return period.getData().stream()
+        .flatMap(data -> data.getMetrics().stream())
+        .filter(metric -> metric.getType().equals(metricType))
+        .mapToDouble(ReportMetricData::getValue)
+        .sum();
+  }
+
+  protected boolean hasMetricsOfType(ReportPeriod period, ReportMetricType metricType) {
+    return period.getData().stream()
+        .flatMap(data -> data.getMetrics().stream())
+        .anyMatch(metric -> metric.getType().equals(metricType));
+  }
 }
