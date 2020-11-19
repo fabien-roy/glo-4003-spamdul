@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricData;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import java.util.List;
 
-public class MaximumAggregateFunctionInMemory implements ReportAggregateFunctionInMemory {
+public class MaximumAggregateFunctionInMemory extends ReportAggregateFunctionInMemory {
 
   @Override
   public ReportPeriod aggregate(List<ReportPeriod> periods, ReportMetricType metricType) {

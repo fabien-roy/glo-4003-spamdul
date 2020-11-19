@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricData;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import java.util.List;
 
-public class MinimumAggregateFunctionInMemory implements ReportAggregateFunctionInMemory {
+public class MinimumAggregateFunctionInMemory extends ReportAggregateFunctionInMemory {
 
   @Override
   public ReportPeriod aggregate(List<ReportPeriod> periods, ReportMetricType metricType) {
