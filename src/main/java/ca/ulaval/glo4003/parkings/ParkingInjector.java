@@ -42,10 +42,13 @@ public class ParkingInjector {
   }
 
   public ParkingAreaResource createParkingAreaResource() {
-    ParkingAreaService parkingAreaService =
-        new ParkingAreaService(
-            parkingAreaRepository, new ParkingAreaAssembler(new ParkingPeriodPriceAssembler()));
-    return new ParkingAreaResourceImplementation(parkingAreaService);
+    return new ParkingAreaResourceImplementation(createParkingAreaService());
+  }
+
+  // TODO #262 : Test createParkingAreaService
+  public ParkingAreaService createParkingAreaService() {
+    return new ParkingAreaService(
+        parkingAreaRepository, new ParkingAreaAssembler(new ParkingPeriodPriceAssembler()));
   }
 
   public ParkingStickerRepository getParkingStickerRepository() {

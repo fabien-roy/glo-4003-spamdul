@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.reports.infrastructure;
 
+import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.reports.helpers.ReportDimensionMother.createReportDimensionType;
 import static ca.ulaval.glo4003.reports.helpers.ReportEventMother.createReportEventType;
 import static ca.ulaval.glo4003.reports.helpers.ReportMetricMother.createReportMetricType;
@@ -8,6 +9,7 @@ import static ca.ulaval.glo4003.times.helpers.TimePeriodBuilder.aTimePeriod;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.reports.domain.ReportEventType;
 import ca.ulaval.glo4003.reports.domain.ReportQueryBuilder;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimension;
@@ -48,6 +50,8 @@ public class ReportQueryBuilderInMemoryTest {
   private final ReportDimensionType dimensionType = createReportDimensionType();
   private final List<ReportDimensionType> dimensionTypes = Collections.singletonList(dimensionType);
   private final ReportEventType reportEventType = createReportEventType();
+  private final List<ParkingAreaCode> parkingAreaCodes =
+      Collections.singletonList(createParkingAreaCode());
 
   @Before
   public void setUp() {
@@ -64,9 +68,8 @@ public class ReportQueryBuilderInMemoryTest {
     List<ReportDimension> dimensions = Collections.singletonList(dimension);
     when(dimensionBuilder.someDimensions()).thenReturn(dimensionBuilder);
     when(dimensionBuilder.withTypes(dimensionTypes)).thenReturn(dimensionBuilder);
+    when(dimensionBuilder.withParkingAreaCodes(parkingAreaCodes)).thenReturn(dimensionBuilder);
     when(dimensionBuilder.buildMany()).thenReturn(dimensions);
-
-    when(dimensionBuilder.someDimensions()).thenReturn(dimensionBuilder);
 
     reportQueryBuilder =
         new ReportQueryBuilderInMemory(scopeBuilder, metricBuilder, dimensionBuilder);
@@ -111,6 +114,7 @@ public class ReportQueryBuilderInMemoryTest {
         .withMetrics(metricTypes)
         .withDimensions(dimensionTypes)
         .withReportEventType(reportEventType)
+        .withParkingAreaCodes(parkingAreaCodes)
         .build();
   }
 }

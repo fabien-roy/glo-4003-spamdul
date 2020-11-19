@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.reports.infrastructure;
 
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.reports.domain.ReportEventType;
 import ca.ulaval.glo4003.reports.domain.ReportQueryBuilder;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimension;
@@ -25,8 +26,9 @@ public class ReportQueryBuilderInMemory implements ReportQueryBuilder<ReportQuer
 
   private TimePeriod period;
   private ReportScopeType scopeType;
-  private List<ReportDimensionType> dimensionTypes;
   private List<ReportMetricType> metricTypes;
+  private List<ReportDimensionType> dimensionTypes;
+  private List<ParkingAreaCode> parkingAreaCodes;
   private final List<ReportFilterInMemory> filters = new ArrayList<>();
 
   public ReportQueryBuilderInMemory(
@@ -77,11 +79,22 @@ public class ReportQueryBuilderInMemory implements ReportQueryBuilder<ReportQuer
   }
 
   @Override
+  public ReportQueryBuilder<ReportQueryInMemory> withParkingAreaCodes(
+      List<ParkingAreaCode> parkingAreaCodes) {
+    this.parkingAreaCodes = parkingAreaCodes;
+    return this;
+  }
+
+  @Override
   public ReportQueryInMemory build() {
     ReportScope scope = scopeBuilder.aReportScope().withPeriod(period).withType(scopeType).build();
     List<ReportMetric> metrics = metricBuilder.someMetrics().withTypes(metricTypes).buildMany();
     List<ReportDimension> dimensions =
-        dimensionBuilder.someDimensions().withTypes(dimensionTypes).buildMany();
+        dimensionBuilder
+            .someDimensions()
+            .withTypes(dimensionTypes)
+            .withParkingAreaCodes(parkingAreaCodes)
+            .buildMany();
     return new ReportQueryInMemory(scope, metrics, dimensions, filters);
   }
 }
