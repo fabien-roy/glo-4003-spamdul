@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.parkings.assemblers;
 
-import ca.ulaval.glo4003.gateentries.api.dto.AccessStatusDto;
+import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 
 public class AccessStatusAssembler {

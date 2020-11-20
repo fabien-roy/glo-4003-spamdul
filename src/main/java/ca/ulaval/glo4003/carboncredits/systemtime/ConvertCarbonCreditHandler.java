@@ -12,6 +12,6 @@ public class ConvertCarbonCreditHandler implements JobHandler {
 
   @Override
   public void invoke() {
-    carbonCreditService.extractMoneyFromSustainableMobilityProgramBank();
+    carbonCreditService.allocateRemainingFundToCarbonCreditInitiative();
   }
 }

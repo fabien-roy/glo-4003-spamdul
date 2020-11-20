@@ -62,7 +62,7 @@ public class Bill {
     return id;
   }
 
-  public BillType getBillTypes() {
+  public BillType getBillType() {
     return billType;
   }
 
@@ -84,9 +84,5 @@ public class Bill {
 
   public boolean isBillTypeEqual(BillType billType) {
     return this.billType.equals(billType);
-  }
-
-  public boolean isYearEqual(int year) {
-    return this.customDateTime.getYear() == year;
   }
 }

@@ -1,0 +1,44 @@
+[
+  {
+    "period": "01-01-2020 (maximum)",
+    "data": [
+      {
+        "dimensions": [],
+        "metrics": [
+          {
+            "name": "gateEntries",
+            "value": 200.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "period": "02-01-2020 (minimum)",
+    "data": [
+      {
+        "dimensions": [],
+        "metrics": [
+          {
+            "name": "gateEntries",
+            "value": 11.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "period": "average",
+    "data": [
+      {
+        "dimensions": [],
+        "metrics": [
+          {
+            "name": "gateEntries",
+            "value": 140.12
+          }
+        ]
+      }
+    ]
+  }
+]

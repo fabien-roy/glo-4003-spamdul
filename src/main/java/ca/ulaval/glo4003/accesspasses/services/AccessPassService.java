@@ -14,6 +14,7 @@ import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
+import java.util.List;
 
 public class AccessPassService {
   private final AccessPassAssembler accessPassAssembler;
@@ -61,7 +62,7 @@ public class AccessPassService {
 
     AccessPassType accessPassType = accessPassTypeRepository.findByConsumptionType(consumptionType);
 
-    Money moneyDue = accessPassType.getFeeForPeriod(AccessPeriod.ONE_DAY);
+    Money moneyDue = accessPassType.getFeeForPeriod(AccessPeriod.get(accessPassDto.period));
     BillId billId =
         billService.addBillForAccessCode(moneyDue, accessPass.getCode(), consumptionType);
     accountService.addAccessCodeToAccount(account.getId(), accessPass.getCode(), billId);
@@ -74,5 +75,19 @@ public class AccessPassService {
   public AccessPass getAccessPass(String code) {
     AccessPassCode accessPassCode = accessPassCodeAssembler.assemble(code);
     return accessPassRepository.get(accessPassCode);
+  }
+
+  public List<AccessPass> getAccessPassesByLicensePlate(LicensePlate licensePlate) {
+    return accessPassRepository.get(licensePlate);
+  }
+
+  public void enterCampus(AccessPass accessPass) {
+    accessPass.enterCampus();
+    accessPassRepository.update(accessPass);
+  }
+
+  public void exitCampus(AccessPass accessPass) {
+    accessPass.exitCampus();
+    accessPassRepository.update(accessPass);
   }
 }

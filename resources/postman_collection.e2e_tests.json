@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e396d1b2-f46d-4412-9000-170488e42b47",
+		"_postman_id": "7daecb21-8012-424f-a862-d4eb631b739c",
 		"name": "SPAMD-UL End-to-end tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "541fbdb2-dafc-424f-900d-81c3f8a5b9b3",
+								"id": "a6850170-8bd2-4ad3-8343-6a581d7afbbd",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
@@ -54,7 +54,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6d60932e-2923-4bda-b516-6847507ff671",
+								"id": "46315a72-a5fb-41c3-973f-c72b4b585fd0",
 								"exec": [
 									""
 								],
@@ -95,7 +95,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "32bef4f1-7ed5-4dc2-a8f9-0b2949c3a0b4",
+								"id": "dec2b067-22f8-43be-abaa-0728b7a5e242",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
@@ -137,7 +137,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "76e9e79d-d3b7-444a-a212-611ff48dac54",
+								"id": "d880ef55-a187-4cf2-8e23-85bf2c482bce",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"if (jsonData.length > 0) {",
@@ -184,7 +184,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "523f1570-372e-4727-ab31-59f7dc931f02",
+								"id": "971f6260-f1da-415d-a59c-0c34b0a8241c",
 								"exec": [
 									""
 								],
@@ -226,7 +226,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "22b63949-9253-469a-8f60-1678e90f0803",
+								"id": "1d6aaf09-8029-46ae-80c1-aafbecf854d7",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.initiativeCode\", jsonData.initiativeCode);"
@@ -281,7 +281,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "88ef9abe-e3ef-49d8-bab5-d717585d868b",
+														"id": "2626e706-57d1-4fae-ba5d-d0830ac9c373",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -326,7 +326,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "cf5134ab-e098-4f3b-8c68-71d9e3364804",
+														"id": "ae267dd9-edb3-4905-8014-05d4f4475184",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -378,7 +378,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "dac8213f-6421-4464-8fd7-d7c5046b735b",
+														"id": "7e4ceb7d-62ad-4379-8fdc-f10fd479d2f7",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -423,7 +423,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "0067c935-3efc-4ed3-af99-855e8282c3f6",
+														"id": "ca8eeb6c-dfa6-4565-9dc6-de69cae2aa1d",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -468,7 +468,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "87856330-41d3-4ea1-ad22-f42aef87f074",
+														"id": "ccdbdb7d-13b5-4867-81fa-87b7bced8f6e",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -513,7 +513,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "c885f111-175e-4016-be4a-8446fafd6aab",
+														"id": "1c056d29-9e25-4728-a96e-d1fa5597a99a",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -565,7 +565,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "5dab9fbf-bbeb-4798-82ee-a0b885156a55",
+														"id": "5e61be32-79ba-4a2a-9217-a64751e22685",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -610,7 +610,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "f92c310d-6210-4bad-a37b-41a15f163d4c",
+														"id": "cef46fb4-050d-4096-8609-00ee9d08d5b8",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -655,7 +655,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2764cdf1-8a3f-40ef-98d5-5fa1c9d60183",
+														"id": "d1ace05c-e95f-4853-a742-c7b57af77503",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -704,7 +704,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "d13616ad-6738-4da0-9364-b83699f2a3ac",
+												"id": "41000f51-5042-4e6e-9e93-a4cdbbd9a8bb",
 												"exec": [
 													"pm.test(\"Returns status 201\", function () {",
 													"    pm.response.to.have.status(201);",
@@ -756,7 +756,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "40482ca9-d88d-4758-adc2-ae0c123585ac",
+												"id": "91482c88-c555-4706-8641-0612bf9aec25",
 												"exec": [
 													"pm.test(\"Returns status 404\", function () {",
 													"    pm.response.to.have.status(404);",
@@ -793,7 +793,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "981dc72d-11f7-4b86-b8af-e07ad82abe8b",
+												"id": "a5978c10-ef83-45f0-9c9c-10df0f29fc40",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -820,7 +820,7 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "d7df2841-c5df-4c8f-8f46-2d9686605001",
+												"id": "d78c26ba-6f84-4c91-92c0-88b555b7a563",
 												"exec": [
 													""
 												],
@@ -873,7 +873,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "6a199761-0e43-4f0e-8580-d72b3ba368fe",
+														"id": "c44b7b52-3ad9-43ae-9843-556d1394839a",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -927,7 +927,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "780dfe3e-b044-4ad0-814f-5389b1488ec6",
+												"id": "375560b9-32a3-41fc-af40-56145463dbdf",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -1011,7 +1011,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "02e2fcbb-897b-4f63-aecf-93a8f78a34d4",
+														"id": "01bee4e1-1aa6-41eb-a7c0-389691cbb74f",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -1066,7 +1066,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "ec3377ae-7910-4128-9b1b-a416dacbbf30",
+														"id": "5b5beeb0-8de4-49b8-9413-e1080b6dea72",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -1121,7 +1121,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "78b6b870-bf5c-4b4b-b201-4a73f818cc1f",
+														"id": "0a9ed073-8551-4896-9052-44755ec66c36",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1169,7 +1169,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "73b698b9-c026-4dcf-9f88-26b8f375483b",
+														"id": "774382fd-08fb-494f-be16-9d3b61da0120",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1217,7 +1217,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "97a67674-7164-49c0-bbbd-367b13c60338",
+														"id": "0a97df89-588a-4624-b29e-153aa7f2971c",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1265,7 +1265,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "cec4b83e-06a1-47ba-aca8-90d0e2e0aeb1",
+														"id": "a7f8b07b-e67d-4ed3-a75c-987eff3c4048",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1313,7 +1313,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "bbceb2ae-97d0-44ab-b842-8f37cc09b5c2",
+														"id": "24595146-0335-486d-b4db-7e9783ac4e00",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1365,7 +1365,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c98c6791-8f01-4fce-83f2-0a0213d6a7be",
+												"id": "56aa4172-e05e-452f-bb32-f7353129d69f",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -1443,7 +1443,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "acfaf2a5-692b-4dd1-9900-5790c6581016",
+														"id": "e57538f1-571e-428f-bdbe-ea9e9c4eae7a",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -1497,7 +1497,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "a5529b7d-4dbc-4b06-8bf9-30555dc05fde",
+												"id": "43e26aea-7727-44b9-846e-988a74343773",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -1582,7 +1582,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "6646e2ba-b4c8-4482-8ec3-e9557737d5dc",
+														"id": "32b826c8-ba91-4ab4-ac27-f432df1cd909",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -1636,7 +1636,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "cd5f3ca5-a372-4ab3-8392-187400a6eeee",
+														"id": "c946b595-df38-460c-9fcf-798a791ceba9",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1683,7 +1683,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "42cddc27-c09b-46da-8154-4a8268a2b4c2",
+														"id": "adb9527a-6636-4f53-9ae1-ec005903cdbb",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1730,7 +1730,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "554442fa-0916-41ca-b206-722262dc44fd",
+														"id": "e97bfbc4-d788-4a8b-b993-ef456120d4ee",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1777,7 +1777,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "591630f2-08d6-4837-822b-80d6d7e52776",
+														"id": "5107616c-64a0-44dd-8d9c-95cde5a1f7e4",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1831,7 +1831,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "9279192d-4829-41bb-8a4b-facc82db7b25",
+														"id": "f2bc2a65-9582-4c80-ab00-7659e0212693",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1878,7 +1878,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "a2278c37-166d-4519-a80a-945d59ea53c6",
+														"id": "9afb2ba7-98ee-41c7-9592-17ec9d182ffa",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1932,7 +1932,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2cfee8ed-902e-4aa9-8212-d014ab478e85",
+														"id": "bddcb5f4-2f2e-4bd9-9c74-009f0ed11111",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -1979,7 +1979,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "614a5e9f-87d0-4053-afc2-254706c34d7a",
+														"id": "1d0cbd4c-f269-48f4-bd31-2e58b4e76531",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2033,7 +2033,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "bf3932eb-70b1-41cf-b611-7764710fa9db",
+														"id": "b4dc4d5f-392c-49b9-9ed4-3a342496aa2d",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2080,7 +2080,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "db8cca23-46e8-440d-8590-4d352711b24c",
+														"id": "2c9a973c-61d6-4adf-9737-f3bb53435e15",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2127,7 +2127,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "e368c560-4c87-4946-a9c4-a664533cf649",
+														"id": "dcec5d2d-fbff-46e6-8fb6-69a788e1225c",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2181,7 +2181,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "bc7ad191-fdb4-4a75-afa6-127162700b49",
+														"id": "6e66137c-a450-4dbe-a00a-6d61c9a10999",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2228,7 +2228,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "102db7bc-5335-46e6-aa05-883222147577",
+														"id": "563d4580-4862-4c49-95fd-1d241f279e81",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2275,7 +2275,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "a1745fb1-0aee-47dd-9a4a-4d6f330f484d",
+														"id": "da98195a-2d91-48c5-a035-8007eac84190",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2326,7 +2326,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "5989a7bd-22c6-4ebd-b022-114f39aa0dea",
+												"id": "613d86e8-67ad-4a14-b511-62220b0e27c6",
 												"exec": [
 													"pm.test(\"Returns status 201\", function () {",
 													"    pm.response.to.have.status(201);",
@@ -2379,7 +2379,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "1d659278-d236-469f-990e-18dbe8531f5f",
+														"id": "4dcb30be-6be1-4afb-acfa-0be6778a8845",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -2433,7 +2433,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "77584838-675e-4b55-8a94-0678e8b93f78",
+														"id": "6f080781-7934-4e32-a17d-ff24b2156f90",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2480,7 +2480,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "47cfd176-d8a6-4501-bde5-3145c254d244",
+														"id": "bbcb8120-bc86-4b1c-b1eb-ba70bb16688f",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2527,7 +2527,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2cdbd733-e221-4996-a5bb-0180afbfad6e",
+														"id": "4d4b27f0-7f4d-4555-bdcd-827d452b2430",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2581,7 +2581,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "25e5d335-3560-455b-86a6-b3cbfbb1cac4",
+														"id": "aff449fc-89c6-4200-ad79-a81845f5cea8",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -2632,7 +2632,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "76e42348-ff6b-431f-bfc1-b3b9d79467e8",
+												"id": "82684c23-26cd-4669-9105-244ffb513a7d",
 												"exec": [
 													"pm.test(\"Returns status 201\", function () {",
 													"    pm.response.to.have.status(201);",
@@ -2689,7 +2689,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "afe31e99-0326-4346-81d8-ac2aa5b064cd",
+														"id": "93d6c709-b2e1-4f92-b58e-0dd6c34951db",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -2708,7 +2708,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -2743,7 +2743,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "4842d05d-0510-44a7-8033-132e627f312b",
+														"id": "ca6ed044-2407-4e3c-a7df-a358cb2b529e",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -2762,7 +2762,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"parkingArea\": \"Zone_Unknown\",\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"raw": "{\n  \"parkingArea\": \"Zone_Unknown\",\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -2790,7 +2790,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "b3bd4123-46ff-4c70-890e-abb7986f6f0d",
+														"id": "82194f41-0416-43e0-a9f3-01a4fbfbc4c4",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2809,7 +2809,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"parkingArea\": null,\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"raw": "{\n  \"parkingArea\": null,\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -2837,7 +2837,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "8c05aa87-4457-464c-bfa9-13d9a72de2db",
+														"id": "c7e7c982-d4d6-41d0-8636-7ee5d1dc04bc",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2856,7 +2856,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"raw": "{\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -2891,7 +2891,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "f0ace6c6-a929-4a69-a22a-a2deef4c80e0",
+														"id": "80b9d2b4-da60-49ce-a64d-5c1de0e48e85",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2910,7 +2910,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": null,\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": null,\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -2938,7 +2938,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "c4bafbc8-9a08-466f-9b3c-f60e6a3dd56c",
+														"id": "8f68957a-f928-4c05-8d39-7e89d3c72769",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -2957,7 +2957,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -2985,7 +2985,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "143ef4bd-cf93-4829-a699-9dbe4c643d0d",
+														"id": "af7871c7-523b-4115-ad63-c57ba01ba85f",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3004,7 +3004,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": \"byFoot\",\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": \"byFoot\",\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -3039,7 +3039,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ee725c3-179a-46ae-88bb-0ea4339d35ac",
+														"id": "7feae636-f560-42bd-ad56-1120911e1ecb",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3058,7 +3058,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": null\n}",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": null,\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -3086,7 +3086,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "a2661efb-d36c-4895-a149-e44f920b2ad0",
+														"id": "59af3d85-9d8e-4072-b618-69ad78d6dac5",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3105,7 +3105,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}}\n}",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -3133,7 +3133,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "762f67fd-3412-4cc0-a4c2-18c22f777b35",
+														"id": "9e7afce4-7a1d-4f41-bf59-eb4d6c2b955a",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3152,7 +3152,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": \"badFormat\"\n}",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": \"badFormat\",\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -3187,7 +3187,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "40ee8527-1ba7-44f3-a5f5-c0b1f4866831",
+														"id": "984a274a-54f5-44cf-ac8b-17107c25f8bd",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3206,7 +3206,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": null\n}",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": null,\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -3234,7 +3234,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "431366f6-b1ef-4a9e-801f-36e5fd9d6bbb",
+														"id": "1d91941a-402a-4e66-b073-cd45d79b5a4e",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3253,7 +3253,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}}\n}",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -3281,7 +3281,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2397b029-d1df-4622-9245-8ef2fdb042b0",
+														"id": "0418fa66-3184-492f-b9a9-b183323ff1b7",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3300,7 +3300,155 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": \"badFormat\"\n}",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": \"badFormat\",\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Parking period",
+									"item": [
+										{
+											"name": "Missing parking period (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "ccfc83e9-cf7d-4b4b-baa6-10b3d2aac240",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid parking period\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking period\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Missing parking period (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2b357a35-f936-46eb-8797-d60bb8b5117a",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid parking period\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking period\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"parkingStickers"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Missing parking period (bad value)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "baf2e179-2461-4808-a7b1-d4c1ce6880fd",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid parking period\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking period\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": \"badValue\"\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -3332,7 +3480,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "9211c859-c102-4e75-aba4-c4b37c262d66",
+												"id": "ee509b0a-e1e1-41a2-af8e-794f560d353a",
 												"exec": [
 													"pm.test(\"Returns status 201\", function () {",
 													"    pm.response.to.have.status(201);",
@@ -3351,7 +3499,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}}\n}",
+											"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3379,7 +3527,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "a0474a43-e519-44ad-ac58-a00ba89fd5c9",
+												"id": "afdd1dde-80c5-4518-81a1-92b5ad2f6abf",
 												"exec": [
 													"pm.test(\"Returns status 201\", function () {",
 													"    pm.response.to.have.status(201);",
@@ -3398,7 +3546,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": {{request.parkingSticker.email}}\n}",
+											"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": {{request.parkingSticker.email}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3440,7 +3588,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "26c65f33-cfd3-45a7-8013-b1b0c2fcc56a",
+												"id": "0ab44d19-4c62-4a31-a840-3a8ad8676b3b",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -3521,7 +3669,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "23542ddf-e1ac-4e9c-b778-1f4971ed98c0",
+														"id": "a4f51665-1a80-49c6-ba32-c46d37fb9fec",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -3575,7 +3723,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "81b5c0e4-2e18-41ef-8108-cc7ddd937a1c",
+														"id": "80b95998-5534-4507-8560-96f95234c856",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3622,7 +3770,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "d45442ee-177c-4079-a55f-0ef20335eb26",
+														"id": "7fb1e0a8-06e4-4fcf-96a9-d536e39c1953",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3669,7 +3817,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "9f255607-edc5-448a-82d0-62a78d054de5",
+														"id": "498b336f-9007-4119-9c34-d9dafdfea345",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3720,7 +3868,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e0f0b597-e27c-4b42-b11a-4eeddf124e74",
+												"id": "465d59e6-94a7-4435-8212-17ec70993c88",
 												"exec": [
 													"pm.test(\"Returns status 202\", function () {",
 													"    pm.response.to.have.status(202);",
@@ -3767,7 +3915,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e4d69f03-2ca1-4156-9980-35e2d14ad521",
+												"id": "9a9eee6a-3603-4fe3-bc1b-d22571c949f8",
 												"exec": [
 													"pm.test(\"Returns status 403\", function () {",
 													"    pm.response.to.have.status(403);",
@@ -3828,7 +3976,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e26415e2-5bba-48b3-8b47-bc34f2e6c5e6",
+												"id": "4c580320-e796-4c7d-84d3-12c264e042aa",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -3899,7 +4047,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "6830ff3b-921f-45ba-b664-47c9b25dda89",
+														"id": "0e2bd835-f035-4c49-9310-6de46084006a",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3945,7 +4093,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "eeaaf349-8282-4d31-a2d3-799dcf338f42",
+														"id": "ddddcd8f-75d4-45b8-bb62-8539025429d3",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -3998,7 +4146,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "344eb59e-021a-4828-8fec-08526b57add8",
+														"id": "91bad3da-a4f5-48a8-ac7c-43f2727c6e12",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -4044,7 +4192,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "1c9fcc8a-a014-4102-9b4c-b956e4f3116b",
+														"id": "587d01ba-050b-438c-a5c3-38227a056aa7",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4090,7 +4238,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "3cbc31f3-80fb-4f74-a98d-491e12f4047c",
+														"id": "bf42ae5d-eaaa-475d-97be-009667950ff0",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4143,7 +4291,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "a83e0681-ae3f-4aaa-905e-921eed0a255f",
+														"id": "4110e502-7989-4920-92ae-3f6d16f94044",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4189,7 +4337,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "b3c6c16a-0b11-4d78-b03f-13bb123624d3",
+														"id": "10c7b05c-9daa-40c8-81db-b7ed16edb0a8",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4235,7 +4383,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "ca4111a7-7c43-45be-a701-19317e0dcbde",
+														"id": "a4259957-f0a0-4182-b675-a94de9a7df0a",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4285,7 +4433,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "aa21794a-9787-440b-8571-b1a2675f6395",
+												"id": "8a1c4ce8-9fa0-411b-9681-15f665483f80",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -4344,7 +4492,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "ee2df680-2967-4def-8222-91f8a4ee3c73",
+														"id": "10a8ec6b-4b38-4a7b-931e-a65e4afcdb66",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4389,7 +4537,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "873e1b6b-4b70-4cbc-ab02-2561a7fe3463",
+														"id": "5119606b-e683-488c-a9ab-99ba92f59164",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4441,7 +4589,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "9206845e-171d-4eb9-af7e-10c149e16749",
+														"id": "fddd9750-781a-4d74-8395-4bae08100925",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4486,7 +4634,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "7c74dca2-1abc-4635-ba9a-d6db460d13fc",
+														"id": "a9876df0-46d6-4acf-bebe-d5ec45ca028e",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4531,7 +4679,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "ec358de9-cc83-43a6-80d4-c0233c24ae32",
+														"id": "edb1e936-0116-4864-82da-648cc8e793cc",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4576,7 +4724,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "4750992d-8b22-4c66-8f9e-abd5ac0fa111",
+														"id": "1609d76e-2b49-463d-8eff-5f30385d5633",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4625,7 +4773,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "4a275453-1fe2-4669-8d5c-56775efd9216",
+												"id": "373bb0c6-1dbc-4013-ace9-57960faf7eee",
 												"exec": [
 													"pm.test(\"Returns status 201\", function () {",
 													"    pm.response.to.have.status(201);",
@@ -4680,7 +4828,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "bf40a3a7-8e01-449f-9969-d36c51df3088",
+														"id": "8eff2b45-b4ba-4cab-b30c-ed732ab19c57",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -4721,7 +4869,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2984bd27-4439-4d36-9369-a0623a01c399",
+												"id": "bf05c916-1906-4ff5-83e8-e9ff27820a6f",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -4749,7 +4897,7 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "ad548737-a00d-4870-b301-7496f4131d0c",
+												"id": "f1fa2a85-41f9-4761-adc3-f74bf26b6aa6",
 												"exec": [
 													""
 												],
@@ -4799,7 +4947,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "a83cd07c-1832-4950-8ca6-9c78912db467",
+												"id": "bd4b5e02-31de-4451-85c2-1ccd26691d1b",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -4871,7 +5019,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "96e360f9-a436-41c0-88f6-6138c59851a4",
+														"id": "f7e95ab8-1ab1-425e-9d70-255541e34361",
 														"exec": [
 															"pm.test(\"Returns status 404\", function () {",
 															"    pm.response.to.have.status(404);",
@@ -4924,7 +5072,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "7c5ebb37-f372-44a0-82f9-e235f41ac367",
+														"id": "554d05dc-391a-4c79-916a-e6ee2cdd7ba6",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -4970,7 +5118,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "93ea74dd-0627-49c8-a776-1e2a9c2bee5b",
+														"id": "e2ae0607-4c45-4d6b-83da-26fc63a6873a",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -5016,7 +5164,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "f89e5c56-b88a-4d98-b624-f58695c51127",
+														"id": "25c6fb82-1b47-443b-957e-44f8125e5dab",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -5062,7 +5210,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "48d8b9b0-dea9-4098-ad74-a8604f581cd7",
+														"id": "c4bbb5c0-c68c-4c85-84ec-cc8a9f0a763c",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -5112,7 +5260,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "8bfa37c7-90d6-4e93-8697-1dc4f1e04aeb",
+												"id": "dc243f7b-4c29-41ea-867c-4626b1d4c5bf",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -5161,7 +5309,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "67669f7c-6909-4099-9cc9-13ac08826e93",
+												"id": "f59cd65a-e423-41ba-823a-81df9a859c0c",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -5209,7 +5357,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "803b0cce-aee6-497d-a412-f7326a17e933",
+										"id": "3b0dbbcf-f9eb-424f-9816-e2790fe408af",
 										"type": "text/javascript",
 										"exec": [
 											""
@@ -5219,476 +5367,12 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "c9d92d50-87e3-4e43-a1e5-f930943b32d6",
+										"id": "c8c6603e-1346-4e15-b015-0ff421dc8fc0",
 										"type": "text/javascript",
 										"exec": [
 											""
 										]
 									}
-								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "Profits",
-					"item": [
-						{
-							"name": "Get profits for parking stickers",
-							"item": [
-								{
-									"name": "Year",
-									"item": [
-										{
-											"name": "Invalid year (negative)",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"id": "f85e4fe2-f3b5-4e80-bc8b-822b6a488140",
-														"exec": [
-															"pm.test(\"Returns status 400\", function () {",
-															"    pm.response.to.have.status(400);",
-															"});",
-															"",
-															"pm.test(\"Returns invalid year\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\");",
-															"});"
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"protocolProfileBehavior": {
-												"disableBodyPruning": true
-											},
-											"request": {
-												"method": "GET",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{host}}/api/profits/parkingStickers?year=-2000",
-													"host": [
-														"{{host}}"
-													],
-													"path": [
-														"api",
-														"profits",
-														"parkingStickers"
-													],
-													"query": [
-														{
-															"key": "year",
-															"value": "-2000"
-														}
-													]
-												}
-											},
-											"response": []
-										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
-								},
-								{
-									"name": "Get profits for parking stickers",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "1ace12df-3788-4069-b199-227ad5397223",
-												"exec": [
-													"pm.test(\"Returns status 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"",
-													"pm.test(\"Returns profits\", function () {",
-													"    pm.expect(pm.response.json().profits).to.not.be.null;",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{host}}/api/profits/parkingStickers",
-											"host": [
-												"{{host}}"
-											],
-											"path": [
-												"api",
-												"profits",
-												"parkingStickers"
-											]
-										}
-									},
-									"response": []
-								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
-						},
-						{
-							"name": "Get profits for access passes",
-							"item": [
-								{
-									"name": "Year",
-									"item": [
-										{
-											"name": "Invalid year (negative)",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"id": "1859b12b-4adb-43fe-857f-c6d0b756e1fd",
-														"exec": [
-															"pm.test(\"Returns status 400\", function () {",
-															"    pm.response.to.have.status(400);",
-															"});",
-															"",
-															"pm.test(\"Returns invalid year\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\");",
-															"});"
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"protocolProfileBehavior": {
-												"disableBodyPruning": true
-											},
-											"request": {
-												"method": "GET",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{host}}/api/profits/accessPasses?year=-2000",
-													"host": [
-														"{{host}}"
-													],
-													"path": [
-														"api",
-														"profits",
-														"accessPasses"
-													],
-													"query": [
-														{
-															"key": "year",
-															"value": "-2000"
-														}
-													]
-												}
-											},
-											"response": []
-										}
-									],
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"id": "77414bc8-fa88-4c46-bf80-dd041328e373",
-												"type": "text/javascript",
-												"exec": [
-													""
-												]
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"id": "4209c665-e83d-41da-8be9-2147d40d73e2",
-												"type": "text/javascript",
-												"exec": [
-													""
-												]
-											}
-										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
-								},
-								{
-									"name": "Get profits for access passes",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "1fc97488-af2b-41f9-95dd-0ce280dd0c27",
-												"exec": [
-													"pm.test(\"Returns status 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"",
-													"pm.test(\"Returns profits\", function () {",
-													"    pm.expect(pm.response.json().profits).to.not.be.null;",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{host}}/api/profits/accessPasses",
-											"host": [
-												"{{host}}"
-											],
-											"path": [
-												"api",
-												"profits",
-												"accessPasses"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get profits for access passes (by consumption type)",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "5195110b-6e62-4c7f-9b92-a8013cd1dcd0",
-												"exec": [
-													"pm.test(\"Returns status 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"",
-													"pm.test(\"Returns profits by consumption type\", function () {",
-													"    pm.expect(pm.response.json().length).to.be.greaterThan(0);",
-													"});",
-													"",
-													"pm.test(\"Returns profits for each consumption type\", function () {",
-													"  for (i = 0; i < pm.response.json().length; i++) {",
-													"    pm.expect(pm.response.json()[0].profits).to.not.be.null;",
-													"  }",
-													"});",
-													"",
-													"pm.test(\"Contains profits for greedy\", function () {",
-													"    pm.expect(pm.response.text()).to.contain(\"greedy\");",
-													"});",
-													"",
-													"pm.test(\"Contains profits for economic\", function () {",
-													"    pm.expect(pm.response.text()).to.contain(\"economic\");",
-													"});",
-													"",
-													"pm.test(\"Contains profits for economical hybrid\", function () {",
-													"    pm.expect(pm.response.text()).to.contain(\"economical hybrid\");",
-													"});",
-													"",
-													"pm.test(\"Contains profits for super economical\", function () {",
-													"    pm.expect(pm.response.text()).to.contain(\"super economical\");",
-													"});",
-													"",
-													"pm.test(\"Contains profits for 0 pollution\", function () {",
-													"    pm.expect(pm.response.text()).to.contain(\"0 pollution\");",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{host}}/api/profits/accessPasses?byConsumptionType=true",
-											"host": [
-												"{{host}}"
-											],
-											"path": [
-												"api",
-												"profits",
-												"accessPasses"
-											],
-											"query": [
-												{
-													"key": "byConsumptionType",
-													"value": "true"
-												}
-											]
-										}
-									},
-									"response": []
-								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
-						},
-						{
-							"name": "Get profits for offenses",
-							"item": [
-								{
-									"name": "Year",
-									"item": [
-										{
-											"name": "Invalid year (negative)",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"id": "dcf7803b-d248-46b7-a23e-bfce2a260f45",
-														"exec": [
-															"pm.test(\"Returns status 400\", function () {",
-															"    pm.response.to.have.status(400);",
-															"});",
-															"",
-															"pm.test(\"Returns invalid year\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid year\");",
-															"});"
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"protocolProfileBehavior": {
-												"disableBodyPruning": true
-											},
-											"request": {
-												"method": "GET",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{host}}/api/profits/offenses?year=-2000",
-													"host": [
-														"{{host}}"
-													],
-													"path": [
-														"api",
-														"profits",
-														"offenses"
-													],
-													"query": [
-														{
-															"key": "year",
-															"value": "-2000"
-														}
-													]
-												}
-											},
-											"response": []
-										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
-								},
-								{
-									"name": "Get profits for offenses",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "65e60a99-0258-4bca-8431-453b454b36ae",
-												"exec": [
-													"pm.test(\"Returns status 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"",
-													"pm.test(\"Returns profits\", function () {",
-													"    pm.expect(pm.response.json().profits).to.not.be.null;",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{host}}/api/profits/offenses",
-											"host": [
-												"{{host}}"
-											],
-											"path": [
-												"api",
-												"profits",
-												"offenses"
-											]
-										}
-									},
-									"response": []
 								}
 							],
 							"protocolProfileBehavior": {},
@@ -5713,7 +5397,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "1842b317-a467-463b-82fb-a7d9c25ff446",
+														"id": "2f6ed465-7967-44b2-b0b7-01eace1adab2",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -5758,7 +5442,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "895494fb-affb-4549-a60c-d75365d41ae9",
+														"id": "479280a9-2f6d-4984-a066-0bf20fcaf96e",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -5803,7 +5487,7 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "0767832a-60c2-4525-a119-9f1b3edffe49",
+														"id": "4e5094a2-c7b0-499c-b049-c3b39fa0334d",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
@@ -5852,7 +5536,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "85a5c346-0cf6-4e6f-85e5-ecba418b06be",
+												"id": "6b882e90-40c6-4b97-b8f7-5262d62c9067",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -5893,7 +5577,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "39247552-e7a6-4681-9d86-041101df5cb2",
+												"id": "e3e85138-a9a5-40e0-9412-ae00d5ad9a09",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -5933,7 +5617,7 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "fc933054-573f-4f69-aca1-2d3559aad28e",
+										"id": "e5197c66-adbd-4c98-9467-d5fc787fe88a",
 										"type": "text/javascript",
 										"exec": [
 											""
@@ -5943,7 +5627,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "862e5874-e4e1-4b39-bff3-277c6c448f70",
+										"id": "a1a1cca4-b72c-4126-a584-f29b0c7ad98b",
 										"type": "text/javascript",
 										"exec": [
 											""
@@ -5963,7 +5647,7 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "61177fc6-e4a6-424a-92f0-a59287a9b033",
+												"id": "9963f013-e3b7-4949-83cc-533bceb590c9",
 												"exec": [
 													"pm.test(\"Returns status 200\", function () {",
 													"    pm.response.to.have.status(200);",
@@ -6014,7 +5698,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8c1538b2-6c08-4f26-bdd8-a089b83c8b5e",
+								"id": "cc498bd8-b240-4e1d-846f-92f67a588758",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -6024,12 +5708,932 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a3c7fd31-0065-49e4-bb06-82778283bb92",
+								"id": "85fffb70-c691-42b8-b076-ef415b53c01f",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Reports",
+					"item": [
+						{
+							"name": "Profits",
+							"item": [
+								{
+									"name": "Get profits report for parking stickers",
+									"item": [
+										{
+											"name": "Year",
+											"item": [
+												{
+													"name": "Invalid year (string)",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "a56362f3-39f1-4cda-98ba-86137a4622ab",
+																"exec": [
+																	"pm.test(\"Returns status 400\", function () {",
+																	"    pm.response.to.have.status(400);",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/api/reports/profits/parkingStickers?year=invalid",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"api",
+																"reports",
+																"profits",
+																"parkingStickers"
+															],
+															"query": [
+																{
+																	"key": "year",
+																	"value": "invalid"
+																}
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"protocolProfileBehavior": {},
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "Valid profits report query",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "d3644fd5-5655-4882-80fc-ff42d91066ac",
+														"exec": [
+															"pm.test(\"Returns status 200\", function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test(\"Returns periods array\", function () {",
+															"    pm.expect(pm.response.json().length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns period for given year\", function () {",
+															"    var year = postman.getEnvironmentVariable(\"queryParam.profits.year\");",
+															"    pm.expect(pm.response.json()[0].period).to.equal(year);",
+															"});",
+															"",
+															"pm.test(\"Returns period data\", function () {",
+															"    pm.expect(pm.response.json()[0].data).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns period data has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns dimensions has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].dimensions.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns metrics has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns profits metric\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics[0].name).to.equal(\"profits\");",
+															"});",
+															"",
+															"pm.test(\"Returns profits metric with value\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics[0].value).to.not.be.null;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/reports/profits/parkingStickers?year={{queryParam.profits.year}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"reports",
+														"profits",
+														"parkingStickers"
+													],
+													"query": [
+														{
+															"key": "year",
+															"value": "{{queryParam.profits.year}}"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Get profits report for access passes",
+									"item": [
+										{
+											"name": "Year",
+											"item": [
+												{
+													"name": "Invalid year (string)",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "fa04ae30-ab00-44ee-a234-97237b565839",
+																"exec": [
+																	"pm.test(\"Returns status 400\", function () {",
+																	"    pm.response.to.have.status(400);",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/api/reports/profits/accessPasses?year=invalid",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"api",
+																"reports",
+																"profits",
+																"accessPasses"
+															],
+															"query": [
+																{
+																	"key": "year",
+																	"value": "invalid"
+																}
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"protocolProfileBehavior": {},
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "Valid profits report query",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "5ca9a8c2-073d-42d9-bb83-70f8df04a6c0",
+														"exec": [
+															"pm.test(\"Returns status 200\", function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test(\"Returns periods array\", function () {",
+															"    pm.expect(pm.response.json().length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns period for given year\", function () {",
+															"    var year = postman.getEnvironmentVariable(\"queryParam.profits.year\");",
+															"    pm.expect(pm.response.json()[0].period).to.equal(year);",
+															"});",
+															"",
+															"pm.test(\"Returns period data\", function () {",
+															"    pm.expect(pm.response.json()[0].data).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns period data has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns dimensions has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].dimensions.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns metrics has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns profits metric\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics[0].name).to.equal(\"profits\");",
+															"});",
+															"",
+															"pm.test(\"Returns profits metric with value\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics[0].value).to.not.be.null;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/reports/profits/accessPasses?year={{queryParam.profits.year}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"reports",
+														"profits",
+														"accessPasses"
+													],
+													"query": [
+														{
+															"key": "year",
+															"value": "{{queryParam.profits.year}}"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Valid profits report query by consumption type",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "9c46d94d-0bb6-4512-bfe0-678902b2544e",
+														"exec": [
+															"pm.test(\"Returns status 200\", function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test(\"Returns periods array\", function () {",
+															"    pm.expect(pm.response.json().length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns period for given year\", function () {",
+															"    var year = postman.getEnvironmentVariable(\"queryParam.profits.year\");",
+															"    pm.expect(pm.response.json()[0].period).to.equal(year);",
+															"});",
+															"",
+															"pm.test(\"Returns period data\", function () {",
+															"    pm.expect(pm.response.json()[0].data).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns period data has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns dimensions has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].dimensions.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns consumption type dimension\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].dimensions[0].name).to.equal(\"consumptionType\");",
+															"});",
+															"",
+															"pm.test(\"Returns consumption type dimension with value\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].dimensions[0].value).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns metrics has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns profits metric\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics[0].name).to.equal(\"profits\");",
+															"});",
+															"",
+															"pm.test(\"Returns profits metric with value\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics[0].value).to.not.be.null;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/reports/profits/accessPasses?year={{queryParam.profits.year}}&byConsumptionType=true",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"reports",
+														"profits",
+														"accessPasses"
+													],
+													"query": [
+														{
+															"key": "year",
+															"value": "{{queryParam.profits.year}}"
+														},
+														{
+															"key": "byConsumptionType",
+															"value": "true"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Get profits report for offenses",
+									"item": [
+										{
+											"name": "Year",
+											"item": [
+												{
+													"name": "Invalid year (string)",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"id": "df14eb8a-cbce-43e3-9624-ea14332fafab",
+																"exec": [
+																	"pm.test(\"Returns status 400\", function () {",
+																	"    pm.response.to.have.status(400);",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/api/reports/profits/offenses?year=invalid",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"api",
+																"reports",
+																"profits",
+																"offenses"
+															],
+															"query": [
+																{
+																	"key": "year",
+																	"value": "invalid"
+																}
+															]
+														}
+													},
+													"response": []
+												}
+											],
+											"protocolProfileBehavior": {},
+											"_postman_isSubFolder": true
+										},
+										{
+											"name": "Valid profits report query",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "44acafcb-ce03-4c1d-bdeb-30ef68807cda",
+														"exec": [
+															"pm.test(\"Returns status 200\", function () {",
+															"    pm.response.to.have.status(200);",
+															"});",
+															"",
+															"pm.test(\"Returns periods array\", function () {",
+															"    pm.expect(pm.response.json().length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns period for given year\", function () {",
+															"    var year = postman.getEnvironmentVariable(\"queryParam.profits.year\");",
+															"    pm.expect(pm.response.json()[0].period).to.equal(year);",
+															"});",
+															"",
+															"pm.test(\"Returns period data\", function () {",
+															"    pm.expect(pm.response.json()[0].data).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns period data has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns dimensions has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].dimensions.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns metrics has an array\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics.length).to.not.be.null;",
+															"});",
+															"",
+															"pm.test(\"Returns profits metric\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics[0].name).to.equal(\"profits\");",
+															"});",
+															"",
+															"pm.test(\"Returns profits metric with value\", function () {",
+															"    pm.expect(pm.response.json()[0].data[0].metrics[0].value).to.not.be.null;",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/reports/profits/offenses?year={{queryParam.profits.year}}",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"reports",
+														"profits",
+														"offenses"
+													],
+													"query": [
+														{
+															"key": "year",
+															"value": "{{queryParam.profits.year}}"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Parking areas",
+							"item": [
+								{
+									"name": "Report type",
+									"item": [
+										{
+											"name": "Invalid report type (bad value) Copy",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "ef98f9f2-acef-4ea6-91d0-9064fe62e454",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Returns invalid report type\", function () {\r",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid report type\")\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/reports/parkingAreas?reportType=invalid",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"reports",
+														"parkingAreas"
+													],
+													"query": [
+														{
+															"key": "reportType",
+															"value": "invalid"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
+									"name": "Valid parking areas monthly report type query",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e3e5171b-f12b-4298-83be-187150c3af21",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods array\", function () {\r",
+													"    pm.expect(pm.response.json().length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns period for current year\", function () {\r",
+													"    pm.expect(pm.response.json()[0].period).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns period data\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns period data has an array\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data.length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns dimensions has an array\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions.length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns parking area dimension\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions[0].name).to.equal(\"parkingArea\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns parking area dimension with value\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions[0].value).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns metrics has an array\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics.length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns gate entries metric\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics[0].name).to.equal(\"gateEntries\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns gate entries metric with value\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics[0].value).to.not.be.null;\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/reports/parkingAreas?reportType=monthly",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"reports",
+												"parkingAreas"
+											],
+											"query": [
+												{
+													"key": "reportType",
+													"value": "monthly"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Valid parking areas day of month report type query",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "18d657e6-fb96-411d-a492-ab4c3abf7f63",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods array\", function () {\r",
+													"    pm.expect(pm.response.json().length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns period for given month\", function () {\r",
+													"    pm.expect(pm.response.json()[0].period).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns period data\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns period data has an array\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data.length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns dimensions has an array\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions.length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns parking area dimension\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions[0].name).to.equal(\"parkingArea\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns parking area dimension with value\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions[0].value).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns metrics has an array\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics.length).to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns gate entries metric\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics[0].name).to.equal(\"gateEntries\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns gate entries metric with value\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics[0].value).to.not.be.null;\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/reports/parkingAreas?reportType=dayOfMonth&month={{queryParam.reportMonth}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"reports",
+												"parkingAreas"
+											],
+											"query": [
+												{
+													"key": "reportType",
+													"value": "dayOfMonth"
+												},
+												{
+													"key": "month",
+													"value": "{{queryParam.reportMonth}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Valid parking areas summary report type query",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ac9d5f8d-665c-4f51-b7f7-99209fdbf0f1",
+												"exec": [
+													"pm.test(\"Returns status 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods array of 3 periods\", function () {\r",
+													"    pm.expect(pm.response.json().length).to.equal(3);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns maximum period\", function () {\r",
+													"    pm.expect(pm.response.json()[0].period).to.contain(\"maximum\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns minimum period\", function () {\r",
+													"    pm.expect(pm.response.json()[1].period).to.contain(\"minimum\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns average period\", function () {\r",
+													"    pm.expect(pm.response.json()[2].period).to.contain(\"average\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods with single data\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data.length).to.equal(1);\r",
+													"    pm.expect(pm.response.json()[1].data.length).to.equal(1);\r",
+													"    pm.expect(pm.response.json()[2].data.length).to.equal(1);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods without dimension\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].dimensions.length).to.equal(0);\r",
+													"    pm.expect(pm.response.json()[1].data[0].dimensions.length).to.equal(0);\r",
+													"    pm.expect(pm.response.json()[2].data[0].dimensions.length).to.equal(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods with one metric\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics.length).to.equal(1);\r",
+													"    pm.expect(pm.response.json()[1].data[0].metrics.length).to.equal(1);\r",
+													"    pm.expect(pm.response.json()[2].data[0].metrics.length).to.equal(1);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods with gate entrics metric\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics[0].name).to.equal(\"gateEntries\");\r",
+													"    pm.expect(pm.response.json()[1].data[0].metrics[0].name).to.equal(\"gateEntries\");\r",
+													"    pm.expect(pm.response.json()[2].data[0].metrics[0].name).to.equal(\"gateEntries\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Returns periods with gate entrics metric value\", function () {\r",
+													"    pm.expect(pm.response.json()[0].data[0].metrics[0].value).to.not.be.null;\r",
+													"    pm.expect(pm.response.json()[1].data[0].metrics[0].value).to.not.be.null;\r",
+													"    pm.expect(pm.response.json()[2].data[0].metrics[0].value).to.not.be.null;\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/reports/parkingAreas?reportType=summary&month={{queryParam.reportMonth}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"reports",
+												"parkingAreas"
+											],
+											"query": [
+												{
+													"key": "reportType",
+													"value": "summary"
+												},
+												{
+													"key": "month",
+													"value": "{{queryParam.reportMonth}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
 						}
 					],
 					"protocolProfileBehavior": {},

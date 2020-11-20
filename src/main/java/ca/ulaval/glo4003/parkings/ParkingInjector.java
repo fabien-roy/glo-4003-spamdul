@@ -42,10 +42,12 @@ public class ParkingInjector {
   }
 
   public ParkingAreaResource createParkingAreaResource() {
-    ParkingAreaService parkingAreaService =
-        new ParkingAreaService(
-            parkingAreaRepository, new ParkingAreaAssembler(new ParkingPeriodPriceAssembler()));
-    return new ParkingAreaResourceImplementation(parkingAreaService);
+    return new ParkingAreaResourceImplementation(createParkingAreaService());
+  }
+
+  public ParkingAreaService createParkingAreaService() {
+    return new ParkingAreaService(
+        parkingAreaRepository, new ParkingAreaAssembler(new ParkingPeriodPriceAssembler()));
   }
 
   public ParkingStickerRepository getParkingStickerRepository() {
@@ -81,7 +83,8 @@ public class ParkingInjector {
             parkingAreaCodeAssembler,
             accountIdAssembler,
             postalCodeAssembler,
-            emailAddressAssembler);
+            emailAddressAssembler,
+            new ParkingPeriodAssembler());
     ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
 
     ParkingStickerService parkingStickerService =

@@ -82,7 +82,7 @@ public class BillFactoryTest {
   public void whenCreatingForParkingSticker_thenReturnBillWithParkingStickerType() {
     Bill bill = billFactory.createForParkingSticker(fee, parkingStickerCode, receptionMethod);
 
-    Truth.assertThat(bill.getBillTypes()).isEqualTo(BillType.PARKING_STICKER);
+    Truth.assertThat(bill.getBillType()).isEqualTo(BillType.PARKING_STICKER);
   }
 
   @Test
@@ -110,7 +110,7 @@ public class BillFactoryTest {
   public void whenCreatingForAccessPass_thenReturnBillWithAccessPassType() {
     Bill bill = billFactory.createForAccessPass(fee, accessPassCode, consumptionType);
 
-    Truth.assertThat(bill.getBillTypes()).isEqualTo(BillType.ACCESS_PASS);
+    Truth.assertThat(bill.getBillType()).isEqualTo(BillType.ACCESS_PASS);
   }
 
   @Test
@@ -138,6 +138,6 @@ public class BillFactoryTest {
   public void whenCreatingForOffense_thenReturnBillWithAccessPassType() {
     Bill bill = billFactory.createForOffense(fee, offenseCode);
 
-    Truth.assertThat(bill.getBillTypes()).isEqualTo(BillType.OFFENSE);
+    Truth.assertThat(bill.getBillType()).isEqualTo(BillType.OFFENSE);
   }
 }

@@ -1,9 +1,8 @@
 package ca.ulaval.glo4003.times.api;
 
-import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
-import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
-import ca.ulaval.glo4003.times.exceptions.TimeException;
-import com.google.common.truth.Truth;
+import static com.google.common.truth.Truth.assertThat;
+
+import ca.ulaval.glo4003.times.exceptions.*;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +22,16 @@ public class TimeExceptionMapperTest {
 
     Response response = timeExceptionMapper.toResponse(timeException);
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+    assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+  }
+
+  @Test
+  public void givenInvalidDateTimeException_whenResponding_thenStatusIsBadRequest() {
+    TimeException timeException = new InvalidDateTimeException();
+
+    Response response = timeExceptionMapper.toResponse(timeException);
+
+    assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
   }
 
   @Test
@@ -32,6 +40,15 @@ public class TimeExceptionMapperTest {
 
     Response response = timeExceptionMapper.toResponse(timeException);
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+    assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
+  }
+
+  @Test
+  public void givenSemesterNotFoundException_whenResponding_thenStatusIsNotFound() {
+    TimeException timeException = new SemesterNotFoundException();
+
+    Response response = timeExceptionMapper.toResponse(timeException);
+
+    assertThat(response.getStatus()).isEqualTo(Response.Status.NOT_FOUND.getStatusCode());
   }
 }

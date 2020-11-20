@@ -19,11 +19,12 @@ public class ServerResourceConfig {
                 HashSet<Object> resources = new HashSet<>();
                 resources.add(APPLICATION_INJECTOR.createUserResource());
                 resources.add(APPLICATION_INJECTOR.createOffenseResource());
-                resources.add(APPLICATION_INJECTOR.createGateEntryResource());
+                resources.add(APPLICATION_INJECTOR.createGateResource());
                 resources.add(APPLICATION_INJECTOR.createCarbonCreditResource());
                 resources.add(APPLICATION_INJECTOR.createParkingAreaResource());
                 resources.add(APPLICATION_INJECTOR.createInitiativeResource());
-                resources.add(APPLICATION_INJECTOR.createProfitsResource());
+                resources.add(APPLICATION_INJECTOR.createReportProfitResource());
+                resources.add(APPLICATION_INJECTOR.createReportParkingAreaResource());
                 return resources;
               }
 

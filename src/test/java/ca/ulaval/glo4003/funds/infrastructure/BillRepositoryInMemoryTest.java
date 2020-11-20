@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.funds.infrastructure;
 
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
@@ -13,14 +12,11 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BillRepositoryInMemoryTest {
   private BillRepository billRepository;
-
-  @Mock BillQueryInMemory billQueryInMemory;
 
   private final Bill bill = aBill().build();
   private final Bill other_bill = aBill().build();
@@ -28,11 +24,6 @@ public class BillRepositoryInMemoryTest {
   @Before
   public void setUp() {
     billRepository = new BillRepositoryInMemory();
-
-    List<Bill> bills = new ArrayList<>();
-    bills.add(bill);
-
-    when(billQueryInMemory.execute()).thenReturn(bills);
   }
 
   @Test
@@ -93,13 +84,5 @@ public class BillRepositoryInMemoryTest {
     Bill billAfterUpdating = billRepository.getBill(bill.getId());
 
     assertThat(billAfterUpdating.getAmountPaid()).isNotEqualTo(billBeforeUpdating);
-  }
-
-  @Test
-  public void givenBillQuery_whenGettingAllBills_thenShouldReturnValueFromQuery() {
-    List<Bill> bills = billRepository.getAll(billQueryInMemory);
-
-    assertThat(bills.size()).isEqualTo(1);
-    assertThat(bills.get(0)).isSameInstanceAs(bill);
   }
 }

@@ -9,10 +9,7 @@ import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.*;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
 import ca.ulaval.glo4003.locations.domain.PostalCode;
-import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
-import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
+import ca.ulaval.glo4003.parkings.domain.*;
 
 public class ParkingStickerBuilder {
   private ParkingStickerCode parkingStickerCode = createParkingStickerCode();
@@ -21,6 +18,7 @@ public class ParkingStickerBuilder {
   private ReceptionMethod receptionMethod = createReceptionMethod();
   private PostalCode postalCode = createPostalCode();
   private EmailAddress emailAddress = createEmailAddress();
+  private ParkingPeriod parkingPeriod = createParkingPeriod();
 
   private ParkingStickerBuilder() {}
 
@@ -33,18 +31,25 @@ public class ParkingStickerBuilder {
     return this;
   }
 
+  public ParkingStickerBuilder withParkingPeriod(ParkingPeriod parkingPeriod) {
+    this.parkingPeriod = parkingPeriod;
+    return this;
+  }
+
   public ParkingSticker build() {
     ParkingSticker parkingSticker;
 
     switch (receptionMethod) {
       case POSTAL:
         parkingSticker =
-            new ParkingSticker(accountId, parkingAreaCode, receptionMethod, postalCode);
+            new ParkingSticker(
+                accountId, parkingAreaCode, receptionMethod, postalCode, parkingPeriod);
         break;
       default:
       case EMAIL:
         parkingSticker =
-            new ParkingSticker(accountId, parkingAreaCode, receptionMethod, emailAddress);
+            new ParkingSticker(
+                accountId, parkingAreaCode, receptionMethod, emailAddress, parkingPeriod);
         break;
     }
 
