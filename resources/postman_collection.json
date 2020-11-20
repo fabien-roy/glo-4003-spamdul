@@ -660,7 +660,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\n}",
+							"raw": "{\n  \"dateTime\": {{request.gates.dateTime}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -684,41 +684,21 @@
 					"response": []
 				},
 				{
-					"name": "Validate gate exit with license plate",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\r\n}"
-						},
-						"url": {
-							"raw": "{{host}}/api/gates/exit/validateAccessPassWithLicensePlate/{{request.car.licensePlate}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"gates",
-								"exit",
-								"validateAccessPassWithLicensePlate",
-								"{{request.car.licensePlate}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Validate  gate entry with license plate",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\r\n}"
+							"raw": "{\r\n  \"dateTime\": {{request.gates.dateTime}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{request.car.licensePlate}}",
+							"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{param.licensePlate}}",
 							"host": [
 								"{{host}}"
 							],
@@ -727,7 +707,7 @@
 								"gates",
 								"entry",
 								"validateAccessPassWithLicensePlate",
-								"{{request.car.licensePlate}}"
+								"{{param.licensePlate}}"
 							]
 						}
 					},
@@ -740,7 +720,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\r\n}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{host}}/api/gates/exit/validateAccessPassWithCode/{{param.accessPassCode}}",
@@ -753,6 +733,31 @@
 								"exit",
 								"validateAccessPassWithCode",
 								"{{param.accessPassCode}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate gate exit with license plate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/gates/exit/validateAccessPassWithLicensePlate/{{param.licensePlate}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"gates",
+								"exit",
+								"validateAccessPassWithLicensePlate",
+								"{{param.licensePlate}}"
 							]
 						}
 					},

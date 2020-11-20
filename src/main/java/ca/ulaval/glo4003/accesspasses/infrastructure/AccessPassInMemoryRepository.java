@@ -8,7 +8,6 @@ import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AccessPassInMemoryRepository implements AccessPassRepository {
@@ -33,9 +32,8 @@ public class AccessPassInMemoryRepository implements AccessPassRepository {
   @Override
   public List<AccessPass> get(LicensePlate licensePlate) {
     List<AccessPass> accessPassesFound =
-        accessPasses.entrySet().stream()
-            .filter(accessPass -> accessPass.getValue().getLicensePlate().equals(licensePlate))
-            .map(Map.Entry::getValue)
+        accessPasses.values().stream()
+            .filter(accessPass -> accessPass.getLicensePlate().equals(licensePlate))
             .collect(Collectors.toList());
 
     if (accessPassesFound.isEmpty()) throw new NotFoundAccessPassException();
