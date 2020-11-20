@@ -12,7 +12,7 @@ public class AccessPassDtoBuilder {
   private String licensePlate = createLicensePlate().toString();
   private AccessPeriod accessPeriod = AccessPeriod.ONE_SEMESTER;
   private String[] semesters;
-  private String parkingAreaCode = createParkingAreaCode().toString();
+  private String parkingArea = createParkingAreaCode().toString();
 
   public static AccessPassDtoBuilder anAccessPassDto() {
     return new AccessPassDtoBuilder();
@@ -38,8 +38,8 @@ public class AccessPassDtoBuilder {
     return this;
   }
 
-  public AccessPassDtoBuilder withParkingAreaCode(String parkingAreaCode) {
-    this.parkingAreaCode = parkingAreaCode;
+  public AccessPassDtoBuilder withParkingAea(String parkingArea) {
+    this.parkingArea = parkingArea;
     return this;
   }
 
@@ -49,7 +49,7 @@ public class AccessPassDtoBuilder {
     accessPassDto.licensePlate = licensePlate;
     accessPassDto.period = accessPeriod.toString();
     accessPassDto.semesters = semesters;
-    accessPassDto.parkingAreaCode = parkingAreaCode;
+    accessPassDto.parkingArea = parkingArea;
     return accessPassDto;
   }
 }

@@ -69,14 +69,16 @@ public class AccessPassAssembler {
     }
     for (String semester : accessPassCodeDto.semesters) {
       SemesterCode code = semesterCodeAssembler.assemble(semester);
-      TimePeriod semesterPeriod = semesterService.getSemester(code);
+      TimePeriod semesterPeriod =
+          semesterService.getSemester(
+              code); // TODO : Do not use a service in an assembler, this is for a factory
       accessPeriods.add(semesterPeriod);
     }
     LicensePlate licensePlate;
     ParkingAreaCode parkingAreaCode;
     if (accessPassCodeDto.licensePlate != null) {
       licensePlate = licensePlateAssembler.assemble(accessPassCodeDto.licensePlate);
-      parkingAreaCode = parkingAreaCodeAssembler.assemble(accessPassCodeDto.parkingAreaCode);
+      parkingAreaCode = parkingAreaCodeAssembler.assemble(accessPassCodeDto.parkingArea);
     } else {
       licensePlate = null;
       parkingAreaCode = null;

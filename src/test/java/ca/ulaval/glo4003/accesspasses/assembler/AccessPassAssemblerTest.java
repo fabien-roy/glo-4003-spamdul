@@ -57,8 +57,8 @@ public class AccessPassAssemblerTest {
 
     when(accountIdAssembler.assemble(accountId.toString())).thenReturn(accountId);
     when(licensePlateAssembler.assemble(licensePlate.toString())).thenReturn(licensePlate);
-    when(parkingAreaCodeAssembler.assemble(accessPassDto.parkingAreaCode))
-        .thenReturn(new ParkingAreaCode(accessPassDto.parkingAreaCode));
+    when(parkingAreaCodeAssembler.assemble(accessPassDto.parkingArea))
+        .thenReturn(new ParkingAreaCode(accessPassDto.parkingArea));
   }
 
   @Test
@@ -131,7 +131,7 @@ public class AccessPassAssemblerTest {
         anAccessPassDto()
             .withLicensePlate(licensePlate.toString())
             .withSemesters(new String[] {"A20"})
-            .withParkingAreaCode(null)
+            .withParkingAea(null)
             .build();
 
     AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
@@ -143,6 +143,6 @@ public class AccessPassAssemblerTest {
   public void givenParkingAreaCode_whenAssembling_thenReturnAccessPassWithParkingAreaCode() {
     AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
 
-    assertThat(accessPass.getParkingAreaCode().toString()).isEqualTo(accessPassDto.parkingAreaCode);
+    assertThat(accessPass.getParkingAreaCode().toString()).isEqualTo(accessPassDto.parkingArea);
   }
 }

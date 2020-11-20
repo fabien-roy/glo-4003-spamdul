@@ -5,5 +5,5 @@ public class AccessPassDto {
   public String accessDay;
   public String period;
   public String[] semesters;
-  public String parkingAreaCode;
+  public String parkingArea;
 }
