@@ -1,5 +1,6 @@
 {
   "parkingArea": "Zone1",
   "receptionMethod": "email",
-  "email": "spamd.ul@ulaval.ca"
+  "email": "spamd.ul@ulaval.ca",
+  "parkingPeriod": "monthly"
 }
