@@ -128,7 +128,8 @@ public class ApplicationInjector {
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
             FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()),
             TIME_INJECTOR.createSemesterService()),
-        TIME_INJECTOR.createCustomDateTimeAssembler());
+        TIME_INJECTOR.createCustomDateTimeAssembler(),
+        REPORT_INJECTOR.createReportEventService());
   }
 
   public CarbonCreditResource createCarbonCreditResource() {

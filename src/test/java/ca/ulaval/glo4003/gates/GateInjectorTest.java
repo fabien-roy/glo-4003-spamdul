@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.gates;
 
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.gates.api.GateResource;
+import ca.ulaval.glo4003.reports.services.ReportEventService;
 import ca.ulaval.glo4003.times.assemblers.CustomDateTimeAssembler;
 import com.google.common.truth.Truth;
 import org.junit.Before;
@@ -15,6 +16,7 @@ public class GateInjectorTest {
 
   @Mock AccessPassService accessPassService;
   @Mock CustomDateTimeAssembler customDateTimeAssembler;
+  @Mock private ReportEventService reportEventService;
 
   private GateInjector gateInjector;
 
@@ -26,7 +28,8 @@ public class GateInjectorTest {
   @Test
   public void whenCreatingGateResource_thenReturnIt() {
     GateResource gateResource =
-        gateInjector.createGateResource(accessPassService, customDateTimeAssembler);
+        gateInjector.createGateResource(
+            accessPassService, customDateTimeAssembler, reportEventService);
 
     Truth.assertThat(gateResource).isNotNull();
   }

@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
+import ca.ulaval.glo4003.reports.services.ReportEventService;
 import ca.ulaval.glo4003.times.api.dto.DateTimeDto;
 import ca.ulaval.glo4003.times.assemblers.CustomDateTimeAssembler;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
@@ -20,16 +21,19 @@ public class GateService {
   private final CustomDateTimeAssembler customDateTimeAssembler;
   private final AccessStatusAssembler accessStatusAssembler;
   private final LicensePlateAssembler licensePlateAssembler;
+  private final ReportEventService reportEventService;
 
   public GateService(
       AccessPassService accessPassService,
       CustomDateTimeAssembler customDateTimeAssembler,
       AccessStatusAssembler accessStatusAssembler,
-      LicensePlateAssembler licensePlateAssembler) {
+      LicensePlateAssembler licensePlateAssembler,
+      ReportEventService reportEventService) {
     this.accessPassService = accessPassService;
     this.customDateTimeAssembler = customDateTimeAssembler;
     this.accessStatusAssembler = accessStatusAssembler;
     this.licensePlateAssembler = licensePlateAssembler;
+    this.reportEventService = reportEventService;
   }
 
   public AccessStatusDto validateAccessPassEntryWithCode(
@@ -43,6 +47,7 @@ public class GateService {
 
     if (accessStatus == AccessStatus.ACCESS_GRANTED) {
       accessPassService.enterCampus(accessPass);
+      reportEventService.addAccessAreasCodeEvent(accessPass.getParkingAreaCode());
     }
 
     return accessStatusAssembler.assemble(accessStatus);
@@ -64,6 +69,7 @@ public class GateService {
 
     if (associatedAccessPass != null) {
       accessPassService.enterCampus(associatedAccessPass);
+      reportEventService.addAccessAreasCodeEvent(associatedAccessPass.getParkingAreaCode());
       return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED);
     }
 

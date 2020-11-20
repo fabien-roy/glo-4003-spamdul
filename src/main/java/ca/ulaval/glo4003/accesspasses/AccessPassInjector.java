@@ -19,6 +19,7 @@ import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.assemblers.SemesterCodeAssembler;
 import ca.ulaval.glo4003.times.services.SemesterService;
 import java.util.ArrayList;
@@ -53,7 +54,11 @@ public class AccessPassInjector {
     SemesterCodeAssembler semesterCodeAssembler = new SemesterCodeAssembler();
     AccessPassAssembler accessPassAssembler =
         new AccessPassAssembler(
-            accountIdAssembler, licensePlateAssembler, semesterService, semesterCodeAssembler);
+            accountIdAssembler,
+            licensePlateAssembler,
+            semesterService,
+            semesterCodeAssembler,
+            new ParkingAreaCodeAssembler());
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
     AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
 

@@ -15,6 +15,8 @@ import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.times.assemblers.SemesterCodeAssembler;
 import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
 import ca.ulaval.glo4003.times.services.SemesterService;
@@ -31,6 +33,7 @@ public class AccessPassAssemblerTest {
   @Mock private LicensePlateAssembler licensePlateAssembler;
   @Mock private SemesterService semesterService;
   @Mock private SemesterCodeAssembler semesterCodeAssembler;
+  @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
   private AccessPassAssembler accessPassAssembler;
 
@@ -46,10 +49,16 @@ public class AccessPassAssemblerTest {
   public void setUp() {
     accessPassAssembler =
         new AccessPassAssembler(
-            accountIdAssembler, licensePlateAssembler, semesterService, semesterCodeAssembler);
+            accountIdAssembler,
+            licensePlateAssembler,
+            semesterService,
+            semesterCodeAssembler,
+            parkingAreaCodeAssembler);
 
     when(accountIdAssembler.assemble(accountId.toString())).thenReturn(accountId);
     when(licensePlateAssembler.assemble(licensePlate.toString())).thenReturn(licensePlate);
+    when(parkingAreaCodeAssembler.assemble(accessPassDto.parkingAreaCode))
+        .thenReturn(new ParkingAreaCode(accessPassDto.parkingAreaCode));
   }
 
   @Test
@@ -114,5 +123,26 @@ public class AccessPassAssemblerTest {
             .build();
 
     accessPassAssembler.assemble(accessPassDto, accountId.toString());
+  }
+
+  @Test
+  public void givenNoParkingAreaCode_whenAssembling_thenReturnAccessPassWithoutParkingAreaCode() {
+    accessPassDto =
+        anAccessPassDto()
+            .withLicensePlate(licensePlate.toString())
+            .withSemesters(new String[] {"A20"})
+            .withParkingAreaCode(null)
+            .build();
+
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
+
+    assertThat(accessPass.getParkingAreaCode()).isNull();
+  }
+
+  @Test
+  public void givenParkingAreaCode_whenAssembling_thenReturnAccessPassWithParkingAreaCode() {
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
+
+    assertThat(accessPass.getParkingAreaCode().toString()).isEqualTo(accessPassDto.parkingAreaCode);
   }
 }

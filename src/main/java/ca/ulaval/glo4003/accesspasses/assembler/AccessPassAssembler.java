@@ -9,6 +9,8 @@ import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.times.assemblers.SemesterCodeAssembler;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.times.domain.SemesterCode;
@@ -23,16 +25,19 @@ public class AccessPassAssembler {
   private final LicensePlateAssembler licensePlateAssembler;
   private final SemesterService semesterService;
   private final SemesterCodeAssembler semesterCodeAssembler;
+  private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
   public AccessPassAssembler(
       AccountIdAssembler accountIdAssembler,
       LicensePlateAssembler licensePlateAssembler,
       SemesterService semesterService,
-      SemesterCodeAssembler semesterCodeAssembler) {
+      SemesterCodeAssembler semesterCodeAssembler,
+      ParkingAreaCodeAssembler parkingAreaCodeAssembler) {
     this.accountIdAssembler = accountIdAssembler;
     this.licensePlateAssembler = licensePlateAssembler;
     this.semesterService = semesterService;
     this.semesterCodeAssembler = semesterCodeAssembler;
+    this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
   }
 
   public AccessPass assemble(AccessPassDto accessPassCodeDto, String accountId) {
@@ -68,11 +73,14 @@ public class AccessPassAssembler {
       accessPeriods.add(semesterPeriod);
     }
     LicensePlate licensePlate;
+    ParkingAreaCode parkingAreaCode;
     if (accessPassCodeDto.licensePlate != null) {
       licensePlate = licensePlateAssembler.assemble(accessPassCodeDto.licensePlate);
+      parkingAreaCode = parkingAreaCodeAssembler.assemble(accessPassCodeDto.parkingAreaCode);
     } else {
       licensePlate = null;
+      parkingAreaCode = null;
     }
-    return new AccessPass(id, dayOfWeek, licensePlate, accessPeriods);
+    return new AccessPass(id, dayOfWeek, licensePlate, accessPeriods, parkingAreaCode);
   }
 }

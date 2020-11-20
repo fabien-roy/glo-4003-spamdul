@@ -2,12 +2,14 @@ package ca.ulaval.glo4003.reports.services;
 
 import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionType;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.reports.helpers.ReportEventBuilder.aReportEvent;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.Money;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.reports.domain.ReportEvent;
 import ca.ulaval.glo4003.reports.domain.ReportEventFactory;
 import ca.ulaval.glo4003.reports.domain.ReportEventType;
@@ -30,6 +32,8 @@ public class ReportEventServiceTest {
   private final ReportEvent billPaidForParkingStickerEvent = aReportEvent().build();
   private final ReportEvent billPaidForAccessPassEvent = aReportEvent().build();
   private final ReportEvent billPaidForOffenseEvent = aReportEvent().build();
+  private final ReportEvent accessAreaCodeEvent = aReportEvent().build();
+  private final ParkingAreaCode parkingAreaCode = createParkingAreaCode();
 
   @Before
   public void setUp() {
@@ -42,6 +46,8 @@ public class ReportEventServiceTest {
         .thenReturn(billPaidForAccessPassEvent);
     when(reportEventFactory.create(ReportEventType.BILL_PAID_FOR_OFFENSE, profits))
         .thenReturn(billPaidForOffenseEvent);
+    when(reportEventFactory.create(ReportEventType.GATE_ENTERED, parkingAreaCode))
+        .thenReturn(accessAreaCodeEvent);
   }
 
   @Test
@@ -63,5 +69,12 @@ public class ReportEventServiceTest {
     reportEventService.addBillPaidForOffenseEvent(profits);
 
     verify(reportRepository).addEvent(billPaidForOffenseEvent);
+  }
+
+  @Test
+  public void whenAddingCochenerieDeTest_thenAddReportEventToRepository() {
+    reportEventService.addAccessAreasCodeEvent(parkingAreaCode);
+
+    verify(reportRepository).addEvent(accessAreaCodeEvent);
   }
 }

@@ -3,11 +3,13 @@ package ca.ulaval.glo4003.accesspasses.helpers;
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
@@ -21,6 +23,7 @@ public class AccessPassBuilder {
   private DayOfWeek accessDay;
   private LicensePlate licensePlate = createLicensePlate();
   private List<TimePeriod> accessPeriods = new ArrayList<>();
+  private ParkingAreaCode parkingAreaCode = createParkingAreaCode();
 
   public static AccessPassBuilder anAccessPass() {
     return new AccessPassBuilder();
@@ -62,7 +65,8 @@ public class AccessPassBuilder {
   }
 
   public AccessPass build() {
-    AccessPass accessPass = new AccessPass(accountId, accessDay, licensePlate, accessPeriods);
+    AccessPass accessPass =
+        new AccessPass(accountId, accessDay, licensePlate, accessPeriods, parkingAreaCode);
     accessPass.setCode(code);
     return accessPass;
   }

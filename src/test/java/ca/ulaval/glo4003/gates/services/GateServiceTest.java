@@ -17,6 +17,7 @@ import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
+import ca.ulaval.glo4003.reports.services.ReportEventService;
 import ca.ulaval.glo4003.times.api.dto.DateTimeDto;
 import ca.ulaval.glo4003.times.assemblers.CustomDateTimeAssembler;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
@@ -35,6 +36,7 @@ public class GateServiceTest {
   @Mock private AccessStatusAssembler accessStatusAssembler;
   @Mock private AccessPass accessPass;
   @Mock private LicensePlateAssembler licensePlateAssembler;
+  @Mock private ReportEventService reportEventService;
 
   private GateService gateService;
 
@@ -54,7 +56,8 @@ public class GateServiceTest {
             accessPassService,
             customDateTimeAssembler,
             accessStatusAssembler,
-            licensePlateAssembler);
+            licensePlateAssembler,
+            reportEventService);
 
     accessPasses.add(accessPass);
 
@@ -153,5 +156,23 @@ public class GateServiceTest {
     when(accessPass.isAdmittedOnCampus()).thenReturn(false);
 
     gateService.validateAccessPassExitWithLicensePlate(accessPassLicensePlate);
+  }
+
+  @Test
+  public void whenValidateAccessPassEntryWithLicensePlate_thenAddReportEvent() {
+    when(accessPass.validateAccess(dateTime)).thenReturn(true);
+
+    gateService.validateAccessPassEntryWithLicensePlate(dateTimeDto, accessPassLicensePlate);
+
+    verify(reportEventService).addAccessAreasCodeEvent(accessPass.getParkingAreaCode());
+  }
+
+  @Test
+  public void whenValidateAccessPassEntryWithCode_thenAddReportEvent() {
+    when(accessPass.validateAccess(dateTime)).thenReturn(true);
+
+    gateService.validateAccessPassEntryWithCode(dateTimeDto, accessPassCode);
+
+    verify(reportEventService).addAccessAreasCodeEvent(accessPass.getParkingAreaCode());
   }
 }
