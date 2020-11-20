@@ -109,7 +109,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"period\": \"1d/week/semester\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": {{request.accessPass.oneSemester}}\n}",
+							"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"period\": \"1 semester\",\n  \"semesters\": {{request.accessPass.oneSemester}},\n  \"parkingArea\": {{request.accessPass.parkingArea}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
