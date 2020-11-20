@@ -2667,6 +2667,483 @@
 									"_postman_isSubFolder": true
 								},
 								{
+									"name": "Semesters",
+									"item": [
+										{
+											"name": "Wrong amount of semesters (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "0da2e6d5-fc85-47a8-85c4-f09185002bbd",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns wrong amount of semesters\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Wrong amount of semesters\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"period\": \"1d/week/semester\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Wrong amount of semesters (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "a8d39e30-7290-41f0-b081-06f214e48470",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns wrong amount of semesters\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Wrong amount of semesters\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"period\": \"1d/week/semester\",\n  \"accessDay\": {{request.accessPass.accessDay}}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid semester (bad value)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "208f01bd-86e6-44f7-bd1b-333336a6d70f",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid semester code\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid semester code\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"period\": \"1d/week/semester\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": [\n      \"badValue\"\n  ]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Wrong amount of semesters (1d/week/semester vs 0)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "20a8c2a2-3b1b-4522-92d3-d66d98307173",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns wrong amount of semesters\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Wrong amount of semesters\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"period\": \"1d/week/semester\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": []\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Wrong amount of semesters (1d/week/semester vs 2)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "fd26e502-3647-4ec0-8a2c-81038749b900",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns wrong amount of semesters\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Wrong amount of semesters\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"period\": \"1d/week/semester\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": [\n      \"A20\",\n      \"H21\"\n  ]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Wrong amount of semesters (1 semester vs 0)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "f14f1587-d174-4002-b265-2f78aa2c1ddd",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns wrong amount of semesters\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Wrong amount of semesters\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"period\": \"1 semester\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": []\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Wrong amount of semesters (1 semester vs 2)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "cd9235cb-bf02-4d50-8238-c473b3ed7cda",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns wrong amount of semesters\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Wrong amount of semesters\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"period\": \"1 semester\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": [\n      \"A20\",\n      \"H21\"\n  ]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Wrong amount of semesters (2 semesters vs 1)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "3e3fcb31-fd1b-47ef-9898-92e956705d74",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns wrong amount of semesters\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Wrong amount of semesters\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"period\": \"2 semesters\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": [\n      \"A20\"\n  ]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Wrong amount of semesters (2 semesters vs 3)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "71ad366c-a23c-4845-bd96-3d2de8a68fef",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns wrong amount of semesters\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Wrong amount of semesters\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"period\": \"2 semesters\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": [\n      \"A20\",\n      \"H21\",\n      \"E21\"\n  ]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Wrong amount of semesters (3 semesters vs 2)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "04c3b735-2880-4b26-bbf6-750df42d25fa",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns wrong amount of semesters\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Wrong amount of semesters\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"period\": \"3 semesters\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": [\n      \"A20\",\n      \"H21\"\n  ]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"accessPasses"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
 									"name": "Access day",
 									"item": [
 										{
@@ -3017,7 +3494,7 @@
 									"_postman_isSubFolder": true
 								},
 								{
-									"name": "Valid access pass",
+									"name": "Valid access pass (no license plate)",
 									"event": [
 										{
 											"listen": "test",
@@ -3042,6 +3519,194 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\n  \"period\": \"1d/week/semester\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": {{request.accessPass.oneSemester}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"accessPasses"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Valid access pass (1d/week/semester)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "45deb47b-e472-47af-b4de-c74c62be8727",
+												"exec": [
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Returns access pass code\", function () {",
+													"    pm.response.to.have.jsonBody(\"accessPassCode\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"period\": \"1d/week/semester\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": {{request.accessPass.oneSemester}},\n  \"parkingArea\": {{request.accessPass.parkingArea}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"accessPasses"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Valid access pass (1 semester)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0d6d3d9c-c312-43ad-8747-51da7e86506d",
+												"exec": [
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Returns access pass code\", function () {",
+													"    pm.response.to.have.jsonBody(\"accessPassCode\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"period\": \"1 semester\",\n  \"semesters\": {{request.accessPass.oneSemester}},\n  \"parkingArea\": {{request.accessPass.parkingArea}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"accessPasses"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Valid access pass (2 semesters)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fc77a8b9-cb1d-42b7-8a7f-cc431753315d",
+												"exec": [
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Returns access pass code\", function () {",
+													"    pm.response.to.have.jsonBody(\"accessPassCode\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"period\": \"2 semesters\",\n  \"semesters\": {{request.accessPass.twoSemesters}},\n  \"parkingArea\": {{request.accessPass.parkingArea}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"accessPasses"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Valid access pass (3 semesters)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "727a0f77-3842-463c-8d72-59ec8cf70b90",
+												"exec": [
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Returns access pass code\", function () {",
+													"    pm.response.to.have.jsonBody(\"accessPassCode\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"period\": \"3 semesters\",\n  \"semesters\": {{request.accessPass.threeSemesters}},\n  \"parkingArea\": {{request.accessPass.parkingArea}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
