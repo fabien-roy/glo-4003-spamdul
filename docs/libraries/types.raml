@@ -6,6 +6,7 @@ types:
   Day: !include ../types/times/day.raml
   DayOfWeekObject: !include ../types/times/day-of-week-object.raml
   TimeOfDay: !include ../types/times/time-of-day.raml
+  Semester: !include ../types/times/semester.raml
 
   PostalCode: !include ../types/locations/postal-code.raml
 
@@ -27,11 +28,12 @@ types:
   BillType: !include ../types/funds/bill-type.raml
   Bill: !include ../types/funds/bill.raml
 
-  AccessStatus: !include ../types/access/access-status.raml
-  AccessStatusObject: !include ../types/access/access-status-object.raml
-  AccessPassCode: !include ../types/access/access-pass-code.raml
-  AccessPassCodeObject: !include ../types/access/access-pass-code-object.raml
-  AccessPass: !include ../types/access/access-pass.raml
+  AccessPeriod: !include ../types/accesspasses/access-period.raml
+  AccessStatus: !include ../types/accesspasses/access-status.raml
+  AccessStatusObject: !include ../types/accesspasses/access-status-object.raml
+  AccessPassCode: !include ../types/accesspasses/access-pass-code.raml
+  AccessPassCodeObject: !include ../types/accesspasses/access-pass-code-object.raml
+  AccessPass: !include ../types/accesspasses/access-pass.raml
 
   ReceptionMethod: !include ../types/parkings/reception-method.raml
   ParkingPeriod: !include ../types/parkings/parking-period.raml
