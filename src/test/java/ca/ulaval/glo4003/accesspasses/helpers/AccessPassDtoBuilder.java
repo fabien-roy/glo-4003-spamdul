@@ -10,7 +10,7 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 public class AccessPassDtoBuilder {
   private String accessDay = createDayOfWeek().toString();
   private String licensePlate = createLicensePlate().toString();
-  private AccessPeriod accessPeriod = AccessPeriod.ONE_SEMESTER;
+  private String accessPeriod = AccessPeriod.ONE_SEMESTER.toString();
   private String[] semesters;
   private String parkingArea = createParkingAreaCode().toString();
 
@@ -28,7 +28,7 @@ public class AccessPassDtoBuilder {
     return this;
   }
 
-  public AccessPassDtoBuilder withAccessPeriod(AccessPeriod accessPeriod) {
+  public AccessPassDtoBuilder withAccessPeriod(String accessPeriod) {
     this.accessPeriod = accessPeriod;
     return this;
   }
@@ -47,7 +47,7 @@ public class AccessPassDtoBuilder {
     AccessPassDto accessPassDto = new AccessPassDto();
     accessPassDto.accessDay = accessDay;
     accessPassDto.licensePlate = licensePlate;
-    accessPassDto.period = accessPeriod.toString();
+    accessPassDto.period = accessPeriod;
     accessPassDto.semesters = semesters;
     accessPassDto.parkingArea = parkingArea;
     return accessPassDto;

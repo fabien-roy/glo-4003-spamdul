@@ -139,7 +139,7 @@ public class AccessPassServiceTest {
     accessPassDto =
         anAccessPassDto()
             .withLicensePlate(stringLicensePlate)
-            .withAccessPeriod(AccessPeriod.ONE_SEMESTER)
+            .withAccessPeriod(AccessPeriod.ONE_SEMESTER.toString())
             .build();
     accessPass = anAccessPass().withLicensePlate(licensePlate).build();
 

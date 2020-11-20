@@ -43,15 +43,12 @@ public class AccessPassAssembler {
   public AccessPass assemble(AccessPassDto accessPassCodeDto, String accountId) {
     AccountId id = accountIdAssembler.assemble(accountId);
 
-    // TODO : Do not support dayOfWeek for anything else than 1d/week/semester
-    DayOfWeek dayOfWeek;
-    if (accessPassCodeDto.accessDay != null) {
-      dayOfWeek = DayOfWeek.get(accessPassCodeDto.accessDay);
-    } else {
-      dayOfWeek = null;
-    }
-
     AccessPeriod period = AccessPeriod.get(accessPassCodeDto.period);
+
+    DayOfWeek dayOfWeek =
+        period == AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER
+            ? DayOfWeek.get(accessPassCodeDto.accessDay)
+            : null;
 
     validateAccessPeriodIsSupported(period);
     validateAmountOfSemesters(accessPassCodeDto.semesters);
