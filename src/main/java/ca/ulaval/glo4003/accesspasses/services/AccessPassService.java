@@ -14,12 +14,14 @@ import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import java.util.List;
 
 public class AccessPassService {
   private final AccessPassAssembler accessPassAssembler;
   private final AccessPassFactory accessPassFactory;
   private final CarService carService;
+  private final ParkingAreaService parkingAreaService;
   private final AccessPassTypeRepository accessPassTypeRepository;
   private final BillService billService;
   private final AccountService accountService;
@@ -30,6 +32,7 @@ public class AccessPassService {
       AccessPassAssembler accessPassAssembler,
       AccessPassFactory accessPassFactory,
       CarService carService,
+      ParkingAreaService parkingAreaService,
       AccessPassTypeRepository accessPassTypeRepository,
       AccountService accountService,
       BillService billService,
@@ -38,6 +41,7 @@ public class AccessPassService {
     this.accessPassAssembler = accessPassAssembler;
     this.accessPassFactory = accessPassFactory;
     this.carService = carService;
+    this.parkingAreaService = parkingAreaService;
     this.accessPassTypeRepository = accessPassTypeRepository;
     this.accountService = accountService;
     this.billService = billService;
@@ -56,6 +60,7 @@ public class AccessPassService {
     } else {
       Car car = carService.getCar(licensePlate);
       consumptionType = car.getConsumptionType();
+      parkingAreaService.get(accessPass.getParkingAreaCode());
     }
 
     accessPass = accessPassFactory.create(accessPass);
