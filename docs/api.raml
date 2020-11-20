@@ -111,10 +111,12 @@ uses:
         body:
           application/json:
             type: types.AccessPass
-            # TODO : Change examples
             examples:
-              "With car": !include examples/users/post-users-access-passes-request-with-car.json
               "Without car": !include examples/users/post-users-access-passes-request-without-car.json
+              "One day a week per semester": !include examples/users/post-users-access-passes-request-one-day-a-week-per-semester.json
+              "One semester": !include examples/users/post-users-access-passes-request-one-semester.json
+              "Two semesters": !include examples/users/post-users-access-passes-request-two-semesters.json
+              "Three semesters": !include examples/users/post-users-access-passes-request-three-semesters.json
         responses:
           201:
             description: Code for newly added access pass
@@ -125,7 +127,7 @@ uses:
           400:
             description: Error adding access pass to user
           404:
-            description: User not found
+            description: User or license plate not found
     /parkingStickers:
       description: Collection of parking stickers for user
       post:

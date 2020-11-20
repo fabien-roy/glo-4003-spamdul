@@ -1,4 +1,6 @@
 {
+  "licensePlate": "123 ABC",
+  "parkingArea": "Zone2",
   "accessPeriod": "1d/week/semester",
   "accessDay": "monday",
   "semesters": [
