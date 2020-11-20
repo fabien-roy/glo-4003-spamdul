@@ -4622,6 +4622,53 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Valid parking sticker (ssp)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "62164979-6acb-4bf1-9db2-e6c17a3122a4",
+												"exec": [
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Returns parking sticker code\", function () {",
+													"    pm.response.to.have.jsonBody(\"parkingStickerCode\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": \"ssp\",\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"parkingStickers"
+											]
+										}
+									},
+									"response": []
 								}
 							],
 							"protocolProfileBehavior": {},

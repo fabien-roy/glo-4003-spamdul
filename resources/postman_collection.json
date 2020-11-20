@@ -499,6 +499,48 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Add parking sticker to user (ssp)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a026ed82-c684-4ad8-a9e4-60c746d33da4",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": \"ssp\",\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"parkingStickers"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"protocolProfileBehavior": {},
