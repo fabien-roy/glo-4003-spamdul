@@ -33,7 +33,7 @@ public class AccessPassInMemoryRepository implements AccessPassRepository {
   public List<AccessPass> get(LicensePlate licensePlate) {
     List<AccessPass> accessPassesFound =
         accessPasses.values().stream()
-            .filter(accessPass -> accessPass.getLicensePlate().equals(licensePlate))
+            .filter(accessPass -> licensePlate.equals(accessPass.getLicensePlate()))
             .collect(Collectors.toList());
 
     if (accessPassesFound.isEmpty()) throw new NotFoundAccessPassException();
