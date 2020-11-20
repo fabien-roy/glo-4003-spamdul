@@ -122,25 +122,33 @@ public class AccessPassServiceTest {
     assertThat(receivedAccessPass).isSameInstanceAs(accessPass);
   }
 
+  @Test
   public void whenEnteringCampus_thenIsAdmittedOnCampusIsTrue() {
     accessPassService.enterCampus(accessPass);
 
     assertThat(accessPass.isAdmittedOnCampus()).isTrue();
   }
 
+  @Test
   public void whenEnteringCampus_thenRepositoryIsUpdated() {
     accessPassService.enterCampus(accessPass);
 
     verify(accessPassRepository).update(accessPass);
   }
 
+  @Test
   public void whenExitingCampus_thenIsAdmittedOnCampusIsFalse() {
+    accessPass = anAccessPass().thatEnteredCampus().build();
+
     accessPassService.exitCampus(accessPass);
 
     assertThat(accessPass.isAdmittedOnCampus()).isFalse();
   }
 
+  @Test
   public void whenExitingCampus_thenRepositoryIsUpdated() {
+    accessPass = anAccessPass().thatEnteredCampus().build();
+
     accessPassService.exitCampus(accessPass);
 
     verify(accessPassRepository).update(accessPass);
