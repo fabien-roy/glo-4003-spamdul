@@ -12,6 +12,8 @@ public class CustomDateTimeAssembler {
       DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
   public CustomDateTime assemble(DateTimeDto dateTimeDto) {
+    if (dateTimeDto.dateTime == null) throw new InvalidDateTimeException();
+
     LocalDateTime localDateTime;
 
     try {

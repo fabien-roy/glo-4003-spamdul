@@ -4743,7 +4743,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\n}",
+													"raw": "{\n  \"dateTime\": {{request.gates.dateTime}}\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -4771,22 +4771,22 @@
 									"_postman_isSubFolder": true
 								},
 								{
-									"name": "Day of week",
+									"name": "Date time",
 									"item": [
 										{
-											"name": "Invalid day of week (null)",
+											"name": "Invalid date time (null)",
 											"event": [
 												{
 													"listen": "test",
 													"script": {
-														"id": "26cb8500-49cb-4b3b-b8d1-dddfd9091f8e",
+														"id": "6cd4ce99-b2c2-4d4c-bfc3-aadcfc13d528",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid day of week\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid day of week\")",
+															"pm.test(\"Returns invalid date time\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid date time\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -4798,7 +4798,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"dayOfWeek\": null\n}",
+													"raw": "{\n  \"dateTime\": null\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -4822,19 +4822,19 @@
 											"response": []
 										},
 										{
-											"name": "Invalid day of week (missing)",
+											"name": "Invalid date time (missing)",
 											"event": [
 												{
 													"listen": "test",
 													"script": {
-														"id": "df1633c9-200b-4766-aaec-a8495ecde49b",
+														"id": "d7216330-a999-43af-952b-dfd5d5dfc48d",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid day of week\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid day of week\")",
+															"pm.test(\"Returns invalid date time\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid date time\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -4846,7 +4846,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"dayOfWeek\": null\n}",
+													"raw": "{\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -4870,19 +4870,19 @@
 											"response": []
 										},
 										{
-											"name": "Invalid day of week (bad value)",
+											"name": "Invalid date time (bad format)",
 											"event": [
 												{
 													"listen": "test",
 													"script": {
-														"id": "1ca78810-3171-4893-bfa5-7e7708db82a5",
+														"id": "57a14871-07de-45eb-86a4-e74c4bd6952f",
 														"exec": [
 															"pm.test(\"Returns status 400\", function () {",
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid day of week\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid day of week\")",
+															"pm.test(\"Returns invalid date time\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid date time\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -4894,7 +4894,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\n  \"dayOfWeek\": \"funday\"\n}",
+													"raw": "{\n  \"dateTime\": \"2020-01-01T23:33:33.33333\"\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -4922,19 +4922,18 @@
 									"_postman_isSubFolder": true
 								},
 								{
-									"name": "Valid access day",
+									"name": "Valid gate entry",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"id": "3e9a4a8e-e4c9-4a5a-b0d0-90efc1671577",
 												"exec": [
-													"pm.test(\"Returns status 202\", function () {",
-													"    pm.response.to.have.status(202);",
-													"});",
+													"pm.test(\"Returns status 202 or 403\", function () {",
+													"  pm.expect(pm.response.code).to.be.oneOf([202, 403]);});",
 													"",
 													"pm.test(\"Returns access status granted\", function () {",
-													"    pm.expect(pm.response.json().accessStatus).to.equal(\"Access granted\");",
+													"    pm.expect(pm.response.json().accessStatus).to.not.be.null;",
 													"});"
 												],
 												"type": "text/javascript"
@@ -4946,55 +4945,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{host}}/api/gates/entry/validateAccessPassWithCode/{{param.accessPassCode}}",
-											"host": [
-												"{{host}}"
-											],
-											"path": [
-												"api",
-												"gates",
-												"entry",
-												"validateAccessPassWithCode",
-												"{{param.accessPassCode}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Invalid access day",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "89dbbb1c-a265-441d-94f6-f8f1b1ca2995",
-												"exec": [
-													"pm.test(\"Returns status 403\", function () {",
-													"    pm.response.to.have.status(403);",
-													"});",
-													"",
-													"pm.test(\"Returns access status granted\", function () {",
-													"    pm.expect(pm.response.json().accessStatus).to.equal(\"Access refused\");",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"dayOfWeek\": \"friday\"\n}",
+											"raw": "{\n  \"dateTime\": {{request.gates.dateTime}}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5025,96 +4976,59 @@
 							"name": "Validate gate exit with access pass",
 							"item": [
 								{
-									"name": "Valid access pass code",
-									"event": [
+									"name": "Access pass code",
+									"item": [
 										{
-											"listen": "test",
-											"script": {
-												"id": "acfd9c3b-1a2c-48c1-a4a2-be20ff9d57d4",
-												"exec": [
-													"pm.test(\"Returns status 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});"
-												],
-												"type": "text/javascript"
-											}
+											"name": "Non existent access pass code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "720e05c1-3e22-4a9c-9dee-a0c4e6734a09",
+														"exec": [
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"Returns access pass not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Access pass not found\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/gates/exit/validateAccessPassWithCode/94bdc917-b04d-4314-b071-980a5d78ad9a",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"gates",
+														"exit",
+														"validateAccessPassWithCode",
+														"94bdc917-b04d-4314-b071-980a5d78ad9a"
+													]
+												}
+											},
+											"response": []
 										}
 									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{host}}/api/gates/exit/validateAccessPassWithCode/{{param.accessPassCode}}",
-											"host": [
-												"{{host}}"
-											],
-											"path": [
-												"api",
-												"gates",
-												"exit",
-												"validateAccessPassWithCode",
-												"{{param.accessPassCode}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Non existent access pass code",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "720e05c1-3e22-4a9c-9dee-a0c4e6734a09",
-												"exec": [
-													"pm.test(\"Returns status 404\", function () {",
-													"    pm.response.to.have.status(404);",
-													"});",
-													"",
-													"pm.test(\"Returns access pass not found\", function () {",
-													"    pm.expect(pm.response.json().error).to.equal(\"Access pass not found\")",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{host}}/api/gates/exit/validateAccessPassWithCode/94bdc917-b04d-4314-b071-980a5d78ad9a",
-											"host": [
-												"{{host}}"
-											],
-											"path": [
-												"api",
-												"gates",
-												"exit",
-												"validateAccessPassWithCode",
-												"94bdc917-b04d-4314-b071-980a5d78ad9a"
-											]
-										}
-									},
-									"response": []
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
 								}
 							],
 							"protocolProfileBehavior": {},
