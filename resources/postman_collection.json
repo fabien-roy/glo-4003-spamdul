@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f5269adf-0b72-494e-94c2-2f7c202be0c7",
+		"_postman_id": "410a6618-0a48-4a8b-84f0-31c8ba5d69f6",
 		"name": "SPAMD-UL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,12 +9,550 @@
 			"name": "Users",
 			"item": [
 				{
+					"name": "Cars",
+					"item": [
+						{
+							"name": "Get user's cars",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4889fb17-c4ed-45f8-b91d-744edeb5e537",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"cars"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add car to user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2efd4ffc-587b-4d0c-822b-03bc4c56a3f2",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/cars",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"cars"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Bills",
+					"item": [
+						{
+							"name": "Get user's bills",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8206633b-377d-4bed-86c5-a287acb154c5",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"if (jsonData.length > 0) {",
+											"  postman.setEnvironmentVariable(\"param.billId\", jsonData[0].billId);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/bills",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"bills"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pay user's bill",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "54be005c-d20f-421c-9f27-2fbf169ea15b",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amountToPay\": {{request.bill.amountToPay}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/bills/{{param.billId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"bills",
+										"{{param.billId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Access passes",
+					"item": [
+						{
+							"name": "Add access pass to user (no license plate)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f1d31c2e-4f85-4188-9e60-ef533c3f73b4",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"period\": \"1d/week/semester\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": {{request.accessPass.oneSemester}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"accessPasses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add access pass to user (1d/week/semester)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "15293bb9-717b-4aad-812a-191167d4d678",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"period\": \"1d/week/semester\",\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"semesters\": {{request.accessPass.oneSemester}},\n  \"parkingArea\": {{request.accessPass.parkingArea}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"accessPasses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add access pass to user (1 semester)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a2b1e6cb-60f7-4b4f-b3ef-0296502e3091",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"period\": \"1 semester\",\n  \"semesters\": {{request.accessPass.oneSemester}},\n  \"parkingArea\": {{request.accessPass.parkingArea}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"accessPasses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add access pass to user (2 semesters)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e36415fc-23b8-4aff-91b5-6aa0e5fefcda",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"period\": \"2 semesters\",\n  \"semesters\": {{request.accessPass.twoSemesters}},\n  \"parkingArea\": {{request.accessPass.parkingArea}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"accessPasses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add access pass to user (3 semesters)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1e320859-aa1c-4e1c-9aac-fb1fe86d9fb1",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"period\": \"3 semesters\",\n  \"semesters\": {{request.accessPass.threeSemesters}},\n  \"parkingArea\": {{request.accessPass.parkingArea}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"accessPasses"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Parking stickers",
+					"item": [
+						{
+							"name": "Add parking sticker to user (postal)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7c307967-289b-4cf7-b025-106d66e6afc8",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"parkingStickers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add parking sticker to user (email)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "41a77021-4ada-4b93-9951-217211ceab26",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": {{request.parkingSticker.email}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"parkingStickers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add parking sticker to user (ssp)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a026ed82-c684-4ad8-a9e4-60c746d33da4",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": \"ssp\",\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"parkingStickers"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "Add user",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "63be662b-91b5-419e-a5b9-f27f5eb58918",
+								"id": "133a68f1-8cce-4239-8a77-c3057de75d00",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
@@ -54,7 +592,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2a4348ae-83bd-4677-8b9c-55d0ed836666",
+								"id": "faffd063-b063-401b-9f85-4e2a8de564e5",
 								"exec": [
 									""
 								],
@@ -90,306 +628,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Get user's bills",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "b74ca2f0-3857-4bd1-bc25-bb19bdea8103",
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"if (jsonData.length > 0) {",
-									"  postman.setEnvironmentVariable(\"param.billId\", jsonData[0].billId);",
-									"}"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/users/{{param.accountId}}/bills",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"users",
-								"{{param.accountId}}",
-								"bills"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Pay user's bill",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "0411c99d-c1ec-490a-a2b1-fbbfb75cb5da",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"amountToPay\": {{request.bill.amountToPay}}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/users/{{param.accountId}}/bills/{{param.billId}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"users",
-								"{{param.accountId}}",
-								"bills",
-								"{{param.billId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get user's cars",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "96705435-a7a8-41e0-b6d8-24c669656dba",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/users/{{param.accountId}}/cars",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"users",
-								"{{param.accountId}}",
-								"cars"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add car to user",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "117fecb9-6b1c-4b3c-957a-72b591993368",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"licensePlate\": {{request.car.licensePlate}},\n  \"manufacturer\": {{request.car.manufacturer}},\n  \"model\": {{request.car.model}},\n  \"year\": {{request.car.year}},\n  \"consumptionType\": {{request.car.consumptionType}}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/users/{{param.accountId}}/cars",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"users",
-								"{{param.accountId}}",
-								"cars"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add access pass to user",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "d60421d7-e782-46ef-a953-9e28eb7ec6b3",
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"accessDay\": {{request.accessPass.accessDay}},\n  \"licensePlate\": {{request.car.licensePlate}}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/users/{{param.accountId}}/accessPasses",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"users",
-								"{{param.accountId}}",
-								"accessPasses"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add parking sticker to user (postal)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "34c43862-1f6c-47a0-887e-3a3f6d2479d8",
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.postal}},\n  \"postalCode\": {{request.parkingSticker.postalCode}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"users",
-								"{{param.accountId}}",
-								"parkingStickers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add parking sticker to user (email)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "2ed394e8-19d8-42df-b7ea-05e18ead0129",
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"parkingArea\": {{request.parkingSticker.parkingArea}},\n  \"receptionMethod\": {{request.parkingSticker.receptionMethod.email}},\n  \"email\": {{request.parkingSticker.email}},\n  \"parkingPeriod\": {{request.parkingSticker.parkingPeriod}}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/users/{{param.accountId}}/parkingStickers",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"users",
-								"{{param.accountId}}",
-								"parkingStickers"
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -403,7 +641,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8c9353dc-9cd5-4506-916d-f5aa2bda8676",
+								"id": "635c1637-409c-4ae2-a3a0-a0c44d4d8fb9",
 								"exec": [
 									""
 								],
@@ -443,15 +681,15 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Gate entry",
+			"name": "Gates",
 			"item": [
 				{
-					"name": "Validate gate entry for access pass",
+					"name": "Validate gate entry with access pass",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "6313341b-980a-4055-a29b-367573200852",
+								"id": "c3e55742-4d31-424f-a9ad-8e601388a43b",
 								"exec": [
 									""
 								],
@@ -464,7 +702,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"dayOfWeek\": {{request.accessPass.accessDay}}\n}",
+							"raw": "{\n  \"dateTime\": {{request.gates.dateTime}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -472,15 +710,96 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/gateEntry/validateAccessPass/{{param.accessPassCode}}",
+							"raw": "{{host}}/api/gates/entry/validateAccessPassWithCode/{{param.accessPassCode}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
-								"gateEntry",
-								"validateAccessPass",
+								"gates",
+								"entry",
+								"validateAccessPassWithCode",
 								"{{param.accessPassCode}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate  gate entry with license plate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dateTime\": {{request.gates.dateTime}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/gates/entry/validateAccessPassWithLicensePlate/{{param.licensePlate}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"gates",
+								"entry",
+								"validateAccessPassWithLicensePlate",
+								"{{param.licensePlate}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate  gate exit with access pass",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/gates/exit/validateAccessPassWithCode/{{param.accessPassCode}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"gates",
+								"exit",
+								"validateAccessPassWithCode",
+								"{{param.accessPassCode}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate gate exit with license plate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/gates/exit/validateAccessPassWithLicensePlate/{{param.licensePlate}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"gates",
+								"exit",
+								"validateAccessPassWithLicensePlate",
+								"{{param.licensePlate}}"
 							]
 						}
 					},
@@ -498,7 +817,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "fe114a8e-eaaa-45b6-bd17-13601743dc40",
+								"id": "2cbd27f3-51e0-48ae-842b-35f8dcf361fa",
 								"exec": [
 									""
 								],
@@ -541,7 +860,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b09c0d12-715d-436f-adcc-b1b0815b054e",
+								"id": "8cd34db0-861f-4948-b438-60903c60d5c8",
 								"exec": [
 									""
 								],
@@ -587,7 +906,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "fe004abc-997b-4ec1-a2c8-566c5f8a9864",
+								"id": "dc7b189c-fab8-4af8-9ddb-0b67c1eaeac3",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.initiativeCode\", jsonData.initiativeCode);"
@@ -627,7 +946,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4604e8e8-64ee-4d4a-aa8c-ce322efea4e6",
+								"id": "f0d7174b-ce6c-4dd5-8f82-6981258ea4fb",
 								"exec": [
 									""
 								],
@@ -700,7 +1019,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "38e6ddcc-9d7b-4427-8d09-3065842e225a",
+								"id": "2141113a-5337-4b11-abe7-4e2607422323",
 								"exec": [
 									""
 								],
@@ -777,7 +1096,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5930041e-6290-4e00-b54b-8ebfda87b649",
+								"id": "5cbe876e-647e-402a-8cfc-fc3425053084",
 								"exec": [
 									""
 								],
@@ -816,7 +1135,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a29f909a-90f0-4183-ba24-c81883c429e8",
+								"id": "d8e903ef-32ca-4b59-b4ed-5826a526b8a0",
 								"exec": [
 									""
 								],
@@ -867,7 +1186,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0553b2b8-35f3-4be5-af57-7becde86fd81",
+										"id": "610b4bbb-13b5-4ce2-bc13-e0467290644b",
 										"exec": [
 											""
 										],
@@ -917,7 +1236,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "ecfab159-d747-47af-bd70-5b78ae44cfe2",
+										"id": "5e2e7c25-81da-40d5-a8fc-6cf77394673d",
 										"exec": [
 											""
 										],
@@ -967,7 +1286,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "250c6b57-87a5-4fae-9bfd-4c23a2b4e20e",
+										"id": "836ecd48-14b3-4752-a725-64789e69f711",
 										"exec": [
 											""
 										],
@@ -1021,7 +1340,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "93002301-2a74-43fb-98f7-7c5e1bf3eee4",
+										"id": "3e21f55a-17c0-47d0-80dc-17698f0f578d",
 										"exec": [
 											""
 										],
@@ -1078,7 +1397,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "1658e863-3c39-46fe-be31-0f5f9ae751f3",
+										"id": "5e1cbf41-91fb-46e1-afac-c3f1569b4fdd",
 										"exec": [
 											""
 										],
@@ -1127,7 +1446,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5db0000f-b0aa-4104-bc46-281a03fcd5dc",
+										"id": "7d7a02ed-444a-4d93-8474-02271f5bd506",
 										"exec": [
 											""
 										],
@@ -1180,7 +1499,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9970d06c-43dc-4213-8e33-451dad7e9e1c",
+										"id": "84549387-e634-40b2-aafe-c95dab6e09cd",
 										"exec": [
 											""
 										],

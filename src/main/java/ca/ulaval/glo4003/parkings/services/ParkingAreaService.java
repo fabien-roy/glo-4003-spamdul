@@ -18,6 +18,10 @@ public class ParkingAreaService {
     this.parkingAreaAssembler = parkingAreaAssembler;
   }
 
+  public ParkingArea get(ParkingAreaCode parkingAreaCode) {
+    return parkingAreaRepository.get(parkingAreaCode);
+  }
+
   public List<ParkingAreaDto> getParkingAreas() {
     List<ParkingArea> parkingAreas = parkingAreaRepository.getAll();
 

@@ -1,6 +1,6 @@
 #%RAML 1.0
 title: SPAMD-UL
-version: 2.1.0
+version: 3.0.0
 mediaType: application/json
 uses:
   types: ./libraries/types.raml
@@ -112,8 +112,11 @@ uses:
           application/json:
             type: types.AccessPass
             examples:
-              "With car": !include examples/users/post-users-access-passes-request-with-car.json
               "Without car": !include examples/users/post-users-access-passes-request-without-car.json
+              "One day a week per semester": !include examples/users/post-users-access-passes-request-one-day-a-week-per-semester.json
+              "One semester": !include examples/users/post-users-access-passes-request-one-semester.json
+              "Two semesters": !include examples/users/post-users-access-passes-request-two-semesters.json
+              "Three semesters": !include examples/users/post-users-access-passes-request-three-semesters.json
         responses:
           201:
             description: Code for newly added access pass
@@ -124,7 +127,7 @@ uses:
           400:
             description: Error adding access pass to user
           404:
-            description: User not found
+            description: User or license plate not found
     /parkingStickers:
       description: Collection of parking stickers for user
       post:
@@ -135,6 +138,7 @@ uses:
             examples:
               "Send via postal carrier": !include examples/users/post-users-parking-stickers-request-postal.json
               "Sent via email": !include examples/users/post-users-parking-stickers-request-email.json
+              "Sent via SSP": !include examples/users/post-users-parking-stickers-request-ssp.json
         responses:
           201:
             description: Code for newly added parking sticker
@@ -159,56 +163,28 @@ uses:
             example: !include examples/parkingAreas/get-parking-areas-response.json
       400:
         description: Error getting all parking areas
-/api/gateEntry:
+/api/gates:
   description: Gate entry for campus access
-  /validateAccessPassWithCode:
-    /{accessPassCode}:
-      description: Validations an access pass for given code
-      uriParameters:
-        accessPassCode:
-          type: types.AccessPassCode
-      post:
-        description: Validate the access pass with given code
-        body:
-          application/json:
-            type: types.DayOfWeekObject
-            example: !include examples/gateEntry/post-gate-entry-validate-access-pass-request.json
-        responses:
-          202:
-            description: Access status of access pass is granted
-            body:
-              application/json:
-                type: types.AccessStatusObject
-                example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-granted.json
-          400:
-            description: Error validating access pass
-          403:
-            description: Access status of access pass is refused
-            body:
-              application/json:
-                type: types.AccessStatusObject
-                example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-refused.json
-          404:
-            description: Access pass not found
-  /validateAccessPassWithLicensePlate:
-      /{licensePlate}:
-        description: Validations an access pass for given licensePlate
+  /entry:
+    /validateAccessPassWithCode:
+      /{code}:
+        description: Validates an access pass for entering with a given code
         uriParameters:
-          licensePlate:
-            type: types.LicensePlate
+          code:
+            type: types.AccessPassCode
         post:
-          description: Validate the access pass with given licensePlate
+          description: Validate the access pass with given code
           body:
             application/json:
-              type: types.DayOfWeekObject
-              example: !include examples/gateEntry/post-gate-entry-validate-access-pass-request.json
+              type: types.AccessDateTimeObject
+              example: !include examples/gates/post-gates-entry-validate-access-pass-request.json
           responses:
             202:
               description: Access status of access pass is granted
               body:
                 application/json:
                   type: types.AccessStatusObject
-                  example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-granted.json
+                  example: !include examples/gates/post-gates-entry-validate-access-pass-response-granted.json
             400:
               description: Error validating access pass
             403:
@@ -216,9 +192,65 @@ uses:
               body:
                 application/json:
                   type: types.AccessStatusObject
-                  example: !include examples/gateEntry/post-gate-entry-validate-access-pass-response-refused.json
+                  example: !include examples/gates/post-gates-entry-validate-access-pass-response-refused.json
             404:
               description: Access pass not found
+    /validateAccessPassWithLicensePlate:
+      /{licensePlate}:
+        description: Validates an access pass for given license plate
+        uriParameters:
+          licensePlate:
+            type: types.LicensePlate
+        post:
+          description: Validate the access pass with given license plate
+          body:
+            application/json:
+              type: types.AccessDateTimeObject
+              example: !include examples/gates/post-gates-entry-validate-access-pass-request.json
+          responses:
+            202:
+              description: Access status of access pass is granted
+              body:
+                application/json:
+                  type: types.AccessStatusObject
+                  example: !include examples/gates/post-gates-entry-validate-access-pass-response-granted.json
+            400:
+              description: Error validating access pass
+            403:
+              description: Access status of access pass is refused
+              body:
+                application/json:
+                  type: types.AccessStatusObject
+                  example: !include examples/gates/post-gates-entry-validate-access-pass-response-refused.json
+            404:
+              description: Access pass or license plate not found
+  /exit:
+    /validateAccessPassWithCode:
+      /{code}:
+        description: Validates an access pass for entering with a given code
+        uriParameters:
+          code:
+            type: types.AccessPassCode
+        post:
+          description: Validate the access pass with given code
+          responses:
+            200:
+              description: Gate exit was successful
+            404 :
+              description: Access pass not found
+    /validateAccessPassWithLicensePlate:
+      /{licensePlate}:
+        description: Validates an access pass for given license plate
+        uriParameters:
+          licensePlate:
+            type: types.LicensePlate
+        post:
+          description: Validate the access pass with given license plate
+          responses:
+            200:
+              description: Gate exit was successful
+            404 :
+              description: Access pass or license plate not found
 /api/offenses:
   description: Collection of offenses
   /types:

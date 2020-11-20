@@ -29,7 +29,14 @@ public class CustomDateTimeAssemblerTest {
   }
 
   @Test(expected = InvalidDateTimeException.class)
-  public void givenInvalidDate_whenAssembling_thenThrowInvalidDateException() {
+  public void givenNullDateTime_whenAssembling_thenThrowInvalidDateException() {
+    DateTimeDto dateTimeDto = aDateTimeDto().withDateTime(null).build();
+
+    customDateTimeAssembler.assemble(dateTimeDto);
+  }
+
+  @Test(expected = InvalidDateTimeException.class)
+  public void givenInvalidDateTime_whenAssembling_thenThrowInvalidDateException() {
     DateTimeDto dateTimeDto = aDateTimeDto().withDateTime("invalidDateTime").build();
 
     customDateTimeAssembler.assemble(dateTimeDto);

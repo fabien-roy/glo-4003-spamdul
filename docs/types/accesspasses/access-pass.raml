@@ -1,0 +1,24 @@
+#%RAML 1.0 DataType
+type: object
+displayName: AccessPass
+uses:
+  types: ../../libraries/types.raml
+properties:
+  licensePlate:
+    type: types.LicensePlate
+    required: false
+    description: License plate for car. No license plate simply means no car is associated to the access pass.
+  accessDay:
+    type: types.Day
+    required: false
+    description: Day of access pass validity. Only required if period is '1d/week/semester'.
+  period:
+    type: types.AccessPeriod
+    description: Period of access pass validity
+  parkingArea:
+    type: types.ParkingAreaCode
+    required: false
+    description: Parking area for access pass. Only required if a license plate is provided.
+  semesters:
+    type: types.Semester[]
+    description: Semesters for access pass validity, must fit with access period

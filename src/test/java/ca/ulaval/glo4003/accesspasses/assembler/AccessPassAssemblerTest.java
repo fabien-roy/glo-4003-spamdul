@@ -57,8 +57,8 @@ public class AccessPassAssemblerTest {
 
     when(accountIdAssembler.assemble(accountId.toString())).thenReturn(accountId);
     when(licensePlateAssembler.assemble(licensePlate.toString())).thenReturn(licensePlate);
-    when(parkingAreaCodeAssembler.assemble(accessPassDto.parkingAreaCode))
-        .thenReturn(new ParkingAreaCode(accessPassDto.parkingAreaCode));
+    when(parkingAreaCodeAssembler.assemble(accessPassDto.parkingArea))
+        .thenReturn(new ParkingAreaCode(accessPassDto.parkingArea));
   }
 
   @Test
@@ -69,16 +69,40 @@ public class AccessPassAssemblerTest {
   }
 
   @Test
-  public void whenAssembling_thenReturnAccessPassWithAccessDay() {
+  public void
+      givenOneDayPerWeekPerSemesterPeriod_whenAssembling_thenReturnAccessPassWithAccessDay() {
+    accessPassDto =
+        anAccessPassDto()
+            .withAccessPeriod(AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER.toString())
+            .withSemesters(new String[] {"A20"})
+            .build();
+
     AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
 
     assertThat(accessPass.getAccessDay().toString()).isEqualTo(accessPassDto.accessDay);
   }
 
   @Test(expected = InvalidDayOfWeekException.class)
-  public void givenInvalidAccessDay_whenAssembling_thenThrowInvalidDayOfWeekException() {
+  public void
+      givenOneDayPerWeekPerSemesterPeriodAndInvalidAccessDay_whenAssembling_thenThrowInvalidDayOfWeekException() {
     String invalidAccessDay = "invalidDayOfWeek";
-    accessPassDto = anAccessPassDto().withAccessDay(invalidAccessDay).build();
+    accessPassDto =
+        anAccessPassDto()
+            .withAccessPeriod(AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER.toString())
+            .withAccessDay(invalidAccessDay)
+            .build();
+
+    accessPassAssembler.assemble(accessPassDto, accountId.toString());
+  }
+
+  @Test(expected = InvalidDayOfWeekException.class)
+  public void
+      givenOneDayPerWeekPerSemesterAndNoAccessDay_whenAssembling_thenThrowInvalidDayOfWeekException() {
+    accessPassDto =
+        anAccessPassDto()
+            .withAccessPeriod(AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER.toString())
+            .withAccessDay(null)
+            .build();
 
     accessPassAssembler.assemble(accessPassDto, accountId.toString());
   }
@@ -108,8 +132,15 @@ public class AccessPassAssemblerTest {
   }
 
   @Test(expected = UnsupportedAccessPeriodException.class)
-  public void givenUnsupportedPeriod_thenThrowUnsupportedPeriodException() {
-    accessPassDto = anAccessPassDto().withAccessPeriod(AccessPeriod.ONE_DAY).build();
+  public void givenOneHourPeriod_whenAssembling_thenThrowUnsupportedPeriodException() {
+    accessPassDto = anAccessPassDto().withAccessPeriod(AccessPeriod.ONE_HOUR.toString()).build();
+
+    accessPassAssembler.assemble(accessPassDto, accountId.toString());
+  }
+
+  @Test(expected = UnsupportedAccessPeriodException.class)
+  public void givenOneDayPeriod_whenAssembling_thenThrowUnsupportedPeriodException() {
+    accessPassDto = anAccessPassDto().withAccessPeriod(AccessPeriod.ONE_DAY.toString()).build();
 
     accessPassAssembler.assemble(accessPassDto, accountId.toString());
   }
@@ -118,7 +149,7 @@ public class AccessPassAssemblerTest {
   public void givenWrongAmountOfSemesters_whenAssembling_thenThrowWrongAmountException() {
     accessPassDto =
         anAccessPassDto()
-            .withAccessPeriod(AccessPeriod.TWO_SEMESTERS)
+            .withAccessPeriod(AccessPeriod.TWO_SEMESTERS.toString())
             .withSemesters(new String[] {"A20"})
             .build();
 
@@ -131,7 +162,7 @@ public class AccessPassAssemblerTest {
         anAccessPassDto()
             .withLicensePlate(licensePlate.toString())
             .withSemesters(new String[] {"A20"})
-            .withParkingAreaCode(null)
+            .withParkingAea(null)
             .build();
 
     AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
@@ -143,6 +174,13 @@ public class AccessPassAssemblerTest {
   public void givenParkingAreaCode_whenAssembling_thenReturnAccessPassWithParkingAreaCode() {
     AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
 
-    assertThat(accessPass.getParkingAreaCode().toString()).isEqualTo(accessPassDto.parkingAreaCode);
+    assertThat(accessPass.getParkingAreaCode().toString()).isEqualTo(accessPassDto.parkingArea);
+  }
+
+  @Test
+  public void givenAccessPeriodOtherThanOneDayAWeekPerSemester_whenAssembling_thenSetNoAccessDay() {
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
+
+    assertThat(accessPass.getAccessDay()).isNull();
   }
 }

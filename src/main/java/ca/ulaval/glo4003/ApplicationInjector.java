@@ -83,6 +83,7 @@ public class ApplicationInjector {
                 ACCOUNT_INJECTOR.createAccountService(
                     FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
+            PARKING_INJECTOR.createParkingAreaService(),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
             FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()),
@@ -124,6 +125,7 @@ public class ApplicationInjector {
                 ACCOUNT_INJECTOR.createAccountService(
                     FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
                 ACCOUNT_INJECTOR.createAccountIdAssembler()),
+            PARKING_INJECTOR.createParkingAreaService(),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
             FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()),

@@ -24,6 +24,7 @@ public class AccessPassBuilder {
   private LicensePlate licensePlate = createLicensePlate();
   private List<TimePeriod> accessPeriods = new ArrayList<>();
   private ParkingAreaCode parkingAreaCode = createParkingAreaCode();
+  private boolean hasEnteredCampus = false;
 
   public static AccessPassBuilder anAccessPass() {
     return new AccessPassBuilder();
@@ -64,10 +65,18 @@ public class AccessPassBuilder {
     return this;
   }
 
+  public AccessPassBuilder thatEnteredCampus() {
+    this.hasEnteredCampus = true;
+    return this;
+  }
+
   public AccessPass build() {
     AccessPass accessPass =
         new AccessPass(accountId, accessDay, licensePlate, accessPeriods, parkingAreaCode);
     accessPass.setCode(code);
+
+    if (hasEnteredCampus) accessPass.enterCampus();
+
     return accessPass;
   }
 }

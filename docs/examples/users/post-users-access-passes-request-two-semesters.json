@@ -1,0 +1,9 @@
+{
+  "licensePlate": "123 ABC",
+  "parkingArea": "Zone2",
+  "accessPeriod": "2 semesters",
+  "semesters": [
+    "A20",
+    "H21"
+  ]
+}

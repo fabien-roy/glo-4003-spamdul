@@ -20,4 +20,9 @@ public class SemesterCode {
 
     return this.code.equals(semesterCode.toString());
   }
+
+  @Override
+  public int hashCode() {
+    return code.hashCode();
+  }
 }
