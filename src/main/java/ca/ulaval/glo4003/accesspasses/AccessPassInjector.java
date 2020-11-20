@@ -20,6 +20,7 @@ import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.times.assemblers.SemesterCodeAssembler;
 import ca.ulaval.glo4003.times.services.SemesterService;
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class AccessPassInjector {
 
   public AccessPassService createAccessPassService(
       CarService carService,
+      ParkingAreaService parkingAreaService,
       AccountService accountService,
       BillService billService,
       SemesterService semesterService) {
@@ -66,6 +68,7 @@ public class AccessPassInjector {
         accessPassAssembler,
         accessPassFactory,
         carService,
+        parkingAreaService,
         accessPassPriceByCarConsumptionInMemoryRepository,
         accountService,
         billService,

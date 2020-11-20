@@ -25,6 +25,7 @@ import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +37,7 @@ public class AccessPassServiceTest {
   @Mock private AccessPassAssembler accessPassAssembler;
   @Mock private AccessPassFactory accessPassFactory;
   @Mock private CarService carService;
+  @Mock private ParkingAreaService parkingAreaService;
   @Mock private AccessPassTypeRepository accessPassTypeRepository;
   @Mock private BillService billService;
   @Mock private AccountService accountService;
@@ -62,6 +64,7 @@ public class AccessPassServiceTest {
             accessPassAssembler,
             accessPassFactory,
             carService,
+            parkingAreaService,
             accessPassTypeRepository,
             accountService,
             billService,
@@ -81,6 +84,15 @@ public class AccessPassServiceTest {
 
     verify(accountService)
         .addAccessCodeToAccount(account.getId(), accessPass.getCode(), notZeroPollutionBillId);
+  }
+
+  @Test
+  public void whenAddingAccessPass_thenCheckForParkingAreaExistent() {
+    givenAccessPassDtoWithLicensePlate(LICENSE_PLATE);
+
+    accessPassService.addAccessPass(accessPassDto, account.getId().toString());
+
+    verify(parkingAreaService).get(accessPass.getParkingAreaCode());
   }
 
   public void givenNoLicensePlate_whenAddingAccessPass_thenAddZeroPollutionBillToAccount() {

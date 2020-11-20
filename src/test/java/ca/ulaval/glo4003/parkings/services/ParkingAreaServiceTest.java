@@ -35,8 +35,16 @@ public class ParkingAreaServiceTest {
     List<ParkingArea> parkingAreas = Collections.singletonList(parkingArea);
     List<ParkingAreaDto> parkingAreaDtos = Collections.singletonList(parkingAreaDto);
 
+    when(parkingAreaRepository.get(parkingArea.getCode())).thenReturn(parkingArea);
     when(parkingAreaRepository.getAll()).thenReturn(parkingAreas);
     when(parkingAreaAssembler.assembleMany(parkingAreas)).thenReturn(parkingAreaDtos);
+  }
+
+  @Test
+  public void whenGettingParkingArea_thenReturnParkingArea() {
+    ParkingArea receivedParkingArea = parkingAreaService.get(parkingArea.getCode());
+
+    assertThat(receivedParkingArea).isSameInstanceAs(parkingArea);
   }
 
   @Test

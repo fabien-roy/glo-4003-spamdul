@@ -2973,12 +2973,12 @@
 													"script": {
 														"id": "f2f1ed1f-07f9-43b0-aca2-77906ccab111",
 														"exec": [
-															"pm.test(\"Returns status 400\", function () {",
-															"    pm.response.to.have.status(400);",
+															"pm.test(\"Returns status 404\", function () {",
+															"    pm.response.to.have.status(404);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid parking area code\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid parking area code\")",
+															"pm.test(\"Returns parking area not found\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Parking area not found\")",
 															"});"
 														],
 														"type": "text/javascript"
