@@ -102,17 +102,14 @@ public class AccountService {
     return accountRepository.get(accountId);
   }
 
-  // TODO #313 : Test AccountService.getAccessPass
   public AccessPass getAccessPass(AccessPassCode accessPassCode) {
     return accountRepository.getAccessPass(accessPassCode);
   }
 
-  // TODO #313 : Test AccountService.getAccessPasses with license plate
   public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
     return accountRepository.getAccessPasses(licensePlate);
   }
 
-  // TODO #313 : Test AccountService.update for access pass
   public void update(AccessPass accessPass) {
     accountRepository.update(accessPass);
   }

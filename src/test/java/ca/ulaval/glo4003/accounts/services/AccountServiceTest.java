@@ -66,6 +66,9 @@ public class AccountServiceTest {
             billPaymentAssembler);
 
     when(accountRepository.get(account.getId())).thenReturn(account);
+    when(accountRepository.getAccessPass(accessPass.getCode())).thenReturn(accessPass);
+    when(accountRepository.getAccessPasses(licensePlate))
+        .thenReturn(Collections.singletonList(accessPass));
   }
 
   @Test
@@ -225,6 +228,28 @@ public class AccountServiceTest {
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
 
     verify(billService).payBill(bill.getId(), Money.fromDouble(1));
+  }
+
+  @Test
+  public void whenGettingAccessPass_thenReturnAccessPass() {
+    AccessPass receivedAccessPass = accountService.getAccessPass(accessPass.getCode());
+
+    assertThat(receivedAccessPass).isSameInstanceAs(accessPass);
+  }
+
+  @Test
+  public void givenLicensePlate_whenGettingAccessPasses_thenReturnAccessPass() {
+    List<AccessPass> receivedAccessPasses = accountService.getAccessPasses(licensePlate);
+
+    assertThat(receivedAccessPasses).hasSize(1);
+    assertThat(receivedAccessPasses.get(0)).isSameInstanceAs(accessPass);
+  }
+
+  @Test
+  public void whenUpdatingAccessPass_thenUpdateAccessPassToRepository() {
+    accountService.update(accessPass);
+
+    verify(accountRepository).update(accessPass);
   }
 
   private void setUpPayBill() {

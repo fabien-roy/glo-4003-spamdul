@@ -12,12 +12,12 @@ import java.util.List;
 
 public class AccessPass {
   private AccessPassCode accessPassCode;
-  private final AccountId accountId;
+  private final AccountId accountId; // TODO #313 : Do we really need AccountId here?
   private final DayOfWeek accessDay;
   private final LicensePlate licensePlate;
   private final List<TimePeriod> accessPeriods;
+  private final ParkingAreaCode parkingAreaCode;
   private boolean isAdmittedOnCampus = false;
-  private ParkingAreaCode parkingAreaCode;
 
   public AccessPass(
       AccountId accountId,
