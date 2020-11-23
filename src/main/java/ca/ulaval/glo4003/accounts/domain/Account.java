@@ -35,6 +35,10 @@ public class Account {
     return accessPasses.values();
   }
 
+  public AccessPass getAccessPass(AccessPassCode accessPassCode) {
+    return accessPasses.get(accessPassCode);
+  }
+
   public List<ParkingStickerCode> getParkingStickerCodes() {
     return parkingStickerCodes;
   }

@@ -1,19 +1,25 @@
 package ca.ulaval.glo4003.accounts.infrastructure;
 
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassBuilder.anAccessPass;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
+import static com.google.common.truth.Truth.assertThat;
 
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
+import ca.ulaval.glo4003.accesspasses.exceptions.NotFoundAccessPassException;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
-import com.google.common.truth.Truth;
+import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
 
 public class AccountRepositoryInMemoryTest {
   private AccountRepository accountRepository;
 
-  private final Account account = anAccount().build();
+  private final AccessPass accessPass = anAccessPass().build();
+  private final Account account =
+      anAccount().withAccessPasses(Collections.singletonList(accessPass)).build();
 
   @Before
   public void setUp() {
@@ -24,7 +30,7 @@ public class AccountRepositoryInMemoryTest {
   public void whenSavingAccount_thenReturnId() {
     AccountId accountId = accountRepository.save(account);
 
-    Truth.assertThat(accountId).isSameInstanceAs(account.getId());
+    assertThat(accountId).isSameInstanceAs(account.getId());
   }
 
   @Test
@@ -32,12 +38,27 @@ public class AccountRepositoryInMemoryTest {
     accountRepository.save(account);
     Account foundAccount = accountRepository.get(account.getId());
 
-    Truth.assertThat(foundAccount).isSameInstanceAs(account);
+    assertThat(foundAccount).isSameInstanceAs(account);
   }
 
   @Test(expected = NotFoundAccountException.class)
   public void givenNonExistentAccount_whenGettingAccount_thenThrowNotFoundAccountException() {
     accountRepository.get(account.getId());
+  }
+
+  @Test(expected = NotFoundAccessPassException.class)
+  public void
+      givenNoAccountWithAccessPass_whenGettingAccessPass_thenThrowNotFoundAccessPassException() {
+    accountRepository.getAccessPass(accessPass.getCode());
+  }
+
+  @Test
+  public void whenGettingAccessPass_thenGetAccessPass() {
+    accountRepository.save(account);
+
+    AccessPass foundAccessPass = accountRepository.getAccessPass(accessPass.getCode());
+
+    assertThat(foundAccessPass).isSameInstanceAs(accessPass);
   }
 
   @Test
@@ -48,7 +69,7 @@ public class AccountRepositoryInMemoryTest {
     accountRepository.update(updatedAccount);
     Account foundAccount = accountRepository.get(account.getId());
 
-    Truth.assertThat(foundAccount).isNotSameInstanceAs(account);
+    assertThat(foundAccount).isNotSameInstanceAs(account);
   }
 
   @Test(expected = NotFoundAccountException.class)
