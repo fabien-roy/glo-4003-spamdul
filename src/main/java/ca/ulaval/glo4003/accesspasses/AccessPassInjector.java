@@ -6,7 +6,6 @@ import ca.ulaval.glo4003.accesspasses.assembler.AccessPassPeriodAssembler;
 import ca.ulaval.glo4003.accesspasses.domain.*;
 import ca.ulaval.glo4003.accesspasses.infrastructure.AccessPassTypeInMemoryRepository;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
-import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.assemblers.ConsumptionAssembler;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
@@ -48,12 +47,10 @@ public class AccessPassInjector {
       AccountService accountService,
       BillService billService,
       SemesterService semesterService) {
-    AccountIdAssembler accountIdAssembler = new AccountIdAssembler();
     LicensePlateAssembler licensePlateAssembler = new LicensePlateAssembler();
     SemesterCodeAssembler semesterCodeAssembler = new SemesterCodeAssembler();
     AccessPassAssembler accessPassAssembler =
         new AccessPassAssembler(
-            accountIdAssembler,
             licensePlateAssembler,
             semesterService,
             semesterCodeAssembler,

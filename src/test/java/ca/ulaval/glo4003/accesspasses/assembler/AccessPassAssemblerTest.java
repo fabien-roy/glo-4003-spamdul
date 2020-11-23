@@ -11,7 +11,6 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.accesspasses.exceptions.UnsupportedAccessPeriodException;
 import ca.ulaval.glo4003.accesspasses.exceptions.WrongAmountOfSemestersForPeriodException;
-import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
@@ -29,7 +28,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class AccessPassAssemblerTest {
 
-  @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private LicensePlateAssembler licensePlateAssembler;
   @Mock private SemesterService semesterService;
   @Mock private SemesterCodeAssembler semesterCodeAssembler;
@@ -49,23 +47,14 @@ public class AccessPassAssemblerTest {
   public void setUp() {
     accessPassAssembler =
         new AccessPassAssembler(
-            accountIdAssembler,
             licensePlateAssembler,
             semesterService,
             semesterCodeAssembler,
             parkingAreaCodeAssembler);
 
-    when(accountIdAssembler.assemble(accountId.toString())).thenReturn(accountId);
     when(licensePlateAssembler.assemble(licensePlate.toString())).thenReturn(licensePlate);
     when(parkingAreaCodeAssembler.assemble(accessPassDto.parkingArea))
         .thenReturn(new ParkingAreaCode(accessPassDto.parkingArea));
-  }
-
-  @Test
-  public void whenAssembling_thenReturnAccessPassWithAccountId() {
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
-
-    assertThat(accessPass.getAccountId()).isSameInstanceAs(accountId);
   }
 
   @Test

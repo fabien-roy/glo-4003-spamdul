@@ -5,8 +5,6 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.accesspasses.exceptions.UnsupportedAccessPeriodException;
 import ca.ulaval.glo4003.accesspasses.exceptions.WrongAmountOfSemestersForPeriodException;
-import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
-import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
@@ -21,19 +19,16 @@ import java.util.stream.Collectors;
 
 public class AccessPassAssembler {
 
-  private final AccountIdAssembler accountIdAssembler;
   private final LicensePlateAssembler licensePlateAssembler;
   private final SemesterService semesterService;
   private final SemesterCodeAssembler semesterCodeAssembler;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
   public AccessPassAssembler(
-      AccountIdAssembler accountIdAssembler,
       LicensePlateAssembler licensePlateAssembler,
       SemesterService semesterService,
       SemesterCodeAssembler semesterCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler) {
-    this.accountIdAssembler = accountIdAssembler;
     this.licensePlateAssembler = licensePlateAssembler;
     this.semesterService = semesterService;
     this.semesterCodeAssembler = semesterCodeAssembler;
@@ -41,8 +36,6 @@ public class AccessPassAssembler {
   }
 
   public AccessPass assemble(AccessPassDto accessPassCodeDto, String accountId) {
-    AccountId id = accountIdAssembler.assemble(accountId);
-
     AccessPeriod period = AccessPeriod.get(accessPassCodeDto.period);
 
     DayOfWeek dayOfWeek =
@@ -66,7 +59,7 @@ public class AccessPassAssembler {
       parkingAreaCode = null;
     }
 
-    return new AccessPass(id, dayOfWeek, licensePlate, accessPeriods, parkingAreaCode);
+    return new AccessPass(dayOfWeek, licensePlate, accessPeriods, parkingAreaCode);
   }
 
   // Will be revised if story 3.1 is chosen
