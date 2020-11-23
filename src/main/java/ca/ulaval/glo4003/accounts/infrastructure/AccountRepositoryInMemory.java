@@ -6,7 +6,10 @@ import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
+import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AccountRepositoryInMemory implements AccountRepository {
@@ -31,6 +34,12 @@ public class AccountRepositoryInMemory implements AccountRepository {
   @Override
   public AccessPass getAccessPass(AccessPassCode accessPassCode) {
     return null;
+  }
+
+  // TODO #313 : Test AccountRepository.getAccessPasses with license plate
+  @Override
+  public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
+    return new ArrayList<>();
   }
 
   @Override

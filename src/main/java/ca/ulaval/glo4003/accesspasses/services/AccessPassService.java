@@ -81,9 +81,8 @@ public class AccessPassService {
     return accountService.getAccessPass(accessPassCode);
   }
 
-  // TODO #313 : Update this method
-  public List<AccessPass> getAccessPassesByLicensePlate(LicensePlate licensePlate) {
-    return accessPassRepository.get(licensePlate);
+  public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
+    return accountService.getAccessPasses(licensePlate);
   }
 
   // TODO #313 : Update this method

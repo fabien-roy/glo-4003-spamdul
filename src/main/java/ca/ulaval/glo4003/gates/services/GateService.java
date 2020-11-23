@@ -109,6 +109,6 @@ public class GateService {
   private List<AccessPass> getAccessPasses(String licensePlate) {
     LicensePlate licensePlateAssembled = licensePlateAssembler.assemble(licensePlate);
 
-    return accessPassService.getAccessPassesByLicensePlate(licensePlateAssembled);
+    return accessPassService.getAccessPasses(licensePlateAssembled);
   }
 }

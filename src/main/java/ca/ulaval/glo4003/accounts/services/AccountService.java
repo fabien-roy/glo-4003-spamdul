@@ -106,4 +106,9 @@ public class AccountService {
   public AccessPass getAccessPass(AccessPassCode accessPassCode) {
     return accountRepository.getAccessPass(accessPassCode);
   }
+
+  // TODO #313 : Test AccountService.getAccessPasses with license plate
+  public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
+    return accountRepository.getAccessPasses(licensePlate);
+  }
 }

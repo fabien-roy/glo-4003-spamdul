@@ -26,6 +26,8 @@ import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
+import java.util.Collections;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -74,6 +76,8 @@ public class AccessPassServiceTest {
     when(accessPassCodeAssembler.assemble(accessPass.getCode().toString()))
         .thenReturn(accessPass.getCode());
     when(accountService.getAccessPass(accessPass.getCode())).thenReturn(accessPass);
+    when(accountService.getAccessPasses(car.getLicensePlate()))
+        .thenReturn(Collections.singletonList(accessPass));
   }
 
   @Test
@@ -114,11 +118,20 @@ public class AccessPassServiceTest {
   }
 
   @Test
-  public void whenGettingAccessPass_thenReturnAccessPassFromRepository() {
+  public void whenGettingAccessPass_thenReturnAccessPassFromAccountService() {
     AccessPass receivedAccessPass =
         accessPassService.getAccessPass(accessPass.getCode().toString());
 
     assertThat(receivedAccessPass).isSameInstanceAs(accessPass);
+  }
+
+  @Test
+  public void givenLicensePlate_whenGettingAccessPasses_thenReturnAccessPassFromAccountService() {
+    List<AccessPass> receivedAccessPasses =
+        accessPassService.getAccessPasses(car.getLicensePlate());
+
+    assertThat(receivedAccessPasses).hasSize(1);
+    assertThat(receivedAccessPasses.get(0)).isSameInstanceAs(accessPass);
   }
 
   @Test
