@@ -51,8 +51,16 @@ public class AccountRepositoryInMemoryTest {
   }
 
   @Test(expected = NotFoundAccessPassException.class)
+  public void givenNoAccount_whenGettingAccessPass_thenThrowNotFoundAccessPassException() {
+    accountRepository.getAccessPass(accessPass.getCode());
+  }
+
+  @Test(expected = NotFoundAccessPassException.class)
   public void
       givenNoAccountWithAccessPass_whenGettingAccessPass_thenThrowNotFoundAccessPassException() {
+    Account account = anAccount().build();
+    accountRepository.save(account);
+
     accountRepository.getAccessPass(accessPass.getCode());
   }
 

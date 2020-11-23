@@ -34,6 +34,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
     Optional<AccessPass> accessPass =
         accounts.values().stream()
             .map(account -> account.getAccessPass(accessPassCode))
+            .filter(Objects::nonNull)
             .findFirst();
 
     if (accessPass.isPresent()) {
