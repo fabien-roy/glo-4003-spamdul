@@ -47,7 +47,7 @@ public class AccountBuilder {
 
   public Account build() {
     Account account = new Account(id, user);
-    accessPasses.forEach(account::addAccessPass);
+    accessPasses.forEach(account::saveAccessPass);
     billIds.forEach(account::addBillId);
     licensePlates.forEach(account::addLicensePlate);
     return account;

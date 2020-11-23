@@ -90,4 +90,21 @@ public class AccountRepositoryInMemoryTest {
   public void givenNonExistentAccount_whenUpdatingAccount_thenThrowNotFoundAccountException() {
     accountRepository.update(account);
   }
+
+  @Test
+  public void whenUpdatingAccessPass_thenAccessPassIsUpdated() {
+    accountRepository.save(account);
+    AccessPass updatedAccessPass = anAccessPass().withCode(accessPass.getCode()).build();
+
+    accountRepository.update(updatedAccessPass);
+    AccessPass foundAccessPass = accountRepository.getAccessPass(accessPass.getCode());
+
+    assertThat(foundAccessPass).isNotSameInstanceAs(accessPass);
+  }
+
+  @Test(expected = NotFoundAccessPassException.class)
+  public void
+      givenNonExistentAccessPass_whenUpdatingAccessPass_thenThrowNotFoundAccessPassException() {
+    accountRepository.update(accessPass);
+  }
 }

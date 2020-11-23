@@ -57,7 +57,25 @@ public class AccountRepositoryInMemory implements AccountRepository {
     accounts.put(foundAccount.getId(), account);
   }
 
-  // TODO #313 : Test AccountRepository.update with access pass
   @Override
-  public void update(AccessPass accessPass) {}
+  public void update(AccessPass accessPass) {
+    Account account = get(accessPass.getCode());
+
+    account.saveAccessPass(accessPass);
+
+    accounts.put(account.getId(), account);
+  }
+
+  private Account get(AccessPassCode accessPassCode) {
+    Optional<Account> foundAccount =
+        accounts.values().stream()
+            .filter(account -> account.getAccessPass(accessPassCode) != null)
+            .findFirst();
+
+    if (foundAccount.isPresent()) {
+      return foundAccount.get();
+    } else {
+      throw new NotFoundAccessPassException();
+    }
+  }
 }

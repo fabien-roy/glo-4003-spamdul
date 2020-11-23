@@ -63,7 +63,7 @@ public class AccountService {
   public void addAccessPassToAccount(AccountId id, AccessPass accessPass, BillId billId) {
     Account account = getAccount(id);
 
-    account.addAccessPass(accessPass);
+    account.saveAccessPass(accessPass);
     account.addBillId(billId); // TODO #315 : This could be done with .addAccessPass
     accountRepository.update(account);
   }

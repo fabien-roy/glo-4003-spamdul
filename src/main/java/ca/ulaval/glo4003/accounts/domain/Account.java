@@ -53,8 +53,7 @@ public class Account {
     return billIds;
   }
 
-  // TODO #313 : Test Account.addAccessPass
-  public void addAccessPass(AccessPass accessPass) {
+  public void saveAccessPass(AccessPass accessPass) {
     accessPasses.put(accessPass.getCode(), accessPass);
   }
 
