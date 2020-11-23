@@ -30,14 +30,14 @@ public class AccountRepositoryInMemoryTest {
   @Test
   public void whenSavingAccount_thenAccountCanBeFound() {
     accountRepository.save(account);
-    Account foundAccount = accountRepository.findById(account.getId());
+    Account foundAccount = accountRepository.get(account.getId());
 
     Truth.assertThat(foundAccount).isSameInstanceAs(account);
   }
 
   @Test(expected = NotFoundAccountException.class)
   public void givenNonExistentAccount_whenGettingAccount_thenThrowNotFoundAccountException() {
-    accountRepository.findById(account.getId());
+    accountRepository.get(account.getId());
   }
 
   @Test
@@ -46,7 +46,7 @@ public class AccountRepositoryInMemoryTest {
     Account updatedAccount = anAccount().withId(account.getId()).build();
 
     accountRepository.update(updatedAccount);
-    Account foundAccount = accountRepository.findById(account.getId());
+    Account foundAccount = accountRepository.get(account.getId());
 
     Truth.assertThat(foundAccount).isNotSameInstanceAs(account);
   }

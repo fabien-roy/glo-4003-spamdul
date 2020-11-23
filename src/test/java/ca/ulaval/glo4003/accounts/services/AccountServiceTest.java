@@ -65,7 +65,7 @@ public class AccountServiceTest {
             billIdAssembler,
             billPaymentAssembler);
 
-    when(accountRepository.findById(account.getId())).thenReturn(account);
+    when(accountRepository.get(account.getId())).thenReturn(account);
   }
 
   @Test
@@ -154,7 +154,7 @@ public class AccountServiceTest {
 
     when(accountIdAssembler.assemble(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());
-    when(accountRepository.findById(accountWithBill.getId())).thenReturn(accountWithBill);
+    when(accountRepository.get(accountWithBill.getId())).thenReturn(accountWithBill);
 
     accountService.getBills(accountWithBill.getId().toString());
 
@@ -167,7 +167,7 @@ public class AccountServiceTest {
 
     accountService.getBills(account.getId().toString());
 
-    verify(accountRepository).findById(account.getId());
+    verify(accountRepository).get(account.getId());
   }
 
   @Test
@@ -179,7 +179,7 @@ public class AccountServiceTest {
 
     when(accountIdAssembler.assemble(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());
-    when(accountRepository.findById(accountWithBill.getId())).thenReturn(accountWithBill);
+    when(accountRepository.get(accountWithBill.getId())).thenReturn(accountWithBill);
     when(billService.getBillsByIds(billIds)).thenReturn(bills);
 
     accountService.getBills(accountWithBill.getId().toString());
@@ -232,6 +232,6 @@ public class AccountServiceTest {
     when(accountIdAssembler.assemble(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());
     when(billIdAssembler.assemble(bill.getId().toString())).thenReturn(bill.getId());
-    when(accountRepository.findById(accountWithBill.getId())).thenReturn(accountWithBill);
+    when(accountRepository.get(accountWithBill.getId())).thenReturn(accountWithBill);
   }
 }

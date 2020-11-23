@@ -78,18 +78,21 @@ public class AccessPassService {
 
   public AccessPass getAccessPass(String code) {
     AccessPassCode accessPassCode = accessPassCodeAssembler.assemble(code);
-    return accessPassRepository.get(accessPassCode);
+    return accountService.getAccessPass(accessPassCode);
   }
 
+  // TODO #313 : Update this method
   public List<AccessPass> getAccessPassesByLicensePlate(LicensePlate licensePlate) {
     return accessPassRepository.get(licensePlate);
   }
 
+  // TODO #313 : Update this method
   public void enterCampus(AccessPass accessPass) {
     accessPass.enterCampus();
     accessPassRepository.update(accessPass);
   }
 
+  // TODO #313 : Update this method
   public void exitCampus(AccessPass accessPass) {
     accessPass.exitCampus();
     accessPassRepository.update(accessPass);

@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.accounts.services;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
@@ -98,6 +99,11 @@ public class AccountService {
   }
 
   public Account getAccount(AccountId accountId) {
-    return accountRepository.findById(accountId);
+    return accountRepository.get(accountId);
+  }
+
+  // TODO #313 : Test AccountService.getAccessPass
+  public AccessPass getAccessPass(AccessPassCode accessPassCode) {
+    return accountRepository.getAccessPass(accessPassCode);
   }
 }

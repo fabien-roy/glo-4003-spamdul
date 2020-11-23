@@ -73,7 +73,7 @@ public class AccessPassServiceTest {
 
     when(accessPassCodeAssembler.assemble(accessPass.getCode().toString()))
         .thenReturn(accessPass.getCode());
-    when(accessPassRepository.get(accessPass.getCode())).thenReturn(accessPass);
+    when(accountService.getAccessPass(accessPass.getCode())).thenReturn(accessPass);
   }
 
   @Test

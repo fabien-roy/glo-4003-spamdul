@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.accounts.infrastructure;
 
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
@@ -17,7 +19,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
   }
 
   @Override
-  public Account findById(AccountId accountId) {
+  public Account get(AccountId accountId) {
     Account foundAccount = accounts.get(accountId);
 
     if (foundAccount == null) throw new NotFoundAccountException();
@@ -25,9 +27,15 @@ public class AccountRepositoryInMemory implements AccountRepository {
     return foundAccount;
   }
 
+  // TODO #313 : Test AccountRepository.getAccessPass
+  @Override
+  public AccessPass getAccessPass(AccessPassCode accessPassCode) {
+    return null;
+  }
+
   @Override
   public void update(Account account) {
-    Account foundAccount = findById(account.getId());
+    Account foundAccount = get(account.getId());
 
     accounts.put(foundAccount.getId(), account);
   }

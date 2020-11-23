@@ -38,7 +38,7 @@ public class UserService {
 
   public UserDto getUser(String stringId) {
     AccountId accountId = accountIdAssembler.assemble(stringId);
-    Account account = accountRepository.findById(accountId);
+    Account account = accountRepository.get(accountId);
 
     return userAssembler.assemble(account.getUser());
   }
