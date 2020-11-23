@@ -111,4 +111,9 @@ public class AccountService {
   public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
     return accountRepository.getAccessPasses(licensePlate);
   }
+
+  // TODO #313 : Test AccountService.update for access pass
+  public void update(AccessPass accessPass) {
+    accountRepository.update(accessPass);
+  }
 }

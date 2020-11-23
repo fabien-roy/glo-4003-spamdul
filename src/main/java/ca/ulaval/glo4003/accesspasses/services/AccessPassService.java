@@ -25,8 +25,6 @@ public class AccessPassService {
   private final AccessPassTypeRepository accessPassTypeRepository;
   private final BillService billService;
   private final AccountService accountService;
-  private final AccessPassRepository
-      accessPassRepository; // TODO #313 : Remove AccessPassRepository
   private final AccessPassCodeAssembler accessPassCodeAssembler;
 
   public AccessPassService(
@@ -37,7 +35,6 @@ public class AccessPassService {
       AccessPassTypeRepository accessPassTypeRepository,
       AccountService accountService,
       BillService billService,
-      AccessPassRepository accessPassRepository,
       AccessPassCodeAssembler accessPassCodeAssembler) {
     this.accessPassAssembler = accessPassAssembler;
     this.accessPassFactory = accessPassFactory;
@@ -46,7 +43,6 @@ public class AccessPassService {
     this.accessPassTypeRepository = accessPassTypeRepository;
     this.accountService = accountService;
     this.billService = billService;
-    this.accessPassRepository = accessPassRepository;
     this.accessPassCodeAssembler = accessPassCodeAssembler;
   }
 
@@ -85,15 +81,13 @@ public class AccessPassService {
     return accountService.getAccessPasses(licensePlate);
   }
 
-  // TODO #313 : Update this method
   public void enterCampus(AccessPass accessPass) {
     accessPass.enterCampus();
-    accessPassRepository.update(accessPass);
+    accountService.update(accessPass);
   }
 
-  // TODO #313 : Update this method
   public void exitCampus(AccessPass accessPass) {
     accessPass.exitCampus();
-    accessPassRepository.update(accessPass);
+    accountService.update(accessPass);
   }
 }

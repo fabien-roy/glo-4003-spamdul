@@ -43,7 +43,6 @@ public class AccessPassServiceTest {
   @Mock private AccessPassTypeRepository accessPassTypeRepository;
   @Mock private BillService billService;
   @Mock private AccountService accountService;
-  @Mock private AccessPassRepository accessPassRepository;
   @Mock private AccessPassCodeAssembler accessPassCodeAssembler;
 
   private AccessPassService accessPassService;
@@ -70,7 +69,6 @@ public class AccessPassServiceTest {
             accessPassTypeRepository,
             accountService,
             billService,
-            accessPassRepository,
             accessPassCodeAssembler);
 
     when(accessPassCodeAssembler.assemble(accessPass.getCode().toString()))
@@ -142,10 +140,10 @@ public class AccessPassServiceTest {
   }
 
   @Test
-  public void whenEnteringCampus_thenRepositoryIsUpdated() {
+  public void whenEnteringCampus_thenAccountServiceIsUpdated() {
     accessPassService.enterCampus(accessPass);
 
-    verify(accessPassRepository).update(accessPass);
+    verify(accountService).update(accessPass);
   }
 
   @Test
@@ -158,12 +156,12 @@ public class AccessPassServiceTest {
   }
 
   @Test
-  public void whenExitingCampus_thenRepositoryIsUpdated() {
+  public void whenExitingCampus_thenAccountServiceIsUpdated() {
     accessPass = anAccessPass().thatEnteredCampus().build();
 
     accessPassService.exitCampus(accessPass);
 
-    verify(accessPassRepository).update(accessPass);
+    verify(accountService).update(accessPass);
   }
 
   private void givenAccessPassDtoWithLicensePlate(LicensePlate licensePlate) {

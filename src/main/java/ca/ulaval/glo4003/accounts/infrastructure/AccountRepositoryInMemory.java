@@ -48,4 +48,8 @@ public class AccountRepositoryInMemory implements AccountRepository {
 
     accounts.put(foundAccount.getId(), account);
   }
+
+  // TODO #313 : Test AccountRepository.update with access pass
+  @Override
+  public void update(AccessPass accessPass) {}
 }

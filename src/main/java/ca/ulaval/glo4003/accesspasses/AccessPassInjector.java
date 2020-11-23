@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.accesspasses.assembler.AccessPassAssembler;
 import ca.ulaval.glo4003.accesspasses.assembler.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.accesspasses.assembler.AccessPassPeriodAssembler;
 import ca.ulaval.glo4003.accesspasses.domain.*;
-import ca.ulaval.glo4003.accesspasses.infrastructure.AccessPassInMemoryRepository;
 import ca.ulaval.glo4003.accesspasses.infrastructure.AccessPassTypeInMemoryRepository;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
@@ -32,8 +31,6 @@ public class AccessPassInjector {
 
   private final AccessPassTypeInMemoryRepository accessPassPriceByCarConsumptionInMemoryRepository =
       new AccessPassTypeInMemoryRepository();
-  private final AccessPassInMemoryRepository accessPassInMemoryRepository =
-      new AccessPassInMemoryRepository();
   private final AccessPassCodeGenerator accessPassCodeGenerator =
       new AccessPassCodeGenerator(new StringCodeGenerator());
   private final StringMatrixFileReader fileReader = new CsvFileReader();
@@ -72,7 +69,6 @@ public class AccessPassInjector {
         accessPassPriceByCarConsumptionInMemoryRepository,
         accountService,
         billService,
-        accessPassInMemoryRepository,
         accessPassCodeAssembler);
   }
 

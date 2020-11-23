@@ -15,4 +15,6 @@ public interface AccountRepository {
   List<AccessPass> getAccessPasses(LicensePlate licensePlate);
 
   void update(Account account);
+
+  void update(AccessPass accessPass);
 }
