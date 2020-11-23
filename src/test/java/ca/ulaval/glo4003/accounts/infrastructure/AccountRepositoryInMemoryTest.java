@@ -65,6 +65,12 @@ public class AccountRepositoryInMemoryTest {
     assertThat(foundAccessPass).isSameInstanceAs(accessPass);
   }
 
+  @Test(expected = NotFoundAccessPassException.class)
+  public void
+      givenLicensePlateAnNoAccount_whenGettingAccessPasses_thenThrowNotFoundAccessPassException() {
+    accountRepository.getAccessPasses(licensePlate);
+  }
+
   @Test
   public void givenLicensePlate_whenGettingAccessPasses_thenGetAccessPasses() {
     accountRepository.save(account);

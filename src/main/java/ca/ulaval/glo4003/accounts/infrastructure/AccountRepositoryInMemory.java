@@ -45,9 +45,14 @@ public class AccountRepositoryInMemory implements AccountRepository {
 
   @Override
   public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
-    return accounts.values().stream()
-        .flatMap(account -> account.getAccessPasses(licensePlate).stream())
-        .collect(Collectors.toList());
+    List<AccessPass> accessPasses =
+        accounts.values().stream()
+            .flatMap(account -> account.getAccessPasses(licensePlate).stream())
+            .collect(Collectors.toList());
+
+    if (accessPasses.isEmpty()) throw new NotFoundAccessPassException();
+
+    return accessPasses;
   }
 
   @Override
