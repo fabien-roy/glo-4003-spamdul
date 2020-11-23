@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum AccessPeriod {
-  ONE_HOUR("1h"), // TODO Add back in for 3.1
-  ONE_DAY("1d"), // TODO idem
+  ONE_HOUR("1h"),
+  ONE_DAY("1d"),
   ONE_DAY_BY_WEEK_FOR_SEMESTER("1d/week/semester"),
   ONE_SEMESTER("1 semester"),
   TWO_SEMESTERS("2 semesters"),

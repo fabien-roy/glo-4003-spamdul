@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.parkings.exceptions.InvalidParkingPeriodException;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO : According to AccessPeriod, it should be "semester" and not "session"
 public enum ParkingPeriod {
   ONE_DAY("1d/week/session"),
   MONTHLY("monthly"),

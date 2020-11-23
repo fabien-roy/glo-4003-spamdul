@@ -15,26 +15,6 @@ public class AccessPassPeriodAssemblerTest {
     accessPassPeriodAssembler = new AccessPassPeriodAssembler();
   }
 
-  /*@Test
-  public void givenUneHeure_whenAssembling_thenReturnOneHour() {
-    AccessPeriodInFrench accessPeriodInFrench = AccessPeriodInFrench.UNE_HEURE;
-
-    AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
-
-    assertThat(accessPeriod).isEqualTo(AccessPeriod.ONE_HOUR);
-  }*/
-  // TODO Re-enable with 3.1
-
-  /*@Test
-  public void givenUneJournee_whenAssembling_thenReturnOneDay() {
-    AccessPeriodInFrench accessPeriodInFrench = AccessPeriodInFrench.UNE_JOURNEE;
-
-    AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
-
-    assertThat(accessPeriod).isEqualTo(AccessPeriod.ONE_DAY);
-  }*/
-  // TODO Idem
-
   @Test
   public void
       givenUneJourneeParSemainePourSession_whenAssembling_thenReturnOneDayByWeekForSession() {

@@ -93,8 +93,6 @@ public class AccessPassAssembler {
     }
   }
 
-  // TODO : Instead of setting semester periods here, use a factory from the service (an assembler
-  //        must not use a service)
   private List<TimePeriod> buildAccessPeriods(String[] semesters) {
     return Arrays.stream(semesters)
         .map(semesterCodeAssembler::assemble)

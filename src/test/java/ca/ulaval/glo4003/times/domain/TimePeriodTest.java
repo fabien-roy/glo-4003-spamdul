@@ -9,7 +9,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-// TODO : Refactor this test class to use random values and simplify tests
 public class TimePeriodTest {
 
   private static final int FIRST_YEAR = 2020;

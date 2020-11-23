@@ -14,7 +14,6 @@ public class ReportPeriodDtoBuilder {
   public ReportPeriodDto build() {
     ReportPeriodDto reportPeriodDto = new ReportPeriodDto();
     reportPeriodDto.period = period;
-    // TODO : Build fake data
     return reportPeriodDto;
   }
 }
