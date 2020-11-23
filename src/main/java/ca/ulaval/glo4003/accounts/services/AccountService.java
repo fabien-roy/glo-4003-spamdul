@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.accounts.services;
 
-import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
@@ -58,11 +58,12 @@ public class AccountService {
     accountRepository.update(account);
   }
 
-  public void addAccessCodeToAccount(AccountId id, AccessPassCode accessPassCode, BillId billId) {
+  // TODO : Refactor tests
+  public void addAccessPassToAccount(AccountId id, AccessPass accessPass, BillId billId) {
     Account account = getAccount(id);
 
-    account.addAccessPassCode(accessPassCode);
-    account.addBillId(billId);
+    account.addAccessPass(accessPass);
+    account.addBillId(billId); // TODO #315 : This could be done with .addAccessPass
     accountRepository.update(account);
   }
 

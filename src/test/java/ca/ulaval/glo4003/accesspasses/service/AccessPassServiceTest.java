@@ -83,7 +83,7 @@ public class AccessPassServiceTest {
     accessPassService.addAccessPass(accessPassDto, account.getId().toString());
 
     verify(accountService)
-        .addAccessCodeToAccount(account.getId(), accessPass.getCode(), notZeroPollutionBillId);
+        .addAccessPassToAccount(account.getId(), accessPass, notZeroPollutionBillId);
   }
 
   @Test
@@ -100,8 +100,7 @@ public class AccessPassServiceTest {
 
     accessPassService.addAccessPass(accessPassDto, account.getId().toString());
 
-    verify(accountService)
-        .addAccessCodeToAccount(account.getId(), accessPass.getCode(), zeroPollutionBillId);
+    verify(accountService).addAccessPassToAccount(account.getId(), accessPass, zeroPollutionBillId);
   }
 
   @Test
@@ -186,7 +185,6 @@ public class AccessPassServiceTest {
             accessPass.getCode(),
             car.getConsumptionType()))
         .thenReturn(notZeroPollutionBillId);
-    when(accessPassRepository.save(accessPass)).thenReturn(accessPass.getCode());
     when(accessPassCodeAssembler.assemble(accessPass.getCode())).thenReturn(accessPassCodeDto);
   }
 }
