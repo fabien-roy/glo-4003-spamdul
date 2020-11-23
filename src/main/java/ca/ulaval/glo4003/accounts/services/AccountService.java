@@ -59,7 +59,6 @@ public class AccountService {
     accountRepository.update(account);
   }
 
-  // TODO : Refactor tests
   public void addAccessPassToAccount(AccountId id, AccessPass accessPass, BillId billId) {
     Account account = getAccount(id);
 
