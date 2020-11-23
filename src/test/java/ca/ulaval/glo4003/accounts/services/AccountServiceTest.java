@@ -110,7 +110,7 @@ public class AccountServiceTest {
   public void whenAddingAccessCode_shouldAddAccessCodeToAccount() {
     accountService.addAccessPassToAccount(account.getId(), accessPass, billId);
 
-    assertThat(account.getAccessPasses()).contains(accessPass);
+    assertThat(account.getAccessPass(accessPass.getCode())).isSameInstanceAs(accessPass);
   }
 
   @Test

@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.users.domain.User;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Account {
   private final AccountId id;
@@ -30,13 +31,14 @@ public class Account {
     return user;
   }
 
-  // TODO #313 : If this is only used by tests, it is unnecessary
-  public Collection<AccessPass> getAccessPasses() {
-    return accessPasses.values();
-  }
-
   public AccessPass getAccessPass(AccessPassCode accessPassCode) {
     return accessPasses.get(accessPassCode);
+  }
+
+  public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
+    return accessPasses.values().stream()
+        .filter(accessPass -> licensePlate.equals(accessPass.getLicensePlate()))
+        .collect(Collectors.toList());
   }
 
   public List<ParkingStickerCode> getParkingStickerCodes() {

@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AccountRepositoryInMemory implements AccountRepository {
   private final Map<AccountId, Account> accounts = new HashMap<>();
@@ -42,10 +43,11 @@ public class AccountRepositoryInMemory implements AccountRepository {
     }
   }
 
-  // TODO #313 : Test AccountRepository.getAccessPasses with license plate
   @Override
   public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
-    return new ArrayList<>();
+    return accounts.values().stream()
+        .flatMap(account -> account.getAccessPasses(licensePlate).stream())
+        .collect(Collectors.toList());
   }
 
   @Override

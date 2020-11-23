@@ -90,6 +90,7 @@ public class GateService {
     for (AccessPass accessPass : accessPasses) {
       if (accessPass.isAdmittedOnCampus()) {
         associatedAccessPass = accessPass;
+        break;
       }
     }
 
