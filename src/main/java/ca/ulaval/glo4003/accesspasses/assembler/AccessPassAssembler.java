@@ -46,7 +46,7 @@ public class AccessPassAssembler {
     AccessPeriod period = AccessPeriod.get(accessPassCodeDto.period);
 
     DayOfWeek dayOfWeek =
-        period == AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER
+        period == AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER
             ? DayOfWeek.get(accessPassCodeDto.accessDay)
             : null;
 
@@ -85,7 +85,7 @@ public class AccessPassAssembler {
 
   private void validateCorrectLengthForSemesters(String[] semesters, AccessPeriod period) {
     if ((semesters.length != 1
-            && (period == AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER
+            && (period == AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER
                 || period == AccessPeriod.ONE_SEMESTER))
         || (semesters.length != 2 && period == AccessPeriod.TWO_SEMESTERS)
         || (semesters.length != 3 && period == AccessPeriod.THREE_SEMESTERS)) {

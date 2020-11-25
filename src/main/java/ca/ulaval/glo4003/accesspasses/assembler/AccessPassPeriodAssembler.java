@@ -11,8 +11,8 @@ public class AccessPassPeriodAssembler {
         return AccessPeriod.ONE_HOUR;
       case UNE_JOURNEE:
         return AccessPeriod.ONE_DAY;
-      case UNE_JOURNEE_PAR_SEMAINE_POUR_SESSION:
-        return AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER;
+      case UNE_JOURNEE_PAR_SEMAINE_PAR_SESSION:
+        return AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER;
       case UNE_SESSION:
         return AccessPeriod.ONE_SEMESTER;
       case DEUX_SESSIONS:
