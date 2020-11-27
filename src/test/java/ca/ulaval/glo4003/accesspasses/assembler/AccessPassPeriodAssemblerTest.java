@@ -17,17 +17,17 @@ public class AccessPassPeriodAssemblerTest {
 
   @Test
   public void
-      givenUneJourneeParSemainePourSession_whenAssembling_thenReturnOneDayByWeekForSession() {
+      givenUneJourneeParSemaineParSession_whenAssembling_thenReturnOneDayPerWeekPerSession() {
     AccessPeriodInFrench accessPeriodInFrench =
-        AccessPeriodInFrench.UNE_JOURNEE_PAR_SEMAINE_POUR_SESSION;
+        AccessPeriodInFrench.UNE_JOURNEE_PAR_SEMAINE_PAR_SESSION;
 
     AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
 
-    assertThat(accessPeriod).isEqualTo(AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER);
+    assertThat(accessPeriod).isEqualTo(AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER);
   }
 
   @Test
-  public void givenUneSession_whenAssembling_thenReturnOneSession() {
+  public void givenUneSession_whenAssembling_thenReturnOneSemester() {
     AccessPeriodInFrench accessPeriodInFrench = AccessPeriodInFrench.UNE_SESSION;
 
     AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
@@ -36,7 +36,7 @@ public class AccessPassPeriodAssemblerTest {
   }
 
   @Test
-  public void givenDeuxSessions_whenAssembling_thenReturnTwoSessions() {
+  public void givenDeuxSessions_whenAssembling_thenReturnTwoSemesters() {
     AccessPeriodInFrench accessPeriodInFrench = AccessPeriodInFrench.DEUX_SESSIONS;
 
     AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
@@ -45,7 +45,7 @@ public class AccessPassPeriodAssemblerTest {
   }
 
   @Test
-  public void givenTroisSessions_whenAssembling_thenReturnThreeSessions() {
+  public void givenTroisSessions_whenAssembling_thenReturnThreeSemesters() {
     AccessPeriodInFrench accessPeriodInFrench = AccessPeriodInFrench.TROIS_SESSIONS;
 
     AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);

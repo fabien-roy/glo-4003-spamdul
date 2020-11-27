@@ -73,7 +73,7 @@ public class AccessPassAssemblerTest {
       givenOneDayPerWeekPerSemesterPeriod_whenAssembling_thenReturnAccessPassWithAccessDay() {
     accessPassDto =
         anAccessPassDto()
-            .withAccessPeriod(AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER.toString())
+            .withAccessPeriod(AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER.toString())
             .withSemesters(new String[] {"A20"})
             .build();
 
@@ -88,7 +88,7 @@ public class AccessPassAssemblerTest {
     String invalidAccessDay = "invalidDayOfWeek";
     accessPassDto =
         anAccessPassDto()
-            .withAccessPeriod(AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER.toString())
+            .withAccessPeriod(AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER.toString())
             .withAccessDay(invalidAccessDay)
             .build();
 
@@ -100,7 +100,7 @@ public class AccessPassAssemblerTest {
       givenOneDayPerWeekPerSemesterAndNoAccessDay_whenAssembling_thenThrowInvalidDayOfWeekException() {
     accessPassDto =
         anAccessPassDto()
-            .withAccessPeriod(AccessPeriod.ONE_DAY_BY_WEEK_FOR_SEMESTER.toString())
+            .withAccessPeriod(AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER.toString())
             .withAccessDay(null)
             .build();
 

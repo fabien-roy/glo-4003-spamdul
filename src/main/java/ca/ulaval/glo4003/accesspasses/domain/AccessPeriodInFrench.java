@@ -7,7 +7,7 @@ import java.util.Map;
 public enum AccessPeriodInFrench {
   UNE_HEURE("1h"),
   UNE_JOURNEE("1j"),
-  UNE_JOURNEE_PAR_SEMAINE_POUR_SESSION("1j/semaine/session"),
+  UNE_JOURNEE_PAR_SEMAINE_PAR_SESSION("1j/semaine/session"),
   UNE_SESSION("1 session"),
   DEUX_SESSIONS("2 session"),
   TROIS_SESSIONS("3 session");

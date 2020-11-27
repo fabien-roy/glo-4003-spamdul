@@ -16,12 +16,14 @@ public class ParkingPeriodAssemblerTest {
   }
 
   @Test
-  public void givenUneJournee_whenAssembling_thenReturnOneDay() {
-    ParkingPeriodInFrench parkingPeriodInFrench = ParkingPeriodInFrench.UNE_JOURNEE;
+  public void
+      givenUneJourneeParSemaineParSesssion_whenAssembling_thenReturnOneDayPerWeekPerSession() {
+    ParkingPeriodInFrench parkingPeriodInFrench =
+        ParkingPeriodInFrench.UNE_JOURNEE_PAR_SEMAINE_PAR_SESSION;
 
     ParkingPeriod parkingPeriod = parkingPeriodAssembler.assemble(parkingPeriodInFrench);
 
-    assertThat(parkingPeriod).isEqualTo(ParkingPeriod.ONE_DAY);
+    assertThat(parkingPeriod).isEqualTo(ParkingPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER);
   }
 
   @Test
@@ -34,38 +36,29 @@ public class ParkingPeriodAssemblerTest {
   }
 
   @Test
-  public void givenUneSession_whenAssembling_thenReturnOneSession() {
+  public void givenUneSession_whenAssembling_thenReturnOneSemester() {
     ParkingPeriodInFrench parkingPeriodInFrench = ParkingPeriodInFrench.UNE_SESSION;
 
     ParkingPeriod parkingPeriod = parkingPeriodAssembler.assemble(parkingPeriodInFrench);
 
-    assertThat(parkingPeriod).isEqualTo(ParkingPeriod.ONE_SESSION);
+    assertThat(parkingPeriod).isEqualTo(ParkingPeriod.ONE_SEMESTER);
   }
 
   @Test
-  public void givenDeuxSession_whenAssembling_thenReturnTwoSession() {
+  public void givenDeuxSessions_whenAssembling_thenReturnTwoSemesters() {
     ParkingPeriodInFrench parkingPeriodInFrench = ParkingPeriodInFrench.DEUX_SESSIONS;
 
     ParkingPeriod parkingPeriod = parkingPeriodAssembler.assemble(parkingPeriodInFrench);
 
-    assertThat(parkingPeriod).isEqualTo(ParkingPeriod.TWO_SESSIONS);
+    assertThat(parkingPeriod).isEqualTo(ParkingPeriod.TWO_SEMESTERS);
   }
 
   @Test
-  public void givenTroisSession_whenAssembling_thenReturnThreeSession() {
+  public void givenTroisSessions_whenAssembling_thenReturnThreeSemesters() {
     ParkingPeriodInFrench parkingPeriodInFrench = ParkingPeriodInFrench.TROIS_SESSIONS;
 
     ParkingPeriod parkingPeriod = parkingPeriodAssembler.assemble(parkingPeriodInFrench);
 
-    assertThat(parkingPeriod).isEqualTo(ParkingPeriod.THREE_SESSIONS);
-  }
-
-  @Test
-  public void givenParkingPeriod_whenAssembling_thenReturnParkingPeriod() {
-    String anyParkingPeriod = "monthly";
-
-    ParkingPeriod parkingPeriod = parkingPeriodAssembler.assemble(anyParkingPeriod);
-
-    assertThat(parkingPeriod).isEqualTo(ParkingPeriod.MONTHLY);
+    assertThat(parkingPeriod).isEqualTo(ParkingPeriod.THREE_SEMESTERS);
   }
 }
