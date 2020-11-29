@@ -25,7 +25,6 @@ public class AccessPassService {
   private final AccessPassTypeRepository accessPassTypeRepository;
   private final BillService billService;
   private final AccountService accountService;
-  private final AccessPassRepository accessPassRepository;
   private final AccessPassCodeAssembler accessPassCodeAssembler;
 
   public AccessPassService(
@@ -36,7 +35,6 @@ public class AccessPassService {
       AccessPassTypeRepository accessPassTypeRepository,
       AccountService accountService,
       BillService billService,
-      AccessPassRepository accessPassRepository,
       AccessPassCodeAssembler accessPassCodeAssembler) {
     this.accessPassAssembler = accessPassAssembler;
     this.accessPassFactory = accessPassFactory;
@@ -45,7 +43,6 @@ public class AccessPassService {
     this.accessPassTypeRepository = accessPassTypeRepository;
     this.accountService = accountService;
     this.billService = billService;
-    this.accessPassRepository = accessPassRepository;
     this.accessPassCodeAssembler = accessPassCodeAssembler;
   }
 
@@ -70,29 +67,27 @@ public class AccessPassService {
     Money moneyDue = accessPassType.getFeeForPeriod(AccessPeriod.get(accessPassDto.period));
     BillId billId =
         billService.addBillForAccessCode(moneyDue, accessPass.getCode(), consumptionType);
-    accountService.addAccessCodeToAccount(account.getId(), accessPass.getCode(), billId);
+    accountService.addAccessPassToAccount(account.getId(), accessPass, billId);
 
-    AccessPassCode accessPassCode = accessPassRepository.save(accessPass);
-
-    return accessPassCodeAssembler.assemble(accessPassCode);
+    return accessPassCodeAssembler.assemble(accessPass.getCode());
   }
 
   public AccessPass getAccessPass(String code) {
     AccessPassCode accessPassCode = accessPassCodeAssembler.assemble(code);
-    return accessPassRepository.get(accessPassCode);
+    return accountService.getAccessPass(accessPassCode);
   }
 
-  public List<AccessPass> getAccessPassesByLicensePlate(LicensePlate licensePlate) {
-    return accessPassRepository.get(licensePlate);
+  public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
+    return accountService.getAccessPasses(licensePlate);
   }
 
   public void enterCampus(AccessPass accessPass) {
     accessPass.enterCampus();
-    accessPassRepository.update(accessPass);
+    accountService.update(accessPass);
   }
 
   public void exitCampus(AccessPass accessPass) {
     accessPass.exitCampus();
-    accessPassRepository.update(accessPass);
+    accountService.update(accessPass);
   }
 }

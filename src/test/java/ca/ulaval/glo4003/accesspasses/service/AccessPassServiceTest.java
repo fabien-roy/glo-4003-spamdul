@@ -26,6 +26,8 @@ import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
+import java.util.Collections;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,7 +43,6 @@ public class AccessPassServiceTest {
   @Mock private AccessPassTypeRepository accessPassTypeRepository;
   @Mock private BillService billService;
   @Mock private AccountService accountService;
-  @Mock private AccessPassRepository accessPassRepository;
   @Mock private AccessPassCodeAssembler accessPassCodeAssembler;
 
   private AccessPassService accessPassService;
@@ -68,12 +69,13 @@ public class AccessPassServiceTest {
             accessPassTypeRepository,
             accountService,
             billService,
-            accessPassRepository,
             accessPassCodeAssembler);
 
     when(accessPassCodeAssembler.assemble(accessPass.getCode().toString()))
         .thenReturn(accessPass.getCode());
-    when(accessPassRepository.get(accessPass.getCode())).thenReturn(accessPass);
+    when(accountService.getAccessPass(accessPass.getCode())).thenReturn(accessPass);
+    when(accountService.getAccessPasses(car.getLicensePlate()))
+        .thenReturn(Collections.singletonList(accessPass));
   }
 
   @Test
@@ -83,7 +85,7 @@ public class AccessPassServiceTest {
     accessPassService.addAccessPass(accessPassDto, account.getId().toString());
 
     verify(accountService)
-        .addAccessCodeToAccount(account.getId(), accessPass.getCode(), notZeroPollutionBillId);
+        .addAccessPassToAccount(account.getId(), accessPass, notZeroPollutionBillId);
   }
 
   @Test
@@ -100,8 +102,7 @@ public class AccessPassServiceTest {
 
     accessPassService.addAccessPass(accessPassDto, account.getId().toString());
 
-    verify(accountService)
-        .addAccessCodeToAccount(account.getId(), accessPass.getCode(), zeroPollutionBillId);
+    verify(accountService).addAccessPassToAccount(account.getId(), accessPass, zeroPollutionBillId);
   }
 
   @Test
@@ -115,11 +116,20 @@ public class AccessPassServiceTest {
   }
 
   @Test
-  public void whenGettingAccessPass_thenReturnAccessPassFromRepository() {
+  public void whenGettingAccessPass_thenReturnAccessPassFromAccountService() {
     AccessPass receivedAccessPass =
         accessPassService.getAccessPass(accessPass.getCode().toString());
 
     assertThat(receivedAccessPass).isSameInstanceAs(accessPass);
+  }
+
+  @Test
+  public void givenLicensePlate_whenGettingAccessPasses_thenReturnAccessPassFromAccountService() {
+    List<AccessPass> receivedAccessPasses =
+        accessPassService.getAccessPasses(car.getLicensePlate());
+
+    assertThat(receivedAccessPasses).hasSize(1);
+    assertThat(receivedAccessPasses.get(0)).isSameInstanceAs(accessPass);
   }
 
   @Test
@@ -130,10 +140,10 @@ public class AccessPassServiceTest {
   }
 
   @Test
-  public void whenEnteringCampus_thenRepositoryIsUpdated() {
+  public void whenEnteringCampus_thenAccountServiceIsUpdated() {
     accessPassService.enterCampus(accessPass);
 
-    verify(accessPassRepository).update(accessPass);
+    verify(accountService).update(accessPass);
   }
 
   @Test
@@ -146,12 +156,12 @@ public class AccessPassServiceTest {
   }
 
   @Test
-  public void whenExitingCampus_thenRepositoryIsUpdated() {
+  public void whenExitingCampus_thenAccountServiceIsUpdated() {
     accessPass = anAccessPass().thatEnteredCampus().build();
 
     accessPassService.exitCampus(accessPass);
 
-    verify(accessPassRepository).update(accessPass);
+    verify(accountService).update(accessPass);
   }
 
   private void givenAccessPassDtoWithLicensePlate(LicensePlate licensePlate) {
@@ -186,7 +196,6 @@ public class AccessPassServiceTest {
             accessPass.getCode(),
             car.getConsumptionType()))
         .thenReturn(notZeroPollutionBillId);
-    when(accessPassRepository.save(accessPass)).thenReturn(accessPass.getCode());
     when(accessPassCodeAssembler.assemble(accessPass.getCode())).thenReturn(accessPassCodeDto);
   }
 }

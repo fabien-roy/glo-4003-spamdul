@@ -49,7 +49,7 @@ public class UserServiceTest {
     when(accountIdAssembler.assemble(account.getId())).thenReturn(accountIdDto);
 
     when(accountIdAssembler.assemble(account.getId().toString())).thenReturn(account.getId());
-    when(accountRepository.findById(account.getId())).thenReturn(account);
+    when(accountRepository.get(account.getId())).thenReturn(account);
     when(userAssembler.assemble(account.getUser())).thenReturn(userDto);
   }
 

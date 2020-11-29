@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.accounts.services;
 
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
@@ -58,10 +59,10 @@ public class AccountService {
     accountRepository.update(account);
   }
 
-  public void addAccessCodeToAccount(AccountId id, AccessPassCode accessPassCode, BillId billId) {
+  public void addAccessPassToAccount(AccountId id, AccessPass accessPass, BillId billId) {
     Account account = getAccount(id);
 
-    account.addAccessPassCode(accessPassCode);
+    account.saveAccessPass(accessPass);
     account.addBillId(billId);
     accountRepository.update(account);
   }
@@ -97,6 +98,18 @@ public class AccountService {
   }
 
   public Account getAccount(AccountId accountId) {
-    return accountRepository.findById(accountId);
+    return accountRepository.get(accountId);
+  }
+
+  public AccessPass getAccessPass(AccessPassCode accessPassCode) {
+    return accountRepository.getAccessPass(accessPassCode);
+  }
+
+  public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
+    return accountRepository.getAccessPasses(licensePlate);
+  }
+
+  public void update(AccessPass accessPass) {
+    accountRepository.update(accessPass);
   }
 }
