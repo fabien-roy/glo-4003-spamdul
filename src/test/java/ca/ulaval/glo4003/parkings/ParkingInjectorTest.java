@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.parkings;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
-import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.communications.services.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.services.assemblers.PostalCodeAssembler;
@@ -26,7 +26,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ParkingInjectorTest {
 
-  @Mock private AccountIdAssembler accountIdAssembler;
+  @Mock private AccountIdConverter accountIdConverter;
   @Mock private PostalCodeAssembler postalCodeAssembler;
   @Mock private EmailAddressAssembler emailAddressAssembler;
   @Mock private AccountService accountService;
@@ -76,7 +76,7 @@ public class ParkingInjectorTest {
     ParkingStickerService parkingStickerService =
         parkingInjector.createParkingStickerService(
             true,
-            accountIdAssembler,
+            accountIdConverter,
             postalCodeAssembler,
             emailAddressAssembler,
             accountService,

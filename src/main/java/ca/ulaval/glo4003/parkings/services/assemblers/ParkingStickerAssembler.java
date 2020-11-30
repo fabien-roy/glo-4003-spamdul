@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings.services.assemblers;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
-import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
 import ca.ulaval.glo4003.communications.services.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.locations.domain.PostalCode;
@@ -16,26 +16,26 @@ import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
 
 public class ParkingStickerAssembler {
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
-  private final AccountIdAssembler accountIdAssembler;
+  private final AccountIdConverter accountIdConverter;
   private final PostalCodeAssembler postalCodeAssembler;
   private final EmailAddressAssembler emailAddressAssembler;
   private final ParkingPeriodAssembler parkingPeriodAssembler;
 
   public ParkingStickerAssembler(
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
-      AccountIdAssembler accountIdAssembler,
+      AccountIdConverter accountIdConverter,
       PostalCodeAssembler postalCodeAssembler,
       EmailAddressAssembler emailAddressAssembler,
       ParkingPeriodAssembler parkingPeriodAssembler) {
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
-    this.accountIdAssembler = accountIdAssembler;
+    this.accountIdConverter = accountIdConverter;
     this.postalCodeAssembler = postalCodeAssembler;
     this.emailAddressAssembler = emailAddressAssembler;
     this.parkingPeriodAssembler = parkingPeriodAssembler;
   }
 
   public ParkingSticker assemble(ParkingStickerDto parkingStickerDto) {
-    AccountId accountId = accountIdAssembler.assemble(parkingStickerDto.accountId);
+    AccountId accountId = accountIdConverter.convert(parkingStickerDto.accountId);
     ParkingAreaCode parkingAreaCode =
         parkingAreaCodeAssembler.assemble(parkingStickerDto.parkingArea);
 

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.accounts.services.assemblers;
+package ca.ulaval.glo4003.accounts.services.converters;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 
@@ -12,36 +12,36 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AccountIdAssemblerTest {
+public class AccountIdConverterTest {
   private static final AccountId ACCOUNT_ID = createAccountId();
 
-  private AccountIdAssembler accountIdAssembler;
+  private AccountIdConverter accountIdConverter;
 
   @Before
   public void setUp() {
-    accountIdAssembler = new AccountIdAssembler();
+    accountIdConverter = new AccountIdConverter();
   }
 
   @Test(expected = InvalidAccountIdException.class)
-  public void givenInvalidAccountId_whenAssembling_thenThrowInvalidAccountIdException() {
-    accountIdAssembler.assemble("invalidAccountId");
+  public void givenInvalidAccountId_whenConverting_thenThrowInvalidAccountIdException() {
+    accountIdConverter.convert("invalidAccountId");
   }
 
   @Test(expected = InvalidAccountIdException.class)
-  public void givenNullAccountId_whenAssembling_thenThrowInvalidAccountIdException() {
-    accountIdAssembler.assemble((String) null);
+  public void givenNullAccountId_whenConverting_thenThrowInvalidAccountIdException() {
+    accountIdConverter.convert((String) null);
   }
 
   @Test
-  public void whenAssembling_thenReturnAccountId() {
-    AccountId accountId = accountIdAssembler.assemble(ACCOUNT_ID.toString());
+  public void whenConverting_thenReturnAccountId() {
+    AccountId accountId = accountIdConverter.convert(ACCOUNT_ID.toString());
 
     Truth.assertThat(accountId).isEqualTo(ACCOUNT_ID);
   }
 
   @Test
-  public void whenAssemblingDto_thenReturnAccountId() {
-    AccountIdDto accountIdDto = accountIdAssembler.assemble(ACCOUNT_ID);
+  public void whenConvertingDto_thenReturnAccountId() {
+    AccountIdDto accountIdDto = accountIdConverter.convert(ACCOUNT_ID);
 
     Truth.assertThat(accountIdDto.accountId).isEqualTo(ACCOUNT_ID.toString());
   }

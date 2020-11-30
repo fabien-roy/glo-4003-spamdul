@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.services.AccountService;
-import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.times.services.assemblers.CustomDateAssembler;
@@ -21,7 +21,7 @@ public class UserInjectorTest {
 
   @Mock private AccountRepository accountRepository;
   @Mock private AccountFactory accountFactory;
-  @Mock private AccountIdAssembler accountIdAssembler;
+  @Mock private AccountIdConverter accountIdConverter;
   @Mock private CustomDateAssembler customDateAssembler;
   @Mock private AccessPassService accessPassService;
   @Mock private CarService carService;
@@ -41,7 +41,7 @@ public class UserInjectorTest {
         userInjector.createUserResource(
             accountRepository,
             accountFactory,
-            accountIdAssembler,
+            accountIdConverter,
             customDateAssembler,
             accessPassService,
             carService,

@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.users.domain.User;
 import ca.ulaval.glo4003.users.services.assemblers.UserAssembler;
 import ca.ulaval.glo4003.users.services.dto.AccountIdDto;
@@ -24,7 +24,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class UserServiceTest {
   @Mock private AccountRepository accountRepository;
   @Mock private AccountFactory accountFactory;
-  @Mock private AccountIdAssembler accountIdAssembler;
+  @Mock private AccountIdConverter accountIdConverter;
   @Mock private UserAssembler userAssembler;
   @Mock private AccountIdDto accountIdDto;
 
@@ -37,7 +37,7 @@ public class UserServiceTest {
   @Before
   public void setUp() {
     userService =
-        new UserService(accountRepository, accountFactory, accountIdAssembler, userAssembler);
+        new UserService(accountRepository, accountFactory, accountIdConverter, userAssembler);
 
     account = anAccount().build();
     user = aUser().build();
@@ -46,9 +46,9 @@ public class UserServiceTest {
     when(userAssembler.assemble(userDto)).thenReturn(user);
     when(accountFactory.createAccount(user)).thenReturn(account);
     when(accountRepository.save(account)).thenReturn(account.getId());
-    when(accountIdAssembler.assemble(account.getId())).thenReturn(accountIdDto);
+    when(accountIdConverter.convert(account.getId())).thenReturn(accountIdDto);
 
-    when(accountIdAssembler.assemble(account.getId().toString())).thenReturn(account.getId());
+    when(accountIdConverter.convert(account.getId().toString())).thenReturn(account.getId());
     when(accountRepository.get(account.getId())).thenReturn(account);
     when(userAssembler.assemble(account.getUser())).thenReturn(userDto);
   }

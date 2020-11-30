@@ -12,7 +12,7 @@ import static org.mockito.Mockito.*;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
@@ -36,7 +36,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class AccountServiceTest {
 
   @Mock private AccountRepository accountRepository;
-  @Mock private AccountIdAssembler accountIdAssembler;
+  @Mock private AccountIdConverter accountIdConverter;
   @Mock private BillService billService;
   @Mock private BillAssembler billAssembler;
   @Mock private BillIdAssembler billIdAssembler;
@@ -59,7 +59,7 @@ public class AccountServiceTest {
     accountService =
         new AccountService(
             accountRepository,
-            accountIdAssembler,
+            accountIdConverter,
             billService,
             billAssembler,
             billIdAssembler,
@@ -143,11 +143,11 @@ public class AccountServiceTest {
 
   @Test
   public void whenGettingBills_shouldAssembleId() {
-    when(accountIdAssembler.assemble(account.getId().toString())).thenReturn(account.getId());
+    when(accountIdConverter.convert(account.getId().toString())).thenReturn(account.getId());
 
     accountService.getBills(account.getId().toString());
 
-    verify(accountIdAssembler).assemble(account.getId().toString());
+    verify(accountIdConverter).convert(account.getId().toString());
   }
 
   @Test
@@ -155,7 +155,7 @@ public class AccountServiceTest {
     List<BillId> billIds = new ArrayList<>();
     billIds.add(bill.getId());
 
-    when(accountIdAssembler.assemble(accountWithBill.getId().toString()))
+    when(accountIdConverter.convert(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());
     when(accountRepository.get(accountWithBill.getId())).thenReturn(accountWithBill);
 
@@ -166,7 +166,7 @@ public class AccountServiceTest {
 
   @Test
   public void whenGettingBills_shouldGetAccount() {
-    when(accountIdAssembler.assemble(account.getId().toString())).thenReturn(account.getId());
+    when(accountIdConverter.convert(account.getId().toString())).thenReturn(account.getId());
 
     accountService.getBills(account.getId().toString());
 
@@ -180,7 +180,7 @@ public class AccountServiceTest {
     List<Bill> bills = new ArrayList<>();
     bills.add(bill);
 
-    when(accountIdAssembler.assemble(accountWithBill.getId().toString()))
+    when(accountIdConverter.convert(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());
     when(accountRepository.get(accountWithBill.getId())).thenReturn(accountWithBill);
     when(billService.getBillsByIds(billIds)).thenReturn(bills);
@@ -207,7 +207,7 @@ public class AccountServiceTest {
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
 
-    verify(accountIdAssembler).assemble(accountWithBill.getId().toString());
+    verify(accountIdConverter).convert(accountWithBill.getId().toString());
   }
 
   @Test
@@ -254,7 +254,7 @@ public class AccountServiceTest {
 
   private void setUpPayBill() {
     when(billPaymentAssembler.assemble(billPaymentDto)).thenReturn(Money.fromDouble(1));
-    when(accountIdAssembler.assemble(accountWithBill.getId().toString()))
+    when(accountIdConverter.convert(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());
     when(billIdAssembler.assemble(bill.getId().toString())).thenReturn(bill.getId());
     when(accountRepository.get(accountWithBill.getId())).thenReturn(accountWithBill);

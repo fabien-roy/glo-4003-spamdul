@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
@@ -22,7 +22,7 @@ import java.util.List;
 public class AccountService {
 
   private final AccountRepository accountRepository;
-  private final AccountIdAssembler accountIdAssembler;
+  private final AccountIdConverter accountIdConverter;
   private final BillService billService;
   private final BillAssembler billAssembler;
   private final BillIdAssembler billIdAssembler;
@@ -30,13 +30,13 @@ public class AccountService {
 
   public AccountService(
       AccountRepository accountRepository,
-      AccountIdAssembler accountIdAssembler,
+      AccountIdConverter accountIdConverter,
       BillService billService,
       BillAssembler billAssembler,
       BillIdAssembler billIdAssembler,
       BillPaymentAssembler billPaymentAssembler) {
     this.accountRepository = accountRepository;
-    this.accountIdAssembler = accountIdAssembler;
+    this.accountIdConverter = accountIdConverter;
     this.billService = billService;
     this.billAssembler = billAssembler;
     this.billIdAssembler = billIdAssembler;
@@ -93,7 +93,7 @@ public class AccountService {
   }
 
   public Account getAccount(String accountId) {
-    AccountId id = accountIdAssembler.assemble(accountId);
+    AccountId id = accountIdConverter.convert(accountId);
     return getAccount(id);
   }
 

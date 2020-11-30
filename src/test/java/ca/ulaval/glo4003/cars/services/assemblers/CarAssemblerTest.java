@@ -8,7 +8,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
-import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
@@ -27,7 +27,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class CarAssemblerTest {
 
   @Mock private LicensePlateAssembler licensePlateAssembler;
-  @Mock private AccountIdAssembler accountIdAssembler;
+  @Mock private AccountIdConverter accountIdConverter;
 
   private CarAssembler carAssembler;
 
@@ -40,10 +40,10 @@ public class CarAssemblerTest {
 
   @Before
   public void setUp() {
-    carAssembler = new CarAssembler(licensePlateAssembler, accountIdAssembler);
+    carAssembler = new CarAssembler(licensePlateAssembler, accountIdConverter);
 
     when(licensePlateAssembler.assemble(LICENSE_PLATE.toString())).thenReturn(LICENSE_PLATE);
-    when(accountIdAssembler.assemble(ACCOUNT_ID.toString())).thenReturn(ACCOUNT_ID);
+    when(accountIdConverter.convert(ACCOUNT_ID.toString())).thenReturn(ACCOUNT_ID);
   }
 
   @Test

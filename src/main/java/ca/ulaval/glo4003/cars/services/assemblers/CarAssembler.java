@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.cars.services.assemblers;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
-import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 public class CarAssembler {
 
   private final LicensePlateAssembler licensePlateAssembler;
-  private final AccountIdAssembler accountIdAssembler;
+  private final AccountIdConverter accountIdConverter;
 
   public CarAssembler(
-      LicensePlateAssembler licensePlateAssembler, AccountIdAssembler accountIdAssembler) {
+      LicensePlateAssembler licensePlateAssembler, AccountIdConverter accountIdConverter) {
     this.licensePlateAssembler = licensePlateAssembler;
-    this.accountIdAssembler = accountIdAssembler;
+    this.accountIdConverter = accountIdConverter;
   }
 
   public List<CarDto> assemble(List<Car> cars) {
@@ -43,7 +43,7 @@ public class CarAssembler {
     validateNotNull(carDto);
 
     LicensePlate licensePlate = licensePlateAssembler.assemble(carDto.licensePlate);
-    AccountId id = accountIdAssembler.assemble(accountId);
+    AccountId id = accountIdConverter.convert(accountId);
 
     return new Car(
         licensePlate,

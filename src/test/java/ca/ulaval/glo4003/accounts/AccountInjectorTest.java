@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.accounts;
 
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,8 +40,8 @@ public class AccountInjectorTest {
 
   @Test
   public void whenCreatingAccountIdAssembler_thenReturnIt() {
-    AccountIdAssembler accountIdAssembler = accountInjector.createAccountIdAssembler();
+    AccountIdConverter accountIdConverter = accountInjector.createAccountIdAssembler();
 
-    Truth.assertThat(accountIdAssembler).isNotNull();
+    Truth.assertThat(accountIdConverter).isNotNull();
   }
 }

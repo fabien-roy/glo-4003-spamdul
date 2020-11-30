@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
-import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
+import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
 import ca.ulaval.glo4003.communications.services.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.locations.domain.PostalCode;
@@ -37,7 +37,7 @@ public class ParkingStickerAssemblerTest {
   private static final PostalCode POSTAL_CODE = createPostalCode();
   private static final EmailAddress EMAIL_ADDRESS = createEmailAddress();
 
-  @Mock private AccountIdAssembler accountIdAssembler;
+  @Mock private AccountIdConverter accountIdConverter;
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   @Mock private PostalCodeAssembler postalCodeAssembler;
   @Mock private EmailAddressAssembler emailAddressAssembler;
@@ -52,12 +52,12 @@ public class ParkingStickerAssemblerTest {
     parkingStickerAssembler =
         new ParkingStickerAssembler(
             parkingAreaCodeAssembler,
-            accountIdAssembler,
+            accountIdConverter,
             postalCodeAssembler,
             emailAddressAssembler,
             parkingPeriodAssembler);
 
-    when(accountIdAssembler.assemble(ACCOUNT_ID.toString())).thenReturn(ACCOUNT_ID);
+    when(accountIdConverter.convert(ACCOUNT_ID.toString())).thenReturn(ACCOUNT_ID);
     when(parkingAreaCodeAssembler.assemble(PARKING_AREA.toString())).thenReturn(PARKING_AREA);
     when(postalCodeAssembler.assemble(POSTAL_CODE.toString())).thenReturn(POSTAL_CODE);
     when(emailAddressAssembler.assemble(EMAIL_ADDRESS.toString())).thenReturn(EMAIL_ADDRESS);
