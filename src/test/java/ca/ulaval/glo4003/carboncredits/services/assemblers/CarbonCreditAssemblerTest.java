@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.carboncredits.assemblers;
+package ca.ulaval.glo4003.carboncredits.services.assemblers;
 
 import static ca.ulaval.glo4003.carboncredits.helpers.CarbonCreditMother.createCarbonCredit;
 
-import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCredit;
+import ca.ulaval.glo4003.carboncredits.services.dto.CarbonCreditDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

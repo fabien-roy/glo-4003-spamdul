@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.carboncredits.assemblers;
+package ca.ulaval.glo4003.carboncredits.services.assemblers;
 
 import static ca.ulaval.glo4003.carboncredits.helpers.MonthlyPaymentStatusDtoBuilder.aMonthlyPaymentStatusDto;
 
-import ca.ulaval.glo4003.carboncredits.api.dto.MonthlyPaymentStatusDto;
 import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatus;
+import ca.ulaval.glo4003.carboncredits.services.dto.MonthlyPaymentStatusDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

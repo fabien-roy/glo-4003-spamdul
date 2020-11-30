@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.carboncredits.helpers;
 
 import static ca.ulaval.glo4003.carboncredits.helpers.MonthlyPaymentStatusMother.createMonthlyPaymentStatus;
 
-import ca.ulaval.glo4003.carboncredits.api.dto.MonthlyPaymentStatusDto;
+import ca.ulaval.glo4003.carboncredits.services.dto.MonthlyPaymentStatusDto;
 
 public class MonthlyPaymentStatusDtoBuilder {
   private String monthlyPaymentStatus = createMonthlyPaymentStatus().toString();

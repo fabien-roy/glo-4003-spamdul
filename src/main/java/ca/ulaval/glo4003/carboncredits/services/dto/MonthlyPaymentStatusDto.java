@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.carboncredits.api.dto;
+package ca.ulaval.glo4003.carboncredits.services.dto;
 
 public class MonthlyPaymentStatusDto {
   public String monthlyPaymentStatus;
