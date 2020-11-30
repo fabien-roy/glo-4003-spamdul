@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.accesspasses.services.assemblers;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassDtoBuilder.anAccessPassDto;
-import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
@@ -11,7 +10,6 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.accesspasses.exceptions.UnsupportedAccessPeriodException;
 import ca.ulaval.glo4003.accesspasses.exceptions.WrongAmountOfSemestersForPeriodException;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
-import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
@@ -35,7 +33,6 @@ public class AccessPassAssemblerTest {
 
   private AccessPassAssembler accessPassAssembler;
 
-  private final AccountId accountId = createAccountId();
   private final LicensePlate licensePlate = createLicensePlate();
   private AccessPassDto accessPassDto =
       anAccessPassDto()
@@ -66,7 +63,7 @@ public class AccessPassAssemblerTest {
             .withSemesters(new String[] {"A20"})
             .build();
 
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
 
     assertThat(accessPass.getAccessDay().toString()).isEqualTo(accessPassDto.accessDay);
   }
@@ -81,7 +78,7 @@ public class AccessPassAssemblerTest {
             .withAccessDay(invalidAccessDay)
             .build();
 
-    accessPassAssembler.assemble(accessPassDto, accountId.toString());
+    accessPassAssembler.assemble(accessPassDto);
   }
 
   @Test(expected = InvalidDayOfWeekException.class)
@@ -93,19 +90,19 @@ public class AccessPassAssemblerTest {
             .withAccessDay(null)
             .build();
 
-    accessPassAssembler.assemble(accessPassDto, accountId.toString());
+    accessPassAssembler.assemble(accessPassDto);
   }
 
   @Test
   public void whenAssembling_thenReturnAccessPassWithLicensePlate() {
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
 
     assertThat(accessPass.getLicensePlate()).isSameInstanceAs(licensePlate);
   }
 
   @Test
   public void whenAssembling_thenReturnIsAdmittedOnCampusAtFalse() {
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
 
     assertThat(accessPass.isAdmittedOnCampus()).isSameInstanceAs(false);
   }
@@ -115,7 +112,7 @@ public class AccessPassAssemblerTest {
     accessPassDto =
         anAccessPassDto().withLicensePlate(null).withSemesters(new String[] {"A20"}).build();
 
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
 
     assertThat(accessPass.getLicensePlate()).isNull();
   }
@@ -124,14 +121,14 @@ public class AccessPassAssemblerTest {
   public void givenOneHourPeriod_whenAssembling_thenThrowUnsupportedPeriodException() {
     accessPassDto = anAccessPassDto().withAccessPeriod(AccessPeriod.ONE_HOUR.toString()).build();
 
-    accessPassAssembler.assemble(accessPassDto, accountId.toString());
+    accessPassAssembler.assemble(accessPassDto);
   }
 
   @Test(expected = UnsupportedAccessPeriodException.class)
   public void givenOneDayPeriod_whenAssembling_thenThrowUnsupportedPeriodException() {
     accessPassDto = anAccessPassDto().withAccessPeriod(AccessPeriod.ONE_DAY.toString()).build();
 
-    accessPassAssembler.assemble(accessPassDto, accountId.toString());
+    accessPassAssembler.assemble(accessPassDto);
   }
 
   @Test(expected = WrongAmountOfSemestersForPeriodException.class)
@@ -142,7 +139,7 @@ public class AccessPassAssemblerTest {
             .withSemesters(new String[] {"A20"})
             .build();
 
-    accessPassAssembler.assemble(accessPassDto, accountId.toString());
+    accessPassAssembler.assemble(accessPassDto);
   }
 
   @Test
@@ -154,21 +151,21 @@ public class AccessPassAssemblerTest {
             .withParkingAea(null)
             .build();
 
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
 
     assertThat(accessPass.getParkingAreaCode()).isNull();
   }
 
   @Test
   public void givenParkingAreaCode_whenAssembling_thenReturnAccessPassWithParkingAreaCode() {
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
 
     assertThat(accessPass.getParkingAreaCode().toString()).isEqualTo(accessPassDto.parkingArea);
   }
 
   @Test
   public void givenAccessPeriodOtherThanOneDayAWeekPerSemester_whenAssembling_thenSetNoAccessDay() {
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId.toString());
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
 
     assertThat(accessPass.getAccessDay()).isNull();
   }

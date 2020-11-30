@@ -47,7 +47,7 @@ public class AccessPassService {
   }
 
   public AccessPassCodeDto addAccessPass(AccessPassDto accessPassDto, String accountId) {
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId);
+    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
     Account account = accountService.getAccount(accountId);
     LicensePlate licensePlate = accessPass.getLicensePlate();
 

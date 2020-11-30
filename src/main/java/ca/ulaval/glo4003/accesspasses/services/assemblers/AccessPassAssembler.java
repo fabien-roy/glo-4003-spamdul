@@ -35,7 +35,7 @@ public class AccessPassAssembler {
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
   }
 
-  public AccessPass assemble(AccessPassDto accessPassCodeDto, String accountId) {
+  public AccessPass assemble(AccessPassDto accessPassCodeDto) {
     AccessPeriod period = AccessPeriod.get(accessPassCodeDto.period);
 
     DayOfWeek dayOfWeek =

@@ -176,8 +176,7 @@ public class AccessPassServiceTest {
   }
 
   private void setUpMocks() {
-    when(accessPassAssembler.assemble(accessPassDto, account.getId().toString()))
-        .thenReturn(accessPass);
+    when(accessPassAssembler.assemble(accessPassDto)).thenReturn(accessPass);
     when(accountService.getAccount(account.getId().toString())).thenReturn(account);
     when(carService.getCar(accessPass.getLicensePlate())).thenReturn(car);
     when(accessPassFactory.create(accessPass)).thenReturn(accessPass);
