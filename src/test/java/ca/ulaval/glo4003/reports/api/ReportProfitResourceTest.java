@@ -19,7 +19,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ReportProfitResourceImplementationTest {
+public class ReportProfitResourceTest {
 
   @Mock private ReportProfitService reportProfitService;
 
@@ -35,7 +35,7 @@ public class ReportProfitResourceImplementationTest {
 
   @Before
   public void setUp() {
-    reportProfitResource = new ReportProfitResourceImplementation(reportProfitService);
+    reportProfitResource = new ReportProfitResource(reportProfitService);
 
     when(reportProfitService.getAllProfits(ReportEventType.BILL_PAID_FOR_PARKING_STICKER, year))
         .thenReturn(Collections.singletonList(reportPeriodDtoForParkingStickerProfits));

@@ -9,10 +9,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/initiatives")
-public class InitiativeResourceImplementation {
+public class InitiativeResource {
   private final InitiativeService initiativeService;
 
-  public InitiativeResourceImplementation(InitiativeService initiativeService) {
+  public InitiativeResource(InitiativeService initiativeService) {
     this.initiativeService = initiativeService;
   }
 
@@ -54,9 +54,9 @@ public class InitiativeResourceImplementation {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("{initiativeCode}")
-  public Response getInitiative(String initiativeCode) {
-    InitiativeDto initiativeDto = initiativeService.getInitiative(initiativeCode);
+  @Path("{code}")
+  public Response getInitiative(@PathParam("code") String code) {
+    InitiativeDto initiativeDto = initiativeService.getInitiative(code);
     return Response.status(Response.Status.OK)
         .entity(initiativeDto)
         .type(MediaType.APPLICATION_JSON)
@@ -66,11 +66,11 @@ public class InitiativeResourceImplementation {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("{initiativeCode}")
+  @Path("{code}")
   public Response allocateAmountToInitiative(
-      String initiativeCode, InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDTO) {
-    initiativeService.addAllocatedAmountToInitiative(
-        initiativeCode, initiativeAddAllocatedAmountDTO);
+      @PathParam("code") String code,
+      InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDTO) {
+    initiativeService.addAllocatedAmountToInitiative(code, initiativeAddAllocatedAmountDTO);
     return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).build();
   }
 }

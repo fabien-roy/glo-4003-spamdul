@@ -25,7 +25,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class InitiativeResourceImplementationTest {
+public class InitiativeResourceTest {
   @Mock private InitiativeService initiativeService;
 
   private InitiativeResource initiativeResource;
@@ -40,7 +40,7 @@ public class InitiativeResourceImplementationTest {
 
   @Before
   public void setUp() {
-    initiativeResource = new InitiativeResourceImplementation(initiativeService);
+    initiativeResource = new InitiativeResource(initiativeService);
   }
 
   @Test
