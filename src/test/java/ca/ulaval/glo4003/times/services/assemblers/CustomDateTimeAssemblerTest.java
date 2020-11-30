@@ -1,11 +1,11 @@
-package ca.ulaval.glo4003.times.assemblers;
+package ca.ulaval.glo4003.times.services.assemblers;
 
 import static ca.ulaval.glo4003.times.helpers.DateTimeDtoBuilder.aDateTimeDto;
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.times.api.dto.DateTimeDto;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import ca.ulaval.glo4003.times.exceptions.InvalidDateTimeException;
+import ca.ulaval.glo4003.times.services.dto.DateTimeDto;
 import org.junit.Before;
 import org.junit.Test;
 

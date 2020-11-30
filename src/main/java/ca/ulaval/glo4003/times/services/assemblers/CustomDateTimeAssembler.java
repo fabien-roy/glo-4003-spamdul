@@ -1,8 +1,8 @@
-package ca.ulaval.glo4003.times.assemblers;
+package ca.ulaval.glo4003.times.services.assemblers;
 
-import ca.ulaval.glo4003.times.api.dto.DateTimeDto;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import ca.ulaval.glo4003.times.exceptions.InvalidDateTimeException;
+import ca.ulaval.glo4003.times.services.dto.DateTimeDto;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

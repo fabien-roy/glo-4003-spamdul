@@ -23,7 +23,7 @@ import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
-import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
+import ca.ulaval.glo4003.times.services.assemblers.TimeOfDayAssembler;
 import java.util.List;
 
 public class OffenseInjector {

@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.gates.helpers;
 
 import static ca.ulaval.glo4003.times.helpers.CustomDateTimeBuilder.aDateTime;
 
-import ca.ulaval.glo4003.times.api.dto.DateTimeDto;
+import ca.ulaval.glo4003.times.services.dto.DateTimeDto;
 
 public class DateTimeDtoBuilder {
   private String dateTime = aDateTime().toString();

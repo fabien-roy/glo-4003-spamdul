@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.times.assemblers;
+package ca.ulaval.glo4003.times.services.assemblers;
 
 import static ca.ulaval.glo4003.times.helpers.SemesterCodeMother.createSemesterCode;
 import static com.google.common.truth.Truth.assertThat;

@@ -2,9 +2,9 @@ package ca.ulaval.glo4003.times;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
-import ca.ulaval.glo4003.times.assemblers.CustomDateTimeAssembler;
-import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
+import ca.ulaval.glo4003.times.services.assemblers.CustomDateAssembler;
+import ca.ulaval.glo4003.times.services.assemblers.CustomDateTimeAssembler;
+import ca.ulaval.glo4003.times.services.assemblers.TimeOfDayAssembler;
 import org.junit.Before;
 import org.junit.Test;
 

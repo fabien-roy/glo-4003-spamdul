@@ -7,9 +7,9 @@ import static ca.ulaval.glo4003.users.helpers.UserMother.createName;
 import static ca.ulaval.glo4003.users.helpers.UserMother.createSex;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
 import ca.ulaval.glo4003.times.domain.CustomDate;
 import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
+import ca.ulaval.glo4003.times.services.assemblers.CustomDateAssembler;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.domain.Sex;
 import ca.ulaval.glo4003.users.domain.User;

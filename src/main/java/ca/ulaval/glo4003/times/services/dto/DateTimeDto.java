@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.times.api.dto;
+package ca.ulaval.glo4003.times.services.dto;
 
 public class DateTimeDto {
   public String dateTime;

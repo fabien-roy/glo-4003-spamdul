@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.times.assemblers;
+package ca.ulaval.glo4003.times.services.assemblers;
 
 import ca.ulaval.glo4003.times.domain.SemesterCode;
 import ca.ulaval.glo4003.times.exceptions.InvalidSemesterCodeException;

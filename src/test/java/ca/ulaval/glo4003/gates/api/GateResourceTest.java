@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.gates.services.GateService;
 import ca.ulaval.glo4003.gates.services.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
-import ca.ulaval.glo4003.times.api.dto.DateTimeDto;
+import ca.ulaval.glo4003.times.services.dto.DateTimeDto;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;

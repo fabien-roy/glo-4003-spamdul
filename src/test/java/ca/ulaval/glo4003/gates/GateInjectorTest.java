@@ -5,7 +5,7 @@ import static com.google.common.truth.Truth.assertThat;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.gates.api.GateResource;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
-import ca.ulaval.glo4003.times.assemblers.CustomDateTimeAssembler;
+import ca.ulaval.glo4003.times.services.assemblers.CustomDateTimeAssembler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.gates.api.GateResource;
 import ca.ulaval.glo4003.gates.services.GateService;
 import ca.ulaval.glo4003.parkings.services.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
-import ca.ulaval.glo4003.times.assemblers.CustomDateTimeAssembler;
+import ca.ulaval.glo4003.times.services.assemblers.CustomDateTimeAssembler;
 
 public class GateInjector {
 

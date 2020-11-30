@@ -6,8 +6,8 @@ import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
-import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import ca.ulaval.glo4003.times.domain.TimeOfDay;
+import ca.ulaval.glo4003.times.services.assemblers.TimeOfDayAssembler;
 
 public class OffenseValidationAssembler {
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;

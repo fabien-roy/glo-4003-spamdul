@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.times.filesystem;
 
 import ca.ulaval.glo4003.files.domain.StringFileReader;
 import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
-import ca.ulaval.glo4003.times.filesystem.dto.SemesterDto;
+import ca.ulaval.glo4003.times.services.dto.SemesterDto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
