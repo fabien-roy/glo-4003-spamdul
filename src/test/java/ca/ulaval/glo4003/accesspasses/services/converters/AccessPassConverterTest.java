@@ -16,7 +16,7 @@ import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
 import ca.ulaval.glo4003.times.services.SemesterService;
-import ca.ulaval.glo4003.times.services.assemblers.SemesterCodeAssembler;
+import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +28,7 @@ public class AccessPassConverterTest {
 
   @Mock private LicensePlateConverter licensePlateConverter;
   @Mock private SemesterService semesterService;
-  @Mock private SemesterCodeAssembler semesterCodeAssembler;
+  @Mock private SemesterCodeConverter semesterCodeConverter;
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
   private AccessPassConverter accessPassConverter;
@@ -46,7 +46,7 @@ public class AccessPassConverterTest {
         new AccessPassConverter(
             licensePlateConverter,
             semesterService,
-            semesterCodeAssembler,
+            semesterCodeConverter,
             parkingAreaCodeAssembler);
 
     when(licensePlateConverter.convert(licensePlate.toString())).thenReturn(licensePlate);

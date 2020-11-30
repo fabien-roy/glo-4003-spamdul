@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.offenses.services.assemblers;
+package ca.ulaval.glo4003.offenses.services.converters;
 
 import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
@@ -7,29 +7,28 @@ import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.times.domain.TimeOfDay;
-import ca.ulaval.glo4003.times.services.assemblers.TimeOfDayAssembler;
+import ca.ulaval.glo4003.times.services.converters.TimeOfDayConverter;
 
-public class OffenseValidationAssembler {
+public class OffenseValidationConverter {
   private final ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
-  private final TimeOfDayAssembler timeOfDayAssembler;
+  private final TimeOfDayConverter timeOfDayConverter;
 
-  public OffenseValidationAssembler(
+  public OffenseValidationConverter(
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
-      TimeOfDayAssembler timeOfDayAssembler) {
+      TimeOfDayConverter timeOfDayConverter) {
     this.parkingStickerCodeAssembler = parkingStickerCodeAssembler;
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
-    this.timeOfDayAssembler = timeOfDayAssembler;
+    this.timeOfDayConverter = timeOfDayConverter;
   }
 
-  // TODO #303 : Check is this assembles or converts
-  public OffenseValidation assemble(OffenseValidationDto offenseValidationDto) {
+  public OffenseValidation convert(OffenseValidationDto offenseValidationDto) {
     ParkingStickerCode parkingStickerCode =
         parkingStickerCodeAssembler.assemble(offenseValidationDto.parkingStickerCode);
     ParkingAreaCode parkingAreaCode =
         parkingAreaCodeAssembler.assemble(offenseValidationDto.parkingArea);
-    TimeOfDay timeOfDay = timeOfDayAssembler.assemble(offenseValidationDto.timeOfDay);
+    TimeOfDay timeOfDay = timeOfDayConverter.convert(offenseValidationDto.timeOfDay);
 
     return new OffenseValidation(parkingStickerCode, parkingAreaCode, timeOfDay);
   }

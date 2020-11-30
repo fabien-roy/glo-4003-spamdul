@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
-import ca.ulaval.glo4003.times.services.assemblers.CustomDateAssembler;
+import ca.ulaval.glo4003.times.services.converters.CustomDateConverter;
 import ca.ulaval.glo4003.users.api.UserResource;
 import ca.ulaval.glo4003.users.services.UserService;
 import ca.ulaval.glo4003.users.services.assemblers.UserAssembler;
@@ -20,12 +20,12 @@ public class UserInjector {
       AccountFactory accountFactory,
       AccountIdConverter accountIdConverter,
       AccountIdAssembler accountIdAssembler,
-      CustomDateAssembler customDateAssembler,
+      CustomDateConverter customDateConverter,
       AccessPassService accessPassService,
       CarService carService,
       AccountService accountService,
       ParkingStickerService parkingStickerService) {
-    UserAssembler userAssembler = new UserAssembler(customDateAssembler);
+    UserAssembler userAssembler = new UserAssembler(customDateConverter);
 
     UserService userService =
         new UserService(

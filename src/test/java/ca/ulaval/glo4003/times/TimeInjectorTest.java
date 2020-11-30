@@ -2,9 +2,9 @@ package ca.ulaval.glo4003.times;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.times.services.assemblers.CustomDateAssembler;
-import ca.ulaval.glo4003.times.services.assemblers.CustomDateTimeAssembler;
-import ca.ulaval.glo4003.times.services.assemblers.TimeOfDayAssembler;
+import ca.ulaval.glo4003.times.services.converters.CustomDateConverter;
+import ca.ulaval.glo4003.times.services.converters.CustomDateTimeConverter;
+import ca.ulaval.glo4003.times.services.converters.TimeOfDayConverter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,22 +19,22 @@ public class TimeInjectorTest {
 
   @Test
   public void whenCreatingCustomDateAssembler_thenReturnIt() {
-    CustomDateAssembler customDateAssembler = timeInjector.createCustomDateAssembler();
+    CustomDateConverter customDateConverter = timeInjector.createCustomDateAssembler();
 
-    assertThat(customDateAssembler).isNotNull();
+    assertThat(customDateConverter).isNotNull();
   }
 
   @Test
   public void whenCreatingCustomDateTimeAssembler_thenReturnIt() {
-    CustomDateTimeAssembler customDateTimeAssembler = timeInjector.createCustomDateTimeAssembler();
+    CustomDateTimeConverter customDateTimeConverter = timeInjector.createCustomDateTimeAssembler();
 
-    assertThat(customDateTimeAssembler).isNotNull();
+    assertThat(customDateTimeConverter).isNotNull();
   }
 
   @Test
   public void whenCreatingTimeOfDayAssembler_thenReturnIt() {
-    TimeOfDayAssembler timeOfDayAssembler = timeInjector.createTimeOfDayAssembler();
+    TimeOfDayConverter timeOfDayConverter = timeInjector.createTimeOfDayAssembler();
 
-    assertThat(timeOfDayAssembler).isNotNull();
+    assertThat(timeOfDayConverter).isNotNull();
   }
 }

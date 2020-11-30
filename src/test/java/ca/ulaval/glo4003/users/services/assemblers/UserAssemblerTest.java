@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.times.domain.CustomDate;
 import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
-import ca.ulaval.glo4003.times.services.assemblers.CustomDateAssembler;
+import ca.ulaval.glo4003.times.services.converters.CustomDateConverter;
 import ca.ulaval.glo4003.users.domain.Sex;
 import ca.ulaval.glo4003.users.domain.User;
 import ca.ulaval.glo4003.users.exceptions.InvalidBirthDateException;
@@ -30,7 +30,7 @@ public class UserAssemblerTest {
   private static final Sex SEX = createSex();
 
   @Mock private CustomDate futureBirthDate;
-  @Mock private CustomDateAssembler customDateAssembler;
+  @Mock private CustomDateConverter customDateConverter;
 
   private UserAssembler userAssembler;
 
@@ -39,7 +39,7 @@ public class UserAssemblerTest {
 
   @Before
   public void setUp() {
-    userAssembler = new UserAssembler(customDateAssembler);
+    userAssembler = new UserAssembler(customDateConverter);
 
     user = aUser().withName(NAME).withBirthDate(BIRTH_DATE).withSex(SEX).build();
     userDto =
@@ -50,7 +50,7 @@ public class UserAssemblerTest {
             .build();
 
     when(futureBirthDate.isFuture()).thenReturn(true);
-    when(customDateAssembler.assemble(BIRTH_DATE.toString())).thenReturn(BIRTH_DATE);
+    when(customDateConverter.convert(BIRTH_DATE.toString())).thenReturn(BIRTH_DATE);
   }
 
   @Test
@@ -76,7 +76,7 @@ public class UserAssemblerTest {
 
   @Test(expected = InvalidBirthDateException.class)
   public void givenInvalidBirthDate_whenAssembling_thenThrowInvalidBirthDateException() {
-    when(customDateAssembler.assemble(BIRTH_DATE.toString())).thenThrow(new InvalidDateException());
+    when(customDateConverter.convert(BIRTH_DATE.toString())).thenThrow(new InvalidDateException());
 
     userAssembler.assemble(userDto);
   }
@@ -90,7 +90,7 @@ public class UserAssemblerTest {
 
   @Test(expected = InvalidBirthDateException.class)
   public void givenFutureBirthDate_whenAssembling_thenThrowInvalidBirthDateException() {
-    when(customDateAssembler.assemble(BIRTH_DATE.toString())).thenReturn(futureBirthDate);
+    when(customDateConverter.convert(BIRTH_DATE.toString())).thenReturn(futureBirthDate);
 
     userAssembler.assemble(userDto);
   }

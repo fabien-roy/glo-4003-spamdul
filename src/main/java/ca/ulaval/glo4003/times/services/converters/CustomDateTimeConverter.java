@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.times.services.assemblers;
+package ca.ulaval.glo4003.times.services.converters;
 
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import ca.ulaval.glo4003.times.exceptions.InvalidDateTimeException;
@@ -7,11 +7,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class CustomDateTimeAssembler {
+public class CustomDateTimeConverter {
   private static final DateTimeFormatter FORMATTER =
       DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-  public CustomDateTime assemble(DateTimeDto dateTimeDto) {
+  public CustomDateTime convert(DateTimeDto dateTimeDto) {
     if (dateTimeDto.dateTime == null) throw new InvalidDateTimeException();
 
     LocalDateTime localDateTime;

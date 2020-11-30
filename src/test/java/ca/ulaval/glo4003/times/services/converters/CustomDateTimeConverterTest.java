@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.times.services.assemblers;
+package ca.ulaval.glo4003.times.services.converters;
 
 import static ca.ulaval.glo4003.times.helpers.DateTimeDtoBuilder.aDateTimeDto;
 import static com.google.common.truth.Truth.assertThat;
@@ -9,36 +9,36 @@ import ca.ulaval.glo4003.times.services.dto.DateTimeDto;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CustomDateTimeAssemblerTest {
+public class CustomDateTimeConverterTest {
 
-  private CustomDateTimeAssembler customDateTimeAssembler;
+  private CustomDateTimeConverter customDateTimeConverter;
 
   @Before
   public void setUp() {
-    customDateTimeAssembler = new CustomDateTimeAssembler();
+    customDateTimeConverter = new CustomDateTimeConverter();
   }
 
   @Test
-  public void whenAssembling_thenReturnCustomDate() {
+  public void whenConverting_thenReturnCustomDate() {
     String validDateTime = "01-01-2020 14:30:30";
     DateTimeDto dateTimeDto = aDateTimeDto().withDateTime(validDateTime).build();
 
-    CustomDateTime customDateTime = customDateTimeAssembler.assemble(dateTimeDto);
+    CustomDateTime customDateTime = customDateTimeConverter.convert(dateTimeDto);
 
     assertThat(customDateTime).isNotNull();
   }
 
   @Test(expected = InvalidDateTimeException.class)
-  public void givenNullDateTime_whenAssembling_thenThrowInvalidDateException() {
+  public void givenNullDateTime_whenConverting_thenThrowInvalidDateException() {
     DateTimeDto dateTimeDto = aDateTimeDto().withDateTime(null).build();
 
-    customDateTimeAssembler.assemble(dateTimeDto);
+    customDateTimeConverter.convert(dateTimeDto);
   }
 
   @Test(expected = InvalidDateTimeException.class)
-  public void givenInvalidDateTime_whenAssembling_thenThrowInvalidDateException() {
+  public void givenInvalidDateTime_whenConverting_thenThrowInvalidDateException() {
     DateTimeDto dateTimeDto = aDateTimeDto().withDateTime("invalidDateTime").build();
 
-    customDateTimeAssembler.assemble(dateTimeDto);
+    customDateTimeConverter.convert(dateTimeDto);
   }
 }

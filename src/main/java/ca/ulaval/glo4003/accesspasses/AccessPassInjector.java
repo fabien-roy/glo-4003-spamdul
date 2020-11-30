@@ -20,7 +20,7 @@ import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.services.SemesterService;
-import ca.ulaval.glo4003.times.services.assemblers.SemesterCodeAssembler;
+import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,12 +48,12 @@ public class AccessPassInjector {
       BillService billService,
       SemesterService semesterService) {
     LicensePlateConverter licensePlateConverter = new LicensePlateConverter();
-    SemesterCodeAssembler semesterCodeAssembler = new SemesterCodeAssembler();
+    SemesterCodeConverter semesterCodeConverter = new SemesterCodeConverter();
     AccessPassConverter accessPassConverter =
         new AccessPassConverter(
             licensePlateConverter,
             semesterService,
-            semesterCodeAssembler,
+            semesterCodeConverter,
             new ParkingAreaCodeAssembler());
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
     AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();

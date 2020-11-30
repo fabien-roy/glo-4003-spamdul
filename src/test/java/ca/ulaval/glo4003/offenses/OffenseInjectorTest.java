@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
-import ca.ulaval.glo4003.times.services.assemblers.TimeOfDayAssembler;
+import ca.ulaval.glo4003.times.services.converters.TimeOfDayConverter;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class OffenseInjectorTest {
   @Mock private ParkingStickerRepository parkingStickerRepository;
   @Mock private ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
-  @Mock private TimeOfDayAssembler timeOfDayAssembler;
+  @Mock private TimeOfDayConverter timeOfDayConverter;
   @Mock private MoneyConverter moneyConverter;
   @Mock private BillService billService;
   @Mock private AccountService accountService;
@@ -43,7 +43,7 @@ public class OffenseInjectorTest {
             parkingStickerRepository,
             parkingStickerCodeAssembler,
             parkingAreaCodeAssembler,
-            timeOfDayAssembler,
+            timeOfDayConverter,
             moneyConverter,
             billService,
             accountService);

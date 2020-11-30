@@ -12,7 +12,7 @@ import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 import ca.ulaval.glo4003.times.services.SemesterService;
-import ca.ulaval.glo4003.times.services.assemblers.SemesterCodeAssembler;
+import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,17 +21,17 @@ public class AccessPassConverter {
 
   private final LicensePlateConverter licensePlateConverter;
   private final SemesterService semesterService;
-  private final SemesterCodeAssembler semesterCodeAssembler;
+  private final SemesterCodeConverter semesterCodeConverter;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
   public AccessPassConverter(
       LicensePlateConverter licensePlateConverter,
       SemesterService semesterService,
-      SemesterCodeAssembler semesterCodeAssembler,
+      SemesterCodeConverter semesterCodeConverter,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler) {
     this.licensePlateConverter = licensePlateConverter;
     this.semesterService = semesterService;
-    this.semesterCodeAssembler = semesterCodeAssembler;
+    this.semesterCodeConverter = semesterCodeConverter;
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
   }
 
@@ -88,7 +88,7 @@ public class AccessPassConverter {
 
   private List<TimePeriod> buildAccessPeriods(String[] semesters) {
     return Arrays.stream(semesters)
-        .map(semesterCodeAssembler::assemble)
+        .map(semesterCodeConverter::convert)
         .map(semesterService::getSemester)
         .collect(Collectors.toList());
   }

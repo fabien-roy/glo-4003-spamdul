@@ -6,10 +6,10 @@ import ca.ulaval.glo4003.times.domain.*;
 import ca.ulaval.glo4003.times.filesystem.SemesterFileHelper;
 import ca.ulaval.glo4003.times.infrastructure.SemesterRepositoryInMemory;
 import ca.ulaval.glo4003.times.services.SemesterService;
-import ca.ulaval.glo4003.times.services.assemblers.CustomDateAssembler;
-import ca.ulaval.glo4003.times.services.assemblers.CustomDateTimeAssembler;
-import ca.ulaval.glo4003.times.services.assemblers.SemesterCodeAssembler;
-import ca.ulaval.glo4003.times.services.assemblers.TimeOfDayAssembler;
+import ca.ulaval.glo4003.times.services.converters.CustomDateConverter;
+import ca.ulaval.glo4003.times.services.converters.CustomDateTimeConverter;
+import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
+import ca.ulaval.glo4003.times.services.converters.TimeOfDayConverter;
 import ca.ulaval.glo4003.times.services.dto.SemesterDto;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,16 +24,16 @@ public class TimeInjector {
     addSemestersToRepository();
   }
 
-  public CustomDateAssembler createCustomDateAssembler() {
-    return new CustomDateAssembler();
+  public CustomDateConverter createCustomDateAssembler() {
+    return new CustomDateConverter();
   }
 
-  public CustomDateTimeAssembler createCustomDateTimeAssembler() {
-    return new CustomDateTimeAssembler();
+  public CustomDateTimeConverter createCustomDateTimeAssembler() {
+    return new CustomDateTimeConverter();
   }
 
-  public TimeOfDayAssembler createTimeOfDayAssembler() {
-    return new TimeOfDayAssembler();
+  public TimeOfDayConverter createTimeOfDayAssembler() {
+    return new TimeOfDayConverter();
   }
 
   public SemesterService createSemesterService() {
@@ -43,12 +43,12 @@ public class TimeInjector {
   private void addSemestersToRepository() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     SemesterFileHelper semesterFileHelper = new SemesterFileHelper(fileReader);
-    SemesterCodeAssembler semesterCodeAssembler = new SemesterCodeAssembler();
+    SemesterCodeConverter semesterCodeConverter = new SemesterCodeConverter();
 
     List<SemesterDto> semesters = semesterFileHelper.getSemesters();
 
     for (SemesterDto semester : semesters) {
-      SemesterCode code = semesterCodeAssembler.assemble(semester.code);
+      SemesterCode code = semesterCodeConverter.convert(semester.code);
       CustomDateTime start =
           new CustomDateTime(LocalDate.parse(semester.start, formatter).atTime(LocalTime.MIN));
       CustomDateTime end =

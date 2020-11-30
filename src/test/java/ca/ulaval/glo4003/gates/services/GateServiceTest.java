@@ -19,7 +19,7 @@ import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import ca.ulaval.glo4003.parkings.services.assemblers.AccessStatusAssembler;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
-import ca.ulaval.glo4003.times.services.assemblers.CustomDateTimeAssembler;
+import ca.ulaval.glo4003.times.services.converters.CustomDateTimeConverter;
 import ca.ulaval.glo4003.times.services.dto.DateTimeDto;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class GateServiceTest {
   @Mock private AccessPassService accessPassService;
-  @Mock private CustomDateTimeAssembler customDateTimeAssembler;
+  @Mock private CustomDateTimeConverter customDateTimeConverter;
   @Mock private AccessStatusAssembler accessStatusAssembler;
   @Mock private AccessPass accessPass;
   @Mock private LicensePlateConverter licensePlateConverter;
@@ -54,14 +54,14 @@ public class GateServiceTest {
     gateService =
         new GateService(
             accessPassService,
-            customDateTimeAssembler,
+            customDateTimeConverter,
             accessStatusAssembler,
             licensePlateConverter,
             reportEventService);
 
     accessPasses.add(accessPass);
 
-    when(customDateTimeAssembler.assemble(dateTimeDto)).thenReturn(dateTime);
+    when(customDateTimeConverter.convert(dateTimeDto)).thenReturn(dateTime);
     when(accessPassService.getAccessPass(accessPassCode)).thenReturn(accessPass);
     when(accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED))
         .thenReturn(grantedAccessStatusDto);

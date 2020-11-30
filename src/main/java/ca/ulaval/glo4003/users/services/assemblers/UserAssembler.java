@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.users.services.assemblers;
 
 import ca.ulaval.glo4003.times.domain.CustomDate;
 import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
-import ca.ulaval.glo4003.times.services.assemblers.CustomDateAssembler;
+import ca.ulaval.glo4003.times.services.converters.CustomDateConverter;
 import ca.ulaval.glo4003.users.domain.Sex;
 import ca.ulaval.glo4003.users.domain.User;
 import ca.ulaval.glo4003.users.exceptions.InvalidBirthDateException;
@@ -10,10 +10,10 @@ import ca.ulaval.glo4003.users.exceptions.InvalidNameException;
 import ca.ulaval.glo4003.users.services.dto.UserDto;
 
 public class UserAssembler {
-  private final CustomDateAssembler customDateAssembler;
+  private final CustomDateConverter customDateConverter;
 
-  public UserAssembler(CustomDateAssembler customDateAssembler) {
-    this.customDateAssembler = customDateAssembler;
+  public UserAssembler(CustomDateConverter customDateConverter) {
+    this.customDateConverter = customDateConverter;
   }
 
   public User assemble(UserDto userDto) {
@@ -22,7 +22,7 @@ public class UserAssembler {
     validateNotNull(userDto);
 
     try {
-      birthDate = customDateAssembler.assemble(userDto.birthDate);
+      birthDate = customDateConverter.convert(userDto.birthDate);
     } catch (InvalidDateException exception) {
       throw new InvalidBirthDateException();
     }

@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.offenses.domain.*;
 import ca.ulaval.glo4003.offenses.services.assemblers.OffenseTypeAssembler;
-import ca.ulaval.glo4003.offenses.services.assemblers.OffenseValidationAssembler;
+import ca.ulaval.glo4003.offenses.services.converters.OffenseValidationConverter;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
@@ -18,7 +18,7 @@ import java.util.List;
 public class OffenseTypeService {
   private final ParkingAreaRepository parkingAreaRepository;
   private final ParkingStickerRepository parkingStickerRepository;
-  private final OffenseValidationAssembler offenseValidationAssembler;
+  private final OffenseValidationConverter offenseValidationConverter;
   private final OffenseTypeAssembler offenseTypeAssembler;
   private final OffenseTypeRepository offenseTypeRepository;
   private final OffenseTypeFactory offenseTypeFactory;
@@ -29,7 +29,7 @@ public class OffenseTypeService {
   public OffenseTypeService(
       ParkingAreaRepository parkingAreaRepository,
       ParkingStickerRepository parkingStickerRepository,
-      OffenseValidationAssembler offenseValidationAssembler,
+      OffenseValidationConverter offenseValidationConverter,
       OffenseTypeAssembler offenseTypeAssembler,
       OffenseTypeRepository offenseTypeRepository,
       OffenseTypeFactory offenseTypeFactory,
@@ -38,7 +38,7 @@ public class OffenseTypeService {
       OffenseNotifier offenseNotifier) {
     this.parkingAreaRepository = parkingAreaRepository;
     this.parkingStickerRepository = parkingStickerRepository;
-    this.offenseValidationAssembler = offenseValidationAssembler;
+    this.offenseValidationConverter = offenseValidationConverter;
     this.offenseTypeAssembler = offenseTypeAssembler;
     this.offenseTypeRepository = offenseTypeRepository;
     this.offenseTypeFactory = offenseTypeFactory;
@@ -52,7 +52,7 @@ public class OffenseTypeService {
   }
 
   public List<OffenseTypeDto> validateOffense(OffenseValidationDto offenseValidationDto) {
-    OffenseValidation offenseValidation = offenseValidationAssembler.assemble(offenseValidationDto);
+    OffenseValidation offenseValidation = offenseValidationConverter.convert(offenseValidationDto);
     parkingAreaRepository.get(offenseValidation.getParkingAreaCode());
     List<OffenseType> offenseTypes = new ArrayList<>();
     ParkingSticker parkingSticker = null;
