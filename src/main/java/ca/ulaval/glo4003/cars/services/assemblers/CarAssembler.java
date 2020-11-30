@@ -1,14 +1,14 @@
-package ca.ulaval.glo4003.cars.assemblers;
+package ca.ulaval.glo4003.cars.services.assemblers;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
-import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
 import ca.ulaval.glo4003.cars.exceptions.InvalidManufacturerException;
 import ca.ulaval.glo4003.cars.exceptions.InvalidModelException;
+import ca.ulaval.glo4003.cars.services.dto.CarDto;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;

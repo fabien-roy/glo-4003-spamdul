@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.cars.assemblers;
+package ca.ulaval.glo4003.cars.services.assemblers;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
@@ -9,12 +9,12 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
-import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
 import ca.ulaval.glo4003.cars.exceptions.InvalidManufacturerException;
 import ca.ulaval.glo4003.cars.exceptions.InvalidModelException;
+import ca.ulaval.glo4003.cars.services.dto.CarDto;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
