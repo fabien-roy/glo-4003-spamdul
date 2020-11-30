@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.parkings.api.dto;
+package ca.ulaval.glo4003.parkings.services.dto;
 
 import java.util.List;
 

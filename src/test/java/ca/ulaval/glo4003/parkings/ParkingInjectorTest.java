@@ -8,14 +8,14 @@ import ca.ulaval.glo4003.communications.services.assemblers.EmailAddressAssemble
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.locations.services.assemblers.PostalCodeAssembler;
 import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
-import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
-import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingStickerRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
 import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;

@@ -19,10 +19,10 @@ import ca.ulaval.glo4003.offenses.services.assemblers.OffenseTypeAssembler;
 import ca.ulaval.glo4003.offenses.services.assemblers.OffenseTypeInFrenchAssembler;
 import ca.ulaval.glo4003.offenses.services.assemblers.OffenseValidationAssembler;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseDtoInFrench;
-import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
-import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import java.util.List;
 

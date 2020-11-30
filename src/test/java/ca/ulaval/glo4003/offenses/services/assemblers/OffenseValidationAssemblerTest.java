@@ -8,10 +8,10 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
-import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
-import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
 import ca.ulaval.glo4003.times.domain.TimeOfDay;
 import com.google.common.truth.Truth;

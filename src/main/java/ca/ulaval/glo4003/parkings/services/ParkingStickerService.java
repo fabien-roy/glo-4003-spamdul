@@ -3,11 +3,11 @@ package ca.ulaval.glo4003.parkings.services;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
-import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
-import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
-import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
-import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.*;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerAssembler;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
+import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerCodeDto;
+import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
 import java.util.logging.Logger;
 
 public class ParkingStickerService extends ParkingStickerCreationObservable {

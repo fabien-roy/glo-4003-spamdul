@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.parkings.assemblers;
+package ca.ulaval.glo4003.parkings.services.assemblers;
 
 import static com.google.common.truth.Truth.assertThat;
 

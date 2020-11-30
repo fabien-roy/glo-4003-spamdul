@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.parkings.assemblers;
+package ca.ulaval.glo4003.parkings.services.assemblers;
 
 import static ca.ulaval.glo4003.gates.helpers.AccessStatusMother.createAccessStatus;
 

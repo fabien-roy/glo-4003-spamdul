@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.funds.services.assemblers;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.parkings.api.dto.ParkingPeriodPriceDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
+import ca.ulaval.glo4003.parkings.services.dto.ParkingPeriodPriceDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

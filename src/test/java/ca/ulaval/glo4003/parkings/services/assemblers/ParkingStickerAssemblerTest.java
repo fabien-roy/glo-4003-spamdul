@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.parkings.assemblers;
+package ca.ulaval.glo4003.parkings.services.assemblers;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAddress;
@@ -15,13 +15,13 @@ import ca.ulaval.glo4003.communications.domain.EmailAddress;
 import ca.ulaval.glo4003.communications.services.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.locations.domain.PostalCode;
 import ca.ulaval.glo4003.locations.services.assemblers.PostalCodeAssembler;
-import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.exceptions.InvalidReceptionMethodException;
 import ca.ulaval.glo4003.parkings.exceptions.MissingEmailException;
 import ca.ulaval.glo4003.parkings.exceptions.MissingPostalCodeException;
+import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

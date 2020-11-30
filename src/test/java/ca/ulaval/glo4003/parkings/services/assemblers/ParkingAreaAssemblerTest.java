@@ -1,11 +1,11 @@
-package ca.ulaval.glo4003.parkings.assemblers;
+package ca.ulaval.glo4003.parkings.services.assemblers;
 
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.funds.services.assemblers.ParkingPeriodPriceAssembler;
-import ca.ulaval.glo4003.parkings.api.dto.ParkingAreaDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
+import ca.ulaval.glo4003.parkings.services.dto.ParkingAreaDto;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
