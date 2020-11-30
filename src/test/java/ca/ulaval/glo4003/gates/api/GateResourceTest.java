@@ -19,30 +19,30 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GateResourceImplementationTest {
+public class GateResourceTest {
   @Mock GateService gateService;
 
   private GateResource gateResource;
 
   private final DateTimeDto dateTimeDto = aDateTimeDto().build();
-  private final String accessPassCode = createAccessPassCode().toString();
-  private final String accessPassLicensePlate = createLicensePlate().toString();
+  private final String code = createAccessPassCode().toString();
+  private final String licensePlate = createLicensePlate().toString();
   private AccessStatusDto accessStatusDto = anAccessStatusDto().build();
 
   @Before
   public void setUp() {
-    gateResource = new GateResourceImplementation(gateService);
+    gateResource = new GateResource(gateService);
 
-    when(gateService.validateAccessPassEntryWithCode(dateTimeDto, accessPassCode))
+    when(gateService.validateAccessPassEntryWithCode(dateTimeDto, code))
         .thenReturn(accessStatusDto);
 
-    when(gateService.validateAccessPassEntryWithLicensePlate(dateTimeDto, accessPassLicensePlate))
+    when(gateService.validateAccessPassEntryWithLicensePlate(dateTimeDto, licensePlate))
         .thenReturn(accessStatusDto);
   }
 
   @Test
   public void whenValidatingAccessPassEntryWithCode_thenValidateAccessPassWithService() {
-    Response response = gateResource.validateAccessPassEntryWithCode(dateTimeDto, accessPassCode);
+    Response response = gateResource.validateAccessPassEntryWithCode(code, dateTimeDto);
     AccessStatusDto receivedAccessStatusDto = (AccessStatusDto) response.getEntity();
 
     assertThat(receivedAccessStatusDto.accessStatus).isEqualTo(accessStatusDto.accessStatus);
@@ -53,10 +53,10 @@ public class GateResourceImplementationTest {
       givenValidAccessPass_whenValidatingAccessPassEntryWithCode_thenRespondWithAcceptedStatus() {
     accessStatusDto =
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_GRANTED.toString()).build();
-    when(gateService.validateAccessPassEntryWithCode(dateTimeDto, accessPassCode))
+    when(gateService.validateAccessPassEntryWithCode(dateTimeDto, code))
         .thenReturn(accessStatusDto);
 
-    Response response = gateResource.validateAccessPassEntryWithCode(dateTimeDto, accessPassCode);
+    Response response = gateResource.validateAccessPassEntryWithCode(code, dateTimeDto);
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.ACCEPTED.getStatusCode());
   }
@@ -66,10 +66,10 @@ public class GateResourceImplementationTest {
       givenInvalidAccessPass_whenValidatingAccessEntryPassWithCode_thenRespondWithForbiddenStatus() {
     accessStatusDto =
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_REFUSED.toString()).build();
-    when(gateService.validateAccessPassEntryWithCode(dateTimeDto, accessPassCode))
+    when(gateService.validateAccessPassEntryWithCode(dateTimeDto, code))
         .thenReturn(accessStatusDto);
 
-    Response response = gateResource.validateAccessPassEntryWithCode(dateTimeDto, accessPassCode);
+    Response response = gateResource.validateAccessPassEntryWithCode(code, dateTimeDto);
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.FORBIDDEN.getStatusCode());
   }
@@ -77,7 +77,7 @@ public class GateResourceImplementationTest {
   @Test
   public void whenValidatingAccessPassEntryWithLicensePlate_thenValidateAccessPassWithService() {
     Response response =
-        gateResource.validateAccessPassEntryWithLicensePlate(dateTimeDto, accessPassLicensePlate);
+        gateResource.validateAccessPassEntryWithLicensePlate(licensePlate, dateTimeDto);
     AccessStatusDto receivedAccessStatusDto = (AccessStatusDto) response.getEntity();
 
     assertThat(receivedAccessStatusDto.accessStatus).isEqualTo(accessStatusDto.accessStatus);
@@ -88,11 +88,11 @@ public class GateResourceImplementationTest {
       givenValidAccessPass_whenValidatingAccessPassEntryWithLicensePlate_thenRespondWithAcceptedStatus() {
     accessStatusDto =
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_GRANTED.toString()).build();
-    when(gateService.validateAccessPassEntryWithLicensePlate(dateTimeDto, accessPassLicensePlate))
+    when(gateService.validateAccessPassEntryWithLicensePlate(dateTimeDto, licensePlate))
         .thenReturn(accessStatusDto);
 
     Response response =
-        gateResource.validateAccessPassEntryWithLicensePlate(dateTimeDto, accessPassLicensePlate);
+        gateResource.validateAccessPassEntryWithLicensePlate(licensePlate, dateTimeDto);
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.ACCEPTED.getStatusCode());
   }
@@ -102,25 +102,25 @@ public class GateResourceImplementationTest {
       givenInvalidAccessPass_whenValidatingAccessPassEntryWithLicensePlate_thenRespondWithForbiddenStatus() {
     accessStatusDto =
         anAccessStatusDto().withAccessStatus(AccessStatus.ACCESS_REFUSED.toString()).build();
-    when(gateService.validateAccessPassEntryWithLicensePlate(dateTimeDto, accessPassLicensePlate))
+    when(gateService.validateAccessPassEntryWithLicensePlate(dateTimeDto, licensePlate))
         .thenReturn(accessStatusDto);
 
     Response response =
-        gateResource.validateAccessPassEntryWithLicensePlate(dateTimeDto, accessPassLicensePlate);
+        gateResource.validateAccessPassEntryWithLicensePlate(licensePlate, dateTimeDto);
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.FORBIDDEN.getStatusCode());
   }
 
   @Test
   public void validateAccessPassExitWithCode_thenRespondWithOkStatus() {
-    Response response = gateResource.validateAccessPassExitWithCode(accessPassCode);
+    Response response = gateResource.validateAccessPassExitWithCode(code);
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }
 
   @Test
   public void validateAccessPassExitWithLicensePlate_thenRespondWithOkStatus() {
-    Response response = gateResource.validateAccessPassExitWithLicensePlate(accessPassLicensePlate);
+    Response response = gateResource.validateAccessPassExitWithLicensePlate(licensePlate);
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }

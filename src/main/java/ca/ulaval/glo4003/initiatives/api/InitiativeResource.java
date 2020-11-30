@@ -1,37 +1,76 @@
 package ca.ulaval.glo4003.initiatives.api;
 
-import ca.ulaval.glo4003.initiatives.api.dto.AddInitiativeDto;
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeAddAllocatedAmountDto;
+import ca.ulaval.glo4003.initiatives.api.dto.*;
+import ca.ulaval.glo4003.initiatives.services.InitiativeService;
+import java.util.List;
 import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/initiatives")
-public interface InitiativeResource {
+public class InitiativeResource {
+  private final InitiativeService initiativeService;
+
+  public InitiativeResource(InitiativeService initiativeService) {
+    this.initiativeService = initiativeService;
+  }
+
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  Response addInitiative(AddInitiativeDto addInitiativeDto);
+  public Response addInitiative(AddInitiativeDto addInitiativeDto) {
+    InitiativeCodeDto initiativeCodeDto = initiativeService.addInitiative(addInitiativeDto);
+    return Response.status(Response.Status.CREATED)
+        .entity(initiativeCodeDto)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  Response getAllInitiatives();
+  public Response getAllInitiatives() {
+    List<InitiativeDto> initiativesDto = initiativeService.getAllInitiatives();
+    GenericEntity<List<InitiativeDto>> entities =
+        new GenericEntity<List<InitiativeDto>>(initiativesDto) {};
+
+    return Response.status(Response.Status.OK)
+        .entity(entities)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/availableAmount")
-  Response getInitiativeAvailableAmount();
+  public Response getInitiativeAvailableAmount() {
+    InitiativeAvailableAmountDto initiativeAvailableAmountDto =
+        initiativeService.getAvailableAmount();
+    return Response.status(Response.Status.OK)
+        .entity(initiativeAvailableAmountDto)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("{initiativeCode}")
-  Response getInitiative(@PathParam("initiativeCode") String initiativeCode);
+  @Path("{code}")
+  public Response getInitiative(@PathParam("code") String code) {
+    InitiativeDto initiativeDto = initiativeService.getInitiative(code);
+    return Response.status(Response.Status.OK)
+        .entity(initiativeDto)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
 
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  @Path("{initiativeCode}")
-  Response allocateAmountToInitiative(
-      @PathParam("initiativeCode") String initiativeCode,
-      InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDTO);
+  @Path("{code}")
+  public Response allocateAmountToInitiative(
+      @PathParam("code") String code,
+      InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDTO) {
+    initiativeService.addAllocatedAmountToInitiative(code, initiativeAddAllocatedAmountDTO);
+    return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).build();
+  }
 }

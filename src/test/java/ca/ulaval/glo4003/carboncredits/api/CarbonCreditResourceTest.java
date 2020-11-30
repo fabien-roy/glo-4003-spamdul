@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CarbonCreditResourceImplementationTest {
+public class CarbonCreditResourceTest {
   @Mock private CarbonCreditService carbonCreditService;
   private final CarbonCreditDto carbonCreditDto = new CarbonCreditDto();
   private final MonthlyPaymentStatusDto monthlyPaymentStatusDto = new MonthlyPaymentStatusDto();
@@ -23,7 +23,7 @@ public class CarbonCreditResourceImplementationTest {
 
   @Before
   public void setUp() {
-    carbonCreditResource = new CarbonCreditResourceImplementation(carbonCreditService);
+    carbonCreditResource = new CarbonCreditResource(carbonCreditService);
 
     when(carbonCreditService.getCarbonCredits()).thenReturn(carbonCreditDto);
   }

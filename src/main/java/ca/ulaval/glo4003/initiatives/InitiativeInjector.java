@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
-import ca.ulaval.glo4003.initiatives.api.InitiativeResourceImplementation;
 import ca.ulaval.glo4003.initiatives.assembler.InitiativeAddAllocatedAmountAssembler;
 import ca.ulaval.glo4003.initiatives.assembler.InitiativeAssembler;
 import ca.ulaval.glo4003.initiatives.assembler.InitiativeAvailableAmountAssembler;
@@ -32,7 +31,7 @@ public class InitiativeInjector {
   }
 
   public InitiativeResource createInitiativeResource(InitiativeService initiativeService) {
-    return new InitiativeResourceImplementation(initiativeService);
+    return new InitiativeResource(initiativeService);
   }
 
   public InitiativeService createService(

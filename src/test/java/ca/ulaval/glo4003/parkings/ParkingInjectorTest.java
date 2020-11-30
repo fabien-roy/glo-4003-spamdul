@@ -32,7 +32,6 @@ public class ParkingInjectorTest {
   @Mock private AccountService accountService;
   @Mock private ParkingStickerCreationObserver parkingStickerCreationObserver;
   @Mock private BillService billService;
-  @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
   private ParkingInjector parkingInjector;
 
