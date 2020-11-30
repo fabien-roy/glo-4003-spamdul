@@ -38,7 +38,7 @@ public class GateResource {
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/entry/validateAccessPassWithLicensePlate/{licensePlate}")
   public Response validateAccessPassEntryWithLicensePlate(
-      @PathParam("code") String licensePlate, DateTimeDto dateTimeDto) {
+      @PathParam("licensePlate") String licensePlate, DateTimeDto dateTimeDto) {
     AccessStatusDto accessStatusDto =
         gateService.validateAccessPassEntryWithLicensePlate(dateTimeDto, licensePlate);
 
@@ -54,7 +54,7 @@ public class GateResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/exit/validateAccessPassWithCode/{code}")
-  public Response validateAccessPassExitWithCode(String code) {
+  public Response validateAccessPassExitWithCode(@PathParam("code") String code) {
     gateService.validateAccessPassExitWithCode(code);
 
     return Response.status(Response.Status.OK).build();
@@ -64,7 +64,8 @@ public class GateResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/exit/validateAccessPassWithLicensePlate/{licensePlate}")
-  public Response validateAccessPassExitWithLicensePlate(String licensePlate) {
+  public Response validateAccessPassExitWithLicensePlate(
+      @PathParam("licensePlate") String licensePlate) {
     gateService.validateAccessPassExitWithLicensePlate(licensePlate);
 
     return Response.status(Response.Status.OK).build();
