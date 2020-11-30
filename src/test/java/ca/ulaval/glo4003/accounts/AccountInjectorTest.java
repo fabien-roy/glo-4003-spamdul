@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.accounts;
 
-import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
+import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.accounts.assemblers;
+package ca.ulaval.glo4003.accounts.services.assemblers;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 

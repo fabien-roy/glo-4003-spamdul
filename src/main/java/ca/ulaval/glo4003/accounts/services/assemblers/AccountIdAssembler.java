@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.accounts.assemblers;
+package ca.ulaval.glo4003.accounts.services.assemblers;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.exceptions.InvalidAccountIdException;

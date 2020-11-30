@@ -5,10 +5,10 @@ import static ca.ulaval.glo4003.users.helpers.UserBuilder.aUser;
 import static ca.ulaval.glo4003.users.helpers.UserDtoBuilder.aUserDto;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
+import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.assemblers.UserAssembler;
