@@ -16,8 +16,8 @@ import ca.ulaval.glo4003.offenses.infrastructure.OffenseTypeRepositoryInMemory;
 import ca.ulaval.glo4003.offenses.services.OffenseTypeService;
 import ca.ulaval.glo4003.offenses.services.assemblers.OffenseCodeAssembler;
 import ca.ulaval.glo4003.offenses.services.assemblers.OffenseTypeAssembler;
-import ca.ulaval.glo4003.offenses.services.assemblers.OffenseTypeInFrenchAssembler;
 import ca.ulaval.glo4003.offenses.services.assemblers.OffenseValidationAssembler;
+import ca.ulaval.glo4003.offenses.services.converters.OffenseTypeInFrenchConverter;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseDtoInFrench;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
@@ -60,9 +60,9 @@ public class OffenseInjector {
     List<OffenseDtoInFrench> offensesInFrenchDto = offenseFileHelper.getOffenseInFrench();
 
     OffenseCodeAssembler offenseCodeAssembler = new OffenseCodeAssembler();
-    OffenseTypeInFrenchAssembler offenseTypeInFrenchAssembler =
-        new OffenseTypeInFrenchAssembler(offenseCodeAssembler, moneyConverter);
-    List<OffenseType> offenseTypes = offenseTypeInFrenchAssembler.assembleMany(offensesInFrenchDto);
+    OffenseTypeInFrenchConverter offenseTypeInFrenchConverter =
+        new OffenseTypeInFrenchConverter(offenseCodeAssembler, moneyConverter);
+    List<OffenseType> offenseTypes = offenseTypeInFrenchConverter.assembleMany(offensesInFrenchDto);
 
     for (OffenseType offenseType : offenseTypes) {
       offenseTypeRepository.save(offenseType);

@@ -23,6 +23,7 @@ public class OffenseValidationAssembler {
     this.timeOfDayAssembler = timeOfDayAssembler;
   }
 
+  // TODO #303 : Check is this assembles or converts
   public OffenseValidation assemble(OffenseValidationDto offenseValidationDto) {
     ParkingStickerCode parkingStickerCode =
         parkingStickerCodeAssembler.assemble(offenseValidationDto.parkingStickerCode);

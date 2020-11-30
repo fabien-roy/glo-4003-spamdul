@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class OffenseTypeAssembler {
-  public OffenseTypeDto assemble(OffenseType offenseType) {
+  public List<OffenseTypeDto> assembleMany(List<OffenseType> offenseTypes) {
+    return offenseTypes.stream().map(this::assemble).collect(Collectors.toList());
+  }
+
+  private OffenseTypeDto assemble(OffenseType offenseType) {
     OffenseTypeDto offenseTypeDto = new OffenseTypeDto();
 
     offenseTypeDto.description = offenseType.getDescription();
@@ -14,9 +18,5 @@ public class OffenseTypeAssembler {
     offenseTypeDto.amount = offenseType.getAmount().toDouble();
 
     return offenseTypeDto;
-  }
-
-  public List<OffenseTypeDto> assembleMany(List<OffenseType> offenseTypes) {
-    return offenseTypes.stream().map(this::assemble).collect(Collectors.toList());
   }
 }

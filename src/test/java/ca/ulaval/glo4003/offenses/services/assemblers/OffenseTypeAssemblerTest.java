@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.offenses.services.assemblers;
 
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeBuilder.anOffenseType;
+import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseTypeDto;
-import com.google.common.truth.Truth;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -24,32 +24,36 @@ public class OffenseTypeAssemblerTest {
   }
 
   @Test
-  public void whenAssembling_thenReturnOffenseDtoWithDescription() {
-    OffenseTypeDto offenseTypeDto = offenseTypeAssembler.assemble(offenseType);
-
-    Truth.assertThat(offenseTypeDto.description).isEqualTo(offenseType.getDescription());
-  }
-
-  @Test
-  public void whenAssembling_thenReturnOffenseDtoWithCode() {
-    OffenseTypeDto offenseTypeDto = offenseTypeAssembler.assemble(offenseType);
-
-    Truth.assertThat(offenseTypeDto.code).isEqualTo(offenseType.getCode().toString());
-  }
-
-  @Test
-  public void whenAssembling_thenReturnOffenseDtoWithAmount() {
-    OffenseTypeDto offenseTypeDto = offenseTypeAssembler.assemble(offenseType);
-
-    Truth.assertThat(offenseTypeDto.amount).isEqualTo(offenseType.getAmount().toDouble());
-  }
-
-  @Test
   public void whenAssemblingMany_thenReturnManyOffenseDto() {
-    List<OffenseType> offenseTypes = Collections.nCopies(2, offenseType);
+    int numberOfCopies = 2;
 
-    List<OffenseTypeDto> offenseTypeDtos = offenseTypeAssembler.assembleMany(offenseTypes);
+    List<OffenseTypeDto> offenseTypeDtos =
+        offenseTypeAssembler.assembleMany(Collections.nCopies(numberOfCopies, offenseType));
 
-    Truth.assertThat(offenseTypeDtos.size()).isEqualTo(2);
+    assertThat(offenseTypeDtos.size()).isEqualTo(2);
+  }
+
+  @Test
+  public void whenAssemblingMany_thenReturnOffenseDtoWithDescription() {
+    List<OffenseTypeDto> offenseTypeDtos =
+        offenseTypeAssembler.assembleMany(Collections.singletonList(offenseType));
+
+    assertThat(offenseTypeDtos.get(0).description).isEqualTo(offenseType.getDescription());
+  }
+
+  @Test
+  public void whenAssemblingMany_thenReturnOffenseDtoWithCode() {
+    List<OffenseTypeDto> offenseTypeDtos =
+        offenseTypeAssembler.assembleMany(Collections.singletonList(offenseType));
+
+    assertThat(offenseTypeDtos.get(0).code).isEqualTo(offenseType.getCode().toString());
+  }
+
+  @Test
+  public void whenAssemblingMany_thenReturnOffenseDtoWithAmount() {
+    List<OffenseTypeDto> offenseTypeDtos =
+        offenseTypeAssembler.assembleMany(Collections.singletonList(offenseType));
+
+    assertThat(offenseTypeDtos.get(0).amount).isEqualTo(offenseType.getAmount().toDouble());
   }
 }
