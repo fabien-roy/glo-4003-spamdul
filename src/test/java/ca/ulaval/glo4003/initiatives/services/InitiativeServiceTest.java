@@ -15,10 +15,10 @@ import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeFactory;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeRepository;
-import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAddAllocatedAmountAssembler;
 import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAssembler;
 import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAvailableAmountAssembler;
 import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeCodeAssembler;
+import ca.ulaval.glo4003.initiatives.services.converters.InitiativeAddAllocatedAmountConverter;
 import ca.ulaval.glo4003.initiatives.services.dto.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class InitiativeServiceTest {
   @Mock private InitiativeCodeAssembler initiativeCodeAssembler;
   @Mock private InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler;
   @Mock private InitiativeAssembler initiativeAssembler;
-  @Mock private InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler;
+  @Mock private InitiativeAddAllocatedAmountConverter initiativeAddAllocatedAmountConverter;
 
   private InitiativeService initiativeService;
 
@@ -59,11 +59,11 @@ public class InitiativeServiceTest {
             initiativeCodeAssembler,
             initiativeAvailableAmountAssembler,
             initiativeAssembler,
-            initiativeAddAllocatedAmountAssembler,
+            initiativeAddAllocatedAmountConverter,
             sustainableMobilityProgramBankRepository);
     when(initiativeFactory.create(initiative)).thenReturn(initiative);
     when(initiativeAssembler.assemble(addInitiativeDto)).thenReturn(initiative);
-    when(initiativeAddAllocatedAmountAssembler.assemble(initiativeAddAllocatedAmountDto))
+    when(initiativeAddAllocatedAmountConverter.convert(initiativeAddAllocatedAmountDto))
         .thenReturn(Money.fromDouble(initiativeAddAllocatedAmountDto.amountToAdd));
     when(initiativeCodeAssembler.assemble(initiative.getCode().toString()))
         .thenReturn(initiative.getCode());

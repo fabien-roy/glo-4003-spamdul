@@ -8,10 +8,10 @@ import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
 import ca.ulaval.glo4003.initiatives.domain.*;
 import ca.ulaval.glo4003.initiatives.infrastructure.InitiativeRepositoryInMemory;
 import ca.ulaval.glo4003.initiatives.services.InitiativeService;
-import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAddAllocatedAmountAssembler;
 import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAssembler;
 import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAvailableAmountAssembler;
 import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeCodeAssembler;
+import ca.ulaval.glo4003.initiatives.services.converters.InitiativeAddAllocatedAmountConverter;
 import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import java.util.List;
 
@@ -43,8 +43,8 @@ public class InitiativeInjector {
     InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler =
         new InitiativeAvailableAmountAssembler();
     InitiativeAssembler initiativeAssembler = new InitiativeAssembler(moneyConverter);
-    InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler =
-        new InitiativeAddAllocatedAmountAssembler(moneyConverter);
+    InitiativeAddAllocatedAmountConverter initiativeAddAllocatedAmountConverter =
+        new InitiativeAddAllocatedAmountConverter(moneyConverter);
 
     InitiativeService initiativeService =
         new InitiativeService(
@@ -53,7 +53,7 @@ public class InitiativeInjector {
             initiativeCodeAssembler,
             initiativeAvailableAmountAssembler,
             initiativeAssembler,
-            initiativeAddAllocatedAmountAssembler,
+            initiativeAddAllocatedAmountConverter,
             sustainableMobilityProgramBankRepository);
 
     initiativeAddedAllocatedAmountObservers.forEach(initiativeService::register);

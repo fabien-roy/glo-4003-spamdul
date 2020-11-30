@@ -1,12 +1,12 @@
-package ca.ulaval.glo4003.initiatives.services.assemblers;
+package ca.ulaval.glo4003.initiatives.services.converters;
 
 import static ca.ulaval.glo4003.initiatives.helpers.InitiativeAddAllocatedAmountDtoBuilder.aInitiativeAddAllocatedAmountDTO;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.initiatives.services.dto.InitiativeAddAllocatedAmountDto;
-import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,26 +14,27 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class InitiativeAddAllocatedAmountAssemblerTest {
-  private InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler;
+public class InitiativeAddAllocatedAmountConverterTest {
   @Mock private MoneyConverter moneyConverter;
 
-  private InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDto =
+  private InitiativeAddAllocatedAmountConverter initiativeAddAllocatedAmountConverter;
+
+  private final InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDto =
       aInitiativeAddAllocatedAmountDTO().build();
 
   @Before
   public void setUp() {
-    initiativeAddAllocatedAmountAssembler =
-        new InitiativeAddAllocatedAmountAssembler(moneyConverter);
+    initiativeAddAllocatedAmountConverter =
+        new InitiativeAddAllocatedAmountConverter(moneyConverter);
 
     when(moneyConverter.convert(initiativeAddAllocatedAmountDto.amountToAdd))
         .thenReturn(Money.fromDouble(initiativeAddAllocatedAmountDto.amountToAdd));
   }
 
   @Test
-  public void whenAssembling_thenReturnMoney() {
-    Money money = initiativeAddAllocatedAmountAssembler.assemble(initiativeAddAllocatedAmountDto);
+  public void whenConverting_thenReturnMoney() {
+    Money money = initiativeAddAllocatedAmountConverter.convert(initiativeAddAllocatedAmountDto);
 
-    Truth.assertThat(money.toDouble()).isEqualTo(initiativeAddAllocatedAmountDto.amountToAdd);
+    assertThat(money.toDouble()).isEqualTo(initiativeAddAllocatedAmountDto.amountToAdd);
   }
 }
