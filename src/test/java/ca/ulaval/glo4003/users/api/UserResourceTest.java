@@ -31,7 +31,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserResourceImplementationTest {
+public class UserResourceTest {
   @Mock private UserService userService;
   @Mock private AccessPassService accessPassService;
   @Mock private CarService carService;
@@ -51,7 +51,7 @@ public class UserResourceImplementationTest {
   @Before
   public void setUp() {
     userResource =
-        new UserResourceImplementation(
+        new UserResource(
             userService, accessPassService, carService, accountService, parkingStickerService);
   }
 
@@ -100,7 +100,7 @@ public class UserResourceImplementationTest {
     when(accessPassService.addAccessPass(accessPassDto, accountId.toString()))
         .thenReturn(accessPassCodeDto);
 
-    Response response = userResource.addAccessPass(accessPassDto, accountId.toString());
+    Response response = userResource.addAccessPass(accountId.toString(), accessPassDto);
     AccessPassCodeDto respondedAccessPassCodeDto = (AccessPassCodeDto) response.getEntity();
 
     assertThat(respondedAccessPassCodeDto.accessPassCode)
@@ -112,21 +112,21 @@ public class UserResourceImplementationTest {
     when(accessPassService.addAccessPass(accessPassDto, accountId.toString()))
         .thenReturn(accessPassCodeDto);
 
-    Response response = userResource.addAccessPass(accessPassDto, accountId.toString());
+    Response response = userResource.addAccessPass(accountId.toString(), accessPassDto);
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
   }
 
   @Test
   public void whenAddingCar_thenAddCar() {
-    userResource.addCar(carDto, accountId.toString());
+    userResource.addCar(accountId.toString(), carDto);
 
     verify(carService).addCar(carDto, accountId.toString());
   }
 
   @Test
   public void whenAddingCar_thenRespondWithCreatedStatus() {
-    Response response = userResource.addCar(carDto, accountId.toString());
+    Response response = userResource.addCar(accountId.toString(), carDto);
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
   }
