@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.accesspasses.services;
 
 import ca.ulaval.glo4003.accesspasses.domain.*;
-import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassAssembler;
-import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassCodeAssembler;
+import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassCodeConverter;
+import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassConverter;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.accounts.domain.Account;
@@ -18,36 +18,36 @@ import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import java.util.List;
 
 public class AccessPassService {
-  private final AccessPassAssembler accessPassAssembler;
+  private final AccessPassConverter accessPassConverter;
   private final AccessPassFactory accessPassFactory;
   private final CarService carService;
   private final ParkingAreaService parkingAreaService;
   private final AccessPassTypeRepository accessPassTypeRepository;
   private final BillService billService;
   private final AccountService accountService;
-  private final AccessPassCodeAssembler accessPassCodeAssembler;
+  private final AccessPassCodeConverter accessPassCodeConverter;
 
   public AccessPassService(
-      AccessPassAssembler accessPassAssembler,
+      AccessPassConverter accessPassConverter,
       AccessPassFactory accessPassFactory,
       CarService carService,
       ParkingAreaService parkingAreaService,
       AccessPassTypeRepository accessPassTypeRepository,
       AccountService accountService,
       BillService billService,
-      AccessPassCodeAssembler accessPassCodeAssembler) {
-    this.accessPassAssembler = accessPassAssembler;
+      AccessPassCodeConverter accessPassCodeConverter) {
+    this.accessPassConverter = accessPassConverter;
     this.accessPassFactory = accessPassFactory;
     this.carService = carService;
     this.parkingAreaService = parkingAreaService;
     this.accessPassTypeRepository = accessPassTypeRepository;
     this.accountService = accountService;
     this.billService = billService;
-    this.accessPassCodeAssembler = accessPassCodeAssembler;
+    this.accessPassCodeConverter = accessPassCodeConverter;
   }
 
   public AccessPassCodeDto addAccessPass(AccessPassDto accessPassDto, String accountId) {
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
     Account account = accountService.getAccount(accountId);
     LicensePlate licensePlate = accessPass.getLicensePlate();
 
@@ -69,11 +69,11 @@ public class AccessPassService {
         billService.addBillForAccessCode(moneyDue, accessPass.getCode(), consumptionType);
     accountService.addAccessPassToAccount(account.getId(), accessPass, billId);
 
-    return accessPassCodeAssembler.assemble(accessPass.getCode());
+    return accessPassCodeConverter.convert(accessPass.getCode());
   }
 
   public AccessPass getAccessPass(String code) {
-    AccessPassCode accessPassCode = accessPassCodeAssembler.assemble(code);
+    AccessPassCode accessPassCode = accessPassCodeConverter.convert(code);
     return accountService.getAccessPass(accessPassCode);
   }
 

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.accesspasses.services.assemblers;
+package ca.ulaval.glo4003.accesspasses.services.converters;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassDtoBuilder.anAccessPassDto;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
@@ -24,14 +24,14 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AccessPassAssemblerTest {
+public class AccessPassConverterTest {
 
   @Mock private LicensePlateAssembler licensePlateAssembler;
   @Mock private SemesterService semesterService;
   @Mock private SemesterCodeAssembler semesterCodeAssembler;
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
-  private AccessPassAssembler accessPassAssembler;
+  private AccessPassConverter accessPassConverter;
 
   private final LicensePlate licensePlate = createLicensePlate();
   private AccessPassDto accessPassDto =
@@ -42,8 +42,8 @@ public class AccessPassAssemblerTest {
 
   @Before
   public void setUp() {
-    accessPassAssembler =
-        new AccessPassAssembler(
+    accessPassConverter =
+        new AccessPassConverter(
             licensePlateAssembler,
             semesterService,
             semesterCodeAssembler,
@@ -56,21 +56,21 @@ public class AccessPassAssemblerTest {
 
   @Test
   public void
-      givenOneDayPerWeekPerSemesterPeriod_whenAssembling_thenReturnAccessPassWithAccessDay() {
+      givenOneDayPerWeekPerSemesterPeriod_whenConverting_thenReturnAccessPassWithAccessDay() {
     accessPassDto =
         anAccessPassDto()
             .withAccessPeriod(AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER.toString())
             .withSemesters(new String[] {"A20"})
             .build();
 
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.getAccessDay().toString()).isEqualTo(accessPassDto.accessDay);
   }
 
   @Test(expected = InvalidDayOfWeekException.class)
   public void
-      givenOneDayPerWeekPerSemesterPeriodAndInvalidAccessDay_whenAssembling_thenThrowInvalidDayOfWeekException() {
+      givenOneDayPerWeekPerSemesterPeriodAndInvalidAccessDay_whenConverting_thenThrowInvalidDayOfWeekException() {
     String invalidAccessDay = "invalidDayOfWeek";
     accessPassDto =
         anAccessPassDto()
@@ -78,72 +78,72 @@ public class AccessPassAssemblerTest {
             .withAccessDay(invalidAccessDay)
             .build();
 
-    accessPassAssembler.assemble(accessPassDto);
+    accessPassConverter.convert(accessPassDto);
   }
 
   @Test(expected = InvalidDayOfWeekException.class)
   public void
-      givenOneDayPerWeekPerSemesterAndNoAccessDay_whenAssembling_thenThrowInvalidDayOfWeekException() {
+      givenOneDayPerWeekPerSemesterAndNoAccessDay_whenConverting_thenThrowInvalidDayOfWeekException() {
     accessPassDto =
         anAccessPassDto()
             .withAccessPeriod(AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER.toString())
             .withAccessDay(null)
             .build();
 
-    accessPassAssembler.assemble(accessPassDto);
+    accessPassConverter.convert(accessPassDto);
   }
 
   @Test
-  public void whenAssembling_thenReturnAccessPassWithLicensePlate() {
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
+  public void whenConverting_thenReturnAccessPassWithLicensePlate() {
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.getLicensePlate()).isSameInstanceAs(licensePlate);
   }
 
   @Test
-  public void whenAssembling_thenReturnIsAdmittedOnCampusAtFalse() {
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
+  public void whenConverting_thenReturnIsAdmittedOnCampusAtFalse() {
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.isAdmittedOnCampus()).isSameInstanceAs(false);
   }
 
   @Test
-  public void givenNoLicensePlate_whenAssembling_thenReturnAccessPassWithoutLicensePlate() {
+  public void givenNoLicensePlate_whenConverting_thenReturnAccessPassWithoutLicensePlate() {
     accessPassDto =
         anAccessPassDto().withLicensePlate(null).withSemesters(new String[] {"A20"}).build();
 
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.getLicensePlate()).isNull();
   }
 
   @Test(expected = UnsupportedAccessPeriodException.class)
-  public void givenOneHourPeriod_whenAssembling_thenThrowUnsupportedPeriodException() {
+  public void givenOneHourPeriod_whenConverting_thenThrowUnsupportedPeriodException() {
     accessPassDto = anAccessPassDto().withAccessPeriod(AccessPeriod.ONE_HOUR.toString()).build();
 
-    accessPassAssembler.assemble(accessPassDto);
+    accessPassConverter.convert(accessPassDto);
   }
 
   @Test(expected = UnsupportedAccessPeriodException.class)
-  public void givenOneDayPeriod_whenAssembling_thenThrowUnsupportedPeriodException() {
+  public void givenOneDayPeriod_whenConverting_thenThrowUnsupportedPeriodException() {
     accessPassDto = anAccessPassDto().withAccessPeriod(AccessPeriod.ONE_DAY.toString()).build();
 
-    accessPassAssembler.assemble(accessPassDto);
+    accessPassConverter.convert(accessPassDto);
   }
 
   @Test(expected = WrongAmountOfSemestersForPeriodException.class)
-  public void givenWrongAmountOfSemesters_whenAssembling_thenThrowWrongAmountException() {
+  public void givenWrongAmountOfSemesters_whenConverting_thenThrowWrongAmountException() {
     accessPassDto =
         anAccessPassDto()
             .withAccessPeriod(AccessPeriod.TWO_SEMESTERS.toString())
             .withSemesters(new String[] {"A20"})
             .build();
 
-    accessPassAssembler.assemble(accessPassDto);
+    accessPassConverter.convert(accessPassDto);
   }
 
   @Test
-  public void givenNoParkingAreaCode_whenAssembling_thenReturnAccessPassWithoutParkingAreaCode() {
+  public void givenNoParkingAreaCode_whenConverting_thenReturnAccessPassWithoutParkingAreaCode() {
     accessPassDto =
         anAccessPassDto()
             .withLicensePlate(licensePlate.toString())
@@ -151,21 +151,21 @@ public class AccessPassAssemblerTest {
             .withParkingAea(null)
             .build();
 
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.getParkingAreaCode()).isNull();
   }
 
   @Test
-  public void givenParkingAreaCode_whenAssembling_thenReturnAccessPassWithParkingAreaCode() {
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
+  public void givenParkingAreaCode_whenConverting_thenReturnAccessPassWithParkingAreaCode() {
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.getParkingAreaCode().toString()).isEqualTo(accessPassDto.parkingArea);
   }
 
   @Test
-  public void givenAccessPeriodOtherThanOneDayAWeekPerSemester_whenAssembling_thenSetNoAccessDay() {
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto);
+  public void givenAccessPeriodOtherThanOneDayAWeekPerSemester_whenConverting_thenSetNoAccessDay() {
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.getAccessDay()).isNull();
   }

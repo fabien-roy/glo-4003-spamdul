@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.accesspasses.services.assemblers;
+package ca.ulaval.glo4003.accesspasses.services.converters;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -7,48 +7,48 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPeriodInFrench;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AccessPassPeriodAssemblerTest {
-  private AccessPassPeriodAssembler accessPassPeriodAssembler;
+public class AccessPassPeriodConverterTest {
+  private AccessPassPeriodConverter accessPassPeriodConverter;
 
   @Before
   public void setUp() {
-    accessPassPeriodAssembler = new AccessPassPeriodAssembler();
+    accessPassPeriodConverter = new AccessPassPeriodConverter();
   }
 
   @Test
   public void
-      givenUneJourneeParSemaineParSession_whenAssembling_thenReturnOneDayPerWeekPerSession() {
+      givenUneJourneeParSemaineParSession_whenConverting_thenReturnOneDayPerWeekPerSession() {
     AccessPeriodInFrench accessPeriodInFrench =
         AccessPeriodInFrench.UNE_JOURNEE_PAR_SEMAINE_PAR_SESSION;
 
-    AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
+    AccessPeriod accessPeriod = accessPassPeriodConverter.convert(accessPeriodInFrench);
 
     assertThat(accessPeriod).isEqualTo(AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER);
   }
 
   @Test
-  public void givenUneSession_whenAssembling_thenReturnOneSemester() {
+  public void givenUneSession_whenConverting_thenReturnOneSemester() {
     AccessPeriodInFrench accessPeriodInFrench = AccessPeriodInFrench.UNE_SESSION;
 
-    AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
+    AccessPeriod accessPeriod = accessPassPeriodConverter.convert(accessPeriodInFrench);
 
     assertThat(accessPeriod).isEqualTo(AccessPeriod.ONE_SEMESTER);
   }
 
   @Test
-  public void givenDeuxSessions_whenAssembling_thenReturnTwoSemesters() {
+  public void givenDeuxSessions_whenConverting_thenReturnTwoSemesters() {
     AccessPeriodInFrench accessPeriodInFrench = AccessPeriodInFrench.DEUX_SESSIONS;
 
-    AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
+    AccessPeriod accessPeriod = accessPassPeriodConverter.convert(accessPeriodInFrench);
 
     assertThat(accessPeriod).isEqualTo(AccessPeriod.TWO_SEMESTERS);
   }
 
   @Test
-  public void givenTroisSessions_whenAssembling_thenReturnThreeSemesters() {
+  public void givenTroisSessions_whenConverting_thenReturnThreeSemesters() {
     AccessPeriodInFrench accessPeriodInFrench = AccessPeriodInFrench.TROIS_SESSIONS;
 
-    AccessPeriod accessPeriod = accessPassPeriodAssembler.assemble(accessPeriodInFrench);
+    AccessPeriod accessPeriod = accessPassPeriodConverter.convert(accessPeriodInFrench);
 
     assertThat(accessPeriod).isEqualTo(AccessPeriod.THREE_SEMESTERS);
   }

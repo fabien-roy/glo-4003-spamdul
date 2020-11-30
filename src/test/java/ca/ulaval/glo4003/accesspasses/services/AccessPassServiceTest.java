@@ -12,8 +12,8 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.accesspasses.domain.*;
-import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassAssembler;
-import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassCodeAssembler;
+import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassCodeConverter;
+import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassConverter;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.accounts.domain.Account;
@@ -35,14 +35,14 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccessPassServiceTest {
-  @Mock private AccessPassAssembler accessPassAssembler;
+  @Mock private AccessPassConverter accessPassConverter;
   @Mock private AccessPassFactory accessPassFactory;
   @Mock private CarService carService;
   @Mock private ParkingAreaService parkingAreaService;
   @Mock private AccessPassTypeRepository accessPassTypeRepository;
   @Mock private BillService billService;
   @Mock private AccountService accountService;
-  @Mock private AccessPassCodeAssembler accessPassCodeAssembler;
+  @Mock private AccessPassCodeConverter accessPassCodeConverter;
 
   private AccessPassService accessPassService;
 
@@ -61,16 +61,16 @@ public class AccessPassServiceTest {
   public void setUp() {
     accessPassService =
         new AccessPassService(
-            accessPassAssembler,
+            accessPassConverter,
             accessPassFactory,
             carService,
             parkingAreaService,
             accessPassTypeRepository,
             accountService,
             billService,
-            accessPassCodeAssembler);
+            accessPassCodeConverter);
 
-    when(accessPassCodeAssembler.assemble(accessPass.getCode().toString()))
+    when(accessPassCodeConverter.convert(accessPass.getCode().toString()))
         .thenReturn(accessPass.getCode());
     when(accountService.getAccessPass(accessPass.getCode())).thenReturn(accessPass);
     when(accountService.getAccessPasses(car.getLicensePlate()))
@@ -176,7 +176,7 @@ public class AccessPassServiceTest {
   }
 
   private void setUpMocks() {
-    when(accessPassAssembler.assemble(accessPassDto)).thenReturn(accessPass);
+    when(accessPassConverter.convert(accessPassDto)).thenReturn(accessPass);
     when(accountService.getAccount(account.getId().toString())).thenReturn(account);
     when(carService.getCar(accessPass.getLicensePlate())).thenReturn(car);
     when(accessPassFactory.create(accessPass)).thenReturn(accessPass);
@@ -194,6 +194,6 @@ public class AccessPassServiceTest {
             accessPass.getCode(),
             car.getConsumptionType()))
         .thenReturn(notZeroPollutionBillId);
-    when(accessPassCodeAssembler.assemble(accessPass.getCode())).thenReturn(accessPassCodeDto);
+    when(accessPassCodeConverter.convert(accessPass.getCode())).thenReturn(accessPassCodeDto);
   }
 }

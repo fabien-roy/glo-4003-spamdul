@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.accesspasses.services.assemblers;
+package ca.ulaval.glo4003.accesspasses.services.converters;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
@@ -17,14 +17,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AccessPassAssembler {
+public class AccessPassConverter {
 
   private final LicensePlateAssembler licensePlateAssembler;
   private final SemesterService semesterService;
   private final SemesterCodeAssembler semesterCodeAssembler;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
-  public AccessPassAssembler(
+  public AccessPassConverter(
       LicensePlateAssembler licensePlateAssembler,
       SemesterService semesterService,
       SemesterCodeAssembler semesterCodeAssembler,
@@ -35,7 +35,7 @@ public class AccessPassAssembler {
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
   }
 
-  public AccessPass assemble(AccessPassDto accessPassCodeDto) {
+  public AccessPass convert(AccessPassDto accessPassCodeDto) {
     AccessPeriod period = AccessPeriod.get(accessPassCodeDto.period);
 
     DayOfWeek dayOfWeek =

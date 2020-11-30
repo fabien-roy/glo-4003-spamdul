@@ -3,9 +3,9 @@ package ca.ulaval.glo4003.accesspasses;
 import ca.ulaval.glo4003.accesspasses.domain.*;
 import ca.ulaval.glo4003.accesspasses.infrastructure.AccessPassTypeInMemoryRepository;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
-import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassAssembler;
-import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassCodeAssembler;
-import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassPeriodAssembler;
+import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassCodeConverter;
+import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassConverter;
+import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassPeriodConverter;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.ConsumptionTypeInFrench;
 import ca.ulaval.glo4003.cars.services.CarService;
@@ -34,8 +34,8 @@ public class AccessPassInjector {
       new AccessPassCodeGenerator(new StringCodeGenerator());
   private final StringMatrixFileReader fileReader = new CsvFileReader();
   private final ConsumptionAssembler consumptionAssembler = new ConsumptionAssembler();
-  private final AccessPassPeriodAssembler accessPassPeriodAssembler =
-      new AccessPassPeriodAssembler();
+  private final AccessPassPeriodConverter accessPassPeriodConverter =
+      new AccessPassPeriodConverter();
 
   public AccessPassInjector() {
     addAccessPassByConsumptionTypesToRepository();
@@ -49,24 +49,24 @@ public class AccessPassInjector {
       SemesterService semesterService) {
     LicensePlateAssembler licensePlateAssembler = new LicensePlateAssembler();
     SemesterCodeAssembler semesterCodeAssembler = new SemesterCodeAssembler();
-    AccessPassAssembler accessPassAssembler =
-        new AccessPassAssembler(
+    AccessPassConverter accessPassConverter =
+        new AccessPassConverter(
             licensePlateAssembler,
             semesterService,
             semesterCodeAssembler,
             new ParkingAreaCodeAssembler());
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
-    AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
+    AccessPassCodeConverter accessPassCodeConverter = new AccessPassCodeConverter();
 
     return new AccessPassService(
-        accessPassAssembler,
+        accessPassConverter,
         accessPassFactory,
         carService,
         parkingAreaService,
         accessPassPriceByCarConsumptionInMemoryRepository,
         accountService,
         billService,
-        accessPassCodeAssembler);
+        accessPassCodeConverter);
   }
 
   private void addAccessPassByConsumptionTypesToRepository() {
@@ -90,7 +90,7 @@ public class AccessPassInjector {
                       period -> {
                         AccessPeriodInFrench accessPeriod = AccessPeriodInFrench.get(period);
                         Money fee = Money.fromDouble(zonesAndFees.get(consumption).get(period));
-                        feesPerPeriod.put(accessPassPeriodAssembler.assemble(accessPeriod), fee);
+                        feesPerPeriod.put(accessPassPeriodConverter.convert(accessPeriod), fee);
                       });
               accessConsumption.add(
                   new AccessPassType(

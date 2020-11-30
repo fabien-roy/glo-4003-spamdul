@@ -1,11 +1,11 @@
-package ca.ulaval.glo4003.accesspasses.services.assemblers;
+package ca.ulaval.glo4003.accesspasses.services.converters;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriodInFrench;
 import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPeriodException;
 
-public class AccessPassPeriodAssembler {
-  public AccessPeriod assemble(AccessPeriodInFrench accessPeriodInFrench) {
+public class AccessPassPeriodConverter {
+  public AccessPeriod convert(AccessPeriodInFrench accessPeriodInFrench) {
     switch (accessPeriodInFrench) {
       case UNE_HEURE:
         return AccessPeriod.ONE_HOUR;
