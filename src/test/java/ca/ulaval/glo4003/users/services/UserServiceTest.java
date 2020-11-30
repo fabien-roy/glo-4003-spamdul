@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.users.services;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.users.helpers.UserBuilder.aUser;
 import static ca.ulaval.glo4003.users.helpers.UserDtoBuilder.aUserDto;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.domain.Account;
@@ -12,9 +13,9 @@ import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.users.domain.User;
 import ca.ulaval.glo4003.users.services.assemblers.UserAssembler;
+import ca.ulaval.glo4003.users.services.converters.UserConverter;
 import ca.ulaval.glo4003.users.services.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.services.dto.UserDto;
-import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,14 +28,15 @@ public class UserServiceTest {
   @Mock private AccountFactory accountFactory;
   @Mock private AccountIdConverter accountIdConverter;
   @Mock private AccountIdAssembler accountIdAssembler;
+  @Mock private UserConverter userConverter;
   @Mock private UserAssembler userAssembler;
   @Mock private AccountIdDto accountIdDto;
 
-  private Account account;
-  private User user;
-  private UserDto userDto;
-
   private UserService userService;
+
+  private final Account account = anAccount().build();
+  private final User user = aUser().build();
+  private final UserDto userDto = aUserDto().build();
 
   @Before
   public void setUp() {
@@ -44,13 +46,10 @@ public class UserServiceTest {
             accountFactory,
             accountIdConverter,
             accountIdAssembler,
+            userConverter,
             userAssembler);
 
-    account = anAccount().build();
-    user = aUser().build();
-    userDto = aUserDto().build();
-
-    when(userAssembler.assemble(userDto)).thenReturn(user);
+    when(userConverter.convert(userDto)).thenReturn(user);
     when(accountFactory.createAccount(user)).thenReturn(account);
     when(accountRepository.save(account)).thenReturn(account.getId());
     when(accountIdAssembler.assemble(account.getId())).thenReturn(accountIdDto);
@@ -64,13 +63,13 @@ public class UserServiceTest {
   public void whenAddingUser_thenReturnAccountIdDto() {
     AccountIdDto receivedAccountIdDto = userService.addUser(userDto);
 
-    Truth.assertThat(receivedAccountIdDto).isSameInstanceAs(accountIdDto);
+    assertThat(receivedAccountIdDto).isSameInstanceAs(accountIdDto);
   }
 
   @Test
   public void whenGettingUser_thenReturnUserDto() {
     UserDto receivedUserDto = userService.getUser(account.getId().toString());
 
-    Truth.assertThat(receivedUserDto).isSameInstanceAs(userDto);
+    assertThat(receivedUserDto).isSameInstanceAs(userDto);
   }
 }

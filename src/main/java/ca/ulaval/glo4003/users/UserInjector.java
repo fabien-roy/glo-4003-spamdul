@@ -12,6 +12,7 @@ import ca.ulaval.glo4003.times.services.converters.CustomDateConverter;
 import ca.ulaval.glo4003.users.api.UserResource;
 import ca.ulaval.glo4003.users.services.UserService;
 import ca.ulaval.glo4003.users.services.assemblers.UserAssembler;
+import ca.ulaval.glo4003.users.services.converters.UserConverter;
 
 public class UserInjector {
 
@@ -25,7 +26,8 @@ public class UserInjector {
       CarService carService,
       AccountService accountService,
       ParkingStickerService parkingStickerService) {
-    UserAssembler userAssembler = new UserAssembler(customDateConverter);
+    UserConverter userConverter = new UserConverter(customDateConverter);
+    UserAssembler userAssembler = new UserAssembler();
 
     UserService userService =
         new UserService(
@@ -33,6 +35,7 @@ public class UserInjector {
             accountFactory,
             accountIdConverter,
             accountIdAssembler,
+            userConverter,
             userAssembler);
 
     return new UserResource(
