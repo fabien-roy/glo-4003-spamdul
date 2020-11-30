@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.initiatives.assembler;
+package ca.ulaval.glo4003.initiatives.services.assemblers;
 
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeCodeDto;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
+import ca.ulaval.glo4003.initiatives.services.dto.InitiativeCodeDto;
 
 public class InitiativeCodeAssembler {
 

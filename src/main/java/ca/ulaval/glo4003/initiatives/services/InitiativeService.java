@@ -2,12 +2,12 @@ package ca.ulaval.glo4003.initiatives.services;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
-import ca.ulaval.glo4003.initiatives.api.dto.*;
-import ca.ulaval.glo4003.initiatives.assembler.InitiativeAddAllocatedAmountAssembler;
-import ca.ulaval.glo4003.initiatives.assembler.InitiativeAssembler;
-import ca.ulaval.glo4003.initiatives.assembler.InitiativeAvailableAmountAssembler;
-import ca.ulaval.glo4003.initiatives.assembler.InitiativeCodeAssembler;
 import ca.ulaval.glo4003.initiatives.domain.*;
+import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAddAllocatedAmountAssembler;
+import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAssembler;
+import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAvailableAmountAssembler;
+import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeCodeAssembler;
+import ca.ulaval.glo4003.initiatives.services.dto.*;
 import java.util.List;
 
 public class InitiativeService extends InitiativeAddedAllocatedAmountObservable {

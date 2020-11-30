@@ -1,11 +1,11 @@
-package ca.ulaval.glo4003.initiatives.assembler;
+package ca.ulaval.glo4003.initiatives.services.assemblers;
 
 import static ca.ulaval.glo4003.initiatives.helpers.InitiativeAddAllocatedAmountDtoBuilder.aInitiativeAddAllocatedAmountDTO;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeAddAllocatedAmountDto;
+import ca.ulaval.glo4003.initiatives.services.dto.InitiativeAddAllocatedAmountDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.initiatives.assembler;
+package ca.ulaval.glo4003.initiatives.services.assemblers;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeAvailableAmountDto;
+import ca.ulaval.glo4003.initiatives.services.dto.InitiativeAvailableAmountDto;
 
 public class InitiativeAvailableAmountAssembler {
   public InitiativeAvailableAmountDto assemble(Money availableAmount) {

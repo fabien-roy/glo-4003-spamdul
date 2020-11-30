@@ -1,8 +1,8 @@
-package ca.ulaval.glo4003.initiatives.assembler;
+package ca.ulaval.glo4003.initiatives.services.assemblers;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeAddAllocatedAmountDto;
+import ca.ulaval.glo4003.initiatives.services.dto.InitiativeAddAllocatedAmountDto;
 
 public class InitiativeAddAllocatedAmountAssembler {
 

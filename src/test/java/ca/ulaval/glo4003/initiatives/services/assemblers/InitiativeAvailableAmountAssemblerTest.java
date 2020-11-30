@@ -1,11 +1,11 @@
-package ca.ulaval.glo4003.initiatives.assembler;
+package ca.ulaval.glo4003.initiatives.services.assemblers;
 
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.initiatives.helpers.InitiativeAvailableAmountDtoBuilder.aInitiativeAvailableAmountDto;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeAvailableAmountDto;
+import ca.ulaval.glo4003.initiatives.services.dto.InitiativeAvailableAmountDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

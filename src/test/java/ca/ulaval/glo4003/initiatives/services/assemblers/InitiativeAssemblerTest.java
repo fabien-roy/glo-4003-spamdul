@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.initiatives.assembler;
+package ca.ulaval.glo4003.initiatives.services.assemblers;
 
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.initiatives.helpers.AddInitiativeDtoBuilder.anAddInitiativeDto;
@@ -8,10 +8,10 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
-import ca.ulaval.glo4003.initiatives.api.dto.AddInitiativeDto;
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeDto;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;
 import ca.ulaval.glo4003.initiatives.exception.InvalidInitiativeNameException;
+import ca.ulaval.glo4003.initiatives.services.dto.AddInitiativeDto;
+import ca.ulaval.glo4003.initiatives.services.dto.InitiativeDto;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;

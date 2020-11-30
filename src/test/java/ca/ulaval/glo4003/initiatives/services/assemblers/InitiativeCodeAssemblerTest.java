@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.initiatives.assembler;
+package ca.ulaval.glo4003.initiatives.services.assemblers;
 
 import static ca.ulaval.glo4003.initiatives.helpers.InitiativeMother.createInitiativeCode;
 
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeCodeDto;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
+import ca.ulaval.glo4003.initiatives.services.dto.InitiativeCodeDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

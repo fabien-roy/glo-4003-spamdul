@@ -5,13 +5,13 @@ import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
-import ca.ulaval.glo4003.initiatives.assembler.InitiativeAddAllocatedAmountAssembler;
-import ca.ulaval.glo4003.initiatives.assembler.InitiativeAssembler;
-import ca.ulaval.glo4003.initiatives.assembler.InitiativeAvailableAmountAssembler;
-import ca.ulaval.glo4003.initiatives.assembler.InitiativeCodeAssembler;
 import ca.ulaval.glo4003.initiatives.domain.*;
 import ca.ulaval.glo4003.initiatives.infrastructure.InitiativeRepositoryInMemory;
 import ca.ulaval.glo4003.initiatives.services.InitiativeService;
+import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAddAllocatedAmountAssembler;
+import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAssembler;
+import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAvailableAmountAssembler;
+import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeCodeAssembler;
 import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import java.util.List;
 
