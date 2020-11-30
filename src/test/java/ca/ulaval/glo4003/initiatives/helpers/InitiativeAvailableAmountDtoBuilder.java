@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.initiatives.helpers;
 
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeAvailableAmountDto;
+import ca.ulaval.glo4003.initiatives.services.dto.InitiativeAvailableAmountDto;
 
 public class InitiativeAvailableAmountDtoBuilder {
   private double availableAmount = createMoney().toDouble();

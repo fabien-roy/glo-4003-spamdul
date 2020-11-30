@@ -9,11 +9,11 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.services.BillService;
-import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerCodeDto;
-import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
-import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerAssembler;
-import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.*;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
+import ca.ulaval.glo4003.parkings.services.converters.ParkingStickerConverter;
+import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerCodeDto;
+import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ParkingStickerServiceTest {
   @Mock private ParkingStickerDto parkingStickerDto;
   @Mock private ParkingStickerCodeDto parkingStickerCodeDto;
-  @Mock private ParkingStickerAssembler parkingStickerAssembler;
+  @Mock private ParkingStickerConverter parkingStickerConverter;
   @Mock private ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   @Mock private ParkingStickerFactory parkingStickerFactory;
   @Mock private AccountService accountService;
@@ -45,7 +45,7 @@ public class ParkingStickerServiceTest {
   public void setUp() {
     parkingStickerService =
         new ParkingStickerService(
-            parkingStickerAssembler,
+            parkingStickerConverter,
             parkingStickerCodeAssembler,
             parkingStickerFactory,
             accountService,
@@ -53,7 +53,7 @@ public class ParkingStickerServiceTest {
             parkingStickerRepository,
             billService);
 
-    when(parkingStickerAssembler.assemble(parkingStickerDto)).thenReturn(parkingSticker);
+    when(parkingStickerConverter.convert(parkingStickerDto)).thenReturn(parkingSticker);
     when(parkingStickerCodeAssembler.assemble(parkingSticker.getCode()))
         .thenReturn(parkingStickerCodeDto);
     when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);

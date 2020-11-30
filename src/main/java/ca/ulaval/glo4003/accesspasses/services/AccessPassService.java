@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.accesspasses.services;
 
-import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassCodeDto;
-import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassDto;
-import ca.ulaval.glo4003.accesspasses.assembler.AccessPassAssembler;
-import ca.ulaval.glo4003.accesspasses.assembler.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.accesspasses.domain.*;
+import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassCodeAssembler;
+import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassConverter;
+import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
+import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
@@ -18,7 +18,7 @@ import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import java.util.List;
 
 public class AccessPassService {
-  private final AccessPassAssembler accessPassAssembler;
+  private final AccessPassConverter accessPassConverter;
   private final AccessPassFactory accessPassFactory;
   private final CarService carService;
   private final ParkingAreaService parkingAreaService;
@@ -28,7 +28,7 @@ public class AccessPassService {
   private final AccessPassCodeAssembler accessPassCodeAssembler;
 
   public AccessPassService(
-      AccessPassAssembler accessPassAssembler,
+      AccessPassConverter accessPassConverter,
       AccessPassFactory accessPassFactory,
       CarService carService,
       ParkingAreaService parkingAreaService,
@@ -36,7 +36,7 @@ public class AccessPassService {
       AccountService accountService,
       BillService billService,
       AccessPassCodeAssembler accessPassCodeAssembler) {
-    this.accessPassAssembler = accessPassAssembler;
+    this.accessPassConverter = accessPassConverter;
     this.accessPassFactory = accessPassFactory;
     this.carService = carService;
     this.parkingAreaService = parkingAreaService;
@@ -47,7 +47,7 @@ public class AccessPassService {
   }
 
   public AccessPassCodeDto addAccessPass(AccessPassDto accessPassDto, String accountId) {
-    AccessPass accessPass = accessPassAssembler.assemble(accessPassDto, accountId);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
     Account account = accountService.getAccount(accountId);
     LicensePlate licensePlate = accessPass.getLicensePlate();
 

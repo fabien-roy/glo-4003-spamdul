@@ -8,11 +8,11 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
-import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDto;
-import ca.ulaval.glo4003.reports.assemblers.ReportPeriodAssembler;
 import ca.ulaval.glo4003.reports.domain.*;
 import ca.ulaval.glo4003.reports.domain.aggregatefunctions.ReportAggregateFunctionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
+import ca.ulaval.glo4003.reports.services.assemblers.ReportPeriodAssembler;
+import ca.ulaval.glo4003.reports.services.dto.ReportPeriodDto;
 import ca.ulaval.glo4003.times.helpers.CustomDateTimeMother;
 import java.util.Arrays;
 import java.util.Collections;

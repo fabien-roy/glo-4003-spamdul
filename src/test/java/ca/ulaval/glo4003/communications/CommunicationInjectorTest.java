@@ -1,8 +1,9 @@
 package ca.ulaval.glo4003.communications;
 
-import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
+import static com.google.common.truth.Truth.assertThat;
+
 import ca.ulaval.glo4003.communications.domain.EmailSender;
-import com.google.common.truth.Truth;
+import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,17 +17,17 @@ public class CommunicationInjectorTest {
   }
 
   @Test
-  public void whenCreatingEmailAddressAssembler_thenReturnIt() {
-    EmailAddressAssembler emailAddressAssembler =
-        communicationInjector.createEmailAddressAssembler();
+  public void whenCreatingEmailAddressConverter_thenReturnIt() {
+    EmailAddressConverter emailAddressConverter =
+        communicationInjector.createEmailAddressConverter();
 
-    Truth.assertThat(emailAddressAssembler).isNotNull();
+    assertThat(emailAddressConverter).isNotNull();
   }
 
   @Test
   public void whenCreatingEmailSender_thenReturnIt() {
     EmailSender emailSender = communicationInjector.createEmailSender();
 
-    Truth.assertThat(emailSender).isNotNull();
+    assertThat(emailSender).isNotNull();
   }
 }

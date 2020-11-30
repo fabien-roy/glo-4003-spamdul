@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.offenses.filesystem;
 
 import ca.ulaval.glo4003.files.domain.StringFileReader;
 import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
-import ca.ulaval.glo4003.offenses.filesystem.dto.OffenseDtoInFrench;
+import ca.ulaval.glo4003.offenses.services.dto.OffenseDtoInFrench;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;

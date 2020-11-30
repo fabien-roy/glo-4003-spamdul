@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.reports.api;
 
-import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDto;
 import ca.ulaval.glo4003.reports.domain.ReportEventType;
 import ca.ulaval.glo4003.reports.services.ReportProfitService;
+import ca.ulaval.glo4003.reports.services.dto.ReportPeriodDto;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;

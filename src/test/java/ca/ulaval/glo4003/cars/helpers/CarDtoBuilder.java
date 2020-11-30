@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.cars.helpers;
 import static ca.ulaval.glo4003.cars.helpers.CarMother.*;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 
-import ca.ulaval.glo4003.cars.api.dto.CarDto;
+import ca.ulaval.glo4003.cars.services.dto.CarDto;
 
 public class CarDtoBuilder {
   private String licensePlate = createLicensePlate().toString();

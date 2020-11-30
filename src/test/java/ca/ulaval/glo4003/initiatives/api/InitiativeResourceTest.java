@@ -8,12 +8,12 @@ import static ca.ulaval.glo4003.initiatives.helpers.InitiativeMother.createIniti
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.initiatives.api.dto.AddInitiativeDto;
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeAddAllocatedAmountDto;
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeCodeDto;
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeDto;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
 import ca.ulaval.glo4003.initiatives.services.InitiativeService;
+import ca.ulaval.glo4003.initiatives.services.dto.AddInitiativeDto;
+import ca.ulaval.glo4003.initiatives.services.dto.InitiativeAddAllocatedAmountDto;
+import ca.ulaval.glo4003.initiatives.services.dto.InitiativeCodeDto;
+import ca.ulaval.glo4003.initiatives.services.dto.InitiativeDto;
 import com.google.common.truth.Truth;
 import java.util.Collections;
 import java.util.List;

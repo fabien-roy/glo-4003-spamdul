@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.files.domain.StringFileReader;
 import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
-import ca.ulaval.glo4003.offenses.filesystem.dto.OffenseDtoInFrench;
+import ca.ulaval.glo4003.offenses.services.dto.OffenseDtoInFrench;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.truth.Truth;

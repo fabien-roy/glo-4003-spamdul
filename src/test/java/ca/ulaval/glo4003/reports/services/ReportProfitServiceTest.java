@@ -5,12 +5,12 @@ import static ca.ulaval.glo4003.reports.helpers.ReportPeriodDtoBuilder.aReportPe
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
-import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDto;
-import ca.ulaval.glo4003.reports.assemblers.ReportPeriodAssembler;
 import ca.ulaval.glo4003.reports.domain.*;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
+import ca.ulaval.glo4003.reports.services.assemblers.ReportPeriodAssembler;
+import ca.ulaval.glo4003.reports.services.dto.ReportPeriodDto;
 import ca.ulaval.glo4003.times.domain.TimeYear;
 import java.util.Collections;
 import java.util.List;

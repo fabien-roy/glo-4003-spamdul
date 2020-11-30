@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.carboncredits.helpers;
 
 import static ca.ulaval.glo4003.carboncredits.helpers.CarbonCreditMother.createCarbonCredit;
 
-import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
+import ca.ulaval.glo4003.carboncredits.services.dto.CarbonCreditDto;
 
 public class CarbonCreditDtoBuilder {
   private double carbonCreditAmount = createCarbonCredit().toDouble();

@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.offenses.api;
 
-import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
-import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.services.OffenseTypeService;
+import ca.ulaval.glo4003.offenses.services.dto.OffenseTypeDto;
+import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;

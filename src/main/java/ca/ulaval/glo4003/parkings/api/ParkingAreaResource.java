@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings.api;
 
-import ca.ulaval.glo4003.parkings.api.dto.ParkingAreaDto;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
+import ca.ulaval.glo4003.parkings.services.dto.ParkingAreaDto;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

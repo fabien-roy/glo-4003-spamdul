@@ -5,11 +5,11 @@ import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaDtoBuilder.aParkingA
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.parkings.api.dto.ParkingAreaDto;
-import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaAssembler;
+import ca.ulaval.glo4003.parkings.services.dto.ParkingAreaDto;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;

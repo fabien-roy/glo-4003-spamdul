@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.offenses.domain;
 
-import ca.ulaval.glo4003.offenses.assemblers.OffenseCodeAssembler;
+import ca.ulaval.glo4003.offenses.services.assemblers.OffenseCodeAssembler;
 
 public class OffenseTypeFactory {
   private final OffenseTypeRepository offenseTypeRepository;

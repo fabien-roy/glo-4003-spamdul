@@ -5,7 +5,7 @@ import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffense
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.offenses.assemblers.OffenseCodeAssembler;
+import ca.ulaval.glo4003.offenses.services.assemblers.OffenseCodeAssembler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParking
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingStickerCode;
 import static ca.ulaval.glo4003.times.helpers.TimeOfDayMother.createTimeOfDay;
 
-import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
+import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
 
 public class OffenseValidationDtoBuilder {
   private String parkingStickerCode = createParkingStickerCode().toString();

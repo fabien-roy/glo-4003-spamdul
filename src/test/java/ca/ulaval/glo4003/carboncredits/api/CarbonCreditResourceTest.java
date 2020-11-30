@@ -2,9 +2,9 @@ package ca.ulaval.glo4003.carboncredits.api;
 
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
-import ca.ulaval.glo4003.carboncredits.api.dto.MonthlyPaymentStatusDto;
 import ca.ulaval.glo4003.carboncredits.services.CarbonCreditService;
+import ca.ulaval.glo4003.carboncredits.services.dto.CarbonCreditDto;
+import ca.ulaval.glo4003.carboncredits.services.dto.MonthlyPaymentStatusDto;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;

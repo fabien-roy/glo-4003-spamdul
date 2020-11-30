@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.initiatives.api;
 
-import ca.ulaval.glo4003.initiatives.api.dto.*;
 import ca.ulaval.glo4003.initiatives.services.InitiativeService;
+import ca.ulaval.glo4003.initiatives.services.dto.*;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
