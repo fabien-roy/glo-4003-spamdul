@@ -1,15 +1,15 @@
-package ca.ulaval.glo4003.reports.assemblers;
+package ca.ulaval.glo4003.reports.services.assemblers;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.reports.api.dto.ReportDimensionDataDto;
-import ca.ulaval.glo4003.reports.api.dto.ReportMetricDataDto;
-import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDataDto;
 import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionData;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricData;
+import ca.ulaval.glo4003.reports.services.dto.ReportDimensionDataDto;
+import ca.ulaval.glo4003.reports.services.dto.ReportMetricDataDto;
+import ca.ulaval.glo4003.reports.services.dto.ReportPeriodDataDto;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

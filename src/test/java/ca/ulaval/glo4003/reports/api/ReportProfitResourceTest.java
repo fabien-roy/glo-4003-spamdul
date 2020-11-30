@@ -5,9 +5,9 @@ import static ca.ulaval.glo4003.reports.helpers.ReportScopeMother.createYear;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDto;
 import ca.ulaval.glo4003.reports.domain.ReportEventType;
 import ca.ulaval.glo4003.reports.services.ReportProfitService;
+import ca.ulaval.glo4003.reports.services.dto.ReportPeriodDto;
 import java.util.Collections;
 import java.util.List;
 import javax.ws.rs.core.Response;

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.reports.api.dto;
+package ca.ulaval.glo4003.reports.services.dto;
 
 public class ReportMetricDataDto {
   public String name;

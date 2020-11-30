@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.reports.assemblers;
+package ca.ulaval.glo4003.reports.services.assemblers;
 
-import ca.ulaval.glo4003.reports.api.dto.ReportDimensionDataDto;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionData;
+import ca.ulaval.glo4003.reports.services.dto.ReportDimensionDataDto;
 import java.util.List;
 import java.util.stream.Collectors;
 

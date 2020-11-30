@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.reports.api;
 
-import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDto;
 import ca.ulaval.glo4003.reports.services.ReportParkingAreaService;
+import ca.ulaval.glo4003.reports.services.dto.ReportPeriodDto;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;

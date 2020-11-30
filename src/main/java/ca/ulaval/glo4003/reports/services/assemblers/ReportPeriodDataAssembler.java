@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.reports.assemblers;
+package ca.ulaval.glo4003.reports.services.assemblers;
 
-import ca.ulaval.glo4003.reports.api.dto.ReportPeriodDataDto;
 import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
+import ca.ulaval.glo4003.reports.services.dto.ReportPeriodDataDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
