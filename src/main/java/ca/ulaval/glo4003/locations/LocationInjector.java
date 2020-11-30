@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.locations;
 
-import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
 import ca.ulaval.glo4003.locations.console.PostalSenderSystemPrint;
 import ca.ulaval.glo4003.locations.console.SspSenderSystemPrint;
 import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.locations.domain.SspSender;
+import ca.ulaval.glo4003.locations.services.assemblers.PostalCodeAssembler;
 
 public class LocationInjector {
 

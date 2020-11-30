@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.locations.assemblers;
+package ca.ulaval.glo4003.locations.services.assemblers;
 
 import ca.ulaval.glo4003.locations.domain.PostalCode;
 import ca.ulaval.glo4003.locations.exceptions.InvalidPostalCodeException;

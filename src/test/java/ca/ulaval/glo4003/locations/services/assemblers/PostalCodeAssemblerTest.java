@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.locations.assemblers;
+package ca.ulaval.glo4003.locations.services.assemblers;
 
 import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalCode;
 
