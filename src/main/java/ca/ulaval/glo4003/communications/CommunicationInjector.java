@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.communications;
 
-import ca.ulaval.glo4003.communications.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.domain.EmailPropertyHelper;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.communications.filesystem.EmailPropertyFileHelper;
+import ca.ulaval.glo4003.communications.services.assemblers.EmailAddressAssembler;
 import ca.ulaval.glo4003.communications.smtp.SmtpClient;
 import ca.ulaval.glo4003.communications.smtp.SmtpEmailSender;
 import ca.ulaval.glo4003.communications.smtp.SmtpTransportDelegator;

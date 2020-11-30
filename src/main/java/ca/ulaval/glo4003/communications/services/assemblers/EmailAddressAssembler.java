@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.communications.assemblers;
+package ca.ulaval.glo4003.communications.services.assemblers;
 
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
 import ca.ulaval.glo4003.communications.exceptions.InvalidEmailAddressException;

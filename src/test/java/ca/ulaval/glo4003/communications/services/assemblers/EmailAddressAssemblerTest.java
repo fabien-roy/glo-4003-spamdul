@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.communications.assemblers;
+package ca.ulaval.glo4003.communications.services.assemblers;
 
 import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAddress;
 
