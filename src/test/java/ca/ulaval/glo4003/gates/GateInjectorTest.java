@@ -14,8 +14,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class GateInjectorTest {
 
-  @Mock AccessPassService accessPassService;
-  @Mock CustomDateTimeAssembler customDateTimeAssembler;
+  @Mock private AccessPassService accessPassService;
+  @Mock private CustomDateTimeAssembler customDateTimeAssembler;
   @Mock private ReportEventService reportEventService;
 
   private GateInjector gateInjector;
