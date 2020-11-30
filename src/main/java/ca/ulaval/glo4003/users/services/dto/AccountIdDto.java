@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.users.api.dto;
+package ca.ulaval.glo4003.users.services.dto;
 
 public class AccountIdDto {
   public String accountId;

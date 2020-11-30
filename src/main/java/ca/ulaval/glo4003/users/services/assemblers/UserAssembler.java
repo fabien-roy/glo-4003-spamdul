@@ -1,13 +1,13 @@
-package ca.ulaval.glo4003.users.assemblers;
+package ca.ulaval.glo4003.users.services.assemblers;
 
 import ca.ulaval.glo4003.times.domain.CustomDate;
 import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
 import ca.ulaval.glo4003.times.services.assemblers.CustomDateAssembler;
-import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.domain.Sex;
 import ca.ulaval.glo4003.users.domain.User;
 import ca.ulaval.glo4003.users.exceptions.InvalidBirthDateException;
 import ca.ulaval.glo4003.users.exceptions.InvalidNameException;
+import ca.ulaval.glo4003.users.services.dto.UserDto;
 
 public class UserAssembler {
   private final CustomDateAssembler customDateAssembler;

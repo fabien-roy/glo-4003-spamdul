@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.users.assemblers;
+package ca.ulaval.glo4003.users.services.assemblers;
 
 import static ca.ulaval.glo4003.times.helpers.CustomDateMother.createPastDate;
 import static ca.ulaval.glo4003.users.helpers.UserBuilder.aUser;
@@ -10,12 +10,12 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.times.domain.CustomDate;
 import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
 import ca.ulaval.glo4003.times.services.assemblers.CustomDateAssembler;
-import ca.ulaval.glo4003.users.api.dto.UserDto;
 import ca.ulaval.glo4003.users.domain.Sex;
 import ca.ulaval.glo4003.users.domain.User;
 import ca.ulaval.glo4003.users.exceptions.InvalidBirthDateException;
 import ca.ulaval.glo4003.users.exceptions.InvalidNameException;
 import ca.ulaval.glo4003.users.exceptions.InvalidSexException;
+import ca.ulaval.glo4003.users.services.dto.UserDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

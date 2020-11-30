@@ -5,10 +5,10 @@ import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
-import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
-import ca.ulaval.glo4003.users.api.dto.UserDto;
-import ca.ulaval.glo4003.users.assemblers.UserAssembler;
 import ca.ulaval.glo4003.users.domain.User;
+import ca.ulaval.glo4003.users.services.assemblers.UserAssembler;
+import ca.ulaval.glo4003.users.services.dto.AccountIdDto;
+import ca.ulaval.glo4003.users.services.dto.UserDto;
 
 public class UserService {
   private final AccountRepository accountRepository;
