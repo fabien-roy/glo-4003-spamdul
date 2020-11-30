@@ -18,7 +18,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class OffenseResourceImplementationTest {
+public class OffenseResourceTest {
   @Mock OffenseTypeService offenseTypeService;
 
   private OffenseResource offenseResource;
@@ -29,7 +29,7 @@ public class OffenseResourceImplementationTest {
 
   @Before
   public void setUp() {
-    offenseResource = new OffenseResourceImplementation(offenseTypeService);
+    offenseResource = new OffenseResource(offenseTypeService);
 
     when(offenseTypeService.getAllOffenseTypes()).thenReturn(offenseTypeDtos);
     when(offenseTypeService.validateOffense(offenseValidationDto)).thenReturn(offenseTypeDtos);

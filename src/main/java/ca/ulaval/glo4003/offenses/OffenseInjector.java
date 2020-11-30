@@ -6,7 +6,6 @@ import ca.ulaval.glo4003.files.filesystem.JsonFileReader;
 import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
-import ca.ulaval.glo4003.offenses.api.OffenseResourceImplementation;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseCodeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
 import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeInFrenchAssembler;
@@ -53,7 +52,7 @@ public class OffenseInjector {
             billService,
             accountService);
 
-    return new OffenseResourceImplementation(offenseTypeService);
+    return new OffenseResource(offenseTypeService);
   }
 
   private void addOffenseTypesToRepository(MoneyAssembler moneyAssembler) {
