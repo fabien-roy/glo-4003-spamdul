@@ -76,13 +76,14 @@ public class ApplicationInjector {
     return USER_INJECTOR.createUserResource(
         ACCOUNT_INJECTOR.getAccountRepository(),
         ACCOUNT_INJECTOR.createAccountFactory(),
+        ACCOUNT_INJECTOR.createAccountIdConverter(),
         ACCOUNT_INJECTOR.createAccountIdAssembler(),
         TIME_INJECTOR.createCustomDateAssembler(),
         ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(
                     FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
-                ACCOUNT_INJECTOR.createAccountIdAssembler()),
+                ACCOUNT_INJECTOR.createAccountIdConverter()),
             PARKING_INJECTOR.createParkingAreaService(),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
@@ -91,12 +92,12 @@ public class ApplicationInjector {
         CAR_INJECTOR.createCarService(
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
-            ACCOUNT_INJECTOR.createAccountIdAssembler()),
+            ACCOUNT_INJECTOR.createAccountIdConverter()),
         ACCOUNT_INJECTOR.createAccountService(
             FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
         PARKING_INJECTOR.createParkingStickerService(
             IS_DEV,
-            ACCOUNT_INJECTOR.createAccountIdAssembler(),
+            ACCOUNT_INJECTOR.createAccountIdConverter(),
             LOCATION_INJECTOR.createPostalCodeAssembler(),
             COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
             ACCOUNT_INJECTOR.createAccountService(
@@ -124,7 +125,7 @@ public class ApplicationInjector {
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(
                     FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
-                ACCOUNT_INJECTOR.createAccountIdAssembler()),
+                ACCOUNT_INJECTOR.createAccountIdConverter()),
             PARKING_INJECTOR.createParkingAreaService(),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),

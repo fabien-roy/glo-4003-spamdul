@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.services.AccountService;
+import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
@@ -18,6 +19,7 @@ public class UserInjector {
       AccountRepository accountRepository,
       AccountFactory accountFactory,
       AccountIdConverter accountIdConverter,
+      AccountIdAssembler accountIdAssembler,
       CustomDateAssembler customDateAssembler,
       AccessPassService accessPassService,
       CarService carService,
@@ -26,7 +28,12 @@ public class UserInjector {
     UserAssembler userAssembler = new UserAssembler(customDateAssembler);
 
     UserService userService =
-        new UserService(accountRepository, accountFactory, accountIdConverter, userAssembler);
+        new UserService(
+            accountRepository,
+            accountFactory,
+            accountIdConverter,
+            accountIdAssembler,
+            userAssembler);
 
     return new UserResource(
         userService, accessPassService, carService, accountService, parkingStickerService);

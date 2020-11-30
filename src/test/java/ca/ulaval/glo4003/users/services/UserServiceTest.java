@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
+import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.users.domain.User;
 import ca.ulaval.glo4003.users.services.assemblers.UserAssembler;
@@ -25,6 +26,7 @@ public class UserServiceTest {
   @Mock private AccountRepository accountRepository;
   @Mock private AccountFactory accountFactory;
   @Mock private AccountIdConverter accountIdConverter;
+  @Mock private AccountIdAssembler accountIdAssembler;
   @Mock private UserAssembler userAssembler;
   @Mock private AccountIdDto accountIdDto;
 
@@ -37,7 +39,12 @@ public class UserServiceTest {
   @Before
   public void setUp() {
     userService =
-        new UserService(accountRepository, accountFactory, accountIdConverter, userAssembler);
+        new UserService(
+            accountRepository,
+            accountFactory,
+            accountIdConverter,
+            accountIdAssembler,
+            userAssembler);
 
     account = anAccount().build();
     user = aUser().build();
@@ -46,7 +53,7 @@ public class UserServiceTest {
     when(userAssembler.assemble(userDto)).thenReturn(user);
     when(accountFactory.createAccount(user)).thenReturn(account);
     when(accountRepository.save(account)).thenReturn(account.getId());
-    when(accountIdConverter.convert(account.getId())).thenReturn(accountIdDto);
+    when(accountIdAssembler.assemble(account.getId())).thenReturn(accountIdDto);
 
     when(accountIdConverter.convert(account.getId().toString())).thenReturn(account.getId());
     when(accountRepository.get(account.getId())).thenReturn(account);

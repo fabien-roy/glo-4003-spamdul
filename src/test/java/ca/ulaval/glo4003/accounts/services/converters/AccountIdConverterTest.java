@@ -1,11 +1,10 @@
 package ca.ulaval.glo4003.accounts.services.converters;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
+import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.exceptions.InvalidAccountIdException;
-import ca.ulaval.glo4003.users.services.dto.AccountIdDto;
-import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,20 +28,13 @@ public class AccountIdConverterTest {
 
   @Test(expected = InvalidAccountIdException.class)
   public void givenNullAccountId_whenConverting_thenThrowInvalidAccountIdException() {
-    accountIdConverter.convert((String) null);
+    accountIdConverter.convert(null);
   }
 
   @Test
   public void whenConverting_thenReturnAccountId() {
     AccountId accountId = accountIdConverter.convert(ACCOUNT_ID.toString());
 
-    Truth.assertThat(accountId).isEqualTo(ACCOUNT_ID);
-  }
-
-  @Test
-  public void whenConvertingDto_thenReturnAccountId() {
-    AccountIdDto accountIdDto = accountIdConverter.convert(ACCOUNT_ID);
-
-    Truth.assertThat(accountIdDto.accountId).isEqualTo(ACCOUNT_ID.toString());
+    assertThat(accountId).isEqualTo(ACCOUNT_ID);
   }
 }

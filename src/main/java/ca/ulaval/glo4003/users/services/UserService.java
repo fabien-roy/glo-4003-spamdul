@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
+import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.users.domain.User;
 import ca.ulaval.glo4003.users.services.assemblers.UserAssembler;
@@ -14,16 +15,19 @@ public class UserService {
   private final AccountRepository accountRepository;
   private final AccountFactory accountFactory;
   private final AccountIdConverter accountIdConverter;
+  private final AccountIdAssembler accountIdAssembler;
   private final UserAssembler userAssembler;
 
   public UserService(
       AccountRepository accountRepository,
       AccountFactory accountFactory,
       AccountIdConverter accountIdConverter,
+      AccountIdAssembler accountIdAssembler,
       UserAssembler userAssembler) {
     this.accountRepository = accountRepository;
     this.accountFactory = accountFactory;
     this.accountIdConverter = accountIdConverter;
+    this.accountIdAssembler = accountIdAssembler;
     this.userAssembler = userAssembler;
   }
 
@@ -33,7 +37,7 @@ public class UserService {
 
     AccountId accountId = accountRepository.save(account);
 
-    return accountIdConverter.convert(accountId);
+    return accountIdAssembler.assemble(accountId);
   }
 
   public UserDto getUser(String stringId) {
