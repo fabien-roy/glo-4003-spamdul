@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
 import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
 import ca.ulaval.glo4003.locations.domain.PostalCode;
-import ca.ulaval.glo4003.locations.services.assemblers.PostalCodeAssembler;
+import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
@@ -17,19 +17,19 @@ import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
 public class ParkingStickerAssembler {
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   private final AccountIdConverter accountIdConverter;
-  private final PostalCodeAssembler postalCodeAssembler;
+  private final PostalCodeConverter postalCodeConverter;
   private final EmailAddressConverter emailAddressConverter;
   private final ParkingPeriodAssembler parkingPeriodAssembler;
 
   public ParkingStickerAssembler(
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       AccountIdConverter accountIdConverter,
-      PostalCodeAssembler postalCodeAssembler,
+      PostalCodeConverter postalCodeConverter,
       EmailAddressConverter emailAddressConverter,
       ParkingPeriodAssembler parkingPeriodAssembler) {
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
     this.accountIdConverter = accountIdConverter;
-    this.postalCodeAssembler = postalCodeAssembler;
+    this.postalCodeConverter = postalCodeConverter;
     this.emailAddressConverter = emailAddressConverter;
     this.parkingPeriodAssembler = parkingPeriodAssembler;
   }
@@ -47,7 +47,7 @@ public class ParkingStickerAssembler {
         if (parkingStickerDto.postalCode == null) {
           throw new MissingPostalCodeException();
         } else {
-          PostalCode postalCode = postalCodeAssembler.assemble(parkingStickerDto.postalCode);
+          PostalCode postalCode = postalCodeConverter.convert(parkingStickerDto.postalCode);
           return new ParkingSticker(
               accountId, parkingAreaCode, receptionMethod, postalCode, parkingPeriod);
         }

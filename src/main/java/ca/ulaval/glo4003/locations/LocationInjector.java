@@ -4,12 +4,12 @@ import ca.ulaval.glo4003.locations.console.PostalSenderSystemPrint;
 import ca.ulaval.glo4003.locations.console.SspSenderSystemPrint;
 import ca.ulaval.glo4003.locations.domain.PostalSender;
 import ca.ulaval.glo4003.locations.domain.SspSender;
-import ca.ulaval.glo4003.locations.services.assemblers.PostalCodeAssembler;
+import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 
 public class LocationInjector {
 
-  public PostalCodeAssembler createPostalCodeAssembler() {
-    return new PostalCodeAssembler();
+  public PostalCodeConverter createPostalCodeAssembler() {
+    return new PostalCodeConverter();
   }
 
   public PostalSender createPostalCodeSender() {

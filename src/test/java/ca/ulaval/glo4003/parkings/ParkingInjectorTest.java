@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
 import ca.ulaval.glo4003.funds.services.BillService;
-import ca.ulaval.glo4003.locations.services.assemblers.PostalCodeAssembler;
+import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
@@ -27,7 +27,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ParkingInjectorTest {
 
   @Mock private AccountIdConverter accountIdConverter;
-  @Mock private PostalCodeAssembler postalCodeAssembler;
+  @Mock private PostalCodeConverter postalCodeConverter;
   @Mock private EmailAddressConverter emailAddressConverter;
   @Mock private AccountService accountService;
   @Mock private ParkingStickerCreationObserver parkingStickerCreationObserver;
@@ -77,7 +77,7 @@ public class ParkingInjectorTest {
         parkingInjector.createParkingStickerService(
             true,
             accountIdConverter,
-            postalCodeAssembler,
+            postalCodeConverter,
             emailAddressConverter,
             accountService,
             Collections.singletonList(parkingStickerCreationObserver),

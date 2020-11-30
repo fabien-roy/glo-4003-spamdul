@@ -10,7 +10,7 @@ import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.assemblers.ParkingPeriodPriceAssembler;
 import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
-import ca.ulaval.glo4003.locations.services.assemblers.PostalCodeAssembler;
+import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
 import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
@@ -64,7 +64,7 @@ public class ParkingInjector {
   public ParkingStickerService createParkingStickerService(
       boolean isDev,
       AccountIdConverter accountIdConverter,
-      PostalCodeAssembler postalCodeAssembler,
+      PostalCodeConverter postalCodeConverter,
       EmailAddressConverter emailAddressConverter,
       AccountService accountService,
       List<ParkingStickerCreationObserver> parkingStickerCreationObservers,
@@ -81,7 +81,7 @@ public class ParkingInjector {
         new ParkingStickerAssembler(
             parkingAreaCodeAssembler,
             accountIdConverter,
-            postalCodeAssembler,
+            postalCodeConverter,
             emailAddressConverter,
             new ParkingPeriodAssembler());
     ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();

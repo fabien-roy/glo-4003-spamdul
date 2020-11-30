@@ -1,13 +1,13 @@
-package ca.ulaval.glo4003.locations.services.assemblers;
+package ca.ulaval.glo4003.locations.services.converters;
 
 import ca.ulaval.glo4003.locations.domain.PostalCode;
 import ca.ulaval.glo4003.locations.exceptions.InvalidPostalCodeException;
 import java.util.regex.Pattern;
 
-public class PostalCodeAssembler {
+public class PostalCodeConverter {
   private static final Pattern PATTERN = Pattern.compile("[A-Z][0-9][A-Z] [0-9][A-Z][0-9]");
 
-  public PostalCode assemble(String postalCode) {
+  public PostalCode convert(String postalCode) {
     if (!PATTERN.matcher(postalCode).matches()) {
       throw new InvalidPostalCodeException();
     }

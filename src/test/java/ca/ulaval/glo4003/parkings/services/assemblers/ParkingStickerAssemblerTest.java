@@ -14,7 +14,7 @@ import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
 import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
 import ca.ulaval.glo4003.locations.domain.PostalCode;
-import ca.ulaval.glo4003.locations.services.assemblers.PostalCodeAssembler;
+import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
@@ -39,7 +39,7 @@ public class ParkingStickerAssemblerTest {
 
   @Mock private AccountIdConverter accountIdConverter;
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
-  @Mock private PostalCodeAssembler postalCodeAssembler;
+  @Mock private PostalCodeConverter postalCodeConverter;
   @Mock private EmailAddressConverter emailAddressConverter;
   @Mock private ParkingPeriodAssembler parkingPeriodAssembler;
 
@@ -53,13 +53,13 @@ public class ParkingStickerAssemblerTest {
         new ParkingStickerAssembler(
             parkingAreaCodeAssembler,
             accountIdConverter,
-            postalCodeAssembler,
+            postalCodeConverter,
             emailAddressConverter,
             parkingPeriodAssembler);
 
     when(accountIdConverter.convert(ACCOUNT_ID.toString())).thenReturn(ACCOUNT_ID);
     when(parkingAreaCodeAssembler.assemble(PARKING_AREA.toString())).thenReturn(PARKING_AREA);
-    when(postalCodeAssembler.assemble(POSTAL_CODE.toString())).thenReturn(POSTAL_CODE);
+    when(postalCodeConverter.convert(POSTAL_CODE.toString())).thenReturn(POSTAL_CODE);
     when(emailAddressConverter.convert(EMAIL_ADDRESS.toString())).thenReturn(EMAIL_ADDRESS);
 
     parkingStickerDto =
