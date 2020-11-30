@@ -7,8 +7,8 @@ import static ca.ulaval.glo4003.gates.helpers.DateTimeDtoBuilder.aDateTimeDto;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.gates.services.GateService;
+import ca.ulaval.glo4003.gates.services.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import ca.ulaval.glo4003.times.api.dto.DateTimeDto;
 import javax.ws.rs.core.Response;

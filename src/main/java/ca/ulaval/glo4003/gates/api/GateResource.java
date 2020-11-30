@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.gates.api;
 
-import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
 import ca.ulaval.glo4003.gates.services.GateService;
+import ca.ulaval.glo4003.gates.services.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import ca.ulaval.glo4003.times.api.dto.DateTimeDto;
 import javax.ws.rs.*;
