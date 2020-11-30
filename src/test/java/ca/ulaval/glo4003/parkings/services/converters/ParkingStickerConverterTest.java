@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.parkings.services.assemblers;
+package ca.ulaval.glo4003.parkings.services.converters;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAddress;
@@ -6,6 +6,7 @@ import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalC
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerDtoBuilder.aParkingStickerDto;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createReceptionMethod;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -21,8 +22,9 @@ import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.exceptions.InvalidReceptionMethodException;
 import ca.ulaval.glo4003.parkings.exceptions.MissingEmailException;
 import ca.ulaval.glo4003.parkings.exceptions.MissingPostalCodeException;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingPeriodAssembler;
 import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
-import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +32,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParkingStickerAssemblerTest {
+public class ParkingStickerConverterTest {
   private static final AccountId ACCOUNT_ID = createAccountId();
   private static final ParkingAreaCode PARKING_AREA = createParkingAreaCode();
   private static final ReceptionMethod RECEPTION_METHOD = createReceptionMethod();
@@ -45,12 +47,12 @@ public class ParkingStickerAssemblerTest {
 
   private ParkingStickerDto parkingStickerDto;
 
-  private ParkingStickerAssembler parkingStickerAssembler;
+  private ParkingStickerConverter parkingStickerConverter;
 
   @Before
   public void setUp() {
-    parkingStickerAssembler =
-        new ParkingStickerAssembler(
+    parkingStickerConverter =
+        new ParkingStickerConverter(
             parkingAreaCodeAssembler,
             accountIdConverter,
             postalCodeConverter,
@@ -73,120 +75,120 @@ public class ParkingStickerAssemblerTest {
   }
 
   @Test
-  public void whenAssembling_thenReturnParkingStickerWithAccountId() {
-    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+  public void whenConverting_thenReturnParkingStickerWithAccountId() {
+    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
 
-    Truth.assertThat(parkingSticker.getAccountId()).isSameInstanceAs(ACCOUNT_ID);
+    assertThat(parkingSticker.getAccountId()).isSameInstanceAs(ACCOUNT_ID);
   }
 
   @Test
-  public void whenAssembling_thenReturnParkingStickerWithParkingArea() {
-    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+  public void whenConverting_thenReturnParkingStickerWithParkingArea() {
+    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
 
-    Truth.assertThat(parkingSticker.getParkingAreaCode()).isEqualTo(PARKING_AREA);
+    assertThat(parkingSticker.getParkingAreaCode()).isEqualTo(PARKING_AREA);
   }
 
   @Test(expected = InvalidReceptionMethodException.class)
   public void
-      givenInvalidReceptionMethod_whenAssembling_thenThrowInvalidReceptionMethodException() {
+      givenInvalidReceptionMethod_whenConverting_thenThrowInvalidReceptionMethodException() {
     parkingStickerDto = aParkingStickerDto().withReceptionMethod("invalidReceptionMethod").build();
 
-    parkingStickerAssembler.assemble(parkingStickerDto);
+    parkingStickerConverter.convert(parkingStickerDto);
   }
 
   @Test(expected = MissingPostalCodeException.class)
   public void
-      givenPostalReceptionMethodAndNoPostalCode_whenAssembling_thenThrowMissingPostalCodeException() {
+      givenPostalReceptionMethodAndNoPostalCode_whenConverting_thenThrowMissingPostalCodeException() {
     parkingStickerDto =
         aParkingStickerDto()
             .withReceptionMethod(ReceptionMethod.POSTAL.toString())
             .withPostalCode(null)
             .build();
 
-    parkingStickerAssembler.assemble(parkingStickerDto);
+    parkingStickerConverter.convert(parkingStickerDto);
   }
 
   @Test(expected = MissingEmailException.class)
-  public void givenEmailReceptionMethodAndNoEmail_whenAssembling_thenThrowMissingEmailException() {
+  public void givenEmailReceptionMethodAndNoEmail_whenConverting_thenThrowMissingEmailException() {
     parkingStickerDto =
         aParkingStickerDto()
             .withReceptionMethod(ReceptionMethod.EMAIL.toString())
             .withEmail(null)
             .build();
 
-    parkingStickerAssembler.assemble(parkingStickerDto);
+    parkingStickerConverter.convert(parkingStickerDto);
   }
 
   @Test
-  public void givenEmailReceptionMethod_whenAssembling_thenReturnParkingStickerWithEmailAddress() {
+  public void givenEmailReceptionMethod_whenConverting_thenReturnParkingStickerWithEmailAddress() {
     parkingStickerDto =
         aParkingStickerDto()
             .withReceptionMethod(ReceptionMethod.EMAIL.toString())
             .withEmail(EMAIL_ADDRESS.toString())
             .build();
 
-    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
 
-    Truth.assertThat(parkingSticker.getEmailAddress()).isEqualTo(EMAIL_ADDRESS);
+    assertThat(parkingSticker.getEmailAddress()).isEqualTo(EMAIL_ADDRESS);
   }
 
   @Test
-  public void whenAssembling_thenReturnParkingStickerWithReceptionMethod() {
-    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+  public void whenConverting_thenReturnParkingStickerWithReceptionMethod() {
+    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
 
-    Truth.assertThat(parkingSticker.getReceptionMethod()).isEqualTo(RECEPTION_METHOD);
+    assertThat(parkingSticker.getReceptionMethod()).isEqualTo(RECEPTION_METHOD);
   }
 
   @Test
   public void
-      givenUpperCaseReceptionMethod_whenAssembling_thenReturnParkingStickerWithReceptionMethod() {
+      givenUpperCaseReceptionMethod_whenConverting_thenReturnParkingStickerWithReceptionMethod() {
     parkingStickerDto =
         aParkingStickerDto().withReceptionMethod(RECEPTION_METHOD.toString().toUpperCase()).build();
 
-    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
 
-    Truth.assertThat(parkingSticker.getReceptionMethod()).isEqualTo(RECEPTION_METHOD);
+    assertThat(parkingSticker.getReceptionMethod()).isEqualTo(RECEPTION_METHOD);
   }
 
   @Test
-  public void givenPostalReceptionMethod_whenAssembling_thenReturnParkingStickerWithPostalCode() {
+  public void givenPostalReceptionMethod_whenConverting_thenReturnParkingStickerWithPostalCode() {
     parkingStickerDto =
         aParkingStickerDto()
             .withReceptionMethod(ReceptionMethod.POSTAL.toString())
             .withPostalCode(POSTAL_CODE.toString())
             .build();
 
-    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
 
-    Truth.assertThat(parkingSticker.getPostalCode()).isEqualTo(POSTAL_CODE);
+    assertThat(parkingSticker.getPostalCode()).isEqualTo(POSTAL_CODE);
   }
 
   @Test
-  public void givenEmailReceptionMethod_whenAssembling_thenReturnParkingStickerWithEmail() {
+  public void givenEmailReceptionMethod_whenConverting_thenReturnParkingStickerWithEmail() {
     parkingStickerDto =
         aParkingStickerDto()
             .withReceptionMethod(ReceptionMethod.EMAIL.toString())
             .withEmail(EMAIL_ADDRESS.toString())
             .build();
 
-    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
 
-    Truth.assertThat(parkingSticker.getEmailAddress()).isEqualTo(EMAIL_ADDRESS);
+    assertThat(parkingSticker.getEmailAddress()).isEqualTo(EMAIL_ADDRESS);
   }
 
   @Test
-  public void givenSSPReceptionMethod_whenAssembling_thenReturnParkingStickerWithoutEmailAddress() {
+  public void givenSSPReceptionMethod_whenConverting_thenReturnParkingStickerWithoutEmailAddress() {
     parkingStickerDto =
         aParkingStickerDto().withReceptionMethod(ReceptionMethod.SSP.toString()).build();
 
-    ParkingSticker parkingSticker = parkingStickerAssembler.assemble(parkingStickerDto);
+    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
 
-    Truth.assertThat(parkingSticker.getEmailAddress()).isNotEqualTo(EMAIL_ADDRESS);
+    assertThat(parkingSticker.getEmailAddress()).isNotEqualTo(EMAIL_ADDRESS);
   }
 
   @Test
-  public void whenAssembling_thenAssembleParkingPeriod() {
-    parkingStickerAssembler.assemble(parkingStickerDto);
+  public void whenConverting_thenAssembleParkingPeriod() {
+    parkingStickerConverter.convert(parkingStickerDto);
 
     verify(parkingPeriodAssembler).assemble(parkingStickerDto.parkingPeriod);
   }

@@ -50,8 +50,6 @@ public class OffenseTypeInFrenchConverterTest {
             Collections.nCopies(numberOfCopies, offenseDtoInFrench));
 
     assertThat(offenseTypes.size()).isEqualTo(numberOfCopies);
-    assertThat(offenseTypes.get(0).getCode()).isEqualTo(amount);
-    assertThat(offenseTypes.get(0).getAmount()).isEqualTo(amount);
   }
 
   @Test

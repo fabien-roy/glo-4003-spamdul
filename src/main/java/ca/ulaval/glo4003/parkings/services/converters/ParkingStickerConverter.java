@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.parkings.services.assemblers;
+package ca.ulaval.glo4003.parkings.services.converters;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
@@ -12,16 +12,18 @@ import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.exceptions.MissingEmailException;
 import ca.ulaval.glo4003.parkings.exceptions.MissingPostalCodeException;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
+import ca.ulaval.glo4003.parkings.services.assemblers.ParkingPeriodAssembler;
 import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
 
-public class ParkingStickerAssembler {
+public class ParkingStickerConverter {
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   private final AccountIdConverter accountIdConverter;
   private final PostalCodeConverter postalCodeConverter;
   private final EmailAddressConverter emailAddressConverter;
   private final ParkingPeriodAssembler parkingPeriodAssembler;
 
-  public ParkingStickerAssembler(
+  public ParkingStickerConverter(
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       AccountIdConverter accountIdConverter,
       PostalCodeConverter postalCodeConverter,
@@ -34,7 +36,7 @@ public class ParkingStickerAssembler {
     this.parkingPeriodAssembler = parkingPeriodAssembler;
   }
 
-  public ParkingSticker assemble(ParkingStickerDto parkingStickerDto) {
+  public ParkingSticker convert(ParkingStickerDto parkingStickerDto) {
     AccountId accountId = accountIdConverter.convert(parkingStickerDto.accountId);
     ParkingAreaCode parkingAreaCode =
         parkingAreaCodeAssembler.assemble(parkingStickerDto.parkingArea);

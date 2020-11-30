@@ -20,8 +20,9 @@ import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingPeriodAssembler;
-import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
+import ca.ulaval.glo4003.parkings.services.converters.ParkingPeriodConverter;
+import ca.ulaval.glo4003.parkings.services.converters.ParkingStickerConverter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,6 @@ public class ParkingInjector {
   private final ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
   private final ParkingStickerRepository parkingStickerRepository =
       new ParkingStickerRepositoryInMemory();
-  private final ParkingPeriodAssembler parkingPeriodAssembler = new ParkingPeriodAssembler();
 
   public ParkingAreaRepository getParkingAreaRepository() {
     return parkingAreaRepository;
@@ -77,8 +77,8 @@ public class ParkingInjector {
 
     ParkingStickerFactory parkingStickerFactory =
         new ParkingStickerFactory(parkingStickerCodeGenerator);
-    ParkingStickerAssembler parkingStickerAssembler =
-        new ParkingStickerAssembler(
+    ParkingStickerConverter parkingStickerConverter =
+        new ParkingStickerConverter(
             parkingAreaCodeAssembler,
             accountIdConverter,
             postalCodeConverter,
@@ -88,7 +88,7 @@ public class ParkingInjector {
 
     ParkingStickerService parkingStickerService =
         new ParkingStickerService(
-            parkingStickerAssembler,
+            parkingStickerConverter,
             parkingStickerCodeAssembler,
             parkingStickerFactory,
             accountService,
@@ -108,6 +108,8 @@ public class ParkingInjector {
         zoneFeesFileHelper.getZoneAndFeesForParkingSticker();
     List<ParkingArea> parkingAreas = new ArrayList<>();
 
+    ParkingPeriodConverter parkingPeriodConverter = new ParkingPeriodConverter();
+
     zonesAndFees
         .keySet()
         .forEach(
@@ -121,7 +123,7 @@ public class ParkingInjector {
                       period -> {
                         ParkingPeriodInFrench parkingPeriod = ParkingPeriodInFrench.get(period);
                         Money fee = Money.fromDouble(zonesAndFees.get(zone).get(period));
-                        feesPerPeriod.put(parkingPeriodAssembler.assemble(parkingPeriod), fee);
+                        feesPerPeriod.put(parkingPeriodConverter.convert(parkingPeriod), fee);
                       });
               parkingAreas.add(new ParkingArea(parkingAreaCode, feesPerPeriod));
             });
