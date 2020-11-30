@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ParkingAreaResourceImplementationTest {
+public class ParkingAreaResourceTest {
 
   @Mock private ParkingAreaService parkingAreaService;
 
@@ -25,7 +25,7 @@ public class ParkingAreaResourceImplementationTest {
 
   @Before
   public void setUp() {
-    parkingAreaResource = new ParkingAreaResourceImplementation(parkingAreaService);
+    parkingAreaResource = new ParkingAreaResource(parkingAreaService);
   }
 
   @Test

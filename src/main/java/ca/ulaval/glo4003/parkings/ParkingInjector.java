@@ -12,7 +12,6 @@ import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.locations.assemblers.PostalCodeAssembler;
 import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
-import ca.ulaval.glo4003.parkings.api.ParkingAreaResourceImplementation;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingPeriodAssembler;
@@ -42,7 +41,7 @@ public class ParkingInjector {
   }
 
   public ParkingAreaResource createParkingAreaResource() {
-    return new ParkingAreaResourceImplementation(createParkingAreaService());
+    return new ParkingAreaResource(createParkingAreaService());
   }
 
   public ParkingAreaService createParkingAreaService() {
