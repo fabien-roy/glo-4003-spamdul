@@ -1,12 +1,12 @@
-package ca.ulaval.glo4003.funds.services.assemblers;
+package ca.ulaval.glo4003.funds.services.converters;
 
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
 import java.util.UUID;
 
-public class BillIdAssembler {
+public class BillIdConverter {
 
-  public BillId assemble(String billId) {
+  public BillId convert(String billId) {
     try {
       return new BillId(UUID.fromString(billId));
     } catch (IllegalArgumentException | NullPointerException exception) {

@@ -7,7 +7,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;
 import ca.ulaval.glo4003.initiatives.exception.InvalidInitiativeNameException;
 import ca.ulaval.glo4003.initiatives.services.dto.AddInitiativeDto;
@@ -22,7 +22,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class InitiativeAssemblerTest {
-  @Mock private MoneyAssembler moneyAssembler;
+  @Mock private MoneyConverter moneyConverter;
 
   private InitiativeAssembler initiativeAssembler;
 
@@ -32,9 +32,9 @@ public class InitiativeAssemblerTest {
 
   @Before
   public void setUp() {
-    initiativeAssembler = new InitiativeAssembler(moneyAssembler);
+    initiativeAssembler = new InitiativeAssembler(moneyConverter);
 
-    when(moneyAssembler.assemble(addInitiativeDto.amount)).thenReturn(allocatedAmount);
+    when(moneyConverter.convert(addInitiativeDto.amount)).thenReturn(allocatedAmount);
   }
 
   @Test

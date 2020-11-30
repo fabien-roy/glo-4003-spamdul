@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.funds.infrastructure.BillRepositoryInMemory;
 import ca.ulaval.glo4003.funds.infrastructure.SustainableMobilityProgramBankRepositoryInMemory;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
-import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
 
 public class FundInjector {
@@ -31,8 +31,8 @@ public class FundInjector {
         sustainableMobilityProgramAllocationCalculator);
   }
 
-  public MoneyAssembler createMoneyAssembler() {
-    return new MoneyAssembler();
+  public MoneyConverter createMoneyAssembler() {
+    return new MoneyConverter();
   }
 
   public SustainableMobilityProgramBankRepository getSustainableMobilityProgramBankRepository() {

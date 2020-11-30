@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.initiatives.helpers.InitiativeAddAllocatedAmount
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.initiatives.services.dto.InitiativeAddAllocatedAmountDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;
@@ -16,7 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class InitiativeAddAllocatedAmountAssemblerTest {
   private InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler;
-  @Mock private MoneyAssembler moneyAssembler;
+  @Mock private MoneyConverter moneyConverter;
 
   private InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDto =
       aInitiativeAddAllocatedAmountDTO().build();
@@ -24,9 +24,9 @@ public class InitiativeAddAllocatedAmountAssemblerTest {
   @Before
   public void setUp() {
     initiativeAddAllocatedAmountAssembler =
-        new InitiativeAddAllocatedAmountAssembler(moneyAssembler);
+        new InitiativeAddAllocatedAmountAssembler(moneyConverter);
 
-    when(moneyAssembler.assemble(initiativeAddAllocatedAmountDto.amountToAdd))
+    when(moneyConverter.convert(initiativeAddAllocatedAmountDto.amountToAdd))
         .thenReturn(Money.fromDouble(initiativeAddAllocatedAmountDto.amountToAdd));
   }
 

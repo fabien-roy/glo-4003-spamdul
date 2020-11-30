@@ -12,8 +12,8 @@ import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
-import ca.ulaval.glo4003.funds.services.assemblers.BillIdAssembler;
-import ca.ulaval.glo4003.funds.services.assemblers.BillPaymentAssembler;
+import ca.ulaval.glo4003.funds.services.converters.BillIdConverter;
+import ca.ulaval.glo4003.funds.services.converters.BillPaymentConverter;
 import ca.ulaval.glo4003.funds.services.dto.BillDto;
 import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
@@ -25,22 +25,22 @@ public class AccountService {
   private final AccountIdConverter accountIdConverter;
   private final BillService billService;
   private final BillAssembler billAssembler;
-  private final BillIdAssembler billIdAssembler;
-  private final BillPaymentAssembler billPaymentAssembler;
+  private final BillIdConverter billIdConverter;
+  private final BillPaymentConverter billPaymentConverter;
 
   public AccountService(
       AccountRepository accountRepository,
       AccountIdConverter accountIdConverter,
       BillService billService,
       BillAssembler billAssembler,
-      BillIdAssembler billIdAssembler,
-      BillPaymentAssembler billPaymentAssembler) {
+      BillIdConverter billIdConverter,
+      BillPaymentConverter billPaymentConverter) {
     this.accountRepository = accountRepository;
     this.accountIdConverter = accountIdConverter;
     this.billService = billService;
     this.billAssembler = billAssembler;
-    this.billIdAssembler = billIdAssembler;
-    this.billPaymentAssembler = billPaymentAssembler;
+    this.billIdConverter = billIdConverter;
+    this.billPaymentConverter = billPaymentConverter;
   }
 
   public void addLicensePlateToAccount(AccountId id, LicensePlate licensePlate) {
@@ -83,8 +83,8 @@ public class AccountService {
   }
 
   public BillDto payBill(BillPaymentDto billPaymentDto, String accountId, String billId) {
-    Money amountToPay = billPaymentAssembler.assemble(billPaymentDto);
-    BillId billNumber = billIdAssembler.assemble(billId);
+    Money amountToPay = billPaymentConverter.convert(billPaymentDto);
+    BillId billNumber = billIdConverter.convert(billId);
 
     Account account = getAccount(accountId);
     account.verifyAccountHasBillId(billNumber);

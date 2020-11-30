@@ -19,8 +19,8 @@ import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
-import ca.ulaval.glo4003.funds.services.assemblers.BillIdAssembler;
-import ca.ulaval.glo4003.funds.services.assemblers.BillPaymentAssembler;
+import ca.ulaval.glo4003.funds.services.converters.BillIdConverter;
+import ca.ulaval.glo4003.funds.services.converters.BillPaymentConverter;
 import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import java.util.ArrayList;
@@ -39,8 +39,8 @@ public class AccountServiceTest {
   @Mock private AccountIdConverter accountIdConverter;
   @Mock private BillService billService;
   @Mock private BillAssembler billAssembler;
-  @Mock private BillIdAssembler billIdAssembler;
-  @Mock private BillPaymentAssembler billPaymentAssembler;
+  @Mock private BillIdConverter billIdConverter;
+  @Mock private BillPaymentConverter billPaymentConverter;
   @Mock private BillPaymentDto billPaymentDto;
 
   private AccountService accountService;
@@ -62,8 +62,8 @@ public class AccountServiceTest {
             accountIdConverter,
             billService,
             billAssembler,
-            billIdAssembler,
-            billPaymentAssembler);
+            billIdConverter,
+            billPaymentConverter);
 
     when(accountRepository.get(account.getId())).thenReturn(account);
     when(accountRepository.getAccessPass(accessPass.getCode())).thenReturn(accessPass);
@@ -197,7 +197,7 @@ public class AccountServiceTest {
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
 
-    verify(billPaymentAssembler).assemble(billPaymentDto);
+    verify(billPaymentConverter).convert(billPaymentDto);
   }
 
   @Test
@@ -217,7 +217,7 @@ public class AccountServiceTest {
     accountService.payBill(
         billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
 
-    verify(billIdAssembler).assemble(bill.getId().toString());
+    verify(billIdConverter).convert(bill.getId().toString());
   }
 
   @Test
@@ -253,10 +253,10 @@ public class AccountServiceTest {
   }
 
   private void setUpPayBill() {
-    when(billPaymentAssembler.assemble(billPaymentDto)).thenReturn(Money.fromDouble(1));
+    when(billPaymentConverter.convert(billPaymentDto)).thenReturn(Money.fromDouble(1));
     when(accountIdConverter.convert(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());
-    when(billIdAssembler.assemble(bill.getId().toString())).thenReturn(bill.getId());
+    when(billIdConverter.convert(bill.getId().toString())).thenReturn(bill.getId());
     when(accountRepository.get(accountWithBill.getId())).thenReturn(accountWithBill);
   }
 }

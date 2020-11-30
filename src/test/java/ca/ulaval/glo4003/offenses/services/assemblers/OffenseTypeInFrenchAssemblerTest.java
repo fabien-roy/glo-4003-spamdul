@@ -6,7 +6,7 @@ import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffense
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseDtoInFrench;
@@ -23,7 +23,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class OffenseTypeInFrenchAssemblerTest {
 
   @Mock OffenseCodeAssembler offenseCodeAssembler;
-  @Mock MoneyAssembler moneyAssembler;
+  @Mock MoneyConverter moneyConverter;
 
   private OffenseTypeInFrenchAssembler offenseTypeInFrenchAssembler;
 
@@ -34,10 +34,10 @@ public class OffenseTypeInFrenchAssemblerTest {
   @Before
   public void setUp() {
     offenseTypeInFrenchAssembler =
-        new OffenseTypeInFrenchAssembler(offenseCodeAssembler, moneyAssembler);
+        new OffenseTypeInFrenchAssembler(offenseCodeAssembler, moneyConverter);
 
     when(offenseCodeAssembler.assemble(offenseDtoInFrench.code)).thenReturn(offenseCode);
-    when(moneyAssembler.assemble(offenseDtoInFrench.montant)).thenReturn(amount);
+    when(moneyConverter.convert(offenseDtoInFrench.montant)).thenReturn(amount);
   }
 
   @Test

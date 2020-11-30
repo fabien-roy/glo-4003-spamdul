@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.funds.services.assemblers;
+package ca.ulaval.glo4003.funds.services.converters;
 
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 
@@ -8,24 +8,24 @@ import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BillIdAssemblerTest {
+public class BillIdConverterTest {
 
   private final BillId billId = createBillId();
-  private BillIdAssembler billIdAssembler;
+  private BillIdConverter billIdConverter;
 
   @Before
   public void setUp() {
-    billIdAssembler = new BillIdAssembler();
+    billIdConverter = new BillIdConverter();
   }
 
   @Test(expected = BillNotFoundException.class)
-  public void givenNullAccountId_whenAssembling_thenThrowInvalidAccountIdException() {
-    billIdAssembler.assemble(null);
+  public void givenNullAccountId_whenConverting_thenThrowInvalidAccountIdException() {
+    billIdConverter.convert(null);
   }
 
   @Test
-  public void whenAssembling_thenReturnBillId() {
-    BillId id = billIdAssembler.assemble(billId.toString());
+  public void whenConverting_thenReturnBillId() {
+    BillId id = billIdConverter.convert(billId.toString());
 
     Truth.assertThat(id).isEqualTo(billId);
   }

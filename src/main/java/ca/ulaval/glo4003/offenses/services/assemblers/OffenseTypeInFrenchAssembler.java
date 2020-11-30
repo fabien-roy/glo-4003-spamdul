@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.offenses.services.assemblers;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseDtoInFrench;
@@ -11,17 +11,17 @@ import java.util.stream.Collectors;
 public class OffenseTypeInFrenchAssembler {
 
   private final OffenseCodeAssembler offenseCodeAssembler;
-  private final MoneyAssembler moneyAssembler;
+  private final MoneyConverter moneyConverter;
 
   public OffenseTypeInFrenchAssembler(
-      OffenseCodeAssembler offenseCodeAssembler, MoneyAssembler moneyAssembler) {
+      OffenseCodeAssembler offenseCodeAssembler, MoneyConverter moneyConverter) {
     this.offenseCodeAssembler = offenseCodeAssembler;
-    this.moneyAssembler = moneyAssembler;
+    this.moneyConverter = moneyConverter;
   }
 
   public OffenseType assemble(OffenseDtoInFrench offenseDtoInFrench) {
     OffenseCode offenseCode = offenseCodeAssembler.assemble(offenseDtoInFrench.code);
-    Money amount = moneyAssembler.assemble(offenseDtoInFrench.montant);
+    Money amount = moneyConverter.convert(offenseDtoInFrench.montant);
 
     return new OffenseType(offenseDtoInFrench.infraction, offenseCode, amount);
   }

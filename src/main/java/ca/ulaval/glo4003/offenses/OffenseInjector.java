@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.files.domain.StringFileReader;
 import ca.ulaval.glo4003.files.filesystem.JsonFileReader;
 import ca.ulaval.glo4003.funds.services.BillService;
-import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.offenses.console.OffenseNotifierSystemPrint;
 import ca.ulaval.glo4003.offenses.domain.OffenseNotifier;
@@ -37,10 +37,10 @@ public class OffenseInjector {
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       TimeOfDayAssembler timeOfDayAssembler,
-      MoneyAssembler moneyAssembler,
+      MoneyConverter moneyConverter,
       BillService billService,
       AccountService accountService) {
-    addOffenseTypesToRepository(moneyAssembler);
+    addOffenseTypesToRepository(moneyConverter);
 
     OffenseTypeService offenseTypeService =
         createOffenseService(
@@ -55,13 +55,13 @@ public class OffenseInjector {
     return new OffenseResource(offenseTypeService);
   }
 
-  private void addOffenseTypesToRepository(MoneyAssembler moneyAssembler) {
+  private void addOffenseTypesToRepository(MoneyConverter moneyConverter) {
     OffenseFileHelper offenseFileHelper = new OffenseFileHelper(fileReader);
     List<OffenseDtoInFrench> offensesInFrenchDto = offenseFileHelper.getOffenseInFrench();
 
     OffenseCodeAssembler offenseCodeAssembler = new OffenseCodeAssembler();
     OffenseTypeInFrenchAssembler offenseTypeInFrenchAssembler =
-        new OffenseTypeInFrenchAssembler(offenseCodeAssembler, moneyAssembler);
+        new OffenseTypeInFrenchAssembler(offenseCodeAssembler, moneyConverter);
     List<OffenseType> offenseTypes = offenseTypeInFrenchAssembler.assembleMany(offensesInFrenchDto);
 
     for (OffenseType offenseType : offenseTypes) {

@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds;
 
-import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +16,8 @@ public class FundInjectorTest {
 
   @Test
   public void whenCreatingMoneyAssembler_thenReturnIt() {
-    MoneyAssembler moneyAssembler = fundInjector.createMoneyAssembler();
+    MoneyConverter moneyConverter = fundInjector.createMoneyAssembler();
 
-    Truth.assertThat(moneyAssembler).isNotNull();
+    Truth.assertThat(moneyConverter).isNotNull();
   }
 }

@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.offenses;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.services.BillService;
-import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
@@ -24,7 +24,7 @@ public class OffenseInjectorTest {
   @Mock private ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   @Mock private TimeOfDayAssembler timeOfDayAssembler;
-  @Mock private MoneyAssembler moneyAssembler;
+  @Mock private MoneyConverter moneyConverter;
   @Mock private BillService billService;
   @Mock private AccountService accountService;
 
@@ -44,7 +44,7 @@ public class OffenseInjectorTest {
             parkingStickerCodeAssembler,
             parkingAreaCodeAssembler,
             timeOfDayAssembler,
-            moneyAssembler,
+            moneyConverter,
             billService,
             accountService);
 

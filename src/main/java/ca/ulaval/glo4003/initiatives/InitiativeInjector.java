@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.initiatives;
 import ca.ulaval.glo4003.carboncredits.configuration.CarbonCreditConfiguration;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
-import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
 import ca.ulaval.glo4003.initiatives.domain.*;
 import ca.ulaval.glo4003.initiatives.infrastructure.InitiativeRepositoryInMemory;
@@ -35,16 +35,16 @@ public class InitiativeInjector {
   }
 
   public InitiativeService createService(
-      MoneyAssembler moneyAssembler,
+      MoneyConverter moneyConverter,
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository,
       List<InitiativeAddedAllocatedAmountObserver> initiativeAddedAllocatedAmountObservers) {
     InitiativeFactory initiativeFactory = new InitiativeFactory(initiativeCodeGenerator);
     InitiativeCodeAssembler initiativeCodeAssembler = new InitiativeCodeAssembler();
     InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler =
         new InitiativeAvailableAmountAssembler();
-    InitiativeAssembler initiativeAssembler = new InitiativeAssembler(moneyAssembler);
+    InitiativeAssembler initiativeAssembler = new InitiativeAssembler(moneyConverter);
     InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler =
-        new InitiativeAddAllocatedAmountAssembler(moneyAssembler);
+        new InitiativeAddAllocatedAmountAssembler(moneyConverter);
 
     InitiativeService initiativeService =
         new InitiativeService(

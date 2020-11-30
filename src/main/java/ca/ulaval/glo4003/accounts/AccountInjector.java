@@ -9,9 +9,9 @@ import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
-import ca.ulaval.glo4003.funds.services.assemblers.BillIdAssembler;
-import ca.ulaval.glo4003.funds.services.assemblers.BillPaymentAssembler;
-import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.converters.BillIdConverter;
+import ca.ulaval.glo4003.funds.services.converters.BillPaymentConverter;
+import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 
 public class AccountInjector {
 
@@ -42,7 +42,7 @@ public class AccountInjector {
         new AccountIdConverter(),
         billService,
         new BillAssembler(),
-        new BillIdAssembler(),
-        new BillPaymentAssembler(new MoneyAssembler()));
+        new BillIdConverter(),
+        new BillPaymentConverter(new MoneyConverter()));
   }
 }
