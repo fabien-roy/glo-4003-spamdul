@@ -78,11 +78,11 @@ public class OffenseInjector {
       BillService billService,
       AccountService accountService) {
     OffenseValidationConverter offenseValidationConverter =
-        createOffenseValidationAssembler(
+        new OffenseValidationConverter(
             parkingStickerCodeAssembler, parkingAreaCodeAssembler, timeOfDayConverter);
     OffenseTypeAssembler offenseTypeAssembler = new OffenseTypeAssembler();
     OffenseTypeFactory offenseTypeFactory =
-        new OffenseTypeFactory(offenseTypeRepository, createOffenseCodeAssembler());
+        new OffenseTypeFactory(offenseTypeRepository, new OffenseCodeAssembler());
 
     return new OffenseTypeService(
         parkingAreaRepository,
@@ -94,17 +94,5 @@ public class OffenseInjector {
         billService,
         accountService,
         offenseNotifier);
-  }
-
-  private OffenseValidationConverter createOffenseValidationAssembler(
-      ParkingStickerCodeAssembler parkingStickerCodeAssembler,
-      ParkingAreaCodeAssembler parkingAreaCodeAssembler,
-      TimeOfDayConverter timeOfDayConverter) {
-    return new OffenseValidationConverter(
-        parkingStickerCodeAssembler, parkingAreaCodeAssembler, timeOfDayConverter);
-  }
-
-  private OffenseCodeAssembler createOffenseCodeAssembler() {
-    return new OffenseCodeAssembler();
   }
 }

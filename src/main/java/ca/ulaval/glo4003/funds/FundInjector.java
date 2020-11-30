@@ -31,7 +31,7 @@ public class FundInjector {
         sustainableMobilityProgramAllocationCalculator);
   }
 
-  public MoneyConverter createMoneyAssembler() {
+  public MoneyConverter createMoneyConverter() {
     return new MoneyConverter();
   }
 

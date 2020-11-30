@@ -18,10 +18,6 @@ public class CarbonCreditInjector {
   private final MonthlyPaymentStatusRepository monthlyPaymentStatusRepository =
       new MonthlyPaymentStatusRepositoryInMemory();
 
-  public CarbonCreditRepository getCarbonCreditRepository() {
-    return carbonCreditRepository;
-  }
-
   public CarbonCreditResource createCarbonCreditResource(
       InitiativeService initiativeService,
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {

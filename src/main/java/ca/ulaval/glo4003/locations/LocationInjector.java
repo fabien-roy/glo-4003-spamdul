@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 
 public class LocationInjector {
 
-  public PostalCodeConverter createPostalCodeAssembler() {
+  public PostalCodeConverter createPostalCodeConverter() {
     return new PostalCodeConverter();
   }
 
@@ -16,7 +16,7 @@ public class LocationInjector {
     return new PostalSenderSystemPrint();
   }
 
-  public SspSender createSspCodeSender() {
+  public SspSender createSspSender() {
     return new SspSenderSystemPrint();
   }
 }

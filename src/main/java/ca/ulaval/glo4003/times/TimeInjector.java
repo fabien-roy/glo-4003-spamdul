@@ -24,15 +24,15 @@ public class TimeInjector {
     addSemestersToRepository();
   }
 
-  public CustomDateConverter createCustomDateAssembler() {
+  public CustomDateConverter createCustomDateConverter() {
     return new CustomDateConverter();
   }
 
-  public CustomDateTimeConverter createCustomDateTimeAssembler() {
+  public CustomDateTimeConverter createCustomDateTimeConverter() {
     return new CustomDateTimeConverter();
   }
 
-  public TimeOfDayConverter createTimeOfDayAssembler() {
+  public TimeOfDayConverter createTimeOfDayConverter() {
     return new TimeOfDayConverter();
   }
 

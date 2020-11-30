@@ -11,7 +11,7 @@ import ca.ulaval.glo4003.files.filesystem.PropertyFileReader;
 
 public class CommunicationInjector {
 
-  public EmailAddressConverter createEmailAddressAssembler() {
+  public EmailAddressConverter createEmailAddressConverter() {
     return new EmailAddressConverter();
   }
 

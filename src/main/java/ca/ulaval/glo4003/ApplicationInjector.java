@@ -71,14 +71,14 @@ public class ApplicationInjector {
         Arrays.asList(
             COMMUNICATION_INJECTOR.createEmailSender(),
             LOCATION_INJECTOR.createPostalCodeSender(),
-            LOCATION_INJECTOR.createSspCodeSender());
+            LOCATION_INJECTOR.createSspSender());
 
     return USER_INJECTOR.createUserResource(
         ACCOUNT_INJECTOR.getAccountRepository(),
         ACCOUNT_INJECTOR.createAccountFactory(),
         ACCOUNT_INJECTOR.createAccountIdConverter(),
         ACCOUNT_INJECTOR.createAccountIdAssembler(),
-        TIME_INJECTOR.createCustomDateAssembler(),
+        TIME_INJECTOR.createCustomDateConverter(),
         ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(
@@ -98,8 +98,8 @@ public class ApplicationInjector {
         PARKING_INJECTOR.createParkingStickerService(
             IS_DEV,
             ACCOUNT_INJECTOR.createAccountIdConverter(),
-            LOCATION_INJECTOR.createPostalCodeAssembler(),
-            COMMUNICATION_INJECTOR.createEmailAddressAssembler(),
+            LOCATION_INJECTOR.createPostalCodeConverter(),
+            COMMUNICATION_INJECTOR.createEmailAddressConverter(),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
             parkingStickerCreationObservers,
@@ -112,8 +112,8 @@ public class ApplicationInjector {
         PARKING_INJECTOR.getParkingStickerRepository(),
         PARKING_INJECTOR.createParkingStickerCodeAssembler(),
         PARKING_INJECTOR.createParkingAreaCodeAssembler(),
-        TIME_INJECTOR.createTimeOfDayAssembler(),
-        FUND_INJECTOR.createMoneyAssembler(),
+        TIME_INJECTOR.createTimeOfDayConverter(),
+        FUND_INJECTOR.createMoneyConverter(),
         FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()),
         ACCOUNT_INJECTOR.createAccountService(
             FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())));
@@ -131,14 +131,14 @@ public class ApplicationInjector {
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
             FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()),
             TIME_INJECTOR.createSemesterService()),
-        TIME_INJECTOR.createCustomDateTimeAssembler(),
+        TIME_INJECTOR.createCustomDateTimeConverter(),
         REPORT_INJECTOR.createReportEventService());
   }
 
   public CarbonCreditResource createCarbonCreditResource() {
     return CARBON_CREDIT_INJECTOR.createCarbonCreditResource(
         INITIATIVE_INJECTOR.createService(
-            FUND_INJECTOR.createMoneyAssembler(),
+            FUND_INJECTOR.createMoneyConverter(),
             FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
             getInitiativeAddedAllocatedAmountObservers()),
         FUND_INJECTOR.getSustainableMobilityProgramBankRepository());
@@ -154,7 +154,7 @@ public class ApplicationInjector {
 
     return INITIATIVE_INJECTOR.createInitiativeResource(
         INITIATIVE_INJECTOR.createService(
-            FUND_INJECTOR.createMoneyAssembler(),
+            FUND_INJECTOR.createMoneyConverter(),
             FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
             initiativeAddedAllocatedAmountObservers));
   }
@@ -196,7 +196,7 @@ public class ApplicationInjector {
             Collections.singletonList(
                 CARBON_CREDIT_INJECTOR.createConvertCarbonCreditHandler(
                     INITIATIVE_INJECTOR.createService(
-                        FUND_INJECTOR.createMoneyAssembler(),
+                        FUND_INJECTOR.createMoneyConverter(),
                         FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
                         initiativeAddedAllocatedAmountObservers),
                     FUND_INJECTOR.getSustainableMobilityProgramBankRepository())))
@@ -208,7 +208,7 @@ public class ApplicationInjector {
     return Arrays.asList(
         CARBON_CREDIT_INJECTOR.createCarbonCreditService(
             INITIATIVE_INJECTOR.createService(
-                FUND_INJECTOR.createMoneyAssembler(),
+                FUND_INJECTOR.createMoneyConverter(),
                 FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
                 Collections.emptyList()),
             FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
