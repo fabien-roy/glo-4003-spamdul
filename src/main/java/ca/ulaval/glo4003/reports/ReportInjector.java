@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.reports;
 
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.reports.api.ReportParkingAreaResource;
-import ca.ulaval.glo4003.reports.api.ReportParkingAreaResourceImplementation;
 import ca.ulaval.glo4003.reports.api.ReportProfitResource;
 import ca.ulaval.glo4003.reports.assemblers.*;
 import ca.ulaval.glo4003.reports.domain.*;
@@ -38,8 +37,7 @@ public class ReportInjector {
 
   public ReportParkingAreaResource createReportParkingAreaResource(
       ParkingAreaService parkingAreaService) {
-    return new ReportParkingAreaResourceImplementation(
-        createReportParkingAreaService(parkingAreaService));
+    return new ReportParkingAreaResource(createReportParkingAreaService(parkingAreaService));
   }
 
   public ReportParkingAreaService createReportParkingAreaService(

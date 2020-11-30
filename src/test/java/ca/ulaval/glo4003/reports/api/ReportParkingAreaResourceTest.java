@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ReportParkingAreaResourceImplementationTest {
+public class ReportParkingAreaResourceTest {
 
   private final int year = createYear();
   private final String reportPeriod = aReportPeriodDto().build().period;
@@ -28,7 +28,7 @@ public class ReportParkingAreaResourceImplementationTest {
   @Before
   public void setUp() {
     reportParkingAreaResourceImplementation =
-        new ReportParkingAreaResourceImplementation(reportParkingAreaService);
+        new ReportParkingAreaResource(reportParkingAreaService);
   }
 
   @Test
