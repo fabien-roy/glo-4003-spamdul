@@ -4,8 +4,8 @@ import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePla
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.times.helpers.DayOfWeekMother.createDayOfWeek;
 
-import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
+import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 
 public class AccessPassDtoBuilder {
   private String accessDay = createDayOfWeek().toString();

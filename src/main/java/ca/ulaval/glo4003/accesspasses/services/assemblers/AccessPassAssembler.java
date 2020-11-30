@@ -1,10 +1,10 @@
-package ca.ulaval.glo4003.accesspasses.assembler;
+package ca.ulaval.glo4003.accesspasses.services.assemblers;
 
-import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.accesspasses.exceptions.UnsupportedAccessPeriodException;
 import ca.ulaval.glo4003.accesspasses.exceptions.WrongAmountOfSemestersForPeriodException;
+import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.accesspasses.api.dto;
+package ca.ulaval.glo4003.accesspasses.services.dto;
 
 public class AccessPassDto {
   public String licensePlate;

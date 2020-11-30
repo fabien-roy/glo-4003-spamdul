@@ -1,10 +1,10 @@
-package ca.ulaval.glo4003.accesspasses.assembler;
+package ca.ulaval.glo4003.accesspasses.services.assemblers;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
 
-import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassCodeException;
+import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

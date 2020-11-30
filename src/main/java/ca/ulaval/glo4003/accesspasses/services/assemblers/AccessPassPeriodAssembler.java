@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.accesspasses.assembler;
+package ca.ulaval.glo4003.accesspasses.services.assemblers;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriodInFrench;

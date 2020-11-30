@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.users.api;
 
-import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassCodeDto;
-import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassDto;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
+import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
+import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.api.dto.CarDto;
 import ca.ulaval.glo4003.cars.services.CarService;

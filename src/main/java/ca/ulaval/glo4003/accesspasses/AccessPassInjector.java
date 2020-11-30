@@ -1,11 +1,11 @@
 package ca.ulaval.glo4003.accesspasses;
 
-import ca.ulaval.glo4003.accesspasses.assembler.AccessPassAssembler;
-import ca.ulaval.glo4003.accesspasses.assembler.AccessPassCodeAssembler;
-import ca.ulaval.glo4003.accesspasses.assembler.AccessPassPeriodAssembler;
 import ca.ulaval.glo4003.accesspasses.domain.*;
 import ca.ulaval.glo4003.accesspasses.infrastructure.AccessPassTypeInMemoryRepository;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
+import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassAssembler;
+import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassCodeAssembler;
+import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassPeriodAssembler;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.assemblers.ConsumptionAssembler;
 import ca.ulaval.glo4003.cars.assemblers.LicensePlateAssembler;
