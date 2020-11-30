@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.parkings.services.assemblers;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
-import ca.ulaval.glo4003.communications.services.assemblers.EmailAddressAssembler;
+import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
 import ca.ulaval.glo4003.locations.domain.PostalCode;
 import ca.ulaval.glo4003.locations.services.assemblers.PostalCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
@@ -18,19 +18,19 @@ public class ParkingStickerAssembler {
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   private final AccountIdConverter accountIdConverter;
   private final PostalCodeAssembler postalCodeAssembler;
-  private final EmailAddressAssembler emailAddressAssembler;
+  private final EmailAddressConverter emailAddressConverter;
   private final ParkingPeriodAssembler parkingPeriodAssembler;
 
   public ParkingStickerAssembler(
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       AccountIdConverter accountIdConverter,
       PostalCodeAssembler postalCodeAssembler,
-      EmailAddressAssembler emailAddressAssembler,
+      EmailAddressConverter emailAddressConverter,
       ParkingPeriodAssembler parkingPeriodAssembler) {
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
     this.accountIdConverter = accountIdConverter;
     this.postalCodeAssembler = postalCodeAssembler;
-    this.emailAddressAssembler = emailAddressAssembler;
+    this.emailAddressConverter = emailAddressConverter;
     this.parkingPeriodAssembler = parkingPeriodAssembler;
   }
 
@@ -58,7 +58,7 @@ public class ParkingStickerAssembler {
         if (parkingStickerDto.email == null) {
           throw new MissingEmailException();
         } else {
-          EmailAddress emailAddress = emailAddressAssembler.assemble(parkingStickerDto.email);
+          EmailAddress emailAddress = emailAddressConverter.convert(parkingStickerDto.email);
           return new ParkingSticker(
               accountId, parkingAreaCode, receptionMethod, emailAddress, parkingPeriod);
         }

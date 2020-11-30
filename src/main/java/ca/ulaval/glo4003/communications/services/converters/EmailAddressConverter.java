@@ -1,13 +1,13 @@
-package ca.ulaval.glo4003.communications.services.assemblers;
+package ca.ulaval.glo4003.communications.services.converters;
 
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
 import ca.ulaval.glo4003.communications.exceptions.InvalidEmailAddressException;
 import java.util.regex.Pattern;
 
-public class EmailAddressAssembler {
+public class EmailAddressConverter {
   private static final Pattern PATTERN = Pattern.compile("[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}");
 
-  public EmailAddress assemble(String emailAddress) {
+  public EmailAddress convert(String emailAddress) {
     if (!PATTERN.matcher(emailAddress).matches()) {
       throw new InvalidEmailAddressException();
     }

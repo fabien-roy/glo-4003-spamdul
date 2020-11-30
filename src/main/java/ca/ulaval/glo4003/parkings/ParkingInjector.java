@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.parkings;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
-import ca.ulaval.glo4003.communications.services.assemblers.EmailAddressAssembler;
+import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
 import ca.ulaval.glo4003.funds.domain.Money;
@@ -65,7 +65,7 @@ public class ParkingInjector {
       boolean isDev,
       AccountIdConverter accountIdConverter,
       PostalCodeAssembler postalCodeAssembler,
-      EmailAddressAssembler emailAddressAssembler,
+      EmailAddressConverter emailAddressConverter,
       AccountService accountService,
       List<ParkingStickerCreationObserver> parkingStickerCreationObservers,
       BillService billService) {
@@ -82,7 +82,7 @@ public class ParkingInjector {
             parkingAreaCodeAssembler,
             accountIdConverter,
             postalCodeAssembler,
-            emailAddressAssembler,
+            emailAddressConverter,
             new ParkingPeriodAssembler());
     ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
 
