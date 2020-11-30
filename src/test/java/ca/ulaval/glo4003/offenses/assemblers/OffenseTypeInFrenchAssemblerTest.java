@@ -5,8 +5,8 @@ import static ca.ulaval.glo4003.offenses.helpers.OffenseInFrenchDtoBuilder.anOff
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.createOffenseCode;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
+import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.filesystem.dto.OffenseDtoInFrench;

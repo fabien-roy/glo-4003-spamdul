@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.offenses.assemblers;
 
-import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
+import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.filesystem.dto.OffenseDtoInFrench;

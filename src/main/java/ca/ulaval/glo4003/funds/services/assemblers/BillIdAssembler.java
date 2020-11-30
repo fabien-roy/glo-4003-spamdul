@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.funds.assemblers;
+package ca.ulaval.glo4003.funds.services.assemblers;
 
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.exception.BillNotFoundException;

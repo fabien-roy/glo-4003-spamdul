@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.funds.api.dto;
+package ca.ulaval.glo4003.funds.services.dto;
 
 public class BillPaymentDto {
   public double amountToPay;

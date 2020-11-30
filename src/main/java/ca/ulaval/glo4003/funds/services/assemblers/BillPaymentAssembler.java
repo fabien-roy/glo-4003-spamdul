@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.funds.assemblers;
+package ca.ulaval.glo4003.funds.services.assemblers;
 
-import ca.ulaval.glo4003.funds.api.dto.BillPaymentDto;
 import ca.ulaval.glo4003.funds.domain.Money;
+import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
 
 public class BillPaymentAssembler {
   private final MoneyAssembler moneyAssembler;

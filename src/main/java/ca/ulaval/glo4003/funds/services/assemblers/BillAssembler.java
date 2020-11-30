@@ -1,7 +1,7 @@
-package ca.ulaval.glo4003.funds.assemblers;
+package ca.ulaval.glo4003.funds.services.assemblers;
 
-import ca.ulaval.glo4003.funds.api.dto.BillDto;
 import ca.ulaval.glo4003.funds.domain.Bill;
+import ca.ulaval.glo4003.funds.services.dto.BillDto;
 import java.util.List;
 import java.util.stream.Collectors;
 

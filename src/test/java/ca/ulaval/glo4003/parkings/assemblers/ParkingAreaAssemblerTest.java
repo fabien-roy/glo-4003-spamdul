@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.parkings.assemblers;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.funds.assemblers.ParkingPeriodPriceAssembler;
+import ca.ulaval.glo4003.funds.services.assemblers.ParkingPeriodPriceAssembler;
 import ca.ulaval.glo4003.parkings.api.dto.ParkingAreaDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import java.util.ArrayList;

@@ -6,8 +6,8 @@ import static ca.ulaval.glo4003.initiatives.helpers.InitiativeBuilder.anInitiati
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
+import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.initiatives.api.dto.AddInitiativeDto;
 import ca.ulaval.glo4003.initiatives.api.dto.InitiativeDto;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;

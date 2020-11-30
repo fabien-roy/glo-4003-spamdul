@@ -3,8 +3,8 @@ package ca.ulaval.glo4003.initiatives.assembler;
 import static ca.ulaval.glo4003.initiatives.helpers.InitiativeAddAllocatedAmountDtoBuilder.aInitiativeAddAllocatedAmountDTO;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.Money;
+import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.initiatives.api.dto.InitiativeAddAllocatedAmountDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;

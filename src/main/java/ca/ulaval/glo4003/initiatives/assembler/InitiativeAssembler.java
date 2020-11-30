@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.initiatives.assembler;
 
-import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
+import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.initiatives.api.dto.AddInitiativeDto;
 import ca.ulaval.glo4003.initiatives.api.dto.InitiativeDto;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;

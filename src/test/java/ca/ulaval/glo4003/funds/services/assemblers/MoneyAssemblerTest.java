@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.funds.assemblers;
+package ca.ulaval.glo4003.funds.services.assemblers;
 
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static com.google.common.truth.Truth.assertThat;

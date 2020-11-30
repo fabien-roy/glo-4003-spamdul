@@ -1,12 +1,12 @@
 package ca.ulaval.glo4003.funds;
 
-import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
-import ca.ulaval.glo4003.funds.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramAllocationCalculator;
 import ca.ulaval.glo4003.funds.infrastructure.BillRepositoryInMemory;
 import ca.ulaval.glo4003.funds.infrastructure.SustainableMobilityProgramBankRepositoryInMemory;
 import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
+import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
 
 public class FundInjector {
