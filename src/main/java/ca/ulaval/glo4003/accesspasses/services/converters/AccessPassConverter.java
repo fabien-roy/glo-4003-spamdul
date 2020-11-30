@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.accesspasses.exceptions.UnsupportedAccessPeriodExceptio
 import ca.ulaval.glo4003.accesspasses.exceptions.WrongAmountOfSemestersForPeriodException;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.cars.services.assemblers.LicensePlateAssembler;
+import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
@@ -19,17 +19,17 @@ import java.util.stream.Collectors;
 
 public class AccessPassConverter {
 
-  private final LicensePlateAssembler licensePlateAssembler;
+  private final LicensePlateConverter licensePlateConverter;
   private final SemesterService semesterService;
   private final SemesterCodeAssembler semesterCodeAssembler;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
   public AccessPassConverter(
-      LicensePlateAssembler licensePlateAssembler,
+      LicensePlateConverter licensePlateConverter,
       SemesterService semesterService,
       SemesterCodeAssembler semesterCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler) {
-    this.licensePlateAssembler = licensePlateAssembler;
+    this.licensePlateConverter = licensePlateConverter;
     this.semesterService = semesterService;
     this.semesterCodeAssembler = semesterCodeAssembler;
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
@@ -52,7 +52,7 @@ public class AccessPassConverter {
     LicensePlate licensePlate;
     ParkingAreaCode parkingAreaCode;
     if (accessPassCodeDto.licensePlate != null) {
-      licensePlate = licensePlateAssembler.assemble(accessPassCodeDto.licensePlate);
+      licensePlate = licensePlateConverter.convert(accessPassCodeDto.licensePlate);
       parkingAreaCode = parkingAreaCodeAssembler.assemble(accessPassCodeDto.parkingArea);
     } else {
       licensePlate = null;

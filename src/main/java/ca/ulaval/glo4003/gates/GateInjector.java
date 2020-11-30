@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.gates;
 
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
-import ca.ulaval.glo4003.cars.services.assemblers.LicensePlateAssembler;
+import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
 import ca.ulaval.glo4003.gates.api.GateResource;
 import ca.ulaval.glo4003.gates.services.GateService;
 import ca.ulaval.glo4003.parkings.services.assemblers.AccessStatusAssembler;
@@ -15,13 +15,13 @@ public class GateInjector {
       CustomDateTimeAssembler customDateTimeAssembler,
       ReportEventService reportEventService) {
     AccessStatusAssembler accessStatusAssembler = new AccessStatusAssembler();
-    LicensePlateAssembler licensePlateAssembler = new LicensePlateAssembler();
+    LicensePlateConverter licensePlateConverter = new LicensePlateConverter();
     GateService gateService =
         new GateService(
             accessPassService,
             customDateTimeAssembler,
             accessStatusAssembler,
-            licensePlateAssembler,
+            licensePlateConverter,
             reportEventService);
 
     return new GateResource(gateService);

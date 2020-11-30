@@ -6,25 +6,31 @@ import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.CarRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.assemblers.CarAssembler;
+import ca.ulaval.glo4003.cars.services.converters.CarConverter;
 import ca.ulaval.glo4003.cars.services.dto.CarDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CarService {
 
+  private final CarConverter carConverter;
   private final CarAssembler carAssembler;
   private final CarRepository carRepository;
   private final AccountService accountService;
 
   public CarService(
-      CarAssembler carAssembler, CarRepository carRepository, AccountService accountService) {
+      CarConverter carConverter,
+      CarAssembler carAssembler,
+      CarRepository carRepository,
+      AccountService accountService) {
+    this.carConverter = carConverter;
     this.carAssembler = carAssembler;
     this.carRepository = carRepository;
     this.accountService = accountService;
   }
 
   public void addCar(CarDto carDto, String accountId) {
-    Car car = carAssembler.assemble(carDto, accountId);
+    Car car = carConverter.convert(carDto, accountId);
 
     accountService.addLicensePlateToAccount(car.getAccountId(), car.getLicensePlate());
 

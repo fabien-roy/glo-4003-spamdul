@@ -11,7 +11,7 @@ import ca.ulaval.glo4003.accesspasses.exceptions.UnsupportedAccessPeriodExceptio
 import ca.ulaval.glo4003.accesspasses.exceptions.WrongAmountOfSemestersForPeriodException;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.cars.services.assemblers.LicensePlateAssembler;
+import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
@@ -26,7 +26,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class AccessPassConverterTest {
 
-  @Mock private LicensePlateAssembler licensePlateAssembler;
+  @Mock private LicensePlateConverter licensePlateConverter;
   @Mock private SemesterService semesterService;
   @Mock private SemesterCodeAssembler semesterCodeAssembler;
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
@@ -44,12 +44,12 @@ public class AccessPassConverterTest {
   public void setUp() {
     accessPassConverter =
         new AccessPassConverter(
-            licensePlateAssembler,
+            licensePlateConverter,
             semesterService,
             semesterCodeAssembler,
             parkingAreaCodeAssembler);
 
-    when(licensePlateAssembler.assemble(licensePlate.toString())).thenReturn(licensePlate);
+    when(licensePlateConverter.convert(licensePlate.toString())).thenReturn(licensePlate);
     when(parkingAreaCodeAssembler.assemble(accessPassDto.parkingArea))
         .thenReturn(new ParkingAreaCode(accessPassDto.parkingArea));
   }

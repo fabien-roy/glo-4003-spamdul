@@ -9,8 +9,8 @@ import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassPeriodConver
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.ConsumptionTypeInFrench;
 import ca.ulaval.glo4003.cars.services.CarService;
-import ca.ulaval.glo4003.cars.services.assemblers.ConsumptionAssembler;
-import ca.ulaval.glo4003.cars.services.assemblers.LicensePlateAssembler;
+import ca.ulaval.glo4003.cars.services.converters.ConsumptionConverter;
+import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
 import ca.ulaval.glo4003.funds.domain.Money;
@@ -33,7 +33,7 @@ public class AccessPassInjector {
   private final AccessPassCodeGenerator accessPassCodeGenerator =
       new AccessPassCodeGenerator(new StringCodeGenerator());
   private final StringMatrixFileReader fileReader = new CsvFileReader();
-  private final ConsumptionAssembler consumptionAssembler = new ConsumptionAssembler();
+  private final ConsumptionConverter consumptionConverter = new ConsumptionConverter();
   private final AccessPassPeriodConverter accessPassPeriodConverter =
       new AccessPassPeriodConverter();
 
@@ -47,11 +47,11 @@ public class AccessPassInjector {
       AccountService accountService,
       BillService billService,
       SemesterService semesterService) {
-    LicensePlateAssembler licensePlateAssembler = new LicensePlateAssembler();
+    LicensePlateConverter licensePlateConverter = new LicensePlateConverter();
     SemesterCodeAssembler semesterCodeAssembler = new SemesterCodeAssembler();
     AccessPassConverter accessPassConverter =
         new AccessPassConverter(
-            licensePlateAssembler,
+            licensePlateConverter,
             semesterService,
             semesterCodeAssembler,
             new ParkingAreaCodeAssembler());
@@ -94,7 +94,7 @@ public class AccessPassInjector {
                       });
               accessConsumption.add(
                   new AccessPassType(
-                      consumptionAssembler.assemble(consumptionTypeInFrench), feesPerPeriod));
+                      consumptionConverter.convert(consumptionTypeInFrench), feesPerPeriod));
             });
 
     accessConsumption.forEach(accessPassPriceByCarConsumptionInMemoryRepository::save);

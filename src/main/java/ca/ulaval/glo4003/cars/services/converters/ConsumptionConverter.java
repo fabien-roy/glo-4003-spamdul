@@ -1,12 +1,12 @@
-package ca.ulaval.glo4003.cars.services.assemblers;
+package ca.ulaval.glo4003.cars.services.converters;
 
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.ConsumptionTypeInFrench;
 import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
 
-public class ConsumptionAssembler {
+public class ConsumptionConverter {
 
-  public ConsumptionType assemble(ConsumptionTypeInFrench consumptionTypeInFrench) {
+  public ConsumptionType convert(ConsumptionTypeInFrench consumptionTypeInFrench) {
     switch (consumptionTypeInFrench) {
       case GOURMANDE:
         return ConsumptionType.GREEDY;

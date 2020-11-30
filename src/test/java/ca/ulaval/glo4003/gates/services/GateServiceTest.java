@@ -13,7 +13,7 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.cars.services.assemblers.LicensePlateAssembler;
+import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
 import ca.ulaval.glo4003.gates.services.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import ca.ulaval.glo4003.parkings.services.assemblers.AccessStatusAssembler;
@@ -35,7 +35,7 @@ public class GateServiceTest {
   @Mock private CustomDateTimeAssembler customDateTimeAssembler;
   @Mock private AccessStatusAssembler accessStatusAssembler;
   @Mock private AccessPass accessPass;
-  @Mock private LicensePlateAssembler licensePlateAssembler;
+  @Mock private LicensePlateConverter licensePlateConverter;
   @Mock private ReportEventService reportEventService;
 
   private GateService gateService;
@@ -56,7 +56,7 @@ public class GateServiceTest {
             accessPassService,
             customDateTimeAssembler,
             accessStatusAssembler,
-            licensePlateAssembler,
+            licensePlateConverter,
             reportEventService);
 
     accessPasses.add(accessPass);
@@ -67,7 +67,7 @@ public class GateServiceTest {
         .thenReturn(grantedAccessStatusDto);
     when(accessStatusAssembler.assemble(AccessStatus.ACCESS_REFUSED))
         .thenReturn(refusedAccessStatusDto);
-    when(licensePlateAssembler.assemble(accessPassLicensePlate)).thenReturn(LICENSE_PLATE);
+    when(licensePlateConverter.convert(accessPassLicensePlate)).thenReturn(LICENSE_PLATE);
     when(accessPassService.getAccessPasses(LICENSE_PLATE)).thenReturn(accessPasses);
   }
 

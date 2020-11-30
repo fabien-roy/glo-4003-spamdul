@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.cars.services.assemblers.LicensePlateAssembler;
+import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
 import ca.ulaval.glo4003.gates.services.dto.AccessStatusDto;
 import ca.ulaval.glo4003.parkings.domain.AccessStatus;
 import ca.ulaval.glo4003.parkings.services.assemblers.AccessStatusAssembler;
@@ -20,19 +20,19 @@ public class GateService {
   private final AccessPassService accessPassService;
   private final CustomDateTimeAssembler customDateTimeAssembler;
   private final AccessStatusAssembler accessStatusAssembler;
-  private final LicensePlateAssembler licensePlateAssembler;
+  private final LicensePlateConverter licensePlateConverter;
   private final ReportEventService reportEventService;
 
   public GateService(
       AccessPassService accessPassService,
       CustomDateTimeAssembler customDateTimeAssembler,
       AccessStatusAssembler accessStatusAssembler,
-      LicensePlateAssembler licensePlateAssembler,
+      LicensePlateConverter licensePlateConverter,
       ReportEventService reportEventService) {
     this.accessPassService = accessPassService;
     this.customDateTimeAssembler = customDateTimeAssembler;
     this.accessStatusAssembler = accessStatusAssembler;
-    this.licensePlateAssembler = licensePlateAssembler;
+    this.licensePlateConverter = licensePlateConverter;
     this.reportEventService = reportEventService;
   }
 
@@ -108,7 +108,7 @@ public class GateService {
   }
 
   private List<AccessPass> getAccessPasses(String licensePlate) {
-    LicensePlate licensePlateAssembled = licensePlateAssembler.assemble(licensePlate);
+    LicensePlate licensePlateAssembled = licensePlateConverter.convert(licensePlate);
 
     return accessPassService.getAccessPasses(licensePlateAssembled);
   }
