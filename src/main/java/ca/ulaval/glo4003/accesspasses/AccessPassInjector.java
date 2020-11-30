@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.accesspasses;
 import ca.ulaval.glo4003.accesspasses.domain.*;
 import ca.ulaval.glo4003.accesspasses.infrastructure.AccessPassTypeInMemoryRepository;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
-import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassCodeConverter;
+import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassConverter;
 import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassPeriodConverter;
 import ca.ulaval.glo4003.accounts.services.AccountService;
@@ -56,7 +56,7 @@ public class AccessPassInjector {
             semesterCodeAssembler,
             new ParkingAreaCodeAssembler());
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
-    AccessPassCodeConverter accessPassCodeConverter = new AccessPassCodeConverter();
+    AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
 
     return new AccessPassService(
         accessPassConverter,
@@ -66,7 +66,7 @@ public class AccessPassInjector {
         accessPassPriceByCarConsumptionInMemoryRepository,
         accountService,
         billService,
-        accessPassCodeConverter);
+        accessPassCodeAssembler);
   }
 
   private void addAccessPassByConsumptionTypesToRepository() {

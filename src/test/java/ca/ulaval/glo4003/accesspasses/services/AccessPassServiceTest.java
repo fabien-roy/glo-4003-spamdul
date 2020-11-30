@@ -12,7 +12,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.accesspasses.domain.*;
-import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassCodeConverter;
+import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassConverter;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
@@ -42,7 +42,7 @@ public class AccessPassServiceTest {
   @Mock private AccessPassTypeRepository accessPassTypeRepository;
   @Mock private BillService billService;
   @Mock private AccountService accountService;
-  @Mock private AccessPassCodeConverter accessPassCodeConverter;
+  @Mock private AccessPassCodeAssembler accessPassCodeAssembler;
 
   private AccessPassService accessPassService;
 
@@ -68,9 +68,9 @@ public class AccessPassServiceTest {
             accessPassTypeRepository,
             accountService,
             billService,
-            accessPassCodeConverter);
+            accessPassCodeAssembler);
 
-    when(accessPassCodeConverter.convert(accessPass.getCode().toString()))
+    when(accessPassCodeAssembler.assemble(accessPass.getCode().toString()))
         .thenReturn(accessPass.getCode());
     when(accountService.getAccessPass(accessPass.getCode())).thenReturn(accessPass);
     when(accountService.getAccessPasses(car.getLicensePlate()))
@@ -194,6 +194,6 @@ public class AccessPassServiceTest {
             accessPass.getCode(),
             car.getConsumptionType()))
         .thenReturn(notZeroPollutionBillId);
-    when(accessPassCodeConverter.convert(accessPass.getCode())).thenReturn(accessPassCodeDto);
+    when(accessPassCodeAssembler.assemble(accessPass.getCode())).thenReturn(accessPassCodeDto);
   }
 }

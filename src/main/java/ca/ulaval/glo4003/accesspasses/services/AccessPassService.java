@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.accesspasses.services;
 
 import ca.ulaval.glo4003.accesspasses.domain.*;
-import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassCodeConverter;
+import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassConverter;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
@@ -25,7 +25,7 @@ public class AccessPassService {
   private final AccessPassTypeRepository accessPassTypeRepository;
   private final BillService billService;
   private final AccountService accountService;
-  private final AccessPassCodeConverter accessPassCodeConverter;
+  private final AccessPassCodeAssembler accessPassCodeAssembler;
 
   public AccessPassService(
       AccessPassConverter accessPassConverter,
@@ -35,7 +35,7 @@ public class AccessPassService {
       AccessPassTypeRepository accessPassTypeRepository,
       AccountService accountService,
       BillService billService,
-      AccessPassCodeConverter accessPassCodeConverter) {
+      AccessPassCodeAssembler accessPassCodeAssembler) {
     this.accessPassConverter = accessPassConverter;
     this.accessPassFactory = accessPassFactory;
     this.carService = carService;
@@ -43,7 +43,7 @@ public class AccessPassService {
     this.accessPassTypeRepository = accessPassTypeRepository;
     this.accountService = accountService;
     this.billService = billService;
-    this.accessPassCodeConverter = accessPassCodeConverter;
+    this.accessPassCodeAssembler = accessPassCodeAssembler;
   }
 
   public AccessPassCodeDto addAccessPass(AccessPassDto accessPassDto, String accountId) {
@@ -69,11 +69,11 @@ public class AccessPassService {
         billService.addBillForAccessCode(moneyDue, accessPass.getCode(), consumptionType);
     accountService.addAccessPassToAccount(account.getId(), accessPass, billId);
 
-    return accessPassCodeConverter.convert(accessPass.getCode());
+    return accessPassCodeAssembler.assemble(accessPass.getCode());
   }
 
   public AccessPass getAccessPass(String code) {
-    AccessPassCode accessPassCode = accessPassCodeConverter.convert(code);
+    AccessPassCode accessPassCode = accessPassCodeAssembler.assemble(code);
     return accountService.getAccessPass(accessPassCode);
   }
 
