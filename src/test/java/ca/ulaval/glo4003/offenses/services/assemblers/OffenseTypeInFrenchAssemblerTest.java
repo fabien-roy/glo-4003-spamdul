@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.offenses.assemblers;
+package ca.ulaval.glo4003.offenses.services.assemblers;
 
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseInFrenchDtoBuilder.anOffenseInFrenchDto;
@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
-import ca.ulaval.glo4003.offenses.filesystem.dto.OffenseDtoInFrench;
+import ca.ulaval.glo4003.offenses.services.dto.OffenseDtoInFrench;
 import com.google.common.truth.Truth;
 import java.util.Collections;
 import java.util.List;

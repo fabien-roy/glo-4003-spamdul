@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.offenses.assemblers;
+package ca.ulaval.glo4003.offenses.services.assemblers;
 
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 

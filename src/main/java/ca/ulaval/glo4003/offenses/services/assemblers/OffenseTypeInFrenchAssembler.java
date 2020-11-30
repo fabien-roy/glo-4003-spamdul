@@ -1,10 +1,10 @@
-package ca.ulaval.glo4003.offenses.assemblers;
+package ca.ulaval.glo4003.offenses.services.assemblers;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.assemblers.MoneyAssembler;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
-import ca.ulaval.glo4003.offenses.filesystem.dto.OffenseDtoInFrench;
+import ca.ulaval.glo4003.offenses.services.dto.OffenseDtoInFrench;
 import java.util.List;
 import java.util.stream.Collectors;
 

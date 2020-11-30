@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.offenses.assemblers;
+package ca.ulaval.glo4003.offenses.services.assemblers;
 
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationDtoBuilder.anOffenseValidationDto;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
@@ -6,8 +6,8 @@ import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createPark
 import static ca.ulaval.glo4003.times.helpers.TimeOfDayMother.createTimeOfDay;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.offenses.domain.OffenseValidation;
+import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;

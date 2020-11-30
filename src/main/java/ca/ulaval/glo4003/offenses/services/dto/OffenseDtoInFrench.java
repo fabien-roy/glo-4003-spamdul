@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.offenses.filesystem.dto;
+package ca.ulaval.glo4003.offenses.services.dto;
 
 public class OffenseDtoInFrench {
   public String infraction;
