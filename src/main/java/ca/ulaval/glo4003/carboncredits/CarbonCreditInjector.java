@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.carboncredits;
 
 import ca.ulaval.glo4003.carboncredits.api.CarbonCreditResource;
-import ca.ulaval.glo4003.carboncredits.api.CarbonCreditResourceImplementation;
 import ca.ulaval.glo4003.carboncredits.assemblers.CarbonCreditAssembler;
 import ca.ulaval.glo4003.carboncredits.assemblers.MonthlyPaymentStatusAssembler;
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCreditRepository;
@@ -28,7 +27,7 @@ public class CarbonCreditInjector {
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
     CarbonCreditService carbonCreditService =
         createCarbonCreditService(initiativeService, sustainableMobilityProgramBankRepository);
-    return new CarbonCreditResourceImplementation(carbonCreditService);
+    return new CarbonCreditResource(carbonCreditService);
   }
 
   public ConvertCarbonCreditHandler createConvertCarbonCreditHandler(
