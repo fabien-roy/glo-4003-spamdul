@@ -121,9 +121,7 @@ public class ApplicationInjector {
   public CarbonCreditResource createCarbonCreditResource() {
     return CARBON_CREDIT_INJECTOR.createCarbonCreditResource(
         INITIATIVE_INJECTOR.createService(
-            FUND_INJECTOR.createMoneyConverter(),
-            FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
-            getInitiativeAddedAllocatedAmountObservers()),
+            FUND_INJECTOR.createMoneyConverter(), getInitiativeAddedAllocatedAmountObservers()),
         FUND_INJECTOR.getSustainableMobilityProgramBankRepository());
   }
 
@@ -137,9 +135,7 @@ public class ApplicationInjector {
 
     return INITIATIVE_INJECTOR.createInitiativeResource(
         INITIATIVE_INJECTOR.createService(
-            FUND_INJECTOR.createMoneyConverter(),
-            FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
-            initiativeAddedAllocatedAmountObservers));
+            FUND_INJECTOR.createMoneyConverter(), initiativeAddedAllocatedAmountObservers));
   }
 
   public ReportProfitResource createReportProfitResource() {
@@ -165,7 +161,6 @@ public class ApplicationInjector {
                 CARBON_CREDIT_INJECTOR.createConvertCarbonCreditHandler(
                     INITIATIVE_INJECTOR.createService(
                         FUND_INJECTOR.createMoneyConverter(),
-                        FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
                         initiativeAddedAllocatedAmountObservers),
                     FUND_INJECTOR.getSustainableMobilityProgramBankRepository())))
         .build();
@@ -173,12 +168,10 @@ public class ApplicationInjector {
 
   private List<InitiativeAddedAllocatedAmountObserver>
       getInitiativeAddedAllocatedAmountObservers() {
-    return Arrays.asList(
-        CARBON_CREDIT_INJECTOR.createCarbonCreditService(
-            INITIATIVE_INJECTOR.createService(
-                FUND_INJECTOR.createMoneyConverter(),
-                FUND_INJECTOR.getSustainableMobilityProgramBankRepository(),
-                Collections.emptyList()),
-            FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
+    return Collections.singletonList(
+            CARBON_CREDIT_INJECTOR.createCarbonCreditService(
+                    INITIATIVE_INJECTOR.createService(
+                            FUND_INJECTOR.createMoneyConverter(), Collections.emptyList()),
+                    FUND_INJECTOR.getSustainableMobilityProgramBankRepository()));
   }
 }

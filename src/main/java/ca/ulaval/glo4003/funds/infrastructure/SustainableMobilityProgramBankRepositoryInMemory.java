@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.funds.infrastructure;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
-import ca.ulaval.glo4003.funds.domain.exceptions.SustainableMobilityProgramBankInsufficientAmountException;
+import ca.ulaval.glo4003.funds.domain.exceptions.InsufficientAvailableMoneyException;
 
 public class SustainableMobilityProgramBankRepositoryInMemory
     implements SustainableMobilityProgramBankRepository {
@@ -16,7 +16,7 @@ public class SustainableMobilityProgramBankRepositoryInMemory
   @Override
   public void remove(Money money) {
     if (sustainableMobilityProgramBankAmount.isLessThan(money))
-      throw new SustainableMobilityProgramBankInsufficientAmountException();
+      throw new InsufficientAvailableMoneyException();
 
     this.sustainableMobilityProgramBankAmount = sustainableMobilityProgramBankAmount.minus(money);
   }

@@ -1,13 +1,13 @@
 package ca.ulaval.glo4003.funds.infrastructure;
 
-import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
-
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
-import ca.ulaval.glo4003.funds.domain.exceptions.SustainableMobilityProgramBankInsufficientAmountException;
+import ca.ulaval.glo4003.funds.domain.exceptions.InsufficientAvailableMoneyException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
+
+import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 
 public class SustainableMobilityProgramBankRepositoryInMemoryTest {
 
@@ -40,7 +40,7 @@ public class SustainableMobilityProgramBankRepositoryInMemoryTest {
     Truth.assertThat(sustainableMobilityProgramBankRepository.get()).isEqualTo(FINAL_AMOUNT);
   }
 
-  @Test(expected = SustainableMobilityProgramBankInsufficientAmountException.class)
+  @Test(expected = InsufficientAvailableMoneyException.class)
   public void
       givenTooHighMoneyAmount_whenRemoving_thenThrowSustainableMobilityProgramBankInsufficientAmountException() {
     sustainableMobilityProgramBankRepository.add(ADDED_MONEY);

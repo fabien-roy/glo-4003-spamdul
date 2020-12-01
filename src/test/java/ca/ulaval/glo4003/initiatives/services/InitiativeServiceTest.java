@@ -59,8 +59,7 @@ public class InitiativeServiceTest {
             initiativeCodeAssembler,
             initiativeAvailableAmountAssembler,
             initiativeAssembler,
-            initiativeAddAllocatedAmountConverter,
-            sustainableMobilityProgramBankRepository);
+            initiativeAddAllocatedAmountConverter);
     when(initiativeFactory.create(initiative)).thenReturn(initiative);
     when(initiativeAssembler.assemble(addInitiativeDto)).thenReturn(initiative);
     when(initiativeAddAllocatedAmountConverter.convert(initiativeAddAllocatedAmountDto))
