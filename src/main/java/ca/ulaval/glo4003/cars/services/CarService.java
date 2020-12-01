@@ -3,13 +3,11 @@ package ca.ulaval.glo4003.cars.services;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
-import ca.ulaval.glo4003.cars.domain.CarRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.assemblers.CarAssembler;
 import ca.ulaval.glo4003.cars.services.converters.CarConverter;
 import ca.ulaval.glo4003.cars.services.dto.CarDto;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CarService {
 
@@ -30,9 +28,10 @@ public class CarService {
   }
 
   public void addCar(CarDto carDto, String accountId) {
+    Account account = accountService.getAccount(accountId);
     Car car = carConverter.convert(carDto, accountId);
 
-    accountService.addLicensePlateToAccount(car.getAccountId(), car.getLicensePlate());
+    accountService.addCarToAccount(account.getId(), car);
 
     carRepository.save(car);
   }
@@ -43,8 +42,7 @@ public class CarService {
 
   public List<CarDto> getCars(String accountId) {
     Account account = accountService.getAccount(accountId);
-    List<LicensePlate> licensePlates = account.getLicensePlates();
-    List<Car> cars = licensePlates.stream().map(this::getCar).collect(Collectors.toList());
+    List<Car> cars = account.getCars();
 
     return carAssembler.assemble(cars);
   }

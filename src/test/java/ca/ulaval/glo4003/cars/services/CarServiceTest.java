@@ -13,7 +13,6 @@ import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
-import ca.ulaval.glo4003.cars.domain.CarRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.assemblers.CarAssembler;
 import ca.ulaval.glo4003.cars.services.converters.CarConverter;

@@ -2,8 +2,6 @@ package ca.ulaval.glo4003.cars;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
-import ca.ulaval.glo4003.cars.domain.CarRepository;
-import ca.ulaval.glo4003.cars.infrastructure.CarRepositoryInMemory;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.cars.services.assemblers.CarAssembler;
 import ca.ulaval.glo4003.cars.services.converters.CarConverter;
