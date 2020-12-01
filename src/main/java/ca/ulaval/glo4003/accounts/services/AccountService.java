@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
+import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
@@ -43,10 +44,10 @@ public class AccountService {
     this.billPaymentConverter = billPaymentConverter;
   }
 
-  public void addLicensePlateToAccount(AccountId id, LicensePlate licensePlate) {
+  public void addCarToAccount(AccountId id, Car car) {
     Account account = getAccount(id);
 
-    account.addLicensePlate(licensePlate);
+    account.saveCar(car);
     accountRepository.update(account);
   }
 
@@ -107,6 +108,10 @@ public class AccountService {
 
   public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
     return accountRepository.getAccessPasses(licensePlate);
+  }
+
+  public Car getCar(LicensePlate licensePlate) {
+    return accountRepository.getCar(licensePlate);
   }
 
   public void update(AccessPass accessPass) {

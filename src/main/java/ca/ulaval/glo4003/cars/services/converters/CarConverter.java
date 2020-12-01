@@ -31,7 +31,7 @@ public class CarConverter {
 
     return new Car(
         licensePlate,
-        id,
+        id.toString(),
         carDto.manufacturer,
         carDto.model,
         carDto.year,
