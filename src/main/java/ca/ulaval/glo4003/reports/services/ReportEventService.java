@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.reports.domain.*;
+import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import java.util.logging.Logger;
 
 public class ReportEventService {
@@ -49,14 +50,15 @@ public class ReportEventService {
     reportRepository.addEvent(reportEvent);
   }
 
-  public void addAccessAreasCodeEvent(ParkingAreaCode parkingAreaCode) {
+  public void addGateEnteredEvent(CustomDateTime dateTime, ParkingAreaCode parkingAreaCode) {
+    // TODO : Why the hell do we check this?
     if (parkingAreaCode != null) {
       logger.info(
           String.format(
               "Adding report event for parking Area Code : %s ", parkingAreaCode.toString()));
 
       ReportEvent reportEvent =
-          reportEventFactory.create(ReportEventType.GATE_ENTERED, parkingAreaCode);
+          reportEventFactory.create(ReportEventType.GATE_ENTERED, dateTime, parkingAreaCode);
       reportRepository.addEvent(reportEvent);
     }
   }
