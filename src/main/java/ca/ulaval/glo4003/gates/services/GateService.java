@@ -47,7 +47,7 @@ public class GateService {
 
     if (accessStatus == AccessStatus.ACCESS_GRANTED) {
       accessPassService.enterCampus(accessPass);
-      reportEventService.addAccessAreasCodeEvent(accessPass.getParkingAreaCode());
+      reportEventService.addGateEnteredEvent(dateTime, accessPass.getParkingAreaCode());
     }
 
     return accessStatusAssembler.assemble(accessStatus);
@@ -69,7 +69,7 @@ public class GateService {
 
     if (associatedAccessPass != null) {
       accessPassService.enterCampus(associatedAccessPass);
-      reportEventService.addAccessAreasCodeEvent(associatedAccessPass.getParkingAreaCode());
+      reportEventService.addGateEnteredEvent(dateTime, associatedAccessPass.getParkingAreaCode());
       return accessStatusAssembler.assemble(AccessStatus.ACCESS_GRANTED);
     }
 

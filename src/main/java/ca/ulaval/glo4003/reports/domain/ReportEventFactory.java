@@ -15,7 +15,8 @@ public class ReportEventFactory {
     return new ReportEvent(type, CustomDateTime.now(), profits, consumptionType);
   }
 
-  public ReportEvent create(ReportEventType type, ParkingAreaCode parkingAreaCode) {
-    return new ReportEvent(type, CustomDateTime.now(), parkingAreaCode);
+  public ReportEvent create(
+      ReportEventType type, CustomDateTime dateTime, ParkingAreaCode parkingAreaCode) {
+    return new ReportEvent(type, dateTime, parkingAreaCode);
   }
 }
