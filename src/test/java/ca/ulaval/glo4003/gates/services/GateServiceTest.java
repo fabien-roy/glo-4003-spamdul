@@ -164,7 +164,7 @@ public class GateServiceTest {
 
     gateService.validateAccessPassEntryWithLicensePlate(dateTimeDto, accessPassLicensePlate);
 
-    verify(reportEventService).addAccessAreasCodeEvent(accessPass.getParkingAreaCode());
+    verify(reportEventService).addGateEnteredEvent(dateTime, accessPass.getParkingAreaCode());
   }
 
   @Test
@@ -173,6 +173,6 @@ public class GateServiceTest {
 
     gateService.validateAccessPassEntryWithCode(dateTimeDto, accessPassCode);
 
-    verify(reportEventService).addAccessAreasCodeEvent(accessPass.getParkingAreaCode());
+    verify(reportEventService).addGateEnteredEvent(dateTime, accessPass.getParkingAreaCode());
   }
 }
