@@ -24,7 +24,6 @@
 		<jersey.version>2.32</jersey.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
 		<javax.mail.version>1.5.0-b01</javax.mail.version>
-		<jackson.version>2.11.2</jackson.version>
         <!-- Tests -->
 		<junit.version>4.13.1</junit.version>
 		<javafaker.version>1.0.2</javafaker.version>
@@ -102,11 +101,6 @@
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>${javax.mail.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
 		</dependency>
 		<!-- Tests -->
 		<dependency>
