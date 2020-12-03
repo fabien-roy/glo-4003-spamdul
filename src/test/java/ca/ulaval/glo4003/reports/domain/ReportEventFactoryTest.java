@@ -4,6 +4,7 @@ import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionType;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.reports.helpers.ReportEventMother.createReportEventType;
+import static ca.ulaval.glo4003.times.helpers.CustomDateTimeMother.createDateTime;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
@@ -18,6 +19,7 @@ public class ReportEventFactoryTest {
   private ReportEventFactory reportEventFactory;
 
   private final ReportEventType type = createReportEventType();
+  private final CustomDateTime dateTime = createDateTime();
   private final ParkingAreaCode parkingAreaCode = createParkingAreaCode();
   private final Money profits = createMoney();
   private final ConsumptionType consumptionType = createConsumptionType();
@@ -88,17 +90,15 @@ public class ReportEventFactoryTest {
   }
 
   @Test
-  public void whenCreatingWithParkingAreaCode_thenSetDateTimeNow() {
-    CustomDateTime now = CustomDateTime.now();
+  public void whenCreatingWithParkingAreaCode_thenSetDateTime() {
+    ReportEvent reportEvent = reportEventFactory.create(type, dateTime, parkingAreaCode);
 
-    ReportEvent reportEvent = reportEventFactory.create(type, parkingAreaCode);
-
-    assertThat(reportEvent.getDateTime().toDate()).isEqualTo(now.toDate());
+    assertThat(reportEvent.getDateTime()).isEqualTo(dateTime);
   }
 
   @Test
   public void whenCreatingWithParkingAreaCode_thenSetParkingAreaCode() {
-    ReportEvent reportEvent = reportEventFactory.create(type, parkingAreaCode);
+    ReportEvent reportEvent = reportEventFactory.create(type, dateTime, parkingAreaCode);
 
     assertThat(reportEvent.getParkingAreaCode()).isEqualTo(parkingAreaCode);
   }

@@ -4,6 +4,7 @@ import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionType;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.reports.helpers.ReportEventBuilder.aReportEvent;
+import static ca.ulaval.glo4003.times.helpers.CustomDateTimeMother.createDateTime;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -14,6 +15,7 @@ import ca.ulaval.glo4003.reports.domain.ReportEvent;
 import ca.ulaval.glo4003.reports.domain.ReportEventFactory;
 import ca.ulaval.glo4003.reports.domain.ReportEventType;
 import ca.ulaval.glo4003.reports.domain.ReportRepository;
+import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +35,7 @@ public class ReportEventServiceTest {
   private final ReportEvent billPaidForAccessPassEvent = aReportEvent().build();
   private final ReportEvent billPaidForOffenseEvent = aReportEvent().build();
   private final ReportEvent accessAreaCodeEvent = aReportEvent().build();
+  private final CustomDateTime dateTime = createDateTime();
   private final ParkingAreaCode parkingAreaCode = createParkingAreaCode();
 
   @Before
@@ -46,7 +49,7 @@ public class ReportEventServiceTest {
         .thenReturn(billPaidForAccessPassEvent);
     when(reportEventFactory.create(ReportEventType.BILL_PAID_FOR_OFFENSE, profits))
         .thenReturn(billPaidForOffenseEvent);
-    when(reportEventFactory.create(ReportEventType.GATE_ENTERED, parkingAreaCode))
+    when(reportEventFactory.create(ReportEventType.GATE_ENTERED, dateTime, parkingAreaCode))
         .thenReturn(accessAreaCodeEvent);
   }
 
@@ -72,8 +75,8 @@ public class ReportEventServiceTest {
   }
 
   @Test
-  public void whenAddingCochenerieDeTest_thenAddReportEventToRepository() {
-    reportEventService.addAccessAreasCodeEvent(parkingAreaCode);
+  public void whenAddingGateEnteredEvent_thenAddReportEventToRepository() {
+    reportEventService.addGateEnteredEvent(dateTime, parkingAreaCode);
 
     verify(reportRepository).addEvent(accessAreaCodeEvent);
   }
