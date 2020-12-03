@@ -9,7 +9,7 @@ import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.cars.exceptions.NotFoundCarException;
+import ca.ulaval.glo4003.cars.exceptions.NotFoundLicensePlateException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -68,7 +68,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
 
     if (car.isPresent()) {
       return car.get();
-    } else throw new NotFoundCarException();
+    } else throw new NotFoundLicensePlateException();
   }
 
   @Override

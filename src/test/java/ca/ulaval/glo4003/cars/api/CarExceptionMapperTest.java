@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.cars.api;
 import ca.ulaval.glo4003.cars.exceptions.CarException;
 import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
 import ca.ulaval.glo4003.cars.exceptions.InvalidLicensePlateException;
-import ca.ulaval.glo4003.cars.exceptions.NotFoundCarException;
+import ca.ulaval.glo4003.cars.exceptions.NotFoundLicensePlateException;
 import com.github.javafaker.Faker;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
@@ -41,7 +41,7 @@ public class CarExceptionMapperTest {
 
   @Test
   public void givenNotFoundLicensePlateException_whenResponding_thenStatusIsNotFound() {
-    CarException carException = new NotFoundCarException();
+    CarException carException = new NotFoundLicensePlateException();
 
     Response response = carExceptionMapper.toResponse(carException);
 
