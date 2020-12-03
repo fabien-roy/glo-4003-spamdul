@@ -5,7 +5,7 @@ import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
-import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingStickerCode;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -22,7 +22,7 @@ import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.services.converters.BillIdConverter;
 import ca.ulaval.glo4003.funds.services.converters.BillPaymentConverter;
 import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
-import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
+import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +47,7 @@ public class AccountServiceTest {
 
   private final Account account = anAccount().build();
   private final LicensePlate licensePlate = createLicensePlate();
-  private final ParkingStickerCode parkingStickerCode = createParkingStickerCode();
+  private final ParkingSticker parkingSticker = aParkingSticker().build();
   private final BillId billId = createBillId();
   private final AccessPass accessPass = anAccessPass().build();
   private final Bill bill = aBill().build();
@@ -87,21 +87,22 @@ public class AccountServiceTest {
 
   @Test
   public void whenAddingParkingSticker_shouldAddParkingStickerCodeToAccount() {
-    accountService.addParkingStickerToAccount(account.getId(), parkingStickerCode, billId);
+    accountService.addParkingStickerToAccount(account.getId(), parkingSticker, billId);
 
-    assertThat(account.getParkingStickerCodes()).contains(parkingStickerCode);
+    assertThat(account.getParkingStickers())
+        .contains(parkingSticker); // TODO : On compare des codes à des collants...
   }
 
   @Test
   public void whenAddingParkingSticker_shouldAddBillIdToAccount() {
-    accountService.addParkingStickerToAccount(account.getId(), parkingStickerCode, billId);
+    accountService.addParkingStickerToAccount(account.getId(), parkingSticker, billId);
 
     assertThat(account.getBillIds()).contains(billId);
   }
 
   @Test
   public void whenAddingParkingSticker_shouldUpdateAccountInRepository() {
-    accountService.addParkingStickerToAccount(account.getId(), parkingStickerCode, billId);
+    accountService.addParkingStickerToAccount(account.getId(), parkingSticker, billId);
 
     verify(accountRepository).update(account);
   }

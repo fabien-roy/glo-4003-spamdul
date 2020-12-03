@@ -20,7 +20,6 @@ import ca.ulaval.glo4003.offenses.services.converters.OffenseTypeInFrenchConvert
 import ca.ulaval.glo4003.offenses.services.converters.OffenseValidationConverter;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseDtoInFrench;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
-import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.times.services.converters.TimeOfDayConverter;
@@ -33,7 +32,6 @@ public class OffenseInjector {
 
   public OffenseResource createOffenseResource(
       ParkingAreaRepository parkingAreaRepository,
-      ParkingStickerRepository parkingStickerRepository,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       TimeOfDayConverter timeOfDayConverter,
@@ -45,7 +43,6 @@ public class OffenseInjector {
     OffenseTypeService offenseTypeService =
         createOffenseService(
             parkingAreaRepository,
-            parkingStickerRepository,
             parkingStickerCodeAssembler,
             parkingAreaCodeAssembler,
             timeOfDayConverter,
@@ -71,7 +68,6 @@ public class OffenseInjector {
 
   private OffenseTypeService createOffenseService(
       ParkingAreaRepository parkingAreaRepository,
-      ParkingStickerRepository parkingStickerRepository,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       TimeOfDayConverter timeOfDayConverter,
@@ -86,7 +82,6 @@ public class OffenseInjector {
 
     return new OffenseTypeService(
         parkingAreaRepository,
-        parkingStickerRepository,
         offenseValidationConverter,
         offenseTypeAssembler,
         offenseTypeRepository,

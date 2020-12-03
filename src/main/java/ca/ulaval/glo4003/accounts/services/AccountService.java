@@ -16,6 +16,7 @@ import ca.ulaval.glo4003.funds.services.converters.BillIdConverter;
 import ca.ulaval.glo4003.funds.services.converters.BillPaymentConverter;
 import ca.ulaval.glo4003.funds.services.dto.BillDto;
 import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
+import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import java.util.List;
 
@@ -51,10 +52,10 @@ public class AccountService {
   }
 
   public void addParkingStickerToAccount(
-      AccountId id, ParkingStickerCode parkingStickerCode, BillId billId) {
+      AccountId id, ParkingSticker parkingSticker, BillId billId) {
     Account account = getAccount(id);
 
-    account.addParkingStickerCode(parkingStickerCode);
+    account.addParkingSticker(parkingSticker);
     account.addBillId(billId);
     accountRepository.update(account);
   }
@@ -62,7 +63,7 @@ public class AccountService {
   public void addAccessPassToAccount(AccountId id, AccessPass accessPass, BillId billId) {
     Account account = getAccount(id);
 
-    account.saveAccessPass(accessPass);
+    account.addAccessPass(accessPass);
     account.addBillId(billId);
     accountRepository.update(account);
   }
@@ -99,6 +100,10 @@ public class AccountService {
 
   public Account getAccount(AccountId accountId) {
     return accountRepository.get(accountId);
+  }
+
+  public Account getAccount(ParkingStickerCode parkingStickerCode) {
+    return accountRepository.get(parkingStickerCode);
   }
 
   public AccessPass getAccessPass(AccessPassCode accessPassCode) {

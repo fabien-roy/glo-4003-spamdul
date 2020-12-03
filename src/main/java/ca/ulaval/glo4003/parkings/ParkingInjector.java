@@ -14,7 +14,6 @@ import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
 import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
-import ca.ulaval.glo4003.parkings.infrastructure.ParkingStickerRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaAssembler;
@@ -33,8 +32,6 @@ public class ParkingInjector {
   private final ParkingStickerCodeGenerator parkingStickerCodeGenerator =
       new ParkingStickerCodeGenerator(new StringCodeGenerator());
   private final ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
-  private final ParkingStickerRepository parkingStickerRepository =
-      new ParkingStickerRepositoryInMemory();
 
   public ParkingAreaRepository getParkingAreaRepository() {
     return parkingAreaRepository;
@@ -47,10 +44,6 @@ public class ParkingInjector {
   public ParkingAreaService createParkingAreaService() {
     return new ParkingAreaService(
         parkingAreaRepository, new ParkingAreaAssembler(new ParkingPeriodPriceAssembler()));
-  }
-
-  public ParkingStickerRepository getParkingStickerRepository() {
-    return parkingStickerRepository;
   }
 
   public ParkingStickerCodeAssembler createParkingStickerCodeAssembler() {
@@ -93,7 +86,6 @@ public class ParkingInjector {
             parkingStickerFactory,
             accountService,
             parkingAreaRepository,
-            parkingStickerRepository,
             billService);
     parkingStickerCreationObservers.forEach(parkingStickerService::register);
 

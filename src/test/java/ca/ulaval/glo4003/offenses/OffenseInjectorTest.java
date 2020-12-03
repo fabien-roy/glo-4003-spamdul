@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
-import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.times.services.converters.TimeOfDayConverter;
@@ -21,7 +20,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class OffenseInjectorTest {
 
   @Mock private ParkingAreaRepository parkingAreaRepository;
-  @Mock private ParkingStickerRepository parkingStickerRepository;
   @Mock private ParkingStickerCodeAssembler parkingStickerCodeAssembler;
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   @Mock private TimeOfDayConverter timeOfDayConverter;
@@ -41,7 +39,6 @@ public class OffenseInjectorTest {
     OffenseResource offenseResource =
         offenseInjector.createOffenseResource(
             parkingAreaRepository,
-            parkingStickerRepository,
             parkingStickerCodeAssembler,
             parkingAreaCodeAssembler,
             timeOfDayConverter,

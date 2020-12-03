@@ -8,6 +8,7 @@ import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,16 @@ public class AccountRepositoryInMemory implements AccountRepository {
     if (foundAccount == null) throw new NotFoundAccountException();
 
     return foundAccount;
+  }
+
+  @Override
+  public Account get(ParkingStickerCode parkingStickerCode) {
+    for (Account account : accounts.values()) {
+      if (account.getParkingSticker(parkingStickerCode) != null) {
+        return account;
+      }
+    }
+    throw new NotFoundAccountException();
   }
 
   @Override
@@ -67,7 +78,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
   public void update(AccessPass accessPass) {
     Account account = get(accessPass.getCode());
 
-    account.saveAccessPass(accessPass);
+    account.addAccessPass(accessPass);
 
     accounts.put(account.getId(), account);
   }

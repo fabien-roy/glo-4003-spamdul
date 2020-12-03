@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.accounts.infrastructure;
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassBuilder.anAccessPass;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
@@ -12,6 +13,7 @@ import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -21,9 +23,13 @@ public class AccountRepositoryInMemoryTest {
   private AccountRepository accountRepository;
 
   private final LicensePlate licensePlate = createLicensePlate();
+  private final ParkingSticker parkingSticker = aParkingSticker().build();
   private final AccessPass accessPass = anAccessPass().withLicensePlate(licensePlate).build();
   private final Account account =
-      anAccount().withAccessPasses(Collections.singletonList(accessPass)).build();
+      anAccount()
+          .withParkingSticker((Collections.singletonList(parkingSticker)))
+          .withAccessPasses(Collections.singletonList(accessPass))
+          .build();
 
   @Before
   public void setUp() {
@@ -45,9 +51,24 @@ public class AccountRepositoryInMemoryTest {
     assertThat(foundAccount).isSameInstanceAs(account);
   }
 
+  @Test
+  public void
+      givenAccountWithParkingStickerCode_whenGettingAccountWithParkingStickerCode_theReturnAccount() {
+    accountRepository.save(account);
+    Account foundAccount = accountRepository.get(parkingSticker.getCode());
+
+    assertThat(foundAccount).isSameInstanceAs(account);
+  }
+
   @Test(expected = NotFoundAccountException.class)
-  public void givenNonExistentAccount_whenGettingAccount_thenThrowNotFoundAccountException() {
+  public void givenNonExistentAccount_whenGettingAccountWithId_thenThrowNotFoundAccountException() {
     accountRepository.get(account.getId());
+  }
+
+  @Test(expected = NotFoundAccountException.class)
+  public void
+      givenNonExistentAccount_whenGettingAccountWithParkingStickerCode_thenThrowNotFoundAccountException() {
+    accountRepository.get(parkingSticker.getCode());
   }
 
   @Test(expected = NotFoundAccessPassException.class)

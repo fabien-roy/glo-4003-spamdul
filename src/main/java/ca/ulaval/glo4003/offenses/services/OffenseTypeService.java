@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.offenses.services;
 
+import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
@@ -10,14 +11,12 @@ import ca.ulaval.glo4003.offenses.services.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
-import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
+import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OffenseTypeService {
   private final ParkingAreaRepository parkingAreaRepository;
-  private final ParkingStickerRepository parkingStickerRepository;
   private final OffenseValidationConverter offenseValidationConverter;
   private final OffenseTypeAssembler offenseTypeAssembler;
   private final OffenseTypeRepository offenseTypeRepository;
@@ -28,7 +27,6 @@ public class OffenseTypeService {
 
   public OffenseTypeService(
       ParkingAreaRepository parkingAreaRepository,
-      ParkingStickerRepository parkingStickerRepository,
       OffenseValidationConverter offenseValidationConverter,
       OffenseTypeAssembler offenseTypeAssembler,
       OffenseTypeRepository offenseTypeRepository,
@@ -37,7 +35,6 @@ public class OffenseTypeService {
       AccountService accountService,
       OffenseNotifier offenseNotifier) {
     this.parkingAreaRepository = parkingAreaRepository;
-    this.parkingStickerRepository = parkingStickerRepository;
     this.offenseValidationConverter = offenseValidationConverter;
     this.offenseTypeAssembler = offenseTypeAssembler;
     this.offenseTypeRepository = offenseTypeRepository;
@@ -63,8 +60,11 @@ public class OffenseTypeService {
       offenseNotifier.notifyOffenseWithoutParkingSticker(absentStickerOffense);
     } else {
       try {
-        parkingSticker = parkingStickerRepository.get(offenseValidation.getParkingStickerCode());
-      } catch (NotFoundParkingStickerException exception) {
+        ParkingStickerCode parkingStickerCode = offenseValidation.getParkingStickerCode();
+        parkingSticker =
+            accountService.getAccount(parkingStickerCode).getParkingSticker(parkingStickerCode);
+
+      } catch (NotFoundAccountException exception) {
         OffenseType invalidStickerOffense = offenseTypeFactory.createInvalidStickerOffense();
         offenseTypes.add(invalidStickerOffense);
         offenseNotifier.notifyOffenseWithoutParkingSticker(invalidStickerOffense);
