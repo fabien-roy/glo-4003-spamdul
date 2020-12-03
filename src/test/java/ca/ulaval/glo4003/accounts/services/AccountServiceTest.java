@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.accounts.services;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassBuilder.anAccessPass;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
+import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
@@ -13,6 +14,7 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
+import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
@@ -53,6 +55,7 @@ public class AccountServiceTest {
   private final Bill bill = aBill().build();
   private final Account accountWithBill =
       anAccount().withBillIds(Collections.singletonList(bill.getId())).build();
+  private final Car car = aCar().build();
 
   @Before
   public void setUp() {
@@ -72,15 +75,15 @@ public class AccountServiceTest {
   }
 
   @Test
-  public void whenAddingCar_shouldAddLicensePlateToAccount() {
-    accountService.addLicensePlateToAccount(account.getId(), licensePlate);
+  public void whenAddingCar_shouldAddCarToAccount() {
+    accountService.addCarToAccount(account.getId(), car);
 
-    assertThat(account.getLicensePlates()).contains(licensePlate);
+    assertThat(account.getCars()).contains(car);
   }
 
   @Test
   public void whenAddingCar_shouldUpdateAccountInRepository() {
-    accountService.addLicensePlateToAccount(account.getId(), licensePlate);
+    accountService.addCarToAccount(account.getId(), car);
 
     verify(accountRepository).update(account);
   }

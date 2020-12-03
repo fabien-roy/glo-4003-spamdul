@@ -13,31 +13,24 @@ public class CarService {
 
   private final CarConverter carConverter;
   private final CarAssembler carAssembler;
-  private final CarRepository carRepository;
   private final AccountService accountService;
 
   public CarService(
-      CarConverter carConverter,
-      CarAssembler carAssembler,
-      CarRepository carRepository,
-      AccountService accountService) {
+      CarConverter carConverter, CarAssembler carAssembler, AccountService accountService) {
     this.carConverter = carConverter;
     this.carAssembler = carAssembler;
-    this.carRepository = carRepository;
     this.accountService = accountService;
   }
 
   public void addCar(CarDto carDto, String accountId) {
     Account account = accountService.getAccount(accountId);
-    Car car = carConverter.convert(carDto, accountId);
+    Car car = carConverter.convert(carDto);
 
     accountService.addCarToAccount(account.getId(), car);
-
-    carRepository.save(car);
   }
 
   public Car getCar(LicensePlate licensePlate) {
-    return carRepository.get(licensePlate);
+    return accountService.getCar(licensePlate);
   }
 
   public List<CarDto> getCars(String accountId) {

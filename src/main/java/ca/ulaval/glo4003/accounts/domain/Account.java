@@ -46,6 +46,10 @@ public class Account {
     return parkingStickerCodes;
   }
 
+  public Car getCar(LicensePlate licensePlate) {
+    return cars.get(licensePlate);
+  }
+
   public List<Car> getCars() {
     return cars.values().stream().collect(Collectors.toList());
   }

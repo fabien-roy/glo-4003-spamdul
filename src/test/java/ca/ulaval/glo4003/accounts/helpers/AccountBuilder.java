@@ -6,7 +6,7 @@ import static ca.ulaval.glo4003.users.helpers.UserBuilder.aUser;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
-import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.users.domain.User;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class AccountBuilder {
   private User user = aUser().build();
   private List<AccessPass> accessPasses = new ArrayList<>();
   private List<BillId> billIds = new ArrayList<>();
-  private List<LicensePlate> licensePlates = new ArrayList<>();
+  private List<Car> cars = new ArrayList<>();
 
   private AccountBuilder() {}
 
@@ -40,8 +40,8 @@ public class AccountBuilder {
     return this;
   }
 
-  public AccountBuilder withLicensePlate(List<LicensePlate> licensePlates) {
-    this.licensePlates = licensePlates;
+  public AccountBuilder withCars(List<Car> cars) {
+    this.cars = cars;
     return this;
   }
 
@@ -49,7 +49,7 @@ public class AccountBuilder {
     Account account = new Account(id, user);
     accessPasses.forEach(account::saveAccessPass);
     billIds.forEach(account::addBillId);
-    licensePlates.forEach(account::addLicensePlate);
+    cars.forEach(account::saveCar);
     return account;
   }
 }

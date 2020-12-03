@@ -1,11 +1,15 @@
 package ca.ulaval.glo4003.cars.helpers;
 
+import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
 import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnumExcept;
 
+import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import com.github.javafaker.Faker;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class CarMother {
   public static String createManufacturer() {
@@ -27,5 +31,12 @@ public class CarMother {
   public static ConsumptionType createNotZeroPullutionConsumptionTypes() {
     return randomEnumExcept(
         ConsumptionType.class, Collections.singletonList(ConsumptionType.ZERO_POLLUTION));
+  }
+
+  public static List<Car> createCars() {
+    List<Car> cars = new ArrayList<>();
+    cars.add(aCar().build());
+
+    return cars;
   }
 }
