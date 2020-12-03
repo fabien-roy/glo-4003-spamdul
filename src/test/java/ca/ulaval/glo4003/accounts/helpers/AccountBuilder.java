@@ -49,7 +49,7 @@ public class AccountBuilder {
     Account account = new Account(id, user);
     accessPasses.forEach(account::saveAccessPass);
     billIds.forEach(account::addBillId);
-    cars.forEach(account::saveCar);
+    cars.forEach(account::addCar);
     return account;
   }
 }

@@ -47,7 +47,7 @@ public class AccountService {
   public void addCarToAccount(AccountId id, Car car) {
     Account account = getAccount(id);
 
-    account.saveCar(car);
+    account.addCar(car);
     accountRepository.update(account);
   }
 

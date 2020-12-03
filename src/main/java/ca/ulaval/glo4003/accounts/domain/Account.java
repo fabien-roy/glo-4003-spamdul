@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.cars.exceptions.AlreadyExistingLicensePlateException;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
@@ -51,7 +52,7 @@ public class Account {
   }
 
   public List<Car> getCars() {
-    return cars.values().stream().collect(Collectors.toList());
+    return new ArrayList<>(cars.values());
   }
 
   public List<BillId> getBillIds() {
@@ -62,7 +63,11 @@ public class Account {
     accessPasses.put(accessPass.getCode(), accessPass);
   }
 
-  public void saveCar(Car car) {
+  public void addCar(Car car) {
+    if (getCar(car.getLicensePlate()) != null) {
+      throw new AlreadyExistingLicensePlateException();
+    }
+
     cars.put(car.getLicensePlate(), car);
   }
 
