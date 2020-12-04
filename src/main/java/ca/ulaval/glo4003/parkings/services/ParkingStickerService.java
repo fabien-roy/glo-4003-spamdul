@@ -38,7 +38,7 @@ public class ParkingStickerService extends ParkingStickerCreationObservable {
     logger.info(String.format("Add new parking sticker %s", parkingStickerDto));
 
     ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
-    accountService.getAccount(parkingSticker.getAccountId()); // TODO : Why is this line here...?
+    accountService.getAccount(parkingSticker.getAccountId());
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
     ParkingArea parkingArea = parkingAreaRepository.get(parkingSticker.getParkingAreaCode());
