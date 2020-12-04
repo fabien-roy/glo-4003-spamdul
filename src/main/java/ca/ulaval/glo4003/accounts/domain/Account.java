@@ -15,7 +15,7 @@ public class Account {
   private final AccountId id;
   private final User user;
   private final Map<AccessPassCode, AccessPass> accessPasses = new HashMap<>();
-  private Map<ParkingStickerCode, ParkingSticker> parkingStickers = new HashMap<>();
+  private final Map<ParkingStickerCode, ParkingSticker> parkingStickers = new HashMap<>();
   private List<LicensePlate> licensePlates = new ArrayList<>();
   private List<BillId> billIds = new ArrayList<>();
 
@@ -40,10 +40,6 @@ public class Account {
     return accessPasses.values().stream()
         .filter(accessPass -> licensePlate.equals(accessPass.getLicensePlate()))
         .collect(Collectors.toList());
-  }
-
-  public List<ParkingSticker> getParkingStickers() {
-    return new ArrayList<>(parkingStickers.values());
   }
 
   public List<LicensePlate> getLicensePlates() {

@@ -34,13 +34,17 @@ public class AccountRepositoryInMemory implements AccountRepository {
 
   @Override
   public ParkingSticker getParkingSticker(ParkingStickerCode parkingStickerCode) {
-    for (Account account : accounts.values()) {
-      ParkingSticker parkingSticker = account.getParkingSticker(parkingStickerCode);
-      if (parkingSticker != null) {
-        return parkingSticker;
-      }
+    Optional<ParkingSticker> parkingSticker =
+        accounts.values().stream()
+            .map(account -> account.getParkingSticker(parkingStickerCode))
+            .filter(Objects::nonNull)
+            .findFirst();
+
+    if (parkingSticker.isPresent()) {
+      return parkingSticker.get();
+    } else {
+      throw new NotFoundParkingStickerException();
     }
-    throw new NotFoundParkingStickerException();
   }
 
   @Override

@@ -52,25 +52,33 @@ public class AccountRepositoryInMemoryTest {
     assertThat(foundAccount).isSameInstanceAs(account);
   }
 
-  @Test
-  public void
-      givenAccountWithParkingSticker_whenGettingParkingStickerWithParkingStickerCode_theReturnParkingSticker() {
-    accountRepository.save(account);
-    ParkingSticker foundParkingSticker =
-        accountRepository.getParkingSticker(parkingSticker.getCode());
-
-    assertThat(parkingSticker).isSameInstanceAs(parkingSticker);
-  }
-
   @Test(expected = NotFoundAccountException.class)
   public void givenNonExistentAccount_whenGettingAccountWithId_thenThrowNotFoundAccountException() {
     accountRepository.get(account.getId());
   }
 
   @Test(expected = NotFoundParkingStickerException.class)
-  public void
-      givenNonExistentAccount_whenGettingAccountWithParkingStickerCode_thenThrowNotFoundStickerException() {
+  public void givenNoAccount_whenGettingParkingSticker_thenThrowNotFoundParkingStickerException() {
     accountRepository.getParkingSticker(parkingSticker.getCode());
+  }
+
+  @Test(expected = NotFoundParkingStickerException.class)
+  public void
+      givenNoAccountWithParkingSticker_whenGettingParkingSticker_thenThrowNotFoundParkingStickerException() {
+    Account account = anAccount().build();
+    accountRepository.save(account);
+
+    accountRepository.getParkingSticker(parkingSticker.getCode());
+  }
+
+  @Test
+  public void whenGettingParkingSticker_thenGetParkingSticker() {
+    accountRepository.save(account);
+
+    ParkingSticker foundParkingSticker =
+        accountRepository.getParkingSticker(parkingSticker.getCode());
+
+    assertThat(foundParkingSticker).isSameInstanceAs(parkingSticker);
   }
 
   @Test(expected = NotFoundAccessPassException.class)

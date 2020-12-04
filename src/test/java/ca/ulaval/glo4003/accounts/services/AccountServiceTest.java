@@ -89,8 +89,8 @@ public class AccountServiceTest {
   public void whenAddingParkingSticker_shouldAddParkingStickerCodeToAccount() {
     accountService.addParkingStickerToAccount(account.getId(), parkingSticker, billId);
 
-    assertThat(account.getParkingStickers())
-        .contains(parkingSticker); // TODO : On compare des codes à des collants...
+    assertThat(parkingSticker)
+        .isSameInstanceAs(account.getParkingSticker(parkingSticker.getCode()));
   }
 
   @Test
