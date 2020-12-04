@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.offenses.services;
 
-import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
@@ -12,6 +11,7 @@ import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
+import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class OffenseTypeService {
         ParkingStickerCode parkingStickerCode = offenseValidation.getParkingStickerCode();
         parkingSticker = accountService.getParkingSticker(parkingStickerCode);
 
-      } catch (NotFoundAccountException exception) {
+      } catch (NotFoundParkingStickerException exception) {
         OffenseType invalidStickerOffense = offenseTypeFactory.createInvalidStickerOffense();
         offenseTypes.add(invalidStickerOffense);
         offenseNotifier.notifyOffenseWithoutParkingSticker(invalidStickerOffense);
