@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.gates.helpers;
 
 import static ca.ulaval.glo4003.gates.helpers.AccessStatusMother.createAccessStatus;
 
-import ca.ulaval.glo4003.gates.api.dto.AccessStatusDto;
+import ca.ulaval.glo4003.gates.services.dto.AccessStatusDto;
 
 public class AccessStatusDtoBuilder {
   private String accessStatus = createAccessStatus().toString();

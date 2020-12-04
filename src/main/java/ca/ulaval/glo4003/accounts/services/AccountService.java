@@ -1,45 +1,46 @@
 package ca.ulaval.glo4003.accounts.services;
 
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
-import ca.ulaval.glo4003.accounts.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
+import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.funds.api.dto.BillDto;
-import ca.ulaval.glo4003.funds.api.dto.BillPaymentDto;
-import ca.ulaval.glo4003.funds.assemblers.BillAssembler;
-import ca.ulaval.glo4003.funds.assemblers.BillIdAssembler;
-import ca.ulaval.glo4003.funds.assemblers.BillPaymentAssembler;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
+import ca.ulaval.glo4003.funds.services.converters.BillIdConverter;
+import ca.ulaval.glo4003.funds.services.converters.BillPaymentConverter;
+import ca.ulaval.glo4003.funds.services.dto.BillDto;
+import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import java.util.List;
 
 public class AccountService {
 
   private final AccountRepository accountRepository;
-  private final AccountIdAssembler accountIdAssembler;
+  private final AccountIdConverter accountIdConverter;
   private final BillService billService;
   private final BillAssembler billAssembler;
-  private final BillIdAssembler billIdAssembler;
-  private final BillPaymentAssembler billPaymentAssembler;
+  private final BillIdConverter billIdConverter;
+  private final BillPaymentConverter billPaymentConverter;
 
   public AccountService(
       AccountRepository accountRepository,
-      AccountIdAssembler accountIdAssembler,
+      AccountIdConverter accountIdConverter,
       BillService billService,
       BillAssembler billAssembler,
-      BillIdAssembler billIdAssembler,
-      BillPaymentAssembler billPaymentAssembler) {
+      BillIdConverter billIdConverter,
+      BillPaymentConverter billPaymentConverter) {
     this.accountRepository = accountRepository;
-    this.accountIdAssembler = accountIdAssembler;
+    this.accountIdConverter = accountIdConverter;
     this.billService = billService;
     this.billAssembler = billAssembler;
-    this.billIdAssembler = billIdAssembler;
-    this.billPaymentAssembler = billPaymentAssembler;
+    this.billIdConverter = billIdConverter;
+    this.billPaymentConverter = billPaymentConverter;
   }
 
   public void addLicensePlateToAccount(AccountId id, LicensePlate licensePlate) {
@@ -58,10 +59,10 @@ public class AccountService {
     accountRepository.update(account);
   }
 
-  public void addAccessCodeToAccount(AccountId id, AccessPassCode accessPassCode, BillId billId) {
+  public void addAccessPassToAccount(AccountId id, AccessPass accessPass, BillId billId) {
     Account account = getAccount(id);
 
-    account.addAccessPassCode(accessPassCode);
+    account.saveAccessPass(accessPass);
     account.addBillId(billId);
     accountRepository.update(account);
   }
@@ -82,8 +83,8 @@ public class AccountService {
   }
 
   public BillDto payBill(BillPaymentDto billPaymentDto, String accountId, String billId) {
-    Money amountToPay = billPaymentAssembler.assemble(billPaymentDto);
-    BillId billNumber = billIdAssembler.assemble(billId);
+    Money amountToPay = billPaymentConverter.convert(billPaymentDto);
+    BillId billNumber = billIdConverter.convert(billId);
 
     Account account = getAccount(accountId);
     account.verifyAccountHasBillId(billNumber);
@@ -92,11 +93,23 @@ public class AccountService {
   }
 
   public Account getAccount(String accountId) {
-    AccountId id = accountIdAssembler.assemble(accountId);
+    AccountId id = accountIdConverter.convert(accountId);
     return getAccount(id);
   }
 
   public Account getAccount(AccountId accountId) {
-    return accountRepository.findById(accountId);
+    return accountRepository.get(accountId);
+  }
+
+  public AccessPass getAccessPass(AccessPassCode accessPassCode) {
+    return accountRepository.getAccessPass(accessPassCode);
+  }
+
+  public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
+    return accountRepository.getAccessPasses(licensePlate);
+  }
+
+  public void update(AccessPass accessPass) {
+    accountRepository.update(accessPass);
   }
 }

@@ -2,12 +2,12 @@ package ca.ulaval.glo4003.initiatives.services;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
-import ca.ulaval.glo4003.initiatives.api.dto.*;
-import ca.ulaval.glo4003.initiatives.assembler.InitiativeAddAllocatedAmountAssembler;
-import ca.ulaval.glo4003.initiatives.assembler.InitiativeAssembler;
-import ca.ulaval.glo4003.initiatives.assembler.InitiativeAvailableAmountAssembler;
-import ca.ulaval.glo4003.initiatives.assembler.InitiativeCodeAssembler;
 import ca.ulaval.glo4003.initiatives.domain.*;
+import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAssembler;
+import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAvailableAmountAssembler;
+import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeCodeAssembler;
+import ca.ulaval.glo4003.initiatives.services.converters.InitiativeAddAllocatedAmountConverter;
+import ca.ulaval.glo4003.initiatives.services.dto.*;
 import java.util.List;
 
 public class InitiativeService extends InitiativeAddedAllocatedAmountObservable {
@@ -16,7 +16,7 @@ public class InitiativeService extends InitiativeAddedAllocatedAmountObservable 
   private final InitiativeCodeAssembler initiativeCodeAssembler;
   private final InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler;
   private final InitiativeAssembler initiativeAssembler;
-  private final InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler;
+  private final InitiativeAddAllocatedAmountConverter initiativeAddAllocatedAmountConverter;
   private final SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
 
   public InitiativeService(
@@ -25,14 +25,14 @@ public class InitiativeService extends InitiativeAddedAllocatedAmountObservable 
       InitiativeCodeAssembler initiativeCodeAssembler,
       InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler,
       InitiativeAssembler initiativeAssembler,
-      InitiativeAddAllocatedAmountAssembler initiativeAddAllocatedAmountAssembler,
+      InitiativeAddAllocatedAmountConverter initiativeAddAllocatedAmountConverter,
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
     this.initiativeFactory = initiativeFactory;
     this.initiativeRepository = initiativeRepository;
     this.initiativeCodeAssembler = initiativeCodeAssembler;
     this.initiativeAvailableAmountAssembler = initiativeAvailableAmountAssembler;
     this.initiativeAssembler = initiativeAssembler;
-    this.initiativeAddAllocatedAmountAssembler = initiativeAddAllocatedAmountAssembler;
+    this.initiativeAddAllocatedAmountConverter = initiativeAddAllocatedAmountConverter;
     this.sustainableMobilityProgramBankRepository = sustainableMobilityProgramBankRepository;
   }
 
@@ -69,7 +69,7 @@ public class InitiativeService extends InitiativeAddedAllocatedAmountObservable 
   public void addAllocatedAmountToInitiative(
       String initiativeCode, InitiativeAddAllocatedAmountDto initiativeAddAllocatedAmountDto) {
     InitiativeCode code = initiativeCodeAssembler.assemble(initiativeCode);
-    Money amount = initiativeAddAllocatedAmountAssembler.assemble(initiativeAddAllocatedAmountDto);
+    Money amount = initiativeAddAllocatedAmountConverter.convert(initiativeAddAllocatedAmountDto);
 
     addAllocatedAmountToInitiative(code, amount);
   }

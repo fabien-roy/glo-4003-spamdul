@@ -12,11 +12,11 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
-import ca.ulaval.glo4003.offenses.api.dto.OffenseTypeDto;
-import ca.ulaval.glo4003.offenses.api.dto.OffenseValidationDto;
-import ca.ulaval.glo4003.offenses.assemblers.OffenseTypeAssembler;
-import ca.ulaval.glo4003.offenses.assemblers.OffenseValidationAssembler;
 import ca.ulaval.glo4003.offenses.domain.*;
+import ca.ulaval.glo4003.offenses.services.assemblers.OffenseTypeAssembler;
+import ca.ulaval.glo4003.offenses.services.converters.OffenseValidationConverter;
+import ca.ulaval.glo4003.offenses.services.dto.OffenseTypeDto;
+import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
@@ -33,7 +33,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class OffenseTypeServiceTest {
   @Mock private ParkingAreaRepository parkingAreaRepository;
   @Mock private ParkingStickerRepository parkingStickerRepository;
-  @Mock private OffenseValidationAssembler offenseValidationAssembler;
+  @Mock private OffenseValidationConverter offenseValidationConverter;
   @Mock private OffenseTypeAssembler offenseTypeAssembler;
   @Mock private OffenseTypeRepository offenseTypeRepository;
   @Mock private OffenseTypeFactory offenseTypeFactory;
@@ -64,7 +64,7 @@ public class OffenseTypeServiceTest {
         new OffenseTypeService(
             parkingAreaRepository,
             parkingStickerRepository,
-            offenseValidationAssembler,
+            offenseValidationConverter,
             offenseTypeAssembler,
             offenseTypeRepository,
             offenseTypeFactory,
@@ -79,7 +79,7 @@ public class OffenseTypeServiceTest {
     when(offenseTypeRepository.getAll()).thenReturn(offenseTypes);
     when(offenseTypeAssembler.assembleMany(offenseTypes)).thenReturn(offenseTypeDtos);
 
-    when(offenseValidationAssembler.assemble(offenseValidationDto)).thenReturn(offenseValidation);
+    when(offenseValidationConverter.convert(offenseValidationDto)).thenReturn(offenseValidation);
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(false);
     when(parkingStickerRepository.get(offenseValidation.getParkingStickerCode()))

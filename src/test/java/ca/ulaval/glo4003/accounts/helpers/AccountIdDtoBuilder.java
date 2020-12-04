@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.accounts.helpers;
 
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 
-import ca.ulaval.glo4003.users.api.dto.AccountIdDto;
+import ca.ulaval.glo4003.users.services.dto.AccountIdDto;
 
 public class AccountIdDtoBuilder {
   private String accountId = createAccountId().toString();

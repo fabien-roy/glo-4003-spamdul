@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.offenses.helpers;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeMother.*;
 
-import ca.ulaval.glo4003.offenses.filesystem.dto.OffenseDtoInFrench;
+import ca.ulaval.glo4003.offenses.services.dto.OffenseDtoInFrench;
 
 public class OffenseInFrenchDtoBuilder {
   private String infraction = createDescription();

@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.accesspasses.helpers;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
 
-import ca.ulaval.glo4003.accesspasses.api.dto.AccessPassCodeDto;
+import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 
 public class AccessPassCodeDtoBuilder {
   private String accessPassCode = createAccessPassCode().toString();

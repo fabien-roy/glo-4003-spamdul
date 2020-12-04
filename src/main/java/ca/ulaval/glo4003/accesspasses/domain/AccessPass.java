@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.accesspasses.domain;
 
 import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassEntryException;
 import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassExitException;
-import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
@@ -12,20 +11,17 @@ import java.util.List;
 
 public class AccessPass {
   private AccessPassCode accessPassCode;
-  private final AccountId accountId;
   private final DayOfWeek accessDay;
   private final LicensePlate licensePlate;
   private final List<TimePeriod> accessPeriods;
+  private final ParkingAreaCode parkingAreaCode;
   private boolean isAdmittedOnCampus = false;
-  private ParkingAreaCode parkingAreaCode;
 
   public AccessPass(
-      AccountId accountId,
       DayOfWeek accessDay,
       LicensePlate licensePlate,
       List<TimePeriod> accessPeriods,
       ParkingAreaCode parkingAreaCode) {
-    this.accountId = accountId;
     this.accessDay = accessDay;
     this.licensePlate = licensePlate;
     this.accessPeriods = accessPeriods;
@@ -42,10 +38,6 @@ public class AccessPass {
 
   public AccessPassCode getCode() {
     return accessPassCode;
-  }
-
-  public AccountId getAccountId() {
-    return accountId;
   }
 
   public DayOfWeek getAccessDay() {

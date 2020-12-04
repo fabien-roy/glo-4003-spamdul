@@ -4,15 +4,14 @@ import ca.ulaval.glo4003.parkings.exceptions.InvalidParkingPeriodException;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO : According to AccessPeriod, it should be "semester" and not "session"
 public enum ParkingPeriod {
-  ONE_DAY("1d/week/session"),
+  ONE_DAY_PER_WEEK_PER_SEMESTER("1d/week/semester"),
   MONTHLY("monthly"),
-  ONE_SESSION("1 session"),
-  TWO_SESSIONS("2 session"),
-  THREE_SESSIONS("3 session");
+  ONE_SEMESTER("1 semester"),
+  TWO_SEMESTERS("2 semesters"),
+  THREE_SEMESTERS("3 semesters");
 
-  private String period;
+  private final String period;
   private static final Map<String, ParkingPeriod> lookup = new HashMap<>();
 
   static {

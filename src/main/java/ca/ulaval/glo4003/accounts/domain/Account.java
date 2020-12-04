@@ -1,19 +1,20 @@
 package ca.ulaval.glo4003.accounts.domain;
 
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.users.domain.User;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Account {
   private final AccountId id;
   private final User user;
+  private final Map<AccessPassCode, AccessPass> accessPasses = new HashMap<>();
   private List<ParkingStickerCode> parkingStickerCodes = new ArrayList<>();
-  private List<AccessPassCode> accessPassCodes = new ArrayList<>();
   private List<LicensePlate> licensePlates = new ArrayList<>();
   private List<BillId> billIds = new ArrayList<>();
 
@@ -30,6 +31,16 @@ public class Account {
     return user;
   }
 
+  public AccessPass getAccessPass(AccessPassCode accessPassCode) {
+    return accessPasses.get(accessPassCode);
+  }
+
+  public List<AccessPass> getAccessPasses(LicensePlate licensePlate) {
+    return accessPasses.values().stream()
+        .filter(accessPass -> licensePlate.equals(accessPass.getLicensePlate()))
+        .collect(Collectors.toList());
+  }
+
   public List<ParkingStickerCode> getParkingStickerCodes() {
     return parkingStickerCodes;
   }
@@ -42,12 +53,12 @@ public class Account {
     return billIds;
   }
 
-  public void addParkingStickerCode(ParkingStickerCode parkingSticker) {
-    parkingStickerCodes.add(parkingSticker);
+  public void saveAccessPass(AccessPass accessPass) {
+    accessPasses.put(accessPass.getCode(), accessPass);
   }
 
-  public void addAccessPassCode(AccessPassCode accessPassCode) {
-    accessPassCodes.add(accessPassCode);
+  public void addParkingStickerCode(ParkingStickerCode parkingSticker) {
+    parkingStickerCodes.add(parkingSticker);
   }
 
   public void addLicensePlate(LicensePlate licensePlate) {
@@ -62,9 +73,5 @@ public class Account {
     if (!billIds.contains(billId)) {
       throw new BillNotFoundException();
     }
-  }
-
-  public List<AccessPassCode> getAccessPassCodes() {
-    return accessPassCodes;
   }
 }

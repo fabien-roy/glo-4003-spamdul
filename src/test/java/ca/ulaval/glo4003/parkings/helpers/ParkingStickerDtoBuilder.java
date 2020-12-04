@@ -6,7 +6,7 @@ import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalC
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createReceptionMethod;
 
-import ca.ulaval.glo4003.parkings.api.dto.ParkingStickerDto;
+import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
 
 public class ParkingStickerDtoBuilder {
   private String accountId = createAccountId().toString();

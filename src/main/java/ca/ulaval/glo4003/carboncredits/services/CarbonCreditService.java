@@ -1,14 +1,14 @@
 package ca.ulaval.glo4003.carboncredits.services;
 
-import ca.ulaval.glo4003.carboncredits.api.dto.CarbonCreditDto;
-import ca.ulaval.glo4003.carboncredits.api.dto.MonthlyPaymentStatusDto;
-import ca.ulaval.glo4003.carboncredits.assemblers.CarbonCreditAssembler;
-import ca.ulaval.glo4003.carboncredits.assemblers.MonthlyPaymentStatusAssembler;
 import ca.ulaval.glo4003.carboncredits.configuration.CarbonCreditConfiguration;
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCredit;
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCreditRepository;
 import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatus;
 import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatusRepository;
+import ca.ulaval.glo4003.carboncredits.services.assemblers.CarbonCreditAssembler;
+import ca.ulaval.glo4003.carboncredits.services.assemblers.MonthlyPaymentStatusAssembler;
+import ca.ulaval.glo4003.carboncredits.services.dto.CarbonCreditDto;
+import ca.ulaval.glo4003.carboncredits.services.dto.MonthlyPaymentStatusDto;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;

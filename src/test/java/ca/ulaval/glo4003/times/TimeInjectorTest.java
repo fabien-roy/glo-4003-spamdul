@@ -2,9 +2,10 @@ package ca.ulaval.glo4003.times;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.times.assemblers.CustomDateAssembler;
-import ca.ulaval.glo4003.times.assemblers.CustomDateTimeAssembler;
-import ca.ulaval.glo4003.times.assemblers.TimeOfDayAssembler;
+import ca.ulaval.glo4003.times.services.SemesterService;
+import ca.ulaval.glo4003.times.services.converters.CustomDateConverter;
+import ca.ulaval.glo4003.times.services.converters.CustomDateTimeConverter;
+import ca.ulaval.glo4003.times.services.converters.TimeOfDayConverter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,23 +19,30 @@ public class TimeInjectorTest {
   }
 
   @Test
-  public void whenCreatingCustomDateAssembler_thenReturnIt() {
-    CustomDateAssembler customDateAssembler = timeInjector.createCustomDateAssembler();
+  public void whenCreatingCustomDateConverter_thenReturnIt() {
+    CustomDateConverter customDateConverter = timeInjector.createCustomDateConverter();
 
-    assertThat(customDateAssembler).isNotNull();
+    assertThat(customDateConverter).isNotNull();
   }
 
   @Test
-  public void whenCreatingCustomDateTimeAssembler_thenReturnIt() {
-    CustomDateTimeAssembler customDateTimeAssembler = timeInjector.createCustomDateTimeAssembler();
+  public void whenCreatingCustomDateTimeConverter_thenReturnIt() {
+    CustomDateTimeConverter customDateTimeConverter = timeInjector.createCustomDateTimeConverter();
 
-    assertThat(customDateTimeAssembler).isNotNull();
+    assertThat(customDateTimeConverter).isNotNull();
   }
 
   @Test
-  public void whenCreatingTimeOfDayAssembler_thenReturnIt() {
-    TimeOfDayAssembler timeOfDayAssembler = timeInjector.createTimeOfDayAssembler();
+  public void whenCreatingTimeOfDayConverter_thenReturnIt() {
+    TimeOfDayConverter timeOfDayConverter = timeInjector.createTimeOfDayConverter();
 
-    assertThat(timeOfDayAssembler).isNotNull();
+    assertThat(timeOfDayConverter).isNotNull();
+  }
+
+  @Test
+  public void whenCreatingSemesterService_thenReturnIt() {
+    SemesterService semesterService = timeInjector.createSemesterService();
+
+    assertThat(semesterService).isNotNull();
   }
 }

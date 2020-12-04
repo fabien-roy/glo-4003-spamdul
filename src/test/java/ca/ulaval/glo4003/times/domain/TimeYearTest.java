@@ -61,7 +61,6 @@ public class TimeYearTest {
     assertThat(yearEnd).isEqualTo(expectedYearEnd);
   }
 
-  // TODO : Fixed values would test this better.
   @Test
   public void whenConvertingToString_thenReturnYearAsString() {
     String expectedString = Integer.toString(dateTime.toLocalDateTime().getYear());

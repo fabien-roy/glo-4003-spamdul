@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.initiatives.helpers;
 
 import static ca.ulaval.glo4003.initiatives.helpers.InitiativeMother.*;
 
-import ca.ulaval.glo4003.initiatives.api.dto.InitiativeCodeDto;
+import ca.ulaval.glo4003.initiatives.services.dto.InitiativeCodeDto;
 
 public class InitiativeCodeDtoBuilder {
   private String initiativeCode = createInitiativeCode().toString();

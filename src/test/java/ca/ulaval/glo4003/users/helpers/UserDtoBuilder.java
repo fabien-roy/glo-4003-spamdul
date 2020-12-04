@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.users.helpers;
 import static ca.ulaval.glo4003.times.helpers.CustomDateMother.createPastDate;
 import static ca.ulaval.glo4003.users.helpers.UserMother.*;
 
-import ca.ulaval.glo4003.users.api.dto.UserDto;
+import ca.ulaval.glo4003.users.services.dto.UserDto;
 
 public class UserDtoBuilder {
   private String name = createName();
