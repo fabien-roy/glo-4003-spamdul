@@ -10,7 +10,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.domain.Account;
-import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
@@ -21,6 +20,7 @@ import ca.ulaval.glo4003.offenses.services.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
+import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -155,7 +155,7 @@ public class OffenseTypeServiceTest {
   public void
       givenValidationWithInvalidParkingSticker_whenValidatingOffense_thenReturnInvalidParkingStickerOffenseType() {
     when(accountService.getParkingSticker(offenseValidation.getParkingStickerCode()))
-        .thenThrow(new NotFoundAccountException());
+        .thenThrow(new NotFoundParkingStickerException());
 
     List<OffenseTypeDto> offenseTypeDtos = offenseTypeService.validateOffense(offenseValidationDto);
 
@@ -166,7 +166,7 @@ public class OffenseTypeServiceTest {
   public void
       givenValidationWithInvalidParkingSticker_whenValidatingOffense_thenOffenseIsNotifiedForInvalidParkingSticker() {
     when(accountService.getParkingSticker(offenseValidation.getParkingStickerCode()))
-        .thenThrow(new NotFoundAccountException());
+        .thenThrow(new NotFoundParkingStickerException());
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
