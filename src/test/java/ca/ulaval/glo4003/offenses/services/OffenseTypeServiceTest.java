@@ -81,7 +81,8 @@ public class OffenseTypeServiceTest {
     when(offenseValidationConverter.convert(offenseValidationDto)).thenReturn(offenseValidation);
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(false);
-    when(accountService.getAccount(offenseValidation.getParkingStickerCode())).thenReturn(account);
+    when(accountService.getParkingSticker(offenseValidation.getParkingStickerCode()))
+        .thenReturn(parkingSticker);
     when(account.getParkingSticker(offenseValidation.getParkingStickerCode()))
         .thenReturn(parkingSticker);
     when(offenseTypeFactory.createWrongZoneOffense()).thenReturn(wrongZoneOffenseType);
@@ -115,7 +116,7 @@ public class OffenseTypeServiceTest {
   public void whenValidatingOffense_thenGetParkingSticker() {
     offenseTypeService.validateOffense(offenseValidationDto);
 
-    verify(accountService).getAccount(offenseValidation.getParkingStickerCode());
+    verify(accountService).getParkingSticker(offenseValidation.getParkingStickerCode());
   }
 
   @Test
@@ -153,7 +154,7 @@ public class OffenseTypeServiceTest {
   @Test
   public void
       givenValidationWithInvalidParkingSticker_whenValidatingOffense_thenReturnInvalidParkingStickerOffenseType() {
-    when(accountService.getAccount(offenseValidation.getParkingStickerCode()))
+    when(accountService.getParkingSticker(offenseValidation.getParkingStickerCode()))
         .thenThrow(new NotFoundAccountException());
 
     List<OffenseTypeDto> offenseTypeDtos = offenseTypeService.validateOffense(offenseValidationDto);
@@ -164,7 +165,7 @@ public class OffenseTypeServiceTest {
   @Test
   public void
       givenValidationWithInvalidParkingSticker_whenValidatingOffense_thenOffenseIsNotifiedForInvalidParkingSticker() {
-    when(accountService.getAccount(offenseValidation.getParkingStickerCode()))
+    when(accountService.getParkingSticker(offenseValidation.getParkingStickerCode()))
         .thenThrow(new NotFoundAccountException());
 
     offenseTypeService.validateOffense(offenseValidationDto);

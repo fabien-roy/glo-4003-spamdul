@@ -8,7 +8,9 @@ import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
+import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,13 +33,14 @@ public class AccountRepositoryInMemory implements AccountRepository {
   }
 
   @Override
-  public Account get(ParkingStickerCode parkingStickerCode) {
+  public ParkingSticker getParkingSticker(ParkingStickerCode parkingStickerCode) {
     for (Account account : accounts.values()) {
-      if (account.getParkingSticker(parkingStickerCode) != null) {
-        return account;
+      ParkingSticker parkingSticker = account.getParkingSticker(parkingStickerCode);
+      if (parkingSticker != null) {
+        return parkingSticker;
       }
     }
-    throw new NotFoundAccountException();
+    throw new NotFoundParkingStickerException();
   }
 
   @Override

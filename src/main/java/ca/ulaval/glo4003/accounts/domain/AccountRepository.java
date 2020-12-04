@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.accounts.domain;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface AccountRepository {
 
   Account get(AccountId id);
 
-  Account get(ParkingStickerCode parkingStickerCode);
+  ParkingSticker getParkingSticker(ParkingStickerCode parkingStickerCode);
 
   AccessPass getAccessPass(AccessPassCode accessPassCode);
 

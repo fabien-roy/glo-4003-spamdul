@@ -102,8 +102,8 @@ public class AccountService {
     return accountRepository.get(accountId);
   }
 
-  public Account getAccount(ParkingStickerCode parkingStickerCode) {
-    return accountRepository.get(parkingStickerCode);
+  public ParkingSticker getParkingSticker(ParkingStickerCode parkingStickerCode) {
+    return accountRepository.getParkingSticker(parkingStickerCode);
   }
 
   public AccessPass getAccessPass(AccessPassCode accessPassCode) {

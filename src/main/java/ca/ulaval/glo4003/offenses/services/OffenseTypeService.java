@@ -61,8 +61,7 @@ public class OffenseTypeService {
     } else {
       try {
         ParkingStickerCode parkingStickerCode = offenseValidation.getParkingStickerCode();
-        parkingSticker =
-            accountService.getAccount(parkingStickerCode).getParkingSticker(parkingStickerCode);
+        parkingSticker = accountService.getParkingSticker(parkingStickerCode);
 
       } catch (NotFoundAccountException exception) {
         OffenseType invalidStickerOffense = offenseTypeFactory.createInvalidStickerOffense();

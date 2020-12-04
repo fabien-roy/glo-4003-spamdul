@@ -14,6 +14,7 @@ import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
+import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -53,11 +54,12 @@ public class AccountRepositoryInMemoryTest {
 
   @Test
   public void
-      givenAccountWithParkingStickerCode_whenGettingAccountWithParkingStickerCode_theReturnAccount() {
+      givenAccountWithParkingSticker_whenGettingParkingStickerWithParkingStickerCode_theReturnParkingSticker() {
     accountRepository.save(account);
-    Account foundAccount = accountRepository.get(parkingSticker.getCode());
+    ParkingSticker foundParkingSticker =
+        accountRepository.getParkingSticker(parkingSticker.getCode());
 
-    assertThat(foundAccount).isSameInstanceAs(account);
+    assertThat(parkingSticker).isSameInstanceAs(parkingSticker);
   }
 
   @Test(expected = NotFoundAccountException.class)
@@ -65,10 +67,10 @@ public class AccountRepositoryInMemoryTest {
     accountRepository.get(account.getId());
   }
 
-  @Test(expected = NotFoundAccountException.class)
+  @Test(expected = NotFoundParkingStickerException.class)
   public void
-      givenNonExistentAccount_whenGettingAccountWithParkingStickerCode_thenThrowNotFoundAccountException() {
-    accountRepository.get(parkingSticker.getCode());
+      givenNonExistentAccount_whenGettingAccountWithParkingStickerCode_thenThrowNotFoundStickerException() {
+    accountRepository.getParkingSticker(parkingSticker.getCode());
   }
 
   @Test(expected = NotFoundAccessPassException.class)
