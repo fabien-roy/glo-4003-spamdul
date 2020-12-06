@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.interfaces.systemtime;
+package ca.ulaval.glo4003.schedulers.systemtime;
 
-import static ca.ulaval.glo4003.interfaces.systemtime.SchedulerBuilder.newScheduler;
+import static ca.ulaval.glo4003.schedulers.systemtime.SchedulerBuilder.newScheduler;
 import static com.google.common.truth.Truth.assertThat;
 
 import java.util.Collections;

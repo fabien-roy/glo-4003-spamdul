@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.interfaces.systemtime;
+package ca.ulaval.glo4003.schedulers.systemtime;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

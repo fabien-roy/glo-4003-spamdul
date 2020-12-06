@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds.helpers;
 
-import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
+import static ca.ulaval.glo4003.randomizers.helpers.Randomizer.randomEnum;
 
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.BillType;

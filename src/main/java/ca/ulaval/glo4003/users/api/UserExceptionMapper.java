@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.users.api;
 
-import ca.ulaval.glo4003.interfaces.api.dto.ErrorDto;
+import ca.ulaval.glo4003.errors.services.dto.ErrorDto;
 import ca.ulaval.glo4003.users.exceptions.UserException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

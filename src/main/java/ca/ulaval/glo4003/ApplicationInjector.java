@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003;
 
-import static ca.ulaval.glo4003.interfaces.systemtime.SchedulerBuilder.newScheduler;
+import static ca.ulaval.glo4003.schedulers.systemtime.SchedulerBuilder.newScheduler;
 
 import ca.ulaval.glo4003.accesspasses.AccessPassInjector;
 import ca.ulaval.glo4003.accesspasses.api.AccessPassExceptionMapper;
@@ -13,6 +13,7 @@ import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.cars.api.CarExceptionMapper;
 import ca.ulaval.glo4003.communications.CommunicationInjector;
 import ca.ulaval.glo4003.communications.api.CommunicationExceptionMapper;
+import ca.ulaval.glo4003.errors.api.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.files.api.FileExceptionMapper;
 import ca.ulaval.glo4003.funds.FundInjector;
 import ca.ulaval.glo4003.funds.api.FundExceptionMapper;
@@ -22,7 +23,6 @@ import ca.ulaval.glo4003.initiatives.InitiativeInjector;
 import ca.ulaval.glo4003.initiatives.api.InitiativeExceptionMapper;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeAddedAllocatedAmountObserver;
-import ca.ulaval.glo4003.interfaces.api.CatchAllExceptionMapper;
 import ca.ulaval.glo4003.locations.LocationInjector;
 import ca.ulaval.glo4003.locations.api.LocationExceptionMapper;
 import ca.ulaval.glo4003.offenses.OffenseInjector;

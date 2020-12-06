@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.offenses.api;
 
-import ca.ulaval.glo4003.interfaces.api.dto.ErrorDto;
+import ca.ulaval.glo4003.errors.services.dto.ErrorDto;
 import ca.ulaval.glo4003.offenses.exceptions.InvalidOffenseCodeException;
 import ca.ulaval.glo4003.offenses.exceptions.OffenseException;
 import ca.ulaval.glo4003.offenses.exceptions.OffenseTypeNotFoundException;

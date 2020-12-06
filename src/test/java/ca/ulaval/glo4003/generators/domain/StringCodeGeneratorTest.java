@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.interfaces.domain;
+package ca.ulaval.glo4003.generators.domain;
 
 import static com.google.common.truth.Truth.assertThat;
 

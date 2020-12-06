@@ -10,7 +10,7 @@ public class CarDtoBuilder {
   private String manufacturer = createManufacturer();
   private String model = createModel();
   private int year = createYear();
-  private String consumptionTypes = createNotZeroPullutionConsumptionTypes().toString();
+  private String consumptionTypes = createConsumptionTypeOtherThanZeroPollution().toString();
 
   private CarDtoBuilder() {}
 

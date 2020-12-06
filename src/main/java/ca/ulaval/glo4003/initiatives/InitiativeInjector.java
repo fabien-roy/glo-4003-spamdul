@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.carboncredits.configuration.CarbonCreditConfiguration;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
+import ca.ulaval.glo4003.generators.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
 import ca.ulaval.glo4003.initiatives.domain.*;
 import ca.ulaval.glo4003.initiatives.infrastructure.InitiativeRepositoryInMemory;
@@ -12,7 +13,6 @@ import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAssembler;
 import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAvailableAmountAssembler;
 import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeCodeAssembler;
 import ca.ulaval.glo4003.initiatives.services.converters.InitiativeAddAllocatedAmountConverter;
-import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
 import java.util.List;
 
 public class InitiativeInjector {

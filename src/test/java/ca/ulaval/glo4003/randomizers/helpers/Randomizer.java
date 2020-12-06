@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.interfaces.helpers;
+package ca.ulaval.glo4003.randomizers.helpers;
 
 import java.util.ArrayList;
 import java.util.List;

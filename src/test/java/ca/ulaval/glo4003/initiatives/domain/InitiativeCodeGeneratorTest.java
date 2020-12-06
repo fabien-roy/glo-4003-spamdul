@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.initiatives.helpers.InitiativeMother.createIniti
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
+import ca.ulaval.glo4003.generators.domain.StringCodeGenerator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
