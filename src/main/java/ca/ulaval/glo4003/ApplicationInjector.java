@@ -82,8 +82,7 @@ public class ApplicationInjector {
         ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(
-                    FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
-                ACCOUNT_INJECTOR.createAccountIdConverter()),
+                    FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()))),
             PARKING_INJECTOR.createParkingAreaService(),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
@@ -91,8 +90,7 @@ public class ApplicationInjector {
             TIME_INJECTOR.createSemesterService()),
         CAR_INJECTOR.createCarService(
             ACCOUNT_INJECTOR.createAccountService(
-                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
-            ACCOUNT_INJECTOR.createAccountIdConverter()),
+                FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()))),
         ACCOUNT_INJECTOR.createAccountService(
             FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
         PARKING_INJECTOR.createParkingStickerService(
@@ -123,8 +121,7 @@ public class ApplicationInjector {
         ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
                 ACCOUNT_INJECTOR.createAccountService(
-                    FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
-                ACCOUNT_INJECTOR.createAccountIdConverter()),
+                    FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()))),
             PARKING_INJECTOR.createParkingAreaService(),
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),

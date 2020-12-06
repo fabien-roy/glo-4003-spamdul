@@ -7,7 +7,9 @@ import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
+import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.cars.exceptions.NotFoundCarException;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
@@ -72,6 +74,19 @@ public class AccountRepositoryInMemory implements AccountRepository {
     if (accessPasses.isEmpty()) throw new NotFoundAccessPassException();
 
     return accessPasses;
+  }
+
+  @Override
+  public Car getCar(LicensePlate licensePlate) {
+    Optional<Car> car =
+        accounts.values().stream()
+            .map(account -> account.getCar(licensePlate))
+            .filter(Objects::nonNull)
+            .findFirst();
+
+    if (car.isPresent()) {
+      return car.get();
+    } else throw new NotFoundCarException();
   }
 
   @Override
