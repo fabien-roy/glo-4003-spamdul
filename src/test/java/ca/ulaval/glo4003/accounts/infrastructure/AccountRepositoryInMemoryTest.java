@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.accounts.infrastructure;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassBuilder.anAccessPass;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
+import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static com.google.common.truth.Truth.assertThat;
 
@@ -11,6 +12,7 @@ import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
 import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
+import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import java.util.Collections;
 import java.util.List;
@@ -21,9 +23,10 @@ public class AccountRepositoryInMemoryTest {
   private AccountRepository accountRepository;
 
   private final LicensePlate licensePlate = createLicensePlate();
+  private final Car car = aCar().withLicensePlate(licensePlate).build();
   private final AccessPass accessPass = anAccessPass().withLicensePlate(licensePlate).build();
   private final Account account =
-      anAccount().withAccessPasses(Collections.singletonList(accessPass)).build();
+      anAccount().withAccessPasses(Collections.singletonList(accessPass)).build();;
 
   @Before
   public void setUp() {
@@ -87,6 +90,16 @@ public class AccountRepositoryInMemoryTest {
 
     assertThat(accessPasses).hasSize(1);
     assertThat(accessPasses.get(0)).isSameInstanceAs(accessPass);
+  }
+
+  @Test
+  public void givenLicensePlate_whenGettingCar_thenGetCar() {
+    account.saveCar(car);
+    accountRepository.save(account);
+
+    Car car = accountRepository.getCar(licensePlate);
+
+    assertThat(car.getLicensePlate()).isSameInstanceAs(licensePlate);
   }
 
   @Test
