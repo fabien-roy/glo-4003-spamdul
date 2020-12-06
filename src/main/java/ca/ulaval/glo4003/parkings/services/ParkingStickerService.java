@@ -17,7 +17,6 @@ public class ParkingStickerService extends ParkingStickerCreationObservable {
   private final ParkingStickerFactory parkingStickerFactory;
   private final AccountService accountService;
   private final ParkingAreaRepository parkingAreaRepository;
-  private final ParkingStickerRepository parkingStickerRepository;
   private final BillService billService;
 
   public ParkingStickerService(
@@ -26,14 +25,12 @@ public class ParkingStickerService extends ParkingStickerCreationObservable {
       ParkingStickerFactory parkingStickerFactory,
       AccountService accountService,
       ParkingAreaRepository parkingAreaRepository,
-      ParkingStickerRepository parkingStickerRepository,
       BillService billService) {
     this.parkingStickerConverter = parkingStickerConverter;
     this.parkingStickerCodeAssembler = parkingStickerCodeAssembler;
     this.accountService = accountService;
     this.parkingStickerFactory = parkingStickerFactory;
     this.parkingAreaRepository = parkingAreaRepository;
-    this.parkingStickerRepository = parkingStickerRepository;
     this.billService = billService;
   }
 
@@ -48,9 +45,7 @@ public class ParkingStickerService extends ParkingStickerCreationObservable {
 
     BillId billId = billService.addBillForParkingSticker(parkingSticker, parkingArea);
     accountService.addParkingStickerToAccount(
-        parkingSticker.getAccountId(), parkingSticker.getCode(), billId);
-
-    parkingStickerRepository.save(parkingSticker);
+        parkingSticker.getAccountId(), parkingSticker, billId);
 
     notifyParkingStickerCreated(parkingSticker);
 

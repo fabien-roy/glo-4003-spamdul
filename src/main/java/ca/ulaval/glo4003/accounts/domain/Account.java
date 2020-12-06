@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
+import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.users.domain.User;
 import java.util.*;
@@ -14,7 +15,7 @@ public class Account {
   private final AccountId id;
   private final User user;
   private final Map<AccessPassCode, AccessPass> accessPasses = new HashMap<>();
-  private List<ParkingStickerCode> parkingStickerCodes = new ArrayList<>();
+  private final Map<ParkingStickerCode, ParkingSticker> parkingStickers = new HashMap<>();
   private List<LicensePlate> licensePlates = new ArrayList<>();
   private List<BillId> billIds = new ArrayList<>();
 
@@ -41,10 +42,6 @@ public class Account {
         .collect(Collectors.toList());
   }
 
-  public List<ParkingStickerCode> getParkingStickerCodes() {
-    return parkingStickerCodes;
-  }
-
   public List<LicensePlate> getLicensePlates() {
     return licensePlates;
   }
@@ -53,12 +50,16 @@ public class Account {
     return billIds;
   }
 
-  public void saveAccessPass(AccessPass accessPass) {
+  public ParkingSticker getParkingSticker(ParkingStickerCode parkingStickerCode) {
+    return parkingStickers.get(parkingStickerCode);
+  }
+
+  public void addAccessPass(AccessPass accessPass) {
     accessPasses.put(accessPass.getCode(), accessPass);
   }
 
-  public void addParkingStickerCode(ParkingStickerCode parkingSticker) {
-    parkingStickerCodes.add(parkingSticker);
+  public void addParkingSticker(ParkingSticker parkingSticker) {
+    parkingStickers.put(parkingSticker.getCode(), parkingSticker);
   }
 
   public void addLicensePlate(LicensePlate licensePlate) {

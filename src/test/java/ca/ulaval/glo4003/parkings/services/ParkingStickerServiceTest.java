@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.parkings.services;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaBuilder.aParkingArea;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
@@ -31,7 +30,6 @@ public class ParkingStickerServiceTest {
   @Mock private ParkingStickerFactory parkingStickerFactory;
   @Mock private AccountService accountService;
   @Mock private ParkingAreaRepository parkingAreaRepository;
-  @Mock private ParkingStickerRepository parkingStickerRepository;
   @Mock private ParkingStickerCreationObserver parkingStickerCreationObserver;
   @Mock private BillService billService;
 
@@ -50,7 +48,6 @@ public class ParkingStickerServiceTest {
             parkingStickerFactory,
             accountService,
             parkingAreaRepository,
-            parkingStickerRepository,
             billService);
 
     when(parkingStickerConverter.convert(parkingStickerDto)).thenReturn(parkingSticker);
@@ -62,7 +59,6 @@ public class ParkingStickerServiceTest {
         .thenReturn(bill.getId());
     when(parkingStickerCodeAssembler.assemble(parkingSticker.getCode().toString()))
         .thenReturn(parkingSticker.getCode());
-    when(parkingStickerRepository.get(parkingSticker.getCode())).thenReturn(parkingSticker);
   }
 
   @Test
@@ -77,15 +73,7 @@ public class ParkingStickerServiceTest {
     parkingStickerService.addParkingSticker(parkingStickerDto);
 
     Mockito.verify(accountService)
-        .addParkingStickerToAccount(
-            parkingSticker.getAccountId(), parkingSticker.getCode(), bill.getId());
-  }
-
-  @Test
-  public void whenAddingParkingSticker_thenAddParkingStickerToRepository() {
-    parkingStickerService.addParkingSticker(parkingStickerDto);
-
-    Mockito.verify(parkingStickerRepository).save(eq(parkingSticker));
+        .addParkingStickerToAccount(parkingSticker.getAccountId(), parkingSticker, bill.getId());
   }
 
   @Test
