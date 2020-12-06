@@ -34,11 +34,12 @@ public class ParkingStickerService extends ParkingStickerCreationObservable {
     this.billService = billService;
   }
 
-  public ParkingStickerCodeDto addParkingSticker(ParkingStickerDto parkingStickerDto) {
+  public ParkingStickerCodeDto addParkingSticker(
+      ParkingStickerDto parkingStickerDto, String accountId) {
     logger.info(String.format("Add new parking sticker %s", parkingStickerDto));
 
-    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
-    accountService.getAccount(parkingSticker.getAccountId());
+    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto, accountId);
+    accountService.getAccount(accountId);
     parkingSticker = parkingStickerFactory.create(parkingSticker);
 
     ParkingArea parkingArea = parkingAreaRepository.get(parkingSticker.getParkingAreaCode());
