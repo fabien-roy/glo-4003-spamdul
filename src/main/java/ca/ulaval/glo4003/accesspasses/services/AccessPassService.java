@@ -34,6 +34,25 @@ public class AccessPassService {
       ParkingAreaService parkingAreaService,
       AccessPassTypeRepository accessPassTypeRepository,
       AccountService accountService,
+      BillService billService) {
+    this(
+        accessPassConverter,
+        accessPassFactory,
+        carService,
+        parkingAreaService,
+        accessPassTypeRepository,
+        accountService,
+        billService,
+        new AccessPassCodeAssembler());
+  }
+
+  public AccessPassService(
+      AccessPassConverter accessPassConverter,
+      AccessPassFactory accessPassFactory,
+      CarService carService,
+      ParkingAreaService parkingAreaService,
+      AccessPassTypeRepository accessPassTypeRepository,
+      AccountService accountService,
       BillService billService,
       AccessPassCodeAssembler accessPassCodeAssembler) {
     this.accessPassConverter = accessPassConverter;

@@ -22,6 +22,18 @@ public class ReportParkingAreaService {
   public ReportParkingAreaService(
       ParkingAreaService parkingAreaService,
       ReportRepository reportRepository,
+      ReportSummaryBuilder reportSummaryBuilder) {
+    this(
+        parkingAreaService,
+        reportRepository,
+        new ReportPeriodAssembler(),
+        new ReportParkingAreaQueryFactory(),
+        reportSummaryBuilder);
+  }
+
+  public ReportParkingAreaService(
+      ParkingAreaService parkingAreaService,
+      ReportRepository reportRepository,
       ReportPeriodAssembler reportPeriodAssembler,
       ReportParkingAreaQueryFactory reportParkingAreaQueryFactory,
       ReportSummaryBuilder reportSummaryBuilder) {

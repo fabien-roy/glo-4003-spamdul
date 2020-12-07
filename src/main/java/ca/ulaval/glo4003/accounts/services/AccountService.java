@@ -28,6 +28,16 @@ public class AccountService {
   private final BillIdConverter billIdConverter;
   private final BillPaymentConverter billPaymentConverter;
 
+  public AccountService(AccountRepository accountRepository, BillService billService) {
+    this(
+        accountRepository,
+        new AccountIdConverter(),
+        billService,
+        new BillAssembler(),
+        new BillIdConverter(),
+        new BillPaymentConverter());
+  }
+
   public AccountService(
       AccountRepository accountRepository,
       AccountIdConverter accountIdConverter,

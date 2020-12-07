@@ -18,6 +18,10 @@ public class CarService {
   private final CarRepository carRepository;
   private final AccountService accountService;
 
+  public CarService(CarRepository carRepository, AccountService accountService) {
+    this(new CarConverter(), new CarAssembler(), carRepository, accountService);
+  }
+
   public CarService(
       CarConverter carConverter,
       CarAssembler carAssembler,

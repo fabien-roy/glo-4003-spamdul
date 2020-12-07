@@ -28,6 +28,20 @@ public class BillService {
   public BillService(
       BillFactory billFactory,
       BillRepository billRepository,
+      ReportEventService reportEventService,
+      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
+    this(
+        billFactory,
+        billRepository,
+        new BillAssembler(),
+        reportEventService,
+        sustainableMobilityProgramBankRepository,
+        new SustainableMobilityProgramAllocationCalculator());
+  }
+
+  public BillService(
+      BillFactory billFactory,
+      BillRepository billRepository,
       BillAssembler billAssembler,
       ReportEventService reportEventService,
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository,

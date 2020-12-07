@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
+import ca.ulaval.glo4003.reports.infrastructure.ReportQueryBuilderInMemory;
 import ca.ulaval.glo4003.times.domain.TimeMonth;
 import ca.ulaval.glo4003.times.domain.TimeYear;
 import java.util.Collections;
@@ -11,6 +12,10 @@ import java.util.List;
 
 public class ReportParkingAreaQueryFactory {
   private final ReportQueryBuilder reportQueryBuilder;
+
+  public ReportParkingAreaQueryFactory() {
+    this(new ReportQueryBuilderInMemory());
+  }
 
   public ReportParkingAreaQueryFactory(ReportQueryBuilder reportQueryBuilder) {
     this.reportQueryBuilder = reportQueryBuilder;

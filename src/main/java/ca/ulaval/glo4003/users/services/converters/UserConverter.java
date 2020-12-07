@@ -12,6 +12,10 @@ import ca.ulaval.glo4003.users.services.dto.UserDto;
 public class UserConverter {
   private final CustomDateConverter customDateConverter;
 
+  public UserConverter() {
+    this(new CustomDateConverter());
+  }
+
   public UserConverter(CustomDateConverter customDateConverter) {
     this.customDateConverter = customDateConverter;
   }

@@ -16,6 +16,10 @@ public class CarConverter {
   private final LicensePlateConverter licensePlateConverter;
   private final AccountIdConverter accountIdConverter;
 
+  public CarConverter() {
+    this(new LicensePlateConverter(), new AccountIdConverter());
+  }
+
   public CarConverter(
       LicensePlateConverter licensePlateConverter, AccountIdConverter accountIdConverter) {
     this.licensePlateConverter = licensePlateConverter;

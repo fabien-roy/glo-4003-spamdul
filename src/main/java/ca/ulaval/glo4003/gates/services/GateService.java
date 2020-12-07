@@ -23,6 +23,15 @@ public class GateService {
   private final LicensePlateConverter licensePlateConverter;
   private final ReportEventService reportEventService;
 
+  public GateService(AccessPassService accessPassService, ReportEventService reportEventService) {
+    this(
+        accessPassService,
+        new CustomDateTimeConverter(),
+        new AccessStatusAssembler(),
+        new LicensePlateConverter(),
+        reportEventService);
+  }
+
   public GateService(
       AccessPassService accessPassService,
       CustomDateTimeConverter customDateTimeConverter,

@@ -22,6 +22,20 @@ public class InitiativeService extends InitiativeAddedAllocatedAmountObservable 
   public InitiativeService(
       InitiativeFactory initiativeFactory,
       InitiativeRepository initiativeRepository,
+      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
+    this(
+        initiativeFactory,
+        initiativeRepository,
+        new InitiativeCodeAssembler(),
+        new InitiativeAvailableAmountAssembler(),
+        new InitiativeAssembler(),
+        new InitiativeAddAllocatedAmountConverter(),
+        sustainableMobilityProgramBankRepository);
+  }
+
+  public InitiativeService(
+      InitiativeFactory initiativeFactory,
+      InitiativeRepository initiativeRepository,
       InitiativeCodeAssembler initiativeCodeAssembler,
       InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler,
       InitiativeAssembler initiativeAssembler,

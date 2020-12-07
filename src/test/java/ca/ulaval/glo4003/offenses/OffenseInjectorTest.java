@@ -8,9 +8,6 @@ import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
-import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
-import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
-import ca.ulaval.glo4003.times.services.converters.TimeOfDayConverter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,9 +19,6 @@ public class OffenseInjectorTest {
 
   @Mock private ParkingAreaRepository parkingAreaRepository;
   @Mock private ParkingStickerRepository parkingStickerRepository;
-  @Mock private ParkingStickerCodeAssembler parkingStickerCodeAssembler;
-  @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
-  @Mock private TimeOfDayConverter timeOfDayConverter;
   @Mock private MoneyConverter moneyConverter;
   @Mock private BillService billService;
   @Mock private AccountService accountService;
@@ -42,9 +36,6 @@ public class OffenseInjectorTest {
         offenseInjector.createOffenseResource(
             parkingAreaRepository,
             parkingStickerRepository,
-            parkingStickerCodeAssembler,
-            parkingAreaCodeAssembler,
-            timeOfDayConverter,
             moneyConverter,
             billService,
             accountService);

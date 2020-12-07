@@ -11,6 +11,10 @@ import java.util.stream.Collectors;
 public class InitiativeAssembler {
   private final MoneyConverter moneyConverter;
 
+  public InitiativeAssembler() {
+    this(new MoneyConverter());
+  }
+
   public InitiativeAssembler(MoneyConverter moneyConverter) {
     this.moneyConverter = moneyConverter;
   }

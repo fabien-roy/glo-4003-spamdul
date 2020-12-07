@@ -1,8 +1,6 @@
 package ca.ulaval.glo4003.parkings;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
-import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
-import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
 import ca.ulaval.glo4003.funds.domain.Money;
@@ -10,7 +8,6 @@ import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.assemblers.ParkingPeriodPriceAssembler;
 import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
-import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
 import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
@@ -19,10 +16,8 @@ import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
-import ca.ulaval.glo4003.parkings.services.assemblers.ParkingPeriodAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.converters.ParkingPeriodConverter;
-import ca.ulaval.glo4003.parkings.services.converters.ParkingStickerConverter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,9 +58,6 @@ public class ParkingInjector {
 
   public ParkingStickerService createParkingStickerService(
       boolean isDev,
-      AccountIdConverter accountIdConverter,
-      PostalCodeConverter postalCodeConverter,
-      EmailAddressConverter emailAddressConverter,
       AccountService accountService,
       List<ParkingStickerCreationObserver> parkingStickerCreationObservers,
       BillService billService) {
@@ -77,19 +69,9 @@ public class ParkingInjector {
 
     ParkingStickerFactory parkingStickerFactory =
         new ParkingStickerFactory(parkingStickerCodeGenerator);
-    ParkingStickerConverter parkingStickerConverter =
-        new ParkingStickerConverter(
-            parkingAreaCodeAssembler,
-            accountIdConverter,
-            postalCodeConverter,
-            emailAddressConverter,
-            new ParkingPeriodAssembler());
-    ParkingStickerCodeAssembler parkingStickerCodeAssembler = new ParkingStickerCodeAssembler();
 
     ParkingStickerService parkingStickerService =
         new ParkingStickerService(
-            parkingStickerConverter,
-            parkingStickerCodeAssembler,
             parkingStickerFactory,
             accountService,
             parkingAreaRepository,

@@ -6,8 +6,6 @@ import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatusRepository;
 import ca.ulaval.glo4003.carboncredits.infrastructure.CarbonCreditRepositoryInMemory;
 import ca.ulaval.glo4003.carboncredits.infrastructure.MonthlyPaymentStatusRepositoryInMemory;
 import ca.ulaval.glo4003.carboncredits.services.CarbonCreditService;
-import ca.ulaval.glo4003.carboncredits.services.assemblers.CarbonCreditAssembler;
-import ca.ulaval.glo4003.carboncredits.services.assemblers.MonthlyPaymentStatusAssembler;
 import ca.ulaval.glo4003.carboncredits.systemtime.ConvertCarbonCreditHandler;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiatives.services.InitiativeService;
@@ -37,14 +35,8 @@ public class CarbonCreditInjector {
   public CarbonCreditService createCarbonCreditService(
       InitiativeService initiativeService,
       SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
-    CarbonCreditAssembler carbonCreditAssembler = new CarbonCreditAssembler();
-    MonthlyPaymentStatusAssembler monthlyPaymentStatusAssembler =
-        new MonthlyPaymentStatusAssembler();
-
     return new CarbonCreditService(
         carbonCreditRepository,
-        carbonCreditAssembler,
-        monthlyPaymentStatusAssembler,
         monthlyPaymentStatusRepository,
         sustainableMobilityProgramBankRepository,
         initiativeService);

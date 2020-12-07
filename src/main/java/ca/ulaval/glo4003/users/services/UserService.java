@@ -20,6 +20,16 @@ public class UserService {
   private final UserConverter userConverter;
   private final UserAssembler userAssembler;
 
+  public UserService(AccountRepository accountRepository, AccountFactory accountFactory) {
+    this(
+        accountRepository,
+        accountFactory,
+        new AccountIdConverter(),
+        new AccountIdAssembler(),
+        new UserConverter(),
+        new UserAssembler());
+  }
+
   public UserService(
       AccountRepository accountRepository,
       AccountFactory accountFactory,

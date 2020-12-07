@@ -23,6 +23,15 @@ public class ParkingStickerConverter {
   private final EmailAddressConverter emailAddressConverter;
   private final ParkingPeriodAssembler parkingPeriodAssembler;
 
+  public ParkingStickerConverter() {
+    this(
+        new ParkingAreaCodeAssembler(),
+        new AccountIdConverter(),
+        new PostalCodeConverter(),
+        new EmailAddressConverter(),
+        new ParkingPeriodAssembler());
+  }
+
   public ParkingStickerConverter(
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       AccountIdConverter accountIdConverter,

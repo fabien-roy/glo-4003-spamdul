@@ -25,6 +25,20 @@ public class CarbonCreditService implements InitiativeAddedAllocatedAmountObserv
 
   public CarbonCreditService(
       CarbonCreditRepository carbonCreditRepository,
+      MonthlyPaymentStatusRepository monthlyPaymentStatusRepository,
+      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository,
+      InitiativeService initiativeService) {
+    this(
+        carbonCreditRepository,
+        new CarbonCreditAssembler(),
+        new MonthlyPaymentStatusAssembler(),
+        monthlyPaymentStatusRepository,
+        sustainableMobilityProgramBankRepository,
+        initiativeService);
+  }
+
+  public CarbonCreditService(
+      CarbonCreditRepository carbonCreditRepository,
       CarbonCreditAssembler carbonCreditAssembler,
       MonthlyPaymentStatusAssembler monthlyPaymentStatusAssembler,
       MonthlyPaymentStatusRepository monthlyPaymentStatusRepository,

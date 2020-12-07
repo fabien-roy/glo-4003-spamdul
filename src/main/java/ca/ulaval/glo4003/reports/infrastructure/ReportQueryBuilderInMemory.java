@@ -12,8 +12,10 @@ import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScope;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeBuilder;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
+import ca.ulaval.glo4003.reports.infrastructure.dimensions.ReportDimensionBuilderInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.filters.ReportEventTypeFilterInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.filters.ReportFilterInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.metrics.ReportMetricBuilderInMemory;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,13 @@ public class ReportQueryBuilderInMemory implements ReportQueryBuilder<ReportQuer
   private List<ReportDimensionType> dimensionTypes;
   private List<ParkingAreaCode> parkingAreaCodes;
   private final List<ReportFilterInMemory> filters = new ArrayList<>();
+
+  public ReportQueryBuilderInMemory() {
+    this(
+        new ReportScopeBuilder(),
+        new ReportMetricBuilderInMemory(),
+        new ReportDimensionBuilderInMemory());
+  }
 
   public ReportQueryBuilderInMemory(
       ReportScopeBuilder scopeBuilder,

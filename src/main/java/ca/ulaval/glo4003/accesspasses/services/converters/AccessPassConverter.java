@@ -24,6 +24,14 @@ public class AccessPassConverter {
   private final SemesterCodeConverter semesterCodeConverter;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
+  public AccessPassConverter(SemesterService semesterService) {
+    this(
+        new LicensePlateConverter(),
+        semesterService,
+        new SemesterCodeConverter(),
+        new ParkingAreaCodeAssembler());
+  }
+
   public AccessPassConverter(
       LicensePlateConverter licensePlateConverter,
       SemesterService semesterService,

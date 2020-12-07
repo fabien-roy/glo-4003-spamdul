@@ -14,6 +14,13 @@ public class OffenseValidationConverter {
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   private final TimeOfDayConverter timeOfDayConverter;
 
+  public OffenseValidationConverter() {
+    this(
+        new ParkingStickerCodeAssembler(),
+        new ParkingAreaCodeAssembler(),
+        new TimeOfDayConverter());
+  }
+
   public OffenseValidationConverter(
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,

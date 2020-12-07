@@ -16,6 +16,10 @@ public class SmtpEmailSender implements EmailSender {
 
   private final SmtpClient smtpClient;
 
+  public SmtpEmailSender() {
+    this(new SmtpClient());
+  }
+
   public SmtpEmailSender(SmtpClient smtpClient) {
     this.smtpClient = smtpClient;
   }
