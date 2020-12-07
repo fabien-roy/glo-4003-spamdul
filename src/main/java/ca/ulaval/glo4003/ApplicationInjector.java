@@ -101,7 +101,6 @@ public class ApplicationInjector {
   public OffenseResource createOffenseResource() {
     return OFFENSE_INJECTOR.createOffenseResource(
         PARKING_INJECTOR.getParkingAreaRepository(),
-        PARKING_INJECTOR.getParkingStickerRepository(),
         FUND_INJECTOR.createMoneyConverter(),
         FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()),
         ACCOUNT_INJECTOR.createAccountService(

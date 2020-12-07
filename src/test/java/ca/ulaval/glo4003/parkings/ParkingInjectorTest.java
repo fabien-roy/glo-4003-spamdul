@@ -7,9 +7,7 @@ import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
-import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
-import ca.ulaval.glo4003.parkings.infrastructure.ParkingStickerRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
@@ -39,14 +37,6 @@ public class ParkingInjectorTest {
     ParkingAreaRepository parkingAreaRepository = parkingInjector.getParkingAreaRepository();
 
     assertThat(parkingAreaRepository).isInstanceOf(ParkingAreaRepositoryInMemory.class);
-  }
-
-  @Test
-  public void whenGettingParkingStickerRepository_thenReturnInMemoryParkingStickerRepository() {
-    ParkingStickerRepository parkingStickerRepository =
-        parkingInjector.getParkingStickerRepository();
-
-    assertThat(parkingStickerRepository).isInstanceOf(ParkingStickerRepositoryInMemory.class);
   }
 
   @Test

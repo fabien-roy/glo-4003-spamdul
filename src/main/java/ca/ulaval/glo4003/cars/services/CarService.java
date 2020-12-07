@@ -3,52 +3,43 @@ package ca.ulaval.glo4003.cars.services;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
-import ca.ulaval.glo4003.cars.domain.CarRepository;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.assemblers.CarAssembler;
 import ca.ulaval.glo4003.cars.services.converters.CarConverter;
 import ca.ulaval.glo4003.cars.services.dto.CarDto;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CarService {
 
   private final CarConverter carConverter;
   private final CarAssembler carAssembler;
-  private final CarRepository carRepository;
   private final AccountService accountService;
 
-  public CarService(CarRepository carRepository, AccountService accountService) {
-    this(new CarConverter(), new CarAssembler(), carRepository, accountService);
+  public CarService(AccountService accountService) {
+    this(new CarConverter(), new CarAssembler(), accountService);
   }
 
   public CarService(
-      CarConverter carConverter,
-      CarAssembler carAssembler,
-      CarRepository carRepository,
-      AccountService accountService) {
+      CarConverter carConverter, CarAssembler carAssembler, AccountService accountService) {
     this.carConverter = carConverter;
     this.carAssembler = carAssembler;
-    this.carRepository = carRepository;
     this.accountService = accountService;
   }
 
   public void addCar(CarDto carDto, String accountId) {
-    Car car = carConverter.convert(carDto, accountId);
+    Account account = accountService.getAccount(accountId);
+    Car car = carConverter.convert(carDto);
 
-    accountService.addLicensePlateToAccount(car.getAccountId(), car.getLicensePlate());
-
-    carRepository.save(car);
+    accountService.addCarToAccount(account.getId(), car);
   }
 
   public Car getCar(LicensePlate licensePlate) {
-    return carRepository.get(licensePlate);
+    return accountService.getCar(licensePlate);
   }
 
   public List<CarDto> getCars(String accountId) {
     Account account = accountService.getAccount(accountId);
-    List<LicensePlate> licensePlates = account.getLicensePlates();
-    List<Car> cars = licensePlates.stream().map(this::getCar).collect(Collectors.toList());
+    List<Car> cars = account.getCars();
 
     return carAssembler.assemble(cars);
   }

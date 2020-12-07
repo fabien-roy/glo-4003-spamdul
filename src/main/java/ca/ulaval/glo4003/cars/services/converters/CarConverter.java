@@ -1,7 +1,5 @@
 package ca.ulaval.glo4003.cars.services.converters;
 
-import ca.ulaval.glo4003.accounts.domain.AccountId;
-import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
@@ -14,28 +12,23 @@ import java.time.LocalDate;
 public class CarConverter {
 
   private final LicensePlateConverter licensePlateConverter;
-  private final AccountIdConverter accountIdConverter;
 
   public CarConverter() {
-    this(new LicensePlateConverter(), new AccountIdConverter());
+    this(new LicensePlateConverter());
   }
 
-  public CarConverter(
-      LicensePlateConverter licensePlateConverter, AccountIdConverter accountIdConverter) {
+  public CarConverter(LicensePlateConverter licensePlateConverter) {
     this.licensePlateConverter = licensePlateConverter;
-    this.accountIdConverter = accountIdConverter;
   }
 
-  public Car convert(CarDto carDto, String accountId) {
+  public Car convert(CarDto carDto) {
     validateYear(carDto.year);
     validateNotNull(carDto);
 
     LicensePlate licensePlate = licensePlateConverter.convert(carDto.licensePlate);
-    AccountId id = accountIdConverter.convert(accountId);
 
     return new Car(
         licensePlate,
-        id,
         carDto.manufacturer,
         carDto.model,
         carDto.year,

@@ -9,6 +9,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.services.BillService;
@@ -19,7 +20,6 @@ import ca.ulaval.glo4003.offenses.services.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
 import java.util.Collections;
 import java.util.List;
@@ -32,12 +32,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class OffenseTypeServiceTest {
   @Mock private ParkingAreaRepository parkingAreaRepository;
-  @Mock private ParkingStickerRepository parkingStickerRepository;
   @Mock private OffenseValidationConverter offenseValidationConverter;
   @Mock private OffenseTypeAssembler offenseTypeAssembler;
   @Mock private OffenseTypeRepository offenseTypeRepository;
   @Mock private OffenseTypeFactory offenseTypeFactory;
   @Mock private ParkingSticker parkingSticker;
+  @Mock private Account account;
   @Mock private BillService billService;
   @Mock private AccountService accountService;
   @Mock private OffenseNotifier offenseNotifier;
@@ -63,7 +63,6 @@ public class OffenseTypeServiceTest {
     offenseTypeService =
         new OffenseTypeService(
             parkingAreaRepository,
-            parkingStickerRepository,
             offenseValidationConverter,
             offenseTypeAssembler,
             offenseTypeRepository,
@@ -82,7 +81,9 @@ public class OffenseTypeServiceTest {
     when(offenseValidationConverter.convert(offenseValidationDto)).thenReturn(offenseValidation);
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(false);
-    when(parkingStickerRepository.get(offenseValidation.getParkingStickerCode()))
+    when(accountService.getParkingSticker(offenseValidation.getParkingStickerCode()))
+        .thenReturn(parkingSticker);
+    when(account.getParkingSticker(offenseValidation.getParkingStickerCode()))
         .thenReturn(parkingSticker);
     when(offenseTypeFactory.createWrongZoneOffense()).thenReturn(wrongZoneOffenseType);
     when(offenseTypeFactory.createInvalidStickerOffense()).thenReturn(invalidStickerOffenseType);
@@ -109,6 +110,13 @@ public class OffenseTypeServiceTest {
     offenseTypeService.validateOffense(offenseValidationDto);
 
     verify(parkingAreaRepository).get(offenseValidation.getParkingAreaCode());
+  }
+
+  @Test
+  public void whenValidatingOffense_thenGetParkingSticker() {
+    offenseTypeService.validateOffense(offenseValidationDto);
+
+    verify(accountService).getParkingSticker(offenseValidation.getParkingStickerCode());
   }
 
   @Test
@@ -146,7 +154,7 @@ public class OffenseTypeServiceTest {
   @Test
   public void
       givenValidationWithInvalidParkingSticker_whenValidatingOffense_thenReturnInvalidParkingStickerOffenseType() {
-    when(parkingStickerRepository.get(offenseValidation.getParkingStickerCode()))
+    when(accountService.getParkingSticker(offenseValidation.getParkingStickerCode()))
         .thenThrow(new NotFoundParkingStickerException());
 
     List<OffenseTypeDto> offenseTypeDtos = offenseTypeService.validateOffense(offenseValidationDto);
@@ -157,7 +165,7 @@ public class OffenseTypeServiceTest {
   @Test
   public void
       givenValidationWithInvalidParkingSticker_whenValidatingOffense_thenOffenseIsNotifiedForInvalidParkingSticker() {
-    when(parkingStickerRepository.get(offenseValidation.getParkingStickerCode()))
+    when(accountService.getParkingSticker(offenseValidation.getParkingStickerCode()))
         .thenThrow(new NotFoundParkingStickerException());
 
     offenseTypeService.validateOffense(offenseValidationDto);

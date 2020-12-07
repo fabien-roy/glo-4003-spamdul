@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
-import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +17,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class OffenseInjectorTest {
 
   @Mock private ParkingAreaRepository parkingAreaRepository;
-  @Mock private ParkingStickerRepository parkingStickerRepository;
   @Mock private MoneyConverter moneyConverter;
   @Mock private BillService billService;
   @Mock private AccountService accountService;
@@ -34,11 +32,7 @@ public class OffenseInjectorTest {
   public void whenCreatingOffenseResource_thenReturnIt() {
     OffenseResource offenseResource =
         offenseInjector.createOffenseResource(
-            parkingAreaRepository,
-            parkingStickerRepository,
-            moneyConverter,
-            billService,
-            accountService);
+            parkingAreaRepository, moneyConverter, billService, accountService);
 
     assertThat(offenseResource).isNotNull();
   }

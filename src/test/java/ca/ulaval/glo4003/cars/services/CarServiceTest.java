@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static ca.ulaval.glo4003.cars.helpers.CarDtoBuilder.aCarDto;
-import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensesPlate;
+import static ca.ulaval.glo4003.cars.helpers.CarMother.createCars;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -13,8 +13,6 @@ import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
-import ca.ulaval.glo4003.cars.domain.CarRepository;
-import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.assemblers.CarAssembler;
 import ca.ulaval.glo4003.cars.services.converters.CarConverter;
 import ca.ulaval.glo4003.cars.services.dto.CarDto;
@@ -31,7 +29,6 @@ public class CarServiceTest {
 
   @Mock private CarConverter carConverter;
   @Mock private CarAssembler carAssembler;
-  @Mock private CarRepository carRepository;
   @Mock private AccountService accountService;
 
   private CarService carService;
@@ -39,54 +36,37 @@ public class CarServiceTest {
   private final CarDto carDto = aCarDto().build();
   private final Car car = aCar().build();
 
-  private final List<LicensePlate> licensePlates = createLicensesPlate();
-  private final Account accountWithLicensePlate =
-      anAccount().withLicensePlate(licensePlates).build();
-  private final Car carWithLicensePlate = aCar().withLicensePlate(licensePlates.get(0)).build();
+  private final List<Car> cars = createCars();
+  private final Car carWithLicensePlate =
+      aCar().withLicensePlate(cars.get(0).getLicensePlate()).build();
+  private final Account accountWithCars =
+      anAccount().withCars(Collections.singletonList(carWithLicensePlate)).build();
   private final CarDto carDtoWithPlate =
-      aCarDto().withLicensePlate(licensePlates.get(0).toString()).build();
+      aCarDto().withLicensePlate(cars.get(0).getLicensePlate().toString()).build();
 
   @Before
   public void setUp() {
-    carService = new CarService(carConverter, carAssembler, carRepository, accountService);
+    carService = new CarService(carConverter, carAssembler, accountService);
 
-    when(carConverter.convert(carDto, accountId.toString())).thenReturn(car);
-    when(carRepository.get(car.getLicensePlate())).thenReturn(car);
-    when(accountService.getAccount(accountWithLicensePlate.getId().toString()))
-        .thenReturn(accountWithLicensePlate);
-    when(carRepository.get(accountWithLicensePlate.getLicensePlates().get(0)))
-        .thenReturn(carWithLicensePlate);
-
+    when(carConverter.convert(carDto)).thenReturn(car);
+    when(accountService.getAccount(accountId.toString())).thenReturn(accountWithCars);
     when(carAssembler.assemble(Collections.singletonList(carWithLicensePlate)))
         .thenReturn(Collections.singletonList(carDtoWithPlate));
+    when(accountService.getAccount(accountWithCars.getId().toString())).thenReturn(accountWithCars);
   }
 
   @Test
-  public void whenAddingCar_thenAddLicensePlateToAccount() {
+  public void whenAddingCar_thenAddCarToAccount() {
     carService.addCar(carDto, accountId.toString());
 
-    verify(accountService).addLicensePlateToAccount(car.getAccountId(), car.getLicensePlate());
-  }
-
-  @Test
-  public void whenAddingCar_thenSaveToRepository() {
-    carService.addCar(carDto, accountId.toString());
-
-    verify(carRepository).save(car);
-  }
-
-  @Test
-  public void whenGettingCar_thenGetCarInRepository() {
-    Car receivedCar = carService.getCar(car.getLicensePlate());
-
-    assertThat(receivedCar).isSameInstanceAs(car);
+    verify(accountService).addCarToAccount(accountWithCars.getId(), car);
   }
 
   @Test
   public void whenGettingCars_ThenReturnAccountCars() {
-    List<CarDto> carsFromService = carService.getCars(accountWithLicensePlate.getId().toString());
+    List<CarDto> carsFromService = carService.getCars(accountWithCars.getId().toString());
 
-    assertThat(accountWithLicensePlate.getLicensePlates().get(0).toString())
+    assertThat(accountWithCars.getCars().get(0).getLicensePlate().toString())
         .isEqualTo(carsFromService.get(0).licensePlate);
   }
 }

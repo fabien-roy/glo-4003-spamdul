@@ -16,7 +16,6 @@ import ca.ulaval.glo4003.offenses.services.assemblers.OffenseCodeAssembler;
 import ca.ulaval.glo4003.offenses.services.converters.OffenseTypeInFrenchConverter;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseDtoInFrench;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
-import ca.ulaval.glo4003.parkings.domain.ParkingStickerRepository;
 import java.util.List;
 
 public class OffenseInjector {
@@ -25,15 +24,13 @@ public class OffenseInjector {
 
   public OffenseResource createOffenseResource(
       ParkingAreaRepository parkingAreaRepository,
-      ParkingStickerRepository parkingStickerRepository,
       MoneyConverter moneyConverter,
       BillService billService,
       AccountService accountService) {
     addOffenseTypesToRepository(moneyConverter);
 
     OffenseTypeService offenseTypeService =
-        createOffenseService(
-            parkingAreaRepository, parkingStickerRepository, billService, accountService);
+        createOffenseService(parkingAreaRepository, billService, accountService);
 
     return new OffenseResource(offenseTypeService);
   }
@@ -54,7 +51,6 @@ public class OffenseInjector {
 
   private OffenseTypeService createOffenseService(
       ParkingAreaRepository parkingAreaRepository,
-      ParkingStickerRepository parkingStickerRepository,
       BillService billService,
       AccountService accountService) {
     OffenseTypeFactory offenseTypeFactory =
@@ -62,7 +58,6 @@ public class OffenseInjector {
 
     return new OffenseTypeService(
         parkingAreaRepository,
-        parkingStickerRepository,
         offenseTypeRepository,
         offenseTypeFactory,
         billService,
