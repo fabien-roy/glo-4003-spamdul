@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.funds.api;
 
+import ca.ulaval.glo4003.errors.services.dto.ErrorDto;
 import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
 import ca.ulaval.glo4003.funds.exception.FundException;
-import ca.ulaval.glo4003.interfaces.api.dto.ErrorDto;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

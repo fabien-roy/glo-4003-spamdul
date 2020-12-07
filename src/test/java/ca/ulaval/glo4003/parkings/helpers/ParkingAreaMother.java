@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings.helpers;
 
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
-import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnums;
+import static ca.ulaval.glo4003.randomizers.helpers.Randomizer.randomEnums;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;

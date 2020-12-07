@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.parkings.domain;
 
-import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
+import ca.ulaval.glo4003.generators.domain.StringCodeGenerator;
 
 public class ParkingStickerCodeGenerator {
   private static final String KEYWORD = "PARK";

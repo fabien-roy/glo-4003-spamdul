@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.accesspasses.domain;
 
-import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
+import ca.ulaval.glo4003.generators.domain.StringCodeGenerator;
 
 public class AccessPassCodeGenerator {
   private static final String KEYWORD = "PASS";
