@@ -5,9 +5,11 @@ import ca.ulaval.glo4003.reports.domain.ReportEventType;
 import ca.ulaval.glo4003.reports.domain.ReportQueryFactory;
 import ca.ulaval.glo4003.reports.domain.ReportType;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeFactory;
+import ca.ulaval.glo4003.reports.infrastructure.dimensions.ConsumptionTypeDimensionInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.ParkingAreaDimensionInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.filters.ReportEventTypeFilterInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.metrics.GateEntriesMetricInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.metrics.ProfitsMetricInMemory;
 import java.util.List;
 
 // TODO #326 : Review method names with report event type names
@@ -47,10 +49,26 @@ public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQuer
     return reportQuery;
   }
 
+  // TODO #326 : Test this
   @Override
   public ReportQueryInMemory createProfitsReportQuery(
       ReportEventType reportEventType, int year, boolean isByConsumptionType) {
-    // TODO #326
-    return null;
+    ReportQueryInMemory reportQuery = new ReportQueryInMemory();
+
+    // TODO #326 : Move this to a filter
+    reportQuery.addFilter(new ReportEventTypeFilterInMemory(reportEventType));
+
+    // TODO #326 : Move this to a filter
+    reportQuery.setScope(reportScopeFactory.createYearlyScope(year));
+
+    // TODO #326 : Move this to a filter
+    reportQuery.addMetric(new ProfitsMetricInMemory());
+
+    // TODO #326 : Move this to a filter
+    if (isByConsumptionType) {
+      reportQuery.addDimension(new ConsumptionTypeDimensionInMemory());
+    }
+
+    return reportQuery;
   }
 }
