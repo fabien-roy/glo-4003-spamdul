@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.reports.api.ReportParkingAreaResource;
 import ca.ulaval.glo4003.reports.api.ReportProfitResource;
 import ca.ulaval.glo4003.reports.domain.*;
+import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeFactory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportQueryFactoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportRepositoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportSummaryBuilderInMemory;
@@ -59,6 +60,6 @@ public class ReportInjector {
   }
 
   private ReportQueryFactory createReportQueryFactory() {
-    return new ReportQueryFactoryInMemory();
+    return new ReportQueryFactoryInMemory(new ReportScopeFactory());
   }
 }
