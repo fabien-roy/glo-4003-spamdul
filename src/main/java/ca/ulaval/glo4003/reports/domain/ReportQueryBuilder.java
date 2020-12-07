@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 import java.util.List;
 
+// TODO #326 : Delete this
 public interface ReportQueryBuilder<Q extends ReportQuery> {
 
   ReportQueryBuilder<Q> aReportQuery();

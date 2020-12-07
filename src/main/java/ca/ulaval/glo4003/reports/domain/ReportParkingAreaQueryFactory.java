@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.times.domain.TimeYear;
 import java.util.Collections;
 import java.util.List;
 
+// TODO #326 : Delete this
 public class ReportParkingAreaQueryFactory {
   private final ReportQueryBuilder reportQueryBuilder;
 

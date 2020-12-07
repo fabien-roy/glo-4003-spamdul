@@ -16,19 +16,19 @@ public class ReportParkingAreaService {
   private final ParkingAreaService parkingAreaService;
   private final ReportRepository reportRepository;
   private final ReportPeriodAssembler reportPeriodAssembler;
-  private final ReportParkingAreaQueryFactory reportParkingAreaQueryFactory;
+  private final ReportQueryFactory reportQueryFactory;
   private final ReportSummaryBuilder reportSummaryBuilder;
 
   public ReportParkingAreaService(
       ParkingAreaService parkingAreaService,
       ReportRepository reportRepository,
       ReportPeriodAssembler reportPeriodAssembler,
-      ReportParkingAreaQueryFactory reportParkingAreaQueryFactory,
+      ReportQueryFactory reportQueryFactory,
       ReportSummaryBuilder reportSummaryBuilder) {
     this.parkingAreaService = parkingAreaService;
     this.reportRepository = reportRepository;
     this.reportPeriodAssembler = reportPeriodAssembler;
-    this.reportParkingAreaQueryFactory = reportParkingAreaQueryFactory;
+    this.reportQueryFactory = reportQueryFactory;
     this.reportSummaryBuilder = reportSummaryBuilder;
   }
 
@@ -38,7 +38,7 @@ public class ReportParkingAreaService {
     ReportType reportType = ReportType.get(reportName);
     List<ParkingAreaCode> parkingAreaCodes = parkingAreaService.getParkingAreaCodes();
     ReportQuery reportQuery =
-        reportParkingAreaQueryFactory.create(reportType, month, parkingAreaCodes);
+        reportQueryFactory.createGateEntriesReportQuery(reportType, month, parkingAreaCodes);
 
     List<ReportPeriod> periods = reportRepository.getPeriods(reportQuery);
 
