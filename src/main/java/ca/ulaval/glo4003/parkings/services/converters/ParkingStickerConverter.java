@@ -36,8 +36,8 @@ public class ParkingStickerConverter {
     this.parkingPeriodAssembler = parkingPeriodAssembler;
   }
 
-  public ParkingSticker convert(ParkingStickerDto parkingStickerDto, String accountId) {
-    AccountId convertedAccountId = accountIdConverter.convert(accountId);
+  public ParkingSticker convert(ParkingStickerDto parkingStickerDto, String stringAccountId) {
+    AccountId accountId = accountIdConverter.convert(stringAccountId);
     ParkingAreaCode parkingAreaCode =
         parkingAreaCodeAssembler.assemble(parkingStickerDto.parkingArea);
 
@@ -51,11 +51,10 @@ public class ParkingStickerConverter {
         } else {
           PostalCode postalCode = postalCodeConverter.convert(parkingStickerDto.postalCode);
           return new ParkingSticker(
-              convertedAccountId, parkingAreaCode, receptionMethod, postalCode, parkingPeriod);
+              accountId, parkingAreaCode, receptionMethod, postalCode, parkingPeriod);
         }
       case SSP:
-        return new ParkingSticker(
-            convertedAccountId, parkingAreaCode, receptionMethod, parkingPeriod);
+        return new ParkingSticker(accountId, parkingAreaCode, receptionMethod, parkingPeriod);
       default:
       case EMAIL:
         if (parkingStickerDto.email == null) {
@@ -63,7 +62,7 @@ public class ParkingStickerConverter {
         } else {
           EmailAddress emailAddress = emailAddressConverter.convert(parkingStickerDto.email);
           return new ParkingSticker(
-              convertedAccountId, parkingAreaCode, receptionMethod, emailAddress, parkingPeriod);
+              accountId, parkingAreaCode, receptionMethod, emailAddress, parkingPeriod);
         }
     }
   }
