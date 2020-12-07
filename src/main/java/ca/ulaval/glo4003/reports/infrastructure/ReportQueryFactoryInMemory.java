@@ -12,7 +12,6 @@ import ca.ulaval.glo4003.reports.infrastructure.metrics.GateEntriesMetricInMemor
 import ca.ulaval.glo4003.reports.infrastructure.metrics.ProfitsMetricInMemory;
 import java.util.List;
 
-// TODO #326 : Review method names with report event type names
 public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQueryInMemory> {
   private final ReportScopeFactory reportScopeFactory;
 
@@ -22,14 +21,12 @@ public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQuer
 
   // TODO #326 : Test this
   @Override
-  public ReportQueryInMemory createGateEntriesReportQuery(
+  public ReportQueryInMemory createGateEnteredReportQuery(
       ReportType reportType, String month, List<ParkingAreaCode> parkingAreaCodes) {
     ReportQueryInMemory reportQuery = new ReportQueryInMemory();
 
-    // TODO #326 : Move this to a filter
     reportQuery.addFilter(new ReportEventTypeFilterInMemory(ReportEventType.GATE_ENTERED));
 
-    // TODO #326 : Move this to a filter
     switch (reportType) {
       case MONTHLY:
         reportQuery.setScope(reportScopeFactory.createMonthlyScope());
@@ -37,13 +34,10 @@ public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQuer
       case SUMMARY:
       case DAY_OF_MONTH:
         reportQuery.setScope(reportScopeFactory.createDailyScope(month));
-        break;
     }
 
-    // TODO #326 : Move this to a filter
     reportQuery.addMetric(new GateEntriesMetricInMemory());
 
-    // TODO #326 : Move this to a filter
     reportQuery.addDimension(new ParkingAreaDimensionInMemory(parkingAreaCodes));
 
     return reportQuery;
@@ -51,20 +45,16 @@ public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQuer
 
   // TODO #326 : Test this
   @Override
-  public ReportQueryInMemory createProfitsReportQuery(
+  public ReportQueryInMemory createBillPaidReportQuery(
       ReportEventType reportEventType, int year, boolean isByConsumptionType) {
     ReportQueryInMemory reportQuery = new ReportQueryInMemory();
 
-    // TODO #326 : Move this to a filter
     reportQuery.addFilter(new ReportEventTypeFilterInMemory(reportEventType));
 
-    // TODO #326 : Move this to a filter
     reportQuery.setScope(reportScopeFactory.createYearlyScope(year));
 
-    // TODO #326 : Move this to a filter
     reportQuery.addMetric(new ProfitsMetricInMemory());
 
-    // TODO #326 : Move this to a filter
     if (isByConsumptionType) {
       reportQuery.addDimension(new ConsumptionTypeDimensionInMemory());
     }

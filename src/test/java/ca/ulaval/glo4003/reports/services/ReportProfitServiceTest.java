@@ -41,10 +41,10 @@ public class ReportProfitServiceTest {
     reportProfitService =
         new ReportProfitService(reportRepository, reportQueryFactory, reportPeriodAssembler);
 
-    when(reportQueryFactory.createProfitsReportQuery(
+    when(reportQueryFactory.createBillPaidReportQuery(
             ReportEventType.BILL_PAID_FOR_PARKING_STICKER, year, false))
         .thenReturn(reportQueryForParkingStickerEvents);
-    when(reportQueryFactory.createProfitsReportQuery(
+    when(reportQueryFactory.createBillPaidReportQuery(
             ReportEventType.BILL_PAID_FOR_OFFENSE, year, false))
         .thenReturn(reportQueryForOffenseEvents);
 
@@ -69,7 +69,7 @@ public class ReportProfitServiceTest {
   private void givenQueryForAccessPassEvents(boolean isByConsumptionType) {
     reset(reportQueryFactory);
 
-    when(reportQueryFactory.createProfitsReportQuery(
+    when(reportQueryFactory.createBillPaidReportQuery(
             ReportEventType.BILL_PAID_FOR_ACCESS_PASS, year, isByConsumptionType))
         .thenReturn(reportQueryForAccessPassEvents);
   }

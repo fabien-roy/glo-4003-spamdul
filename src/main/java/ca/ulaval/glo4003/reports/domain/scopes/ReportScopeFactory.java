@@ -1,18 +1,21 @@
 package ca.ulaval.glo4003.reports.domain.scopes;
 
+import ca.ulaval.glo4003.times.domain.TimeMonth;
+import ca.ulaval.glo4003.times.domain.TimeYear;
+
 public class ReportScopeFactory {
+  // TODO #326 : Test this
   public ReportScope createYearlyScope(int year) {
-    // TODO #326 : Yearly with given year's period
-    return null;
+    return new YearlyScope(new TimeYear(year).toPeriod());
   }
 
+  // TODO #326 : Test this
   public ReportScope createMonthlyScope() {
-    // TODO #326 : Monthly with this year's period
-    return null;
+    return new MonthlyScope(TimeYear.now().toPeriod());
   }
 
+  // TODO #326 : Test this
   public ReportScope createDailyScope(String month) {
-    // TODO #326 : Monthly with given month's period
-    return null;
+    return new DailyScope(new TimeMonth(month).toPeriod());
   }
 }

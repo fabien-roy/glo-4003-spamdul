@@ -58,14 +58,14 @@ public class ReportParkingAreaServiceTest {
 
     when(parkingAreaService.getParkingAreaCodes()).thenReturn(parkingAreaCodes);
 
-    when(reportQueryFactory.createGateEntriesReportQuery(reportType, month, parkingAreaCodes))
+    when(reportQueryFactory.createGateEnteredReportQuery(reportType, month, parkingAreaCodes))
         .thenReturn(reportQuery);
     when(reportRepository.getPeriods(reportQuery))
         .thenReturn(Collections.singletonList(reportPeriod));
     when(reportPeriodAssembler.assembleMany(Collections.singletonList(reportPeriod)))
         .thenReturn(Collections.singletonList(reportPeriodDto));
 
-    when(reportQueryFactory.createGateEntriesReportQuery(
+    when(reportQueryFactory.createGateEnteredReportQuery(
             summaryReportType, month, parkingAreaCodes))
         .thenReturn(summaryReportQuery);
     when(reportRepository.getPeriods(summaryReportQuery))

@@ -32,7 +32,7 @@ public class ReportProfitService {
         String.format("Getting report for %s at year %s", reportEventType.toString(), year));
 
     ReportQuery reportQuery =
-        reportQueryFactory.createProfitsReportQuery(reportEventType, year, isByConsumptionType);
+        reportQueryFactory.createBillPaidReportQuery(reportEventType, year, isByConsumptionType);
 
     List<ReportPeriod> periods = reportRepository.getPeriods(reportQuery);
 

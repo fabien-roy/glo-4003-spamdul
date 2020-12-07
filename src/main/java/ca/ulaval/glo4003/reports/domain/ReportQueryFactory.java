@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface ReportQueryFactory<Q extends ReportQuery> {
 
-  Q createGateEntriesReportQuery(
+  Q createGateEnteredReportQuery(
       ReportType reportType, String month, List<ParkingAreaCode> parkingAreaCodes);
 
-  Q createProfitsReportQuery(
+  Q createBillPaidReportQuery(
       ReportEventType reportEventType, int year, boolean isByConsumptionType);
 }

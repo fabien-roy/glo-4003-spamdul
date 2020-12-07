@@ -38,7 +38,7 @@ public class ReportParkingAreaService {
     ReportType reportType = ReportType.get(reportName);
     List<ParkingAreaCode> parkingAreaCodes = parkingAreaService.getParkingAreaCodes();
     ReportQuery reportQuery =
-        reportQueryFactory.createGateEntriesReportQuery(reportType, month, parkingAreaCodes);
+        reportQueryFactory.createGateEnteredReportQuery(reportType, month, parkingAreaCodes);
 
     List<ReportPeriod> periods = reportRepository.getPeriods(reportQuery);
 

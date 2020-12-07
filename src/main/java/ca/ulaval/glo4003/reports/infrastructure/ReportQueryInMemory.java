@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 public class ReportQueryInMemory implements ReportQuery {
 
   private ReportScope scope;
-  private List<ReportMetric> metrics;
-  private List<ReportDimension> dimensions;
-  private List<ReportFilterInMemory> filters;
+  private List<ReportMetric> metrics = new ArrayList<>();
+  private List<ReportDimension> dimensions = new ArrayList<>();
+  private List<ReportFilterInMemory> filters = new ArrayList<>();
   private List<ReportEvent> events;
 
   // TODO #326 : Delete this if only constructor
@@ -39,10 +39,6 @@ public class ReportQueryInMemory implements ReportQuery {
     this.events = events;
   }
 
-  public ReportScope getScope() {
-    return scope;
-  }
-
   public void setScope(ReportScope scope) {
     this.scope = scope;
   }
@@ -61,10 +57,6 @@ public class ReportQueryInMemory implements ReportQuery {
 
   public void addDimension(ReportDimension dimension) {
     dimensions.add(dimension);
-  }
-
-  public List<ReportFilterInMemory> getFilters() {
-    return filters;
   }
 
   public void addFilter(ReportFilterInMemory filter) {
