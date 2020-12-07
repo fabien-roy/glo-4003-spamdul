@@ -42,7 +42,6 @@ public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQuer
     return reportQuery;
   }
 
-  // TODO #326 : Test this
   @Override
   public ReportQueryInMemory createBillPaidReportQuery(
       ReportEventType reportEventType, int year, boolean isByConsumptionType) {
