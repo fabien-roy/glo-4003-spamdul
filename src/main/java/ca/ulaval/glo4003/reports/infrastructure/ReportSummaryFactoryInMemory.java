@@ -17,7 +17,6 @@ public class ReportSummaryFactoryInMemory implements ReportSummaryFactory {
     this.aggregateFunctionFactory = aggregateFunctionFactory;
   }
 
-  // TODO #339 : Test this
   @Override
   public List<ReportPeriod> create(
       List<ReportAggregateFunctionType> aggregateFunctionTypes,
