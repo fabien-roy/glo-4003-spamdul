@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.reports.domain.aggregatefunctions.ReportAggregateFuncti
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO #339 : Test this (copy tests from old builder
 public class ReportAggregateFunctionFactoryInMemory {
   public List<ReportAggregateFunctionInMemory> createMany(
       List<ReportAggregateFunctionType> aggregateFunctionTypes) {
