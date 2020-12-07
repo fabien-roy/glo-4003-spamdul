@@ -1,5 +1,8 @@
 package ca.ulaval.glo4003.cars.helpers;
 
+import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
+import static ca.ulaval.glo4003.randomizers.helpers.Randomizer.randomEnum;
+import static ca.ulaval.glo4003.randomizers.helpers.Randomizer.randomEnumExcept;
 
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
@@ -7,10 +10,6 @@ import com.github.javafaker.Faker;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
-import static ca.ulaval.glo4003.randomizers.helpers.Randomizer.randomEnum;
-import static ca.ulaval.glo4003.randomizers.helpers.Randomizer.randomEnumExcept;
 
 public class CarMother {
   public static String createManufacturer() {
