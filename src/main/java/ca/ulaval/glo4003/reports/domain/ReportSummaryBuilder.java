@@ -4,7 +4,7 @@ import ca.ulaval.glo4003.reports.domain.aggregatefunctions.ReportAggregateFuncti
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import java.util.List;
 
-// TODO #326 : Refactor to ReportSummaryFactory with pipe-n-filter architecture
+// TODO #339 : Delete this
 public interface ReportSummaryBuilder {
 
   ReportSummaryBuilder aReportSummary();

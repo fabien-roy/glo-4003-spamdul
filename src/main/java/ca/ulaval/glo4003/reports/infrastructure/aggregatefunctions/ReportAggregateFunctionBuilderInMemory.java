@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// TODO #339 : Delete this
 public class ReportAggregateFunctionBuilderInMemory {
   private List<ReportAggregateFunctionType> aggregateFunctionTypes = new ArrayList<>();
 
