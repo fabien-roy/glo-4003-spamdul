@@ -39,6 +39,10 @@ public class ReportQueryInMemory implements ReportQuery {
     this.events = events;
   }
 
+  public ReportScope getScope() {
+    return scope;
+  }
+
   public void setScope(ReportScope scope) {
     this.scope = scope;
   }
@@ -57,6 +61,10 @@ public class ReportQueryInMemory implements ReportQuery {
 
   public void addDimension(ReportDimension dimension) {
     dimensions.add(dimension);
+  }
+
+  public List<ReportFilterInMemory> getFilters() {
+    return filters;
   }
 
   public void addFilter(ReportFilterInMemory filter) {

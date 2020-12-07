@@ -19,7 +19,6 @@ public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQuer
     this.reportScopeFactory = reportScopeFactory;
   }
 
-  // TODO #326 : Test this
   @Override
   public ReportQueryInMemory createGateEnteredReportQuery(
       ReportType reportType, String month, List<ParkingAreaCode> parkingAreaCodes) {
