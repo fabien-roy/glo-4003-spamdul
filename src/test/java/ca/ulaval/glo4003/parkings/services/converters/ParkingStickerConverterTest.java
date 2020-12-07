@@ -66,7 +66,6 @@ public class ParkingStickerConverterTest {
 
     parkingStickerDto =
         aParkingStickerDto()
-            .withAccountId(ACCOUNT_ID.toString())
             .withParkingArea(PARKING_AREA.toString())
             .withReceptionMethod(RECEPTION_METHOD.toString())
             .withPostalCode(POSTAL_CODE.toString())
@@ -76,14 +75,16 @@ public class ParkingStickerConverterTest {
 
   @Test
   public void whenConverting_thenReturnParkingStickerWithAccountId() {
-    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
+    ParkingSticker parkingSticker =
+        parkingStickerConverter.convert(parkingStickerDto, ACCOUNT_ID.toString());
 
     assertThat(parkingSticker.getAccountId()).isSameInstanceAs(ACCOUNT_ID);
   }
 
   @Test
   public void whenConverting_thenReturnParkingStickerWithParkingArea() {
-    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
+    ParkingSticker parkingSticker =
+        parkingStickerConverter.convert(parkingStickerDto, ACCOUNT_ID.toString());
 
     assertThat(parkingSticker.getParkingAreaCode()).isEqualTo(PARKING_AREA);
   }
@@ -93,7 +94,7 @@ public class ParkingStickerConverterTest {
       givenInvalidReceptionMethod_whenConverting_thenThrowInvalidReceptionMethodException() {
     parkingStickerDto = aParkingStickerDto().withReceptionMethod("invalidReceptionMethod").build();
 
-    parkingStickerConverter.convert(parkingStickerDto);
+    parkingStickerConverter.convert(parkingStickerDto, ACCOUNT_ID.toString());
   }
 
   @Test(expected = MissingPostalCodeException.class)
@@ -105,7 +106,7 @@ public class ParkingStickerConverterTest {
             .withPostalCode(null)
             .build();
 
-    parkingStickerConverter.convert(parkingStickerDto);
+    parkingStickerConverter.convert(parkingStickerDto, ACCOUNT_ID.toString());
   }
 
   @Test(expected = MissingEmailException.class)
@@ -116,7 +117,7 @@ public class ParkingStickerConverterTest {
             .withEmail(null)
             .build();
 
-    parkingStickerConverter.convert(parkingStickerDto);
+    parkingStickerConverter.convert(parkingStickerDto, ACCOUNT_ID.toString());
   }
 
   @Test
@@ -127,14 +128,16 @@ public class ParkingStickerConverterTest {
             .withEmail(EMAIL_ADDRESS.toString())
             .build();
 
-    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
+    ParkingSticker parkingSticker =
+        parkingStickerConverter.convert(parkingStickerDto, ACCOUNT_ID.toString());
 
     assertThat(parkingSticker.getEmailAddress()).isEqualTo(EMAIL_ADDRESS);
   }
 
   @Test
   public void whenConverting_thenReturnParkingStickerWithReceptionMethod() {
-    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
+    ParkingSticker parkingSticker =
+        parkingStickerConverter.convert(parkingStickerDto, ACCOUNT_ID.toString());
 
     assertThat(parkingSticker.getReceptionMethod()).isEqualTo(RECEPTION_METHOD);
   }
@@ -145,7 +148,8 @@ public class ParkingStickerConverterTest {
     parkingStickerDto =
         aParkingStickerDto().withReceptionMethod(RECEPTION_METHOD.toString().toUpperCase()).build();
 
-    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
+    ParkingSticker parkingSticker =
+        parkingStickerConverter.convert(parkingStickerDto, ACCOUNT_ID.toString());
 
     assertThat(parkingSticker.getReceptionMethod()).isEqualTo(RECEPTION_METHOD);
   }
@@ -158,7 +162,8 @@ public class ParkingStickerConverterTest {
             .withPostalCode(POSTAL_CODE.toString())
             .build();
 
-    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
+    ParkingSticker parkingSticker =
+        parkingStickerConverter.convert(parkingStickerDto, ACCOUNT_ID.toString());
 
     assertThat(parkingSticker.getPostalCode()).isEqualTo(POSTAL_CODE);
   }
@@ -171,7 +176,8 @@ public class ParkingStickerConverterTest {
             .withEmail(EMAIL_ADDRESS.toString())
             .build();
 
-    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
+    ParkingSticker parkingSticker =
+        parkingStickerConverter.convert(parkingStickerDto, ACCOUNT_ID.toString());
 
     assertThat(parkingSticker.getEmailAddress()).isEqualTo(EMAIL_ADDRESS);
   }
@@ -181,14 +187,15 @@ public class ParkingStickerConverterTest {
     parkingStickerDto =
         aParkingStickerDto().withReceptionMethod(ReceptionMethod.SSP.toString()).build();
 
-    ParkingSticker parkingSticker = parkingStickerConverter.convert(parkingStickerDto);
+    ParkingSticker parkingSticker =
+        parkingStickerConverter.convert(parkingStickerDto, ACCOUNT_ID.toString());
 
     assertThat(parkingSticker.getEmailAddress()).isNotEqualTo(EMAIL_ADDRESS);
   }
 
   @Test
   public void whenConverting_thenAssembleParkingPeriod() {
-    parkingStickerConverter.convert(parkingStickerDto);
+    parkingStickerConverter.convert(parkingStickerDto, ACCOUNT_ID.toString());
 
     verify(parkingPeriodAssembler).assemble(parkingStickerDto.parkingPeriod);
   }

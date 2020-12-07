@@ -36,8 +36,8 @@ public class ParkingStickerConverter {
     this.parkingPeriodAssembler = parkingPeriodAssembler;
   }
 
-  public ParkingSticker convert(ParkingStickerDto parkingStickerDto) {
-    AccountId accountId = accountIdConverter.convert(parkingStickerDto.accountId);
+  public ParkingSticker convert(ParkingStickerDto parkingStickerDto, String stringAccountId) {
+    AccountId accountId = accountIdConverter.convert(stringAccountId);
     ParkingAreaCode parkingAreaCode =
         parkingAreaCodeAssembler.assemble(parkingStickerDto.parkingArea);
 
