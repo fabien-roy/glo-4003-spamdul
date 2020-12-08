@@ -28,7 +28,7 @@ public class ReportParkingAreaServiceTest {
   @Mock private ParkingAreaService parkingAreaService;
   @Mock private ReportRepository reportRepository;
   @Mock private ReportPeriodAssembler reportPeriodAssembler;
-  @Mock private ReportParkingAreaQueryFactory reportParkingAreaQueryFactory;
+  @Mock private ReportQueryFactory reportQueryFactory;
   @Mock private ReportSummaryBuilder reportSummaryBuilder;
   @Mock private ReportQuery reportQuery;
   @Mock private ReportQuery summaryReportQuery;
@@ -53,19 +53,20 @@ public class ReportParkingAreaServiceTest {
             parkingAreaService,
             reportRepository,
             reportPeriodAssembler,
-            reportParkingAreaQueryFactory,
+            reportQueryFactory,
             reportSummaryBuilder);
 
     when(parkingAreaService.getParkingAreaCodes()).thenReturn(parkingAreaCodes);
 
-    when(reportParkingAreaQueryFactory.create(reportType, month, parkingAreaCodes))
+    when(reportQueryFactory.createGateEnteredReportQuery(reportType, month, parkingAreaCodes))
         .thenReturn(reportQuery);
     when(reportRepository.getPeriods(reportQuery))
         .thenReturn(Collections.singletonList(reportPeriod));
     when(reportPeriodAssembler.assembleMany(Collections.singletonList(reportPeriod)))
         .thenReturn(Collections.singletonList(reportPeriodDto));
 
-    when(reportParkingAreaQueryFactory.create(summaryReportType, month, parkingAreaCodes))
+    when(reportQueryFactory.createGateEnteredReportQuery(
+            summaryReportType, month, parkingAreaCodes))
         .thenReturn(summaryReportQuery);
     when(reportRepository.getPeriods(summaryReportQuery))
         .thenReturn(Collections.singletonList(summaryReportPeriod));
