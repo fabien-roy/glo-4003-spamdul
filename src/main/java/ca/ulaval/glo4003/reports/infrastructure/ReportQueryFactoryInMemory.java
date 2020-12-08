@@ -4,12 +4,14 @@ import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.reports.domain.ReportEventType;
 import ca.ulaval.glo4003.reports.domain.ReportQueryFactory;
 import ca.ulaval.glo4003.reports.domain.ReportType;
+import ca.ulaval.glo4003.reports.domain.scopes.ReportScope;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeFactory;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.ConsumptionTypeDimensionInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.ParkingAreaDimensionInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.filters.ReportEventTypeFilterInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.metrics.GateEntriesMetricInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.metrics.ProfitsMetricInMemory;
+import java.util.Collections;
 import java.util.List;
 
 public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQueryInMemory> {
@@ -22,41 +24,34 @@ public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQuer
   @Override
   public ReportQueryInMemory createGateEnteredReportQuery(
       ReportType reportType, String month, List<ParkingAreaCode> parkingAreaCodes) {
-    ReportQueryInMemory reportQuery = new ReportQueryInMemory();
-
-    reportQuery.addFilter(new ReportEventTypeFilterInMemory(ReportEventType.GATE_ENTERED));
-
-    switch (reportType) {
-      case MONTHLY:
-        reportQuery.setScope(reportScopeFactory.createMonthlyScope());
-        break;
-      case SUMMARY:
-      case DAY_OF_MONTH:
-        reportQuery.setScope(reportScopeFactory.createDailyScope(month));
-    }
-
-    reportQuery.addMetric(new GateEntriesMetricInMemory());
-
-    reportQuery.addDimension(new ParkingAreaDimensionInMemory(parkingAreaCodes));
-
-    return reportQuery;
+    return new ReportQueryInMemory(
+        createReportScopeForGateEnteredReportQuery(reportType, month),
+        Collections.singletonList(new GateEntriesMetricInMemory()),
+        Collections.singletonList(new ParkingAreaDimensionInMemory(parkingAreaCodes)),
+        Collections.singletonList(new ReportEventTypeFilterInMemory(ReportEventType.GATE_ENTERED)));
   }
 
   @Override
   public ReportQueryInMemory createBillPaidReportQuery(
       ReportEventType reportEventType, int year, boolean isByConsumptionType) {
-    ReportQueryInMemory reportQuery = new ReportQueryInMemory();
+    return new ReportQueryInMemory(
+        reportScopeFactory.createYearlyScope(year),
+        Collections.singletonList(new ProfitsMetricInMemory()),
+        isByConsumptionType
+            ? Collections.singletonList(new ConsumptionTypeDimensionInMemory())
+            : Collections.emptyList(),
+        Collections.singletonList(new ReportEventTypeFilterInMemory(reportEventType)));
+  }
 
-    reportQuery.addFilter(new ReportEventTypeFilterInMemory(reportEventType));
-
-    reportQuery.setScope(reportScopeFactory.createYearlyScope(year));
-
-    reportQuery.addMetric(new ProfitsMetricInMemory());
-
-    if (isByConsumptionType) {
-      reportQuery.addDimension(new ConsumptionTypeDimensionInMemory());
+  private ReportScope createReportScopeForGateEnteredReportQuery(
+      ReportType reportType, String month) {
+    switch (reportType) {
+      case MONTHLY:
+        return reportScopeFactory.createMonthlyScope();
+      default:
+      case SUMMARY:
+      case DAY_OF_MONTH:
+        return reportScopeFactory.createDailyScope(month);
     }
-
-    return reportQuery;
   }
 }
