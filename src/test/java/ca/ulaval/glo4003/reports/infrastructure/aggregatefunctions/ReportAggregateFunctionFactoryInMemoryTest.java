@@ -8,34 +8,31 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ReportAggregateFunctionBuilderInMemoryTest {
+public class ReportAggregateFunctionFactoryInMemoryTest {
 
-  private ReportAggregateFunctionBuilderInMemory aggregateFunctionBuilder;
+  private ReportAggregateFunctionFactoryInMemory aggregateFunctionFactory;
 
   @Before
   public void setUp() {
-    aggregateFunctionBuilder = new ReportAggregateFunctionBuilderInMemory();
+    aggregateFunctionFactory = new ReportAggregateFunctionFactoryInMemory();
   }
 
   @Test
-  public void givenNoAggregateFunctionType_whenBuildingMany_thenReturnNoAggregateFunction() {
+  public void givenNoAggregateFunctionType_whenCreatingMany_thenReturnNoAggregateFunction() {
     List<ReportAggregateFunctionInMemory> aggregateFunctions =
-        aggregateFunctionBuilder.someAggregateFunctions().buildMany();
+        aggregateFunctionFactory.createMany(Collections.emptyList());
 
     assertThat(aggregateFunctions).hasSize(0);
   }
 
   @Test
   public void
-      givenMaximumAggregateFunctionType_whenBuildingMany_thenReturnMaximumAggregateFunction() {
+      givenMaximumAggregateFunctionType_whenCreatingMany_thenReturnMaximumAggregateFunction() {
     List<ReportAggregateFunctionType> aggregateFunctionTypes =
         Collections.singletonList(ReportAggregateFunctionType.MAXIMUM);
 
     List<ReportAggregateFunctionInMemory> aggregateFunctions =
-        aggregateFunctionBuilder
-            .someAggregateFunctions()
-            .withTypes(aggregateFunctionTypes)
-            .buildMany();
+        aggregateFunctionFactory.createMany(aggregateFunctionTypes);
 
     assertThat(aggregateFunctions).hasSize(1);
     assertThat(aggregateFunctions.get(0)).isInstanceOf(MaximumAggregateFunctionInMemory.class);
@@ -43,15 +40,12 @@ public class ReportAggregateFunctionBuilderInMemoryTest {
 
   @Test
   public void
-      givenMinimumAggregateFunctionType_whenBuildingMany_thenReturnMinimumAggregateFunction() {
+      givenMinimumAggregateFunctionType_whenCreatingMany_thenReturnMinimumAggregateFunction() {
     List<ReportAggregateFunctionType> aggregateFunctionTypes =
         Collections.singletonList(ReportAggregateFunctionType.MINIMUM);
 
     List<ReportAggregateFunctionInMemory> aggregateFunctions =
-        aggregateFunctionBuilder
-            .someAggregateFunctions()
-            .withTypes(aggregateFunctionTypes)
-            .buildMany();
+        aggregateFunctionFactory.createMany(aggregateFunctionTypes);
 
     assertThat(aggregateFunctions).hasSize(1);
     assertThat(aggregateFunctions.get(0)).isInstanceOf(MinimumAggregateFunctionInMemory.class);
@@ -59,15 +53,12 @@ public class ReportAggregateFunctionBuilderInMemoryTest {
 
   @Test
   public void
-      givenAverageAggregateFunctionType_whenBuildingMany_thenReturnAverageAggregateFunction() {
+      givenAverageAggregateFunctionType_whenCreatingMany_thenReturnAverageAggregateFunction() {
     List<ReportAggregateFunctionType> aggregateFunctionTypes =
         Collections.singletonList(ReportAggregateFunctionType.AVERAGE);
 
     List<ReportAggregateFunctionInMemory> aggregateFunctions =
-        aggregateFunctionBuilder
-            .someAggregateFunctions()
-            .withTypes(aggregateFunctionTypes)
-            .buildMany();
+        aggregateFunctionFactory.createMany(aggregateFunctionTypes);
 
     assertThat(aggregateFunctions).hasSize(1);
     assertThat(aggregateFunctions.get(0)).isInstanceOf(AverageAggregateFunctionInMemory.class);

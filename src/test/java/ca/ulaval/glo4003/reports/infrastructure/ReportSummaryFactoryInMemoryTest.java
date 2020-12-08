@@ -7,10 +7,10 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.reports.domain.ReportPeriod;
-import ca.ulaval.glo4003.reports.domain.ReportSummaryBuilder;
+import ca.ulaval.glo4003.reports.domain.ReportSummaryFactory;
 import ca.ulaval.glo4003.reports.domain.aggregatefunctions.ReportAggregateFunctionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
-import ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions.ReportAggregateFunctionBuilderInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions.ReportAggregateFunctionFactoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions.ReportAggregateFunctionInMemory;
 import java.util.Collections;
 import java.util.List;
@@ -21,14 +21,12 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ReportSummaryBuilderInMemoryTest {
+public class ReportSummaryFactoryInMemoryTest {
 
-  @Mock private ReportAggregateFunctionBuilderInMemory aggregateFunctionBuilder;
-  @Mock private ReportAggregateFunctionBuilderInMemory aggregateFunctionBuilderWithoutType;
-  @Mock private ReportAggregateFunctionBuilderInMemory aggregateFunctionBuilderWithTypes;
+  @Mock private ReportAggregateFunctionFactoryInMemory aggregateFunctionFactory;
   @Mock private ReportAggregateFunctionInMemory aggregateFunction;
 
-  private ReportSummaryBuilder summaryBuilder;
+  private ReportSummaryFactory summaryFactory;
 
   private final ReportPeriod period = aReportPeriod().build();
   private final ReportPeriod aggregatedPeriod = aReportPeriod().build();
@@ -41,15 +39,11 @@ public class ReportSummaryBuilderInMemoryTest {
 
   @Before
   public void setUp() {
-    summaryBuilder = new ReportSummaryBuilderInMemory(aggregateFunctionBuilder);
+    summaryFactory = new ReportSummaryFactoryInMemory(aggregateFunctionFactory);
 
-    when(aggregateFunctionBuilder.someAggregateFunctions()).thenReturn(aggregateFunctionBuilder);
-    when(aggregateFunctionBuilder.withTypes(Collections.emptyList()))
-        .thenReturn(aggregateFunctionBuilderWithoutType);
-    when(aggregateFunctionBuilder.withTypes(aggregateFunctionTypes))
-        .thenReturn(aggregateFunctionBuilderWithTypes);
-    when(aggregateFunctionBuilderWithoutType.buildMany()).thenReturn(Collections.emptyList());
-    when(aggregateFunctionBuilderWithTypes.buildMany())
+    when(aggregateFunctionFactory.createMany(Collections.emptyList()))
+        .thenReturn(Collections.emptyList());
+    when(aggregateFunctionFactory.createMany(aggregateFunctionTypes))
         .thenReturn(Collections.singletonList(aggregateFunction));
 
     when(aggregateFunction.aggregate(periods, metricType)).thenReturn(aggregatedPeriod);
@@ -58,11 +52,7 @@ public class ReportSummaryBuilderInMemoryTest {
   @Test
   public void givenNoPeriod_whenBuilding_thenReturnNoPeriod() {
     List<ReportPeriod> aggregatedPeriods =
-        summaryBuilder
-            .aReportSummary()
-            .withAggregateFunctions(aggregateFunctionTypes)
-            .withMetric(metricType)
-            .build();
+        summaryFactory.create(aggregateFunctionTypes, Collections.emptyList(), metricType);
 
     assertThat(aggregatedPeriods).hasSize(1);
     assertThat(aggregatedPeriods.get(0)).isNull();
@@ -71,7 +61,7 @@ public class ReportSummaryBuilderInMemoryTest {
   @Test
   public void givenNoAggregateFunction_whenBuilding_thenReturnNoPeriod() {
     List<ReportPeriod> aggregatedPeriods =
-        summaryBuilder.aReportSummary().withPeriods(periods).withMetric(metricType).build();
+        summaryFactory.create(Collections.emptyList(), periods, metricType);
 
     assertThat(aggregatedPeriods).hasSize(0);
   }
@@ -80,12 +70,7 @@ public class ReportSummaryBuilderInMemoryTest {
   public void
       givenPeriodsAndAggregateFunctionsAndMetric_whenBuilding_thenReturnAggregatedPeriods() {
     List<ReportPeriod> aggregatedPeriods =
-        summaryBuilder
-            .aReportSummary()
-            .withPeriods(periods)
-            .withAggregateFunctions(aggregateFunctionTypes)
-            .withMetric(metricType)
-            .build();
+        summaryFactory.create(aggregateFunctionTypes, periods, metricType);
 
     assertThat(aggregatedPeriods).hasSize(1);
     assertThat(aggregatedPeriods.get(0)).isSameInstanceAs(aggregatedPeriod);

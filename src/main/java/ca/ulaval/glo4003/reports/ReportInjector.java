@@ -7,8 +7,8 @@ import ca.ulaval.glo4003.reports.domain.*;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeFactory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportQueryFactoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportRepositoryInMemory;
-import ca.ulaval.glo4003.reports.infrastructure.ReportSummaryBuilderInMemory;
-import ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions.ReportAggregateFunctionBuilderInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.ReportSummaryFactoryInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions.ReportAggregateFunctionFactoryInMemory;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
 import ca.ulaval.glo4003.reports.services.ReportParkingAreaService;
 import ca.ulaval.glo4003.reports.services.ReportProfitService;
@@ -38,17 +38,15 @@ public class ReportInjector {
 
   public ReportParkingAreaService createReportParkingAreaService(
       ParkingAreaService parkingAreaService) {
-    ReportAggregateFunctionBuilderInMemory reportAggregateFunctionBuilder =
-        new ReportAggregateFunctionBuilderInMemory();
-    ReportSummaryBuilder reportSummaryBuilder =
-        new ReportSummaryBuilderInMemory(reportAggregateFunctionBuilder);
+    ReportSummaryFactory reportSummaryFactory =
+        new ReportSummaryFactoryInMemory(new ReportAggregateFunctionFactoryInMemory());
 
     return new ReportParkingAreaService(
         parkingAreaService,
         reportRepository,
         createReportPeriodAssembler(),
         createReportQueryFactory(),
-        reportSummaryBuilder);
+        reportSummaryFactory);
   }
 
   private ReportPeriodAssembler createReportPeriodAssembler() {

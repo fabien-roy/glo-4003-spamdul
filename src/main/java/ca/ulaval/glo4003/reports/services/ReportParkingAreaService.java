@@ -17,19 +17,19 @@ public class ReportParkingAreaService {
   private final ReportRepository reportRepository;
   private final ReportPeriodAssembler reportPeriodAssembler;
   private final ReportQueryFactory reportQueryFactory;
-  private final ReportSummaryBuilder reportSummaryBuilder;
+  private final ReportSummaryFactory reportSummaryFactory;
 
   public ReportParkingAreaService(
       ParkingAreaService parkingAreaService,
       ReportRepository reportRepository,
       ReportPeriodAssembler reportPeriodAssembler,
       ReportQueryFactory reportQueryFactory,
-      ReportSummaryBuilder reportSummaryBuilder) {
+      ReportSummaryFactory reportSummaryFactory) {
     this.parkingAreaService = parkingAreaService;
     this.reportRepository = reportRepository;
     this.reportPeriodAssembler = reportPeriodAssembler;
     this.reportQueryFactory = reportQueryFactory;
-    this.reportSummaryBuilder = reportSummaryBuilder;
+    this.reportSummaryFactory = reportSummaryFactory;
   }
 
   public List<ReportPeriodDto> getAllParkingAreaReports(String reportName, String month) {
@@ -50,15 +50,12 @@ public class ReportParkingAreaService {
   }
 
   private List<ReportPeriod> getSummaryPeriods(List<ReportPeriod> periods) {
-    return reportSummaryBuilder
-        .aReportSummary()
-        .withPeriods(periods)
-        .withAggregateFunctions(
-            Arrays.asList(
-                ReportAggregateFunctionType.MAXIMUM,
-                ReportAggregateFunctionType.MINIMUM,
-                ReportAggregateFunctionType.AVERAGE))
-        .withMetric(ReportMetricType.GATE_ENTRIES)
-        .build();
+    return reportSummaryFactory.create(
+        Arrays.asList(
+            ReportAggregateFunctionType.MAXIMUM,
+            ReportAggregateFunctionType.MINIMUM,
+            ReportAggregateFunctionType.AVERAGE),
+        periods,
+        ReportMetricType.GATE_ENTRIES);
   }
 }
