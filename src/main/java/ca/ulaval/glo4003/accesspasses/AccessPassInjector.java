@@ -68,7 +68,6 @@ public class AccessPassInjector {
 
   private void addAccessPassByConsumptionTypesToRepository() {
     ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader);
-
     Map<String, Map<String, Double>> zonesAndFees =
         zoneFeesFileHelper.getZoneAndFeesForAccessPass();
 

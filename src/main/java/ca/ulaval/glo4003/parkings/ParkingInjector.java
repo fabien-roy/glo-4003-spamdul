@@ -22,7 +22,6 @@ import ca.ulaval.glo4003.parkings.services.assemblers.ParkingPeriodAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.converters.ParkingPeriodConverter;
 import ca.ulaval.glo4003.parkings.services.converters.ParkingStickerConverter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +31,7 @@ public class ParkingInjector {
   private final ParkingStickerCodeGenerator parkingStickerCodeGenerator =
       new ParkingStickerCodeGenerator(new StringCodeGenerator());
   private final ParkingAreaRepository parkingAreaRepository = new ParkingAreaRepositoryInMemory();
+  private final ParkingPeriodConverter parkingPeriodConverter = new ParkingPeriodConverter();
 
   public ParkingAreaRepository getParkingAreaRepository() {
     return parkingAreaRepository;
@@ -95,31 +95,33 @@ public class ParkingInjector {
   private void addParkingAreasToRepository(ParkingAreaCodeAssembler parkingAreaCodeAssembler) {
     StringMatrixFileReader fileReader = new CsvFileReader();
     ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader);
-
     Map<String, Map<String, Double>> zonesAndFees =
         zoneFeesFileHelper.getZoneAndFeesForParkingSticker();
-    List<ParkingArea> parkingAreas = new ArrayList<>();
 
-    ParkingPeriodConverter parkingPeriodConverter = new ParkingPeriodConverter();
+    for (Map.Entry<String, Map<String, Double>> zoneAndFee : zonesAndFees.entrySet()) {
+      String zone = zoneAndFee.getKey();
+      ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(zone);
 
-    zonesAndFees
-        .keySet()
-        .forEach(
-            zone -> {
-              ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(zone);
-              Map<ParkingPeriod, Money> feesPerPeriod = new HashMap<>();
-              zonesAndFees
-                  .get(zone)
-                  .keySet()
-                  .forEach(
-                      period -> {
-                        ParkingPeriodInFrench parkingPeriod = ParkingPeriodInFrench.get(period);
-                        Money fee = Money.fromDouble(zonesAndFees.get(zone).get(period));
-                        feesPerPeriod.put(parkingPeriodConverter.convert(parkingPeriod), fee);
-                      });
-              parkingAreas.add(new ParkingArea(parkingAreaCode, feesPerPeriod));
-            });
+      Map<ParkingPeriod, Money> feeForPeriod = getParkingFeeByPeriodForZone(zoneAndFee.getValue());
+      saveParkingAreaToRepository(parkingAreaCode, feeForPeriod);
+    }
+  }
 
-    parkingAreas.forEach(parkingAreaRepository::save);
+  private Map<ParkingPeriod, Money> getParkingFeeByPeriodForZone(Map<String, Double> zoneAndFee) {
+    Map<ParkingPeriod, Money> feesPerPeriod = new HashMap<>();
+    for (Map.Entry<String, Double> feeForPeriod : zoneAndFee.entrySet()) {
+      ParkingPeriodInFrench parkingPeriod = ParkingPeriodInFrench.get(feeForPeriod.getKey());
+      Money fee = Money.fromDouble(feeForPeriod.getValue());
+
+      feesPerPeriod.put(parkingPeriodConverter.convert(parkingPeriod), fee);
+    }
+
+    return feesPerPeriod;
+  }
+
+  private void saveParkingAreaToRepository(
+      ParkingAreaCode parkingAreaCode, Map<ParkingPeriod, Money> feesPerPeriod) {
+    ParkingArea parkingArea = new ParkingArea(parkingAreaCode, feesPerPeriod);
+    parkingAreaRepository.save(parkingArea);
   }
 }
