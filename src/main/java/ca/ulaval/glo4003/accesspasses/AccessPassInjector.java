@@ -21,10 +21,7 @@ import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.services.SemesterService;
 import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AccessPassInjector {
 
@@ -74,29 +71,35 @@ public class AccessPassInjector {
 
     Map<String, Map<String, Double>> zonesAndFees =
         zoneFeesFileHelper.getZoneAndFeesForAccessPass();
-    List<AccessPassType> accessConsumption = new ArrayList<>();
 
-    zonesAndFees
-        .keySet()
-        .forEach(
-            consumption -> {
-              ConsumptionTypeInFrench consumptionTypeInFrench =
-                  ConsumptionTypeInFrench.get(consumption);
-              Map<AccessPeriod, Money> feesPerPeriod = new HashMap<>();
-              zonesAndFees
-                  .get(consumption)
-                  .keySet()
-                  .forEach(
-                      period -> {
-                        AccessPeriodInFrench accessPeriod = AccessPeriodInFrench.get(period);
-                        Money fee = Money.fromDouble(zonesAndFees.get(consumption).get(period));
-                        feesPerPeriod.put(accessPassPeriodConverter.convert(accessPeriod), fee);
-                      });
-              accessConsumption.add(
-                  new AccessPassType(
-                      consumptionConverter.convert(consumptionTypeInFrench), feesPerPeriod));
-            });
+    for (Map.Entry<String, Map<String, Double>> zoneAndFee : zonesAndFees.entrySet()) {
+      String consumptionType = zoneAndFee.getKey();
+      ConsumptionTypeInFrench consumptionTypeInFrench =
+          ConsumptionTypeInFrench.get(consumptionType);
 
-    accessConsumption.forEach(accessPassPriceByCarConsumptionInMemoryRepository::save);
+      Map<AccessPeriod, Money> feesPerPeriod =
+          getFeeByPeriodForConsumptionType(zoneAndFee.getValue());
+      saveAccessPassTypeToRepository(consumptionTypeInFrench, feesPerPeriod);
+    }
+  }
+
+  private Map<AccessPeriod, Money> getFeeByPeriodForConsumptionType(
+      Map<String, Double> zoneAndFees) {
+    Map<AccessPeriod, Money> feesPerPeriod = new HashMap<>();
+    for (Map.Entry<String, Double> zoneAndFee : zoneAndFees.entrySet()) {
+      AccessPeriodInFrench accessPeriodInFrench = AccessPeriodInFrench.get(zoneAndFee.getKey());
+      Money fee = Money.fromDouble(zoneAndFee.getValue());
+
+      feesPerPeriod.put(accessPassPeriodConverter.convert(accessPeriodInFrench), fee);
+    }
+
+    return feesPerPeriod;
+  }
+
+  private void saveAccessPassTypeToRepository(
+      ConsumptionTypeInFrench consumptionTypeInFrench, Map<AccessPeriod, Money> feeForPeriods) {
+    AccessPassType accessPassType =
+        new AccessPassType(consumptionConverter.convert(consumptionTypeInFrench), feeForPeriods);
+    accessPassPriceByCarConsumptionInMemoryRepository.save(accessPassType);
   }
 }
