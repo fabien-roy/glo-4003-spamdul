@@ -1,10 +1,18 @@
 package ca.ulaval.glo4003.accounts.domain.exceptions;
 
-public class NotFoundAccountException extends AccountException {
+import ca.ulaval.glo4003.errors.domain.ErrorCode;
+import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
+
+public class NotFoundAccountException extends ApplicationException {
   private static final String ERROR = "Account not found";
   private static final String DESCRIPTION = "Account was not found in repository";
 
   public NotFoundAccountException() {
     super(ERROR, DESCRIPTION);
+  }
+
+  @Override
+  public ErrorCode getErrorCode() {
+    return ErrorCode.NOT_FOUND;
   }
 }
