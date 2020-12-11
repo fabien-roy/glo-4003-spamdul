@@ -10,6 +10,8 @@ public class ErrorResponseStatusConverter {
     switch (errorCode) {
       case NOT_FOUND:
         return Status.NOT_FOUND;
+      case ALREADY_EXISTING:
+        return Status.CONFLICT; // TODO : Change Postman and doc API
       case UNSUPPORTED_OPERATION:
         return Status.NOT_IMPLEMENTED;
       default:
