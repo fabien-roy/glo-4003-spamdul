@@ -7,13 +7,9 @@ public class WrongAmountOfSemestersForPeriodException extends ApplicationExcepti
   private static final String ERROR = "Wrong amount of semesters";
   private static final String DESCRIPTION =
       "The amount of semesters provided doesn't match the period selected";
+  private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
 
   public WrongAmountOfSemestersForPeriodException() {
-    super(ERROR, DESCRIPTION);
-  }
-
-  @Override
-  public ErrorCode getErrorCode() {
-    return ErrorCode.INVALID_REQUEST;
+    super(ERROR, DESCRIPTION, CODE);
   }
 }

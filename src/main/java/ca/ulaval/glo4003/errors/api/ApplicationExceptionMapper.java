@@ -20,15 +20,12 @@ public class ApplicationExceptionMapper implements ExceptionMapper<ApplicationEx
 
   @Override
   public Response toResponse(ApplicationException exception) {
-    Status responseStatus = errorResponseStatusConverter.convert(exception.getErrorCode());
+    Status status = errorResponseStatusConverter.convert(exception.getCode());
 
     ErrorDto errorDto = new ErrorDto();
-    errorDto.error = exception.error;
-    errorDto.description = exception.description;
+    errorDto.error = exception.getError();
+    errorDto.description = exception.getDescription();
 
-    return Response.status(responseStatus)
-        .entity(errorDto)
-        .type(MediaType.APPLICATION_JSON)
-        .build();
+    return Response.status(status).entity(errorDto).type(MediaType.APPLICATION_JSON).build();
   }
 }

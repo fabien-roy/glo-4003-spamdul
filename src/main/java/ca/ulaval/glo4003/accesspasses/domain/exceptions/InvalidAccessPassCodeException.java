@@ -6,13 +6,9 @@ import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
 public class InvalidAccessPassCodeException extends ApplicationException {
   private static final String ERROR = "Invalid access pass code";
   private static final String DESCRIPTION = "Access pass code is invalid";
+  private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
 
   public InvalidAccessPassCodeException() {
-    super(ERROR, DESCRIPTION);
-  }
-
-  @Override
-  public ErrorCode getErrorCode() {
-    return ErrorCode.INVALID_REQUEST;
+    super(ERROR, DESCRIPTION, CODE);
   }
 }

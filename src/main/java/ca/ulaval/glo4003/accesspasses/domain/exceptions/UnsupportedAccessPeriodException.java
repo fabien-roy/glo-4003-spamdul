@@ -6,13 +6,9 @@ import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
 public class UnsupportedAccessPeriodException extends ApplicationException {
   private static final String ERROR = "Unsupported access period";
   private static final String DESCRIPTION = "This access period isn't supported yet";
+  private static final ErrorCode CODE = ErrorCode.UNSUPPORTED_OPERATION;
 
   public UnsupportedAccessPeriodException() {
-    super(ERROR, DESCRIPTION);
-  }
-
-  @Override
-  public ErrorCode getErrorCode() {
-    return ErrorCode.UNSUPPORTED_OPERATION;
+    super(ERROR, DESCRIPTION, CODE);
   }
 }

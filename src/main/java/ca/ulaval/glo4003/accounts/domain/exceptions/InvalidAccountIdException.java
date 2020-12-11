@@ -5,14 +5,10 @@ import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
 
 public class InvalidAccountIdException extends ApplicationException {
   private static final String ERROR = "Invalid account id";
-  private static final String DESCRIPTION = "Account Id is invalid";
+  private static final String DESCRIPTION = "Account id is invalid";
+  private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
 
   public InvalidAccountIdException() {
-    super(ERROR, DESCRIPTION);
-  }
-
-  @Override
-  public ErrorCode getErrorCode() {
-    return ErrorCode.INVALID_REQUEST;
+    super(ERROR, DESCRIPTION, CODE);
   }
 }
