@@ -5,7 +5,6 @@ import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
-import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.assemblers.ParkingPeriodPriceAssembler;
@@ -20,9 +19,9 @@ import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingPeriodAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
+import ca.ulaval.glo4003.parkings.services.converters.ParkingAreaConverter;
 import ca.ulaval.glo4003.parkings.services.converters.ParkingPeriodConverter;
 import ca.ulaval.glo4003.parkings.services.converters.ParkingStickerConverter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +64,7 @@ public class ParkingInjector {
     ParkingAreaCodeAssembler parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
 
     if (isDev) {
-      addParkingAreasToRepository(parkingAreaCodeAssembler);
+      addParkingAreasToRepository();
     }
 
     ParkingStickerFactory parkingStickerFactory =
@@ -92,36 +91,16 @@ public class ParkingInjector {
     return parkingStickerService;
   }
 
-  private void addParkingAreasToRepository(ParkingAreaCodeAssembler parkingAreaCodeAssembler) {
+  private void addParkingAreasToRepository() {
+    ParkingAreaConverter parkingAreaConverter =
+        new ParkingAreaConverter(createParkingAreaCodeAssembler(), parkingPeriodConverter);
+
     StringMatrixFileReader fileReader = new CsvFileReader();
     ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader);
     Map<String, Map<String, Double>> zonesAndFees =
         zoneFeesFileHelper.getZoneAndFeesForParkingSticker();
 
-    for (Map.Entry<String, Map<String, Double>> zoneAndFee : zonesAndFees.entrySet()) {
-      String zone = zoneAndFee.getKey();
-      ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(zone);
-
-      Map<ParkingPeriod, Money> feeForPeriod = getParkingFeeByPeriodForZone(zoneAndFee.getValue());
-      saveParkingAreaToRepository(parkingAreaCode, feeForPeriod);
-    }
-  }
-
-  private Map<ParkingPeriod, Money> getParkingFeeByPeriodForZone(Map<String, Double> zoneAndFee) {
-    Map<ParkingPeriod, Money> feesPerPeriod = new HashMap<>();
-    for (Map.Entry<String, Double> feeForPeriod : zoneAndFee.entrySet()) {
-      ParkingPeriodInFrench parkingPeriod = ParkingPeriodInFrench.get(feeForPeriod.getKey());
-      Money fee = Money.fromDouble(feeForPeriod.getValue());
-
-      feesPerPeriod.put(parkingPeriodConverter.convert(parkingPeriod), fee);
-    }
-
-    return feesPerPeriod;
-  }
-
-  private void saveParkingAreaToRepository(
-      ParkingAreaCode parkingAreaCode, Map<ParkingPeriod, Money> feesPerPeriod) {
-    ParkingArea parkingArea = new ParkingArea(parkingAreaCode, feesPerPeriod);
-    parkingAreaRepository.save(parkingArea);
+    List<ParkingArea> parkingAreas = parkingAreaConverter.convert(zonesAndFees);
+    parkingAreas.forEach(parkingAreaRepository::save);
   }
 }
