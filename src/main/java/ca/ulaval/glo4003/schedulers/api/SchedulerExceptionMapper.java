@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.schedulers.api;
 
 import ca.ulaval.glo4003.errors.services.dto.ErrorDto;
-import ca.ulaval.glo4003.schedulers.exceptions.SchedulerException;
+import ca.ulaval.glo4003.schedulers.domain.exceptions.SchedulerException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

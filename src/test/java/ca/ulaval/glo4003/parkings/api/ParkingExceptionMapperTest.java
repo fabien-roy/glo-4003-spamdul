@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.parkings.api;
 
-import ca.ulaval.glo4003.parkings.exceptions.*;
+import ca.ulaval.glo4003.parkings.domain.exceptions.*;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;

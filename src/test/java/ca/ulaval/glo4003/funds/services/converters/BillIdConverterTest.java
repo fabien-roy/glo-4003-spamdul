@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.funds.services.converters;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
+import ca.ulaval.glo4003.funds.domain.exceptions.BillNotFoundException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

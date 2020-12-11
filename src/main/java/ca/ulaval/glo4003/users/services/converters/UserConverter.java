@@ -1,12 +1,12 @@
 package ca.ulaval.glo4003.users.services.converters;
 
 import ca.ulaval.glo4003.times.domain.CustomDate;
-import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
+import ca.ulaval.glo4003.times.domain.exceptions.InvalidDateException;
 import ca.ulaval.glo4003.times.services.converters.CustomDateConverter;
 import ca.ulaval.glo4003.users.domain.Sex;
 import ca.ulaval.glo4003.users.domain.User;
-import ca.ulaval.glo4003.users.exceptions.InvalidBirthDateException;
-import ca.ulaval.glo4003.users.exceptions.InvalidNameException;
+import ca.ulaval.glo4003.users.domain.exceptions.InvalidBirthDateException;
+import ca.ulaval.glo4003.users.domain.exceptions.InvalidNameException;
 import ca.ulaval.glo4003.users.services.dto.UserDto;
 
 public class UserConverter {

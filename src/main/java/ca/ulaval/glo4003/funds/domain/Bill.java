@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.funds.domain;
 
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
-import ca.ulaval.glo4003.funds.exception.AmountDueExceededException;
+import ca.ulaval.glo4003.funds.domain.exceptions.AmountDueExceededException;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import java.util.Optional;
 

@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.accounts.services.converters;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
-import ca.ulaval.glo4003.accounts.exceptions.InvalidAccountIdException;
+import ca.ulaval.glo4003.accounts.domain.exceptions.InvalidAccountIdException;
 import java.util.UUID;
 
 public class AccountIdConverter {

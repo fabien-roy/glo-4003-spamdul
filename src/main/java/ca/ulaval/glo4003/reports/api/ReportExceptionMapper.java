@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.reports.api;
 
 import ca.ulaval.glo4003.errors.services.dto.ErrorDto;
-import ca.ulaval.glo4003.reports.exceptions.ReportException;
+import ca.ulaval.glo4003.reports.domain.exceptions.ReportException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.funds.infrastructure;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.BillRepository;
-import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
+import ca.ulaval.glo4003.funds.domain.exceptions.BillNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.accesspasses.services.converters;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
-import ca.ulaval.glo4003.accesspasses.exceptions.UnsupportedAccessPeriodException;
-import ca.ulaval.glo4003.accesspasses.exceptions.WrongAmountOfSemestersForPeriodException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.UnsupportedAccessPeriodException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongAmountOfSemestersForPeriodException;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;

@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings.services.assemblers;
 
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
-import ca.ulaval.glo4003.parkings.exceptions.InvalidParkingAreaCodeException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.InvalidParkingAreaCodeException;
 
 public class ParkingAreaCodeAssembler {
   public ParkingAreaCode assemble(String parkingAreaCode) {

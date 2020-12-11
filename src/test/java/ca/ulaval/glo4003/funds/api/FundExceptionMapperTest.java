@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.funds.api;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.funds.exception.*;
+import ca.ulaval.glo4003.funds.domain.exceptions.*;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;

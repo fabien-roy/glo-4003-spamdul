@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.cars.services.converters;
 
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.cars.exceptions.InvalidLicensePlateException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidLicensePlateException;
 import java.util.regex.Pattern;
 
 public class LicensePlateConverter {

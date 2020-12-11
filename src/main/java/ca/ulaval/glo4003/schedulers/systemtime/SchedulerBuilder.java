@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.schedulers.systemtime;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
 
-import ca.ulaval.glo4003.schedulers.exceptions.CannotBuildSchedulerException;
+import ca.ulaval.glo4003.schedulers.domain.exceptions.CannotBuildSchedulerException;
 import java.util.ArrayList;
 import java.util.List;
 import org.quartz.*;

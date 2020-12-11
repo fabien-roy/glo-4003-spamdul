@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.accounts.domain.AccountId;
-import ca.ulaval.glo4003.accounts.exceptions.InvalidAccountIdException;
+import ca.ulaval.glo4003.accounts.domain.exceptions.InvalidAccountIdException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

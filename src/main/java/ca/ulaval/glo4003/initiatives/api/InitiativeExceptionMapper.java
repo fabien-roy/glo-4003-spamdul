@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.initiatives.api;
 
 import ca.ulaval.glo4003.errors.services.dto.ErrorDto;
-import ca.ulaval.glo4003.initiatives.exception.InitiativeException;
-import ca.ulaval.glo4003.initiatives.exception.InitiativeNotFoundException;
+import ca.ulaval.glo4003.initiatives.domain.exceptions.InitiativeException;
+import ca.ulaval.glo4003.initiatives.domain.exceptions.InitiativeNotFoundException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

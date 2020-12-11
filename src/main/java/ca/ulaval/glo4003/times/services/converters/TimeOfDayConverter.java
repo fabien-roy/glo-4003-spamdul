@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.times.services.converters;
 
 import ca.ulaval.glo4003.times.domain.TimeOfDay;
-import ca.ulaval.glo4003.times.exceptions.InvalidTimeOfDayException;
+import ca.ulaval.glo4003.times.domain.exceptions.InvalidTimeOfDayException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.reports.api;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.reports.exceptions.InvalidReportTypeException;
-import ca.ulaval.glo4003.reports.exceptions.ReportException;
+import ca.ulaval.glo4003.reports.domain.exceptions.InvalidReportTypeException;
+import ca.ulaval.glo4003.reports.domain.exceptions.ReportException;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;

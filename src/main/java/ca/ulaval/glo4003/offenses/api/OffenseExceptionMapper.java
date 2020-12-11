@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.offenses.api;
 
 import ca.ulaval.glo4003.errors.services.dto.ErrorDto;
-import ca.ulaval.glo4003.offenses.exceptions.InvalidOffenseCodeException;
-import ca.ulaval.glo4003.offenses.exceptions.OffenseException;
-import ca.ulaval.glo4003.offenses.exceptions.OffenseTypeNotFoundException;
+import ca.ulaval.glo4003.offenses.domain.exceptions.InvalidOffenseCodeException;
+import ca.ulaval.glo4003.offenses.domain.exceptions.OffenseException;
+import ca.ulaval.glo4003.offenses.domain.exceptions.OffenseTypeNotFoundException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

@@ -5,7 +5,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
-import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingAreaException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.NotFoundParkingAreaException;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;

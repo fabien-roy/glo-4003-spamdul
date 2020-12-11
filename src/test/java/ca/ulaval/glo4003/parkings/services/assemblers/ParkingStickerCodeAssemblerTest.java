@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.parkings.services.assemblers;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createParkingStickerCode;
 
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
-import ca.ulaval.glo4003.parkings.exceptions.InvalidParkingStickerCodeException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.InvalidParkingStickerCodeException;
 import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerCodeDto;
 import com.google.common.truth.Truth;
 import org.junit.Before;

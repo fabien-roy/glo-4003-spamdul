@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.accesspasses.infrastructure;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassType;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassTypeRepository;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
-import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidConsumptionTypeException;
 import java.util.HashMap;
 
 public class AccessPassTypeInMemoryRepository implements AccessPassTypeRepository {

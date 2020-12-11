@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.accesspasses.services.converters;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriodInFrench;
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPeriodException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPeriodException;
 
 public class AccessPassPeriodConverter {
   public AccessPeriod convert(AccessPeriodInFrench accessPeriodInFrench) {

@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeRepository;
-import ca.ulaval.glo4003.initiatives.exception.InitiativeNotFoundException;
+import ca.ulaval.glo4003.initiatives.domain.exceptions.InitiativeNotFoundException;
 import com.google.common.truth.Truth;
 import java.util.List;
 import org.junit.Before;

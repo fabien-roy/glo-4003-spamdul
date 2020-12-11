@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.files.filesystem;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
+import ca.ulaval.glo4003.files.domain.exceptions.InvalidFileException;
 import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
