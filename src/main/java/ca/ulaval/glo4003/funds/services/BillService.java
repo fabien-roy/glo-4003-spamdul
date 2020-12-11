@@ -93,7 +93,7 @@ public class BillService {
 
     if (bill.isBillTypeEqual(BillType.ACCESS_PASS)
         || bill.isBillTypeEqual(BillType.PARKING_STICKER)) {
-      initiativeFundCollector.addAvailableMoney(
+      initiativeFundCollector.addMoney(
           sustainableMobilityProgramAllocationCalculator.calculate(amountToPay));
     }
 

@@ -85,24 +85,24 @@ public class InitiativeRepositoryInMemoryTest {
   @Test
   public void givenMoney_whenAdding_thenMoneyIsAdded() {
     Money money = createMoney();
-    initiativeRepository.addAvailableMoney(money);
+    initiativeRepository.addMoney(money);
 
     Truth.assertThat(initiativeRepository.getAvailableMoney()).isEqualTo(money);
   }
 
   @Test
   public void givenMoney_whenRemoving_thenMoneyIsRemoved() {
-    initiativeRepository.addAvailableMoney(ADDED_MONEY);
+    initiativeRepository.addMoney(ADDED_MONEY);
 
-    initiativeRepository.removeAvailableMoney(REMOVED_MONEY);
+    initiativeRepository.takeMoney(REMOVED_MONEY);
 
     Truth.assertThat(initiativeRepository.getAvailableMoney()).isEqualTo(FINAL_AMOUNT);
   }
 
   @Test(expected = InsufficientAvailableMoneyException.class)
   public void givenTooHighMoneyAmount_whenRemoving_thenThrowInsufficientAvailableMoneyException() {
-    initiativeRepository.addAvailableMoney(ADDED_MONEY);
+    initiativeRepository.addMoney(ADDED_MONEY);
 
-    initiativeRepository.removeAvailableMoney(REMOVED_TOO_HIGH_MONEY_AMOUNT);
+    initiativeRepository.takeMoney(REMOVED_TOO_HIGH_MONEY_AMOUNT);
   }
 }

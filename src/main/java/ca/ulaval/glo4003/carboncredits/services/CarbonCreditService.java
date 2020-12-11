@@ -50,10 +50,10 @@ public class CarbonCreditService implements InitiativeAddedAllocatedAmountObserv
 
   public void allocateRemainingFundToCarbonCreditInitiative() {
     if (monthlyPaymentStatusRepository.get().equals(MonthlyPaymentStatus.ENABLE)) {
-      Money sustainableMobilityProgramBankAvailableMoney = initiativeRepository.getAvailableMoney();
+      Money availableMoney = initiativeRepository.getAvailableMoney();
       initiativeService.addAllocatedAmountToInitiative(
           CarbonCreditConfiguration.getConfiguration().getCarbonCreditInitiativeCode(),
-          sustainableMobilityProgramBankAvailableMoney);
+          availableMoney);
     }
   }
 

@@ -12,7 +12,7 @@ public interface InitiativeRepository {
 
   void update(Initiative initiative);
 
-  void removeAvailableMoney(Money money);
+  void takeMoney(Money money);
 
   Money getAvailableMoney();
 }

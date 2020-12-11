@@ -47,12 +47,12 @@ public class InitiativeRepositoryInMemory implements InitiativeRepository, Initi
   }
 
   @Override
-  public void addAvailableMoney(Money money) {
+  public void addMoney(Money money) {
     this.availableMoney = availableMoney.plus(money);
   }
 
   @Override
-  public void removeAvailableMoney(Money money) {
+  public void takeMoney(Money money) {
     if (availableMoney.isLessThan(money)) throw new InsufficientAvailableMoneyException();
 
     this.availableMoney = availableMoney.minus(money);

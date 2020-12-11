@@ -200,7 +200,7 @@ public class BillServiceTest {
     billService.payBill(parkingBill.getId(), amountDue);
     bill.pay(amountDue);
 
-    verify(initiativeFundCollector).addAvailableMoney(amountKeptForSustainabilityProgram);
+    verify(initiativeFundCollector).addMoney(amountKeptForSustainabilityProgram);
   }
 
   @Test
@@ -226,7 +226,7 @@ public class BillServiceTest {
     billService.payBill(accessPassBill.getId(), amountDue);
     bill.pay(amountDue);
 
-    verify(initiativeFundCollector).addAvailableMoney(amountKeptForSustainabilityProgram);
+    verify(initiativeFundCollector).addMoney(amountKeptForSustainabilityProgram);
   }
 
   @Test
@@ -252,7 +252,7 @@ public class BillServiceTest {
     billService.payBill(offenseBill.getId(), amountDue);
     bill.pay(amountDue);
 
-    verify(initiativeFundCollector, never()).addAvailableMoney(any(Money.class));
+    verify(initiativeFundCollector, never()).addMoney(any(Money.class));
   }
 
   @Test

@@ -77,7 +77,7 @@ public class InitiativeServiceTest {
   public void whenAddingInitiative_thenAmountIsRemovedFromInitiativeRepository() {
     initiativeService.addInitiative(addInitiativeDto);
 
-    verify(initiativeRepository).removeAvailableMoney(initiative.getAllocatedAmount());
+    verify(initiativeRepository).takeMoney(initiative.getAllocatedAmount());
   }
 
   @Test
@@ -142,7 +142,7 @@ public class InitiativeServiceTest {
         initiative.getCode().toString(), initiativeAddAllocatedAmountDto);
 
     verify(initiativeRepository)
-        .removeAvailableMoney(Money.fromDouble(initiativeAddAllocatedAmountDto.amountToAdd));
+        .takeMoney(Money.fromDouble(initiativeAddAllocatedAmountDto.amountToAdd));
   }
 
   @Test

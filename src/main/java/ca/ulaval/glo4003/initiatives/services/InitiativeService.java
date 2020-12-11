@@ -38,7 +38,7 @@ public class InitiativeService extends InitiativeAddedAllocatedAmountObservable 
 
     initiative = initiativeFactory.create(initiative);
 
-    initiativeRepository.removeAvailableMoney(initiative.getAllocatedAmount());
+    initiativeRepository.takeMoney(initiative.getAllocatedAmount());
 
     InitiativeCode initiativeCode = initiativeRepository.save(initiative);
     return initiativeCodeAssembler.assemble(initiativeCode);
@@ -75,7 +75,7 @@ public class InitiativeService extends InitiativeAddedAllocatedAmountObservable 
       InitiativeCode initiativeCode, Money allocatedAmountToAdd) {
     Initiative initiative = initiativeRepository.get(initiativeCode);
 
-    initiativeRepository.removeAvailableMoney(allocatedAmountToAdd);
+    initiativeRepository.takeMoney(allocatedAmountToAdd);
     initiative.addAllocatedAmount(allocatedAmountToAdd);
 
     initiativeRepository.update(initiative);
