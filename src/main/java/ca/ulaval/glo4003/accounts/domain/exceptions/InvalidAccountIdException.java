@@ -1,14 +1,10 @@
 package ca.ulaval.glo4003.accounts.domain.exceptions;
 
-import ca.ulaval.glo4003.errors.domain.ErrorCode;
-import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
-
-public class InvalidAccountIdException extends ApplicationException {
+public class InvalidAccountIdException extends AccountException {
   private static final String ERROR = "Invalid account id";
-  private static final String DESCRIPTION = "Account id is invalid";
-  private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
+  private static final String DESCRIPTION = "Account Id is invalid";
 
   public InvalidAccountIdException() {
-    super(ERROR, DESCRIPTION, CODE);
+    super(ERROR, DESCRIPTION);
   }
 }

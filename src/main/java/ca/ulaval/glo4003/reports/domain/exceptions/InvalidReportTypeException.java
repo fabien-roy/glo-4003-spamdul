@@ -1,15 +1,10 @@
 package ca.ulaval.glo4003.reports.domain.exceptions;
 
-import ca.ulaval.glo4003.errors.domain.ErrorCode;
-import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
-
-// TODO #305 : Write valid enums
-public class InvalidReportTypeException extends ApplicationException {
+public class InvalidReportTypeException extends ReportException {
   private static final String ERROR = "Invalid report type";
   private static final String DESCRIPTION = "Report type must be monthly, summary or dayOfMonth";
-  private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
 
   public InvalidReportTypeException() {
-    super(ERROR, DESCRIPTION, CODE);
+    super(ERROR, DESCRIPTION);
   }
 }

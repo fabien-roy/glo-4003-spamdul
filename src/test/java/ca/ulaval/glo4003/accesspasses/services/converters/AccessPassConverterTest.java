@@ -1,11 +1,5 @@
 package ca.ulaval.glo4003.accesspasses.services.converters;
 
-import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassDtoBuilder.anAccessPassDto;
-import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
-import static ca.ulaval.glo4003.times.helpers.TimePeriodBuilder.aTimePeriod;
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.when;
-
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.UnsupportedAccessPeriodException;
@@ -17,13 +11,20 @@ import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 import ca.ulaval.glo4003.times.domain.exceptions.InvalidDayOfWeekException;
-import java.util.Collections;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Collections;
+import java.util.List;
+
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassDtoBuilder.anAccessPassDto;
+import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
+import static ca.ulaval.glo4003.times.helpers.TimePeriodBuilder.aTimePeriod;
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccessPassConverterTest {

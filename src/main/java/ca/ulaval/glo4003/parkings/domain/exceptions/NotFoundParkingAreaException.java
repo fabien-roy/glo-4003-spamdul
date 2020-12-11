@@ -1,15 +1,10 @@
 package ca.ulaval.glo4003.parkings.domain.exceptions;
 
-import ca.ulaval.glo4003.errors.domain.ErrorCode;
-import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
-
-// TODO #305 : Write valid codes
-public class NotFoundParkingAreaException extends ApplicationException {
+public class NotFoundParkingAreaException extends ParkingException {
   private static final String ERROR = "Parking area not found";
   private static final String DESCRIPTION = "Parking area was not found";
-  private static final ErrorCode CODE = ErrorCode.NOT_FOUND;
 
   public NotFoundParkingAreaException() {
-    super(ERROR, DESCRIPTION, CODE);
+    super(ERROR, DESCRIPTION);
   }
 }
