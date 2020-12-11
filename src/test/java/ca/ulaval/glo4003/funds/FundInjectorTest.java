@@ -2,9 +2,9 @@ package ca.ulaval.glo4003.funds;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
+import ca.ulaval.glo4003.initiatives.domain.InitiativeFundCollector;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +16,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class FundInjectorTest {
 
   @Mock private ReportEventService reportEventService;
+  @Mock private InitiativeFundCollector initiativeFundCollector;
 
   private FundInjector fundInjector;
 
@@ -26,7 +27,8 @@ public class FundInjectorTest {
 
   @Test
   public void whenCreatingBillService_thenReturnIt() {
-    BillService billService = fundInjector.createBillService(reportEventService);
+    BillService billService =
+        fundInjector.createBillService(reportEventService, initiativeFundCollector);
 
     assertThat(billService).isNotNull();
   }
@@ -36,13 +38,5 @@ public class FundInjectorTest {
     MoneyConverter moneyConverter = fundInjector.createMoneyConverter();
 
     assertThat(moneyConverter).isNotNull();
-  }
-
-  @Test
-  public void whenGettingSustainableMobilityProgramBankRepository_thenReturnIt() {
-    SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository =
-        fundInjector.getSustainableMobilityProgramBankRepository();
-
-    assertThat(sustainableMobilityProgramBankRepository).isNotNull();
   }
 }

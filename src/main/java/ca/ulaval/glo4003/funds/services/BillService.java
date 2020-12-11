@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.services.dto.BillDto;
+import ca.ulaval.glo4003.initiatives.domain.InitiativeFundCollector;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
@@ -21,7 +22,7 @@ public class BillService {
   private final BillAssembler billAssembler;
   private final ReportEventService reportEventService;
 
-  private final SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
+  private final InitiativeFundCollector initiativeFundCollector;
   private final SustainableMobilityProgramAllocationCalculator
       sustainableMobilityProgramAllocationCalculator;
 
@@ -30,14 +31,14 @@ public class BillService {
       BillRepository billRepository,
       BillAssembler billAssembler,
       ReportEventService reportEventService,
-      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository,
+      InitiativeFundCollector initiativeFundCollector,
       SustainableMobilityProgramAllocationCalculator
           sustainableMobilityProgramAllocationCalculator) {
     this.billFactory = billFactory;
     this.billRepository = billRepository;
     this.billAssembler = billAssembler;
     this.reportEventService = reportEventService;
-    this.sustainableMobilityProgramBankRepository = sustainableMobilityProgramBankRepository;
+    this.initiativeFundCollector = initiativeFundCollector;
     this.sustainableMobilityProgramAllocationCalculator =
         sustainableMobilityProgramAllocationCalculator;
   }
@@ -92,7 +93,7 @@ public class BillService {
 
     if (bill.isBillTypeEqual(BillType.ACCESS_PASS)
         || bill.isBillTypeEqual(BillType.PARKING_STICKER)) {
-      sustainableMobilityProgramBankRepository.add(
+      initiativeFundCollector.addAvailableMoney(
           sustainableMobilityProgramAllocationCalculator.calculate(amountToPay));
     }
 

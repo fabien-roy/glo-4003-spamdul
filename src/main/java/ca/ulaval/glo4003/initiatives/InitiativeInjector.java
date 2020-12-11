@@ -16,7 +16,10 @@ import ca.ulaval.glo4003.initiatives.services.converters.InitiativeAddAllocatedA
 import java.util.List;
 
 public class InitiativeInjector {
-  private final InitiativeRepository initiativeRepository = new InitiativeRepositoryInMemory();
+  private final InitiativeRepositoryInMemory initiativeRepositoryInMemory =
+      new InitiativeRepositoryInMemory();
+  private final InitiativeRepository initiativeRepository = initiativeRepositoryInMemory;
+  private final InitiativeFundCollector initiativeFundCollector = initiativeRepositoryInMemory;
   private final InitiativeCodeGenerator initiativeCodeGenerator =
       new InitiativeCodeGenerator(new StringCodeGenerator());
 
@@ -28,6 +31,14 @@ public class InitiativeInjector {
         new Initiative(carbonCreditConfiguration.getCarbonCreditInitiativeName(), Money.zero());
     carbonCreditInitiative.setCode(carbonCreditConfiguration.getCarbonCreditInitiativeCode());
     initiativeRepository.save(carbonCreditInitiative);
+  }
+
+  public InitiativeFundCollector getInitiativeFundCollector() {
+    return initiativeFundCollector;
+  }
+
+  public InitiativeRepository getInitiativeRepository() {
+    return initiativeRepository;
   }
 
   public InitiativeResource createInitiativeResource(InitiativeService initiativeService) {

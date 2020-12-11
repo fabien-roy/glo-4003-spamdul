@@ -11,7 +11,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeFactory;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeRepository;
@@ -30,7 +29,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class InitiativeServiceTest {
   @Mock private InitiativeFactory initiativeFactory;
   @Mock private InitiativeRepository initiativeRepository;
-  @Mock private SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
   @Mock private InitiativeCodeAssembler initiativeCodeAssembler;
   @Mock private InitiativeAvailableAmountAssembler initiativeAvailableAmountAssembler;
   @Mock private InitiativeAssembler initiativeAssembler;
@@ -76,10 +74,10 @@ public class InitiativeServiceTest {
   }
 
   @Test
-  public void whenAddingInitiative_thenAmountIsRemovedFromSustainableMobilityProgramBank() {
+  public void whenAddingInitiative_thenAmountIsRemovedFromInitiativeRepository() {
     initiativeService.addInitiative(addInitiativeDto);
 
-    verify(sustainableMobilityProgramBankRepository).remove(initiative.getAllocatedAmount());
+    verify(initiativeRepository).removeAvailableMoney(initiative.getAllocatedAmount());
   }
 
   @Test
@@ -137,15 +135,14 @@ public class InitiativeServiceTest {
   }
 
   @Test
-  public void
-      whenAddingAllocatedAmountToInitiative_thenAmountIsRemovedFromSustainableMobilityProgramBank() {
+  public void whenAddingAllocatedAmountToInitiative_thenAmountIsRemovedFromInitiativeRepository() {
     when(initiativeRepository.get(initiative.getCode())).thenReturn(initiative);
 
     initiativeService.addAllocatedAmountToInitiative(
         initiative.getCode().toString(), initiativeAddAllocatedAmountDto);
 
-    verify(sustainableMobilityProgramBankRepository)
-        .remove(Money.fromDouble(initiativeAddAllocatedAmountDto.amountToAdd));
+    verify(initiativeRepository)
+        .removeAvailableMoney(Money.fromDouble(initiativeAddAllocatedAmountDto.amountToAdd));
   }
 
   @Test
@@ -171,7 +168,7 @@ public class InitiativeServiceTest {
 
   @Test
   public void whenGettingAvailableAmount_thenReturnAvailableAmount() {
-    when(sustainableMobilityProgramBankRepository.get()).thenReturn(availableAmount);
+    when(initiativeRepository.getAvailableMoney()).thenReturn(availableAmount);
     when(initiativeAvailableAmountAssembler.assemble(availableAmount))
         .thenReturn(initiativeAvailableAmountDto);
 

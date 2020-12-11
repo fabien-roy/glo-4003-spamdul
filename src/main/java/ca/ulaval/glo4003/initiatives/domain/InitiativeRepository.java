@@ -12,8 +12,6 @@ public interface InitiativeRepository {
 
   void update(Initiative initiative);
 
-  void addAvailableMoney(Money money);
-
   void removeAvailableMoney(Money money);
 
   Money getAvailableMoney();

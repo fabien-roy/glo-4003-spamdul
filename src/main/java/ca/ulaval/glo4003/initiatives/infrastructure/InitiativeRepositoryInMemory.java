@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.exceptions.InsufficientAvailableMoneyException;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
+import ca.ulaval.glo4003.initiatives.domain.InitiativeFundCollector;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeRepository;
 import ca.ulaval.glo4003.initiatives.domain.exceptions.InitiativeNotFoundException;
 
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InitiativeRepositoryInMemory implements InitiativeRepository {
+public class InitiativeRepositoryInMemory implements InitiativeRepository, InitiativeFundCollector {
   private final Map<InitiativeCode, Initiative> initiatives = new HashMap<>();
   private Money availableMoney = Money.zero();
 

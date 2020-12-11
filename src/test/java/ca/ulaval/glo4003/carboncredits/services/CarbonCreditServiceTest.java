@@ -19,8 +19,8 @@ import ca.ulaval.glo4003.carboncredits.services.assemblers.MonthlyPaymentStatusA
 import ca.ulaval.glo4003.carboncredits.services.dto.CarbonCreditDto;
 import ca.ulaval.glo4003.carboncredits.services.dto.MonthlyPaymentStatusDto;
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;
+import ca.ulaval.glo4003.initiatives.domain.InitiativeRepository;
 import ca.ulaval.glo4003.initiatives.services.InitiativeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class CarbonCreditServiceTest {
   @Mock CarbonCreditAssembler carbonCreditAssembler;
   @Mock MonthlyPaymentStatusAssembler monthlyPaymentStatusAssembler;
   @Mock MonthlyPaymentStatusRepository monthlyPaymentStatusRepository;
-  @Mock SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
+  @Mock InitiativeRepository initiativeRepository;
   @Mock InitiativeService initiativeService;
 
   private CarbonCreditService carbonCreditService;
@@ -44,7 +44,7 @@ public class CarbonCreditServiceTest {
   private final MonthlyPaymentStatus monthlyPaymentStatus = createMonthlyPaymentStatus();
   private final CarbonCreditDto carbonCreditDto = aCarbonCreditDto().build();
   private final CarbonCredit carbonCredit = createCarbonCredit();
-  private final Money sustainableMobilityProgramBankAvailableMoney = createMoney();
+  private final Money AvailableMoney = createMoney();
   private final CarbonCreditConfiguration carbonCreditConfiguration =
       CarbonCreditConfiguration.getConfiguration();
   private final Initiative carbonCreditInitiative =
@@ -60,15 +60,14 @@ public class CarbonCreditServiceTest {
             carbonCreditAssembler,
             monthlyPaymentStatusAssembler,
             monthlyPaymentStatusRepository,
-            sustainableMobilityProgramBankRepository,
+            initiativeRepository,
             initiativeService);
 
     when(carbonCreditRepository.get()).thenReturn(carbonCredit);
     when(carbonCreditAssembler.assemble(carbonCredit)).thenReturn(carbonCreditDto);
     when(monthlyPaymentStatusAssembler.assemble(monthlyPaymentStatusDto))
         .thenReturn(monthlyPaymentStatus);
-    when(sustainableMobilityProgramBankRepository.get())
-        .thenReturn(sustainableMobilityProgramBankAvailableMoney);
+    when(initiativeRepository.getAvailableMoney()).thenReturn(AvailableMoney);
   }
 
   @Test
@@ -93,8 +92,7 @@ public class CarbonCreditServiceTest {
     carbonCreditService.allocateRemainingFundToCarbonCreditInitiative();
 
     verify(initiativeService)
-        .addAllocatedAmountToInitiative(
-            carbonCreditInitiative.getCode(), sustainableMobilityProgramBankAvailableMoney);
+        .addAllocatedAmountToInitiative(carbonCreditInitiative.getCode(), AvailableMoney);
   }
 
   @Test
@@ -105,18 +103,16 @@ public class CarbonCreditServiceTest {
     carbonCreditService.allocateRemainingFundToCarbonCreditInitiative();
 
     verify(initiativeService, never())
-        .addAllocatedAmountToInitiative(
-            carbonCreditInitiative.getCode(), sustainableMobilityProgramBankAvailableMoney);
+        .addAllocatedAmountToInitiative(carbonCreditInitiative.getCode(), AvailableMoney);
   }
 
   @Test
   public void
       givenCarbonCreditInitiative_whenListeningToInitiativeAddedAllocatedAmount_thenBuyCarbonCreditForRepository() {
     carbonCreditService.listenInitiativeAddedAllocatedAmount(
-        carbonCreditInitiative, sustainableMobilityProgramBankAvailableMoney);
+        carbonCreditInitiative, AvailableMoney);
 
-    verify(carbonCreditRepository)
-        .add(CarbonCredit.fromMoney(sustainableMobilityProgramBankAvailableMoney));
+    verify(carbonCreditRepository).add(CarbonCredit.fromMoney(AvailableMoney));
   }
 
   @Test
@@ -125,9 +121,8 @@ public class CarbonCreditServiceTest {
     Initiative notCarbonCreditInitiative = anInitiative().build();
 
     carbonCreditService.listenInitiativeAddedAllocatedAmount(
-        notCarbonCreditInitiative, sustainableMobilityProgramBankAvailableMoney);
+        notCarbonCreditInitiative, AvailableMoney);
 
-    verify(carbonCreditRepository, never())
-        .add(CarbonCredit.fromMoney(sustainableMobilityProgramBankAvailableMoney));
+    verify(carbonCreditRepository, never()).add(CarbonCredit.fromMoney(AvailableMoney));
   }
 }
