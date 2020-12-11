@@ -8,8 +8,7 @@ import ca.ulaval.glo4003.carboncredits.CarbonCreditInjector;
 import ca.ulaval.glo4003.carboncredits.api.CarbonCreditResource;
 import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.communications.CommunicationInjector;
-import ca.ulaval.glo4003.errors.api.ApplicationExceptionMapper;
-import ca.ulaval.glo4003.errors.api.CatchAllExceptionMapper;
+import ca.ulaval.glo4003.errors.ErrorInjector;
 import ca.ulaval.glo4003.funds.FundInjector;
 import ca.ulaval.glo4003.gates.GateInjector;
 import ca.ulaval.glo4003.gates.api.GateResource;
@@ -52,6 +51,7 @@ public class ApplicationInjector {
   private static final CarbonCreditInjector CARBON_CREDIT_INJECTOR = new CarbonCreditInjector();
   private static final InitiativeInjector INITIATIVE_INJECTOR = new InitiativeInjector();
   private static final ReportInjector REPORT_INJECTOR = new ReportInjector();
+  private static final ErrorInjector ERROR_INJECTOR = new ErrorInjector();
 
   public UserResource createUserResource() {
     List<ParkingStickerCreationObserver> parkingStickerCreationObservers =
@@ -151,8 +151,8 @@ public class ApplicationInjector {
         PARKING_INJECTOR.createParkingAreaService());
   }
 
-  public List<Class<? extends ExceptionMapper<? extends Exception>>> getExceptionMappers() {
-    return Arrays.asList(CatchAllExceptionMapper.class, ApplicationExceptionMapper.class);
+  public List<ExceptionMapper> createExceptionMappers() {
+    return ERROR_INJECTOR.createExceptionMappers();
   }
 
   public Scheduler createScheduler() {
