@@ -14,6 +14,8 @@ public class ErrorResponseStatusConverter {
         return Status.CONFLICT; // TODO : Change Postman and doc API
       case UNSUPPORTED_OPERATION:
         return Status.NOT_IMPLEMENTED;
+      case APPLICATION_FAILURE:
+        return Status.INTERNAL_SERVER_ERROR;
       default:
       case INVALID_REQUEST:
         return Status.BAD_REQUEST;

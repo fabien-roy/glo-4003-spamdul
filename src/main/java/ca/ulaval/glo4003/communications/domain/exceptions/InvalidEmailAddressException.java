@@ -1,10 +1,14 @@
 package ca.ulaval.glo4003.communications.domain.exceptions;
 
-public class InvalidEmailAddressException extends CommunicationException {
-  public static final String ERROR = "Invalid email address";
-  public static final String DESCRIPTION = "Email address is invalid";
+import ca.ulaval.glo4003.errors.domain.ErrorCode;
+import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
+
+public class InvalidEmailAddressException extends ApplicationException {
+  private static final String ERROR = "Invalid email address";
+  private static final String DESCRIPTION = "Email address is invalid";
+  private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
 
   public InvalidEmailAddressException() {
-    super(ERROR, DESCRIPTION);
+    super(ERROR, DESCRIPTION, CODE);
   }
 }
