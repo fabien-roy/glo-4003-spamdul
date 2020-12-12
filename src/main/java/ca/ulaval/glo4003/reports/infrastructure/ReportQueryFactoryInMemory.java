@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.reports.domain.ReportEventType;
 import ca.ulaval.glo4003.reports.domain.ReportQueryFactory;
 import ca.ulaval.glo4003.reports.domain.ReportType;
+import ca.ulaval.glo4003.reports.domain.metrics.ReportMetric;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScope;
 import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeFactory;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.ConsumptionTypeDimensionInMemory;
@@ -29,19 +30,7 @@ public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQuer
       ReportType reportType, String month, List<ParkingAreaCode> parkingAreaCodes) {
     return new ReportQueryInMemory(
         createReportScopeForGateEnteredReportQuery(reportType, month),
-        Collections.singletonList(new GateEntriesMetricInMemory()),
-        Collections.singletonList(new ParkingAreaDimensionInMemory(parkingAreaCodes)),
-        Collections.singletonList(new ReportEventTypeFilterInMemory(ReportEventType.GATE_ENTERED)));
-  }
-
-  // TODO #317 : Test this
-  @Override
-  public ReportQueryInMemory createGateEnteredSummaryReportQuery(
-      ReportType reportType, String month, List<ParkingAreaCode> parkingAreaCodes) {
-    return new ReportQueryInMemory(
-        createReportScopeForGateEnteredReportQuery(reportType, month),
-        Arrays.asList(
-            new GateEntriesForCarsMetricInMemory(), new GateEntriesForBicyclesMetricInMemory()),
+        createReportMetricForGateEnteredReportQuery(reportType),
         Collections.singletonList(new ParkingAreaDimensionInMemory(parkingAreaCodes)),
         Collections.singletonList(new ReportEventTypeFilterInMemory(ReportEventType.GATE_ENTERED)));
   }
@@ -67,6 +56,18 @@ public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQuer
       case SUMMARY:
       case DAY_OF_MONTH:
         return reportScopeFactory.createDailyScope(month);
+    }
+  }
+
+  private List<ReportMetric> createReportMetricForGateEnteredReportQuery(ReportType reportType) {
+    switch (reportType) {
+      case MONTHLY:
+      case DAY_OF_MONTH:
+        return Collections.singletonList(new GateEntriesMetricInMemory());
+      default:
+      case SUMMARY:
+        return Arrays.asList(
+            new GateEntriesForCarsMetricInMemory(), new GateEntriesForBicyclesMetricInMemory());
     }
   }
 }
