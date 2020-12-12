@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
 
 public class InvalidNameException extends ApplicationException {
   private static final String NAME = "Invalid name";
-  private static final String DESCRIPTION = "Name can't be empty";
+  private static final String DESCRIPTION = "Name cannot be empty";
   private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
 
   public InvalidNameException() {
