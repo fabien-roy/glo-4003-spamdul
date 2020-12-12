@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.parkings.services.converters;
 
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriodInFrench;
-import ca.ulaval.glo4003.parkings.exceptions.InvalidParkingPeriodException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.InvalidParkingPeriodException;
 
 public class ParkingPeriodConverter {
   public ParkingPeriod convert(ParkingPeriodInFrench parkingPeriodInFrench) {

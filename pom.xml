@@ -181,12 +181,40 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${jacoco-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>generate-code-coverage-report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<!-- Style -->
 			<plugin>
 				<groupId>com.cosium.code</groupId>
 				<artifactId>maven-git-code-format</artifactId>
 				<version>${maven-git-code-format.version}</version>
+				<executions>
+					<execution>
+						<id>install-formatter-hook</id>
+						<goals>
+							<goal>install-hooks</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>validate-code-format</id>
+						<goals>
+							<goal>validate-code-format</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<!-- Deployment -->
 			<plugin>
@@ -222,6 +250,25 @@
 						</filter>
 					</filters>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<createDependencyReducedPom>
+								false
+							</createDependencyReducedPom>
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>${main-class}</mainClass>
+								</transformer>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

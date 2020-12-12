@@ -10,8 +10,8 @@ import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
-import ca.ulaval.glo4003.parkings.exceptions.MissingEmailException;
-import ca.ulaval.glo4003.parkings.exceptions.MissingPostalCodeException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.MissingEmailException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.MissingPostalCodeException;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingPeriodAssembler;
 import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
@@ -36,8 +36,8 @@ public class ParkingStickerConverter {
     this.parkingPeriodAssembler = parkingPeriodAssembler;
   }
 
-  public ParkingSticker convert(ParkingStickerDto parkingStickerDto) {
-    AccountId accountId = accountIdConverter.convert(parkingStickerDto.accountId);
+  public ParkingSticker convert(ParkingStickerDto parkingStickerDto, String stringAccountId) {
+    AccountId accountId = accountIdConverter.convert(stringAccountId);
     ParkingAreaCode parkingAreaCode =
         parkingAreaCodeAssembler.assemble(parkingStickerDto.parkingArea);
 

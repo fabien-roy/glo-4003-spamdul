@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.reports.domain;
 
-import ca.ulaval.glo4003.reports.exceptions.InvalidReportTypeException;
+import ca.ulaval.glo4003.reports.domain.exceptions.InvalidReportTypeException;
 import java.util.HashMap;
 import java.util.Map;
 

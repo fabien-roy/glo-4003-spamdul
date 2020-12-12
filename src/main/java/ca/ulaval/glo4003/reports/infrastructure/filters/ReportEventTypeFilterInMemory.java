@@ -13,6 +13,10 @@ public class ReportEventTypeFilterInMemory implements ReportFilterInMemory {
     this.reportEventType = reportEventType;
   }
 
+  public ReportEventType getReportEventType() {
+    return reportEventType;
+  }
+
   @Override
   public List<ReportEvent> filter(List<ReportEvent> reportEvents) {
     return reportEvents.stream()

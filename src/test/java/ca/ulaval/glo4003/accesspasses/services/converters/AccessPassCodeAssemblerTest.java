@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAcce
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassCodeException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassCodeException;
 import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import org.junit.Before;

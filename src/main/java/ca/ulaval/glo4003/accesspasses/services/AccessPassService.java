@@ -15,6 +15,8 @@ import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
+import ca.ulaval.glo4003.times.domain.TimePeriod;
+import ca.ulaval.glo4003.times.services.SemesterService;
 import java.util.List;
 
 public class AccessPassService {
@@ -26,6 +28,7 @@ public class AccessPassService {
   private final BillService billService;
   private final AccountService accountService;
   private final AccessPassCodeAssembler accessPassCodeAssembler;
+  private final SemesterService semesterService;
 
   public AccessPassService(
       AccessPassConverter accessPassConverter,
@@ -35,7 +38,8 @@ public class AccessPassService {
       AccessPassTypeRepository accessPassTypeRepository,
       AccountService accountService,
       BillService billService,
-      AccessPassCodeAssembler accessPassCodeAssembler) {
+      AccessPassCodeAssembler accessPassCodeAssembler,
+      SemesterService semesterService) {
     this.accessPassConverter = accessPassConverter;
     this.accessPassFactory = accessPassFactory;
     this.carService = carService;
@@ -44,10 +48,12 @@ public class AccessPassService {
     this.accountService = accountService;
     this.billService = billService;
     this.accessPassCodeAssembler = accessPassCodeAssembler;
+    this.semesterService = semesterService;
   }
 
   public AccessPassCodeDto addAccessPass(AccessPassDto accessPassDto, String accountId) {
-    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
+    List<TimePeriod> timePeriods = semesterService.getSemester(accessPassDto.semesters);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto, timePeriods);
     Account account = accountService.getAccount(accountId);
     LicensePlate licensePlate = accessPass.getLicensePlate();
 

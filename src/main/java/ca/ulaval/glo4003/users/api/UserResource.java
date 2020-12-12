@@ -52,20 +52,6 @@ public class UserResource {
         .build();
   }
 
-  @POST
-  @Produces(MediaType.APPLICATION_JSON)
-  @Path("{accountId}/parkingStickers")
-  public Response addParkingSticker(
-      @PathParam("accountId") String accountId, ParkingStickerDto parkingStickerDto) {
-    parkingStickerDto.accountId = accountId;
-    ParkingStickerCodeDto parkingStickerCodeDto =
-        parkingStickerService.addParkingSticker(parkingStickerDto);
-    return Response.status(Response.Status.CREATED)
-        .entity(parkingStickerCodeDto)
-        .type(MediaType.APPLICATION_JSON)
-        .build();
-  }
-
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("{accountId}")
@@ -73,42 +59,6 @@ public class UserResource {
     UserDto userDto = userService.getUser(accountId);
     return Response.status(Response.Status.OK)
         .entity(userDto)
-        .type(MediaType.APPLICATION_JSON)
-        .build();
-  }
-
-  @POST
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  @Path("{accountId}/accessPasses")
-  public Response addAccessPass(
-      @PathParam("accountId") String accountId, AccessPassDto accessPassDto) {
-    AccessPassCodeDto accessPassCode = accessPassService.addAccessPass(accessPassDto, accountId);
-
-    return Response.status(Response.Status.CREATED)
-        .entity(accessPassCode)
-        .type(MediaType.APPLICATION_JSON)
-        .build();
-  }
-
-  @POST
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  @Path("{accountId}/cars")
-  public Response addCar(@PathParam("accountId") String accountId, CarDto carDto) {
-    carService.addCar(carDto, accountId);
-    return Response.status(Response.Status.CREATED).build();
-  }
-
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @Path("{accountId}/cars")
-  public Response getCars(@PathParam("accountId") String accountId) {
-    List<CarDto> carsDto = carService.getCars(accountId);
-    GenericEntity<List<CarDto>> entities = new GenericEntity<List<CarDto>>(carsDto) {};
-
-    return Response.status(Response.Status.OK)
-        .entity(entities)
         .type(MediaType.APPLICATION_JSON)
         .build();
   }
@@ -138,6 +88,55 @@ public class UserResource {
 
     return Response.status(Response.Status.OK)
         .entity(billDto)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
+
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("{accountId}/cars")
+  public Response addCar(@PathParam("accountId") String accountId, CarDto carDto) {
+    carService.addCar(carDto, accountId);
+    return Response.status(Response.Status.CREATED).build();
+  }
+
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("{accountId}/cars")
+  public Response getCars(@PathParam("accountId") String accountId) {
+    List<CarDto> carsDto = carService.getCars(accountId);
+    GenericEntity<List<CarDto>> entities = new GenericEntity<List<CarDto>>(carsDto) {};
+
+    return Response.status(Response.Status.OK)
+        .entity(entities)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
+
+  @POST
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("{accountId}/parkingStickers")
+  public Response addParkingSticker(
+      @PathParam("accountId") String accountId, ParkingStickerDto parkingStickerDto) {
+    ParkingStickerCodeDto parkingStickerCodeDto =
+        parkingStickerService.addParkingSticker(parkingStickerDto, accountId);
+    return Response.status(Response.Status.CREATED)
+        .entity(parkingStickerCodeDto)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
+
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("{accountId}/accessPasses")
+  public Response addAccessPass(
+      @PathParam("accountId") String accountId, AccessPassDto accessPassDto) {
+    AccessPassCodeDto accessPassCode = accessPassService.addAccessPass(accessPassDto, accountId);
+
+    return Response.status(Response.Status.CREATED)
+        .entity(accessPassCode)
         .type(MediaType.APPLICATION_JSON)
         .build();
   }

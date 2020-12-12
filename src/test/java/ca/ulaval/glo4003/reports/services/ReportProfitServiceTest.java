@@ -6,12 +6,8 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.reports.domain.*;
-import ca.ulaval.glo4003.reports.domain.dimensions.ReportDimensionType;
-import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
-import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeType;
 import ca.ulaval.glo4003.reports.services.assemblers.ReportPeriodAssembler;
 import ca.ulaval.glo4003.reports.services.dto.ReportPeriodDto;
-import ca.ulaval.glo4003.times.domain.TimeYear;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -24,7 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ReportProfitServiceTest {
 
   @Mock private ReportRepository reportRepository;
-  @Mock private ReportQueryBuilder reportQueryBuilder;
+  @Mock private ReportQueryFactory reportQueryFactory;
   @Mock private ReportPeriodAssembler reportPeriodAssembler;
   @Mock private ReportQuery reportQueryForParkingStickerEvents;
   @Mock private ReportQuery reportQueryForAccessPassEvents;
@@ -43,7 +39,14 @@ public class ReportProfitServiceTest {
   @Before
   public void setUp() {
     reportProfitService =
-        new ReportProfitService(reportRepository, reportQueryBuilder, reportPeriodAssembler);
+        new ReportProfitService(reportRepository, reportQueryFactory, reportPeriodAssembler);
+
+    when(reportQueryFactory.createBillPaidReportQuery(
+            ReportEventType.BILL_PAID_FOR_PARKING_STICKER, year, false))
+        .thenReturn(reportQueryForParkingStickerEvents);
+    when(reportQueryFactory.createBillPaidReportQuery(
+            ReportEventType.BILL_PAID_FOR_OFFENSE, year, false))
+        .thenReturn(reportQueryForOffenseEvents);
 
     when(reportRepository.getPeriods(reportQueryForParkingStickerEvents))
         .thenReturn(Collections.singletonList(reportPeriodForParkingStickerEvents));
@@ -63,52 +66,16 @@ public class ReportProfitServiceTest {
         .thenReturn(Collections.singletonList(reportPeriodForOffenseEventsDto));
   }
 
-  private void givenQueryForParkingStickerEvents() {
-    reset(reportQueryBuilder);
-
-    when(reportQueryBuilder.aReportQuery()).thenReturn(reportQueryBuilder);
-    when(reportQueryBuilder.withReportEventType(ReportEventType.BILL_PAID_FOR_PARKING_STICKER))
-        .thenReturn(reportQueryBuilder);
-    setUpReportQueryBuilderForProfits(Collections.emptyList());
-    when(reportQueryBuilder.build()).thenReturn(reportQueryForParkingStickerEvents);
-  }
-
   private void givenQueryForAccessPassEvents(boolean isByConsumptionType) {
-    reset(reportQueryBuilder);
+    reset(reportQueryFactory);
 
-    when(reportQueryBuilder.aReportQuery()).thenReturn(reportQueryBuilder);
-    when(reportQueryBuilder.withReportEventType(ReportEventType.BILL_PAID_FOR_ACCESS_PASS))
-        .thenReturn(reportQueryBuilder);
-    setUpReportQueryBuilderForProfits(
-        isByConsumptionType
-            ? Collections.singletonList(ReportDimensionType.CONSUMPTION_TYPE)
-            : Collections.emptyList());
-    when(reportQueryBuilder.build()).thenReturn(reportQueryForAccessPassEvents);
-  }
-
-  private void givenQueryForOffenseEvents() {
-    reset(reportQueryBuilder);
-
-    when(reportQueryBuilder.aReportQuery()).thenReturn(reportQueryBuilder);
-    when(reportQueryBuilder.withReportEventType(ReportEventType.BILL_PAID_FOR_OFFENSE))
-        .thenReturn(reportQueryBuilder);
-    setUpReportQueryBuilderForProfits(Collections.emptyList());
-    when(reportQueryBuilder.build()).thenReturn(reportQueryForOffenseEvents);
-  }
-
-  private void setUpReportQueryBuilderForProfits(List<ReportDimensionType> dimensions) {
-    when(reportQueryBuilder.withPeriod(new TimeYear(year).toPeriod()))
-        .thenReturn(reportQueryBuilder);
-    when(reportQueryBuilder.withScope(ReportScopeType.YEARLY)).thenReturn(reportQueryBuilder);
-    when(reportQueryBuilder.withMetrics(Collections.singletonList(ReportMetricType.PROFITS)))
-        .thenReturn(reportQueryBuilder);
-    when(reportQueryBuilder.withDimensions(dimensions)).thenReturn(reportQueryBuilder);
+    when(reportQueryFactory.createBillPaidReportQuery(
+            ReportEventType.BILL_PAID_FOR_ACCESS_PASS, year, isByConsumptionType))
+        .thenReturn(reportQueryForAccessPassEvents);
   }
 
   @Test
   public void givenQueryForParkingStickerEvents_whenGettingAllProfits_thenReturnAllProfitDtos() {
-    givenQueryForParkingStickerEvents();
-
     List<ReportPeriodDto> reportPeriodDtos =
         reportProfitService.getAllProfits(ReportEventType.BILL_PAID_FOR_PARKING_STICKER, year);
 
@@ -146,8 +113,6 @@ public class ReportProfitServiceTest {
 
   @Test
   public void givenQueryForOffenseEvents_whenGettingAllProfits_thenReturnAllProfitDtos() {
-    givenQueryForOffenseEvents();
-
     List<ReportPeriodDto> reportPeriodDtos =
         reportProfitService.getAllProfits(ReportEventType.BILL_PAID_FOR_OFFENSE, year);
 

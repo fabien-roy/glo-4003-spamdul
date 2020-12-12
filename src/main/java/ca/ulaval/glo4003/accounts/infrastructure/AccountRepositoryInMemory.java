@@ -2,12 +2,17 @@ package ca.ulaval.glo4003.accounts.infrastructure;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
-import ca.ulaval.glo4003.accesspasses.exceptions.NotFoundAccessPassException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.NotFoundAccessPassException;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
+import ca.ulaval.glo4003.accounts.domain.exceptions.NotFoundAccountException;
+import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.cars.domain.exceptions.NotFoundCarException;
+import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
+import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
+import ca.ulaval.glo4003.parkings.domain.exceptions.NotFoundParkingStickerException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,6 +32,21 @@ public class AccountRepositoryInMemory implements AccountRepository {
     if (foundAccount == null) throw new NotFoundAccountException();
 
     return foundAccount;
+  }
+
+  @Override
+  public ParkingSticker getParkingSticker(ParkingStickerCode parkingStickerCode) {
+    Optional<ParkingSticker> parkingSticker =
+        accounts.values().stream()
+            .map(account -> account.getParkingSticker(parkingStickerCode))
+            .filter(Objects::nonNull)
+            .findFirst();
+
+    if (parkingSticker.isPresent()) {
+      return parkingSticker.get();
+    } else {
+      throw new NotFoundParkingStickerException();
+    }
   }
 
   @Override
@@ -57,6 +77,19 @@ public class AccountRepositoryInMemory implements AccountRepository {
   }
 
   @Override
+  public Car getCar(LicensePlate licensePlate) {
+    Optional<Car> car =
+        accounts.values().stream()
+            .map(account -> account.getCar(licensePlate))
+            .filter(Objects::nonNull)
+            .findFirst();
+
+    if (car.isPresent()) {
+      return car.get();
+    } else throw new NotFoundCarException();
+  }
+
+  @Override
   public void update(Account account) {
     Account foundAccount = get(account.getId());
 
@@ -67,7 +100,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
   public void update(AccessPass accessPass) {
     Account account = get(accessPass.getCode());
 
-    account.saveAccessPass(accessPass);
+    account.addAccessPass(accessPass);
 
     accounts.put(account.getId(), account);
   }

@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.carboncredits.domain;
 
-import ca.ulaval.glo4003.carboncredits.exceptions.InvalidMonthlyPaymentStatusException;
+import ca.ulaval.glo4003.carboncredits.domain.exceptions.InvalidMonthlyPaymentStatusException;
 import java.util.HashMap;
 import java.util.Map;
 

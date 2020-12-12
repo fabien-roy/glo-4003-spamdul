@@ -16,20 +16,20 @@ public class ReportParkingAreaService {
   private final ParkingAreaService parkingAreaService;
   private final ReportRepository reportRepository;
   private final ReportPeriodAssembler reportPeriodAssembler;
-  private final ReportParkingAreaQueryFactory reportParkingAreaQueryFactory;
-  private final ReportSummaryBuilder reportSummaryBuilder;
+  private final ReportQueryFactory reportQueryFactory;
+  private final ReportSummaryFactory reportSummaryFactory;
 
   public ReportParkingAreaService(
       ParkingAreaService parkingAreaService,
       ReportRepository reportRepository,
       ReportPeriodAssembler reportPeriodAssembler,
-      ReportParkingAreaQueryFactory reportParkingAreaQueryFactory,
-      ReportSummaryBuilder reportSummaryBuilder) {
+      ReportQueryFactory reportQueryFactory,
+      ReportSummaryFactory reportSummaryFactory) {
     this.parkingAreaService = parkingAreaService;
     this.reportRepository = reportRepository;
     this.reportPeriodAssembler = reportPeriodAssembler;
-    this.reportParkingAreaQueryFactory = reportParkingAreaQueryFactory;
-    this.reportSummaryBuilder = reportSummaryBuilder;
+    this.reportQueryFactory = reportQueryFactory;
+    this.reportSummaryFactory = reportSummaryFactory;
   }
 
   public List<ReportPeriodDto> getAllParkingAreaReports(String reportName, String month) {
@@ -38,7 +38,7 @@ public class ReportParkingAreaService {
     ReportType reportType = ReportType.get(reportName);
     List<ParkingAreaCode> parkingAreaCodes = parkingAreaService.getParkingAreaCodes();
     ReportQuery reportQuery =
-        reportParkingAreaQueryFactory.create(reportType, month, parkingAreaCodes);
+        reportQueryFactory.createGateEnteredReportQuery(reportType, month, parkingAreaCodes);
 
     List<ReportPeriod> periods = reportRepository.getPeriods(reportQuery);
 
@@ -50,15 +50,12 @@ public class ReportParkingAreaService {
   }
 
   private List<ReportPeriod> getSummaryPeriods(List<ReportPeriod> periods) {
-    return reportSummaryBuilder
-        .aReportSummary()
-        .withPeriods(periods)
-        .withAggregateFunctions(
-            Arrays.asList(
-                ReportAggregateFunctionType.MAXIMUM,
-                ReportAggregateFunctionType.MINIMUM,
-                ReportAggregateFunctionType.AVERAGE))
-        .withMetric(ReportMetricType.GATE_ENTRIES)
-        .build();
+    return reportSummaryFactory.create(
+        Arrays.asList(
+            ReportAggregateFunctionType.MAXIMUM,
+            ReportAggregateFunctionType.MINIMUM,
+            ReportAggregateFunctionType.AVERAGE),
+        periods,
+        ReportMetricType.GATE_ENTRIES);
   }
 }

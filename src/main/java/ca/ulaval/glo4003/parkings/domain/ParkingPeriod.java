@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.parkings.domain;
 
-import ca.ulaval.glo4003.parkings.exceptions.InvalidParkingPeriodException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.InvalidParkingPeriodException;
 import java.util.HashMap;
 import java.util.Map;
 

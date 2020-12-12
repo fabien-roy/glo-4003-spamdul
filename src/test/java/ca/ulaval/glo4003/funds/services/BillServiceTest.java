@@ -15,6 +15,7 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
+import ca.ulaval.glo4003.initiatives.domain.InitiativeFundCollector;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
@@ -35,7 +36,7 @@ public class BillServiceTest {
   @Mock private BillRepository billRepository;
   @Mock private BillAssembler billAssembler;
   @Mock private BillPriceCalculator billPriceCalculator;
-  @Mock private SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
+  @Mock private InitiativeFundCollector initiativeFundCollector;
   @Mock private ReportEventService reportEventService;
 
   @Mock
@@ -66,7 +67,7 @@ public class BillServiceTest {
             billRepository,
             billAssembler,
             reportEventService,
-            sustainableMobilityProgramBankRepository,
+            initiativeFundCollector,
             sustainableMobilityProgramAllocationCalculator);
 
     List<Bill> bills = Collections.singletonList(bill);
@@ -199,7 +200,7 @@ public class BillServiceTest {
     billService.payBill(parkingBill.getId(), amountDue);
     bill.pay(amountDue);
 
-    verify(sustainableMobilityProgramBankRepository).add(amountKeptForSustainabilityProgram);
+    verify(initiativeFundCollector).addMoney(amountKeptForSustainabilityProgram);
   }
 
   @Test
@@ -225,7 +226,7 @@ public class BillServiceTest {
     billService.payBill(accessPassBill.getId(), amountDue);
     bill.pay(amountDue);
 
-    verify(sustainableMobilityProgramBankRepository).add(amountKeptForSustainabilityProgram);
+    verify(initiativeFundCollector).addMoney(amountKeptForSustainabilityProgram);
   }
 
   @Test
@@ -251,7 +252,7 @@ public class BillServiceTest {
     billService.payBill(offenseBill.getId(), amountDue);
     bill.pay(amountDue);
 
-    verify(sustainableMobilityProgramBankRepository, never()).add(any(Money.class));
+    verify(initiativeFundCollector, never()).addMoney(any(Money.class));
   }
 
   @Test

@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.communications.smtp;
 
 import ca.ulaval.glo4003.communications.domain.EmailPropertyHelper;
-import ca.ulaval.glo4003.communications.exceptions.EmailSendingFailedException;
+import ca.ulaval.glo4003.communications.domain.exceptions.EmailSendingFailedException;
 import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.Session;

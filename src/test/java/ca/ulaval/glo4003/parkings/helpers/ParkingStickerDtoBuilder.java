@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.parkings.helpers;
 
-import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAddress;
 import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
@@ -9,7 +8,6 @@ import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createRece
 import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
 
 public class ParkingStickerDtoBuilder {
-  private String accountId = createAccountId().toString();
   private String parkingArea = createParkingAreaCode().toString();
   private String receptionMethod = createReceptionMethod().toString();
   private String postalCode = createPostalCode().toString();
@@ -17,11 +15,6 @@ public class ParkingStickerDtoBuilder {
 
   public static ParkingStickerDtoBuilder aParkingStickerDto() {
     return new ParkingStickerDtoBuilder();
-  }
-
-  public ParkingStickerDtoBuilder withAccountId(String accountId) {
-    this.accountId = accountId;
-    return this;
   }
 
   public ParkingStickerDtoBuilder withParkingArea(String parkingArea) {
@@ -46,7 +39,6 @@ public class ParkingStickerDtoBuilder {
 
   public ParkingStickerDto build() {
     ParkingStickerDto parkingStickerDto = new ParkingStickerDto();
-    parkingStickerDto.accountId = accountId;
     parkingStickerDto.parkingArea = parkingArea;
     parkingStickerDto.receptionMethod = receptionMethod;
     parkingStickerDto.postalCode = postalCode;

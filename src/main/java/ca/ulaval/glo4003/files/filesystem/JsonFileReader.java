@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.files.filesystem;
 
 import ca.ulaval.glo4003.files.domain.StringFileReader;
-import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
+import ca.ulaval.glo4003.files.domain.exceptions.InvalidFileException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,7 +14,7 @@ public class JsonFileReader implements StringFileReader {
 
       return new String(jsonFile);
     } catch (IOException ioException) {
-      throw new InvalidFileException();
+      throw new InvalidFileException(path);
     }
   }
 }

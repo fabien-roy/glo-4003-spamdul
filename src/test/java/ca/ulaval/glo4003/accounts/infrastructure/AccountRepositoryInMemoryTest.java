@@ -2,16 +2,21 @@ package ca.ulaval.glo4003.accounts.infrastructure;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassBuilder.anAccessPass;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
+import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
-import ca.ulaval.glo4003.accesspasses.exceptions.NotFoundAccessPassException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.NotFoundAccessPassException;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
+import ca.ulaval.glo4003.accounts.domain.exceptions.NotFoundAccountException;
+import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
+import ca.ulaval.glo4003.parkings.domain.exceptions.NotFoundParkingStickerException;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -21,9 +26,14 @@ public class AccountRepositoryInMemoryTest {
   private AccountRepository accountRepository;
 
   private final LicensePlate licensePlate = createLicensePlate();
+  private final Car car = aCar().withLicensePlate(licensePlate).build();
+  private final ParkingSticker parkingSticker = aParkingSticker().build();
   private final AccessPass accessPass = anAccessPass().withLicensePlate(licensePlate).build();
   private final Account account =
-      anAccount().withAccessPasses(Collections.singletonList(accessPass)).build();
+      anAccount()
+          .withParkingSticker((Collections.singletonList(parkingSticker)))
+          .withAccessPasses(Collections.singletonList(accessPass))
+          .build();
 
   @Before
   public void setUp() {
@@ -46,8 +56,32 @@ public class AccountRepositoryInMemoryTest {
   }
 
   @Test(expected = NotFoundAccountException.class)
-  public void givenNonExistentAccount_whenGettingAccount_thenThrowNotFoundAccountException() {
+  public void givenNonExistentAccount_whenGettingAccountWithId_thenThrowNotFoundAccountException() {
     accountRepository.get(account.getId());
+  }
+
+  @Test(expected = NotFoundParkingStickerException.class)
+  public void givenNoAccount_whenGettingParkingSticker_thenThrowNotFoundParkingStickerException() {
+    accountRepository.getParkingSticker(parkingSticker.getCode());
+  }
+
+  @Test(expected = NotFoundParkingStickerException.class)
+  public void
+      givenNoAccountWithParkingSticker_whenGettingParkingSticker_thenThrowNotFoundParkingStickerException() {
+    Account account = anAccount().build();
+    accountRepository.save(account);
+
+    accountRepository.getParkingSticker(parkingSticker.getCode());
+  }
+
+  @Test
+  public void whenGettingParkingSticker_thenGetParkingSticker() {
+    accountRepository.save(account);
+
+    ParkingSticker foundParkingSticker =
+        accountRepository.getParkingSticker(parkingSticker.getCode());
+
+    assertThat(foundParkingSticker).isSameInstanceAs(parkingSticker);
   }
 
   @Test(expected = NotFoundAccessPassException.class)
@@ -87,6 +121,16 @@ public class AccountRepositoryInMemoryTest {
 
     assertThat(accessPasses).hasSize(1);
     assertThat(accessPasses.get(0)).isSameInstanceAs(accessPass);
+  }
+
+  @Test
+  public void givenLicensePlate_whenGettingCar_thenGetCar() {
+    account.saveCar(car);
+    accountRepository.save(account);
+
+    Car car = accountRepository.getCar(licensePlate);
+
+    assertThat(car.getLicensePlate()).isSameInstanceAs(licensePlate);
   }
 
   @Test

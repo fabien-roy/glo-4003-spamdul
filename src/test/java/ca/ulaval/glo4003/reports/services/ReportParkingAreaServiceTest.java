@@ -28,8 +28,8 @@ public class ReportParkingAreaServiceTest {
   @Mock private ParkingAreaService parkingAreaService;
   @Mock private ReportRepository reportRepository;
   @Mock private ReportPeriodAssembler reportPeriodAssembler;
-  @Mock private ReportParkingAreaQueryFactory reportParkingAreaQueryFactory;
-  @Mock private ReportSummaryBuilder reportSummaryBuilder;
+  @Mock private ReportQueryFactory reportQueryFactory;
+  @Mock private ReportSummaryFactory reportSummaryFactory;
   @Mock private ReportQuery reportQuery;
   @Mock private ReportQuery summaryReportQuery;
 
@@ -53,34 +53,30 @@ public class ReportParkingAreaServiceTest {
             parkingAreaService,
             reportRepository,
             reportPeriodAssembler,
-            reportParkingAreaQueryFactory,
-            reportSummaryBuilder);
+            reportQueryFactory,
+            reportSummaryFactory);
 
     when(parkingAreaService.getParkingAreaCodes()).thenReturn(parkingAreaCodes);
 
-    when(reportParkingAreaQueryFactory.create(reportType, month, parkingAreaCodes))
+    when(reportQueryFactory.createGateEnteredReportQuery(reportType, month, parkingAreaCodes))
         .thenReturn(reportQuery);
     when(reportRepository.getPeriods(reportQuery))
         .thenReturn(Collections.singletonList(reportPeriod));
     when(reportPeriodAssembler.assembleMany(Collections.singletonList(reportPeriod)))
         .thenReturn(Collections.singletonList(reportPeriodDto));
 
-    when(reportParkingAreaQueryFactory.create(summaryReportType, month, parkingAreaCodes))
+    when(reportQueryFactory.createGateEnteredReportQuery(
+            summaryReportType, month, parkingAreaCodes))
         .thenReturn(summaryReportQuery);
     when(reportRepository.getPeriods(summaryReportQuery))
         .thenReturn(Collections.singletonList(summaryReportPeriod));
-    when(reportSummaryBuilder.aReportSummary()).thenReturn(reportSummaryBuilder);
-    when(reportSummaryBuilder.withPeriods(Collections.singletonList(summaryReportPeriod)))
-        .thenReturn(reportSummaryBuilder);
-    when(reportSummaryBuilder.withAggregateFunctions(
+    when(reportSummaryFactory.create(
             Arrays.asList(
                 ReportAggregateFunctionType.MAXIMUM,
                 ReportAggregateFunctionType.MINIMUM,
-                ReportAggregateFunctionType.AVERAGE)))
-        .thenReturn(reportSummaryBuilder);
-    when(reportSummaryBuilder.withMetric(ReportMetricType.GATE_ENTRIES))
-        .thenReturn(reportSummaryBuilder);
-    when(reportSummaryBuilder.build())
+                ReportAggregateFunctionType.AVERAGE),
+            Collections.singletonList(summaryReportPeriod),
+            ReportMetricType.GATE_ENTRIES))
         .thenReturn(Collections.singletonList(aggregatedSummaryReportPeriod));
     when(reportPeriodAssembler.assembleMany(
             Collections.singletonList(aggregatedSummaryReportPeriod)))

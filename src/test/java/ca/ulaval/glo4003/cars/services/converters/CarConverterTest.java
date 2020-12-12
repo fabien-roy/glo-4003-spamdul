@@ -10,9 +10,9 @@ import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
-import ca.ulaval.glo4003.cars.exceptions.InvalidManufacturerException;
-import ca.ulaval.glo4003.cars.exceptions.InvalidModelException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidCarYearException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidManufacturerException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidModelException;
 import ca.ulaval.glo4003.cars.services.dto.CarDto;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class CarConverterTest {
 
   @Before
   public void setUp() {
-    carConverter = new CarConverter(licensePlateConverter, accountIdConverter);
+    carConverter = new CarConverter(licensePlateConverter);
 
     when(licensePlateConverter.convert(licensePlate.toString())).thenReturn(licensePlate);
     when(accountIdConverter.convert(accountId.toString())).thenReturn(accountId);
@@ -44,35 +44,35 @@ public class CarConverterTest {
 
   @Test
   public void whenConverting_shouldCarWithLicensePlate() {
-    Car car = carConverter.convert(carDto, accountId.toString());
+    Car car = carConverter.convert(carDto);
 
     assertThat(car.getLicensePlate().toString()).isEqualTo(carDto.licensePlate);
   }
 
   @Test
   public void whenConverting_shouldCarWithManufacturer() {
-    Car car = carConverter.convert(carDto, accountId.toString());
+    Car car = carConverter.convert(carDto);
 
     assertThat(car.getManufacturer()).isEqualTo(carDto.manufacturer);
   }
 
   @Test
   public void whenConverting_shouldCarWithModel() {
-    Car car = carConverter.convert(carDto, accountId.toString());
+    Car car = carConverter.convert(carDto);
 
     assertThat(car.getModel()).isEqualTo(carDto.model);
   }
 
   @Test
   public void whenConverting_shouldCarWithYear() {
-    Car car = carConverter.convert(carDto, accountId.toString());
+    Car car = carConverter.convert(carDto);
 
     assertThat(car.getYear()).isEqualTo(carDto.year);
   }
 
   @Test
   public void whenConverting_shouldCarWithConsumptionType() {
-    Car car = carConverter.convert(carDto, accountId.toString());
+    Car car = carConverter.convert(carDto);
 
     assertThat(car.getConsumptionType().toString()).isEqualTo(carDto.consumptionType);
   }
@@ -81,7 +81,7 @@ public class CarConverterTest {
   public void givenCarWithInvalidYear_whenConverting_shouldThrowInvalidYearException() {
     CarDto carDto = aCarDto().withYear(INVALID_YEAR).build();
 
-    carConverter.convert(carDto, accountId.toString());
+    carConverter.convert(carDto);
   }
 
   @Test(expected = InvalidCarYearException.class)
@@ -89,7 +89,7 @@ public class CarConverterTest {
     // The year is parsed to zero when it is fed a null
     CarDto carDto = aCarDto().withYear(0).build();
 
-    carConverter.convert(carDto, accountId.toString());
+    carConverter.convert(carDto);
   }
 
   @Test(expected = InvalidManufacturerException.class)
@@ -97,13 +97,13 @@ public class CarConverterTest {
       givenCarWithNullManufacturer_whenConverting_shouldThrowInvalidManufacturerException() {
     CarDto carDto = aCarDto().withManufacturer(null).build();
 
-    carConverter.convert(carDto, accountId.toString());
+    carConverter.convert(carDto);
   }
 
   @Test(expected = InvalidModelException.class)
   public void givenCarWithNullModel_whenConverting_shouldThrowInvalidModelException() {
     CarDto carDto = aCarDto().withModel(null).build();
 
-    carConverter.convert(carDto, accountId.toString());
+    carConverter.convert(carDto);
   }
 }

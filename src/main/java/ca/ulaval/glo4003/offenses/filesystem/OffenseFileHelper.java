@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.offenses.filesystem;
 
 import ca.ulaval.glo4003.files.domain.StringFileReader;
-import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
+import ca.ulaval.glo4003.files.domain.exceptions.InvalidFileException;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseDtoInFrench;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +24,7 @@ public class OffenseFileHelper {
       String jsonData = fileReader.readFile(OFFENSE_IN_FRENCH_PATH);
       return objectMapper.readValue(jsonData, new TypeReference<List<OffenseDtoInFrench>>() {});
     } catch (IOException exception) {
-      throw new InvalidFileException();
+      throw new InvalidFileException(OFFENSE_IN_FRENCH_PATH);
     }
   }
 }

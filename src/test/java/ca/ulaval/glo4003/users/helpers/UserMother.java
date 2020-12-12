@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.users.helpers;
 
-import static ca.ulaval.glo4003.interfaces.helpers.Randomizer.randomEnum;
+import static ca.ulaval.glo4003.randomizers.helpers.Randomizer.randomEnum;
 
 import ca.ulaval.glo4003.users.domain.Sex;
 import com.github.javafaker.Faker;

@@ -4,8 +4,8 @@ import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.exception.InvalidMoneyException;
-import ca.ulaval.glo4003.funds.exception.NegativeMoneyException;
+import ca.ulaval.glo4003.funds.domain.exceptions.InvalidMoneyException;
+import ca.ulaval.glo4003.funds.domain.exceptions.NegativeMoneyException;
 import org.junit.Before;
 import org.junit.Test;
 
