@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
 public class WrongReceptionMethodForBicycleAccessPassException extends ApplicationException {
   private static final String ERROR = "Wrong reception method for bicycle access pass";
   private static final String DESCRIPTION =
-      "The reception method provided doesn't match any reception method";
+      "The reception method provided doesn't match valid reception method";
   private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
 
   public WrongReceptionMethodForBicycleAccessPassException() {

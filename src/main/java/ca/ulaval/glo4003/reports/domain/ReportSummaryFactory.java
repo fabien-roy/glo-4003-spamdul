@@ -9,5 +9,5 @@ public interface ReportSummaryFactory {
   List<ReportPeriod> create(
       List<ReportAggregateFunctionType> aggregateFunctionTypes,
       List<ReportPeriod> periods,
-      ReportMetricType metric);
+      List<ReportMetricType> metrics);
 }
