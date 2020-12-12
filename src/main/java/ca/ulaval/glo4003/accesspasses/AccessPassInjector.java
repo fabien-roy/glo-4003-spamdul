@@ -45,7 +45,8 @@ public class AccessPassInjector {
       SemesterService semesterService) {
     LicensePlateConverter licensePlateConverter = new LicensePlateConverter();
     AccessPassConverter accessPassConverter =
-        new AccessPassConverter(licensePlateConverter, new ParkingAreaCodeAssembler());
+        new AccessPassConverter(
+            licensePlateConverter, new ParkingAreaCodeAssembler(), semesterService);
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
     AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
 
