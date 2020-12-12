@@ -1,14 +1,10 @@
 package ca.ulaval.glo4003.parkings.domain.exceptions;
 
-import ca.ulaval.glo4003.errors.domain.ErrorCode;
-import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
-
-public class InvalidParkingAreaCodeException extends ApplicationException {
+public class InvalidParkingAreaCodeException extends ParkingException {
   private static final String ERROR = "Invalid parking area code";
-  private static final String DESCRIPTION = "Parking area code cannot be empty";
-  private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
+  private static final String DESCRIPTION = "Parking area code is invalid";
 
   public InvalidParkingAreaCodeException() {
-    super(ERROR, DESCRIPTION, CODE);
+    super(ERROR, DESCRIPTION);
   }
 }

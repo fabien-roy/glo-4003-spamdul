@@ -24,7 +24,7 @@ public class SemesterFileHelper {
       String jsonData = fileReader.readFile(SEMESTERS_PATH);
       return objectMapper.readValue(jsonData, new TypeReference<List<SemesterDto>>() {});
     } catch (IOException exception) {
-      throw new InvalidFileException();
+      throw new InvalidFileException(SEMESTERS_PATH);
     }
   }
 }

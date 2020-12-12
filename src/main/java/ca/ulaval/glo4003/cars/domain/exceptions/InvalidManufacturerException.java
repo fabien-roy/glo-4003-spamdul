@@ -1,14 +1,10 @@
 package ca.ulaval.glo4003.cars.domain.exceptions;
 
-import ca.ulaval.glo4003.errors.domain.ErrorCode;
-import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
-
-public class InvalidManufacturerException extends ApplicationException {
+public class InvalidManufacturerException extends CarException {
   private static final String ERROR = "Invalid manufacturer";
-  private static final String DESCRIPTION = "Manufacturer cannot be empty";
-  private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
+  private static final String DESCRIPTION = "Manufacturer is invalid";
 
   public InvalidManufacturerException() {
-    super(ERROR, DESCRIPTION, CODE);
+    super(ERROR, DESCRIPTION);
   }
 }

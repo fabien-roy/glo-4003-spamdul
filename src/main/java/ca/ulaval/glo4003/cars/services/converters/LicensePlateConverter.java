@@ -6,16 +6,18 @@ import java.util.regex.Pattern;
 
 public class LicensePlateConverter {
   private static final Pattern PATTERN = Pattern.compile("[A-Z0-9]{3}[A-Z0-9 ][A-Z0-9]{3}");
+  private static final String FORMAT =
+      "XXXAXXX, where X is an alphanumerical character and A is optional";
 
   public LicensePlate convert(String licensePlate) {
-    if (licensePlate == null) {
-      throw new InvalidLicensePlateException();
-    } else if (licensePlate.length() < 2 || licensePlate.length() > 7) {
-      throw new InvalidLicensePlateException();
-    } else if (!PATTERN.matcher(licensePlate).matches()) {
-      throw new InvalidLicensePlateException();
+    if (licensePlate == null || !PATTERN.matcher(licensePlate).matches()) {
+      throwException();
     }
 
     return new LicensePlate(licensePlate);
+  }
+
+  private void throwException() {
+    throw new InvalidLicensePlateException(FORMAT);
   }
 }

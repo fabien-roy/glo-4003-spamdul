@@ -508,7 +508,7 @@
 											"response": []
 										},
 										{
-											"name": "Invalid birth date (future)",
+											"name": "Future birth date",
 											"event": [
 												{
 													"listen": "test",
@@ -519,8 +519,8 @@
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid birth date\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+															"pm.test(\"Returns future birth date\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Future birth date\")",
 															"});"
 														],
 														"type": "text/javascript"

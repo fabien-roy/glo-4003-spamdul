@@ -8,18 +8,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class CustomDateTimeConverter {
-  private static final DateTimeFormatter FORMATTER =
-      DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+  private static final String FORMAT = "dd-MM-yyyy HH:mm:ss";
+  private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(FORMAT);
 
   public CustomDateTime convert(DateTimeDto dateTimeDto) {
-    if (dateTimeDto.dateTime == null) throw new InvalidDateTimeException();
+    if (dateTimeDto.dateTime == null) throw new InvalidDateTimeException(FORMAT);
 
     LocalDateTime localDateTime;
 
     try {
       localDateTime = LocalDateTime.parse(dateTimeDto.dateTime, FORMATTER);
     } catch (DateTimeParseException exception) {
-      throw new InvalidDateTimeException();
+      throw new InvalidDateTimeException(FORMAT);
     }
 
     return new CustomDateTime(localDateTime);

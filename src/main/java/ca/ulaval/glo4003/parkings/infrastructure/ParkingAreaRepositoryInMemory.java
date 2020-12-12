@@ -22,7 +22,7 @@ public class ParkingAreaRepositoryInMemory implements ParkingAreaRepository {
   public ParkingArea get(ParkingAreaCode code) {
     ParkingArea foundParkingArea = parkingAreas.get(code);
 
-    if (foundParkingArea == null) throw new NotFoundParkingAreaException();
+    if (foundParkingArea == null) throw new NotFoundParkingAreaException(getParkingAreaCodes());
 
     return foundParkingArea;
   }
@@ -30,5 +30,9 @@ public class ParkingAreaRepositoryInMemory implements ParkingAreaRepository {
   @Override
   public List<ParkingArea> getAll() {
     return new ArrayList<>(parkingAreas.values());
+  }
+
+  private List<ParkingAreaCode> getParkingAreaCodes() {
+    return new ArrayList<>(parkingAreas.keySet());
   }
 }

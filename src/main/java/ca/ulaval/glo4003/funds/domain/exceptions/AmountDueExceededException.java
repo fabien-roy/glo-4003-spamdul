@@ -1,14 +1,10 @@
 package ca.ulaval.glo4003.funds.domain.exceptions;
 
-import ca.ulaval.glo4003.errors.domain.ErrorCode;
-import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
-
-public class AmountDueExceededException extends ApplicationException {
+public class AmountDueExceededException extends FundException {
   private static final String ERROR = "Amount due exceeded";
-  private static final String DESCRIPTION = "The amount paid exceeds the amount due";
-  private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
+  private static final String DESCRIPTION = "The amount paid exceeds the amount requested";
 
   public AmountDueExceededException() {
-    super(ERROR, DESCRIPTION, CODE);
+    super(ERROR, DESCRIPTION);
   }
 }

@@ -7,7 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class CustomDateConverter {
-  private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+  private static final String FORMAT = "dd-MM-yyyy";
+  private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(FORMAT);
 
   public CustomDate convert(String date) {
     LocalDate localDate;
@@ -15,7 +16,7 @@ public class CustomDateConverter {
     try {
       localDate = LocalDate.parse(date, FORMATTER);
     } catch (DateTimeParseException exception) {
-      throw new InvalidDateException();
+      throw new InvalidDateException(FORMAT);
     }
 
     return new CustomDate(localDate);

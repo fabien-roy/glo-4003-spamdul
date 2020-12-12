@@ -14,7 +14,7 @@ public class JsonFileReader implements StringFileReader {
 
       return new String(jsonFile);
     } catch (IOException ioException) {
-      throw new InvalidFileException();
+      throw new InvalidFileException(path);
     }
   }
 }

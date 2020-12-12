@@ -24,7 +24,7 @@ public class OffenseFileHelper {
       String jsonData = fileReader.readFile(OFFENSE_IN_FRENCH_PATH);
       return objectMapper.readValue(jsonData, new TypeReference<List<OffenseDtoInFrench>>() {});
     } catch (IOException exception) {
-      throw new InvalidFileException();
+      throw new InvalidFileException(OFFENSE_IN_FRENCH_PATH);
     }
   }
 }
