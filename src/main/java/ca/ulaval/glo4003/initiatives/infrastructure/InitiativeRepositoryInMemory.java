@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeFundCollector;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeRepository;
 import ca.ulaval.glo4003.initiatives.domain.exceptions.InitiativeNotFoundException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

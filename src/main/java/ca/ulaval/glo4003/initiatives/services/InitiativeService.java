@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAvailableAmou
 import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeCodeAssembler;
 import ca.ulaval.glo4003.initiatives.services.converters.InitiativeAddAllocatedAmountConverter;
 import ca.ulaval.glo4003.initiatives.services.dto.*;
-
 import java.util.List;
 
 public class InitiativeService extends InitiativeAddedAllocatedAmountObservable {

@@ -12,7 +12,6 @@ import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAssembler;
 import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeAvailableAmountAssembler;
 import ca.ulaval.glo4003.initiatives.services.assemblers.InitiativeCodeAssembler;
 import ca.ulaval.glo4003.initiatives.services.converters.InitiativeAddAllocatedAmountConverter;
-
 import java.util.List;
 
 public class InitiativeInjector {

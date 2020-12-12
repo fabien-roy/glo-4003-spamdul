@@ -1,19 +1,18 @@
 package ca.ulaval.glo4003.initiatives.infrastructure;
 
+import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
+import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoneyBelowAmount;
+import static ca.ulaval.glo4003.initiatives.helpers.InitiativeBuilder.anInitiative;
+
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.exceptions.InsufficientAvailableMoneyException;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
 import ca.ulaval.glo4003.initiatives.domain.exceptions.InitiativeNotFoundException;
 import com.google.common.truth.Truth;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
-
-import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
-import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoneyBelowAmount;
-import static ca.ulaval.glo4003.initiatives.helpers.InitiativeBuilder.anInitiative;
 
 public class InitiativeRepositoryInMemoryTest {
   private InitiativeRepositoryInMemory initiativeRepository;
