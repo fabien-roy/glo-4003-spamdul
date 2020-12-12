@@ -63,7 +63,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
     if (accessPass.isPresent()) {
       return accessPass.get();
     } else {
-      throw new NotFoundAccessPassException();
+      throw new NotFoundAccessPassException(accessPassCode);
     }
   }
 
@@ -74,7 +74,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
             .flatMap(account -> account.getAccessPasses(licensePlate).stream())
             .collect(Collectors.toList());
 
-    if (accessPasses.isEmpty()) throw new NotFoundAccessPassException();
+    if (accessPasses.isEmpty()) throw new NotFoundAccessPassException(licensePlate);
 
     return accessPasses;
   }
@@ -126,7 +126,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
     if (foundAccount.isPresent()) {
       return foundAccount.get();
     } else {
-      throw new NotFoundAccessPassException();
+      throw new NotFoundAccessPassException(accessPassCode);
     }
   }
 
