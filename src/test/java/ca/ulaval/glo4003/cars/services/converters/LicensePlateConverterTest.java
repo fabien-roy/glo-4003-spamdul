@@ -25,7 +25,7 @@ public class LicensePlateConverterTest {
   public void whenConverting_shouldReturnLicensePlate() {
     LicensePlate licensePlate = licensePlateConverter.convert(LICENSE_PLATE.toString());
 
-    assertThat(licensePlate.equals(LICENSE_PLATE));
+    assertThat(licensePlate).isEqualTo(LICENSE_PLATE);
   }
 
   @Test(expected = InvalidLicensePlateException.class)
