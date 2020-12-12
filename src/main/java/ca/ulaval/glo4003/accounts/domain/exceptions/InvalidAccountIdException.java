@@ -5,7 +5,7 @@ import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
 
 public class InvalidAccountIdException extends ApplicationException {
   private static final String ERROR = "Invalid account id";
-  private static final String DESCRIPTION = "Account id should be a GUID";
+  private static final String DESCRIPTION = "Account id should be a UUID";
   private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
 
   public InvalidAccountIdException() {
