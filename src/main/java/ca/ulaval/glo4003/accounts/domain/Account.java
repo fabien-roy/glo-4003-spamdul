@@ -60,7 +60,7 @@ public class Account {
     Bill bill = bills.get(billId);
 
     if (bills.get(billId) == null) {
-      throw new NotFoundBillException();
+      throw new NotFoundBillException(billId);
     }
 
     return bill;

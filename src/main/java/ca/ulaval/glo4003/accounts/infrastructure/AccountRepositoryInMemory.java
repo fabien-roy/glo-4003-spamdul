@@ -137,7 +137,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
     if (foundAccount.isPresent()) {
       return foundAccount.get();
     } else {
-      throw new NotFoundBillException();
+      throw new NotFoundBillException(billId);
     }
   }
 }
