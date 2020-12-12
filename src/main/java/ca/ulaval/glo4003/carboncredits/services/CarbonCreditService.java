@@ -10,9 +10,9 @@ import ca.ulaval.glo4003.carboncredits.services.assemblers.MonthlyPaymentStatusA
 import ca.ulaval.glo4003.carboncredits.services.dto.CarbonCreditDto;
 import ca.ulaval.glo4003.carboncredits.services.dto.MonthlyPaymentStatusDto;
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeAddedAllocatedAmountObserver;
+import ca.ulaval.glo4003.initiatives.domain.InitiativeRepository;
 import ca.ulaval.glo4003.initiatives.services.InitiativeService;
 
 public class CarbonCreditService implements InitiativeAddedAllocatedAmountObserver {
@@ -20,7 +20,7 @@ public class CarbonCreditService implements InitiativeAddedAllocatedAmountObserv
   private final CarbonCreditAssembler carbonCreditAssembler;
   private final MonthlyPaymentStatusAssembler monthlyPaymentStatusAssembler;
   private final MonthlyPaymentStatusRepository monthlyPaymentStatusRepository;
-  private final SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository;
+  private final InitiativeRepository initiativeRepository;
   private final InitiativeService initiativeService;
 
   public CarbonCreditService(
@@ -28,13 +28,13 @@ public class CarbonCreditService implements InitiativeAddedAllocatedAmountObserv
       CarbonCreditAssembler carbonCreditAssembler,
       MonthlyPaymentStatusAssembler monthlyPaymentStatusAssembler,
       MonthlyPaymentStatusRepository monthlyPaymentStatusRepository,
-      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository,
+      InitiativeRepository initiativeRepository,
       InitiativeService initiativeService) {
     this.carbonCreditRepository = carbonCreditRepository;
     this.carbonCreditAssembler = carbonCreditAssembler;
     this.monthlyPaymentStatusAssembler = monthlyPaymentStatusAssembler;
     this.monthlyPaymentStatusRepository = monthlyPaymentStatusRepository;
-    this.sustainableMobilityProgramBankRepository = sustainableMobilityProgramBankRepository;
+    this.initiativeRepository = initiativeRepository;
     this.initiativeService = initiativeService;
   }
 
@@ -50,11 +50,10 @@ public class CarbonCreditService implements InitiativeAddedAllocatedAmountObserv
 
   public void allocateRemainingFundToCarbonCreditInitiative() {
     if (monthlyPaymentStatusRepository.get().equals(MonthlyPaymentStatus.ENABLE)) {
-      Money sustainableMobilityProgramBankAvailableMoney =
-          sustainableMobilityProgramBankRepository.get();
+      Money availableMoney = initiativeRepository.getAvailableMoney();
       initiativeService.addAllocatedAmountToInitiative(
           CarbonCreditConfiguration.getConfiguration().getCarbonCreditInitiativeCode(),
-          sustainableMobilityProgramBankAvailableMoney);
+          availableMoney);
     }
   }
 

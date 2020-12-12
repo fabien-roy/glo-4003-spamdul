@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.initiatives;
 
 import ca.ulaval.glo4003.carboncredits.configuration.CarbonCreditConfiguration;
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
 import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.generators.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
@@ -16,7 +15,10 @@ import ca.ulaval.glo4003.initiatives.services.converters.InitiativeAddAllocatedA
 import java.util.List;
 
 public class InitiativeInjector {
-  private final InitiativeRepository initiativeRepository = new InitiativeRepositoryInMemory();
+  private final InitiativeRepositoryInMemory initiativeRepositoryInMemory =
+      new InitiativeRepositoryInMemory();
+  private final InitiativeRepository initiativeRepository = initiativeRepositoryInMemory;
+  private final InitiativeFundCollector initiativeFundCollector = initiativeRepositoryInMemory;
   private final InitiativeCodeGenerator initiativeCodeGenerator =
       new InitiativeCodeGenerator(new StringCodeGenerator());
 
@@ -30,13 +32,20 @@ public class InitiativeInjector {
     initiativeRepository.save(carbonCreditInitiative);
   }
 
+  public InitiativeFundCollector getInitiativeFundCollector() {
+    return initiativeFundCollector;
+  }
+
+  public InitiativeRepository getInitiativeRepository() {
+    return initiativeRepository;
+  }
+
   public InitiativeResource createInitiativeResource(InitiativeService initiativeService) {
     return new InitiativeResource(initiativeService);
   }
 
   public InitiativeService createService(
       MoneyConverter moneyConverter,
-      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository,
       List<InitiativeAddedAllocatedAmountObserver> initiativeAddedAllocatedAmountObservers) {
     InitiativeFactory initiativeFactory = new InitiativeFactory(initiativeCodeGenerator);
     InitiativeCodeAssembler initiativeCodeAssembler = new InitiativeCodeAssembler();
@@ -53,8 +62,7 @@ public class InitiativeInjector {
             initiativeCodeAssembler,
             initiativeAvailableAmountAssembler,
             initiativeAssembler,
-            initiativeAddAllocatedAmountConverter,
-            sustainableMobilityProgramBankRepository);
+            initiativeAddAllocatedAmountConverter);
 
     initiativeAddedAllocatedAmountObservers.forEach(initiativeService::register);
     return initiativeService;
