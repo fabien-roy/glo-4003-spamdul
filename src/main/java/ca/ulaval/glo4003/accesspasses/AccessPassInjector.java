@@ -19,8 +19,8 @@ import ca.ulaval.glo4003.generators.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.services.SemesterService;
-import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public class AccessPassInjector {
 
@@ -44,13 +44,8 @@ public class AccessPassInjector {
       BillService billService,
       SemesterService semesterService) {
     LicensePlateConverter licensePlateConverter = new LicensePlateConverter();
-    SemesterCodeConverter semesterCodeConverter = new SemesterCodeConverter();
     AccessPassConverter accessPassConverter =
-        new AccessPassConverter(
-            licensePlateConverter,
-            semesterService,
-            semesterCodeConverter,
-            new ParkingAreaCodeAssembler());
+        new AccessPassConverter(licensePlateConverter, new ParkingAreaCodeAssembler());
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
     AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
 
@@ -62,7 +57,8 @@ public class AccessPassInjector {
         accessPassPriceByCarConsumptionInMemoryRepository,
         accountService,
         billService,
-        accessPassCodeAssembler);
+        accessPassCodeAssembler,
+        semesterService);
   }
 
   private void addAccessPassByConsumptionTypesToRepository() {
