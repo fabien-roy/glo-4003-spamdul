@@ -66,7 +66,8 @@ public class UserConverterTest {
 
   @Test(expected = InvalidBirthDateException.class)
   public void givenInvalidBirthDate_whenConverting_thenThrowInvalidBirthDateException() {
-    when(customDateConverter.convert(birthDate.toString())).thenThrow(new InvalidDateException());
+    when(customDateConverter.convert(birthDate.toString()))
+        .thenThrow(new InvalidDateException("format"));
 
     userConverter.convert(userDto);
   }
