@@ -14,7 +14,6 @@ import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverte
 import ca.ulaval.glo4003.locations.domain.PostalCode;
 import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
-import ca.ulaval.glo4003.parkings.domain.ParkingConfiguration;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
@@ -61,7 +60,7 @@ public class AccessPassConverter {
     String[] scholarYear =
         SemesterCode.findScholarYearFromSemesterCode(
             new SemesterCodeConverter().convert(bicycleAccessPassDto.semester));
-    ParkingAreaCode parkingAreaCode = bicycleParkingArea;
+    ParkingAreaCode parkingAreaCode = new ParkingAreaCode("ZoneVelo");
     AccessPeriod accessPeriod = AccessPeriod.THREE_SEMESTERS;
 
     validateReceptionMethodForBicycleAccessPass(bicycleAccessPassDto);
@@ -146,8 +145,9 @@ public class AccessPassConverter {
     }
   }
 
-  private void validateReceptionMethodForBicycleAccessPass(AccessPassDto accessPassDto) {
-    if (accessPassDto.receptionMethod == null) {
+  private void validateReceptionMethodForBicycleAccessPass(
+      BicycleAccessPassDto bicycleAccessPassDto) {
+    if (bicycleAccessPassDto.receptionMethod == null) {
       throw new WrongReceptionMethodForBicycleAccessPassException();
     }
   }
