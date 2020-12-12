@@ -8,6 +8,10 @@ import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongReceptionMethodForB
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
+import ca.ulaval.glo4003.communications.domain.EmailAddress;
+import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
+import ca.ulaval.glo4003.locations.domain.PostalCode;
+import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
@@ -23,16 +27,22 @@ public class AccessPassConverter {
   private static final char SUMMER = 'E';
   private final LicensePlateConverter licensePlateConverter;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
-  private SemesterService semesterService;
   private final ParkingAreaCode bicycleParkingArea = new ParkingAreaCode("ZoneVelo");
+  private final EmailAddressConverter emailAddressConverter;
+  private final PostalCodeConverter postalCodeConverter;
+  private SemesterService semesterService;
 
   public AccessPassConverter(
       LicensePlateConverter licensePlateConverter,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
-      SemesterService semesterService) {
+      SemesterService semesterService,
+      EmailAddressConverter emailAddressConverter,
+      PostalCodeConverter postalCodeConverter) {
     this.licensePlateConverter = licensePlateConverter;
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
     this.semesterService = semesterService;
+    this.emailAddressConverter = emailAddressConverter;
+    this.postalCodeConverter = postalCodeConverter;
   }
 
   public AccessPass convert(AccessPassDto accessPassCodeDto, List<TimePeriod> timePeriods) {
@@ -64,11 +74,12 @@ public class AccessPassConverter {
         parkingAreaCodeAssembler.assemble(accessPassCodeDto.parkingArea);
 
     return new AccessPass(
-        accessPeriod, dayOfWeek, licensePlate, timePeriods, parkingAreaCode, null);
+        accessPeriod, dayOfWeek, licensePlate, timePeriods, parkingAreaCode, null, null, null);
   }
 
   private AccessPass convertForBicycleAccessPass(AccessPassDto accessPassDto) {
-
+    EmailAddress emailAddress = null;
+    PostalCode postalCode = null;
     String[] scholarYear = FindScholarYearSemester(accessPassDto.semesters);
     ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(accessPassDto.parkingArea);
     // TODO permet d'éviter une erreur lors de la création du bill puisqu'il n'y a pas de period
@@ -78,13 +89,21 @@ public class AccessPassConverter {
     validateReceptionMethodForBicycleAccessPass(accessPassDto);
     ReceptionMethod receptionMethod = ReceptionMethod.get(accessPassDto.receptionMethod);
 
+    if (receptionMethod == ReceptionMethod.EMAIL) {
+      emailAddress = emailAddressConverter.convert(accessPassDto.emailAddress);
+    } else if (receptionMethod == ReceptionMethod.POSTAL) {
+      postalCode = postalCodeConverter.convert(accessPassDto.postalCode);
+    }
+
     return new AccessPass(
         accessPeriod,
         null,
         null,
         semesterService.getSemester(scholarYear),
         parkingAreaCode,
-        receptionMethod);
+        receptionMethod,
+        postalCode,
+        emailAddress);
   }
 
   // TODO maybe move this in an other class?
@@ -127,7 +146,7 @@ public class AccessPassConverter {
     validateAmountOfSemesters(accessPassCodeDto.semesters);
     validateCorrectLengthForSemesters(accessPassCodeDto.semesters, accessPeriod);
 
-    return new AccessPass(accessPeriod, dayOfWeek, null, timePeriods, null, null);
+    return new AccessPass(accessPeriod, dayOfWeek, null, timePeriods, null, null, null, null);
   }
 
   // Will be revised if story 3.1 is chosen
@@ -156,9 +175,9 @@ public class AccessPassConverter {
 
   private void validateReceptionMethodForBicycleAccessPass(AccessPassDto accessPassDto) {
     if (accessPassDto.receptionMethod == null
-        || accessPassDto.receptionMethod != "postal"
-        || accessPassDto.receptionMethod != "email"
-        || accessPassDto.receptionMethod != "ssp") {
+        || !accessPassDto.receptionMethod.equals("postal")
+        || !accessPassDto.receptionMethod.equals("email")
+        || !accessPassDto.receptionMethod.equals("ssp")) {
       throw new WrongReceptionMethodForBicycleAccessPassException();
     }
   }

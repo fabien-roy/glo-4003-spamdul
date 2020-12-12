@@ -7,4 +7,6 @@ public class AccessPassDto {
   public String[] semesters;
   public String parkingArea;
   public String receptionMethod;
+  public String postalCode;
+  public String emailAddress;
 }

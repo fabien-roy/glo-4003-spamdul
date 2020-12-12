@@ -3,6 +3,8 @@ package ca.ulaval.glo4003.accesspasses.domain;
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassEntryException;
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.communications.domain.EmailAddress;
+import ca.ulaval.glo4003.locations.domain.PostalCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
@@ -19,6 +21,8 @@ public class AccessPass {
   private final ParkingAreaCode parkingAreaCode;
   private boolean isAdmittedOnCampus = false;
   private ReceptionMethod receptionMethod;
+  private PostalCode postalCode;
+  private EmailAddress emailAddress;
 
   public AccessPass(
       AccessPeriod accessPeriod,
@@ -26,13 +30,17 @@ public class AccessPass {
       LicensePlate licensePlate,
       List<TimePeriod> accessPeriods,
       ParkingAreaCode parkingAreaCode,
-      ReceptionMethod receptionMethod) {
+      ReceptionMethod receptionMethod,
+      PostalCode postalCode,
+      EmailAddress emailAddress) {
     this.accessPeriod = accessPeriod;
     this.accessDay = accessDay;
     this.licensePlate = licensePlate;
     this.accessPeriods = accessPeriods;
     this.parkingAreaCode = parkingAreaCode;
     this.receptionMethod = receptionMethod;
+    this.postalCode = postalCode;
+    this.emailAddress = emailAddress;
   }
 
   public ParkingAreaCode getParkingAreaCode() {
@@ -61,6 +69,14 @@ public class AccessPass {
 
   public ReceptionMethod getReceptionMethod() {
     return receptionMethod;
+  }
+
+  public PostalCode getPostalCode() {
+    return postalCode;
+  }
+
+  public EmailAddress getEmailAddress() {
+    return emailAddress;
   }
 
   public boolean isAdmittedOnCampus() {
