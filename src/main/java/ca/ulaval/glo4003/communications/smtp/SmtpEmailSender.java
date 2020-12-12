@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.communications.smtp;
 
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.communications.domain.EmailSender;
 import ca.ulaval.glo4003.communications.domain.exceptions.EmailSendingFailedException;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
@@ -14,6 +15,8 @@ public class SmtpEmailSender implements EmailSender {
   private static final String PARKING_STICKER_CREATION_TEXT =
       "Your SPAMD-UL parking sticker code is %s";
 
+  private static final String ACCES_PASS_CREATION_SUBJECT = "Your SPAMD-UL access pass";
+  private static final String ACCES_PASS_CREATION_TEXT = "Your SPAMD-UL access pass code is %s";
   private final SmtpClient smtpClient;
 
   public SmtpEmailSender(SmtpClient smtpClient) {
@@ -42,6 +45,16 @@ public class SmtpEmailSender implements EmailSender {
           parkingSticker.getEmailAddress().toString(),
           PARKING_STICKER_CREATION_SUBJECT,
           String.format(PARKING_STICKER_CREATION_TEXT, parkingSticker.getCode().toString()));
+    }
+  }
+
+  @Override
+  public void listenAccessPassCreated(AccessPass accessPass) {
+    if (accessPass.getReceptionMethod().equals(ReceptionMethod.EMAIL)) {
+      sendEmail(
+          accessPass.getEmailAddress().toString(),
+          ACCES_PASS_CREATION_SUBJECT,
+          String.format(ACCES_PASS_CREATION_TEXT, accessPass.getCode().toString()));
     }
   }
 }
