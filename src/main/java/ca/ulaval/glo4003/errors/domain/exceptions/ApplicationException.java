@@ -36,7 +36,11 @@ public abstract class ApplicationException extends RuntimeException {
             .map(Enum::toString)
             .collect(Collectors.toList());
 
-    // TODO #305 : This is shit.
+    return enumerateStrings(values);
+  }
+
+  // TODO #305 : This is shit.
+  protected String enumerateStrings(List<String> values) {
     String enumeratedValues = "";
     for (int i = 0; i < values.size(); i++) {
       enumeratedValues = enumeratedValues.concat(values.get(i));
