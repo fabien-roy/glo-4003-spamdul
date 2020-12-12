@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds.services;
 
-import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
@@ -61,10 +61,12 @@ public class BillService {
   }
 
   public BillId addBillForAccessCode(
-      Money fee, AccessPassCode accessPassCode, ConsumptionType consumptionType) {
-    logger.info(String.format("Create bill for access code %s", accessPassCode));
+      Money fee, AccessPass accessPass, ConsumptionType consumptionType) {
+    logger.info(String.format("Create bill for access code %s", accessPass.getCode()));
 
-    Bill bill = billFactory.createForAccessPass(fee, accessPassCode, consumptionType);
+    Bill bill =
+        billFactory.createForAccessPass(
+            fee, accessPass.getCode(), consumptionType, accessPass.getReceptionMethod());
 
     billRepository.save(bill);
 

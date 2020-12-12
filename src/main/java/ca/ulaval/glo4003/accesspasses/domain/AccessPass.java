@@ -22,7 +22,7 @@ public class AccessPass {
   private boolean isAdmittedOnCampus = false;
   private ReceptionMethod receptionMethod;
   private PostalCode postalCode;
-  private EmailAddress emailAddress;
+  private EmailAddress w;
 
   public AccessPass(
       AccessPeriod accessPeriod,

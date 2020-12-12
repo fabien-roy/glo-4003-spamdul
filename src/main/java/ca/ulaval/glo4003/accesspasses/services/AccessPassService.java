@@ -71,8 +71,8 @@ public class AccessPassService extends AccessPassCreationObservable {
     AccessPassType accessPassType = accessPassTypeRepository.findByConsumptionType(consumptionType);
 
     Money moneyDue = accessPassType.getFeeForPeriod(accessPass.getAccessPeriod());
-    BillId billId =
-        billService.addBillForAccessCode(moneyDue, accessPass.getCode(), consumptionType);
+
+    BillId billId = billService.addBillForAccessCode(moneyDue, accessPass, consumptionType);
     accountService.addAccessPassToAccount(account.getId(), accessPass, billId);
 
     if (accessPass.getReceptionMethod() != null) {

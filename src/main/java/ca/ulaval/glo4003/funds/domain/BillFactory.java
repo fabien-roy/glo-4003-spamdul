@@ -39,13 +39,22 @@ public class BillFactory {
   }
 
   public Bill createForAccessPass(
-      Money feeForPeriod, AccessPassCode accessPassCode, ConsumptionType consumptionType) {
+      Money feeForPeriod,
+      AccessPassCode accessPassCode,
+      ConsumptionType consumptionType,
+      ReceptionMethod receptionMethod) {
     BillId id = generateBillId();
     String description = String.format(ACCESS_PASS_BILL_DESCRIPTION, accessPassCode.toString());
 
+    Money amount = new Money(feeForPeriod);
+
+    if (receptionMethod.equals(ReceptionMethod.POSTAL)) {
+      amount = amount.plus(Money.fromDouble(5));
+    }
+
     BillType billType = BillType.ACCESS_PASS;
 
-    return new Bill(id, billType, description, feeForPeriod, CustomDateTime.now(), consumptionType);
+    return new Bill(id, billType, description, amount, CustomDateTime.now(), consumptionType);
   }
 
   public Bill createForOffense(Money fee, OffenseCode offenseCode) {
