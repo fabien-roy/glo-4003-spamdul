@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-// TODO #305 : Use @Override instead of this constructor?
 public abstract class ApplicationException extends RuntimeException {
   private final String error;
   private final String description;
