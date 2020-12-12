@@ -25,12 +25,8 @@ public class ServerResourceConfig {
                 resources.add(APPLICATION_INJECTOR.createInitiativeResource());
                 resources.add(APPLICATION_INJECTOR.createReportProfitResource());
                 resources.add(APPLICATION_INJECTOR.createReportParkingAreaResource());
+                resources.addAll(APPLICATION_INJECTOR.createExceptionMappers());
                 return resources;
-              }
-
-              @Override
-              public Set<Class<?>> getClasses() {
-                return new HashSet<>(APPLICATION_INJECTOR.getExceptionMappers());
               }
             });
 

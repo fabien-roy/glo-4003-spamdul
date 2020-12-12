@@ -1638,8 +1638,8 @@
 													"script": {
 														"id": "955e9de2-b20a-42e3-8415-6bbcedd37da9",
 														"exec": [
-															"pm.test(\"Returns status 400\", function () {",
-															"    pm.response.to.have.status(400);",
+															"pm.test(\"Returns status 409\", function () {",
+															"    pm.response.to.have.status(409);",
 															"});",
 															"",
 															"pm.test(\"Returns already existing car\", function () {",
