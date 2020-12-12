@@ -5,7 +5,6 @@ import javax.ws.rs.core.Response.Status;
 
 public class ErrorResponseStatusConverter {
 
-  // TODO #305 : Test this
   public Status convert(ErrorCode errorCode) {
     switch (errorCode) {
       case NOT_FOUND:
