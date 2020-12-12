@@ -88,7 +88,7 @@ public class UserResource {
       @PathParam("accountId") String accountId,
       @PathParam("billId") String billId,
       BillPaymentDto billPaymentDto) {
-    BillDto billDto = billService.payBill(billPaymentDto, billId);
+    BillDto billDto = billService.payBill(billPaymentDto, accountId, billId);
 
     return Response.status(Response.Status.OK)
         .entity(billDto)

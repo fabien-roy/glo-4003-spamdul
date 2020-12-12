@@ -11,7 +11,6 @@ import ca.ulaval.glo4003.funds.domain.exceptions.NotFoundBillException;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.users.domain.User;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

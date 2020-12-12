@@ -16,7 +16,6 @@ import ca.ulaval.glo4003.funds.domain.exceptions.NotFoundBillException;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.parkings.domain.exceptions.NotFoundParkingStickerException;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,21 +49,6 @@ public class AccountRepositoryInMemory implements AccountRepository {
       return parkingSticker.get();
     } else {
       throw new NotFoundParkingStickerException();
-    }
-  }
-
-  @Override
-  public Bill getBill(BillId billId) {
-    Optional<Bill> bill =
-        accounts.values().stream()
-            .map(account -> account.getBill(billId))
-            .filter(Objects::nonNull)
-            .findFirst();
-
-    if (bill.isPresent()) {
-      return bill.get();
-    } else {
-      throw new NotFoundBillException();
     }
   }
 

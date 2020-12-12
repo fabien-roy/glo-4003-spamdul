@@ -1,5 +1,20 @@
 package ca.ulaval.glo4003.users.api;
 
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassCodeDtoBuilder.anAccessPassCodeDto;
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassDtoBuilder.anAccessPassDto;
+import static ca.ulaval.glo4003.accounts.helpers.AccountIdDtoBuilder.anAccountIdDto;
+import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
+import static ca.ulaval.glo4003.cars.helpers.CarDtoBuilder.aCarDto;
+import static ca.ulaval.glo4003.funds.helpers.BillDtoBuilder.aBillDto;
+import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
+import static ca.ulaval.glo4003.funds.helpers.BillPaymentDtoBuilder.aBillPaymentDto;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerCodeDtoBuilder.aParkingStickerCodeDto;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerDtoBuilder.aParkingStickerDto;
+import static ca.ulaval.glo4003.users.helpers.UserDtoBuilder.aUserDto;
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
@@ -17,30 +32,14 @@ import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
 import ca.ulaval.glo4003.users.services.UserService;
 import ca.ulaval.glo4003.users.services.dto.AccountIdDto;
 import ca.ulaval.glo4003.users.services.dto.UserDto;
+import java.util.Collections;
+import java.util.List;
+import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import javax.ws.rs.core.Response;
-import java.util.Collections;
-import java.util.List;
-
-import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassCodeDtoBuilder.anAccessPassCodeDto;
-import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassDtoBuilder.anAccessPassDto;
-import static ca.ulaval.glo4003.accounts.helpers.AccountIdDtoBuilder.anAccountIdDto;
-import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
-import static ca.ulaval.glo4003.cars.helpers.CarDtoBuilder.aCarDto;
-import static ca.ulaval.glo4003.funds.helpers.BillDtoBuilder.aBillDto;
-import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
-import static ca.ulaval.glo4003.funds.helpers.BillPaymentDtoBuilder.aBillPaymentDto;
-import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerCodeDtoBuilder.aParkingStickerCodeDto;
-import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerDtoBuilder.aParkingStickerDto;
-import static ca.ulaval.glo4003.users.helpers.UserDtoBuilder.aUserDto;
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserResourceTest {
@@ -80,7 +79,8 @@ public class UserResourceTest {
     when(userService.addUser(userDto)).thenReturn(accountIdDto);
     when(accountService.getBills(accountId.toString()))
         .thenReturn(Collections.singletonList(billDto));
-    when(billService.payBill(billPaymentDto, billId.toString())).thenReturn(billDto);
+    when(billService.payBill(billPaymentDto, accountId.toString(), billId.toString()))
+        .thenReturn(billDto);
     when(carService.getCars(accountId.toString())).thenReturn(Collections.singletonList(carDto));
     when(accessPassService.addAccessPass(accessPassDto, accountId.toString()))
         .thenReturn(accessPassCodeDto);

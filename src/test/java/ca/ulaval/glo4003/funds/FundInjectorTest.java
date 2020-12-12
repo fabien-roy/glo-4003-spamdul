@@ -29,7 +29,8 @@ public class FundInjectorTest {
 
   @Test
   public void whenCreatingBillService_thenReturnIt() {
-    BillService billService = fundInjector.createBillService(reportEventService, accountService, initiativeFundCollector);
+    BillService billService =
+        fundInjector.createBillService(reportEventService, accountService, initiativeFundCollector);
 
     assertThat(billService).isNotNull();
   }

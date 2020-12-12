@@ -9,8 +9,8 @@ import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.services.converters.BillIdConverter;
 import ca.ulaval.glo4003.funds.services.converters.BillPaymentConverter;
 import ca.ulaval.glo4003.funds.services.dto.BillDto;
-import ca.ulaval.glo4003.initiatives.domain.InitiativeFundCollector;
 import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
+import ca.ulaval.glo4003.initiatives.domain.InitiativeFundCollector;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
@@ -95,11 +95,11 @@ public class BillService {
     return bill;
   }
 
-  public BillDto payBill(BillPaymentDto billPaymentDto, String billId) {
+  public BillDto payBill(BillPaymentDto billPaymentDto, String accountId, String billId) {
     Money amountToPay = billPaymentConverter.convert(billPaymentDto);
     BillId billNumber = billIdConverter.convert(billId);
 
-    Bill bill = accountService.getBill(billNumber);
+    Bill bill = accountService.getBill(accountId, billNumber);
     bill.pay(amountToPay);
     accountService.update(bill);
 

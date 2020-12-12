@@ -74,8 +74,8 @@ public class AccountService {
     return billAssembler.assemble(bills);
   }
 
-  public Bill getBill(BillId billId) {
-    return accountRepository.getBill(billId);
+  public Bill getBill(String accountId, BillId billId) {
+    return accountRepository.get(accountIdConverter.convert(accountId)).getBill(billId);
   }
 
   public Account getAccount(String accountId) {
