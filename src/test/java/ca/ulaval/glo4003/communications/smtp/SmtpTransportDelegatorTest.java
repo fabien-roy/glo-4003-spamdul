@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.communications.smtp;
 import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAddress;
 import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailPassword;
 
-import ca.ulaval.glo4003.communications.exceptions.EmailSendingFailedException;
+import ca.ulaval.glo4003.communications.domain.exceptions.EmailSendingFailedException;
 import javax.mail.internet.MimeMessage;
 import org.junit.Before;
 import org.junit.Test;

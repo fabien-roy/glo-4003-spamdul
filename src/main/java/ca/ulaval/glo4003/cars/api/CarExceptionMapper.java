@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.cars.api;
 
-import ca.ulaval.glo4003.cars.exceptions.CarException;
-import ca.ulaval.glo4003.cars.exceptions.NotFoundCarException;
+import ca.ulaval.glo4003.cars.domain.exceptions.CarException;
+import ca.ulaval.glo4003.cars.domain.exceptions.NotFoundCarException;
 import ca.ulaval.glo4003.errors.services.dto.ErrorDto;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

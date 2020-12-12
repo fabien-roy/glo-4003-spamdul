@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.cars.services.converters;
 
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.ConsumptionTypeInFrench;
-import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidConsumptionTypeException;
 
 public class ConsumptionConverter {
 

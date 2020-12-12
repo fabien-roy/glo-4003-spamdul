@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.times.domain;
 
-import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
+import ca.ulaval.glo4003.times.domain.exceptions.InvalidDayOfWeekException;
 import java.util.HashMap;
 import java.util.Map;
 

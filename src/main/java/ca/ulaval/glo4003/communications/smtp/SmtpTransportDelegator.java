@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.communications.smtp;
 
-import ca.ulaval.glo4003.communications.exceptions.EmailSendingFailedException;
+import ca.ulaval.glo4003.communications.domain.exceptions.EmailSendingFailedException;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 

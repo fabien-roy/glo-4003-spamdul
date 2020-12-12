@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings.api;
 
 import ca.ulaval.glo4003.errors.services.dto.ErrorDto;
-import ca.ulaval.glo4003.parkings.exceptions.*;
+import ca.ulaval.glo4003.parkings.domain.exceptions.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

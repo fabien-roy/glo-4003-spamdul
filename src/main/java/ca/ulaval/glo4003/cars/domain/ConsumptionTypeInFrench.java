@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.cars.domain;
 
-import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidConsumptionTypeException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;

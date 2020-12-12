@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassExitException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;

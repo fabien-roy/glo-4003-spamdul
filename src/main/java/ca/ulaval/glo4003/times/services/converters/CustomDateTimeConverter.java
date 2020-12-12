@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.times.services.converters;
 
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
-import ca.ulaval.glo4003.times.exceptions.InvalidDateTimeException;
+import ca.ulaval.glo4003.times.domain.exceptions.InvalidDateTimeException;
 import ca.ulaval.glo4003.times.services.dto.DateTimeDto;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

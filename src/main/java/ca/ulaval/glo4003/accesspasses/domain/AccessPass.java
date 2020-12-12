@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.accesspasses.domain;
 
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassEntryException;
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassExitException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassEntryException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;

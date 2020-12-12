@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.files.filesystem;
 
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
-import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
+import ca.ulaval.glo4003.files.domain.exceptions.InvalidFileException;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;

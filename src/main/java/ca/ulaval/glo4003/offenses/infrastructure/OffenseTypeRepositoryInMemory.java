@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.offenses.infrastructure;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
-import ca.ulaval.glo4003.offenses.exceptions.OffenseTypeNotFoundException;
+import ca.ulaval.glo4003.offenses.domain.exceptions.OffenseTypeNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

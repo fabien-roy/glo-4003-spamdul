@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.communications.api;
 
-import ca.ulaval.glo4003.communications.exceptions.CommunicationException;
-import ca.ulaval.glo4003.communications.exceptions.EmailSendingFailedException;
+import ca.ulaval.glo4003.communications.domain.exceptions.CommunicationException;
+import ca.ulaval.glo4003.communications.domain.exceptions.EmailSendingFailedException;
 import ca.ulaval.glo4003.errors.services.dto.ErrorDto;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

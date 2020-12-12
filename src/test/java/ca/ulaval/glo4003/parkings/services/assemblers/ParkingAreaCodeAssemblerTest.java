@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParking
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
-import ca.ulaval.glo4003.parkings.exceptions.InvalidParkingAreaCodeException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.InvalidParkingAreaCodeException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

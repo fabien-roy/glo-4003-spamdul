@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.cars.api;
 
-import ca.ulaval.glo4003.cars.exceptions.CarException;
-import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
-import ca.ulaval.glo4003.cars.exceptions.InvalidLicensePlateException;
-import ca.ulaval.glo4003.cars.exceptions.NotFoundCarException;
+import ca.ulaval.glo4003.cars.domain.exceptions.CarException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidCarYearException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidLicensePlateException;
+import ca.ulaval.glo4003.cars.domain.exceptions.NotFoundCarException;
 import com.github.javafaker.Faker;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;

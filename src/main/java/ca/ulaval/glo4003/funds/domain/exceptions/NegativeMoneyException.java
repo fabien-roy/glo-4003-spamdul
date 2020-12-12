@@ -1,0 +1,10 @@
+package ca.ulaval.glo4003.funds.domain.exceptions;
+
+public class NegativeMoneyException extends FundException {
+  private static final String ERROR = "Negative amount of money";
+  private static final String DESCRIPTION = "Amount of money cannot be negative";
+
+  public NegativeMoneyException() {
+    super(ERROR, DESCRIPTION);
+  }
+}

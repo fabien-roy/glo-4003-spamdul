@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.accounts.api;
 
-import ca.ulaval.glo4003.accounts.exceptions.AccountException;
-import ca.ulaval.glo4003.accounts.exceptions.InvalidAccountIdException;
-import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
+import ca.ulaval.glo4003.accounts.domain.exceptions.AccountException;
+import ca.ulaval.glo4003.accounts.domain.exceptions.InvalidAccountIdException;
+import ca.ulaval.glo4003.accounts.domain.exceptions.NotFoundAccountException;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;

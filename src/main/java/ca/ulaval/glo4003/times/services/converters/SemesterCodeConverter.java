@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.times.services.converters;
 
 import ca.ulaval.glo4003.times.domain.SemesterCode;
-import ca.ulaval.glo4003.times.exceptions.InvalidSemesterCodeException;
+import ca.ulaval.glo4003.times.domain.exceptions.InvalidSemesterCodeException;
 import java.util.regex.Pattern;
 
 public class SemesterCodeConverter {

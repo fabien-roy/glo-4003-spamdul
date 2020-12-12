@@ -8,15 +8,15 @@ import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingS
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
-import ca.ulaval.glo4003.accesspasses.exceptions.NotFoundAccessPassException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.NotFoundAccessPassException;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.accounts.exceptions.NotFoundAccountException;
+import ca.ulaval.glo4003.accounts.domain.exceptions.NotFoundAccountException;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.NotFoundParkingStickerException;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;

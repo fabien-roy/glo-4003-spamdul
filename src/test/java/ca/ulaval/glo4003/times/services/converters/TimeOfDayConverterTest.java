@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.times.helpers.TimeOfDayMother.createTimeOfDay;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.times.domain.TimeOfDay;
-import ca.ulaval.glo4003.times.exceptions.InvalidTimeOfDayException;
+import ca.ulaval.glo4003.times.domain.exceptions.InvalidTimeOfDayException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

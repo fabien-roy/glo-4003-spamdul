@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.funds.helpers.BillMother.*;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 import static ca.ulaval.glo4003.times.helpers.CustomDateTimeMother.createDateTime;
 
-import ca.ulaval.glo4003.funds.exception.AmountDueExceededException;
+import ca.ulaval.glo4003.funds.domain.exceptions.AmountDueExceededException;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import com.google.common.truth.Truth;
 import org.junit.Test;

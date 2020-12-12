@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.funds.services.converters;
 
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
+import ca.ulaval.glo4003.funds.domain.exceptions.BillNotFoundException;
 import java.util.UUID;
 
 public class BillIdConverter {

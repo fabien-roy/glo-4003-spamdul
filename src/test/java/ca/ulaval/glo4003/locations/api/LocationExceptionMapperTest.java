@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.locations.api;
 
-import ca.ulaval.glo4003.locations.exceptions.InvalidPostalCodeException;
-import ca.ulaval.glo4003.locations.exceptions.LocationException;
+import ca.ulaval.glo4003.locations.domain.exceptions.InvalidPostalCodeException;
+import ca.ulaval.glo4003.locations.domain.exceptions.LocationException;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;

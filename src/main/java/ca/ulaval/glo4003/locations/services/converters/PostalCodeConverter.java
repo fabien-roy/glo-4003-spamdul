@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.locations.services.converters;
 
 import ca.ulaval.glo4003.locations.domain.PostalCode;
-import ca.ulaval.glo4003.locations.exceptions.InvalidPostalCodeException;
+import ca.ulaval.glo4003.locations.domain.exceptions.InvalidPostalCodeException;
 import java.util.regex.Pattern;
 
 public class PostalCodeConverter {

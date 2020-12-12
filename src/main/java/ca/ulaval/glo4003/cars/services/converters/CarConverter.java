@@ -3,9 +3,9 @@ package ca.ulaval.glo4003.cars.services.converters;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.cars.exceptions.InvalidCarYearException;
-import ca.ulaval.glo4003.cars.exceptions.InvalidManufacturerException;
-import ca.ulaval.glo4003.cars.exceptions.InvalidModelException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidCarYearException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidManufacturerException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidModelException;
 import ca.ulaval.glo4003.cars.services.dto.CarDto;
 import java.time.LocalDate;
 

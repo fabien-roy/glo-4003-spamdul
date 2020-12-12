@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAd
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
-import ca.ulaval.glo4003.communications.exceptions.InvalidEmailAddressException;
+import ca.ulaval.glo4003.communications.domain.exceptions.InvalidEmailAddressException;
 import org.junit.Before;
 import org.junit.Test;
 

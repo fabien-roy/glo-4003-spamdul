@@ -3,8 +3,8 @@ package ca.ulaval.glo4003.accesspasses.domain;
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassBuilder.anAccessPass;
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassEntryException;
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassExitException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassEntryException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import org.junit.Test;

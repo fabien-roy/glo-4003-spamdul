@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.carboncredits.api;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.carboncredits.exceptions.CarbonCreditException;
-import ca.ulaval.glo4003.carboncredits.exceptions.InvalidMonthlyPaymentStatusException;
+import ca.ulaval.glo4003.carboncredits.domain.exceptions.CarbonCreditException;
+import ca.ulaval.glo4003.carboncredits.domain.exceptions.InvalidMonthlyPaymentStatusException;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
 import org.junit.Test;

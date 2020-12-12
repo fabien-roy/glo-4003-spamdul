@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.times.infrastructure;
 import ca.ulaval.glo4003.times.domain.SemesterCode;
 import ca.ulaval.glo4003.times.domain.SemesterRepository;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
-import ca.ulaval.glo4003.times.exceptions.SemesterNotFoundException;
+import ca.ulaval.glo4003.times.domain.exceptions.SemesterNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 

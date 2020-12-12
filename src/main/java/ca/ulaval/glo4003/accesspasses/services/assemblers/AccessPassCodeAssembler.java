@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.accesspasses.services.assemblers;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassCodeException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassCodeException;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 
 public class AccessPassCodeAssembler {

@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
-import ca.ulaval.glo4003.funds.exception.SustainableMobilityProgramBankInsufficientAmountException;
+import ca.ulaval.glo4003.funds.domain.exceptions.SustainableMobilityProgramBankInsufficientAmountException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

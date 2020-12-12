@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.communications.services.converters;
 
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
-import ca.ulaval.glo4003.communications.exceptions.InvalidEmailAddressException;
+import ca.ulaval.glo4003.communications.domain.exceptions.InvalidEmailAddressException;
 import java.util.regex.Pattern;
 
 public class EmailAddressConverter {

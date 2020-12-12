@@ -11,7 +11,7 @@ import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
-import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.NotFoundParkingStickerException;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.locations.api;
 
 import ca.ulaval.glo4003.errors.services.dto.ErrorDto;
-import ca.ulaval.glo4003.locations.exceptions.LocationException;
+import ca.ulaval.glo4003.locations.domain.exceptions.LocationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

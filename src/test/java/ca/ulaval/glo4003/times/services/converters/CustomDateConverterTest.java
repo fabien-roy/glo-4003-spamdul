@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.times.helpers.CustomDateMother.createPastDate;
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.times.domain.CustomDate;
-import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
+import ca.ulaval.glo4003.times.domain.exceptions.InvalidDateException;
 import org.junit.Before;
 import org.junit.Test;
 

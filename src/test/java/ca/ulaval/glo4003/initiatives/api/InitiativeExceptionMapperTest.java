@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.initiatives.api;
 
-import ca.ulaval.glo4003.initiatives.exception.InitiativeException;
-import ca.ulaval.glo4003.initiatives.exception.InitiativeNotFoundException;
-import ca.ulaval.glo4003.initiatives.exception.InvalidInitiativeNameException;
+import ca.ulaval.glo4003.initiatives.domain.exceptions.InitiativeException;
+import ca.ulaval.glo4003.initiatives.domain.exceptions.InitiativeNotFoundException;
+import ca.ulaval.glo4003.initiatives.domain.exceptions.InvalidInitiativeNameException;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;

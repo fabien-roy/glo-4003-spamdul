@@ -8,15 +8,15 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
-import ca.ulaval.glo4003.accesspasses.exceptions.UnsupportedAccessPeriodException;
-import ca.ulaval.glo4003.accesspasses.exceptions.WrongAmountOfSemestersForPeriodException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.UnsupportedAccessPeriodException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongAmountOfSemestersForPeriodException;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
-import ca.ulaval.glo4003.times.exceptions.InvalidDayOfWeekException;
+import ca.ulaval.glo4003.times.domain.exceptions.InvalidDayOfWeekException;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;

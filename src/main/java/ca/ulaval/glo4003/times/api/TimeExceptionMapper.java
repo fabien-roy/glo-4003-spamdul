@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.times.api;
 
 import ca.ulaval.glo4003.errors.services.dto.ErrorDto;
-import ca.ulaval.glo4003.times.exceptions.SemesterNotFoundException;
-import ca.ulaval.glo4003.times.exceptions.TimeException;
+import ca.ulaval.glo4003.times.domain.exceptions.SemesterNotFoundException;
+import ca.ulaval.glo4003.times.domain.exceptions.TimeException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

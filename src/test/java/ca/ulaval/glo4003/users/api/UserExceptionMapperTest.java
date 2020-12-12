@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.users.api;
 
-import ca.ulaval.glo4003.users.exceptions.*;
+import ca.ulaval.glo4003.users.domain.exceptions.*;
 import com.google.common.truth.Truth;
 import javax.ws.rs.core.Response;
 import org.junit.Before;
