@@ -48,4 +48,11 @@ public class SemesterServiceTest {
     assertThat(timePeriods).contains(otherTimePeriod);
     assertThat(timePeriods.size()).isEqualTo(2);
   }
+
+  @Test
+  public void givenNullSemesters_whenGettingSemester_thenReturnEmptyList() {
+    List<TimePeriod> timePeriods = semesterService.getSemester(null);
+
+    assertThat(timePeriods).hasSize(0);
+  }
 }

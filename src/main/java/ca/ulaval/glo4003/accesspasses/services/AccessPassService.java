@@ -11,7 +11,7 @@ import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.CarService;
-import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
@@ -72,8 +72,9 @@ public class AccessPassService extends AccessPassCreationObservable {
 
     Money moneyDue = accessPassType.getFeeForPeriod(accessPass.getAccessPeriod());
 
-    BillId billId = billService.addBillForAccessCode(moneyDue, accessPass, consumptionType);
-    accountService.addAccessPassToAccount(account.getId(), accessPass, billId);
+    Bill bill =
+        billService.addBillForAccessPass(account.getId(), moneyDue, accessPass, consumptionType);
+    accountService.addAccessPassToAccount(account.getId(), accessPass, bill);
 
     if (accessPass.getReceptionMethod() != null) {
       notifyAccessPassCreated(accessPass);

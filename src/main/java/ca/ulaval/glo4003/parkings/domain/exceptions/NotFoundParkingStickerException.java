@@ -1,10 +1,22 @@
 package ca.ulaval.glo4003.parkings.domain.exceptions;
 
-public class NotFoundParkingStickerException extends ParkingException {
-  private static final String ERROR = "Parking sticker not found";
-  private static final String DESCRIPTION = "Parking sticker was not found";
+import ca.ulaval.glo4003.errors.domain.ErrorCode;
+import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
+import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 
-  public NotFoundParkingStickerException() {
-    super(ERROR, DESCRIPTION);
+public class NotFoundParkingStickerException extends ApplicationException {
+  private static final String ERROR = "Parking sticker not found";
+  private static final String DESCRIPTION = "Parking sticker with code %s was not found";
+  private static final ErrorCode CODE = ErrorCode.NOT_FOUND;
+  private final ParkingStickerCode parkingStickerCode;
+
+  public NotFoundParkingStickerException(ParkingStickerCode parkingStickerCode) {
+    super(ERROR, DESCRIPTION, CODE);
+    this.parkingStickerCode = parkingStickerCode;
+  }
+
+  @Override
+  public String getDescription() {
+    return String.format(DESCRIPTION, parkingStickerCode.toString());
   }
 }

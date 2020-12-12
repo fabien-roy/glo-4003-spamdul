@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.times.domain.SemesterRepository;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,8 @@ public class SemesterService {
   }
 
   public List<TimePeriod> getSemester(String[] semesters) {
+    if (semesters == null) return Collections.emptyList();
+
     return Arrays.stream(semesters)
         .map(semesterCodeConverter::convert)
         .map(this::getSemester)
