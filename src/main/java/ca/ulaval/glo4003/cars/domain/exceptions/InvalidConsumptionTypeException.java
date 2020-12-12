@@ -1,11 +1,20 @@
 package ca.ulaval.glo4003.cars.domain.exceptions;
 
-public class InvalidConsumptionTypeException extends CarException {
+import ca.ulaval.glo4003.cars.domain.ConsumptionType;
+import ca.ulaval.glo4003.errors.domain.ErrorCode;
+import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
+
+public class InvalidConsumptionTypeException extends ApplicationException {
   private static final String ERROR = "Invalid car consumption type";
-  private static final String DESCRIPTION =
-      "Car consumption type must be greedy, economic, economical hybrid, super economical or 0 pollution";
+  private static final String DESCRIPTION = "Car consumption should be one of %s";
+  private static final ErrorCode CODE = ErrorCode.INVALID_REQUEST;
 
   public InvalidConsumptionTypeException() {
-    super(ERROR, DESCRIPTION);
+    super(ERROR, DESCRIPTION, CODE);
+  }
+
+  @Override
+  public String getDescription() {
+    return String.format(DESCRIPTION, enumerateValues(ConsumptionType.class));
   }
 }
