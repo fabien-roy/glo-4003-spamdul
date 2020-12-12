@@ -15,7 +15,7 @@ public class InvalidParkingPeriodExceptionTest {
   }
 
   @Test
-  public void whenGettingDescription_thenEnumerateAccessPeriods() {
+  public void whenGettingDescription_thenEnumerateParkingPeriods() {
     String expectedDescription =
         "Parking period should be one of 1d/week/semester, monthly, 1 semester, 2 semesters or 3 semesters";
 

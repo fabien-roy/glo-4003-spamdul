@@ -15,7 +15,7 @@ public class InvalidDayOfWeekExceptionTest {
   }
 
   @Test
-  public void whenGettingDescription_thenEnumerateAccessPeriods() {
+  public void whenGettingDescription_thenEnumerateDaysOfWeek() {
     String expectedDescription =
         "Day of week should be one of monday, tuesday, wednesday, thursday, friday, saturday or sunday";
 

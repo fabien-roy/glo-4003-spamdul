@@ -15,7 +15,7 @@ public class InvalidReportTypeExceptionTest {
   }
 
   @Test
-  public void whenGettingDescription_thenEnumerateAccessPeriods() {
+  public void whenGettingDescription_thenEnumerateReportTypes() {
     String expectedDescription = "Report type should be one of dayOfMonth, monthly or summary";
 
     String description = exception.getDescription();

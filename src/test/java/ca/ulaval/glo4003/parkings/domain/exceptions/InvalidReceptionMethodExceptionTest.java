@@ -16,7 +16,7 @@ public class InvalidReceptionMethodExceptionTest {
   }
 
   @Test
-  public void whenGettingDescription_thenEnumerateAccessPeriods() {
+  public void whenGettingDescription_thenEnumerateReceptionMethods() {
     String expectedDescription = "Reception method should be one of postal, email or ssp";
 
     String description = exception.getDescription();

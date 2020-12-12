@@ -16,7 +16,7 @@ public class InvalidConsumptionTypeExceptionTest {
   }
 
   @Test
-  public void whenGettingDescription_thenEnumerateAccessPeriods() {
+  public void whenGettingDescription_thenEnumerateConsumptionTypes() {
     String expectedDescription =
         "Car consumption should be one of greedy, economic, economical hybrid, super economical or 0 pollution";
 
