@@ -11,11 +11,13 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.cars.services.converters.ConsumptionConverter;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
+import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.generators.domain.StringCodeGenerator;
+import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.services.SemesterService;
@@ -47,7 +49,11 @@ public class AccessPassInjector {
     LicensePlateConverter licensePlateConverter = new LicensePlateConverter();
     AccessPassConverter accessPassConverter =
         new AccessPassConverter(
-            licensePlateConverter, new ParkingAreaCodeAssembler(), semesterService);
+            licensePlateConverter,
+            new ParkingAreaCodeAssembler(),
+            semesterService,
+            new EmailAddressConverter(),
+            new PostalCodeConverter());
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
     AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
 

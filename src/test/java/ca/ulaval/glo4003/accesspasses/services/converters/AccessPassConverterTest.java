@@ -13,6 +13,8 @@ import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongAmountOfSemestersFo
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
+import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
+import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
@@ -32,6 +34,8 @@ public class AccessPassConverterTest {
   @Mock private LicensePlateConverter licensePlateConverter;
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   @Mock private SemesterService semesterService;
+  @Mock private EmailAddressConverter emailAddressConverter;
+  @Mock private PostalCodeConverter postalCodeConverter;
 
   private AccessPassConverter accessPassConverter;
 
@@ -46,7 +50,12 @@ public class AccessPassConverterTest {
   @Before
   public void setUp() {
     accessPassConverter =
-        new AccessPassConverter(licensePlateConverter, parkingAreaCodeAssembler, semesterService);
+        new AccessPassConverter(
+            licensePlateConverter,
+            parkingAreaCodeAssembler,
+            semesterService,
+            emailAddressConverter,
+            postalCodeConverter);
 
     when(licensePlateConverter.convert(licensePlate.toString())).thenReturn(licensePlate);
     when(parkingAreaCodeAssembler.assemble(accessPassDto.parkingArea))

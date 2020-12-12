@@ -3,6 +3,7 @@ package ca.ulaval.glo4003;
 import static ca.ulaval.glo4003.schedulers.systemtime.SchedulerBuilder.newScheduler;
 
 import ca.ulaval.glo4003.accesspasses.AccessPassInjector;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPassCreationObserver;
 import ca.ulaval.glo4003.accounts.AccountInjector;
 import ca.ulaval.glo4003.carboncredits.CarbonCreditInjector;
 import ca.ulaval.glo4003.carboncredits.api.CarbonCreditResource;
@@ -59,6 +60,11 @@ public class ApplicationInjector {
             COMMUNICATION_INJECTOR.createEmailSender(),
             LOCATION_INJECTOR.createPostalCodeSender(),
             LOCATION_INJECTOR.createSspSender());
+    List<AccessPassCreationObserver> accessPassCreationObservers =
+        Arrays.asList(
+            COMMUNICATION_INJECTOR.createEmailSender(),
+            LOCATION_INJECTOR.createPostalCodeSender(),
+            LOCATION_INJECTOR.createSspSender());
 
     return USER_INJECTOR.createUserResource(
         ACCOUNT_INJECTOR.getAccountRepository(),
@@ -74,7 +80,8 @@ public class ApplicationInjector {
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
             FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()),
-            TIME_INJECTOR.createSemesterService()),
+            TIME_INJECTOR.createSemesterService(),
+            accessPassCreationObservers),
         CAR_INJECTOR.createCarService(
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()))),
@@ -104,6 +111,12 @@ public class ApplicationInjector {
   }
 
   public GateResource createGateResource() {
+    List<AccessPassCreationObserver> accessPassCreationObservers =
+        Arrays.asList(
+            COMMUNICATION_INJECTOR.createEmailSender(),
+            LOCATION_INJECTOR.createPostalCodeSender(),
+            LOCATION_INJECTOR.createSspSender());
+
     return GATE_INJECTOR.createGateResource(
         ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(
@@ -113,7 +126,8 @@ public class ApplicationInjector {
             ACCOUNT_INJECTOR.createAccountService(
                 FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService())),
             FUND_INJECTOR.createBillService(REPORT_INJECTOR.createReportEventService()),
-            TIME_INJECTOR.createSemesterService()),
+            TIME_INJECTOR.createSemesterService(),
+            accessPassCreationObservers),
         TIME_INJECTOR.createCustomDateTimeConverter(),
         REPORT_INJECTOR.createReportEventService());
   }
