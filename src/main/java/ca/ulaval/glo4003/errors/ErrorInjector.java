@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 import javax.ws.rs.ext.ExceptionMapper;
 
-// TODO #305 : Test this
 public class ErrorInjector {
   public List<ExceptionMapper> createExceptionMappers() {
     return Arrays.asList(
