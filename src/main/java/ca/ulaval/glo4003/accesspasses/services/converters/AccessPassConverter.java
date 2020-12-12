@@ -45,11 +45,10 @@ public class AccessPassConverter {
   }
 
   public AccessPass convert(AccessPassDto accessPassCodeDto) {
-
     if (accessPassCodeDto.licensePlate != null) {
-      return convertForCarAccessPass(accessPassCodeDto);
+      return convertForCar(accessPassCodeDto);
     } else {
-      return convertForPedestrianAccessPass(accessPassCodeDto);
+      return convertForPedestrian(accessPassCodeDto);
     }
   }
 
@@ -83,7 +82,7 @@ public class AccessPassConverter {
         emailAddress);
   }
 
-  private AccessPass convertForCarAccessPass(AccessPassDto accessPassDto) {
+  private AccessPass convertForCar(AccessPassDto accessPassDto) {
     AccessPeriod accessPeriod = AccessPeriod.get(accessPassDto.period);
 
     DayOfWeek dayOfWeek =
@@ -104,7 +103,7 @@ public class AccessPassConverter {
         accessPeriod, dayOfWeek, licensePlate, timePeriods, parkingAreaCode, null, null, null);
   }
 
-  private AccessPass convertForPedestrianAccessPass(AccessPassDto accessPassDto) {
+  private AccessPass convertForPedestrian(AccessPassDto accessPassDto) {
     AccessPeriod accessPeriod = AccessPeriod.get(accessPassDto.period);
 
     DayOfWeek dayOfWeek =
