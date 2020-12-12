@@ -39,21 +39,9 @@ public abstract class ApplicationException extends RuntimeException {
     return enumerateStrings(values);
   }
 
-  // TODO #305 : This is shit.
   protected String enumerateStrings(List<String> values) {
-    String enumeratedValues = "";
-    for (int i = 0; i < values.size(); i++) {
-      enumeratedValues = enumeratedValues.concat(values.get(i));
-
-      if (i != values.size() - 1) {
-        if (i == values.size() - 2) {
-          enumeratedValues = enumeratedValues.concat(" or ");
-        } else {
-          enumeratedValues = enumeratedValues.concat(", ");
-        }
-      }
-    }
-
-    return enumeratedValues;
+    int lastIndex = values.size() - 1;
+    return String.join(
+        " or ", String.join(", ", values.subList(0, lastIndex)), values.get(lastIndex));
   }
 }
