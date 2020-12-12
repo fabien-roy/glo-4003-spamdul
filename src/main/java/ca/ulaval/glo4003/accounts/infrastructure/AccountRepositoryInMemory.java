@@ -32,7 +32,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
   public Account get(AccountId accountId) {
     Account foundAccount = accounts.get(accountId);
 
-    if (foundAccount == null) throw new NotFoundAccountException();
+    if (foundAccount == null) throw new NotFoundAccountException(accountId);
 
     return foundAccount;
   }
