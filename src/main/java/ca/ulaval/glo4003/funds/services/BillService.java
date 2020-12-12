@@ -96,7 +96,6 @@ public class BillService {
   }
 
   public BillDto payBill(BillPaymentDto billPaymentDto, String billId) {
-    //    logger.info(String.format("Paying bill %s an amount of %s", billId));
     Money amountToPay = billPaymentConverter.convert(billPaymentDto);
     BillId billNumber = billIdConverter.convert(billId);
 

@@ -1,5 +1,32 @@
 package ca.ulaval.glo4003.users.api;
 
+import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
+import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
+import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
+import ca.ulaval.glo4003.accounts.domain.AccountId;
+import ca.ulaval.glo4003.accounts.services.AccountService;
+import ca.ulaval.glo4003.cars.services.CarService;
+import ca.ulaval.glo4003.cars.services.dto.CarDto;
+import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.funds.services.dto.BillDto;
+import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
+import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
+import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerCodeDto;
+import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
+import ca.ulaval.glo4003.users.services.UserService;
+import ca.ulaval.glo4003.users.services.dto.AccountIdDto;
+import ca.ulaval.glo4003.users.services.dto.UserDto;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.ws.rs.core.Response;
+import java.util.Collections;
+import java.util.List;
+
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassCodeDtoBuilder.anAccessPassCodeDto;
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassDtoBuilder.anAccessPassDto;
 import static ca.ulaval.glo4003.accounts.helpers.AccountIdDtoBuilder.anAccountIdDto;
@@ -15,31 +42,6 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
-import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
-import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
-import ca.ulaval.glo4003.accounts.domain.AccountId;
-import ca.ulaval.glo4003.accounts.services.AccountService;
-import ca.ulaval.glo4003.cars.services.CarService;
-import ca.ulaval.glo4003.cars.services.dto.CarDto;
-import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.services.dto.BillDto;
-import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
-import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
-import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerCodeDto;
-import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
-import ca.ulaval.glo4003.users.services.UserService;
-import ca.ulaval.glo4003.users.services.dto.AccountIdDto;
-import ca.ulaval.glo4003.users.services.dto.UserDto;
-import java.util.Collections;
-import java.util.List;
-import javax.ws.rs.core.Response;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
 @RunWith(MockitoJUnitRunner.class)
 public class UserResourceTest {
   @Mock private UserService userService;
@@ -47,6 +49,7 @@ public class UserResourceTest {
   @Mock private CarService carService;
   @Mock private AccountService accountService;
   @Mock private ParkingStickerService parkingStickerService;
+  @Mock private BillService billService;
 
   private UserResource userResource;
 
@@ -64,17 +67,20 @@ public class UserResourceTest {
 
   @Before
   public void setUp() {
-    //    userResource =
-    //        new UserResource(
-    //            userService, accessPassService, carService, accountService,
-    // parkingStickerService);
+    userResource =
+        new UserResource(
+            userService,
+            accessPassService,
+            carService,
+            accountService,
+            parkingStickerService,
+            billService);
 
     when(userService.getUser(accountId.toString())).thenReturn(userDto);
     when(userService.addUser(userDto)).thenReturn(accountIdDto);
     when(accountService.getBills(accountId.toString()))
         .thenReturn(Collections.singletonList(billDto));
-    //    when(accountService.payBill(billPaymentDto, accountId.toString(), billId.toString()))
-    //        .thenReturn(billDto);
+    when(billService.payBill(billPaymentDto, accountId.toString())).thenReturn(billDto);
     when(carService.getCars(accountId.toString())).thenReturn(Collections.singletonList(carDto));
     when(accessPassService.addAccessPass(accessPassDto, accountId.toString()))
         .thenReturn(accessPassCodeDto);

@@ -59,8 +59,7 @@ public class ParkingStickerServiceTest {
         .thenReturn(parkingStickerCodeDto);
     when(parkingStickerFactory.create(parkingSticker)).thenReturn(parkingSticker);
     when(parkingAreaRepository.get(parkingSticker.getParkingAreaCode())).thenReturn(parkingArea);
-    //    when(billService.addBillForParkingSticker(parkingSticker, parkingArea))
-    //        .thenReturn(bill.getId());
+    when(billService.addBillForParkingSticker(parkingSticker, parkingArea)).thenReturn(bill);
     when(parkingStickerCodeAssembler.assemble(parkingSticker.getCode().toString()))
         .thenReturn(parkingSticker.getCode());
   }
@@ -76,9 +75,8 @@ public class ParkingStickerServiceTest {
   public void whenAddingParkingSticker_thenAddParkingStickerToAccount() {
     parkingStickerService.addParkingSticker(parkingStickerDto, accountId.toString());
 
-    //    verify(accountService)
-    //        .addParkingStickerToAccount(parkingSticker.getAccountId(), parkingSticker,
-    // bill.getId());
+    verify(accountService)
+        .addParkingStickerToAccount(parkingSticker.getAccountId(), parkingSticker, bill);
   }
 
   @Test

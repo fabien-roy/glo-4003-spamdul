@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.offenses.services;
 
-import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
+import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeBuilder.anOffenseType;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeDtoBuilder.anOffenseTypeDto;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationBuilder.anOffenseValidation;
@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
-import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.offenses.domain.*;
 import ca.ulaval.glo4003.offenses.services.assemblers.OffenseTypeAssembler;
@@ -56,7 +56,7 @@ public class OffenseTypeServiceTest {
   private final OffenseTypeDto wrongZoneOffenseTypeDto = anOffenseTypeDto().build();
   private final OffenseTypeDto invalidStickerOffenseTypeDto = anOffenseTypeDto().build();
   private final OffenseTypeDto absentStickerOffenseTypeDto = anOffenseTypeDto().build();
-  private final BillId billId = createBillId();
+  private final Bill bill = aBill().build();
 
   @Before
   public void setUp() {
@@ -94,8 +94,9 @@ public class OffenseTypeServiceTest {
         .thenReturn(Collections.singletonList(invalidStickerOffenseTypeDto));
     when(offenseTypeAssembler.assembleMany(Collections.singletonList(absentStickerOffenseType)))
         .thenReturn(Collections.singletonList(absentStickerOffenseTypeDto));
-    //    when(billService.addBillOffense(offenseType.getAmount(), offenseType.getCode()))
-    //        .thenReturn(billId);
+    when(billService.addBillOffense(
+            account.getId(), offenseType.getAmount(), offenseType.getCode()))
+        .thenReturn(bill);
   }
 
   @Test
@@ -190,20 +191,21 @@ public class OffenseTypeServiceTest {
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
-    //    verify(billService)
-    //        .addBillOffense(wrongZoneOffenseType.getAmount(), wrongZoneOffenseType.getCode());
+    verify(billService)
+        .addBillOffense(
+            account.getId(), wrongZoneOffenseType.getAmount(), wrongZoneOffenseType.getCode());
   }
 
   @Test
   public void givenValidationWithWrongZone_whenValidatingOffense_thenAddBillToAccount() {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(false);
-    //    when(billService.addBillOffense(
-    //            wrongZoneOffenseType.getAmount(), wrongZoneOffenseType.getCode()))
-    //        .thenReturn(billId);
+    when(billService.addBillOffense(
+            account.getId(), wrongZoneOffenseType.getAmount(), wrongZoneOffenseType.getCode()))
+        .thenReturn(bill);
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
-    //    verify(accountService).addOffenseToAccount(parkingSticker.getAccountId(), bill);
+    verify(accountService).addOffenseToAccount(parkingSticker.getAccountId(), bill);
   }
 }
