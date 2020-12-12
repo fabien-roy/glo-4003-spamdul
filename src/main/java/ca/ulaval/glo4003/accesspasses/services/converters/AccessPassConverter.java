@@ -16,15 +16,14 @@ import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
+import ca.ulaval.glo4003.times.domain.SemesterCode;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 import ca.ulaval.glo4003.times.services.SemesterService;
+import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
 import java.util.List;
 
 public class AccessPassConverter {
 
-  private static final char AUTUMN = 'A';
-  private static final char WINTER = 'H';
-  private static final char SUMMER = 'E';
   private final LicensePlateConverter licensePlateConverter;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   private final ParkingAreaCode bicycleParkingArea = new ParkingAreaCode("ZoneVelo");
@@ -45,33 +44,33 @@ public class AccessPassConverter {
     this.postalCodeConverter = postalCodeConverter;
   }
 
-  public AccessPass convert(AccessPassDto accessPassCodeDto, List<TimePeriod> timePeriods) {
+  public AccessPass convert(AccessPassDto accessPassCodeDto) {
 
     if (accessPassCodeDto.licensePlate != null) {
-      return convertForCarAccessPass(accessPassCodeDto, timePeriods);
+      return convertForCarAccessPass(accessPassCodeDto);
     } else if (accessPassCodeDto.parkingArea.equals(bicycleParkingArea.toString())) {
       return convertForBicycleAccessPass(accessPassCodeDto);
     } else {
-      return convertForPedestrianAccessPass(accessPassCodeDto, timePeriods);
+      return convertForPedestrianAccessPass(accessPassCodeDto);
     }
   }
 
-  private AccessPass convertForCarAccessPass(
-      AccessPassDto accessPassCodeDto, List<TimePeriod> timePeriods) {
-    AccessPeriod accessPeriod = AccessPeriod.get(accessPassCodeDto.period);
+  private AccessPass convertForCarAccessPass(AccessPassDto accessPassDto) {
+    AccessPeriod accessPeriod = AccessPeriod.get(accessPassDto.period);
 
     DayOfWeek dayOfWeek =
         accessPeriod == AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER
-            ? DayOfWeek.get(accessPassCodeDto.accessDay)
+            ? DayOfWeek.get(accessPassDto.accessDay)
             : null;
 
     validateAccessPeriodIsSupported(accessPeriod);
-    validateAmountOfSemesters(accessPassCodeDto.semesters);
-    validateCorrectLengthForSemesters(accessPassCodeDto.semesters, accessPeriod);
+    validateAmountOfSemesters(accessPassDto.semesters);
+    validateCorrectLengthForSemesters(accessPassDto.semesters, accessPeriod);
 
-    LicensePlate licensePlate = licensePlateConverter.convert(accessPassCodeDto.licensePlate);
-    ParkingAreaCode parkingAreaCode =
-        parkingAreaCodeAssembler.assemble(accessPassCodeDto.parkingArea);
+    LicensePlate licensePlate = licensePlateConverter.convert(accessPassDto.licensePlate);
+    ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(accessPassDto.parkingArea);
+
+    List<TimePeriod> timePeriods = semesterService.getSemester(accessPassDto.semesters);
 
     return new AccessPass(
         accessPeriod, dayOfWeek, licensePlate, timePeriods, parkingAreaCode, null, null, null);
@@ -80,10 +79,11 @@ public class AccessPassConverter {
   private AccessPass convertForBicycleAccessPass(AccessPassDto accessPassDto) {
     EmailAddress emailAddress = null;
     PostalCode postalCode = null;
-    String[] scholarYear = FindScholarYearSemester(accessPassDto.semesters);
+
+    String[] scholarYear =
+        SemesterCode.findScholarYearFromSemesterCode(
+            new SemesterCodeConverter().convert(accessPassDto.semesters[0]));
     ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(accessPassDto.parkingArea);
-    // TODO permet d'éviter une erreur lors de la création du bill puisqu'il n'y a pas de period
-    // (BAD SMELL?)
     AccessPeriod accessPeriod = AccessPeriod.THREE_SEMESTERS;
 
     validateReceptionMethodForBicycleAccessPass(accessPassDto);
@@ -106,45 +106,19 @@ public class AccessPassConverter {
         emailAddress);
   }
 
-  // TODO maybe move this in an other class?
-  private String[] FindScholarYearSemester(String[] semesters) {
-    String[] scholarYear = new String[3];
-
-    String currentSemesters = semesters[0];
-    int currentYear = Integer.parseInt(currentSemesters.substring(1, 3));
-
-    switch (currentSemesters.charAt(0)) {
-      case AUTUMN:
-        scholarYear[0] = currentSemesters;
-        scholarYear[1] = WINTER + String.valueOf(currentYear + 1);
-        scholarYear[2] = SUMMER + String.valueOf(currentYear + 1);
-        break;
-      case WINTER:
-        scholarYear[0] = AUTUMN + String.valueOf(currentYear - 1);
-        scholarYear[1] = currentSemesters;
-        scholarYear[2] = SUMMER + String.valueOf(currentYear);
-        break;
-      case SUMMER:
-        scholarYear[0] = AUTUMN + String.valueOf(currentYear - 1);
-        scholarYear[1] = WINTER + String.valueOf(currentYear);
-        scholarYear[2] = currentSemesters;
-        break;
-    }
-    return scholarYear;
-  }
-
-  private AccessPass convertForPedestrianAccessPass(
-      AccessPassDto accessPassCodeDto, List<TimePeriod> timePeriods) {
-    AccessPeriod accessPeriod = AccessPeriod.get(accessPassCodeDto.period);
+  private AccessPass convertForPedestrianAccessPass(AccessPassDto accessPassDto) {
+    AccessPeriod accessPeriod = AccessPeriod.get(accessPassDto.period);
 
     DayOfWeek dayOfWeek =
         accessPeriod == AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER
-            ? DayOfWeek.get(accessPassCodeDto.accessDay)
+            ? DayOfWeek.get(accessPassDto.accessDay)
             : null;
 
     validateAccessPeriodIsSupported(accessPeriod);
-    validateAmountOfSemesters(accessPassCodeDto.semesters);
-    validateCorrectLengthForSemesters(accessPassCodeDto.semesters, accessPeriod);
+    validateAmountOfSemesters(accessPassDto.semesters);
+    validateCorrectLengthForSemesters(accessPassDto.semesters, accessPeriod);
+
+    List<TimePeriod> timePeriods = semesterService.getSemester(accessPassDto.semesters);
 
     return new AccessPass(accessPeriod, dayOfWeek, null, timePeriods, null, null, null, null);
   }

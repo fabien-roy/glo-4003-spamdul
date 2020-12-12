@@ -185,8 +185,7 @@ public class AccessPassServiceTest {
   }
 
   private void setUpMocks() {
-    when(accessPassConverter.convert(accessPassDto, Collections.singletonList(timePeriod)))
-        .thenReturn(accessPass);
+    when(accessPassConverter.convert(accessPassDto)).thenReturn(accessPass);
     when(accountService.getAccount(account.getId().toString())).thenReturn(account);
     when(carService.getCar(accessPass.getLicensePlate())).thenReturn(car);
     when(accessPassFactory.create(accessPass)).thenReturn(accessPass);

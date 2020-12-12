@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.carboncredits.configuration;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
 
-// TODO : Doesn't this belong to the domain?
+// TODO= : Doesn't this belong to the domain?
 public class CarbonCreditConfiguration {
   private static CarbonCreditConfiguration carbonCreditConfiguration = null;
 

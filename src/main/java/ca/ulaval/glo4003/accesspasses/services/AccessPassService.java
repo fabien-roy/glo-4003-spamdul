@@ -15,7 +15,6 @@ import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
-import ca.ulaval.glo4003.times.domain.TimePeriod;
 import ca.ulaval.glo4003.times.services.SemesterService;
 import java.util.List;
 
@@ -52,8 +51,7 @@ public class AccessPassService extends AccessPassCreationObservable {
   }
 
   public AccessPassCodeDto addAccessPass(AccessPassDto accessPassDto, String accountId) {
-    List<TimePeriod> timePeriods = semesterService.getSemester(accessPassDto.semesters);
-    AccessPass accessPass = accessPassConverter.convert(accessPassDto, timePeriods);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
     Account account = accountService.getAccount(accountId);
     LicensePlate licensePlate = accessPass.getLicensePlate();
 
