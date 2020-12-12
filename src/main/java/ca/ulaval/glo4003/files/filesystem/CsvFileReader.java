@@ -16,7 +16,7 @@ public class CsvFileReader implements StringMatrixFileReader {
     try {
       return convertFileToStringMatrix(path);
     } catch (IOException exception) {
-      throw new InvalidFileException();
+      throw new InvalidFileException(path);
     }
   }
 

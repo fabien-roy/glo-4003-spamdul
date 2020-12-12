@@ -13,7 +13,7 @@ public class PropertyFileReader {
       FileReader file = new FileReader(path);
       properties.load(file);
     } catch (IOException e) {
-      throw new InvalidFileException();
+      throw new InvalidFileException(path);
     }
     return properties;
   }
