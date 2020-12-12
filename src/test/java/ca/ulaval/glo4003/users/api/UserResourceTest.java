@@ -80,7 +80,7 @@ public class UserResourceTest {
     when(userService.addUser(userDto)).thenReturn(accountIdDto);
     when(accountService.getBills(accountId.toString()))
         .thenReturn(Collections.singletonList(billDto));
-    when(billService.payBill(billPaymentDto, accountId.toString())).thenReturn(billDto);
+    when(billService.payBill(billPaymentDto, billId.toString())).thenReturn(billDto);
     when(carService.getCars(accountId.toString())).thenReturn(Collections.singletonList(carDto));
     when(accessPassService.addAccessPass(accessPassDto, accountId.toString()))
         .thenReturn(accessPassCodeDto);
