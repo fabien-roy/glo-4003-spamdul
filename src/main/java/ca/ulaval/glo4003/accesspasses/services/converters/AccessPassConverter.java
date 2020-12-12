@@ -76,7 +76,7 @@ public class AccessPassConverter {
     return new AccessPass(null, null, semesterService.getSemester(scholarYear), parkingAreaCode);
   }
 
-  // TODO verify semester is valid, maybe move this in an other class?
+  // TODO maybe move this in an other class?
   private String[] FindScholarYearSemester(String[] semesters) {
     String[] scholarYear = new String[3];
 
