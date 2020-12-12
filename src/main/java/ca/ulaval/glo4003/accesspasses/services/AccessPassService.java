@@ -11,7 +11,7 @@ import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.CarService;
-import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
@@ -71,9 +71,10 @@ public class AccessPassService {
     AccessPassType accessPassType = accessPassTypeRepository.findByConsumptionType(consumptionType);
 
     Money moneyDue = accessPassType.getFeeForPeriod(AccessPeriod.get(accessPassDto.period));
-    BillId billId =
-        billService.addBillForAccessCode(moneyDue, accessPass.getCode(), consumptionType);
-    accountService.addAccessPassToAccount(account.getId(), accessPass, billId);
+    Bill bill =
+        billService.addBillForAccessCode(
+            account.getId(), moneyDue, accessPass.getCode(), consumptionType);
+    accountService.addAccessPassToAccount(account.getId(), accessPass, bill);
 
     return accessPassCodeAssembler.assemble(accessPass.getCode());
   }

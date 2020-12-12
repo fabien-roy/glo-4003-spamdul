@@ -5,12 +5,16 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.domain.exceptions.AlreadyExistingCarException;
+import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.domain.exceptions.BillNotFoundException;
+import ca.ulaval.glo4003.funds.domain.exceptions.NotFoundBillException;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.users.domain.User;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Account {
@@ -19,7 +23,7 @@ public class Account {
   private final Map<AccessPassCode, AccessPass> accessPasses = new HashMap<>();
   private final Map<LicensePlate, Car> cars = new HashMap<>();
   private final Map<ParkingStickerCode, ParkingSticker> parkingStickers = new HashMap<>();
-  private List<BillId> billIds = new ArrayList<>();
+  private final Map<BillId, Bill> bills = new HashMap<>();
 
   public Account(AccountId id, User user) {
     this.id = id;
@@ -49,11 +53,21 @@ public class Account {
   }
 
   public List<Car> getCars() {
-    return cars.values().stream().collect(Collectors.toList());
+    return new ArrayList<>(cars.values());
   }
 
-  public List<BillId> getBillIds() {
-    return billIds;
+  public Bill getBill(BillId billId) {
+    Bill bill = bills.get(billId);
+
+    if (bills.get(billId) == null) {
+      throw new NotFoundBillException();
+    }
+
+    return bill;
+  }
+
+  public List<Bill> getBills() {
+    return new ArrayList<>(bills.values());
   }
 
   public ParkingSticker getParkingSticker(ParkingStickerCode parkingStickerCode) {
@@ -74,13 +88,7 @@ public class Account {
     parkingStickers.put(parkingSticker.getCode(), parkingSticker);
   }
 
-  public void addBillId(BillId billId) {
-    billIds.add(billId);
-  }
-
-  public void verifyAccountHasBillId(BillId billId) {
-    if (!billIds.contains(billId)) {
-      throw new BillNotFoundException();
-    }
+  public void addBill(Bill bill) {
+    bills.put(bill.getId(), bill);
   }
 }

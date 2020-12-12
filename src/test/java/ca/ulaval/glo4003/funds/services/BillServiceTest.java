@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.funds.services;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionType;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.funds.helpers.MoneyMother.createMoney;
@@ -12,9 +13,14 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
+import ca.ulaval.glo4003.accounts.domain.Account;
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
+import ca.ulaval.glo4003.funds.services.converters.BillIdConverter;
+import ca.ulaval.glo4003.funds.services.converters.BillPaymentConverter;
+import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeFundCollector;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
@@ -22,7 +28,9 @@ import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,11 +41,14 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class BillServiceTest {
 
   @Mock private BillFactory billFactory;
-  @Mock private BillRepository billRepository;
   @Mock private BillAssembler billAssembler;
   @Mock private BillPriceCalculator billPriceCalculator;
   @Mock private InitiativeFundCollector initiativeFundCollector;
   @Mock private ReportEventService reportEventService;
+  @Mock private AccountService accountService;
+  @Mock private BillPaymentConverter billPaymentConverter;
+  @Mock private BillIdConverter billIdConverter;
+  @Mock private BillPaymentDto billPaymentDto;
 
   @Mock
   SustainableMobilityProgramAllocationCalculator sustainableMobilityProgramAllocationCalculator;
@@ -58,15 +69,18 @@ public class BillServiceTest {
   private final Map<ParkingPeriod, Money> feePerPeriod =
       Collections.singletonMap(parkingPeriod, fee);
   private final ParkingArea parkingArea = aParkingArea().withFeePerPeriod(feePerPeriod).build();
+  private final Account account = anAccount().build();
 
   @Before
   public void setUp() {
     billService =
         new BillService(
             billFactory,
-            billRepository,
             billAssembler,
             reportEventService,
+            accountService,
+            billPaymentConverter,
+            billIdConverter,
             initiativeFundCollector,
             sustainableMobilityProgramAllocationCalculator);
 
@@ -80,7 +94,6 @@ public class BillServiceTest {
         .thenReturn(bill);
     when(billFactory.createForAccessPass(fee, accessPassCode, consumptionType)).thenReturn(bill);
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
-    when(billRepository.getBill(bill.getId())).thenReturn(bill);
     when(billPriceCalculator.calculateTotalPrice(bills)).thenReturn(fee);
     when(billPriceCalculator.calculatePaidPrice(bills)).thenReturn(fee);
     when(sustainableMobilityProgramAllocationCalculator.calculate(amountDue))
@@ -88,17 +101,17 @@ public class BillServiceTest {
   }
 
   @Test
-  public void whenAddingBillForParkingSticker_thenReturnBillId() {
-    BillId billId = billService.addBillForParkingSticker(parkingSticker, parkingArea);
+  public void whenAddingBillForParkingSticker_thenReturnBill() {
+    Bill anotherBill = billService.addBillForParkingSticker(parkingSticker, parkingArea);
 
-    assertThat(billId).isEqualTo(bill.getId());
+    assertThat(anotherBill).isEqualTo(bill);
   }
 
   @Test
-  public void whenAddingBillForParkingSticker_thenSaveBillToRepository() {
+  public void whenAddingBillForParkingSticker_thenAddBillToAccount() {
     billService.addBillForParkingSticker(parkingSticker, parkingArea);
 
-    verify(billRepository).save(bill);
+    verify(accountService).addBillToAccount(parkingSticker.getAccountId(), bill);
   }
 
   @Test
@@ -123,81 +136,56 @@ public class BillServiceTest {
   }
 
   @Test
-  public void whenAddingBillForAccessPass_thenReturnBillId() {
-    BillId billId = billService.addBillForAccessCode(fee, accessPassCode, consumptionType);
+  public void whenAddingBillForAccessPass_thenReturnBill() {
+    Bill bill =
+        billService.addBillForAccessCode(account.getId(), fee, accessPassCode, consumptionType);
 
-    assertThat(billId).isEqualTo(bill.getId());
+    assertThat(bill).isEqualTo(bill);
   }
 
   @Test
-  public void whenAddingBillForAccessPass_thenSaveBillToRepository() {
-    billService.addBillForAccessCode(fee, accessPassCode, consumptionType);
+  public void whenAddingBillForAccessPass_thenAddBillToAccount() {
+    billService.addBillForAccessCode(account.getId(), fee, accessPassCode, consumptionType);
 
-    verify(billRepository).save(bill);
+    verify(accountService).addBillToAccount(account.getId(), bill);
   }
 
   @Test
   public void whenAddingBillForOffense_thenReturnBillId() {
-    BillId billId = billService.addBillOffense(fee, offenseCode);
+    Bill bill = billService.addBillOffense(account.getId(), fee, offenseCode);
 
-    assertThat(billId).isEqualTo(bill.getId());
+    assertThat(bill).isEqualTo(bill);
   }
 
   @Test
-  public void whenAddingBillForOffense_thenSaveBillToRepository() {
-    billService.addBillOffense(fee, offenseCode);
+  public void whenAddingBillForOffense_thenAddBillToAccount() {
+    billService.addBillOffense(account.getId(), fee, offenseCode);
 
-    verify(billRepository).save(bill);
-  }
-
-  @Test
-  public void givenBillIds_whenGettingBills_thenBillRepositoryIsCalled() {
-    List<BillId> billIds = new ArrayList<>();
-    billIds.add(bill.getId());
-
-    billService.getBillsByIds(billIds);
-
-    verify(billRepository).getBills(billIds);
-  }
-
-  @Test
-  public void whenGettingBill_thenBillRepositoryIsCalled() {
-    billService.getBill(bill.getId());
-
-    verify(billRepository).getBill(bill.getId());
-  }
-
-  @Test
-  public void whenPayingBill_thenGetBillRepositoryIsCalled() {
-    billService.payBill(bill.getId(), bill.getAmountDue());
-
-    verify(billRepository).getBill(bill.getId());
-  }
-
-  @Test
-  public void whenPayingBill_thenSaveBillRepositoryIsCalled() {
-    billService.payBill(bill.getId(), bill.getAmountDue());
-    bill.pay(bill.getAmountDue());
-
-    verify(billRepository).updateBill(bill);
+    verify(accountService).addBillToAccount(account.getId(), bill);
   }
 
   @Test
   public void whenPayingBill_thenBillAssemblerIsCalled() {
-    billService.payBill(bill.getId(), bill.getAmountDue());
-    bill.pay(bill.getAmountDue());
+    when(accountService.getBill(account.getId().toString(), bill.getId())).thenReturn(bill);
+    when(billPaymentConverter.convert(billPaymentDto)).thenReturn(amountDue);
+    when(billIdConverter.convert(bill.getId().toString())).thenReturn(bill.getId());
+
+    billService.payBill(billPaymentDto, account.getId().toString(), bill.getId().toString());
+    bill.pay(amountDue);
 
     verify(billAssembler).assemble(bill);
   }
 
   @Test
-  public void
-      givenBillTypeParkingSticker_whenPayingBill_thenSustainableMobilityProgramBankRepositoryIsCalled() {
+  public void givenBillTypeParkingSticker_whenPayingBill_thenInitiativeFundCollectorIsCalled() {
     Bill parkingBill =
         aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.PARKING_STICKER).build();
-    when(billRepository.getBill(parkingBill.getId())).thenReturn(parkingBill);
+    when(accountService.getBill(account.getId().toString(), parkingBill.getId()))
+        .thenReturn(parkingBill);
+    when(billPaymentConverter.convert(billPaymentDto)).thenReturn(amountDue);
+    when(billIdConverter.convert(parkingBill.getId().toString())).thenReturn(parkingBill.getId());
 
-    billService.payBill(parkingBill.getId(), amountDue);
+    billService.payBill(billPaymentDto, account.getId().toString(), parkingBill.getId().toString());
     bill.pay(amountDue);
 
     verify(initiativeFundCollector).addMoney(amountKeptForSustainabilityProgram);
@@ -208,22 +196,31 @@ public class BillServiceTest {
       givenBillTypeParkingSticker_whenPayingBill_thenReportBillPaidForParkingStickerEvent() {
     Bill parkingBill =
         aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.PARKING_STICKER).build();
-    when(billRepository.getBill(parkingBill.getId())).thenReturn(parkingBill);
+    when(accountService.getBill(account.getId().toString(), parkingBill.getId()))
+        .thenReturn(parkingBill);
 
-    billService.payBill(parkingBill.getId(), amountDue);
+    when(billPaymentConverter.convert(billPaymentDto)).thenReturn(amountDue);
+    when(billIdConverter.convert(parkingBill.getId().toString())).thenReturn(parkingBill.getId());
+
+    billService.payBill(billPaymentDto, account.getId().toString(), parkingBill.getId().toString());
     bill.pay(amountDue);
 
     verify(reportEventService).addBillPaidForParkingStickerEvent(amountDue);
   }
 
   @Test
-  public void
-      givenBillTypeAccessPass_whenPayingBill_thenSustainableMobilityProgramBankRepositoryIsCalled() {
+  public void givenBillTypeAccessPass_whenPayingBill_thenInitiativeFundCollectorIsCalled() {
     Bill accessPassBill =
         aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.ACCESS_PASS).build();
-    when(billRepository.getBill(accessPassBill.getId())).thenReturn(accessPassBill);
+    when(accountService.getBill(account.getId().toString(), accessPassBill.getId()))
+        .thenReturn(accessPassBill);
 
-    billService.payBill(accessPassBill.getId(), amountDue);
+    when(billPaymentConverter.convert(billPaymentDto)).thenReturn(amountDue);
+    when(billIdConverter.convert(accessPassBill.getId().toString()))
+        .thenReturn(accessPassBill.getId());
+
+    billService.payBill(
+        billPaymentDto, account.getId().toString(), accessPassBill.getId().toString());
     bill.pay(amountDue);
 
     verify(initiativeFundCollector).addMoney(amountKeptForSustainabilityProgram);
@@ -233,9 +230,14 @@ public class BillServiceTest {
   public void givenBillTypeAccessPass_whenPayingBill_thenReportBillPaidForAccessPassEvent() {
     Bill accessPassBill =
         aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.ACCESS_PASS).build();
-    when(billRepository.getBill(accessPassBill.getId())).thenReturn(accessPassBill);
+    when(billPaymentConverter.convert(billPaymentDto)).thenReturn(amountDue);
+    when(billIdConverter.convert(accessPassBill.getId().toString()))
+        .thenReturn(accessPassBill.getId());
+    when(accountService.getBill(account.getId().toString(), accessPassBill.getId()))
+        .thenReturn(accessPassBill);
 
-    billService.payBill(accessPassBill.getId(), amountDue);
+    billService.payBill(
+        billPaymentDto, account.getId().toString(), accessPassBill.getId().toString());
     bill.pay(amountDue);
 
     verify(reportEventService)
@@ -243,13 +245,16 @@ public class BillServiceTest {
   }
 
   @Test
-  public void
-      givenBillTypeOffense_whenPayingBill_thenSustainableMobilityProgramBankRepositoryIsCalled() {
+  public void givenBillTypeOffense_whenPayingBill_thenInitiativeFundCollectorIsCalled() {
     Bill offenseBill =
         aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.OFFENSE).build();
-    when(billRepository.getBill(offenseBill.getId())).thenReturn(offenseBill);
+    when(accountService.getBill(account.getId().toString(), offenseBill.getId()))
+        .thenReturn(offenseBill);
 
-    billService.payBill(offenseBill.getId(), amountDue);
+    when(billPaymentConverter.convert(billPaymentDto)).thenReturn(amountDue);
+    when(billIdConverter.convert(offenseBill.getId().toString())).thenReturn(offenseBill.getId());
+
+    billService.payBill(billPaymentDto, account.getId().toString(), offenseBill.getId().toString());
     bill.pay(amountDue);
 
     verify(initiativeFundCollector, never()).addMoney(any(Money.class));
@@ -259,9 +264,13 @@ public class BillServiceTest {
   public void givenBillTypeOffense_whenPayingBill_thenReportBillPaidForOffenseEvent() {
     Bill offenseBill =
         aBill().withAmountDue(bill.getAmountDue()).withBillType(BillType.OFFENSE).build();
-    when(billRepository.getBill(offenseBill.getId())).thenReturn(offenseBill);
+    when(accountService.getBill(account.getId().toString(), offenseBill.getId()))
+        .thenReturn(offenseBill);
 
-    billService.payBill(offenseBill.getId(), amountDue);
+    when(billPaymentConverter.convert(billPaymentDto)).thenReturn(amountDue);
+    when(billIdConverter.convert(offenseBill.getId().toString())).thenReturn(offenseBill.getId());
+
+    billService.payBill(billPaymentDto, account.getId().toString(), offenseBill.getId().toString());
     bill.pay(amountDue);
 
     verify(reportEventService).addBillPaidForOffenseEvent(amountDue);

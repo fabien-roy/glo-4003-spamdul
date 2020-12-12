@@ -10,6 +10,9 @@ import ca.ulaval.glo4003.accounts.domain.exceptions.NotFoundAccountException;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.domain.exceptions.NotFoundCarException;
+import ca.ulaval.glo4003.funds.domain.Bill;
+import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.domain.exceptions.NotFoundBillException;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.parkings.domain.exceptions.NotFoundParkingStickerException;
@@ -105,6 +108,15 @@ public class AccountRepositoryInMemory implements AccountRepository {
     accounts.put(account.getId(), account);
   }
 
+  @Override
+  public void update(Bill bill) {
+    Account account = get(bill.getId());
+
+    account.addBill(bill);
+
+    accounts.put(account.getId(), account);
+  }
+
   private Account get(AccessPassCode accessPassCode) {
     Optional<Account> foundAccount =
         accounts.values().stream()
@@ -115,6 +127,17 @@ public class AccountRepositoryInMemory implements AccountRepository {
       return foundAccount.get();
     } else {
       throw new NotFoundAccessPassException();
+    }
+  }
+
+  private Account get(BillId billId) {
+    Optional<Account> foundAccount =
+        accounts.values().stream().filter(account -> account.getBill(billId) != null).findFirst();
+
+    if (foundAccount.isPresent()) {
+      return foundAccount.get();
+    } else {
+      throw new NotFoundBillException();
     }
   }
 }

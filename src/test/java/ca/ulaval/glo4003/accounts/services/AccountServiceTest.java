@@ -18,12 +18,7 @@ import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
-import ca.ulaval.glo4003.funds.services.converters.BillIdConverter;
-import ca.ulaval.glo4003.funds.services.converters.BillPaymentConverter;
-import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,11 +34,7 @@ public class AccountServiceTest {
 
   @Mock private AccountRepository accountRepository;
   @Mock private AccountIdConverter accountIdConverter;
-  @Mock private BillService billService;
   @Mock private BillAssembler billAssembler;
-  @Mock private BillIdConverter billIdConverter;
-  @Mock private BillPaymentConverter billPaymentConverter;
-  @Mock private BillPaymentDto billPaymentDto;
 
   private AccountService accountService;
 
@@ -54,19 +45,12 @@ public class AccountServiceTest {
   private final AccessPass accessPass = anAccessPass().build();
   private final Bill bill = aBill().build();
   private final Account accountWithBill =
-      anAccount().withBillIds(Collections.singletonList(bill.getId())).build();
+      anAccount().withBills(Collections.singletonList(bill)).build();
   private final Car car = aCar().build();
 
   @Before
   public void setUp() {
-    accountService =
-        new AccountService(
-            accountRepository,
-            accountIdConverter,
-            billService,
-            billAssembler,
-            billIdConverter,
-            billPaymentConverter);
+    accountService = new AccountService(accountRepository, accountIdConverter, billAssembler);
 
     when(accountRepository.get(account.getId())).thenReturn(account);
     when(accountRepository.getAccessPass(accessPass.getCode())).thenReturn(accessPass);
@@ -90,7 +74,7 @@ public class AccountServiceTest {
 
   @Test
   public void whenAddingParkingSticker_shouldAddParkingStickerCodeToAccount() {
-    accountService.addParkingStickerToAccount(account.getId(), parkingSticker, billId);
+    accountService.addParkingStickerToAccount(account.getId(), parkingSticker, bill);
 
     assertThat(parkingSticker)
         .isSameInstanceAs(account.getParkingSticker(parkingSticker.getCode()));
@@ -98,49 +82,49 @@ public class AccountServiceTest {
 
   @Test
   public void whenAddingParkingSticker_shouldAddBillIdToAccount() {
-    accountService.addParkingStickerToAccount(account.getId(), parkingSticker, billId);
+    accountService.addParkingStickerToAccount(account.getId(), parkingSticker, bill);
 
-    assertThat(account.getBillIds()).contains(billId);
+    assertThat(account.getBills()).contains(bill);
   }
 
   @Test
   public void whenAddingParkingSticker_shouldUpdateAccountInRepository() {
-    accountService.addParkingStickerToAccount(account.getId(), parkingSticker, billId);
+    accountService.addParkingStickerToAccount(account.getId(), parkingSticker, bill);
 
     verify(accountRepository).update(account);
   }
 
   @Test
   public void whenAddingAccessCode_shouldAddAccessCodeToAccount() {
-    accountService.addAccessPassToAccount(account.getId(), accessPass, billId);
+    accountService.addAccessPassToAccount(account.getId(), accessPass, bill);
 
     assertThat(account.getAccessPass(accessPass.getCode())).isSameInstanceAs(accessPass);
   }
 
   @Test
   public void whenAddingAccessCode_shouldAddBillIdToAccount() {
-    accountService.addAccessPassToAccount(account.getId(), accessPass, billId);
+    accountService.addAccessPassToAccount(account.getId(), accessPass, bill);
 
-    assertThat(account.getBillIds()).contains(billId);
+    assertThat(account.getBills()).contains(bill);
   }
 
   @Test
   public void whenAddingAccessCode_shouldUpdateAccountInRepository() {
-    accountService.addAccessPassToAccount(account.getId(), accessPass, billId);
+    accountService.addAccessPassToAccount(account.getId(), accessPass, bill);
 
     verify(accountRepository).update(account);
   }
 
   @Test
   public void whenAddingOffense_shouldAddBillIdToAccount() {
-    accountService.addOffenseToAccount(account.getId(), billId);
+    accountService.addOffenseToAccount(account.getId(), bill);
 
-    assertThat(account.getBillIds()).contains(billId);
+    assertThat(account.getBills()).contains(bill);
   }
 
   @Test
   public void whenAddingOffense_shouldUpdateAccountInRepository() {
-    accountService.addOffenseToAccount(account.getId(), billId);
+    accountService.addOffenseToAccount(account.getId(), bill);
 
     verify(accountRepository).update(account);
   }
@@ -152,20 +136,6 @@ public class AccountServiceTest {
     accountService.getBills(account.getId().toString());
 
     verify(accountIdConverter).convert(account.getId().toString());
-  }
-
-  @Test
-  public void givenBillIds_whenGettingBills_shouldGetBillsToService() {
-    List<BillId> billIds = new ArrayList<>();
-    billIds.add(bill.getId());
-
-    when(accountIdConverter.convert(accountWithBill.getId().toString()))
-        .thenReturn(accountWithBill.getId());
-    when(accountRepository.get(accountWithBill.getId())).thenReturn(accountWithBill);
-
-    accountService.getBills(accountWithBill.getId().toString());
-
-    verify(billService).getBillsByIds(billIds);
   }
 
   @Test
@@ -187,51 +157,10 @@ public class AccountServiceTest {
     when(accountIdConverter.convert(accountWithBill.getId().toString()))
         .thenReturn(accountWithBill.getId());
     when(accountRepository.get(accountWithBill.getId())).thenReturn(accountWithBill);
-    when(billService.getBillsByIds(billIds)).thenReturn(bills);
 
     accountService.getBills(accountWithBill.getId().toString());
 
     verify(billAssembler).assemble(bills);
-  }
-
-  @Test
-  public void givenAccountWithBill_whenPayingBill_shouldCallPayBillAssembler() {
-    setUpPayBill();
-
-    accountService.payBill(
-        billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
-
-    verify(billPaymentConverter).convert(billPaymentDto);
-  }
-
-  @Test
-  public void givenAccountWithBill_whenPayingBill_shouldCallAccountIdAssembler() {
-    setUpPayBill();
-
-    accountService.payBill(
-        billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
-
-    verify(accountIdConverter).convert(accountWithBill.getId().toString());
-  }
-
-  @Test
-  public void givenAccountWithBill_whenPayingBill_shouldCallBillIdAssembler() {
-    setUpPayBill();
-
-    accountService.payBill(
-        billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
-
-    verify(billIdConverter).convert(bill.getId().toString());
-  }
-
-  @Test
-  public void givenAccountWithBill_whenPayingBill_shouldCallPayBillService() {
-    setUpPayBill();
-
-    accountService.payBill(
-        billPaymentDto, accountWithBill.getId().toString(), bill.getId().toString());
-
-    verify(billService).payBill(bill.getId(), Money.fromDouble(1));
   }
 
   @Test
@@ -254,13 +183,5 @@ public class AccountServiceTest {
     accountService.update(accessPass);
 
     verify(accountRepository).update(accessPass);
-  }
-
-  private void setUpPayBill() {
-    when(billPaymentConverter.convert(billPaymentDto)).thenReturn(Money.fromDouble(1));
-    when(accountIdConverter.convert(accountWithBill.getId().toString()))
-        .thenReturn(accountWithBill.getId());
-    when(billIdConverter.convert(bill.getId().toString())).thenReturn(bill.getId());
-    when(accountRepository.get(accountWithBill.getId())).thenReturn(accountWithBill);
   }
 }

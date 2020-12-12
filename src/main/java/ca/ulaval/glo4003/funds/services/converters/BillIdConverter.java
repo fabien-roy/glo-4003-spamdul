@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.funds.services.converters;
 
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.domain.exceptions.BillNotFoundException;
+import ca.ulaval.glo4003.funds.domain.exceptions.NotFoundBillException;
 import java.util.UUID;
 
 public class BillIdConverter {
@@ -10,7 +10,7 @@ public class BillIdConverter {
     try {
       return new BillId(UUID.fromString(billId));
     } catch (IllegalArgumentException | NullPointerException exception) {
-      throw new BillNotFoundException();
+      throw new NotFoundBillException();
     }
   }
 }

@@ -7,6 +7,7 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.cars.services.CarService;
+import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.times.services.converters.CustomDateConverter;
 import ca.ulaval.glo4003.users.api.UserResource;
@@ -25,7 +26,8 @@ public class UserInjector {
       AccessPassService accessPassService,
       CarService carService,
       AccountService accountService,
-      ParkingStickerService parkingStickerService) {
+      ParkingStickerService parkingStickerService,
+      BillService billService) {
     UserConverter userConverter = new UserConverter(customDateConverter);
     UserAssembler userAssembler = new UserAssembler();
 
@@ -39,6 +41,11 @@ public class UserInjector {
             userAssembler);
 
     return new UserResource(
-        userService, accessPassService, carService, accountService, parkingStickerService);
+        userService,
+        accessPassService,
+        carService,
+        accountService,
+        parkingStickerService,
+        billService);
   }
 }
