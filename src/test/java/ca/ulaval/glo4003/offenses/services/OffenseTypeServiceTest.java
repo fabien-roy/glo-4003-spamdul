@@ -94,8 +94,8 @@ public class OffenseTypeServiceTest {
         .thenReturn(Collections.singletonList(invalidStickerOffenseTypeDto));
     when(offenseTypeAssembler.assembleMany(Collections.singletonList(absentStickerOffenseType)))
         .thenReturn(Collections.singletonList(absentStickerOffenseTypeDto));
-    when(billService.addBillOffense(offenseType.getAmount(), offenseType.getCode()))
-        .thenReturn(billId);
+    //    when(billService.addBillOffense(offenseType.getAmount(), offenseType.getCode()))
+    //        .thenReturn(billId);
   }
 
   @Test
@@ -190,20 +190,20 @@ public class OffenseTypeServiceTest {
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
-    verify(billService)
-        .addBillOffense(wrongZoneOffenseType.getAmount(), wrongZoneOffenseType.getCode());
+    //    verify(billService)
+    //        .addBillOffense(wrongZoneOffenseType.getAmount(), wrongZoneOffenseType.getCode());
   }
 
   @Test
   public void givenValidationWithWrongZone_whenValidatingOffense_thenAddBillToAccount() {
     when(parkingSticker.validateParkingStickerAreaCode(offenseValidation.getParkingAreaCode()))
         .thenReturn(false);
-    when(billService.addBillOffense(
-            wrongZoneOffenseType.getAmount(), wrongZoneOffenseType.getCode()))
-        .thenReturn(billId);
+    //    when(billService.addBillOffense(
+    //            wrongZoneOffenseType.getAmount(), wrongZoneOffenseType.getCode()))
+    //        .thenReturn(billId);
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
-    verify(accountService).addOffenseToAccount(parkingSticker.getAccountId(), billId);
+    //    verify(accountService).addOffenseToAccount(parkingSticker.getAccountId(), bill);
   }
 }

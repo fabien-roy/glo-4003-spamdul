@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.funds;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeFundCollector;
@@ -16,6 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class FundInjectorTest {
 
   @Mock private ReportEventService reportEventService;
+  @Mock private AccountService accountService;
   @Mock private InitiativeFundCollector initiativeFundCollector;
 
   private FundInjector fundInjector;
@@ -27,8 +29,7 @@ public class FundInjectorTest {
 
   @Test
   public void whenCreatingBillService_thenReturnIt() {
-    BillService billService =
-        fundInjector.createBillService(reportEventService, initiativeFundCollector);
+    BillService billService = fundInjector.createBillService(reportEventService, accountService, initiativeFundCollector);
 
     assertThat(billService).isNotNull();
   }

@@ -1,49 +1,59 @@
 package ca.ulaval.glo4003.funds.services;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
+import ca.ulaval.glo4003.accounts.domain.AccountId;
+import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
+import ca.ulaval.glo4003.funds.services.converters.BillIdConverter;
+import ca.ulaval.glo4003.funds.services.converters.BillPaymentConverter;
 import ca.ulaval.glo4003.funds.services.dto.BillDto;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeFundCollector;
+import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
-import java.util.List;
 import java.util.logging.Logger;
 
 public class BillService {
   public static final Money POSTAL_CODE_FEE = Money.fromDouble(5);
   private final Logger logger = Logger.getLogger(BillService.class.getName());
   private final BillFactory billFactory;
-  private final BillRepository billRepository;
   private final BillAssembler billAssembler;
   private final ReportEventService reportEventService;
 
   private final InitiativeFundCollector initiativeFundCollector;
+  private final AccountService accountService;
+  private final BillPaymentConverter billPaymentConverter;
   private final SustainableMobilityProgramAllocationCalculator
       sustainableMobilityProgramAllocationCalculator;
+  private final BillIdConverter billIdConverter;
 
   public BillService(
       BillFactory billFactory,
-      BillRepository billRepository,
       BillAssembler billAssembler,
       ReportEventService reportEventService,
+      AccountService accountService,
+      BillPaymentConverter billPaymentConverter,
+      BillIdConverter billIdConverter,
       InitiativeFundCollector initiativeFundCollector,
       SustainableMobilityProgramAllocationCalculator
           sustainableMobilityProgramAllocationCalculator) {
     this.billFactory = billFactory;
-    this.billRepository = billRepository;
     this.billAssembler = billAssembler;
     this.reportEventService = reportEventService;
+    this.accountService = accountService;
     this.initiativeFundCollector = initiativeFundCollector;
     this.sustainableMobilityProgramAllocationCalculator =
         sustainableMobilityProgramAllocationCalculator;
+    this.billPaymentConverter = billPaymentConverter;
+    this.billIdConverter = billIdConverter;
   }
 
-  public BillId addBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
+  public Bill addBillForParkingSticker(ParkingSticker parkingSticker, ParkingArea parkingArea) {
     logger.info(String.format("Create bill for parking sticker %s", parkingSticker.getCode()));
 
     Money feeForPeriod = parkingArea.getFeeForPeriod(parkingSticker.getParkingPeriod());
@@ -56,38 +66,43 @@ public class BillService {
         billFactory.createForParkingSticker(
             feeForPeriod, parkingSticker.getCode(), parkingSticker.getReceptionMethod());
 
-    billRepository.save(bill);
+    accountService.addBillToAccount(parkingSticker.getAccountId(), bill);
 
-    return bill.getId();
+    return bill;
   }
 
-  public BillId addBillForAccessCode(
-      Money fee, AccessPassCode accessPassCode, ConsumptionType consumptionType) {
+  public Bill addBillForAccessCode(
+      AccountId accountId,
+      Money fee,
+      AccessPassCode accessPassCode,
+      ConsumptionType consumptionType) {
     logger.info(String.format("Create bill for access code %s", accessPassCode));
 
     Bill bill = billFactory.createForAccessPass(fee, accessPassCode, consumptionType);
 
-    billRepository.save(bill);
+    accountService.addBillToAccount(accountId, bill);
 
-    return bill.getId();
+    return bill;
   }
 
-  public BillId addBillOffense(Money fee, OffenseCode offenseCode) {
+  public Bill addBillOffense(AccountId accountId, Money fee, OffenseCode offenseCode) {
     logger.info(String.format("Create bill for offense %s", offenseCode));
 
     Bill bill = billFactory.createForOffense(fee, offenseCode);
 
-    billRepository.save(bill);
+    accountService.addBillToAccount(accountId, bill);
 
-    return bill.getId();
+    return bill;
   }
 
-  public BillDto payBill(BillId billId, Money amountToPay) {
-    logger.info(String.format("Paying bill %s an amount of %s", billId, amountToPay));
+  public BillDto payBill(BillPaymentDto billPaymentDto, String billId) {
+    //    logger.info(String.format("Paying bill %s an amount of %s", billId));
+    Money amountToPay = billPaymentConverter.convert(billPaymentDto);
+    BillId billNumber = billIdConverter.convert(billId);
 
-    Bill bill = getBill(billId);
+    Bill bill = accountService.getBill(billNumber);
     bill.pay(amountToPay);
-    billRepository.updateBill(bill);
+    accountService.update(bill);
 
     reportBillPaidEvent(bill, amountToPay);
 
@@ -98,14 +113,6 @@ public class BillService {
     }
 
     return billAssembler.assemble(bill);
-  }
-
-  public List<Bill> getBillsByIds(List<BillId> billIds) {
-    return billRepository.getBills(billIds);
-  }
-
-  public Bill getBill(BillId billId) {
-    return billRepository.getBill(billId);
   }
 
   private void reportBillPaidEvent(Bill bill, Money amountPaid) {

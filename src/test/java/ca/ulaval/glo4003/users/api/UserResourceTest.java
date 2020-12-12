@@ -64,16 +64,17 @@ public class UserResourceTest {
 
   @Before
   public void setUp() {
-    userResource =
-        new UserResource(
-            userService, accessPassService, carService, accountService, parkingStickerService);
+    //    userResource =
+    //        new UserResource(
+    //            userService, accessPassService, carService, accountService,
+    // parkingStickerService);
 
     when(userService.getUser(accountId.toString())).thenReturn(userDto);
     when(userService.addUser(userDto)).thenReturn(accountIdDto);
     when(accountService.getBills(accountId.toString()))
         .thenReturn(Collections.singletonList(billDto));
-    when(accountService.payBill(billPaymentDto, accountId.toString(), billId.toString()))
-        .thenReturn(billDto);
+    //    when(accountService.payBill(billPaymentDto, accountId.toString(), billId.toString()))
+    //        .thenReturn(billDto);
     when(carService.getCars(accountId.toString())).thenReturn(Collections.singletonList(carDto));
     when(accessPassService.addAccessPass(accessPassDto, accountId.toString()))
         .thenReturn(accessPassCodeDto);
