@@ -89,7 +89,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
 
     if (car.isPresent()) {
       return car.get();
-    } else throw new NotFoundCarException();
+    } else throw new NotFoundCarException(licensePlate);
   }
 
   @Override
