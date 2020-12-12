@@ -21,7 +21,6 @@ public class AccessPassTypeConverter {
     this.consumptionConverter = consumptionConverter;
     this.accessPassPeriodConverter = accessPassPeriodConverter;
   }
-  // TODO test
 
   public List<AccessPassType> convert(Map<String, Map<String, Double>> zonesAndFees) {
     List<AccessPassType> accessPassTypes = new ArrayList<>();
