@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.UnsupportedAccessPeriodException;
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongAmountOfSemestersForPeriodException;
-import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongReceptionMethodForBicycleAccessPassException;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.BicycleAccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
@@ -61,10 +60,10 @@ public class AccessPassConverter {
     String[] scholarYear =
         SemesterCode.findScholarYearFromSemesterCode(
             new SemesterCodeConverter().convert(bicycleAccessPassDto.semester));
-    ParkingAreaCode parkingAreaCode = bicycleParkingArea;
+    ParkingAreaCode parkingAreaCode =
+        ParkingConfiguration.getConfiguration().getBicycleParkingAreaCode();
     AccessPeriod accessPeriod = AccessPeriod.THREE_SEMESTERS;
 
-    validateReceptionMethodForBicycleAccessPass(bicycleAccessPassDto);
     ReceptionMethod receptionMethod = ReceptionMethod.get(bicycleAccessPassDto.receptionMethod);
 
     if (receptionMethod == ReceptionMethod.EMAIL) {
@@ -143,12 +142,6 @@ public class AccessPassConverter {
         || (semesters.length != 2 && period == AccessPeriod.TWO_SEMESTERS)
         || (semesters.length != 3 && period == AccessPeriod.THREE_SEMESTERS)) {
       throw new WrongAmountOfSemestersForPeriodException();
-    }
-  }
-
-  private void validateReceptionMethodForBicycleAccessPass(AccessPassDto accessPassDto) {
-    if (accessPassDto.receptionMethod == null) {
-      throw new WrongReceptionMethodForBicycleAccessPassException();
     }
   }
 }
