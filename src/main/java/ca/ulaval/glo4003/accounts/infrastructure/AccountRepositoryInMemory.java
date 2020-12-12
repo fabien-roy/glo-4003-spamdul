@@ -48,7 +48,7 @@ public class AccountRepositoryInMemory implements AccountRepository {
     if (parkingSticker.isPresent()) {
       return parkingSticker.get();
     } else {
-      throw new NotFoundParkingStickerException();
+      throw new NotFoundParkingStickerException(parkingStickerCode);
     }
   }
 

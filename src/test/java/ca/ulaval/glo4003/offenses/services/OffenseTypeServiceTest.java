@@ -156,7 +156,7 @@ public class OffenseTypeServiceTest {
   public void
       givenValidationWithInvalidParkingSticker_whenValidatingOffense_thenReturnInvalidParkingStickerOffenseType() {
     when(accountService.getParkingSticker(offenseValidation.getParkingStickerCode()))
-        .thenThrow(new NotFoundParkingStickerException());
+        .thenThrow(new NotFoundParkingStickerException(offenseValidation.getParkingStickerCode()));
 
     List<OffenseTypeDto> offenseTypeDtos = offenseTypeService.validateOffense(offenseValidationDto);
 
@@ -167,7 +167,7 @@ public class OffenseTypeServiceTest {
   public void
       givenValidationWithInvalidParkingSticker_whenValidatingOffense_thenOffenseIsNotifiedForInvalidParkingSticker() {
     when(accountService.getParkingSticker(offenseValidation.getParkingStickerCode()))
-        .thenThrow(new NotFoundParkingStickerException());
+        .thenThrow(new NotFoundParkingStickerException(offenseValidation.getParkingStickerCode()));
 
     offenseTypeService.validateOffense(offenseValidationDto);
 
