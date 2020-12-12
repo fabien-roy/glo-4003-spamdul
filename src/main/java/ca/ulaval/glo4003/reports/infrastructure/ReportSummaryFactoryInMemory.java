@@ -17,16 +17,17 @@ public class ReportSummaryFactoryInMemory implements ReportSummaryFactory {
     this.aggregateFunctionFactory = aggregateFunctionFactory;
   }
 
+  // TODO #317 : Test this
   @Override
   public List<ReportPeriod> create(
       List<ReportAggregateFunctionType> aggregateFunctionTypes,
       List<ReportPeriod> periods,
-      ReportMetricType metric) {
+      List<ReportMetricType> metrics) {
     List<ReportAggregateFunctionInMemory> aggregateFunctions =
         aggregateFunctionFactory.createMany(aggregateFunctionTypes);
 
     return aggregateFunctions.stream()
-        .map(function -> function.aggregate(periods, metric))
+        .flatMap(function -> function.aggregate(periods, metrics).stream())
         .collect(Collectors.toList());
   }
 }

@@ -56,6 +56,7 @@ public class ReportParkingAreaService {
             ReportAggregateFunctionType.MINIMUM,
             ReportAggregateFunctionType.AVERAGE),
         periods,
-        ReportMetricType.GATE_ENTRIES);
+        Arrays.asList(
+            ReportMetricType.GATE_ENTRIES_FOR_CARS, ReportMetricType.GATE_ENTRIES_FOR_BICYCLES));
   }
 }

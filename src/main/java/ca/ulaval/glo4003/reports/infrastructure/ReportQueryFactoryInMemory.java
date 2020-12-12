@@ -9,8 +9,11 @@ import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeFactory;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.ConsumptionTypeDimensionInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.ParkingAreaDimensionInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.filters.ReportEventTypeFilterInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.metrics.GateEntriesForBicyclesMetricInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.metrics.GateEntriesForCarsMetricInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.metrics.GateEntriesMetricInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.metrics.ProfitsMetricInMemory;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,6 +30,18 @@ public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQuer
     return new ReportQueryInMemory(
         createReportScopeForGateEnteredReportQuery(reportType, month),
         Collections.singletonList(new GateEntriesMetricInMemory()),
+        Collections.singletonList(new ParkingAreaDimensionInMemory(parkingAreaCodes)),
+        Collections.singletonList(new ReportEventTypeFilterInMemory(ReportEventType.GATE_ENTERED)));
+  }
+
+  // TODO #317 : Test this
+  @Override
+  public ReportQueryInMemory createGateEnteredSummaryReportQuery(
+      ReportType reportType, String month, List<ParkingAreaCode> parkingAreaCodes) {
+    return new ReportQueryInMemory(
+        createReportScopeForGateEnteredReportQuery(reportType, month),
+        Arrays.asList(
+            new GateEntriesForCarsMetricInMemory(), new GateEntriesForBicyclesMetricInMemory()),
         Collections.singletonList(new ParkingAreaDimensionInMemory(parkingAreaCodes)),
         Collections.singletonList(new ReportEventTypeFilterInMemory(ReportEventType.GATE_ENTERED)));
   }

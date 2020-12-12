@@ -46,22 +46,24 @@ public class ReportSummaryFactoryInMemoryTest {
     when(aggregateFunctionFactory.createMany(aggregateFunctionTypes))
         .thenReturn(Collections.singletonList(aggregateFunction));
 
-    when(aggregateFunction.aggregate(periods, metricType)).thenReturn(aggregatedPeriod);
+    when(aggregateFunction.aggregate(periods, Collections.singletonList(metricType)))
+        .thenReturn(Collections.singletonList(aggregatedPeriod));
   }
 
   @Test
   public void givenNoPeriod_whenBuilding_thenReturnNoPeriod() {
     List<ReportPeriod> aggregatedPeriods =
-        summaryFactory.create(aggregateFunctionTypes, Collections.emptyList(), metricType);
+        summaryFactory.create(
+            aggregateFunctionTypes, Collections.emptyList(), Collections.singletonList(metricType));
 
-    assertThat(aggregatedPeriods).hasSize(1);
-    assertThat(aggregatedPeriods.get(0)).isNull();
+    assertThat(aggregatedPeriods).hasSize(0);
   }
 
   @Test
   public void givenNoAggregateFunction_whenBuilding_thenReturnNoPeriod() {
     List<ReportPeriod> aggregatedPeriods =
-        summaryFactory.create(Collections.emptyList(), periods, metricType);
+        summaryFactory.create(
+            Collections.emptyList(), periods, Collections.singletonList(metricType));
 
     assertThat(aggregatedPeriods).hasSize(0);
   }
@@ -70,7 +72,8 @@ public class ReportSummaryFactoryInMemoryTest {
   public void
       givenPeriodsAndAggregateFunctionsAndMetric_whenBuilding_thenReturnAggregatedPeriods() {
     List<ReportPeriod> aggregatedPeriods =
-        summaryFactory.create(aggregateFunctionTypes, periods, metricType);
+        summaryFactory.create(
+            aggregateFunctionTypes, periods, Collections.singletonList(metricType));
 
     assertThat(aggregatedPeriods).hasSize(1);
     assertThat(aggregatedPeriods.get(0)).isSameInstanceAs(aggregatedPeriod);
