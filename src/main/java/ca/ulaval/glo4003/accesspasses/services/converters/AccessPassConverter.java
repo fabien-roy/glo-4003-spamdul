@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.accesspasses.domain.exceptions.UnsupportedAccessPeriodE
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongAmountOfSemestersForPeriodException;
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongReceptionMethodForBicycleAccessPassException;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
+import ca.ulaval.glo4003.accesspasses.services.dto.BicycleAccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
@@ -48,11 +49,39 @@ public class AccessPassConverter {
 
     if (accessPassCodeDto.licensePlate != null) {
       return convertForCarAccessPass(accessPassCodeDto);
-    } else if (accessPassCodeDto.parkingArea.equals(bicycleParkingArea.toString())) {
-      return convertForBicycleAccessPass(accessPassCodeDto);
     } else {
       return convertForPedestrianAccessPass(accessPassCodeDto);
     }
+  }
+
+  public AccessPass convert(BicycleAccessPassDto bicycleAccessPassDto) {
+    EmailAddress emailAddress = null;
+    PostalCode postalCode = null;
+
+    String[] scholarYear =
+        SemesterCode.findScholarYearFromSemesterCode(
+            new SemesterCodeConverter().convert(bicycleAccessPassDto.semester));
+    ParkingAreaCode parkingAreaCode = bicycleParkingArea;
+    AccessPeriod accessPeriod = AccessPeriod.THREE_SEMESTERS;
+
+    validateReceptionMethodForBicycleAccessPass(bicycleAccessPassDto);
+    ReceptionMethod receptionMethod = ReceptionMethod.get(bicycleAccessPassDto.receptionMethod);
+
+    if (receptionMethod == ReceptionMethod.EMAIL) {
+      emailAddress = emailAddressConverter.convert(bicycleAccessPassDto.emailAddress);
+    } else if (receptionMethod == ReceptionMethod.POSTAL) {
+      postalCode = postalCodeConverter.convert(bicycleAccessPassDto.postalCode);
+    }
+
+    return new AccessPass(
+        accessPeriod,
+        null,
+        null,
+        semesterService.getSemester(scholarYear),
+        parkingAreaCode,
+        receptionMethod,
+        postalCode,
+        emailAddress);
   }
 
   private AccessPass convertForCarAccessPass(AccessPassDto accessPassDto) {
@@ -74,36 +103,6 @@ public class AccessPassConverter {
 
     return new AccessPass(
         accessPeriod, dayOfWeek, licensePlate, timePeriods, parkingAreaCode, null, null, null);
-  }
-
-  private AccessPass convertForBicycleAccessPass(AccessPassDto accessPassDto) {
-    EmailAddress emailAddress = null;
-    PostalCode postalCode = null;
-
-    String[] scholarYear =
-        SemesterCode.findScholarYearFromSemesterCode(
-            new SemesterCodeConverter().convert(accessPassDto.semesters[0]));
-    ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(accessPassDto.parkingArea);
-    AccessPeriod accessPeriod = AccessPeriod.THREE_SEMESTERS;
-
-    validateReceptionMethodForBicycleAccessPass(accessPassDto);
-    ReceptionMethod receptionMethod = ReceptionMethod.get(accessPassDto.receptionMethod);
-
-    if (receptionMethod == ReceptionMethod.EMAIL) {
-      emailAddress = emailAddressConverter.convert(accessPassDto.emailAddress);
-    } else if (receptionMethod == ReceptionMethod.POSTAL) {
-      postalCode = postalCodeConverter.convert(accessPassDto.postalCode);
-    }
-
-    return new AccessPass(
-        accessPeriod,
-        null,
-        null,
-        semesterService.getSemester(scholarYear),
-        parkingAreaCode,
-        receptionMethod,
-        postalCode,
-        emailAddress);
   }
 
   private AccessPass convertForPedestrianAccessPass(AccessPassDto accessPassDto) {
@@ -147,11 +146,12 @@ public class AccessPassConverter {
     }
   }
 
-  private void validateReceptionMethodForBicycleAccessPass(AccessPassDto accessPassDto) {
-    if (accessPassDto.receptionMethod == null
-        || !accessPassDto.receptionMethod.equals("postal")
-        || !accessPassDto.receptionMethod.equals("email")
-        || !accessPassDto.receptionMethod.equals("ssp")) {
+  private void validateReceptionMethodForBicycleAccessPass(
+      BicycleAccessPassDto bicycleAccessPassDto) {
+    if (bicycleAccessPassDto.receptionMethod == null
+        || !bicycleAccessPassDto.receptionMethod.equals("postal")
+        || !bicycleAccessPassDto.receptionMethod.equals("email")
+        || !bicycleAccessPassDto.receptionMethod.equals("ssp")) {
       throw new WrongReceptionMethodForBicycleAccessPassException();
     }
   }

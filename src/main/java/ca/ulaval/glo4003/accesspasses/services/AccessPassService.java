@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassCodeAssemble
 import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassConverter;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
+import ca.ulaval.glo4003.accesspasses.services.dto.BicycleAccessPassDto;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
@@ -50,8 +51,19 @@ public class AccessPassService extends AccessPassCreationObservable {
     this.semesterService = semesterService;
   }
 
+  public AccessPassCodeDto addAccessPass(
+      BicycleAccessPassDto bicycleAccessPassDto, String accountId) {
+    AccessPass accessPass = accessPassConverter.convert(bicycleAccessPassDto);
+    return addAccessPass(accessPass, accountId);
+  }
+
   public AccessPassCodeDto addAccessPass(AccessPassDto accessPassDto, String accountId) {
     AccessPass accessPass = accessPassConverter.convert(accessPassDto);
+    return addAccessPass(accessPass, accountId);
+  }
+
+  private AccessPassCodeDto addAccessPass(AccessPass accessPass, String accountId) {
+
     Account account = accountService.getAccount(accountId);
     LicensePlate licensePlate = accessPass.getLicensePlate();
 
