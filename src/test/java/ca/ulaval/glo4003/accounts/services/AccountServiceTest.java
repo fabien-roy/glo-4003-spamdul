@@ -5,10 +5,11 @@ import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
-import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
+import static ca.ulaval.glo4003.funds.helpers.BillDtoBuilder.aBillDto;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accounts.domain.Account;
@@ -17,10 +18,10 @@ import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.Bill;
-import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.domain.exceptions.NotFoundBillException;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
+import ca.ulaval.glo4003.funds.services.dto.BillDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -41,9 +42,9 @@ public class AccountServiceTest {
   private final Account account = anAccount().build();
   private final LicensePlate licensePlate = createLicensePlate();
   private final ParkingSticker parkingSticker = aParkingSticker().build();
-  private final BillId billId = createBillId();
   private final AccessPass accessPass = anAccessPass().build();
   private final Bill bill = aBill().build();
+  private final BillDto billDto = aBillDto().build();
   private final Account accountWithBill =
       anAccount().withBills(Collections.singletonList(bill)).build();
   private final Car car = aCar().build();
@@ -56,6 +57,12 @@ public class AccountServiceTest {
     when(accountRepository.getAccessPass(accessPass.getCode())).thenReturn(accessPass);
     when(accountRepository.getAccessPasses(licensePlate))
         .thenReturn(Collections.singletonList(accessPass));
+    when(accountIdConverter.convert(account.getId().toString())).thenReturn(account.getId());
+    when(accountIdConverter.convert(accountWithBill.getId().toString()))
+        .thenReturn(accountWithBill.getId());
+    when(accountRepository.get(accountWithBill.getId())).thenReturn(accountWithBill);
+    when(billAssembler.assemble(Collections.singletonList(bill)))
+        .thenReturn(Collections.singletonList(billDto));
   }
 
   @Test
@@ -147,20 +154,24 @@ public class AccountServiceTest {
     verify(accountRepository).get(account.getId());
   }
 
+  @Test(expected = NotFoundBillException.class)
+  public void givenAccountWithNoBill_whenGettingBill_thenThrowNotFoundBillException() {
+    accountService.getBill(account.getId().toString(), bill.getId());
+  }
+
   @Test
-  public void givenBills_whenGettingBills_shouldAssembleBillsToBillsDto() {
-    List<BillId> billIds = new ArrayList<>();
-    billIds.add(bill.getId());
-    List<Bill> bills = new ArrayList<>();
-    bills.add(bill);
+  public void whenGettingBill_thenReturnBill() {
+    Bill receivedBill = accountService.getBill(accountWithBill.getId().toString(), bill.getId());
 
-    when(accountIdConverter.convert(accountWithBill.getId().toString()))
-        .thenReturn(accountWithBill.getId());
-    when(accountRepository.get(accountWithBill.getId())).thenReturn(accountWithBill);
+    assertThat(receivedBill).isSameInstanceAs(bill);
+  }
 
-    accountService.getBills(accountWithBill.getId().toString());
+  @Test
+  public void givenBills_whenGettingBills_thenReturnBillDtos() {
+    List<BillDto> receivedBillDtos = accountService.getBills(accountWithBill.getId().toString());
 
-    verify(billAssembler).assemble(bills);
+    assertThat(receivedBillDtos).hasSize(1);
+    assertThat(receivedBillDtos.get(0)).isSameInstanceAs(billDto);
   }
 
   @Test

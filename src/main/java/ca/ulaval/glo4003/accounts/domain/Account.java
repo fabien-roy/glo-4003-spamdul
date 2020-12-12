@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.domain.exceptions.AlreadyExistingCarException;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.domain.exceptions.NotFoundBillException;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import ca.ulaval.glo4003.users.domain.User;
@@ -57,13 +56,7 @@ public class Account {
   }
 
   public Bill getBill(BillId billId) {
-    Bill bill = bills.get(billId);
-
-    if (bills.get(billId) == null) {
-      throw new NotFoundBillException(billId);
-    }
-
-    return bill;
+    return bills.get(billId);
   }
 
   public List<Bill> getBills() {

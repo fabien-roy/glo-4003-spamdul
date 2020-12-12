@@ -10,6 +10,7 @@ import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.domain.exceptions.NotFoundBillException;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.services.dto.BillDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
@@ -75,7 +76,14 @@ public class AccountService {
   }
 
   public Bill getBill(String accountId, BillId billId) {
-    return accountRepository.get(accountIdConverter.convert(accountId)).getBill(billId);
+    Account account = accountRepository.get(accountIdConverter.convert(accountId));
+    Bill bill = account.getBill(billId);
+
+    if (bill == null) {
+      throw new NotFoundBillException(billId);
+    }
+
+    return bill;
   }
 
   public Account getAccount(String accountId) {
