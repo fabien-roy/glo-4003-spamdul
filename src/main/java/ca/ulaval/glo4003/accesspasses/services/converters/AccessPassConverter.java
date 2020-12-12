@@ -46,22 +46,22 @@ public class AccessPassConverter {
 
   private AccessPass convertForCarAccessPass(
       AccessPassDto accessPassCodeDto, List<TimePeriod> timePeriods) {
-    AccessPeriod period = AccessPeriod.get(accessPassCodeDto.period);
+    AccessPeriod accessPeriod = AccessPeriod.get(accessPassCodeDto.period);
 
     DayOfWeek dayOfWeek =
-        period == AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER
+        accessPeriod == AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER
             ? DayOfWeek.get(accessPassCodeDto.accessDay)
             : null;
 
-    validateAccessPeriodIsSupported(period);
+    validateAccessPeriodIsSupported(accessPeriod);
     validateAmountOfSemesters(accessPassCodeDto.semesters);
-    validateCorrectLengthForSemesters(accessPassCodeDto.semesters, period);
+    validateCorrectLengthForSemesters(accessPassCodeDto.semesters, accessPeriod);
 
     LicensePlate licensePlate = licensePlateConverter.convert(accessPassCodeDto.licensePlate);
     ParkingAreaCode parkingAreaCode =
         parkingAreaCodeAssembler.assemble(accessPassCodeDto.parkingArea);
 
-    return new AccessPass(dayOfWeek, licensePlate, timePeriods, parkingAreaCode);
+    return new AccessPass(accessPeriod, dayOfWeek, licensePlate, timePeriods, parkingAreaCode);
   }
 
   private AccessPass convertForBicycleAccessPass(AccessPassDto accessPassCodeDto) {
@@ -71,9 +71,10 @@ public class AccessPassConverter {
         parkingAreaCodeAssembler.assemble(accessPassCodeDto.parkingArea);
     // TODO permet d'éviter une erreur lors de la création du bill puisqu'il n'y a pas de period
     // (BAD SMELL?)
-    accessPassCodeDto.period = AccessPeriod.THREE_SEMESTERS.toString();
+    AccessPeriod accessPeriod = AccessPeriod.THREE_SEMESTERS;
 
-    return new AccessPass(null, null, semesterService.getSemester(scholarYear), parkingAreaCode);
+    return new AccessPass(
+        accessPeriod, null, null, semesterService.getSemester(scholarYear), parkingAreaCode);
   }
 
   // TODO maybe move this in an other class?
@@ -105,18 +106,18 @@ public class AccessPassConverter {
 
   private AccessPass convertForPedestrianAccessPass(
       AccessPassDto accessPassCodeDto, List<TimePeriod> timePeriods) {
-    AccessPeriod period = AccessPeriod.get(accessPassCodeDto.period);
+    AccessPeriod accessPeriod = AccessPeriod.get(accessPassCodeDto.period);
 
     DayOfWeek dayOfWeek =
-        period == AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER
+        accessPeriod == AccessPeriod.ONE_DAY_PER_WEEK_PER_SEMESTER
             ? DayOfWeek.get(accessPassCodeDto.accessDay)
             : null;
 
-    validateAccessPeriodIsSupported(period);
+    validateAccessPeriodIsSupported(accessPeriod);
     validateAmountOfSemesters(accessPassCodeDto.semesters);
-    validateCorrectLengthForSemesters(accessPassCodeDto.semesters, period);
+    validateCorrectLengthForSemesters(accessPassCodeDto.semesters, accessPeriod);
 
-    return new AccessPass(dayOfWeek, null, timePeriods, null);
+    return new AccessPass(accessPeriod, dayOfWeek, null, timePeriods, null);
   }
 
   // Will be revised if story 3.1 is chosen

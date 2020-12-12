@@ -11,6 +11,7 @@ import java.util.List;
 
 public class AccessPass {
   private AccessPassCode accessPassCode;
+  private AccessPeriod accessPeriod;
   private final DayOfWeek accessDay;
   private final LicensePlate licensePlate;
   private final List<TimePeriod> accessPeriods;
@@ -18,10 +19,12 @@ public class AccessPass {
   private boolean isAdmittedOnCampus = false;
 
   public AccessPass(
+      AccessPeriod accessPeriod,
       DayOfWeek accessDay,
       LicensePlate licensePlate,
       List<TimePeriod> accessPeriods,
       ParkingAreaCode parkingAreaCode) {
+    this.accessPeriod = accessPeriod;
     this.accessDay = accessDay;
     this.licensePlate = licensePlate;
     this.accessPeriods = accessPeriods;
@@ -38,6 +41,10 @@ public class AccessPass {
 
   public AccessPassCode getCode() {
     return accessPassCode;
+  }
+
+  public AccessPeriod getAccessPeriod() {
+    return accessPeriod;
   }
 
   public DayOfWeek getAccessDay() {
