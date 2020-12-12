@@ -4,10 +4,12 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.UnsupportedAccessPeriodException;
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongAmountOfSemestersForPeriodException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongReceptionMethodForBicycleAccessPassException;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
@@ -61,20 +63,28 @@ public class AccessPassConverter {
     ParkingAreaCode parkingAreaCode =
         parkingAreaCodeAssembler.assemble(accessPassCodeDto.parkingArea);
 
-    return new AccessPass(accessPeriod, dayOfWeek, licensePlate, timePeriods, parkingAreaCode);
+    return new AccessPass(
+        accessPeriod, dayOfWeek, licensePlate, timePeriods, parkingAreaCode, null);
   }
 
-  private AccessPass convertForBicycleAccessPass(AccessPassDto accessPassCodeDto) {
+  private AccessPass convertForBicycleAccessPass(AccessPassDto accessPassDto) {
 
-    String[] scholarYear = FindScholarYearSemester(accessPassCodeDto.semesters);
-    ParkingAreaCode parkingAreaCode =
-        parkingAreaCodeAssembler.assemble(accessPassCodeDto.parkingArea);
+    String[] scholarYear = FindScholarYearSemester(accessPassDto.semesters);
+    ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(accessPassDto.parkingArea);
     // TODO permet d'éviter une erreur lors de la création du bill puisqu'il n'y a pas de period
     // (BAD SMELL?)
     AccessPeriod accessPeriod = AccessPeriod.THREE_SEMESTERS;
 
+    validateReceptionMethodForBicycleAccessPass(accessPassDto);
+    ReceptionMethod receptionMethod = ReceptionMethod.get(accessPassDto.receptionMethod);
+
     return new AccessPass(
-        accessPeriod, null, null, semesterService.getSemester(scholarYear), parkingAreaCode);
+        accessPeriod,
+        null,
+        null,
+        semesterService.getSemester(scholarYear),
+        parkingAreaCode,
+        receptionMethod);
   }
 
   // TODO maybe move this in an other class?
@@ -117,7 +127,7 @@ public class AccessPassConverter {
     validateAmountOfSemesters(accessPassCodeDto.semesters);
     validateCorrectLengthForSemesters(accessPassCodeDto.semesters, accessPeriod);
 
-    return new AccessPass(accessPeriod, dayOfWeek, null, timePeriods, null);
+    return new AccessPass(accessPeriod, dayOfWeek, null, timePeriods, null, null);
   }
 
   // Will be revised if story 3.1 is chosen
@@ -141,6 +151,15 @@ public class AccessPassConverter {
         || (semesters.length != 2 && period == AccessPeriod.TWO_SEMESTERS)
         || (semesters.length != 3 && period == AccessPeriod.THREE_SEMESTERS)) {
       throw new WrongAmountOfSemestersForPeriodException();
+    }
+  }
+
+  private void validateReceptionMethodForBicycleAccessPass(AccessPassDto accessPassDto) {
+    if (accessPassDto.receptionMethod == null
+        || accessPassDto.receptionMethod != "postal"
+        || accessPassDto.receptionMethod != "email"
+        || accessPassDto.receptionMethod != "ssp") {
+      throw new WrongReceptionMethodForBicycleAccessPassException();
     }
   }
 }

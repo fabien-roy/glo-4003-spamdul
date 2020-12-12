@@ -42,7 +42,8 @@ public class AccessPassInjector {
       ParkingAreaService parkingAreaService,
       AccountService accountService,
       BillService billService,
-      SemesterService semesterService) {
+      SemesterService semesterService,
+      List<AccessPassCreationObserver> accessPassCreationObservers) {
     LicensePlateConverter licensePlateConverter = new LicensePlateConverter();
     AccessPassConverter accessPassConverter =
         new AccessPassConverter(
@@ -50,16 +51,20 @@ public class AccessPassInjector {
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
     AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
 
-    return new AccessPassService(
-        accessPassConverter,
-        accessPassFactory,
-        carService,
-        parkingAreaService,
-        accessPassPriceByCarConsumptionInMemoryRepository,
-        accountService,
-        billService,
-        accessPassCodeAssembler,
-        semesterService);
+    AccessPassService accessPassService =
+        new AccessPassService(
+            accessPassConverter,
+            accessPassFactory,
+            carService,
+            parkingAreaService,
+            accessPassPriceByCarConsumptionInMemoryRepository,
+            accountService,
+            billService,
+            accessPassCodeAssembler,
+            semesterService);
+    accessPassCreationObservers.forEach(accessPassService::register);
+
+    return accessPassService;
   }
 
   private void addAccessPassByConsumptionTypesToRepository() {

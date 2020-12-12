@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassEntryEx
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
@@ -17,18 +18,21 @@ public class AccessPass {
   private final List<TimePeriod> accessPeriods;
   private final ParkingAreaCode parkingAreaCode;
   private boolean isAdmittedOnCampus = false;
+  private ReceptionMethod receptionMethod;
 
   public AccessPass(
       AccessPeriod accessPeriod,
       DayOfWeek accessDay,
       LicensePlate licensePlate,
       List<TimePeriod> accessPeriods,
-      ParkingAreaCode parkingAreaCode) {
+      ParkingAreaCode parkingAreaCode,
+      ReceptionMethod receptionMethod) {
     this.accessPeriod = accessPeriod;
     this.accessDay = accessDay;
     this.licensePlate = licensePlate;
     this.accessPeriods = accessPeriods;
     this.parkingAreaCode = parkingAreaCode;
+    this.receptionMethod = receptionMethod;
   }
 
   public ParkingAreaCode getParkingAreaCode() {
@@ -53,6 +57,10 @@ public class AccessPass {
 
   public LicensePlate getLicensePlate() {
     return licensePlate;
+  }
+
+  public ReceptionMethod getReceptionMethod() {
+    return receptionMethod;
   }
 
   public boolean isAdmittedOnCampus() {

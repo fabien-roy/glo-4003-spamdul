@@ -19,7 +19,7 @@ import ca.ulaval.glo4003.times.domain.TimePeriod;
 import ca.ulaval.glo4003.times.services.SemesterService;
 import java.util.List;
 
-public class AccessPassService {
+public class AccessPassService extends AccessPassCreationObservable {
   private final AccessPassConverter accessPassConverter;
   private final AccessPassFactory accessPassFactory;
   private final CarService carService;
@@ -74,6 +74,10 @@ public class AccessPassService {
     BillId billId =
         billService.addBillForAccessCode(moneyDue, accessPass.getCode(), consumptionType);
     accountService.addAccessPassToAccount(account.getId(), accessPass, billId);
+
+    if (accessPass.getReceptionMethod() != null) {
+      notifyAccessPassCreated(accessPass);
+    }
 
     return accessPassCodeAssembler.assemble(accessPass.getCode());
   }
