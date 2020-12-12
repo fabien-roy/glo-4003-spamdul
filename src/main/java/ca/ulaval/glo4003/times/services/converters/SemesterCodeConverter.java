@@ -1,21 +1,21 @@
 package ca.ulaval.glo4003.times.services.converters;
 
-import ca.ulaval.glo4003.times.domain.Semester;
 import ca.ulaval.glo4003.times.domain.SemesterCode;
+import ca.ulaval.glo4003.times.domain.SemesterSymbol;
 import ca.ulaval.glo4003.times.domain.exceptions.InvalidSemesterCodeException;
 import java.util.regex.Pattern;
 
 public class SemesterCodeConverter {
   private static final String FORMAT =
       "XNN, where X is "
-          + Semester.AUTUMN
+          + SemesterSymbol.AUTUMN
           + ", "
-          + Semester.WINTER
+          + SemesterSymbol.WINTER
           + " or "
-          + Semester.SUMMER
+          + SemesterSymbol.SUMMER
           + " and N is a number";
   private static final String POSSIBLE_SEMESTER_SYMBOL =
-      Semester.AUTUMN.toString() + Semester.WINTER + Semester.SUMMER;
+      SemesterSymbol.AUTUMN.toString() + SemesterSymbol.WINTER + SemesterSymbol.SUMMER;
   private static final Pattern PATTERN =
       Pattern.compile("[" + POSSIBLE_SEMESTER_SYMBOL + "]\\d\\d");
 
