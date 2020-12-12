@@ -1,25 +1,16 @@
-package ca.ulaval.glo4003.carboncredits.configuration;
+package ca.ulaval.glo4003.carboncredits.domain;
 
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
 
-// TODO= : Doesn't this belong to the domain?
 public class CarbonCreditConfiguration {
   private static CarbonCreditConfiguration carbonCreditConfiguration = null;
 
-  private static final String CARBON_CREDIT_INITIATIVE_NAME = "Marché du carbone";
-  private static final String CARBON_CREDIT_INITIATIVE_CODE = "MCARB";
-  private static final Double CARBON_CREDIT_PRICE = 21.81;
+  private final String carbonCreditInitiativeName = "Marché du carbon";
+  private final InitiativeCode carbonCreditInitiativeCode = new InitiativeCode("MCARB");
+  private final Money carbonCreditPrice = Money.fromDouble(21.82);
 
-  private String carbonCreditInitiativeName;
-  private InitiativeCode carbonCreditInitiativeCode;
-  private Money carbonCreditPrice;
-
-  private CarbonCreditConfiguration() {
-    this.carbonCreditInitiativeName = CARBON_CREDIT_INITIATIVE_NAME;
-    this.carbonCreditInitiativeCode = new InitiativeCode(CARBON_CREDIT_INITIATIVE_CODE);
-    this.carbonCreditPrice = Money.fromDouble(CARBON_CREDIT_PRICE);
-  }
+  private CarbonCreditConfiguration() {}
 
   public static CarbonCreditConfiguration getConfiguration() {
     if (carbonCreditConfiguration == null) {

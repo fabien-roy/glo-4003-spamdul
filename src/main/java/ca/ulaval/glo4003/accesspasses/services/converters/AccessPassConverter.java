@@ -13,6 +13,7 @@ import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverte
 import ca.ulaval.glo4003.locations.domain.PostalCode;
 import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
+import ca.ulaval.glo4003.parkings.domain.ParkingConfiguration;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
@@ -26,10 +27,9 @@ public class AccessPassConverter {
 
   private final LicensePlateConverter licensePlateConverter;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
-  private final ParkingAreaCode bicycleParkingArea = new ParkingAreaCode("ZoneVelo");
   private final EmailAddressConverter emailAddressConverter;
   private final PostalCodeConverter postalCodeConverter;
-  private SemesterService semesterService;
+  private final SemesterService semesterService; // TODO : Remove this somehow
 
   public AccessPassConverter(
       LicensePlateConverter licensePlateConverter,
@@ -48,7 +48,8 @@ public class AccessPassConverter {
 
     if (accessPassCodeDto.licensePlate != null) {
       return convertForCarAccessPass(accessPassCodeDto);
-    } else if (accessPassCodeDto.parkingArea.equals(bicycleParkingArea.toString())) {
+    } else if (accessPassCodeDto.parkingArea.equals(
+        ParkingConfiguration.getConfiguration().getBicycleParkingAreaCode().toString())) {
       return convertForBicycleAccessPass(accessPassCodeDto);
     } else {
       return convertForPedestrianAccessPass(accessPassCodeDto);
@@ -148,10 +149,7 @@ public class AccessPassConverter {
   }
 
   private void validateReceptionMethodForBicycleAccessPass(AccessPassDto accessPassDto) {
-    if (accessPassDto.receptionMethod == null
-        || !accessPassDto.receptionMethod.equals("postal")
-        || !accessPassDto.receptionMethod.equals("email")
-        || !accessPassDto.receptionMethod.equals("ssp")) {
+    if (accessPassDto.receptionMethod == null) {
       throw new WrongReceptionMethodForBicycleAccessPassException();
     }
   }

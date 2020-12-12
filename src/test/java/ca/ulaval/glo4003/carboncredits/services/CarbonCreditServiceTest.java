@@ -9,8 +9,8 @@ import static ca.ulaval.glo4003.initiatives.helpers.InitiativeBuilder.anInitiati
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
-import ca.ulaval.glo4003.carboncredits.configuration.CarbonCreditConfiguration;
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCredit;
+import ca.ulaval.glo4003.carboncredits.domain.CarbonCreditConfiguration;
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCreditRepository;
 import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatus;
 import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatusRepository;

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
+import ca.ulaval.glo4003.parkings.domain.ParkingConfiguration;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.services.dto.ParkingAreaDto;
 import java.util.Collections;
@@ -25,6 +26,7 @@ public class ParkingAreaServiceTest {
   @Mock private ParkingAreaAssembler parkingAreaAssembler;
 
   private ParkingAreaService parkingAreaService;
+
   private final ParkingArea parkingArea = aParkingArea().build();
   private final ParkingAreaDto parkingAreaDto = aParkingAreaDto().build();
 
@@ -59,7 +61,18 @@ public class ParkingAreaServiceTest {
   public void whenGettingAllParkingAreaCodes_thenReturnAllParkingAreaCodes() {
     List<ParkingAreaCode> parkingAreaCodes = parkingAreaService.getParkingAreaCodes();
 
-    assertThat(parkingAreaCodes).hasSize(1);
-    assertThat(parkingAreaCodes.get(0)).isSameInstanceAs(parkingArea.getCode());
+    assertThat(parkingAreaCodes).hasSize(2);
+    assertThat(parkingAreaCodes).contains(parkingArea.getCode());
+  }
+
+  @Test
+  public void whenGettingAllParkingAreaCodes_thenReturnBicycleParkingAreaCode() {
+    ParkingAreaCode bicycleParkingAreaCode =
+        ParkingConfiguration.getConfiguration().getBicycleParkingAreaCode();
+
+    List<ParkingAreaCode> parkingAreaCodes = parkingAreaService.getParkingAreaCodes();
+
+    assertThat(parkingAreaCodes).hasSize(2);
+    assertThat(parkingAreaCodes).contains(bicycleParkingAreaCode);
   }
 }
