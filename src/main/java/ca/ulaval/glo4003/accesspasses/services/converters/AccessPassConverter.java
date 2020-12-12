@@ -64,11 +64,10 @@ public class AccessPassConverter {
     return new AccessPass(accessPeriod, dayOfWeek, licensePlate, timePeriods, parkingAreaCode);
   }
 
-  private AccessPass convertForBicycleAccessPass(AccessPassDto accessPassCodeDto) {
+  private AccessPass convertForBicycleAccessPass(AccessPassDto accessPassDto) {
 
-    String[] scholarYear = FindScholarYearSemester(accessPassCodeDto.semesters);
-    ParkingAreaCode parkingAreaCode =
-        parkingAreaCodeAssembler.assemble(accessPassCodeDto.parkingArea);
+    String[] scholarYear = FindScholarYearSemester(accessPassDto.semesters);
+    ParkingAreaCode parkingAreaCode = parkingAreaCodeAssembler.assemble(accessPassDto.parkingArea);
     // TODO permet d'éviter une erreur lors de la création du bill puisqu'il n'y a pas de period
     // (BAD SMELL?)
     AccessPeriod accessPeriod = AccessPeriod.THREE_SEMESTERS;
