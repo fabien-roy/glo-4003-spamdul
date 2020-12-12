@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import java.util.stream.Stream;
 
-// TODO #317 : Test this
 public class GateEntriesForBicyclesMetricInMemory extends GateEntriesMetricInMemory {
 
   @Override
