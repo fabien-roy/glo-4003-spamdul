@@ -8,7 +8,6 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-// TODO #305 : Test this
 @Provider
 public class ApplicationExceptionMapper implements ExceptionMapper<ApplicationException> {
 
