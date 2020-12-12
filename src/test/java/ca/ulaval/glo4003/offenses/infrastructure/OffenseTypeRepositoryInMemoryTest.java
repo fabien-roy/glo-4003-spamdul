@@ -7,7 +7,7 @@ import static com.google.common.truth.Truth.assertThat;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.offenses.domain.OffenseType;
 import ca.ulaval.glo4003.offenses.domain.OffenseTypeRepository;
-import ca.ulaval.glo4003.offenses.domain.exceptions.OffenseTypeNotFoundException;
+import ca.ulaval.glo4003.offenses.domain.exceptions.NotFoundOffenseTypeException;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class OffenseTypeRepositoryInMemoryTest {
     offenseTypeRepository = new OffenseTypeRepositoryInMemory();
   }
 
-  @Test(expected = OffenseTypeNotFoundException.class)
+  @Test(expected = NotFoundOffenseTypeException.class)
   public void givenNonExistentCode_whenFindingByCode_thenThrowOffenseTypeNotFoundException() {
     OffenseCode nonExistentCode = createOffenseCode();
 
