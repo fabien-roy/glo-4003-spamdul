@@ -6,7 +6,7 @@ import static com.google.common.truth.Truth.assertThat;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
 import ca.ulaval.glo4003.funds.domain.BillRepository;
-import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
+import ca.ulaval.glo4003.funds.domain.exceptions.BillNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;

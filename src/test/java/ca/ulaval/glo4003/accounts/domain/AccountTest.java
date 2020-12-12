@@ -5,9 +5,9 @@ import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
 
 import ca.ulaval.glo4003.cars.domain.Car;
-import ca.ulaval.glo4003.cars.exceptions.AlreadyExistingCarException;
+import ca.ulaval.glo4003.cars.domain.exceptions.AlreadyExistingCarException;
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.exception.BillNotFoundException;
+import ca.ulaval.glo4003.funds.domain.exceptions.BillNotFoundException;
 import java.util.Collections;
 import org.junit.Test;
 

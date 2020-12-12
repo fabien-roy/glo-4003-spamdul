@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.files.filesystem;
 
-import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
+import ca.ulaval.glo4003.files.domain.exceptions.InvalidFileException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
@@ -13,7 +13,7 @@ public class PropertyFileReader {
       FileReader file = new FileReader(path);
       properties.load(file);
     } catch (IOException e) {
-      throw new InvalidFileException();
+      throw new InvalidFileException(path);
     }
     return properties;
   }

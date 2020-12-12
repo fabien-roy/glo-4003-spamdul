@@ -8,13 +8,14 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.times.domain.CustomDate;
-import ca.ulaval.glo4003.times.exceptions.InvalidDateException;
+import ca.ulaval.glo4003.times.domain.exceptions.InvalidDateException;
 import ca.ulaval.glo4003.times.services.converters.CustomDateConverter;
 import ca.ulaval.glo4003.users.domain.Sex;
 import ca.ulaval.glo4003.users.domain.User;
-import ca.ulaval.glo4003.users.exceptions.InvalidBirthDateException;
-import ca.ulaval.glo4003.users.exceptions.InvalidNameException;
-import ca.ulaval.glo4003.users.exceptions.InvalidSexException;
+import ca.ulaval.glo4003.users.domain.exceptions.FutureBirthDateException;
+import ca.ulaval.glo4003.users.domain.exceptions.InvalidBirthDateException;
+import ca.ulaval.glo4003.users.domain.exceptions.InvalidNameException;
+import ca.ulaval.glo4003.users.domain.exceptions.InvalidSexException;
 import ca.ulaval.glo4003.users.services.dto.UserDto;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,7 +67,8 @@ public class UserConverterTest {
 
   @Test(expected = InvalidBirthDateException.class)
   public void givenInvalidBirthDate_whenConverting_thenThrowInvalidBirthDateException() {
-    when(customDateConverter.convert(birthDate.toString())).thenThrow(new InvalidDateException());
+    when(customDateConverter.convert(birthDate.toString()))
+        .thenThrow(new InvalidDateException("format"));
 
     userConverter.convert(userDto);
   }
@@ -78,8 +80,8 @@ public class UserConverterTest {
     userConverter.convert(userDto);
   }
 
-  @Test(expected = InvalidBirthDateException.class)
-  public void givenFutureBirthDate_whenConverting_thenThrowInvalidBirthDateException() {
+  @Test(expected = FutureBirthDateException.class)
+  public void givenFutureBirthDate_whenConverting_thenThrowFutureBirthDateException() {
     when(customDateConverter.convert(birthDate.toString())).thenReturn(futureBirthDate);
 
     userConverter.convert(userDto);

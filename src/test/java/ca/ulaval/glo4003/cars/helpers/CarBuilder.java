@@ -12,7 +12,7 @@ public class CarBuilder {
   private String manufacturer = createManufacturer();
   private String model = createModel();
   private int year = createYear();
-  private ConsumptionType consumptionType = createNotZeroPullutionConsumptionTypes();
+  private ConsumptionType consumptionType = createConsumptionTypeOtherThanZeroPollution();
 
   private CarBuilder() {}
 

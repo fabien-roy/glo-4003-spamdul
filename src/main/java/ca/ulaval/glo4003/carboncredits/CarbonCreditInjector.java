@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.carboncredits.infrastructure.CarbonCreditRepositoryInMe
 import ca.ulaval.glo4003.carboncredits.infrastructure.MonthlyPaymentStatusRepositoryInMemory;
 import ca.ulaval.glo4003.carboncredits.services.CarbonCreditService;
 import ca.ulaval.glo4003.carboncredits.systemtime.ConvertCarbonCreditHandler;
-import ca.ulaval.glo4003.funds.domain.SustainableMobilityProgramBankRepository;
+import ca.ulaval.glo4003.initiatives.domain.InitiativeRepository;
 import ca.ulaval.glo4003.initiatives.services.InitiativeService;
 
 public class CarbonCreditInjector {
@@ -17,28 +17,25 @@ public class CarbonCreditInjector {
       new MonthlyPaymentStatusRepositoryInMemory();
 
   public CarbonCreditResource createCarbonCreditResource(
-      InitiativeService initiativeService,
-      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
+      InitiativeService initiativeService, InitiativeRepository initiativeRepository) {
     CarbonCreditService carbonCreditService =
-        createCarbonCreditService(initiativeService, sustainableMobilityProgramBankRepository);
+        createCarbonCreditService(initiativeService, initiativeRepository);
     return new CarbonCreditResource(carbonCreditService);
   }
 
   public ConvertCarbonCreditHandler createConvertCarbonCreditHandler(
-      InitiativeService initiativeService,
-      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
+      InitiativeService initiativeService, InitiativeRepository initiativeRepository) {
     CarbonCreditService carbonCreditService =
-        createCarbonCreditService(initiativeService, sustainableMobilityProgramBankRepository);
+        createCarbonCreditService(initiativeService, initiativeRepository);
     return new ConvertCarbonCreditHandler(carbonCreditService);
   }
 
   public CarbonCreditService createCarbonCreditService(
-      InitiativeService initiativeService,
-      SustainableMobilityProgramBankRepository sustainableMobilityProgramBankRepository) {
+      InitiativeService initiativeService, InitiativeRepository initiativeRepository) {
     return new CarbonCreditService(
         carbonCreditRepository,
         monthlyPaymentStatusRepository,
-        sustainableMobilityProgramBankRepository,
+        initiativeRepository,
         initiativeService);
   }
 }

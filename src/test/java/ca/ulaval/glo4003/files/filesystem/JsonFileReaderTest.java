@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.files.filesystem;
 
-import ca.ulaval.glo4003.files.exceptions.InvalidFileException;
+import ca.ulaval.glo4003.files.domain.exceptions.InvalidFileException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

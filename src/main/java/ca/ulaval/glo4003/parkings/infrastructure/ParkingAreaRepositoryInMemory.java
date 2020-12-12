@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.parkings.infrastructure;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
-import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingAreaException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.NotFoundParkingAreaException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +22,7 @@ public class ParkingAreaRepositoryInMemory implements ParkingAreaRepository {
   public ParkingArea get(ParkingAreaCode code) {
     ParkingArea foundParkingArea = parkingAreas.get(code);
 
-    if (foundParkingArea == null) throw new NotFoundParkingAreaException();
+    if (foundParkingArea == null) throw new NotFoundParkingAreaException(getParkingAreaCodes());
 
     return foundParkingArea;
   }
@@ -30,5 +30,9 @@ public class ParkingAreaRepositoryInMemory implements ParkingAreaRepository {
   @Override
   public List<ParkingArea> getAll() {
     return new ArrayList<>(parkingAreas.values());
+  }
+
+  private List<ParkingAreaCode> getParkingAreaCodes() {
+    return new ArrayList<>(parkingAreas.keySet());
   }
 }

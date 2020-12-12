@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.initiatives.domain;
 
+import ca.ulaval.glo4003.funds.domain.Money;
 import java.util.List;
 
 public interface InitiativeRepository {
@@ -10,4 +11,8 @@ public interface InitiativeRepository {
   Initiative get(InitiativeCode initiativeCode);
 
   void update(Initiative initiative);
+
+  void takeMoney(Money money);
+
+  Money getAvailableMoney();
 }

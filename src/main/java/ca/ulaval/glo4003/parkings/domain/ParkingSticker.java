@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.locations.domain.PostalCode;
 
 public class ParkingSticker {
   private ParkingStickerCode code;
-  private final AccountId accountId;
+  private final AccountId accountId; // TODO : Remove accountId from ParkingSticker
   private final ParkingAreaCode parkingAreaCode;
   private final ReceptionMethod receptionMethod;
   private PostalCode postalCode;

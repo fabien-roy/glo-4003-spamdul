@@ -20,7 +20,7 @@ import ca.ulaval.glo4003.offenses.services.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaRepository;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.exceptions.NotFoundParkingStickerException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.NotFoundParkingStickerException;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;

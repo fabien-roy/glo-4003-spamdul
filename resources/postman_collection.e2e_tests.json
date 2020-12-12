@@ -508,7 +508,7 @@
 											"response": []
 										},
 										{
-											"name": "Invalid birth date (future)",
+											"name": "Future birth date",
 											"event": [
 												{
 													"listen": "test",
@@ -519,8 +519,8 @@
 															"    pm.response.to.have.status(400);",
 															"});",
 															"",
-															"pm.test(\"Returns invalid birth date\", function () {",
-															"    pm.expect(pm.response.json().error).to.equal(\"Invalid birth date\")",
+															"pm.test(\"Returns future birth date\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Future birth date\")",
 															"});"
 														],
 														"type": "text/javascript"
@@ -1638,8 +1638,8 @@
 													"script": {
 														"id": "955e9de2-b20a-42e3-8415-6bbcedd37da9",
 														"exec": [
-															"pm.test(\"Returns status 400\", function () {",
-															"    pm.response.to.have.status(400);",
+															"pm.test(\"Returns status 409\", function () {",
+															"    pm.response.to.have.status(409);",
 															"});",
 															"",
 															"pm.test(\"Returns already existing car\", function () {",

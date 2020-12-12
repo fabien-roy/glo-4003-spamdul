@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.converters.MoneyConverter;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;
-import ca.ulaval.glo4003.initiatives.exception.InvalidInitiativeNameException;
+import ca.ulaval.glo4003.initiatives.domain.exceptions.InvalidInitiativeNameException;
 import ca.ulaval.glo4003.initiatives.services.dto.AddInitiativeDto;
 import ca.ulaval.glo4003.initiatives.services.dto.InitiativeDto;
 import java.util.Collections;

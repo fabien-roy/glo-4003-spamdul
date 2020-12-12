@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.accesspasses.domain;
 
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPeriodException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPeriodException;
 import java.util.HashMap;
 import java.util.Map;
 

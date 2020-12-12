@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.gates.services;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
-import ca.ulaval.glo4003.accesspasses.exceptions.InvalidAccessPassExitException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;

@@ -1,8 +1,8 @@
 package ca.ulaval.glo4003.funds.services.converters;
 
 import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.exception.InvalidMoneyException;
-import ca.ulaval.glo4003.funds.exception.NegativeMoneyException;
+import ca.ulaval.glo4003.funds.domain.exceptions.InvalidMoneyException;
+import ca.ulaval.glo4003.funds.domain.exceptions.NegativeMoneyException;
 
 public class MoneyConverter {
 

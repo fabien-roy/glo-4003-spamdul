@@ -5,20 +5,17 @@ import ca.ulaval.glo4003.accesspasses.infrastructure.AccessPassTypeInMemoryRepos
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassConverter;
 import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassPeriodConverter;
+import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassTypeConverter;
 import ca.ulaval.glo4003.accounts.services.AccountService;
-import ca.ulaval.glo4003.cars.domain.ConsumptionTypeInFrench;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.cars.services.converters.ConsumptionConverter;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
-import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
-import ca.ulaval.glo4003.interfaces.domain.StringCodeGenerator;
+import ca.ulaval.glo4003.generators.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.times.services.SemesterService;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +40,7 @@ public class AccessPassInjector {
       AccountService accountService,
       BillService billService,
       SemesterService semesterService) {
-    AccessPassConverter accessPassConverter = new AccessPassConverter(semesterService);
+    AccessPassConverter accessPassConverter = new AccessPassConverter();
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
 
     return new AccessPassService(
@@ -53,37 +50,18 @@ public class AccessPassInjector {
         parkingAreaService,
         accessPassPriceByCarConsumptionInMemoryRepository,
         accountService,
-        billService);
+        billService,
+        semesterService);
   }
 
   private void addAccessPassByConsumptionTypesToRepository() {
+    AccessPassTypeConverter accessPassTypeConverter =
+        new AccessPassTypeConverter(consumptionConverter, accessPassPeriodConverter);
     ZoneFeesFileHelper zoneFeesFileHelper = new ZoneFeesFileHelper(fileReader);
-
     Map<String, Map<String, Double>> zonesAndFees =
         zoneFeesFileHelper.getZoneAndFeesForAccessPass();
-    List<AccessPassType> accessConsumption = new ArrayList<>();
 
-    zonesAndFees
-        .keySet()
-        .forEach(
-            consumption -> {
-              ConsumptionTypeInFrench consumptionTypeInFrench =
-                  ConsumptionTypeInFrench.get(consumption);
-              Map<AccessPeriod, Money> feesPerPeriod = new HashMap<>();
-              zonesAndFees
-                  .get(consumption)
-                  .keySet()
-                  .forEach(
-                      period -> {
-                        AccessPeriodInFrench accessPeriod = AccessPeriodInFrench.get(period);
-                        Money fee = Money.fromDouble(zonesAndFees.get(consumption).get(period));
-                        feesPerPeriod.put(accessPassPeriodConverter.convert(accessPeriod), fee);
-                      });
-              accessConsumption.add(
-                  new AccessPassType(
-                      consumptionConverter.convert(consumptionTypeInFrench), feesPerPeriod));
-            });
-
-    accessConsumption.forEach(accessPassPriceByCarConsumptionInMemoryRepository::save);
+    List<AccessPassType> accessPassTypes = accessPassTypeConverter.convert(zonesAndFees);
+    accessPassTypes.forEach(accessPassPriceByCarConsumptionInMemoryRepository::save);
   }
 }

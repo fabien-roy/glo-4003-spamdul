@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.users.domain;
 
-import ca.ulaval.glo4003.users.exceptions.InvalidSexException;
+import ca.ulaval.glo4003.users.domain.exceptions.InvalidSexException;
 import java.util.HashMap;
 import java.util.Map;
 

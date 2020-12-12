@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.accesspasses.services.converters;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
-import ca.ulaval.glo4003.accesspasses.exceptions.UnsupportedAccessPeriodException;
-import ca.ulaval.glo4003.accesspasses.exceptions.WrongAmountOfSemestersForPeriodException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.UnsupportedAccessPeriodException;
+import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongAmountOfSemestersForPeriodException;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
@@ -11,39 +11,25 @@ import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
-import ca.ulaval.glo4003.times.services.SemesterService;
-import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class AccessPassConverter {
 
   private final LicensePlateConverter licensePlateConverter;
-  private final SemesterService semesterService;
-  private final SemesterCodeConverter semesterCodeConverter;
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
 
-  public AccessPassConverter(SemesterService semesterService) {
-    this(
-        new LicensePlateConverter(),
-        semesterService,
-        new SemesterCodeConverter(),
-        new ParkingAreaCodeAssembler());
+  public AccessPassConverter() {
+    this(new LicensePlateConverter(), new ParkingAreaCodeAssembler());
   }
 
   public AccessPassConverter(
       LicensePlateConverter licensePlateConverter,
-      SemesterService semesterService,
-      SemesterCodeConverter semesterCodeConverter,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler) {
     this.licensePlateConverter = licensePlateConverter;
-    this.semesterService = semesterService;
-    this.semesterCodeConverter = semesterCodeConverter;
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
   }
 
-  public AccessPass convert(AccessPassDto accessPassCodeDto) {
+  public AccessPass convert(AccessPassDto accessPassCodeDto, List<TimePeriod> timePeriods) {
     AccessPeriod period = AccessPeriod.get(accessPassCodeDto.period);
 
     DayOfWeek dayOfWeek =
@@ -55,8 +41,6 @@ public class AccessPassConverter {
     validateAmountOfSemesters(accessPassCodeDto.semesters);
     validateCorrectLengthForSemesters(accessPassCodeDto.semesters, period);
 
-    List<TimePeriod> accessPeriods = buildAccessPeriods(accessPassCodeDto.semesters);
-
     LicensePlate licensePlate;
     ParkingAreaCode parkingAreaCode;
     if (accessPassCodeDto.licensePlate != null) {
@@ -67,7 +51,7 @@ public class AccessPassConverter {
       parkingAreaCode = null;
     }
 
-    return new AccessPass(dayOfWeek, licensePlate, accessPeriods, parkingAreaCode);
+    return new AccessPass(dayOfWeek, licensePlate, timePeriods, parkingAreaCode);
   }
 
   // Will be revised if story 3.1 is chosen
@@ -92,12 +76,5 @@ public class AccessPassConverter {
         || (semesters.length != 3 && period == AccessPeriod.THREE_SEMESTERS)) {
       throw new WrongAmountOfSemestersForPeriodException();
     }
-  }
-
-  private List<TimePeriod> buildAccessPeriods(String[] semesters) {
-    return Arrays.stream(semesters)
-        .map(semesterCodeConverter::convert)
-        .map(semesterService::getSemester)
-        .collect(Collectors.toList());
   }
 }

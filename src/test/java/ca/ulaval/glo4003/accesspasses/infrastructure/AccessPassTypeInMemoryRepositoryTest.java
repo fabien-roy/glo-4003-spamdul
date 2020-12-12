@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.accesspasses.infrastructure;
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassTypeBuilder.anAccessPassType;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassType;
-import ca.ulaval.glo4003.cars.exceptions.InvalidConsumptionTypeException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidConsumptionTypeException;
 import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;

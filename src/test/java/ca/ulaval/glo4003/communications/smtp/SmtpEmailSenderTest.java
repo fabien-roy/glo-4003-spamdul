@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.communications.helpers.EmailMother.*;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 import static org.mockito.Mockito.*;
 
-import ca.ulaval.glo4003.communications.exceptions.EmailSendingFailedException;
+import ca.ulaval.glo4003.communications.domain.exceptions.EmailSendingFailedException;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import javax.mail.Message;

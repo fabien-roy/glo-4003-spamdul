@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePla
 import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
-import ca.ulaval.glo4003.cars.exceptions.InvalidLicensePlateException;
+import ca.ulaval.glo4003.cars.domain.exceptions.InvalidLicensePlateException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ public class LicensePlateConverterTest {
   public void whenConverting_shouldReturnLicensePlate() {
     LicensePlate licensePlate = licensePlateConverter.convert(LICENSE_PLATE.toString());
 
-    assertThat(licensePlate.equals(LICENSE_PLATE));
+    assertThat(licensePlate).isEqualTo(LICENSE_PLATE);
   }
 
   @Test(expected = InvalidLicensePlateException.class)
