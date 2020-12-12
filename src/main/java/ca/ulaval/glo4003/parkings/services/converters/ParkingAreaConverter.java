@@ -22,8 +22,6 @@ public class ParkingAreaConverter {
     this.parkingPeriodConverter = parkingPeriodConverter;
   }
 
-  // TODO test
-
   public List<ParkingArea> convert(Map<String, Map<String, Double>> zonesAndFees) {
     List<ParkingArea> parkingAreas = new ArrayList<>();
     for (Map.Entry<String, Map<String, Double>> zoneAndFee : zonesAndFees.entrySet()) {
