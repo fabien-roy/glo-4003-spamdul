@@ -48,7 +48,7 @@ public class BillFactory {
 
     Money amount = new Money(feeForPeriod);
 
-    if (receptionMethod.equals(ReceptionMethod.POSTAL)) {
+    if (receptionMethod != null && receptionMethod.equals(ReceptionMethod.POSTAL)) {
       amount = amount.plus(Money.fromDouble(5));
     }
 

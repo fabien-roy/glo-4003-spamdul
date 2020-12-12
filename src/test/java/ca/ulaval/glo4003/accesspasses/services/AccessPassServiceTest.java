@@ -196,13 +196,13 @@ public class AccessPassServiceTest {
         .thenReturn(notZeroPollutionAccessPassType);
     when(billService.addBillForAccessPass(
             account.getId(),
-            zeroPollutionAccessPassType.getFeeForPeriod(AccessPeriod.ONE_SEMESTER),
+            zeroPollutionAccessPassType.getFeeForPeriod(accessPass.getAccessPeriod()),
             accessPass,
             car.getConsumptionType()))
         .thenReturn(zeroPollutionBill);
     when(billService.addBillForAccessPass(
             account.getId(),
-            notZeroPollutionAccessPassType.getFeeForPeriod(AccessPeriod.ONE_SEMESTER),
+            notZeroPollutionAccessPassType.getFeeForPeriod(accessPass.getAccessPeriod()),
             accessPass,
             car.getConsumptionType()))
         .thenReturn(notZeroPollutionBill);

@@ -100,7 +100,7 @@ public class BillFactoryTest {
         billFactory.createForAccessPass(
             fee, accessPass.getCode(), consumptionType, accessPass.getReceptionMethod());
 
-    Truth.assertThat(bill.getDescription()).contains(accessPass.toString());
+    Truth.assertThat(bill.getDescription()).contains(accessPass.getCode().toString());
   }
 
   @Test

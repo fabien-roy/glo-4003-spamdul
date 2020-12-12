@@ -6,7 +6,6 @@ import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePla
 import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAddress;
 import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
-import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createReceptionMethod;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
@@ -29,7 +28,7 @@ public class AccessPassBuilder {
   private DayOfWeek accessDay;
   private LicensePlate licensePlate = createLicensePlate();
   private List<TimePeriod> accessTimePeriods = new ArrayList<>();
-  private ReceptionMethod receptionMethod = createReceptionMethod();
+  private ReceptionMethod receptionMethod = null;
   private ParkingAreaCode parkingAreaCode = createParkingAreaCode();
   private EmailAddress emailAddress = createEmailAddress();
   private PostalCode postalCode = createPostalCode();
@@ -76,6 +75,11 @@ public class AccessPassBuilder {
 
   public AccessPassBuilder thatEnteredCampus() {
     this.hasEnteredCampus = true;
+    return this;
+  }
+
+  public AccessPassBuilder withReceptionMethod(ReceptionMethod receptionMethod) {
+    this.receptionMethod = receptionMethod;
     return this;
   }
 
