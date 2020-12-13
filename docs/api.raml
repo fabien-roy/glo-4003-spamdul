@@ -119,7 +119,6 @@ uses:
               "One semester": !include examples/users/post-users-access-passes-request-one-semester.json
               "Two semesters": !include examples/users/post-users-access-passes-request-two-semesters.json
               "Three semesters": !include examples/users/post-users-access-passes-request-three-semesters.json
-              "With Bicycle": !include examples/users/post-users-access-passes-request-with-bicycle.json
         responses:
           201:
             description: Code for newly added access pass
@@ -131,6 +130,28 @@ uses:
             description: Error adding access pass to user
           404:
             description: User or license plate not found
+    /bicycleAccessPasses:
+      description: Collection of access passes for user
+      post:
+        description: Add a access pass for bicycle to user
+        body:
+          application/json:
+            type: types.BicycleAccessPass
+            examples:
+              "With postal": !include examples/users/post-users-bicycle-access-passes-request-with-postal.json
+              "With email": !include examples/users/post-users-bicycle-access-passes-request-with-email.json
+              "With ssp": !include examples/users/post-users-bicycle-access-passes-request-with-ssp.json
+        responses:
+          201:
+            description: Code for newly added access pass
+            body:
+              application/json:
+                type: types.AccessPassCodeObject
+                example: !include examples/users/post-users-access-passes-response.json
+          400:
+            description: Error adding access pass to user
+          404:
+            description: User not found
     /parkingStickers:
       description: Collection of parking stickers for user
       post:

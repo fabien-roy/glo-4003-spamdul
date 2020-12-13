@@ -1,0 +1,21 @@
+#%RAML 1.0 DataType
+type: object
+displayName: BicycleAccessPass
+uses:
+  types: ../../libraries/types.raml
+properties:
+  semester:
+    type: types.Semester
+    description: The current semester
+  receptionMethod:
+      type: types.ReceptionMethod
+      description: Valid reception method
+  postalCode:
+      type: types.PostalCode
+      description: Canadian postal code to send sticker to, required if reception method is postal
+      required: false
+  email:
+      type: types.Email
+      description: Email to send sticker to, required if reception method is email
+      required: false
+
