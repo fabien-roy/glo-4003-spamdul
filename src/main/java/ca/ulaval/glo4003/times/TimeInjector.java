@@ -37,7 +37,11 @@ public class TimeInjector {
   }
 
   public SemesterService createSemesterService() {
-    return new SemesterService(semesterRepository, new SemesterCodeConverter());
+    return new SemesterService(semesterRepository, createSemesterCodeConverter());
+  }
+
+  public SemesterCodeConverter createSemesterCodeConverter() {
+    return new SemesterCodeConverter();
   }
 
   private void addSemestersToRepository() {

@@ -21,6 +21,7 @@ import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.services.SemesterService;
+import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +46,8 @@ public class AccessPassInjector {
       AccountService accountService,
       BillService billService,
       SemesterService semesterService,
-      List<AccessPassCreationObserver> accessPassCreationObservers) {
+      List<AccessPassCreationObserver> accessPassCreationObservers,
+      SemesterCodeConverter semesterCodeConverter) {
     LicensePlateConverter licensePlateConverter = new LicensePlateConverter();
     AccessPassConverter accessPassConverter =
         new AccessPassConverter(
@@ -53,7 +55,8 @@ public class AccessPassInjector {
             new ParkingAreaCodeAssembler(),
             semesterService,
             new EmailAddressConverter(),
-            new PostalCodeConverter());
+            new PostalCodeConverter(),
+            semesterCodeConverter);
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
     AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
 

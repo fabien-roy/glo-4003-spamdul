@@ -4,7 +4,6 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.UnsupportedAccessPeriodException;
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongAmountOfSemestersForPeriodException;
-import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongReceptionMethodForBicycleAccessPassException;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.BicycleAccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
@@ -16,6 +15,8 @@ import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingConfiguration;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
+import ca.ulaval.glo4003.parkings.domain.exceptions.MissingEmailException;
+import ca.ulaval.glo4003.parkings.domain.exceptions.MissingPostalCodeException;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.times.domain.SemesterCode;
@@ -30,6 +31,7 @@ public class AccessPassConverter {
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   private final EmailAddressConverter emailAddressConverter;
   private final PostalCodeConverter postalCodeConverter;
+  private final SemesterCodeConverter semesterCodeConverter;
   private final SemesterService semesterService; // TODO : Remove this somehow
 
   public AccessPassConverter(
@@ -37,12 +39,14 @@ public class AccessPassConverter {
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       SemesterService semesterService,
       EmailAddressConverter emailAddressConverter,
-      PostalCodeConverter postalCodeConverter) {
+      PostalCodeConverter postalCodeConverter,
+      SemesterCodeConverter semesterCodeConverter) {
     this.licensePlateConverter = licensePlateConverter;
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
     this.semesterService = semesterService;
     this.emailAddressConverter = emailAddressConverter;
     this.postalCodeConverter = postalCodeConverter;
+    this.semesterCodeConverter = semesterCodeConverter;
   }
 
   public AccessPass convert(AccessPassDto accessPassCodeDto) {
@@ -59,17 +63,18 @@ public class AccessPassConverter {
 
     String[] scholarYear =
         SemesterCode.findScholarYearFromSemesterCode(
-            new SemesterCodeConverter().convert(bicycleAccessPassDto.semester));
+            semesterCodeConverter.convert(bicycleAccessPassDto.semester));
     ParkingAreaCode parkingAreaCode =
         ParkingConfiguration.getConfiguration().getBicycleParkingAreaCode();
     AccessPeriod accessPeriod = AccessPeriod.THREE_SEMESTERS;
 
-    validateReceptionMethodForBicycleAccessPass(bicycleAccessPassDto);
     ReceptionMethod receptionMethod = ReceptionMethod.get(bicycleAccessPassDto.receptionMethod);
 
-    if (receptionMethod == ReceptionMethod.EMAIL) {
+    if (receptionMethod.equals(ReceptionMethod.EMAIL)) {
+      if (bicycleAccessPassDto.email == null) throw new MissingEmailException();
       emailAddress = emailAddressConverter.convert(bicycleAccessPassDto.email);
-    } else if (receptionMethod == ReceptionMethod.POSTAL) {
+    } else if (receptionMethod.equals(ReceptionMethod.POSTAL)) {
+      if (bicycleAccessPassDto.postalCode == null) throw new MissingPostalCodeException();
       postalCode = postalCodeConverter.convert(bicycleAccessPassDto.postalCode);
     }
 
@@ -143,13 +148,6 @@ public class AccessPassConverter {
         || (semesters.length != 2 && period == AccessPeriod.TWO_SEMESTERS)
         || (semesters.length != 3 && period == AccessPeriod.THREE_SEMESTERS)) {
       throw new WrongAmountOfSemestersForPeriodException();
-    }
-  }
-
-  private void validateReceptionMethodForBicycleAccessPass(
-      BicycleAccessPassDto bicycleAccessPassDto) {
-    if (bicycleAccessPassDto.receptionMethod == null) {
-      throw new WrongReceptionMethodForBicycleAccessPassException();
     }
   }
 }

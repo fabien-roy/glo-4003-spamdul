@@ -15,7 +15,9 @@ public class SemesterCodeConverter {
           + SemesterSymbol.SUMMER
           + " and N is a number";
   private static final String POSSIBLE_SEMESTER_SYMBOL =
-      SemesterSymbol.AUTUMN.toString() + SemesterSymbol.WINTER + SemesterSymbol.SUMMER;
+      SemesterSymbol.AUTUMN.toString()
+          + SemesterSymbol.WINTER.toString()
+          + SemesterSymbol.SUMMER.toString();
   private static final Pattern PATTERN =
       Pattern.compile("[" + POSSIBLE_SEMESTER_SYMBOL + "]\\d\\d");
 
