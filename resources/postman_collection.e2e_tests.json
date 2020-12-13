@@ -4234,6 +4234,154 @@
 									"_postman_isSubFolder": true
 								},
 								{
+									"name": "Email",
+									"item": [
+										{
+											"name": "Invalid email (null)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "fdf79358-b4fa-4370-afaf-ce0ebbdd44b8",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns missing property for email\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Missing property : email\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"semester\": {{request.bicycleAccessPass.semester}},\n  \"receptionMethod\": \"email\",\n  \"email\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/bicycleAccessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"bicycleAccessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid email (missing)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "924d7b44-5e61-444a-90e3-44ce514acb3a",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns missing property for email\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Missing property : email\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"semester\": {{request.bicycleAccessPass.semester}},\n  \"receptionMethod\": \"email\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/bicycleAccessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"bicycleAccessPasses"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Invalid email (bad format)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "75c4def0-96a3-4a79-8cff-bbbf3697837e",
+														"exec": [
+															"pm.test(\"Returns status 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"Returns invalid email address\", function () {",
+															"    pm.expect(pm.response.json().error).to.equal(\"Invalid email address\")",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"semester\": {{request.bicycleAccessPass.semester}},\n  \"receptionMethod\": \"email\",\n  \"email\": \"badFormat\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/api/users/{{param.accountId}}/bicycleAccessPasses",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"api",
+														"users",
+														"{{param.accountId}}",
+														"bicycleAccessPasses"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								},
+								{
 									"name": "Valid bicycle access pass (postal)",
 									"event": [
 										{
