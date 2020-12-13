@@ -12,6 +12,10 @@ public class ReportEventService {
   private final ReportRepository reportRepository;
   private final ReportEventFactory reportEventFactory;
 
+  public ReportEventService(ReportRepository reportRepository) {
+    this(reportRepository, new ReportEventFactory());
+  }
+
   public ReportEventService(
       ReportRepository reportRepository, ReportEventFactory reportEventFactory) {
     this.reportRepository = reportRepository;
@@ -51,7 +55,6 @@ public class ReportEventService {
   }
 
   public void addGateEnteredEvent(CustomDateTime dateTime, ParkingAreaCode parkingAreaCode) {
-    // TODO : Why the hell do we check this?
     if (parkingAreaCode != null) {
       logger.info(
           String.format(

@@ -60,10 +60,6 @@ public abstract class TimeCalendar implements Comparable<TimeCalendar> {
         calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
   }
 
-  protected Calendar toCalendar() {
-    return calendar;
-  }
-
   protected abstract CustomDateTime firstDateTime();
 
   protected abstract CustomDateTime lastDateTime();

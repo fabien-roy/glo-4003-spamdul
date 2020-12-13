@@ -1,16 +1,17 @@
 package ca.ulaval.glo4003.accesspasses.infrastructure;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassTypeBuilder.anAccessPassType;
+import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassType;
 import ca.ulaval.glo4003.cars.domain.exceptions.InvalidConsumptionTypeException;
-import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 
 public class AccessPassTypeInMemoryRepositoryTest {
   private AccessPassTypeInMemoryRepository accessPassPriceByCarConsumptionInMemoryRepository;
-  private AccessPassType accessPassType = anAccessPassType().build();
+
+  private final AccessPassType accessPassType = anAccessPassType().build();
 
   @Before
   public void setUp() {
@@ -25,7 +26,7 @@ public class AccessPassTypeInMemoryRepositoryTest {
         accessPassPriceByCarConsumptionInMemoryRepository.findByConsumptionType(
             accessPassType.getConsumptionTypes());
 
-    Truth.assertThat(passPriceByCarConsumption).isSameInstanceAs(accessPassType);
+    assertThat(passPriceByCarConsumption).isSameInstanceAs(accessPassType);
   }
 
   @Test(expected = InvalidConsumptionTypeException.class)

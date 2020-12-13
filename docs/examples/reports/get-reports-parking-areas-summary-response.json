@@ -6,8 +6,22 @@
         "dimensions": [],
         "metrics": [
           {
-            "name": "gateEntries",
+            "name": "gateEntriesForCars",
             "value": 200.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "period": "01-01-2020 (maximum)",
+    "data": [
+      {
+        "dimensions": [],
+        "metrics": [
+          {
+            "name": "gateEntriesForBicycles",
+            "value": 10.0
           }
         ]
       }
@@ -20,8 +34,22 @@
         "dimensions": [],
         "metrics": [
           {
-            "name": "gateEntries",
+            "name": "gateEntriesForCars",
             "value": 11.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "period": "02-01-2020 (minimum)",
+    "data": [
+      {
+        "dimensions": [],
+        "metrics": [
+          {
+            "name": "gateEntriesForBicycles",
+            "value": 1.0
           }
         ]
       }
@@ -34,8 +62,22 @@
         "dimensions": [],
         "metrics": [
           {
-            "name": "gateEntries",
+            "name": "gateEntriesForCars",
             "value": 140.12
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "period": "average",
+    "data": [
+      {
+        "dimensions": [],
+        "metrics": [
+          {
+            "name": "gateEntriesForBicycles",
+            "value": 23.23
           }
         ]
       }

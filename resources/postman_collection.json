@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "410a6618-0a48-4a8b-84f0-31c8ba5d69f6",
+		"_postman_id": "18b8735a-3cf8-4f2d-8bd0-591dfbcc4ef6",
 		"name": "SPAMD-UL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17,7 +17,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "4889fb17-c4ed-45f8-b91d-744edeb5e537",
+										"id": "3277b2be-ada1-461e-94ae-d0090a177bb7",
 										"exec": [
 											""
 										],
@@ -61,7 +61,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2efd4ffc-587b-4d0c-822b-03bc4c56a3f2",
+										"id": "3f1aca03-d6a8-42e5-942e-6f1cce117564",
 										"exec": [
 											""
 										],
@@ -109,7 +109,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8206633b-377d-4bed-86c5-a287acb154c5",
+										"id": "fb663482-c1b2-4011-b174-206216cc3c62",
 										"exec": [
 											"var jsonData = JSON.parse(responseBody);",
 											"if (jsonData.length > 0) {",
@@ -156,7 +156,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "54be005c-d20f-421c-9f27-2fbf169ea15b",
+										"id": "9bc42068-3319-4387-bd8b-92befee35061",
 										"exec": [
 											""
 										],
@@ -205,7 +205,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f1d31c2e-4f85-4188-9e60-ef533c3f73b4",
+										"id": "046cde21-a2e1-4b1d-a9d6-e2f7dd51fd3a",
 										"exec": [
 											"var jsonData = JSON.parse(responseBody);",
 											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
@@ -247,7 +247,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "15293bb9-717b-4aad-812a-191167d4d678",
+										"id": "bd98a425-b96c-496f-8454-23abca5e8d0a",
 										"exec": [
 											"var jsonData = JSON.parse(responseBody);",
 											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
@@ -289,7 +289,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a2b1e6cb-60f7-4b4f-b3ef-0296502e3091",
+										"id": "d4563f22-f787-4d8d-804b-53b31113c9a5",
 										"exec": [
 											"var jsonData = JSON.parse(responseBody);",
 											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
@@ -331,7 +331,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "e36415fc-23b8-4aff-91b5-6aa0e5fefcda",
+										"id": "bf03e253-90a8-464c-bdbd-0d515796d820",
 										"exec": [
 											"var jsonData = JSON.parse(responseBody);",
 											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
@@ -373,7 +373,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "1e320859-aa1c-4e1c-9aac-fb1fe86d9fb1",
+										"id": "67c2c56e-226a-44b5-ac6c-51e0a8f8fb8d",
 										"exec": [
 											"var jsonData = JSON.parse(responseBody);",
 											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
@@ -414,6 +414,139 @@
 					"_postman_isSubFolder": true
 				},
 				{
+					"name": "Bicycle access passes",
+					"item": [
+						{
+							"name": "Add bicycle access pass to user (postal)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7c41f7f9-410e-4f52-851e-c3efc7bfa0cf",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"semester\": {{request.bicycleAccessPass.semester}},\n  \"receptionMethod\": \"postal\",\n  \"postalCode\": {{request.bicycleAccessPass.postalCode}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/bicycleAccessPasses",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"bicycleAccessPasses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add bicycle access pass to user (email)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "922831ee-2974-4e6d-9eb6-92aa0af43f1e",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"semester\": {{request.bicycleAccessPass.semester}},\n  \"receptionMethod\": \"email\",\n  \"email\": {{request.bicycleAccessPass.email}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/bicycleAccessPasses",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"bicycleAccessPasses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add bicycle access pass to user (ssp)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bc3a2c72-4680-410c-b770-e43974e004d0",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"param.accessPassCode\", jsonData.accessPassCode);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"semester\": {{request.bicycleAccessPass.semester}},\n  \"receptionMethod\": \"ssp\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/users/{{param.accountId}}/bicycleAccessPasses",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{param.accountId}}",
+										"bicycleAccessPasses"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "Parking stickers",
 					"item": [
 						{
@@ -422,7 +555,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7c307967-289b-4cf7-b025-106d66e6afc8",
+										"id": "18d8e5f9-ddbc-4a59-a35d-32a4a04acb9e",
 										"exec": [
 											"var jsonData = JSON.parse(responseBody);",
 											"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
@@ -464,7 +597,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "41a77021-4ada-4b93-9951-217211ceab26",
+										"id": "c4a4d50e-6735-4e0d-aba0-7a27b4f58cb2",
 										"exec": [
 											"var jsonData = JSON.parse(responseBody);",
 											"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
@@ -506,7 +639,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a026ed82-c684-4ad8-a9e4-60c746d33da4",
+										"id": "787469b1-2716-4cef-bc38-6be8b93a8d52",
 										"exec": [
 											"var jsonData = JSON.parse(responseBody);",
 											"postman.setEnvironmentVariable(\"param.parkingStickerCode\", jsonData.parkingStickerCode);"
@@ -552,7 +685,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "133a68f1-8cce-4239-8a77-c3057de75d00",
+								"id": "ea0edb2d-63d0-471a-a95a-014d9c88854b",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.accountId\", jsonData.accountId);"
@@ -592,7 +725,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "faffd063-b063-401b-9f85-4e2a8de564e5",
+								"id": "7b007b00-1dbf-4c7a-8066-a5d38e432db0",
 								"exec": [
 									""
 								],
@@ -641,7 +774,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "635c1637-409c-4ae2-a3a0-a0c44d4d8fb9",
+								"id": "30e962f6-5bc9-462c-abc8-52d736d3aadc",
 								"exec": [
 									""
 								],
@@ -689,7 +822,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c3e55742-4d31-424f-a9ad-8e601388a43b",
+								"id": "611afe44-84ed-47f2-a4d0-ace34cb75975",
 								"exec": [
 									""
 								],
@@ -762,7 +895,10 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
 						},
 						"url": {
 							"raw": "{{host}}/api/gates/exit/validateAccessPassWithCode/{{param.accessPassCode}}",
@@ -787,7 +923,10 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
 						},
 						"url": {
 							"raw": "{{host}}/api/gates/exit/validateAccessPassWithLicensePlate/{{param.licensePlate}}",
@@ -817,7 +956,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2cbd27f3-51e0-48ae-842b-35f8dcf361fa",
+								"id": "f901b6ce-c9be-4d5a-a7b6-d8a8f1335825",
 								"exec": [
 									""
 								],
@@ -860,7 +999,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8cd34db0-861f-4948-b438-60903c60d5c8",
+								"id": "a40b352b-befe-45c6-b3b8-c38248f543c3",
 								"exec": [
 									""
 								],
@@ -906,7 +1045,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dc7b189c-fab8-4af8-9ddb-0b67c1eaeac3",
+								"id": "24f3c4ba-06af-4681-991f-708327d44523",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"postman.setEnvironmentVariable(\"param.initiativeCode\", jsonData.initiativeCode);"
@@ -946,7 +1085,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f0d7174b-ce6c-4dd5-8f82-6981258ea4fb",
+								"id": "ed72f9a2-e20d-49ba-a2a9-2e632d09f0ae",
 								"exec": [
 									""
 								],
@@ -1019,7 +1158,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2141113a-5337-4b11-abe7-4e2607422323",
+								"id": "df69302d-6848-4b02-a977-f34e96bd2c28",
 								"exec": [
 									""
 								],
@@ -1096,7 +1235,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5cbe876e-647e-402a-8cfc-fc3425053084",
+								"id": "22f4aaeb-a045-48e8-8895-4a3739309b53",
 								"exec": [
 									""
 								],
@@ -1135,7 +1274,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d8e903ef-32ca-4b59-b4ed-5826a526b8a0",
+								"id": "b2d6190b-c22c-4909-b71b-deec0ef1b588",
 								"exec": [
 									""
 								],
@@ -1186,7 +1325,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "610b4bbb-13b5-4ce2-bc13-e0467290644b",
+										"id": "696ba285-bae7-4331-99f4-c731397c89ef",
 										"exec": [
 											""
 										],
@@ -1236,7 +1375,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5e2e7c25-81da-40d5-a8fc-6cf77394673d",
+										"id": "78d7c478-63fd-4ce9-8dc1-2f7ea039a3b9",
 										"exec": [
 											""
 										],
@@ -1286,7 +1425,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "836ecd48-14b3-4752-a725-64789e69f711",
+										"id": "a1f77c68-2ac9-48fe-a6cb-eceb82d59171",
 										"exec": [
 											""
 										],
@@ -1340,7 +1479,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "3e21f55a-17c0-47d0-80dc-17698f0f578d",
+										"id": "f656fa77-2c01-4348-8ecb-8d7309bbc9bd",
 										"exec": [
 											""
 										],
@@ -1397,7 +1536,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5e1cbf41-91fb-46e1-afac-c3f1569b4fdd",
+										"id": "1fdbde92-29e8-4cc2-96a7-311030e11258",
 										"exec": [
 											""
 										],
@@ -1446,7 +1585,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7d7a02ed-444a-4d93-8474-02271f5bd506",
+										"id": "f108c823-0718-4fd3-b654-3674f693162c",
 										"exec": [
 											""
 										],
@@ -1499,7 +1638,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "84549387-e634-40b2-aafe-c95dab6e09cd",
+										"id": "7d617f76-82d5-49a0-a1fb-fad12ac3d55a",
 										"exec": [
 											""
 										],

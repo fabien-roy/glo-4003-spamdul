@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.carboncredits.services;
 
-import ca.ulaval.glo4003.carboncredits.configuration.CarbonCreditConfiguration;
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCredit;
+import ca.ulaval.glo4003.carboncredits.domain.CarbonCreditConfiguration;
 import ca.ulaval.glo4003.carboncredits.domain.CarbonCreditRepository;
 import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatus;
 import ca.ulaval.glo4003.carboncredits.domain.MonthlyPaymentStatusRepository;
@@ -22,6 +22,20 @@ public class CarbonCreditService implements InitiativeAddedAllocatedAmountObserv
   private final MonthlyPaymentStatusRepository monthlyPaymentStatusRepository;
   private final InitiativeRepository initiativeRepository;
   private final InitiativeService initiativeService;
+
+  public CarbonCreditService(
+      CarbonCreditRepository carbonCreditRepository,
+      MonthlyPaymentStatusRepository monthlyPaymentStatusRepository,
+      InitiativeRepository initiativeRepository,
+      InitiativeService initiativeService) {
+    this(
+        carbonCreditRepository,
+        new CarbonCreditAssembler(),
+        new MonthlyPaymentStatusAssembler(),
+        monthlyPaymentStatusRepository,
+        initiativeRepository,
+        initiativeService);
+  }
 
   public CarbonCreditService(
       CarbonCreditRepository carbonCreditRepository,

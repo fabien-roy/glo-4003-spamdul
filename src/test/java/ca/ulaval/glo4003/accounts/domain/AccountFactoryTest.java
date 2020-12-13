@@ -1,12 +1,10 @@
 package ca.ulaval.glo4003.accounts.domain;
 
 import static ca.ulaval.glo4003.users.helpers.UserBuilder.aUser;
-import static ca.ulaval.glo4003.users.helpers.UserDtoBuilder.aUserDto;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.users.domain.User;
-import ca.ulaval.glo4003.users.services.dto.UserDto;
-import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,14 +19,12 @@ public class AccountFactoryTest {
   private AccountFactory accountFactory;
 
   private User user;
-  private UserDto userDto;
 
   @Before
   public void setUp() {
     accountFactory = new AccountFactory(accountIdGenerator);
 
     user = aUser().build();
-    userDto = aUserDto().build();
 
     when(accountIdGenerator.generate()).thenReturn(accountId);
   }
@@ -37,13 +33,13 @@ public class AccountFactoryTest {
   public void whenCreatingAccount_thenAccountHasAccountId() {
     Account account = accountFactory.createAccount(user);
 
-    Truth.assertThat(account.getId()).isSameInstanceAs(accountId);
+    assertThat(account.getId()).isSameInstanceAs(accountId);
   }
 
   @Test
   public void whenCreatingAccount_thenAccountHasUser() {
     Account account = accountFactory.createAccount(user);
 
-    Truth.assertThat(account.getUser()).isSameInstanceAs(user);
+    assertThat(account.getUser()).isSameInstanceAs(user);
   }
 }

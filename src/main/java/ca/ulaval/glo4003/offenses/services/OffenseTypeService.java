@@ -1,8 +1,9 @@
 package ca.ulaval.glo4003.offenses.services;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
-import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.offenses.console.OffenseNotifierSystemPrint;
 import ca.ulaval.glo4003.offenses.domain.*;
 import ca.ulaval.glo4003.offenses.services.assemblers.OffenseTypeAssembler;
 import ca.ulaval.glo4003.offenses.services.converters.OffenseValidationConverter;
@@ -24,6 +25,23 @@ public class OffenseTypeService {
   private final BillService billService;
   private final AccountService accountService;
   private final OffenseNotifier offenseNotifier;
+
+  public OffenseTypeService(
+      ParkingAreaRepository parkingAreaRepository,
+      OffenseTypeRepository offenseTypeRepository,
+      OffenseTypeFactory offenseTypeFactory,
+      BillService billService,
+      AccountService accountService) {
+    this(
+        parkingAreaRepository,
+        new OffenseValidationConverter(),
+        new OffenseTypeAssembler(),
+        offenseTypeRepository,
+        offenseTypeFactory,
+        billService,
+        accountService,
+        new OffenseNotifierSystemPrint());
+  }
 
   public OffenseTypeService(
       ParkingAreaRepository parkingAreaRepository,
@@ -75,8 +93,10 @@ public class OffenseTypeService {
       OffenseType offense = offenseTypeFactory.createWrongZoneOffense();
       offenseTypes.add(offense);
 
-      BillId billId = billService.addBillOffense(offense.getAmount(), offense.getCode());
-      accountService.addOffenseToAccount(parkingSticker.getAccountId(), billId);
+      Bill bill =
+          billService.addBillOffense(
+              parkingSticker.getAccountId(), offense.getAmount(), offense.getCode());
+      accountService.addOffenseToAccount(parkingSticker.getAccountId(), bill);
     }
 
     return offenseTypeAssembler.assembleMany(offenseTypes);

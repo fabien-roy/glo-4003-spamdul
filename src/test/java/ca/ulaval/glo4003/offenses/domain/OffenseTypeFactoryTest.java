@@ -53,13 +53,6 @@ public class OffenseTypeFactoryTest {
   }
 
   @Test
-  public void whenWrongDayOffenseType_thenReturnWrongDayOffenseType() {
-    OffenseType offenseType = offenseTypeFactory.createWrongDayOffense();
-
-    assertThat(offenseType).isSameInstanceAs(wrongDayOffenseType);
-  }
-
-  @Test
   public void whenCreatingInvalidStickerOffenseType_thenReturnInvalidStickerOffenseType() {
     OffenseType offenseType = offenseTypeFactory.createInvalidStickerOffense();
 

@@ -13,6 +13,10 @@ public class SemesterService {
   private final SemesterRepository semesterRepository;
   private final SemesterCodeConverter semesterCodeConverter;
 
+  public SemesterService(SemesterRepository semesterRepository) {
+    this(semesterRepository, new SemesterCodeConverter());
+  }
+
   public SemesterService(
       SemesterRepository semesterRepository, SemesterCodeConverter semesterCodeConverter) {
     this.semesterRepository = semesterRepository;

@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.users.api;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassCodeDtoBuilder.anAccessPassCodeDto;
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassDtoBuilder.anAccessPassDto;
+import static ca.ulaval.glo4003.accesspasses.helpers.BicycleAccessPassDtoBuilder.aBicycleAccessPassDto;
 import static ca.ulaval.glo4003.accounts.helpers.AccountIdDtoBuilder.anAccountIdDto;
 import static ca.ulaval.glo4003.accounts.helpers.AccountMother.createAccountId;
 import static ca.ulaval.glo4003.cars.helpers.CarDtoBuilder.aCarDto;
@@ -18,11 +19,13 @@ import static org.mockito.Mockito.when;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
+import ca.ulaval.glo4003.accesspasses.services.dto.BicycleAccessPassDto;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.cars.services.dto.CarDto;
 import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.dto.BillDto;
 import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
@@ -47,6 +50,7 @@ public class UserResourceTest {
   @Mock private CarService carService;
   @Mock private AccountService accountService;
   @Mock private ParkingStickerService parkingStickerService;
+  @Mock private BillService billService;
 
   private UserResource userResource;
 
@@ -58,6 +62,7 @@ public class UserResourceTest {
   private final UserDto userDto = aUserDto().build();
   private final AccountIdDto accountIdDto = anAccountIdDto().build();
   private final AccessPassDto accessPassDto = anAccessPassDto().build();
+  private final BicycleAccessPassDto bicycleAccessPassDto = aBicycleAccessPassDto().build();
   private final AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDto().build();
   private final ParkingStickerDto parkingStickerDto = aParkingStickerDto().build();
   private final ParkingStickerCodeDto parkingStickerCodeDto = aParkingStickerCodeDto().build();
@@ -66,16 +71,23 @@ public class UserResourceTest {
   public void setUp() {
     userResource =
         new UserResource(
-            userService, accessPassService, carService, accountService, parkingStickerService);
+            userService,
+            accessPassService,
+            carService,
+            accountService,
+            parkingStickerService,
+            billService);
 
     when(userService.getUser(accountId.toString())).thenReturn(userDto);
     when(userService.addUser(userDto)).thenReturn(accountIdDto);
     when(accountService.getBills(accountId.toString()))
         .thenReturn(Collections.singletonList(billDto));
-    when(accountService.payBill(billPaymentDto, accountId.toString(), billId.toString()))
+    when(billService.payBill(billPaymentDto, accountId.toString(), billId.toString()))
         .thenReturn(billDto);
     when(carService.getCars(accountId.toString())).thenReturn(Collections.singletonList(carDto));
     when(accessPassService.addAccessPass(accessPassDto, accountId.toString()))
+        .thenReturn(accessPassCodeDto);
+    when(accessPassService.addAccessPass(bicycleAccessPassDto, accountId.toString()))
         .thenReturn(accessPassCodeDto);
     when(parkingStickerService.addParkingSticker(parkingStickerDto, accountId.toString()))
         .thenReturn(parkingStickerCodeDto);
@@ -205,6 +217,23 @@ public class UserResourceTest {
   @Test
   public void whenAddingParkingSticker_thenRespondCreatedStatus() {
     Response response = userResource.addParkingSticker(accountId.toString(), parkingStickerDto);
+
+    assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
+  }
+
+  @Test
+  public void whenAddingBicycleAccessPass_thenAddBicycleAccessPassToService() {
+    Response response =
+        userResource.addBicycleAccessPass(accountId.toString(), bicycleAccessPassDto);
+    AccessPassCodeDto respondedAccessPassCodeDto = (AccessPassCodeDto) response.getEntity();
+
+    assertThat(respondedAccessPassCodeDto).isSameInstanceAs(accessPassCodeDto);
+  }
+
+  @Test
+  public void whenAddingBicycleAccessPass_thenRespondCreatedStatus() {
+    Response response =
+        userResource.addBicycleAccessPass(accountId.toString(), bicycleAccessPassDto);
 
     assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
   }

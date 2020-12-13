@@ -2,14 +2,14 @@ package ca.ulaval.glo4003.times;
 
 import ca.ulaval.glo4003.files.domain.StringFileReader;
 import ca.ulaval.glo4003.files.filesystem.JsonFileReader;
-import ca.ulaval.glo4003.times.domain.*;
+import ca.ulaval.glo4003.times.domain.CustomDateTime;
+import ca.ulaval.glo4003.times.domain.SemesterCode;
+import ca.ulaval.glo4003.times.domain.SemesterRepository;
+import ca.ulaval.glo4003.times.domain.TimePeriod;
 import ca.ulaval.glo4003.times.filesystem.SemesterFileHelper;
 import ca.ulaval.glo4003.times.infrastructure.SemesterRepositoryInMemory;
 import ca.ulaval.glo4003.times.services.SemesterService;
-import ca.ulaval.glo4003.times.services.converters.CustomDateConverter;
-import ca.ulaval.glo4003.times.services.converters.CustomDateTimeConverter;
 import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
-import ca.ulaval.glo4003.times.services.converters.TimeOfDayConverter;
 import ca.ulaval.glo4003.times.services.dto.SemesterDto;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,20 +24,8 @@ public class TimeInjector {
     addSemestersToRepository();
   }
 
-  public CustomDateConverter createCustomDateConverter() {
-    return new CustomDateConverter();
-  }
-
-  public CustomDateTimeConverter createCustomDateTimeConverter() {
-    return new CustomDateTimeConverter();
-  }
-
-  public TimeOfDayConverter createTimeOfDayConverter() {
-    return new TimeOfDayConverter();
-  }
-
   public SemesterService createSemesterService() {
-    return new SemesterService(semesterRepository, new SemesterCodeConverter());
+    return new SemesterService(semesterRepository);
   }
 
   private void addSemestersToRepository() {

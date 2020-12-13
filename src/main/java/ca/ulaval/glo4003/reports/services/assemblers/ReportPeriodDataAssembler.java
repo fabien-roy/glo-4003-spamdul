@@ -10,6 +10,10 @@ public class ReportPeriodDataAssembler {
   private final ReportDimensionDataAssembler reportDimensionDataAssembler;
   private final ReportMetricDataAssembler reportMetricDataAssembler;
 
+  public ReportPeriodDataAssembler() {
+    this(new ReportDimensionDataAssembler(), new ReportMetricDataAssembler());
+  }
+
   public ReportPeriodDataAssembler(
       ReportDimensionDataAssembler reportDimensionDataAssembler,
       ReportMetricDataAssembler reportMetricDataAssembler) {

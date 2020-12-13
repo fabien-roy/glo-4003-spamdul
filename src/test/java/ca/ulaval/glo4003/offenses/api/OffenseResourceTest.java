@@ -2,12 +2,12 @@ package ca.ulaval.glo4003.offenses.api;
 
 import static ca.ulaval.glo4003.offenses.helpers.OffenseTypeDtoBuilder.anOffenseTypeDto;
 import static ca.ulaval.glo4003.offenses.helpers.OffenseValidationDtoBuilder.anOffenseValidationDto;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.offenses.services.OffenseTypeService;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseTypeDto;
 import ca.ulaval.glo4003.offenses.services.dto.OffenseValidationDto;
-import com.google.common.truth.Truth;
 import java.util.Collections;
 import java.util.List;
 import javax.ws.rs.core.Response;
@@ -39,7 +39,7 @@ public class OffenseResourceTest {
   public void whenGettingAllOffenses_thenRespondOkStatus() {
     Response response = offenseResource.getAllOffenses();
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
+    assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }
 
   @Test
@@ -47,14 +47,14 @@ public class OffenseResourceTest {
     Response response = offenseResource.getAllOffenses();
     List<OffenseTypeDto> receivedOffenseTypeDtos = (List<OffenseTypeDto>) response.getEntity();
 
-    Truth.assertThat(receivedOffenseTypeDtos).isSameInstanceAs(offenseTypeDtos);
+    assertThat(receivedOffenseTypeDtos).isSameInstanceAs(offenseTypeDtos);
   }
 
   @Test
   public void whenValidatingOffense_thenRespondOkStatus() {
     Response response = offenseResource.validateOffense(offenseValidationDto);
 
-    Truth.assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
+    assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
   }
 
   @Test
@@ -62,6 +62,6 @@ public class OffenseResourceTest {
     Response response = offenseResource.validateOffense(offenseValidationDto);
     List<OffenseTypeDto> receivedOffenseTypeDtos = (List<OffenseTypeDto>) response.getEntity();
 
-    Truth.assertThat(receivedOffenseTypeDtos).isSameInstanceAs(offenseTypeDtos);
+    assertThat(receivedOffenseTypeDtos).isSameInstanceAs(offenseTypeDtos);
   }
 }

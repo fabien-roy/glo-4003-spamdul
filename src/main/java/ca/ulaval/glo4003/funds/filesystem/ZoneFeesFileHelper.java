@@ -11,7 +11,7 @@ public class ZoneFeesFileHelper {
   private List<List<String>> csvData;
   private static final String accessPriceFilePath = "data/frais-acces.csv";
   private static final String parkingStickerPriceFilePath = "data/frais-zone.csv";
-  private StringMatrixFileReader fileReader;
+  private final StringMatrixFileReader fileReader;
 
   public ZoneFeesFileHelper(StringMatrixFileReader fileReader) {
     this.fileReader = fileReader;

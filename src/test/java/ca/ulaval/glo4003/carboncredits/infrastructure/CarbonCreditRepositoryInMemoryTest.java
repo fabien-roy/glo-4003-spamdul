@@ -10,8 +10,8 @@ import org.junit.Test;
 
 public class CarbonCreditRepositoryInMemoryTest {
   private CarbonCreditRepository carbonCreditRepository;
-  private CarbonCredit carbonCredit = createCarbonCredit();
-  private CarbonCredit addedCarbonCreditAmount;
+
+  private final CarbonCredit carbonCredit = createCarbonCredit();
 
   @Before
   public void setUp() {
@@ -21,7 +21,8 @@ public class CarbonCreditRepositoryInMemoryTest {
   @Test
   public void givenCarbonCredits_whenGettingCarbonCredits_thenReturnCarbonCredits() {
     carbonCreditRepository.add(carbonCredit);
-    addedCarbonCreditAmount = carbonCreditRepository.get();
+
+    CarbonCredit addedCarbonCreditAmount = carbonCreditRepository.get();
 
     assertThat(addedCarbonCreditAmount).isEqualTo(carbonCredit);
   }

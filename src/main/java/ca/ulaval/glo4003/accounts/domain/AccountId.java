@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.accounts.domain;
 import java.util.UUID;
 
 public class AccountId {
-  private UUID id;
+  private final UUID id;
 
   public AccountId(UUID id) {
     this.id = id;

@@ -9,6 +9,10 @@ public class ReportPeriodAssembler {
 
   private final ReportPeriodDataAssembler reportPeriodDataAssembler;
 
+  public ReportPeriodAssembler() {
+    this(new ReportPeriodDataAssembler());
+  }
+
   public ReportPeriodAssembler(ReportPeriodDataAssembler reportPeriodDataAssembler) {
     this.reportPeriodDataAssembler = reportPeriodDataAssembler;
   }

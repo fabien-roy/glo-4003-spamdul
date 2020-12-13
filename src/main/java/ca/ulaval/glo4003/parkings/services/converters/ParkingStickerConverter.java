@@ -3,15 +3,15 @@ package ca.ulaval.glo4003.parkings.services.converters;
 import ca.ulaval.glo4003.accounts.domain.AccountId;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
+import ca.ulaval.glo4003.communications.domain.PostalCode;
+import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
+import ca.ulaval.glo4003.communications.domain.exceptions.MissingEmailException;
+import ca.ulaval.glo4003.communications.domain.exceptions.MissingPostalCodeException;
 import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
-import ca.ulaval.glo4003.locations.domain.PostalCode;
-import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
+import ca.ulaval.glo4003.communications.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
-import ca.ulaval.glo4003.parkings.domain.exceptions.MissingEmailException;
-import ca.ulaval.glo4003.parkings.domain.exceptions.MissingPostalCodeException;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingPeriodAssembler;
 import ca.ulaval.glo4003.parkings.services.dto.ParkingStickerDto;
@@ -22,6 +22,15 @@ public class ParkingStickerConverter {
   private final PostalCodeConverter postalCodeConverter;
   private final EmailAddressConverter emailAddressConverter;
   private final ParkingPeriodAssembler parkingPeriodAssembler;
+
+  public ParkingStickerConverter() {
+    this(
+        new ParkingAreaCodeAssembler(),
+        new AccountIdConverter(),
+        new PostalCodeConverter(),
+        new EmailAddressConverter(),
+        new ParkingPeriodAssembler());
+  }
 
   public ParkingStickerConverter(
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,

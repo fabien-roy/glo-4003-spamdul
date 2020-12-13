@@ -11,7 +11,7 @@ public enum ParkingPeriodInFrench {
   DEUX_SESSIONS("2 session"),
   TROIS_SESSIONS("3 session");
 
-  private String period;
+  private final String period;
   private static final Map<String, ParkingPeriodInFrench> lookup = new HashMap<>();
 
   static {

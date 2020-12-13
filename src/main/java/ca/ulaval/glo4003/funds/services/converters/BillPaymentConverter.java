@@ -6,8 +6,8 @@ import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
 public class BillPaymentConverter {
   private final MoneyConverter moneyConverter;
 
-  public BillPaymentConverter(MoneyConverter moneyConverter) {
-    this.moneyConverter = moneyConverter;
+  public BillPaymentConverter() {
+    this.moneyConverter = new MoneyConverter();
   }
 
   public Money convert(BillPaymentDto billPaymentDto) {

@@ -37,37 +37,42 @@ public class MinimumAggregateFunctionInMemoryTest {
   public void whenAggregating_thenSetPeriodNameWithMinimum() {
     List<ReportPeriod> periods = Collections.emptyList();
 
-    ReportPeriod period = aggregateFunction.aggregate(periods, metricType);
+    List<ReportPeriod> aggregatedPeriod =
+        aggregateFunction.aggregate(periods, Collections.singletonList(metricType));
 
-    assertThat(period.getName()).contains(" (minimum)");
+    assertThat(aggregatedPeriod.get(0).getName()).contains(" (minimum)");
   }
 
   @Test
   public void whenAggregating_thenSetSingleData() {
     List<ReportPeriod> periods = Collections.emptyList();
 
-    ReportPeriod period = aggregateFunction.aggregate(periods, metricType);
+    List<ReportPeriod> aggregatedPeriod =
+        aggregateFunction.aggregate(periods, Collections.singletonList(metricType));
 
-    assertThat(period.getData()).hasSize(1);
+    assertThat(aggregatedPeriod.get(0).getData()).hasSize(1);
   }
 
   @Test
   public void whenAggregating_thenSetNoDimensions() {
     List<ReportPeriod> periods = Collections.emptyList();
 
-    ReportPeriod period = aggregateFunction.aggregate(periods, metricType);
+    List<ReportPeriod> aggregatedPeriod =
+        aggregateFunction.aggregate(periods, Collections.singletonList(metricType));
 
-    assertThat(period.getData().get(0).getDimensions()).hasSize(0);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getDimensions()).hasSize(0);
   }
 
   @Test
   public void whenAggregating_thenSetMetricWithType() {
     List<ReportPeriod> periods = Collections.emptyList();
 
-    ReportPeriod period = aggregateFunction.aggregate(periods, metricType);
+    List<ReportPeriod> aggregatedPeriod =
+        aggregateFunction.aggregate(periods, Collections.singletonList(metricType));
 
-    assertThat(period.getData().get(0).getMetrics()).hasSize(1);
-    assertThat(period.getData().get(0).getMetrics().get(0).getType()).isEqualTo(metricType);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics()).hasSize(1);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics().get(0).getType())
+        .isEqualTo(metricType);
   }
 
   @Test
@@ -75,18 +80,22 @@ public class MinimumAggregateFunctionInMemoryTest {
     double expectedAverage = 0d;
     List<ReportPeriod> periods = Collections.emptyList();
 
-    ReportPeriod period = aggregateFunction.aggregate(periods, metricType);
+    List<ReportPeriod> aggregatedPeriod =
+        aggregateFunction.aggregate(periods, Collections.singletonList(metricType));
 
-    assertThat(period.getData().get(0).getMetrics().get(0).getValue()).isEqualTo(expectedAverage);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics()).hasSize(1);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics().get(0).getValue())
+        .isEqualTo(expectedAverage);
   }
 
   @Test
   public void givenNoPeriod_whenAggregating_thenReturnNoPeriodName() {
     List<ReportPeriod> periods = Collections.emptyList();
 
-    ReportPeriod period = aggregateFunction.aggregate(periods, metricType);
+    List<ReportPeriod> aggregatedPeriod =
+        aggregateFunction.aggregate(periods, Collections.singletonList(metricType));
 
-    assertThat(period.getName()).contains("no period");
+    assertThat(aggregatedPeriod.get(0).getName()).contains("no period");
   }
 
   @Test
@@ -98,9 +107,12 @@ public class MinimumAggregateFunctionInMemoryTest {
         aReportPeriod().withData(Collections.singletonList(periodDataWithMetricType)).build();
     List<ReportPeriod> periods = Collections.singletonList(periodWithMetricType);
 
-    ReportPeriod period = aggregateFunction.aggregate(periods, metricType);
+    List<ReportPeriod> aggregatedPeriod =
+        aggregateFunction.aggregate(periods, Collections.singletonList(metricType));
 
-    assertThat(period.getData().get(0).getMetrics().get(0).getValue()).isEqualTo(expectedMinimum);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics()).hasSize(1);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics().get(0).getValue())
+        .isEqualTo(expectedMinimum);
   }
 
   @Test
@@ -112,9 +124,12 @@ public class MinimumAggregateFunctionInMemoryTest {
         aReportPeriod().withData(Collections.singletonList(periodDataWithOtherMetricType)).build();
     List<ReportPeriod> periods = Collections.singletonList(periodWithOtherMetricType);
 
-    ReportPeriod period = aggregateFunction.aggregate(periods, metricType);
+    List<ReportPeriod> aggregatedPeriod =
+        aggregateFunction.aggregate(periods, Collections.singletonList(metricType));
 
-    assertThat(period.getData().get(0).getMetrics().get(0).getValue()).isEqualTo(expectedMinimum);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics()).hasSize(1);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics().get(0).getValue())
+        .isEqualTo(expectedMinimum);
   }
 
   @Test
@@ -132,9 +147,12 @@ public class MinimumAggregateFunctionInMemoryTest {
     List<ReportPeriod> periods =
         Arrays.asList(firstPeriodWithMetricType, secondPeriodWithMetricType);
 
-    ReportPeriod period = aggregateFunction.aggregate(periods, metricType);
+    List<ReportPeriod> aggregatedPeriod =
+        aggregateFunction.aggregate(periods, Collections.singletonList(metricType));
 
-    assertThat(period.getData().get(0).getMetrics().get(0).getValue()).isEqualTo(expectedMinimum);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics()).hasSize(1);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics().get(0).getValue())
+        .isEqualTo(expectedMinimum);
   }
 
   @Test
@@ -151,9 +169,12 @@ public class MinimumAggregateFunctionInMemoryTest {
         aReportPeriod().withData(Collections.singletonList(periodDataWithOtherMetricType)).build();
     List<ReportPeriod> periods = Arrays.asList(periodWithMetricType, periodWithOtherMetricType);
 
-    ReportPeriod period = aggregateFunction.aggregate(periods, metricType);
+    List<ReportPeriod> aggregatedPeriod =
+        aggregateFunction.aggregate(periods, Collections.singletonList(metricType));
 
-    assertThat(period.getData().get(0).getMetrics().get(0).getValue()).isEqualTo(expectedMinimum);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics()).hasSize(1);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics().get(0).getValue())
+        .isEqualTo(expectedMinimum);
   }
 
   @Test
@@ -170,8 +191,11 @@ public class MinimumAggregateFunctionInMemoryTest {
             .build();
     List<ReportPeriod> periods = Collections.singletonList(periodWithMetricType);
 
-    ReportPeriod period = aggregateFunction.aggregate(periods, metricType);
+    List<ReportPeriod> aggregatedPeriod =
+        aggregateFunction.aggregate(periods, Collections.singletonList(metricType));
 
-    assertThat(period.getData().get(0).getMetrics().get(0).getValue()).isEqualTo(expectedMinimum);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics()).hasSize(1);
+    assertThat(aggregatedPeriod.get(0).getData().get(0).getMetrics().get(0).getValue())
+        .isEqualTo(expectedMinimum);
   }
 }

@@ -16,10 +16,6 @@ public class OffenseTypeFactory {
     return offenseTypeRepository.findByCode(assembleOffenseCode("ZONE_01"));
   }
 
-  public OffenseType createWrongDayOffense() {
-    return offenseTypeRepository.findByCode(assembleOffenseCode("VIG_01"));
-  }
-
   public OffenseType createInvalidStickerOffense() {
     return offenseTypeRepository.findByCode(assembleOffenseCode("VIG_02"));
   }

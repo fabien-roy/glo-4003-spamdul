@@ -18,6 +18,17 @@ public class InitiativeService extends InitiativeAddedAllocatedAmountObservable 
   private final InitiativeAddAllocatedAmountConverter initiativeAddAllocatedAmountConverter;
 
   public InitiativeService(
+      InitiativeFactory initiativeFactory, InitiativeRepository initiativeRepository) {
+    this(
+        initiativeFactory,
+        initiativeRepository,
+        new InitiativeCodeAssembler(),
+        new InitiativeAvailableAmountAssembler(),
+        new InitiativeAssembler(),
+        new InitiativeAddAllocatedAmountConverter());
+  }
+
+  public InitiativeService(
       InitiativeFactory initiativeFactory,
       InitiativeRepository initiativeRepository,
       InitiativeCodeAssembler initiativeCodeAssembler,

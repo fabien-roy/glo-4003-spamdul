@@ -1,12 +1,14 @@
 package ca.ulaval.glo4003.communications.smtp;
 
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassBuilder.anAccessPass;
 import static ca.ulaval.glo4003.communications.helpers.EmailMother.*;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 import static org.mockito.Mockito.*;
 
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
+import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
 import ca.ulaval.glo4003.communications.domain.exceptions.EmailSendingFailedException;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
@@ -108,6 +110,26 @@ public class SmtpEmailSenderTest {
         aParkingSticker().withReceptionMethod(ReceptionMethod.POSTAL).build();
 
     smtpEmailSender.listenParkingStickerCreated(parkingSticker);
+
+    verify(smtpClient, never()).sendMessage(message);
+  }
+
+  @Test
+  public void
+      givenEmailReceptionMethod_whenListeningForAccessPassCreation_thenSendMessageWithClient() {
+    AccessPass accessPass = anAccessPass().withReceptionMethod(ReceptionMethod.EMAIL).build();
+
+    smtpEmailSender.listenAccessPassCreated(accessPass);
+
+    verify(smtpClient).sendMessage(message);
+  }
+
+  @Test
+  public void
+      givenPostalReceptionMethod_whenListeningForAccessPassCreation_thenDoNotSendMessageWithClient() {
+    AccessPass accessPass = anAccessPass().withReceptionMethod(ReceptionMethod.POSTAL).build();
+
+    smtpEmailSender.listenAccessPassCreated(accessPass);
 
     verify(smtpClient, never()).sendMessage(message);
   }

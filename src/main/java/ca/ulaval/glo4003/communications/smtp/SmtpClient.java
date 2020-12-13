@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.communications.smtp;
 
 import ca.ulaval.glo4003.communications.domain.EmailPropertyHelper;
 import ca.ulaval.glo4003.communications.domain.exceptions.EmailSendingFailedException;
+import ca.ulaval.glo4003.communications.filesystem.EmailPropertyFileHelper;
 import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -11,6 +12,10 @@ import javax.mail.internet.MimeMessage;
 public class SmtpClient {
   private final SmtpTransportDelegator smtpTransportDelegator;
   private final EmailPropertyHelper propertyHelper;
+
+  public SmtpClient() {
+    this(new SmtpTransportDelegator(), new EmailPropertyFileHelper());
+  }
 
   public SmtpClient(
       SmtpTransportDelegator smtpTransportDelegator, EmailPropertyHelper propertyHelper) {
