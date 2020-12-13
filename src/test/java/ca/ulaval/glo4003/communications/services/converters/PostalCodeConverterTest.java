@@ -1,10 +1,10 @@
-package ca.ulaval.glo4003.locations.services.converters;
+package ca.ulaval.glo4003.communications.services.converters;
 
-import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalCode;
+import static ca.ulaval.glo4003.communications.helpers.PostalCodeMother.createPostalCode;
 import static com.google.common.truth.Truth.assertThat;
 
-import ca.ulaval.glo4003.locations.domain.PostalCode;
-import ca.ulaval.glo4003.locations.domain.exceptions.InvalidPostalCodeException;
+import ca.ulaval.glo4003.communications.domain.PostalCode;
+import ca.ulaval.glo4003.communications.domain.exceptions.InvalidPostalCodeException;
 import org.junit.Before;
 import org.junit.Test;
 

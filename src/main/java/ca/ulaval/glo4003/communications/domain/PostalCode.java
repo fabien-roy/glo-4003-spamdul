@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.locations.domain;
+package ca.ulaval.glo4003.communications.domain;
 
 public class PostalCode {
   private final String code;

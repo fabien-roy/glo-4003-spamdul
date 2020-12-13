@@ -4,9 +4,9 @@ import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassEntryEx
 import ca.ulaval.glo4003.accesspasses.domain.exceptions.InvalidAccessPassExitException;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
-import ca.ulaval.glo4003.locations.domain.PostalCode;
+import ca.ulaval.glo4003.communications.domain.PostalCode;
+import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.times.domain.TimePeriod;

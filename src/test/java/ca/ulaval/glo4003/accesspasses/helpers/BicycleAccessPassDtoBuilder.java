@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.accesspasses.helpers;
 
 import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAddress;
-import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalCode;
+import static ca.ulaval.glo4003.communications.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createReceptionMethod;
 import static ca.ulaval.glo4003.times.helpers.SemesterCodeMother.createSemesterCode;
 

@@ -13,7 +13,7 @@ import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
 import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
-import ca.ulaval.glo4003.locations.services.converters.PostalCodeConverter;
+import ca.ulaval.glo4003.communications.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.domain.exceptions.InvalidDayOfWeekException;

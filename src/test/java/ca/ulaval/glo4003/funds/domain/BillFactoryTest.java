@@ -12,9 +12,9 @@ import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
+import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
 import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

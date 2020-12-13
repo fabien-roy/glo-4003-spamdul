@@ -16,7 +16,6 @@ import ca.ulaval.glo4003.gates.api.GateResource;
 import ca.ulaval.glo4003.initiatives.InitiativeInjector;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResource;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeAddedAllocatedAmountObserver;
-import ca.ulaval.glo4003.locations.LocationInjector;
 import ca.ulaval.glo4003.offenses.OffenseInjector;
 import ca.ulaval.glo4003.offenses.api.OffenseResource;
 import ca.ulaval.glo4003.parkings.ParkingInjector;
@@ -44,7 +43,6 @@ public class ApplicationInjector {
   private static final CommunicationInjector COMMUNICATION_INJECTOR = new CommunicationInjector();
   private static final GateInjector GATE_INJECTOR = new GateInjector();
   private static final FundInjector FUND_INJECTOR = new FundInjector();
-  private static final LocationInjector LOCATION_INJECTOR = new LocationInjector();
   private static final OffenseInjector OFFENSE_INJECTOR = new OffenseInjector();
   private static final ParkingInjector PARKING_INJECTOR = new ParkingInjector();
   private static final TimeInjector TIME_INJECTOR = new TimeInjector();
@@ -58,13 +56,13 @@ public class ApplicationInjector {
     List<ParkingStickerCreationObserver> parkingStickerCreationObservers =
         Arrays.asList(
             COMMUNICATION_INJECTOR.createEmailSender(),
-            LOCATION_INJECTOR.createPostalCodeSender(),
-            LOCATION_INJECTOR.createSspSender());
+            COMMUNICATION_INJECTOR.createPostalCodeSender(),
+            COMMUNICATION_INJECTOR.createSspSender());
     List<AccessPassCreationObserver> accessPassCreationObservers =
         Arrays.asList(
             COMMUNICATION_INJECTOR.createEmailSender(),
-            LOCATION_INJECTOR.createPostalCodeSender(),
-            LOCATION_INJECTOR.createSspSender());
+            COMMUNICATION_INJECTOR.createPostalCodeSender(),
+            COMMUNICATION_INJECTOR.createSspSender());
 
     return USER_INJECTOR.createUserResource(
         ACCOUNT_INJECTOR.getAccountRepository(),
@@ -88,7 +86,7 @@ public class ApplicationInjector {
         PARKING_INJECTOR.createParkingStickerService(
             IS_DEV,
             ACCOUNT_INJECTOR.createAccountIdConverter(),
-            LOCATION_INJECTOR.createPostalCodeConverter(),
+            COMMUNICATION_INJECTOR.createPostalCodeConverter(),
             COMMUNICATION_INJECTOR.createEmailAddressConverter(),
             ACCOUNT_INJECTOR.createAccountService(),
             parkingStickerCreationObservers,
@@ -120,8 +118,8 @@ public class ApplicationInjector {
     List<AccessPassCreationObserver> accessPassCreationObservers =
         Arrays.asList(
             COMMUNICATION_INJECTOR.createEmailSender(),
-            LOCATION_INJECTOR.createPostalCodeSender(),
-            LOCATION_INJECTOR.createSspSender());
+            COMMUNICATION_INJECTOR.createPostalCodeSender(),
+            COMMUNICATION_INJECTOR.createSspSender());
 
     return GATE_INJECTOR.createGateResource(
         ACCESS_PASS_INJECTOR.createAccessPassService(

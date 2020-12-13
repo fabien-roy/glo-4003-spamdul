@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.parkings.domain;
+package ca.ulaval.glo4003.communications.domain;
 
-import ca.ulaval.glo4003.parkings.domain.exceptions.InvalidReceptionMethodException;
+import ca.ulaval.glo4003.communications.domain.exceptions.InvalidReceptionMethodException;
 import java.util.HashMap;
 import java.util.Map;
 

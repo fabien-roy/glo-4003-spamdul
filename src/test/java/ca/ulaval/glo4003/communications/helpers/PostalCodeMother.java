@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.locations.helpers;
+package ca.ulaval.glo4003.communications.helpers;
 
-import ca.ulaval.glo4003.locations.domain.PostalCode;
+import ca.ulaval.glo4003.communications.domain.PostalCode;
 import com.github.javafaker.Faker;
 
 public class PostalCodeMother {

@@ -1,10 +1,10 @@
-package ca.ulaval.glo4003.locations.console;
+package ca.ulaval.glo4003.communications.console;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
-import ca.ulaval.glo4003.locations.domain.PostalCode;
-import ca.ulaval.glo4003.locations.domain.PostalSender;
+import ca.ulaval.glo4003.communications.domain.PostalCode;
+import ca.ulaval.glo4003.communications.domain.PostalSender;
+import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 
 public class PostalSenderSystemPrint implements PostalSender {
   private static final String POSTAL_MESSAGE = "Sending to postal code %s :";

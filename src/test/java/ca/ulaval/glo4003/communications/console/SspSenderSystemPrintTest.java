@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.locations.console;
+package ca.ulaval.glo4003.communications.console;
 
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 
+import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import com.google.common.truth.Truth;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

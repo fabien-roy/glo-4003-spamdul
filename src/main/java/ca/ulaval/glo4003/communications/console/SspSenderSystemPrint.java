@@ -1,9 +1,9 @@
-package ca.ulaval.glo4003.locations.console;
+package ca.ulaval.glo4003.communications.console;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
-import ca.ulaval.glo4003.locations.domain.SspSender;
+import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
+import ca.ulaval.glo4003.communications.domain.SspSender;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 
 public class SspSenderSystemPrint implements SspSender {
   private static final String PARKING_STICKER_CREATION_MESSAGE =

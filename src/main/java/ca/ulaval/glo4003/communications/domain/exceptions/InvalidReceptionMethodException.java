@@ -1,8 +1,8 @@
-package ca.ulaval.glo4003.parkings.domain.exceptions;
+package ca.ulaval.glo4003.communications.domain.exceptions;
 
+import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
 import ca.ulaval.glo4003.errors.domain.ErrorCode;
 import ca.ulaval.glo4003.errors.domain.exceptions.ApplicationException;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 
 public class InvalidReceptionMethodException extends ApplicationException {
   private static final String ERROR = "Invalid reception method";

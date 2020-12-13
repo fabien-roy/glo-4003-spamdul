@@ -4,7 +4,7 @@ import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAcce
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPeriod;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAddress;
-import static ca.ulaval.glo4003.locations.helpers.PostalCodeMother.createPostalCode;
+import static ca.ulaval.glo4003.communications.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createReceptionMethod;
 
@@ -13,9 +13,9 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.communications.domain.EmailAddress;
-import ca.ulaval.glo4003.locations.domain.PostalCode;
+import ca.ulaval.glo4003.communications.domain.PostalCode;
+import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
