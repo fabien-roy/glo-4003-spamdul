@@ -13,12 +13,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccessPassFactoryTest {
+  @Mock private AccessPassCodeGenerator accessPassCodeGenerator;
+
   private AccessPassFactory accessPassFactory;
 
   private static final AccessPassCode ACCESS_PASS_CODE = createAccessPassCode();
-  private AccessPass accessPass = anAccessPass().build();
-
-  @Mock private AccessPassCodeGenerator accessPassCodeGenerator;
+  private final AccessPass accessPass = anAccessPass().build();
 
   @Before
   public void setUp() {

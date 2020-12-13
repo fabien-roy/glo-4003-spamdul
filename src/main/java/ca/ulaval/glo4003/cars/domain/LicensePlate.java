@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.cars.domain;
 
 public class LicensePlate {
-  private String licensePlate;
+  private final String licensePlate;
 
   public LicensePlate(String licensePlate) {
     this.licensePlate = licensePlate;

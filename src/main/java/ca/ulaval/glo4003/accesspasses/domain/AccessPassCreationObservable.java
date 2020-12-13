@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccessPassCreationObservable {
-  private List<AccessPassCreationObserver> observers = new ArrayList<>();
+  private final List<AccessPassCreationObserver> observers = new ArrayList<>();
 
   public void register(AccessPassCreationObserver observer) {
     observers.add(observer);

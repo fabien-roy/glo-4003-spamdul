@@ -4,7 +4,7 @@ public enum AccessStatus {
   ACCESS_GRANTED("Access granted"),
   ACCESS_REFUSED("Access refused");
 
-  private String status;
+  private final String status;
 
   AccessStatus(String status) {
     this.status = status;

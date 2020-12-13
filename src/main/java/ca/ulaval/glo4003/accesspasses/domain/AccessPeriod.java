@@ -12,7 +12,7 @@ public enum AccessPeriod {
   TWO_SEMESTERS("2 semesters"),
   THREE_SEMESTERS("3 semesters");
 
-  private String period;
+  private final String period;
   private static final Map<String, AccessPeriod> lookup = new HashMap<>();
 
   static {

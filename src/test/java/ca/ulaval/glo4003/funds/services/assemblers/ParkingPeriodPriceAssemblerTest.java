@@ -13,7 +13,8 @@ import org.junit.Test;
 
 public class ParkingPeriodPriceAssemblerTest {
   private ParkingPeriodPriceAssembler parkingPeriodPriceAssembler;
-  private Map<ParkingPeriod, Money> parkingPeriodMoney = createFeePerPeriod();
+
+  private final Map<ParkingPeriod, Money> parkingPeriodMoney = createFeePerPeriod();
 
   @Before
   public void setUp() {

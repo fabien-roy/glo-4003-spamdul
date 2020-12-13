@@ -7,8 +7,8 @@ import java.util.List;
 
 public class ReportPeriodData {
 
-  private List<ReportEvent> events;
-  private List<ReportMetricData> metrics = new ArrayList<>();
+  private final List<ReportEvent> events;
+  private final List<ReportMetricData> metrics = new ArrayList<>();
   private List<ReportDimensionData> dimensions = new ArrayList<>();
 
   public ReportPeriodData(List<ReportEvent> events) {

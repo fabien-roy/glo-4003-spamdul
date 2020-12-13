@@ -9,7 +9,7 @@ public enum ReceptionMethod {
   EMAIL("email"),
   SSP("ssp");
 
-  private String method;
+  private final String method;
   private static final Map<String, ReceptionMethod> lookup = new HashMap<>();
 
   static {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingStickerCreationObservable {
-  private List<ParkingStickerCreationObserver> observers = new ArrayList<>();
+  private final List<ParkingStickerCreationObserver> observers = new ArrayList<>();
 
   public void register(ParkingStickerCreationObserver observer) {
     observers.add(observer);

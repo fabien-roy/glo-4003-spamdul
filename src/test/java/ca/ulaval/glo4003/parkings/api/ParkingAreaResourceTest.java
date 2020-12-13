@@ -17,11 +17,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ParkingAreaResourceTest {
-
   @Mock private ParkingAreaService parkingAreaService;
 
   private ParkingAreaResource parkingAreaResource;
-  private ParkingAreaDto parkingAreaDto = aParkingAreaDto().build();
+
+  private final ParkingAreaDto parkingAreaDto = aParkingAreaDto().build();
 
   @Before
   public void setUp() {
