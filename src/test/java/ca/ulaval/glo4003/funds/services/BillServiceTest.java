@@ -29,7 +29,6 @@ import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +41,6 @@ public class BillServiceTest {
 
   @Mock private BillFactory billFactory;
   @Mock private BillAssembler billAssembler;
-  @Mock private BillPriceCalculator billPriceCalculator;
   @Mock private InitiativeFundCollector initiativeFundCollector;
   @Mock private ReportEventService reportEventService;
   @Mock private AccountService accountService;
@@ -84,8 +82,6 @@ public class BillServiceTest {
             initiativeFundCollector,
             sustainableMobilityProgramAllocationCalculator);
 
-    List<Bill> bills = Collections.singletonList(bill);
-
     when(billFactory.createForParkingSticker(
             fee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
         .thenReturn(bill);
@@ -96,8 +92,6 @@ public class BillServiceTest {
             fee, accessPass.getCode(), consumptionType, accessPass.getReceptionMethod()))
         .thenReturn(bill);
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
-    when(billPriceCalculator.calculateTotalPrice(bills)).thenReturn(fee);
-    when(billPriceCalculator.calculatePaidPrice(bills)).thenReturn(fee);
     when(sustainableMobilityProgramAllocationCalculator.calculate(amountDue))
         .thenReturn(amountKeptForSustainabilityProgram);
   }

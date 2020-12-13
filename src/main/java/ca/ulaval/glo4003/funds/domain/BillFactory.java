@@ -27,11 +27,7 @@ public class BillFactory {
     String description =
         String.format(PARKING_STICKER_BILL_DESCRIPTION, parkingStickerCode.toString());
 
-    Money amount = new Money(feeForPeriod);
-
-    if (receptionMethod.equals(ReceptionMethod.POSTAL)) {
-      amount = amount.plus(Money.fromDouble(5));
-    }
+    Money amount = calculateAmountDue(new Money(feeForPeriod), receptionMethod);
 
     BillType billType = BillType.PARKING_STICKER;
 
@@ -46,11 +42,7 @@ public class BillFactory {
     BillId id = generateBillId();
     String description = String.format(ACCESS_PASS_BILL_DESCRIPTION, accessPassCode.toString());
 
-    Money amount = new Money(feeForPeriod);
-
-    if (receptionMethod != null && receptionMethod.equals(ReceptionMethod.POSTAL)) {
-      amount = amount.plus(Money.fromDouble(5));
-    }
+    Money amount = calculateAmountDue(new Money(feeForPeriod), receptionMethod);
 
     BillType billType = BillType.ACCESS_PASS;
 
@@ -68,5 +60,11 @@ public class BillFactory {
 
   private BillId generateBillId() {
     return billIdGenerator.generate();
+  }
+
+  private Money calculateAmountDue(Money fee, ReceptionMethod receptionMethod) {
+    return receptionMethod != null && receptionMethod.equals(ReceptionMethod.POSTAL)
+        ? fee.plus(Money.fromDouble(5))
+        : fee;
   }
 }
