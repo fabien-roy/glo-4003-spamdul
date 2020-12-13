@@ -9,7 +9,6 @@ import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
-import static ca.ulaval.glo4003.times.helpers.TimePeriodBuilder.aTimePeriod;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,8 +29,6 @@ import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
-import ca.ulaval.glo4003.times.domain.TimePeriod;
-import ca.ulaval.glo4003.times.services.SemesterService;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -50,7 +47,6 @@ public class AccessPassServiceTest {
   @Mock private BillService billService;
   @Mock private AccountService accountService;
   @Mock private AccessPassCodeAssembler accessPassCodeAssembler;
-  @Mock private SemesterService semesterService;
   @Mock private AccessPassCreationObserver accessPassCreationObserver;
 
   private AccessPassService accessPassService;
@@ -66,7 +62,6 @@ public class AccessPassServiceTest {
   private AccessPassDto accessPassDto = anAccessPassDto().build();
   private BicycleAccessPassDto bicycleAccessPassDto = aBicycleAccessPassDto().build();
   private AccessPass accessPass = anAccessPass().withReceptionMethod(ReceptionMethod.EMAIL).build();
-  private TimePeriod timePeriod = aTimePeriod().build();
 
   @Before
   public void setUp() {
@@ -81,8 +76,6 @@ public class AccessPassServiceTest {
             billService,
             accessPassCodeAssembler);
 
-    when(semesterService.getSemester(accessPassDto.semesters))
-        .thenReturn(Collections.singletonList(timePeriod));
     when(accessPassCodeAssembler.assemble(accessPass.getCode().toString()))
         .thenReturn(accessPass.getCode());
     when(accountService.getAccessPass(accessPass.getCode())).thenReturn(accessPass);

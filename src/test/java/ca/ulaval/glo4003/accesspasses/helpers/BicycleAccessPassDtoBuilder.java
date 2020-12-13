@@ -17,6 +17,26 @@ public class BicycleAccessPassDtoBuilder {
     return new BicycleAccessPassDtoBuilder();
   }
 
+  public BicycleAccessPassDtoBuilder withSemester(String semester) {
+    this.semester = semester;
+    return this;
+  }
+
+  public BicycleAccessPassDtoBuilder withReceptionMethod(String receptionMethod) {
+    this.receptionMethod = receptionMethod;
+    return this;
+  }
+
+  public BicycleAccessPassDtoBuilder withEmailAddress(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public BicycleAccessPassDtoBuilder withPostalCode(String postalCode) {
+    this.postalCode = postalCode;
+    return this;
+  }
+
   public BicycleAccessPassDto build() {
     BicycleAccessPassDto bicycleAccessPassDto = new BicycleAccessPassDto();
     bicycleAccessPassDto.semester = semester;
