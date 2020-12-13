@@ -31,6 +31,7 @@ public class AccessPassConverter {
   private final ParkingAreaCodeAssembler parkingAreaCodeAssembler;
   private final EmailAddressConverter emailAddressConverter;
   private final PostalCodeConverter postalCodeConverter;
+  private final SemesterCodeConverter semesterCodeConverter;
   private final SemesterService semesterService; // TODO : Remove this somehow
 
   public AccessPassConverter(
@@ -38,12 +39,14 @@ public class AccessPassConverter {
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,
       SemesterService semesterService,
       EmailAddressConverter emailAddressConverter,
-      PostalCodeConverter postalCodeConverter) {
+      PostalCodeConverter postalCodeConverter,
+      SemesterCodeConverter semesterCodeConverter) {
     this.licensePlateConverter = licensePlateConverter;
     this.parkingAreaCodeAssembler = parkingAreaCodeAssembler;
     this.semesterService = semesterService;
     this.emailAddressConverter = emailAddressConverter;
     this.postalCodeConverter = postalCodeConverter;
+    this.semesterCodeConverter = semesterCodeConverter;
   }
 
   public AccessPass convert(AccessPassDto accessPassCodeDto) {
@@ -60,7 +63,7 @@ public class AccessPassConverter {
 
     String[] scholarYear =
         SemesterCode.findScholarYearFromSemesterCode(
-            new SemesterCodeConverter().convert(bicycleAccessPassDto.semester));
+            semesterCodeConverter.convert(bicycleAccessPassDto.semester));
     ParkingAreaCode parkingAreaCode =
         ParkingConfiguration.getConfiguration().getBicycleParkingAreaCode();
     AccessPeriod accessPeriod = AccessPeriod.THREE_SEMESTERS;

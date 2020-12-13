@@ -81,7 +81,8 @@ public class ApplicationInjector {
                 ACCOUNT_INJECTOR.createAccountService(),
                 INITIATIVE_INJECTOR.getInitiativeFundCollector()),
             TIME_INJECTOR.createSemesterService(),
-            accessPassCreationObservers),
+            accessPassCreationObservers,
+            TIME_INJECTOR.createSemesterCodeConverter()),
         CAR_INJECTOR.createCarService(ACCOUNT_INJECTOR.createAccountService()),
         ACCOUNT_INJECTOR.createAccountService(),
         PARKING_INJECTOR.createParkingStickerService(
@@ -132,7 +133,8 @@ public class ApplicationInjector {
                 ACCOUNT_INJECTOR.createAccountService(),
                 INITIATIVE_INJECTOR.getInitiativeFundCollector()),
             TIME_INJECTOR.createSemesterService(),
-            accessPassCreationObservers),
+            accessPassCreationObservers,
+            TIME_INJECTOR.createSemesterCodeConverter()),
         TIME_INJECTOR.createCustomDateTimeConverter(),
         REPORT_INJECTOR.createReportEventService());
   }
