@@ -14,15 +14,15 @@ import java.util.List;
 
 public class AccessPass {
   private AccessPassCode accessPassCode;
-  private AccessPeriod accessPeriod;
-  private final DayOfWeek accessDay;
-  private final LicensePlate licensePlate;
+  private final AccessPeriod accessPeriod;
   private final List<TimePeriod> accessPeriods;
-  private final ParkingAreaCode parkingAreaCode;
-  private boolean isAdmittedOnCampus = false;
+  private DayOfWeek accessDay;
+  private LicensePlate licensePlate;
+  private ParkingAreaCode parkingAreaCode;
   private ReceptionMethod receptionMethod;
   private PostalCode postalCode;
   private EmailAddress emailAddress;
+  private boolean isAdmittedOnCampus = false;
 
   public AccessPass(
       AccessPeriod accessPeriod,
@@ -36,6 +36,41 @@ public class AccessPass {
     this.accessPeriod = accessPeriod;
     this.accessDay = accessDay;
     this.licensePlate = licensePlate;
+    this.accessPeriods = accessPeriods;
+    this.parkingAreaCode = parkingAreaCode;
+    this.receptionMethod = receptionMethod;
+    this.postalCode = postalCode;
+    this.emailAddress = emailAddress;
+  }
+
+  public AccessPass(
+      AccessPeriod accessPeriod, DayOfWeek accessDay, List<TimePeriod> accessPeriods) {
+    this.accessPeriod = accessPeriod;
+    this.accessDay = accessDay;
+    this.accessPeriods = accessPeriods;
+  }
+
+  public AccessPass(
+      AccessPeriod accessPeriod,
+      DayOfWeek accessDay,
+      LicensePlate licensePlate,
+      List<TimePeriod> accessPeriods,
+      ParkingAreaCode parkingAreaCode) {
+    this.accessPeriod = accessPeriod;
+    this.accessDay = accessDay;
+    this.licensePlate = licensePlate;
+    this.accessPeriods = accessPeriods;
+    this.parkingAreaCode = parkingAreaCode;
+  }
+
+  public AccessPass(
+      AccessPeriod accessPeriod,
+      List<TimePeriod> accessPeriods,
+      ParkingAreaCode parkingAreaCode,
+      ReceptionMethod receptionMethod,
+      PostalCode postalCode,
+      EmailAddress emailAddress) {
+    this.accessPeriod = accessPeriod;
     this.accessPeriods = accessPeriods;
     this.parkingAreaCode = parkingAreaCode;
     this.receptionMethod = receptionMethod;

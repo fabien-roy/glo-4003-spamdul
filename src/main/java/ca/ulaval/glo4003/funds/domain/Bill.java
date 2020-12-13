@@ -9,14 +9,10 @@ public class Bill {
   private final BillId id;
   private final BillType billType;
   private final String description;
-  private Optional<ConsumptionType> consumptionType;
+  private final Optional<ConsumptionType> consumptionType;
+  private final CustomDateTime customDateTime;
   private Money amountDue;
   private Money amountPaid;
-  private CustomDateTime customDateTime;
-
-  public Optional<ConsumptionType> getConsumptionType() {
-    return consumptionType;
-  }
 
   public Bill(
       BillId id,
@@ -80,6 +76,10 @@ public class Bill {
 
   public CustomDateTime getCustomDateTime() {
     return customDateTime;
+  }
+
+  public ConsumptionType getConsumptionType() {
+    return consumptionType.get();
   }
 
   public boolean isBillTypeEqual(BillType billType) {
