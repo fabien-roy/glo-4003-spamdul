@@ -69,8 +69,7 @@ public class AccessPassInjector {
             accessPassPriceByCarConsumptionInMemoryRepository,
             accountService,
             billService,
-            accessPassCodeAssembler,
-            semesterService);
+            accessPassCodeAssembler);
     accessPassCreationObservers.forEach(accessPassService::register);
 
     return accessPassService;

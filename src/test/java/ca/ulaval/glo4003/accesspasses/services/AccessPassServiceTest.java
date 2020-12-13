@@ -31,7 +31,6 @@ import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
-import ca.ulaval.glo4003.times.services.SemesterService;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
@@ -50,7 +49,6 @@ public class AccessPassServiceTest {
   @Mock private BillService billService;
   @Mock private AccountService accountService;
   @Mock private AccessPassCodeAssembler accessPassCodeAssembler;
-  @Mock private SemesterService semesterService;
   @Mock private AccessPassCreationObserver accessPassCreationObserver;
 
   private AccessPassService accessPassService;
@@ -79,11 +77,8 @@ public class AccessPassServiceTest {
             accessPassTypeRepository,
             accountService,
             billService,
-            accessPassCodeAssembler,
-            semesterService);
+            accessPassCodeAssembler);
 
-    when(semesterService.getSemester(accessPassDto.semesters))
-        .thenReturn(Collections.singletonList(timePeriod));
     when(accessPassCodeAssembler.assemble(accessPass.getCode().toString()))
         .thenReturn(accessPass.getCode());
     when(accountService.getAccessPass(accessPass.getCode())).thenReturn(accessPass);

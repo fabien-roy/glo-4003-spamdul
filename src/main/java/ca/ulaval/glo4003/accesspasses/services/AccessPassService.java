@@ -16,7 +16,6 @@ import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
-import ca.ulaval.glo4003.times.services.SemesterService;
 import java.util.List;
 
 public class AccessPassService extends AccessPassCreationObservable {
@@ -28,7 +27,6 @@ public class AccessPassService extends AccessPassCreationObservable {
   private final BillService billService;
   private final AccountService accountService;
   private final AccessPassCodeAssembler accessPassCodeAssembler;
-  private final SemesterService semesterService;
 
   public AccessPassService(
       AccessPassConverter accessPassConverter,
@@ -38,8 +36,7 @@ public class AccessPassService extends AccessPassCreationObservable {
       AccessPassTypeRepository accessPassTypeRepository,
       AccountService accountService,
       BillService billService,
-      AccessPassCodeAssembler accessPassCodeAssembler,
-      SemesterService semesterService) {
+      AccessPassCodeAssembler accessPassCodeAssembler) {
     this.accessPassConverter = accessPassConverter;
     this.accessPassFactory = accessPassFactory;
     this.carService = carService;
@@ -48,7 +45,6 @@ public class AccessPassService extends AccessPassCreationObservable {
     this.accountService = accountService;
     this.billService = billService;
     this.accessPassCodeAssembler = accessPassCodeAssembler;
-    this.semesterService = semesterService;
   }
 
   public AccessPassCodeDto addAccessPass(
