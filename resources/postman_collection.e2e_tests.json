@@ -3733,6 +3733,154 @@
 							"_postman_isSubFolder": true
 						},
 						{
+							"name": "Add bicycle access pass to user",
+							"item": [
+								{
+									"name": "Valid bicycle access pass (postal)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b3456aae-1c08-4986-beb8-f37513c2ed39",
+												"exec": [
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Returns access pass code\", function () {",
+													"    pm.response.to.have.jsonBody(\"accessPassCode\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"semester\": {{request.bicycleAccessPass.semester}},\n  \"receptionMethod\": \"postal\",\n  \"postalCode\": {{request.bicycleAccessPass.postalCode}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/bicycleAccessPasses",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"bicycleAccessPasses"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Valid bicycle access pass (email)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0a5080e9-2207-4a30-99e2-9db70c53b925",
+												"exec": [
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Returns access pass code\", function () {",
+													"    pm.response.to.have.jsonBody(\"accessPassCode\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"semester\": {{request.bicycleAccessPass.semester}},\n  \"receptionMethod\": \"email\",\n  \"email\": {{request.bicycleAccessPass.email}}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/bicycleAccessPasses",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"bicycleAccessPasses"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Valid bicycle access pass (ssp)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6e0743a9-9027-40b6-b7fa-978973898f15",
+												"exec": [
+													"pm.test(\"Returns status 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Returns access pass code\", function () {",
+													"    pm.response.to.have.jsonBody(\"accessPassCode\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"semester\": {{request.bicycleAccessPass.semester}},\n  \"receptionMethod\": \"ssp\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/users/{{param.accountId}}/bicycleAccessPasses",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"users",
+												"{{param.accountId}}",
+												"bicycleAccessPasses"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
 							"name": "Add parking sticker to user",
 							"item": [
 								{
