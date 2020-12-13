@@ -8,6 +8,10 @@ public class InitiativeAddAllocatedAmountConverter {
 
   private final MoneyConverter moneyConverter;
 
+  public InitiativeAddAllocatedAmountConverter() {
+    this(new MoneyConverter());
+  }
+
   public InitiativeAddAllocatedAmountConverter(MoneyConverter moneyConverter) {
     this.moneyConverter = moneyConverter;
   }

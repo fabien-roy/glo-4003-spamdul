@@ -15,6 +15,10 @@ public class EmailPropertyFileHelper implements EmailPropertyHelper {
 
   private final PropertyFileReader fileReader;
 
+  public EmailPropertyFileHelper() {
+    this(new PropertyFileReader());
+  }
+
   public EmailPropertyFileHelper(PropertyFileReader fileReader) {
     this.fileReader = fileReader;
   }

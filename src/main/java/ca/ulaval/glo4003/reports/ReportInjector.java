@@ -4,8 +4,6 @@ import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.reports.api.ReportParkingAreaResource;
 import ca.ulaval.glo4003.reports.api.ReportProfitResource;
 import ca.ulaval.glo4003.reports.domain.*;
-import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeFactory;
-import ca.ulaval.glo4003.reports.infrastructure.ReportQueryFactoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportRepositoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportSummaryFactoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions.ReportAggregateFunctionFactoryInMemory;
@@ -19,12 +17,11 @@ public class ReportInjector {
   private final ReportRepository reportRepository = new ReportRepositoryInMemory();
 
   public ReportProfitService createReportProfitService() {
-    return new ReportProfitService(
-        reportRepository, createReportQueryFactory(), createReportPeriodAssembler());
+    return new ReportProfitService(reportRepository);
   }
 
   public ReportEventService createReportEventService() {
-    return new ReportEventService(reportRepository, new ReportEventFactory());
+    return new ReportEventService(reportRepository);
   }
 
   public ReportProfitResource createReportProfitResource() {
@@ -41,23 +38,6 @@ public class ReportInjector {
     ReportSummaryFactory reportSummaryFactory =
         new ReportSummaryFactoryInMemory(new ReportAggregateFunctionFactoryInMemory());
 
-    return new ReportParkingAreaService(
-        parkingAreaService,
-        reportRepository,
-        createReportPeriodAssembler(),
-        createReportQueryFactory(),
-        reportSummaryFactory);
-  }
-
-  private ReportPeriodAssembler createReportPeriodAssembler() {
-    ReportDimensionDataAssembler reportDimensionDataAssembler = new ReportDimensionDataAssembler();
-    ReportMetricDataAssembler reportMetricDataAssembler = new ReportMetricDataAssembler();
-    ReportPeriodDataAssembler reportPeriodDataAssembler =
-        new ReportPeriodDataAssembler(reportDimensionDataAssembler, reportMetricDataAssembler);
-    return new ReportPeriodAssembler(reportPeriodDataAssembler);
-  }
-
-  private ReportQueryFactory createReportQueryFactory() {
-    return new ReportQueryFactoryInMemory(new ReportScopeFactory());
+    return new ReportParkingAreaService(parkingAreaService, reportRepository, reportSummaryFactory);
   }
 }

@@ -20,6 +20,20 @@ public class ParkingStickerService extends ParkingStickerCreationObservable {
   private final BillService billService;
 
   public ParkingStickerService(
+      ParkingStickerFactory parkingStickerFactory,
+      AccountService accountService,
+      ParkingAreaRepository parkingAreaRepository,
+      BillService billService) {
+    this(
+        new ParkingStickerConverter(),
+        new ParkingStickerCodeAssembler(),
+        parkingStickerFactory,
+        accountService,
+        parkingAreaRepository,
+        billService);
+  }
+
+  public ParkingStickerService(
       ParkingStickerConverter parkingStickerConverter,
       ParkingStickerCodeAssembler parkingStickerCodeAssembler,
       ParkingStickerFactory parkingStickerFactory,

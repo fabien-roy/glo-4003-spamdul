@@ -15,6 +15,10 @@ public class CarService {
   private final CarAssembler carAssembler;
   private final AccountService accountService;
 
+  public CarService(AccountService accountService) {
+    this(new CarConverter(), new CarAssembler(), accountService);
+  }
+
   public CarService(
       CarConverter carConverter, CarAssembler carAssembler, AccountService accountService) {
     this.carConverter = carConverter;

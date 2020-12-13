@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.reports.services;
 
 import ca.ulaval.glo4003.reports.domain.*;
+import ca.ulaval.glo4003.reports.infrastructure.ReportQueryFactoryInMemory;
 import ca.ulaval.glo4003.reports.services.assemblers.ReportPeriodAssembler;
 import ca.ulaval.glo4003.reports.services.dto.ReportPeriodDto;
 import java.util.List;
@@ -12,6 +13,10 @@ public class ReportProfitService {
   private final ReportRepository reportRepository;
   private final ReportQueryFactory reportQueryFactory;
   private final ReportPeriodAssembler reportPeriodAssembler;
+
+  public ReportProfitService(ReportRepository reportRepository) {
+    this(reportRepository, new ReportQueryFactoryInMemory(), new ReportPeriodAssembler());
+  }
 
   public ReportProfitService(
       ReportRepository reportRepository,

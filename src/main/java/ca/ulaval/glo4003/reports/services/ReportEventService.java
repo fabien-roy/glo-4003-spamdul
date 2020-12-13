@@ -12,6 +12,10 @@ public class ReportEventService {
   private final ReportRepository reportRepository;
   private final ReportEventFactory reportEventFactory;
 
+  public ReportEventService(ReportRepository reportRepository) {
+    this(reportRepository, new ReportEventFactory());
+  }
+
   public ReportEventService(
       ReportRepository reportRepository, ReportEventFactory reportEventFactory) {
     this.reportRepository = reportRepository;

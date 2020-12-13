@@ -34,6 +34,16 @@ public class AccessPassConverter {
   private final SemesterCodeConverter semesterCodeConverter;
   private final SemesterService semesterService; // TODO : Remove this somehow
 
+  public AccessPassConverter(SemesterService semesterService) {
+    this(
+        new LicensePlateConverter(),
+        new ParkingAreaCodeAssembler(),
+        semesterService,
+        new EmailAddressConverter(),
+        new PostalCodeConverter(),
+        new SemesterCodeConverter());
+  }
+
   public AccessPassConverter(
       LicensePlateConverter licensePlateConverter,
       ParkingAreaCodeAssembler parkingAreaCodeAssembler,

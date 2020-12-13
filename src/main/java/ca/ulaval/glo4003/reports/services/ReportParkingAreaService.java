@@ -5,6 +5,7 @@ import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.reports.domain.*;
 import ca.ulaval.glo4003.reports.domain.aggregatefunctions.ReportAggregateFunctionType;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
+import ca.ulaval.glo4003.reports.infrastructure.ReportQueryFactoryInMemory;
 import ca.ulaval.glo4003.reports.services.assemblers.ReportPeriodAssembler;
 import ca.ulaval.glo4003.reports.services.dto.ReportPeriodDto;
 import java.util.Arrays;
@@ -18,6 +19,18 @@ public class ReportParkingAreaService {
   private final ReportPeriodAssembler reportPeriodAssembler;
   private final ReportQueryFactory reportQueryFactory;
   private final ReportSummaryFactory reportSummaryFactory;
+
+  public ReportParkingAreaService(
+      ParkingAreaService parkingAreaService,
+      ReportRepository reportRepository,
+      ReportSummaryFactory reportSummaryFactory) {
+    this(
+        parkingAreaService,
+        reportRepository,
+        new ReportPeriodAssembler(),
+        new ReportQueryFactoryInMemory(),
+        reportSummaryFactory);
+  }
 
   public ReportParkingAreaService(
       ParkingAreaService parkingAreaService,

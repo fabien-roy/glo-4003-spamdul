@@ -14,6 +14,10 @@ public class UserConverter {
   private static final String BIRTH_DATE_FORMAT = "dd-MM-yyyy";
   private final CustomDateConverter customDateConverter;
 
+  public UserConverter() {
+    this(new CustomDateConverter());
+  }
+
   public UserConverter(CustomDateConverter customDateConverter) {
     this.customDateConverter = customDateConverter;
   }

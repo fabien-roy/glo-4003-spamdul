@@ -13,6 +13,10 @@ public class ParkingAreaService {
   private final ParkingAreaRepository parkingAreaRepository;
   private final ParkingAreaAssembler parkingAreaAssembler;
 
+  public ParkingAreaService(ParkingAreaRepository parkingAreaRepository) {
+    this(parkingAreaRepository, new ParkingAreaAssembler());
+  }
+
   public ParkingAreaService(
       ParkingAreaRepository parkingAreaRepository, ParkingAreaAssembler parkingAreaAssembler) {
     this.parkingAreaRepository = parkingAreaRepository;

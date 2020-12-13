@@ -11,6 +11,7 @@ import ca.ulaval.glo4003.cars.CarInjector;
 import ca.ulaval.glo4003.communications.CommunicationInjector;
 import ca.ulaval.glo4003.errors.ErrorInjector;
 import ca.ulaval.glo4003.funds.FundInjector;
+import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.gates.GateInjector;
 import ca.ulaval.glo4003.gates.api.GateResource;
 import ca.ulaval.glo4003.initiatives.InitiativeInjector;
@@ -64,48 +65,35 @@ public class ApplicationInjector {
             COMMUNICATION_INJECTOR.createPostalCodeSender(),
             COMMUNICATION_INJECTOR.createSspSender());
 
+    BillService billService =
+        FUND_INJECTOR.createBillService(
+            REPORT_INJECTOR.createReportEventService(),
+            ACCOUNT_INJECTOR.createAccountService(),
+            INITIATIVE_INJECTOR.getInitiativeFundCollector());
+
     return USER_INJECTOR.createUserResource(
         ACCOUNT_INJECTOR.getAccountRepository(),
         ACCOUNT_INJECTOR.createAccountFactory(),
-        ACCOUNT_INJECTOR.createAccountIdConverter(),
-        ACCOUNT_INJECTOR.createAccountIdAssembler(),
-        TIME_INJECTOR.createCustomDateConverter(),
         ACCESS_PASS_INJECTOR.createAccessPassService(
             CAR_INJECTOR.createCarService(ACCOUNT_INJECTOR.createAccountService()),
             PARKING_INJECTOR.createParkingAreaService(),
             ACCOUNT_INJECTOR.createAccountService(),
-            FUND_INJECTOR.createBillService(
-                REPORT_INJECTOR.createReportEventService(),
-                ACCOUNT_INJECTOR.createAccountService(),
-                INITIATIVE_INJECTOR.getInitiativeFundCollector()),
+            billService,
             TIME_INJECTOR.createSemesterService(),
-            accessPassCreationObservers,
-            TIME_INJECTOR.createSemesterCodeConverter()),
+            accessPassCreationObservers),
         CAR_INJECTOR.createCarService(ACCOUNT_INJECTOR.createAccountService()),
         ACCOUNT_INJECTOR.createAccountService(),
         PARKING_INJECTOR.createParkingStickerService(
             IS_DEV,
-            ACCOUNT_INJECTOR.createAccountIdConverter(),
-            COMMUNICATION_INJECTOR.createPostalCodeConverter(),
-            COMMUNICATION_INJECTOR.createEmailAddressConverter(),
             ACCOUNT_INJECTOR.createAccountService(),
             parkingStickerCreationObservers,
-            FUND_INJECTOR.createBillService(
-                REPORT_INJECTOR.createReportEventService(),
-                ACCOUNT_INJECTOR.createAccountService(),
-                INITIATIVE_INJECTOR.getInitiativeFundCollector())),
-        FUND_INJECTOR.createBillService(
-            REPORT_INJECTOR.createReportEventService(),
-            ACCOUNT_INJECTOR.createAccountService(),
-            INITIATIVE_INJECTOR.getInitiativeFundCollector()));
+            billService),
+        billService);
   }
 
   public OffenseResource createOffenseResource() {
     return OFFENSE_INJECTOR.createOffenseResource(
         PARKING_INJECTOR.getParkingAreaRepository(),
-        PARKING_INJECTOR.createParkingStickerCodeAssembler(),
-        PARKING_INJECTOR.createParkingAreaCodeAssembler(),
-        TIME_INJECTOR.createTimeOfDayConverter(),
         FUND_INJECTOR.createMoneyConverter(),
         FUND_INJECTOR.createBillService(
             REPORT_INJECTOR.createReportEventService(),
@@ -131,16 +119,13 @@ public class ApplicationInjector {
                 ACCOUNT_INJECTOR.createAccountService(),
                 INITIATIVE_INJECTOR.getInitiativeFundCollector()),
             TIME_INJECTOR.createSemesterService(),
-            accessPassCreationObservers,
-            TIME_INJECTOR.createSemesterCodeConverter()),
-        TIME_INJECTOR.createCustomDateTimeConverter(),
+            accessPassCreationObservers),
         REPORT_INJECTOR.createReportEventService());
   }
 
   public CarbonCreditResource createCarbonCreditResource() {
     return CARBON_CREDIT_INJECTOR.createCarbonCreditResource(
-        INITIATIVE_INJECTOR.createService(
-            FUND_INJECTOR.createMoneyConverter(), getInitiativeAddedAllocatedAmountObservers()),
+        INITIATIVE_INJECTOR.createService(getInitiativeAddedAllocatedAmountObservers()),
         INITIATIVE_INJECTOR.getInitiativeRepository());
   }
 
@@ -153,8 +138,7 @@ public class ApplicationInjector {
         getInitiativeAddedAllocatedAmountObservers();
 
     return INITIATIVE_INJECTOR.createInitiativeResource(
-        INITIATIVE_INJECTOR.createService(
-            FUND_INJECTOR.createMoneyConverter(), initiativeAddedAllocatedAmountObservers));
+        INITIATIVE_INJECTOR.createService(initiativeAddedAllocatedAmountObservers));
   }
 
   public ReportProfitResource createReportProfitResource() {
@@ -178,9 +162,7 @@ public class ApplicationInjector {
         .withJobHandlers(
             Collections.singletonList(
                 CARBON_CREDIT_INJECTOR.createConvertCarbonCreditHandler(
-                    INITIATIVE_INJECTOR.createService(
-                        FUND_INJECTOR.createMoneyConverter(),
-                        initiativeAddedAllocatedAmountObservers),
+                    INITIATIVE_INJECTOR.createService(initiativeAddedAllocatedAmountObservers),
                     INITIATIVE_INJECTOR.getInitiativeRepository())))
         .build();
   }
@@ -189,8 +171,7 @@ public class ApplicationInjector {
       getInitiativeAddedAllocatedAmountObservers() {
     return Collections.singletonList(
         CARBON_CREDIT_INJECTOR.createCarbonCreditService(
-            INITIATIVE_INJECTOR.createService(
-                FUND_INJECTOR.createMoneyConverter(), Collections.emptyList()),
+            INITIATIVE_INJECTOR.createService(Collections.emptyList()),
             INITIATIVE_INJECTOR.getInitiativeRepository()));
   }
 }

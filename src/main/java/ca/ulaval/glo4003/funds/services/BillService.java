@@ -34,6 +34,22 @@ public class BillService {
 
   public BillService(
       BillFactory billFactory,
+      ReportEventService reportEventService,
+      AccountService accountService,
+      InitiativeFundCollector initiativeFundCollector) {
+    this(
+        billFactory,
+        new BillAssembler(),
+        reportEventService,
+        accountService,
+        new BillPaymentConverter(),
+        new BillIdConverter(),
+        initiativeFundCollector,
+        new SustainableMobilityProgramAllocationCalculator());
+  }
+
+  public BillService(
+      BillFactory billFactory,
       BillAssembler billAssembler,
       ReportEventService reportEventService,
       AccountService accountService,

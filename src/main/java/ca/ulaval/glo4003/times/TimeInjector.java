@@ -37,7 +37,7 @@ public class TimeInjector {
   }
 
   public SemesterService createSemesterService() {
-    return new SemesterService(semesterRepository, createSemesterCodeConverter());
+    return new SemesterService(semesterRepository);
   }
 
   public SemesterCodeConverter createSemesterCodeConverter() {

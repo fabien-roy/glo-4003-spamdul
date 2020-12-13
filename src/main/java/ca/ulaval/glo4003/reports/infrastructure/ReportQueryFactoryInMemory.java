@@ -21,6 +21,10 @@ import java.util.List;
 public class ReportQueryFactoryInMemory implements ReportQueryFactory<ReportQueryInMemory> {
   private final ReportScopeFactory reportScopeFactory;
 
+  public ReportQueryFactoryInMemory() {
+    this(new ReportScopeFactory());
+  }
+
   public ReportQueryFactoryInMemory(ReportScopeFactory reportScopeFactory) {
     this.reportScopeFactory = reportScopeFactory;
   }

@@ -9,7 +9,6 @@ import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.times.services.SemesterService;
-import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
 import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +24,6 @@ public class AccessPassInjectorTest {
   @Mock private BillService billService;
   @Mock private SemesterService semesterService;
   @Mock private AccessPassCreationObserver accessPassCreationObserver;
-  @Mock private SemesterCodeConverter semesterCodeConverter;
 
   private AccessPassInjector accessPassInjector;
 
@@ -43,8 +41,7 @@ public class AccessPassInjectorTest {
             accountService,
             billService,
             semesterService,
-            Collections.singletonList(accessPassCreationObserver),
-            semesterCodeConverter);
+            Collections.singletonList(accessPassCreationObserver));
 
     assertThat(accessResource).isNotNull();
   }

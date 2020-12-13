@@ -22,6 +22,10 @@ public class AccountService {
   private final AccountIdConverter accountIdConverter;
   private final BillAssembler billAssembler;
 
+  public AccountService(AccountRepository accountRepository) {
+    this(accountRepository, new AccountIdConverter(), new BillAssembler());
+  }
+
   public AccountService(
       AccountRepository accountRepository,
       AccountIdConverter accountIdConverter,
