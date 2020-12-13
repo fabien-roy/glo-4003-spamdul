@@ -11,6 +11,8 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.cars.services.converters.ConsumptionConverter;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
+import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
+import ca.ulaval.glo4003.communications.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
@@ -19,6 +21,7 @@ import ca.ulaval.glo4003.generators.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.times.services.SemesterService;
+import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
 import java.util.List;
 import java.util.Map;
 
@@ -42,23 +45,34 @@ public class AccessPassInjector {
       ParkingAreaService parkingAreaService,
       AccountService accountService,
       BillService billService,
-      SemesterService semesterService) {
+      SemesterService semesterService,
+      List<AccessPassCreationObserver> accessPassCreationObservers,
+      SemesterCodeConverter semesterCodeConverter) {
     LicensePlateConverter licensePlateConverter = new LicensePlateConverter();
     AccessPassConverter accessPassConverter =
-        new AccessPassConverter(licensePlateConverter, new ParkingAreaCodeAssembler());
+        new AccessPassConverter(
+            licensePlateConverter,
+            new ParkingAreaCodeAssembler(),
+            semesterService,
+            new EmailAddressConverter(),
+            new PostalCodeConverter(),
+            semesterCodeConverter);
     AccessPassFactory accessPassFactory = new AccessPassFactory(accessPassCodeGenerator);
     AccessPassCodeAssembler accessPassCodeAssembler = new AccessPassCodeAssembler();
 
-    return new AccessPassService(
-        accessPassConverter,
-        accessPassFactory,
-        carService,
-        parkingAreaService,
-        accessPassPriceByCarConsumptionInMemoryRepository,
-        accountService,
-        billService,
-        accessPassCodeAssembler,
-        semesterService);
+    AccessPassService accessPassService =
+        new AccessPassService(
+            accessPassConverter,
+            accessPassFactory,
+            carService,
+            parkingAreaService,
+            accessPassPriceByCarConsumptionInMemoryRepository,
+            accountService,
+            billService,
+            accessPassCodeAssembler);
+    accessPassCreationObservers.forEach(accessPassService::register);
+
+    return accessPassService;
   }
 
   private void addAccessPassByConsumptionTypesToRepository() {

@@ -1,12 +1,20 @@
 package ca.ulaval.glo4003.accesspasses.helpers;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPeriod;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
+import static ca.ulaval.glo4003.communications.helpers.EmailMother.createEmailAddress;
+import static ca.ulaval.glo4003.communications.helpers.PostalCodeMother.createPostalCode;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingAreaMother.createParkingAreaCode;
+import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createReceptionMethod;
 
 import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPeriod;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.communications.domain.EmailAddress;
+import ca.ulaval.glo4003.communications.domain.PostalCode;
+import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.times.domain.CustomDateTime;
 import ca.ulaval.glo4003.times.domain.DayOfWeek;
@@ -17,10 +25,14 @@ import java.util.List;
 
 public class AccessPassBuilder {
   private AccessPassCode code = createAccessPassCode();
+  private AccessPeriod accessPeriod = createAccessPeriod();
   private DayOfWeek accessDay;
   private LicensePlate licensePlate = createLicensePlate();
-  private List<TimePeriod> accessPeriods = new ArrayList<>();
+  private List<TimePeriod> accessTimePeriods = new ArrayList<>();
+  private ReceptionMethod receptionMethod = createReceptionMethod();
   private ParkingAreaCode parkingAreaCode = createParkingAreaCode();
+  private EmailAddress emailAddress = createEmailAddress();
+  private PostalCode postalCode = createPostalCode();
   private boolean hasEnteredCampus = false;
 
   public static AccessPassBuilder anAccessPass() {
@@ -48,7 +60,7 @@ public class AccessPassBuilder {
     CustomDateTime start = CustomDateTime.now().minusDays(firstUnimportantInt);
     CustomDateTime end = CustomDateTime.now().plusDays(secondUnimportantInt);
     TimePeriod period = new TimePeriod(start, end);
-    this.accessPeriods.add(period);
+    this.accessTimePeriods.add(period);
     return this;
   }
 
@@ -58,7 +70,7 @@ public class AccessPassBuilder {
     CustomDateTime start = CustomDateTime.now().minusDays(firstUnimportantInt);
     CustomDateTime end = CustomDateTime.now().minusDays(secondUnimportantInt);
     TimePeriod period = new TimePeriod(start, end);
-    this.accessPeriods.add(period);
+    this.accessTimePeriods.add(period);
     return this;
   }
 
@@ -67,8 +79,22 @@ public class AccessPassBuilder {
     return this;
   }
 
+  public AccessPassBuilder withReceptionMethod(ReceptionMethod receptionMethod) {
+    this.receptionMethod = receptionMethod;
+    return this;
+  }
+
   public AccessPass build() {
-    AccessPass accessPass = new AccessPass(accessDay, licensePlate, accessPeriods, parkingAreaCode);
+    AccessPass accessPass =
+        new AccessPass(
+            accessPeriod,
+            accessDay,
+            licensePlate,
+            accessTimePeriods,
+            parkingAreaCode,
+            receptionMethod,
+            postalCode,
+            emailAddress);
     accessPass.setCode(code);
 
     if (hasEnteredCampus) accessPass.enterCampus();

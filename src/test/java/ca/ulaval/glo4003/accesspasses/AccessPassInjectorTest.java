@@ -2,12 +2,15 @@ package ca.ulaval.glo4003.accesspasses;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import ca.ulaval.glo4003.accesspasses.domain.AccessPassCreationObserver;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.times.services.SemesterService;
+import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
+import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +24,8 @@ public class AccessPassInjectorTest {
   @Mock private AccountService accountService;
   @Mock private BillService billService;
   @Mock private SemesterService semesterService;
+  @Mock private AccessPassCreationObserver accessPassCreationObserver;
+  @Mock private SemesterCodeConverter semesterCodeConverter;
 
   private AccessPassInjector accessPassInjector;
 
@@ -33,7 +38,13 @@ public class AccessPassInjectorTest {
   public void whenGettingAccessPassService_thenReturnIt() {
     AccessPassService accessResource =
         accessPassInjector.createAccessPassService(
-            carService, parkingAreaService, accountService, billService, semesterService);
+            carService,
+            parkingAreaService,
+            accountService,
+            billService,
+            semesterService,
+            Collections.singletonList(accessPassCreationObserver),
+            semesterCodeConverter);
 
     assertThat(accessResource).isNotNull();
   }

@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.users.api;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
+import ca.ulaval.glo4003.accesspasses.services.dto.BicycleAccessPassDto;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.cars.services.dto.CarDto;
@@ -138,6 +139,21 @@ public class UserResource {
   public Response addAccessPass(
       @PathParam("accountId") String accountId, AccessPassDto accessPassDto) {
     AccessPassCodeDto accessPassCode = accessPassService.addAccessPass(accessPassDto, accountId);
+
+    return Response.status(Response.Status.CREATED)
+        .entity(accessPassCode)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
+
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("{accountId}/bicycleAccessPasses")
+  public Response addBicycleAccessPass(
+      @PathParam("accountId") String accountId, BicycleAccessPassDto bicycleAccessPassDto) {
+    AccessPassCodeDto accessPassCode =
+        accessPassService.addAccessPass(bicycleAccessPassDto, accountId);
 
     return Response.status(Response.Status.CREATED)
         .entity(accessPassCode)

@@ -3,11 +3,19 @@ package ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions;
 import ca.ulaval.glo4003.reports.domain.ReportPeriod;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MaximumAggregateFunctionInMemory extends ReportAggregateFunctionInMemory {
 
   @Override
-  public ReportPeriod aggregate(List<ReportPeriod> periods, ReportMetricType metricType) {
+  public List<ReportPeriod> aggregate(
+      List<ReportPeriod> periods, List<ReportMetricType> metricTypes) {
+    return metricTypes.stream()
+        .map(metricType -> aggregate(periods, metricType))
+        .collect(Collectors.toList());
+  }
+
+  private ReportPeriod aggregate(List<ReportPeriod> periods, ReportMetricType metricType) {
     ReportPeriod highestPeriod = null;
     double highestValue = Double.MIN_VALUE;
 

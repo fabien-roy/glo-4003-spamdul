@@ -76,7 +76,9 @@ public class ReportParkingAreaServiceTest {
                 ReportAggregateFunctionType.MINIMUM,
                 ReportAggregateFunctionType.AVERAGE),
             Collections.singletonList(summaryReportPeriod),
-            ReportMetricType.GATE_ENTRIES))
+            Arrays.asList(
+                ReportMetricType.GATE_ENTRIES_FOR_CARS,
+                ReportMetricType.GATE_ENTRIES_FOR_BICYCLES)))
         .thenReturn(Collections.singletonList(aggregatedSummaryReportPeriod));
     when(reportPeriodAssembler.assembleMany(
             Collections.singletonList(aggregatedSummaryReportPeriod)))

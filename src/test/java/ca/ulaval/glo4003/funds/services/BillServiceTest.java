@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.funds.services;
 
-import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassMother.createAccessPassCode;
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassBuilder.anAccessPass;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.CarMother.createConsumptionType;
 import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
@@ -12,10 +12,11 @@ import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerMother.createPark
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
-import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
+import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
 import ca.ulaval.glo4003.funds.domain.*;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
 import ca.ulaval.glo4003.funds.services.converters.BillIdConverter;
@@ -26,10 +27,8 @@ import ca.ulaval.glo4003.offenses.domain.OffenseCode;
 import ca.ulaval.glo4003.parkings.domain.ParkingArea;
 import ca.ulaval.glo4003.parkings.domain.ParkingPeriod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
-import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +41,6 @@ public class BillServiceTest {
 
   @Mock private BillFactory billFactory;
   @Mock private BillAssembler billAssembler;
-  @Mock private BillPriceCalculator billPriceCalculator;
   @Mock private InitiativeFundCollector initiativeFundCollector;
   @Mock private ReportEventService reportEventService;
   @Mock private AccountService accountService;
@@ -63,7 +61,7 @@ public class BillServiceTest {
   private final Money fee = createMoney();
   private final Money amountDue = Money.fromDouble(1);
   private final Money amountKeptForSustainabilityProgram = amountDue.multiply(0.4);
-  private final AccessPassCode accessPassCode = createAccessPassCode();
+  private final AccessPass accessPass = anAccessPass().build();
   private final ConsumptionType consumptionType = createConsumptionType();
   private final OffenseCode offenseCode = createOffenseCode();
   private final Map<ParkingPeriod, Money> feePerPeriod =
@@ -84,18 +82,16 @@ public class BillServiceTest {
             initiativeFundCollector,
             sustainableMobilityProgramAllocationCalculator);
 
-    List<Bill> bills = Collections.singletonList(bill);
-
     when(billFactory.createForParkingSticker(
             fee, parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
         .thenReturn(bill);
     when(billFactory.createForParkingSticker(
             fee.plus(POSTAL_FEE), parkingSticker.getCode(), parkingSticker.getReceptionMethod()))
         .thenReturn(bill);
-    when(billFactory.createForAccessPass(fee, accessPassCode, consumptionType)).thenReturn(bill);
+    when(billFactory.createForAccessPass(
+            fee, accessPass.getCode(), consumptionType, accessPass.getReceptionMethod()))
+        .thenReturn(bill);
     when(billFactory.createForOffense(fee, offenseCode)).thenReturn(bill);
-    when(billPriceCalculator.calculateTotalPrice(bills)).thenReturn(fee);
-    when(billPriceCalculator.calculatePaidPrice(bills)).thenReturn(fee);
     when(sustainableMobilityProgramAllocationCalculator.calculate(amountDue))
         .thenReturn(amountKeptForSustainabilityProgram);
   }
@@ -137,15 +133,14 @@ public class BillServiceTest {
 
   @Test
   public void whenAddingBillForAccessPass_thenReturnBill() {
-    Bill bill =
-        billService.addBillForAccessCode(account.getId(), fee, accessPassCode, consumptionType);
+    Bill bill = billService.addBillForAccessPass(account.getId(), fee, accessPass, consumptionType);
 
     assertThat(bill).isEqualTo(bill);
   }
 
   @Test
   public void whenAddingBillForAccessPass_thenAddBillToAccount() {
-    billService.addBillForAccessCode(account.getId(), fee, accessPassCode, consumptionType);
+    billService.addBillForAccessPass(account.getId(), fee, accessPass, consumptionType);
 
     verify(accountService).addBillToAccount(account.getId(), bill);
   }
