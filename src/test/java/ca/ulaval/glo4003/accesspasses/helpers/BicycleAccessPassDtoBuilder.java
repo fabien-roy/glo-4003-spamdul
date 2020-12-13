@@ -11,7 +11,7 @@ public class BicycleAccessPassDtoBuilder {
   private String semester = createSemesterCode().toString();
   private String receptionMethod = createReceptionMethod().toString();
   private String postalCode = createPostalCode().toString();
-  private String emailAddress = createEmailAddress().toString();
+  private String email = createEmailAddress().toString();
 
   public static BicycleAccessPassDtoBuilder aBicycleAccessPassDto() {
     return new BicycleAccessPassDtoBuilder();
@@ -22,7 +22,7 @@ public class BicycleAccessPassDtoBuilder {
     bicycleAccessPassDto.semester = semester;
     bicycleAccessPassDto.receptionMethod = receptionMethod;
     bicycleAccessPassDto.postalCode = postalCode;
-    bicycleAccessPassDto.emailAddress = emailAddress;
+    bicycleAccessPassDto.email = email;
     return bicycleAccessPassDto;
   }
 }
