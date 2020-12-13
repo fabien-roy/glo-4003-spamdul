@@ -66,7 +66,7 @@ public class AccessPassConverter {
     ReceptionMethod receptionMethod = ReceptionMethod.get(bicycleAccessPassDto.receptionMethod);
 
     if (receptionMethod == ReceptionMethod.EMAIL) {
-      emailAddress = emailAddressConverter.convert(bicycleAccessPassDto.emailAddress);
+      emailAddress = emailAddressConverter.convert(bicycleAccessPassDto.email);
     } else if (receptionMethod == ReceptionMethod.POSTAL) {
       postalCode = postalCodeConverter.convert(bicycleAccessPassDto.postalCode);
     }
