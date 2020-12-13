@@ -16,10 +16,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ParkingAreaAssemblerTest {
-
   @Mock private ParkingPeriodPriceAssembler parkingPeriodPriceAssembler;
+
   private ParkingAreaAssembler parkingAreaAssembler;
-  private ParkingArea parkingArea = aParkingArea().build();
+
+  private final ParkingArea parkingArea = aParkingArea().build();
 
   @Before
   public void setUp() {

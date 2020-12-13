@@ -135,8 +135,7 @@ public class BillService {
         reportEventService.addBillPaidForParkingStickerEvent(amountPaid);
         break;
       case ACCESS_PASS:
-        reportEventService.addBillPaidForAccessPassEvent(
-            amountPaid, bill.getConsumptionType().get());
+        reportEventService.addBillPaidForAccessPassEvent(amountPaid, bill.getConsumptionType());
         break;
       default:
       case OFFENSE:

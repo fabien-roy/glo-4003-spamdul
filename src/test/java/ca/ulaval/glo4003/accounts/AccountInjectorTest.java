@@ -4,8 +4,6 @@ import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.accounts.domain.AccountFactory;
 import ca.ulaval.glo4003.accounts.domain.AccountRepository;
-import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
-import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,19 +36,5 @@ public class AccountInjectorTest {
     AccountFactory accountFactory = accountInjector.createAccountFactory();
 
     assertThat(accountFactory).isNotNull();
-  }
-
-  @Test
-  public void whenCreatingAccountIdConverter_thenReturnIt() {
-    AccountIdConverter accountIdConverter = accountInjector.createAccountIdConverter();
-
-    assertThat(accountIdConverter).isNotNull();
-  }
-
-  @Test
-  public void whenCreatingAccountIdAssembler_thenReturnIt() {
-    AccountIdAssembler accountIdAssembler = accountInjector.createAccountIdAssembler();
-
-    assertThat(accountIdAssembler).isNotNull();
   }
 }

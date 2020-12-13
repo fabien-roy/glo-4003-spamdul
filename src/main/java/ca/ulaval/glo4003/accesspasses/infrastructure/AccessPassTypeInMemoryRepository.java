@@ -7,7 +7,7 @@ import ca.ulaval.glo4003.cars.domain.exceptions.InvalidConsumptionTypeException;
 import java.util.HashMap;
 
 public class AccessPassTypeInMemoryRepository implements AccessPassTypeRepository {
-  private HashMap<ConsumptionType, AccessPassType> accessPassPriceByCarConsumptions =
+  private final HashMap<ConsumptionType, AccessPassType> accessPassPriceByCarConsumptions =
       new HashMap<>();
 
   @Override

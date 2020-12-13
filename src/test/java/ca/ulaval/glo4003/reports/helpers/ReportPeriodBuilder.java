@@ -12,7 +12,7 @@ import java.util.List;
 public class ReportPeriodBuilder {
   private String name = createReportPeriodName();
   private TimePeriod period = aTimePeriod().build();
-  private List<ReportPeriodData> data = new ArrayList();
+  private List<ReportPeriodData> data = new ArrayList<>();
 
   public static ReportPeriodBuilder aReportPeriod() {
     return new ReportPeriodBuilder();

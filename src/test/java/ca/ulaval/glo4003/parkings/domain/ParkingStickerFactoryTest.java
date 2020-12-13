@@ -13,25 +13,24 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ParkingStickerFactoryTest {
-  private static final ParkingStickerCode PARKING_STICKER_CODE = createParkingStickerCode();
-
   @Mock private ParkingStickerCodeGenerator parkingStickerCodeGenerator;
 
-  private ParkingSticker parkingSticker = aParkingSticker().build();
-
   private ParkingStickerFactory parkingStickerFactory;
+
+  private final ParkingStickerCode parkingStickerCode = createParkingStickerCode();
+  private final ParkingSticker parkingSticker = aParkingSticker().build();
 
   @Before
   public void setUp() {
     parkingStickerFactory = new ParkingStickerFactory(parkingStickerCodeGenerator);
 
-    BDDMockito.given(parkingStickerCodeGenerator.generate()).willReturn(PARKING_STICKER_CODE);
+    BDDMockito.given(parkingStickerCodeGenerator.generate()).willReturn(parkingStickerCode);
   }
 
   @Test
   public void whenCreating_thenGeneratorCode() {
     ParkingSticker createdParkingSticker = parkingStickerFactory.create(parkingSticker);
 
-    Truth.assertThat(createdParkingSticker.getCode()).isSameInstanceAs(PARKING_STICKER_CODE);
+    Truth.assertThat(createdParkingSticker.getCode()).isSameInstanceAs(parkingStickerCode);
   }
 }

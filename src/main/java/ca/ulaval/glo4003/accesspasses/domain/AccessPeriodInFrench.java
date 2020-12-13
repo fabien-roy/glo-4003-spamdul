@@ -12,7 +12,7 @@ public enum AccessPeriodInFrench {
   DEUX_SESSIONS("2 session"),
   TROIS_SESSIONS("3 session");
 
-  private String period;
+  private final String period;
   private static final Map<String, AccessPeriodInFrench> lookup = new HashMap<>();
 
   static {

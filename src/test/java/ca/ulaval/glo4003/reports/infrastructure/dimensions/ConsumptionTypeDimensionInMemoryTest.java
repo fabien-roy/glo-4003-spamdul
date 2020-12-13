@@ -43,12 +43,15 @@ public class ConsumptionTypeDimensionInMemoryTest extends ReportDimensionInMemor
     List<ReportPeriodData> splitData = dimension.splitAll(singleData);
 
     assertThat(
-        splitData.stream()
-            .anyMatch(data -> data.getDimensions().get(0).getValue().equals(firstConsumptionType)));
+            splitData.stream()
+                .anyMatch(
+                    data -> data.getDimensions().get(0).getValue().equals(firstConsumptionType)))
+        .isTrue();
     assertThat(
-        splitData.stream()
-            .anyMatch(
-                data -> data.getDimensions().get(0).getValue().equals(secondConsumptionType)));
+            splitData.stream()
+                .anyMatch(
+                    data -> data.getDimensions().get(0).getValue().equals(secondConsumptionType)))
+        .isTrue();
   }
 
   @Test
@@ -56,13 +59,14 @@ public class ConsumptionTypeDimensionInMemoryTest extends ReportDimensionInMemor
     List<ReportPeriodData> splitData = dimension.splitAll(singleData);
 
     assertThat(
-        splitData.stream()
-            .allMatch(
-                data ->
-                    data.getDimensions()
-                        .get(0)
-                        .getType()
-                        .equals(ReportDimensionType.CONSUMPTION_TYPE)));
+            splitData.stream()
+                .allMatch(
+                    data ->
+                        data.getDimensions()
+                            .get(0)
+                            .getType()
+                            .equals(ReportDimensionType.CONSUMPTION_TYPE)))
+        .isTrue();
   }
 
   @Test

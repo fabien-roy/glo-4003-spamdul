@@ -33,7 +33,6 @@ public class CarMother {
         ConsumptionType.class, Collections.singletonList(ConsumptionType.ZERO_POLLUTION));
   }
 
-  // TODO : Move this to builder's buildMany()
   public static List<Car> createCars() {
     List<Car> cars = new ArrayList<>();
     cars.add(aCar().build());

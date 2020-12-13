@@ -32,7 +32,7 @@ public class AccessPassConverter {
   private final EmailAddressConverter emailAddressConverter;
   private final PostalCodeConverter postalCodeConverter;
   private final SemesterCodeConverter semesterCodeConverter;
-  private final SemesterService semesterService; // TODO : Remove this somehow
+  private final SemesterService semesterService;
 
   public AccessPassConverter(SemesterService semesterService) {
     this(
@@ -90,8 +90,6 @@ public class AccessPassConverter {
 
     return new AccessPass(
         accessPeriod,
-        null,
-        null,
         semesterService.getSemester(scholarYear),
         parkingAreaCode,
         receptionMethod,
@@ -116,8 +114,7 @@ public class AccessPassConverter {
 
     List<TimePeriod> timePeriods = semesterService.getSemester(accessPassDto.semesters);
 
-    return new AccessPass(
-        accessPeriod, dayOfWeek, licensePlate, timePeriods, parkingAreaCode, null, null, null);
+    return new AccessPass(accessPeriod, dayOfWeek, licensePlate, timePeriods, parkingAreaCode);
   }
 
   private AccessPass convertForPedestrian(AccessPassDto accessPassDto) {
@@ -134,7 +131,7 @@ public class AccessPassConverter {
 
     List<TimePeriod> timePeriods = semesterService.getSemester(accessPassDto.semesters);
 
-    return new AccessPass(accessPeriod, dayOfWeek, null, timePeriods, null, null, null, null);
+    return new AccessPass(accessPeriod, dayOfWeek, timePeriods);
   }
 
   // Will be revised if story 3.1 is chosen

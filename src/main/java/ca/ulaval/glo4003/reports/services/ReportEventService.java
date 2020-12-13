@@ -55,7 +55,6 @@ public class ReportEventService {
   }
 
   public void addGateEnteredEvent(CustomDateTime dateTime, ParkingAreaCode parkingAreaCode) {
-    // TODO : Why the hell do we check this?
     if (parkingAreaCode != null) {
       logger.info(
           String.format(

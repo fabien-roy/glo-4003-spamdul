@@ -1,16 +1,17 @@
 package ca.ulaval.glo4003.initiatives.services.assemblers;
 
 import static ca.ulaval.glo4003.initiatives.helpers.InitiativeMother.createInitiativeCode;
+import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
 import ca.ulaval.glo4003.initiatives.services.dto.InitiativeCodeDto;
-import com.google.common.truth.Truth;
 import org.junit.Before;
 import org.junit.Test;
 
 public class InitiativeCodeAssemblerTest {
   private InitiativeCodeAssembler initiativeCodeAssembler;
-  private InitiativeCode INITIATIVE_CODE = createInitiativeCode();
+
+  private final InitiativeCode initiativeCode = createInitiativeCode();
 
   @Before
   public void setUp() {
@@ -20,17 +21,15 @@ public class InitiativeCodeAssemblerTest {
   @Test
   public void whenAssemblingString_thenReturnInitiativeCode() {
     InitiativeCode AssembledInitiativeCode =
-        initiativeCodeAssembler.assemble(INITIATIVE_CODE.toString());
+        initiativeCodeAssembler.assemble(initiativeCode.toString());
 
-    Truth.assertThat(AssembledInitiativeCode).isEqualTo(INITIATIVE_CODE);
+    assertThat(AssembledInitiativeCode).isEqualTo(initiativeCode);
   }
 
   @Test
   public void whenAssemblingInitiativeCodeDto_thenReturnInitiativeCode() {
-    InitiativeCodeDto AssembledInitiativeCodeDto =
-        initiativeCodeAssembler.assemble(INITIATIVE_CODE);
+    InitiativeCodeDto AssembledInitiativeCodeDto = initiativeCodeAssembler.assemble(initiativeCode);
 
-    Truth.assertThat(AssembledInitiativeCodeDto.initiativeCode)
-        .isEqualTo(INITIATIVE_CODE.toString());
+    assertThat(AssembledInitiativeCodeDto.initiativeCode).isEqualTo(initiativeCode.toString());
   }
 }

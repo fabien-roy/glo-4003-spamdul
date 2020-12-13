@@ -59,8 +59,8 @@ public class AccessPassServiceTest {
   private final Bill zeroPollutionBill = aBill().build();
   private final Bill notZeroPollutionBill = aBill().build();
   private final AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDto().build();
+  private final BicycleAccessPassDto bicycleAccessPassDto = aBicycleAccessPassDto().build();
   private AccessPassDto accessPassDto = anAccessPassDto().build();
-  private BicycleAccessPassDto bicycleAccessPassDto = aBicycleAccessPassDto().build();
   private AccessPass accessPass = anAccessPass().withReceptionMethod(ReceptionMethod.EMAIL).build();
 
   @Before

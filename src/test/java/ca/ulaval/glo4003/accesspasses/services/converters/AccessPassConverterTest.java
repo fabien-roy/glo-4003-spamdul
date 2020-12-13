@@ -51,11 +51,11 @@ public class AccessPassConverterTest {
           .withLicensePlate(licensePlate.toString())
           .withSemesters(new String[] {"A20"})
           .build();
-  private BicycleAccessPassDto bicycleAccessPassDto =
+  private final BicycleAccessPassDto bicycleAccessPassDto =
       aBicycleAccessPassDto().withSemester("H20").build();
-  private PostalCode postalCode = new PostalCode("A1E 2E1");
-  private EmailAddress emailAddress = new EmailAddress("salut@mail.com");
-  private SemesterCode semesterCode = createSemesterCode();
+  private final PostalCode postalCode = new PostalCode("A1E 2E1");
+  private final EmailAddress emailAddress = new EmailAddress("salut@mail.com");
+  private final SemesterCode semesterCode = createSemesterCode();
 
   @Before
   public void setUp() {

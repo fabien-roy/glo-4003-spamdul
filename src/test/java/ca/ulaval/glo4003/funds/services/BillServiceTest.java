@@ -236,7 +236,7 @@ public class BillServiceTest {
     bill.pay(amountDue);
 
     verify(reportEventService)
-        .addBillPaidForAccessPassEvent(amountDue, accessPassBill.getConsumptionType().get());
+        .addBillPaidForAccessPassEvent(amountDue, accessPassBill.getConsumptionType());
   }
 
   @Test

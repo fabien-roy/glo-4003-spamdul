@@ -3,14 +3,14 @@ package ca.ulaval.glo4003.reports;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.reports.api.ReportParkingAreaResource;
 import ca.ulaval.glo4003.reports.api.ReportProfitResource;
-import ca.ulaval.glo4003.reports.domain.*;
+import ca.ulaval.glo4003.reports.domain.ReportRepository;
+import ca.ulaval.glo4003.reports.domain.ReportSummaryFactory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportRepositoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportSummaryFactoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions.ReportAggregateFunctionFactoryInMemory;
 import ca.ulaval.glo4003.reports.services.ReportEventService;
 import ca.ulaval.glo4003.reports.services.ReportParkingAreaService;
 import ca.ulaval.glo4003.reports.services.ReportProfitService;
-import ca.ulaval.glo4003.reports.services.assemblers.*;
 
 public class ReportInjector {
 

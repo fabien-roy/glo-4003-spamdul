@@ -25,7 +25,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-// TODO : Refactor this test class, removing usage of any()
 @RunWith(MockitoJUnitRunner.class)
 public class ReportQueryInMemoryTest {
 
