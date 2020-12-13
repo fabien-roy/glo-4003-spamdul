@@ -12,7 +12,6 @@ import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
-import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.converters.ParkingAreaConverter;
 import ca.ulaval.glo4003.parkings.services.converters.ParkingPeriodConverter;
 import java.util.List;
@@ -37,10 +36,6 @@ public class ParkingInjector {
     return new ParkingAreaService(parkingAreaRepository);
   }
 
-  public ParkingStickerCodeAssembler createParkingStickerCodeAssembler() {
-    return new ParkingStickerCodeAssembler();
-  }
-
   public ParkingAreaCodeAssembler createParkingAreaCodeAssembler() {
     return new ParkingAreaCodeAssembler();
   }
@@ -50,7 +45,6 @@ public class ParkingInjector {
       AccountService accountService,
       List<ParkingStickerCreationObserver> parkingStickerCreationObservers,
       BillService billService) {
-    ParkingAreaCodeAssembler parkingAreaCodeAssembler = new ParkingAreaCodeAssembler();
 
     if (isDev) {
       addParkingAreasToRepository();

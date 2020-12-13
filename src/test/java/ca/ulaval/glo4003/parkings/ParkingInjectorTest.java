@@ -10,7 +10,6 @@ import ca.ulaval.glo4003.parkings.domain.ParkingStickerCreationObserver;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
-import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
 import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,14 +36,6 @@ public class ParkingInjectorTest {
     ParkingAreaRepository parkingAreaRepository = parkingInjector.getParkingAreaRepository();
 
     assertThat(parkingAreaRepository).isInstanceOf(ParkingAreaRepositoryInMemory.class);
-  }
-
-  @Test
-  public void whenCreatingParkingStickerCodeAssembler_thenReturnIt() {
-    ParkingStickerCodeAssembler parkingStickerCodeAssembler =
-        parkingInjector.createParkingStickerCodeAssembler();
-
-    assertThat(parkingStickerCodeAssembler).isNotNull();
   }
 
   @Test

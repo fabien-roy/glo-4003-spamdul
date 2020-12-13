@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.reports.infrastructure.dimensions;
 
 import static ca.ulaval.glo4003.reports.helpers.ReportPeriodDataBuilder.aReportPeriodData;
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.*;
 
 import ca.ulaval.glo4003.reports.domain.ReportEvent;
 import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
