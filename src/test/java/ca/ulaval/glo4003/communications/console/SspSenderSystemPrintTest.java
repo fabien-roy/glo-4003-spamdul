@@ -1,7 +1,9 @@
 package ca.ulaval.glo4003.communications.console;
 
+import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassBuilder.anAccessPass;
 import static ca.ulaval.glo4003.parkings.helpers.ParkingStickerBuilder.aParkingSticker;
 
+import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import com.google.common.truth.Truth;
@@ -18,6 +20,7 @@ public class SspSenderSystemPrintTest {
   private SspSenderSystemPrint sspSenderSystemPrint;
 
   private ParkingSticker parkingSticker;
+  private AccessPass accessPass;
 
   @Before
   public void setUp() {
@@ -56,6 +59,33 @@ public class SspSenderSystemPrintTest {
     parkingSticker = aParkingSticker().withReceptionMethod(ReceptionMethod.POSTAL).build();
 
     sspSenderSystemPrint.listenParkingStickerCreated(parkingSticker);
+
+    Truth.assertThat(outContent.toString()).isEmpty();
+  }
+
+  @Test
+  public void givenPostalReceptionMethod_whenListeningAccessPassCreation_thenPrintMessage() {
+    accessPass = anAccessPass().withReceptionMethod(ReceptionMethod.SSP).build();
+
+    sspSenderSystemPrint.listenAccessPassCreated(accessPass);
+
+    Truth.assertThat(outContent.toString()).contains(accessPass.getCode().toString());
+  }
+
+  @Test
+  public void givenEmailReceptionMethod_whenListeningAccessPassCreation_thenDoNotPrintAnything() {
+    accessPass = anAccessPass().withReceptionMethod(ReceptionMethod.EMAIL).build();
+
+    sspSenderSystemPrint.listenAccessPassCreated(accessPass);
+
+    Truth.assertThat(outContent.toString()).isEmpty();
+  }
+
+  @Test
+  public void givenPostalReceptionMethod_whenListeningAccessPassCreation_thenDoNotPrintAnything() {
+    accessPass = anAccessPass().withReceptionMethod(ReceptionMethod.POSTAL).build();
+
+    sspSenderSystemPrint.listenAccessPassCreated(accessPass);
 
     Truth.assertThat(outContent.toString()).isEmpty();
   }
