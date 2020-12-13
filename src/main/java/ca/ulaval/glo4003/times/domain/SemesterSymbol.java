@@ -10,11 +10,11 @@ public enum SemesterSymbol {
   AUTUMN('A');
 
   public final char semesterSymbol;
-  private static final Map<String, SemesterSymbol> lookup = new HashMap<>();
+  private static final Map<Character, SemesterSymbol> lookup = new HashMap<>();
 
   static {
     for (SemesterSymbol semester : SemesterSymbol.values()) {
-      lookup.put(semester.toString(), semester);
+      lookup.put(semester.semesterSymbol, semester);
     }
   }
 
