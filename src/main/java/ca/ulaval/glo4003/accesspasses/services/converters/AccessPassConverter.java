@@ -32,7 +32,7 @@ public class AccessPassConverter {
   private final EmailAddressConverter emailAddressConverter;
   private final PostalCodeConverter postalCodeConverter;
   private final SemesterCodeConverter semesterCodeConverter;
-  private final SemesterService semesterService; // TODO : Remove this somehow
+  private final SemesterService semesterService;
 
   public AccessPassConverter(SemesterService semesterService) {
     this(

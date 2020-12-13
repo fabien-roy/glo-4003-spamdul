@@ -7,16 +7,12 @@ import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
 
 public class ParkingSticker {
   private ParkingStickerCode code;
-  private final AccountId accountId; // TODO : Remove accountId from ParkingSticker
+  private final AccountId accountId;
   private final ParkingAreaCode parkingAreaCode;
   private final ReceptionMethod receptionMethod;
+  private final ParkingPeriod parkingPeriod;
   private PostalCode postalCode;
   private EmailAddress emailAddress;
-  private ParkingPeriod parkingPeriod;
-
-  public ParkingPeriod getParkingPeriod() {
-    return parkingPeriod;
-  }
 
   public ParkingSticker(
       AccountId accountId,
@@ -81,6 +77,10 @@ public class ParkingSticker {
 
   public EmailAddress getEmailAddress() {
     return emailAddress;
+  }
+
+  public ParkingPeriod getParkingPeriod() {
+    return parkingPeriod;
   }
 
   public boolean validateParkingStickerAreaCode(ParkingAreaCode parkingAreaCode) {

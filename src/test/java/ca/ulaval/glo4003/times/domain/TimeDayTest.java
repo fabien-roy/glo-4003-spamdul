@@ -54,7 +54,6 @@ public class TimeDayTest {
     assertThat(actualString).isEqualTo(expectedString);
   }
 
-  // TODO : This doesn't test much, the logic is just pasted here. Fixed values would work better.
   @Test
   public void whenComparingDays_thenReturnDifferenceInDays() {
     LocalDateTime dateTimeAtMinimumTime = dateTimeAtMinimumTime(dateTime.toLocalDateTime());
