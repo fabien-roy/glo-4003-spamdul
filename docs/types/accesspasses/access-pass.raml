@@ -14,28 +14,11 @@ properties:
     description: Day of access pass validity. Only required if period is '1d/week/semester'.
   period:
     type: types.AccessPeriod
-    description: Period of access pass validity, not required if parkingArea is 'ZoneVelo'
+    description: Period of access pass validity
   parkingArea:
     type: types.ParkingAreaCode
     required: false
     description: Parking area for access pass. Only required if a license plate is provided.
   semesters:
     type: types.Semester[]
-    description: Semesters for access pass validity, must fit with access period, use currentSemester instead if parkingArea is 'ZoneVelo'
-  currentSemester:
-      type: types.Semester
-      description: current semester, required if parkingArea is 'ZoneVelo'
-      required: false
-  receptionMethod:
-      type: types.ReceptionMethod
-      description: Valid reception method, required if parkingArea is 'ZoneVelo'
-      required: false
-  postalCode:
-      type: types.PostalCode
-      description: Canadian postal code to send sticker to, required if reception method is postal
-      required: false
-  email:
-      type: types.Email
-      description: Email to send sticker to, required if reception method is email
-      required: false
-
+    description: Semesters for access pass validity, must fit with access period
