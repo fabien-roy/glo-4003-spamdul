@@ -10,7 +10,6 @@ public class BillPaymentConverter {
     this.moneyConverter = new MoneyConverter();
   }
 
-  // TODO Me dire pourquoi y'a cet intermédiaire-là
   public Money convert(BillPaymentDto billPaymentDto) {
     return moneyConverter.convert(billPaymentDto.amountToPay);
   }
