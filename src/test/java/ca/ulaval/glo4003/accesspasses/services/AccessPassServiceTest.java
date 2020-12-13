@@ -4,6 +4,7 @@ import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassBuilder.anAccessP
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassCodeDtoBuilder.anAccessPassCodeDto;
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassDtoBuilder.anAccessPassDto;
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassTypeBuilder.anAccessPassType;
+import static ca.ulaval.glo4003.accesspasses.helpers.BicycleAccessPassDtoBuilder.aBicycleAccessPassDto;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
@@ -18,6 +19,7 @@ import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassCodeAssemble
 import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassConverter;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
+import ca.ulaval.glo4003.accesspasses.services.dto.BicycleAccessPassDto;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
@@ -26,6 +28,7 @@ import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.parkings.domain.ReceptionMethod;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
 import ca.ulaval.glo4003.times.services.SemesterService;
@@ -48,6 +51,7 @@ public class AccessPassServiceTest {
   @Mock private AccountService accountService;
   @Mock private AccessPassCodeAssembler accessPassCodeAssembler;
   @Mock private SemesterService semesterService;
+  @Mock private AccessPassCreationObserver accessPassCreationObserver;
 
   private AccessPassService accessPassService;
 
@@ -60,7 +64,8 @@ public class AccessPassServiceTest {
   private final Bill notZeroPollutionBill = aBill().build();
   private final AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDto().build();
   private AccessPassDto accessPassDto = anAccessPassDto().build();
-  private AccessPass accessPass = anAccessPass().build();
+  private BicycleAccessPassDto bicycleAccessPassDto = aBicycleAccessPassDto().build();
+  private AccessPass accessPass = anAccessPass().withReceptionMethod(ReceptionMethod.EMAIL).build();
   private TimePeriod timePeriod = aTimePeriod().build();
 
   @Before
@@ -121,6 +126,28 @@ public class AccessPassServiceTest {
         accessPassService.addAccessPass(accessPassDto, account.getId().toString());
 
     assertThat(receivedAccessPassCodeDto).isSameInstanceAs(accessPassCodeDto);
+  }
+
+  @Test
+  public void whenAddingBicycleAccessPass_thenReturnAccessPassCode() {
+    givenAccessPassDtoWithLicensePlate(LICENSE_PLATE);
+
+    AccessPassCodeDto receivedAccessPassCodeDto =
+        accessPassService.addAccessPass(bicycleAccessPassDto, account.getId().toString());
+
+    assertThat(receivedAccessPassCodeDto).isSameInstanceAs(accessPassCodeDto);
+  }
+
+  @Test
+  public void
+      givenReceptionMethod_whenAddingBicycleAccessPass_thenAccessPassCreationObserversAreNotified() {
+    givenAccessPassDtoWithLicensePlate(LICENSE_PLATE);
+
+    accessPassService.register(accessPassCreationObserver);
+
+    accessPassService.addAccessPass(bicycleAccessPassDto, account.getId().toString());
+
+    verify(accessPassCreationObserver).listenAccessPassCreated(accessPass);
   }
 
   @Test
@@ -186,6 +213,7 @@ public class AccessPassServiceTest {
 
   private void setUpMocks() {
     when(accessPassConverter.convert(accessPassDto)).thenReturn(accessPass);
+    when(accessPassConverter.convert(bicycleAccessPassDto)).thenReturn(accessPass);
     when(accountService.getAccount(account.getId().toString())).thenReturn(account);
     when(carService.getCar(accessPass.getLicensePlate())).thenReturn(car);
     when(accessPassFactory.create(accessPass)).thenReturn(accessPass);

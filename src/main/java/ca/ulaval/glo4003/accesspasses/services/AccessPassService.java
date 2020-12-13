@@ -63,7 +63,6 @@ public class AccessPassService extends AccessPassCreationObservable {
   }
 
   private AccessPassCodeDto addAccessPass(AccessPass accessPass, String accountId) {
-
     Account account = accountService.getAccount(accountId);
     LicensePlate licensePlate = accessPass.getLicensePlate();
 
