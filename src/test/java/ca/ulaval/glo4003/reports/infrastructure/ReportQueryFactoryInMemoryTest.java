@@ -16,6 +16,8 @@ import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeFactory;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.ConsumptionTypeDimensionInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.dimensions.ParkingAreaDimensionInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.filters.ReportEventTypeFilterInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.metrics.GateEntriesForBicyclesMetricInMemory;
+import ca.ulaval.glo4003.reports.infrastructure.metrics.GateEntriesForCarsMetricInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.metrics.GateEntriesMetricInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.metrics.ProfitsMetricInMemory;
 import java.util.Collections;
@@ -92,12 +94,38 @@ public class ReportQueryFactoryInMemoryTest {
   }
 
   @Test
-  public void whenCreatingGateEnteredReportQuery_thenAddGateEntriesMetric() {
+  public void givenMonthlyReportType_whenCreatingGateEnteredReportQuery_thenAddGateEntriesMetric() {
     ReportQueryInMemory reportQuery =
-        reportQueryFactory.createGateEnteredReportQuery(reportType, month, parkingAreaCodes);
+        reportQueryFactory.createGateEnteredReportQuery(
+            ReportType.MONTHLY, month, parkingAreaCodes);
 
     assertThat(reportQuery.getMetrics()).hasSize(1);
     assertThat(reportQuery.getMetrics().get(0)).isInstanceOf(GateEntriesMetricInMemory.class);
+  }
+
+  @Test
+  public void
+      givenDayOfMonthReportType_whenCreatingGateEnteredReportQuery_thenAddGateEntriesMetric() {
+    ReportQueryInMemory reportQuery =
+        reportQueryFactory.createGateEnteredReportQuery(
+            ReportType.DAY_OF_MONTH, month, parkingAreaCodes);
+
+    assertThat(reportQuery.getMetrics()).hasSize(1);
+    assertThat(reportQuery.getMetrics().get(0)).isInstanceOf(GateEntriesMetricInMemory.class);
+  }
+
+  @Test
+  public void
+      givenSummaryReportType_whenCreatingGateEnteredReportQuery_thenAddGateEntriesMetricForVehicules() {
+    ReportQueryInMemory reportQuery =
+        reportQueryFactory.createGateEnteredReportQuery(
+            ReportType.SUMMARY, month, parkingAreaCodes);
+
+    assertThat(reportQuery.getMetrics()).hasSize(2);
+    assertThat(reportQuery.getMetrics().get(0))
+        .isInstanceOf(GateEntriesForCarsMetricInMemory.class);
+    assertThat(reportQuery.getMetrics().get(1))
+        .isInstanceOf(GateEntriesForBicyclesMetricInMemory.class);
   }
 
   @Test
