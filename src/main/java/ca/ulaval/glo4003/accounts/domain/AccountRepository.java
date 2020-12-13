@@ -4,6 +4,7 @@ import ca.ulaval.glo4003.accesspasses.domain.AccessPass;
 import ca.ulaval.glo4003.accesspasses.domain.AccessPassCode;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
+import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import java.util.List;
@@ -24,4 +25,6 @@ public interface AccountRepository {
   void update(Account account);
 
   void update(AccessPass accessPass);
+
+  void update(Bill bill);
 }

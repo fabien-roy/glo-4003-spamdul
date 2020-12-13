@@ -5,14 +5,17 @@ import ca.ulaval.glo4003.reports.domain.ReportPeriodData;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricData;
 import ca.ulaval.glo4003.reports.domain.metrics.ReportMetricType;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AverageAggregateFunctionInMemory extends ReportAggregateFunctionInMemory {
 
   @Override
-  public ReportPeriod aggregate(List<ReportPeriod> periods, ReportMetricType metricType) {
-    double averageValue = getAverage(periods, metricType);
-
-    return buildReportPeriod("average", metricType, averageValue);
+  public List<ReportPeriod> aggregate(
+      List<ReportPeriod> periods, List<ReportMetricType> metricTypes) {
+    return metricTypes.stream()
+        .map(
+            metricType -> buildReportPeriod("average", metricType, getAverage(periods, metricType)))
+        .collect(Collectors.toList());
   }
 
   private double getAverage(List<ReportPeriod> periods, ReportMetricType metricType) {

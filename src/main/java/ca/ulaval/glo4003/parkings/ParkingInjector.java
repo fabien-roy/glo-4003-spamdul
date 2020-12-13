@@ -5,14 +5,12 @@ import ca.ulaval.glo4003.files.domain.StringMatrixFileReader;
 import ca.ulaval.glo4003.files.filesystem.CsvFileReader;
 import ca.ulaval.glo4003.funds.filesystem.ZoneFeesFileHelper;
 import ca.ulaval.glo4003.funds.services.BillService;
-import ca.ulaval.glo4003.funds.services.assemblers.ParkingPeriodPriceAssembler;
 import ca.ulaval.glo4003.generators.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.parkings.api.ParkingAreaResource;
 import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.infrastructure.ParkingAreaRepositoryInMemory;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
-import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
 import ca.ulaval.glo4003.parkings.services.converters.ParkingAreaConverter;
@@ -36,8 +34,7 @@ public class ParkingInjector {
   }
 
   public ParkingAreaService createParkingAreaService() {
-    return new ParkingAreaService(
-        parkingAreaRepository, new ParkingAreaAssembler(new ParkingPeriodPriceAssembler()));
+    return new ParkingAreaService(parkingAreaRepository);
   }
 
   public ParkingStickerCodeAssembler createParkingStickerCodeAssembler() {

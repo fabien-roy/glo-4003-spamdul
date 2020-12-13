@@ -8,7 +8,8 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class ReportAggregateFunctionInMemory {
-  public abstract ReportPeriod aggregate(List<ReportPeriod> periods, ReportMetricType metricType);
+  public abstract List<ReportPeriod> aggregate(
+      List<ReportPeriod> periods, List<ReportMetricType> metricTypes);
 
   protected ReportPeriod buildReportPeriod(
       String periodName, ReportMetricType metricType, double averageValue) {

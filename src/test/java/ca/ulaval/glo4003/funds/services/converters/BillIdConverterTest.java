@@ -1,10 +1,10 @@
 package ca.ulaval.glo4003.funds.services.converters;
 
 import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
+import static com.google.common.truth.Truth.assertThat;
 
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.domain.exceptions.BillNotFoundException;
-import com.google.common.truth.Truth;
+import ca.ulaval.glo4003.funds.domain.exceptions.InvalidBillIdException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,8 +18,13 @@ public class BillIdConverterTest {
     billIdConverter = new BillIdConverter();
   }
 
-  @Test(expected = BillNotFoundException.class)
-  public void givenNullAccountId_whenConverting_thenThrowInvalidAccountIdException() {
+  @Test(expected = InvalidBillIdException.class)
+  public void givenInvalidBillId_whenConverting_thenThrowInvalidBillIdException() {
+    billIdConverter.convert("invalidBillId");
+  }
+
+  @Test(expected = InvalidBillIdException.class)
+  public void givenNullBillId_whenConverting_thenThrowInvalidBillIdException() {
     billIdConverter.convert(null);
   }
 
@@ -27,6 +32,6 @@ public class BillIdConverterTest {
   public void whenConverting_thenReturnBillId() {
     BillId id = billIdConverter.convert(billId.toString());
 
-    Truth.assertThat(id).isEqualTo(billId);
+    assertThat(id).isEqualTo(billId);
   }
 }

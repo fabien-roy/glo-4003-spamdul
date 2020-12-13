@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.initiatives;
 
-import ca.ulaval.glo4003.carboncredits.configuration.CarbonCreditConfiguration;
+import ca.ulaval.glo4003.carboncredits.domain.CarbonCreditConfiguration;
 import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.generators.domain.StringCodeGenerator;
 import ca.ulaval.glo4003.initiatives.api.InitiativeResource;

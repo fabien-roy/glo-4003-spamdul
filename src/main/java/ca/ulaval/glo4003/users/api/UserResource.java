@@ -3,9 +3,11 @@ package ca.ulaval.glo4003.users.api;
 import ca.ulaval.glo4003.accesspasses.services.AccessPassService;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
+import ca.ulaval.glo4003.accesspasses.services.dto.BicycleAccessPassDto;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.cars.services.dto.CarDto;
+import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.dto.BillDto;
 import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
@@ -27,18 +29,21 @@ public class UserResource {
   private final CarService carService;
   private final UserService userService;
   private final ParkingStickerService parkingStickerService;
+  private final BillService billService;
 
   public UserResource(
       UserService userService,
       AccessPassService accessPassService,
       CarService carService,
       AccountService accountService,
-      ParkingStickerService parkingStickerService) {
+      ParkingStickerService parkingStickerService,
+      BillService billService) {
     this.userService = userService;
     this.accessPassService = accessPassService;
     this.carService = carService;
     this.accountService = accountService;
     this.parkingStickerService = parkingStickerService;
+    this.billService = billService;
   }
 
   @POST
@@ -84,7 +89,7 @@ public class UserResource {
       @PathParam("accountId") String accountId,
       @PathParam("billId") String billId,
       BillPaymentDto billPaymentDto) {
-    BillDto billDto = accountService.payBill(billPaymentDto, accountId, billId);
+    BillDto billDto = billService.payBill(billPaymentDto, accountId, billId);
 
     return Response.status(Response.Status.OK)
         .entity(billDto)
@@ -134,6 +139,21 @@ public class UserResource {
   public Response addAccessPass(
       @PathParam("accountId") String accountId, AccessPassDto accessPassDto) {
     AccessPassCodeDto accessPassCode = accessPassService.addAccessPass(accessPassDto, accountId);
+
+    return Response.status(Response.Status.CREATED)
+        .entity(accessPassCode)
+        .type(MediaType.APPLICATION_JSON)
+        .build();
+  }
+
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("{accountId}/bicycleAccessPasses")
+  public Response addBicycleAccessPass(
+      @PathParam("accountId") String accountId, BicycleAccessPassDto bicycleAccessPassDto) {
+    AccessPassCodeDto accessPassCode =
+        accessPassService.addAccessPass(bicycleAccessPassDto, accountId);
 
     return Response.status(Response.Status.CREATED)
         .entity(accessPassCode)

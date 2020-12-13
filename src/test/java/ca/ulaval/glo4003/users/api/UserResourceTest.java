@@ -23,6 +23,7 @@ import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.services.CarService;
 import ca.ulaval.glo4003.cars.services.dto.CarDto;
 import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.funds.services.dto.BillDto;
 import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
 import ca.ulaval.glo4003.parkings.services.ParkingStickerService;
@@ -47,6 +48,7 @@ public class UserResourceTest {
   @Mock private CarService carService;
   @Mock private AccountService accountService;
   @Mock private ParkingStickerService parkingStickerService;
+  @Mock private BillService billService;
 
   private UserResource userResource;
 
@@ -66,13 +68,18 @@ public class UserResourceTest {
   public void setUp() {
     userResource =
         new UserResource(
-            userService, accessPassService, carService, accountService, parkingStickerService);
+            userService,
+            accessPassService,
+            carService,
+            accountService,
+            parkingStickerService,
+            billService);
 
     when(userService.getUser(accountId.toString())).thenReturn(userDto);
     when(userService.addUser(userDto)).thenReturn(accountIdDto);
     when(accountService.getBills(accountId.toString()))
         .thenReturn(Collections.singletonList(billDto));
-    when(accountService.payBill(billPaymentDto, accountId.toString(), billId.toString()))
+    when(billService.payBill(billPaymentDto, accountId.toString(), billId.toString()))
         .thenReturn(billDto);
     when(carService.getCars(accountId.toString())).thenReturn(Collections.singletonList(carDto));
     when(accessPassService.addAccessPass(accessPassDto, accountId.toString()))

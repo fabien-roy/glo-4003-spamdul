@@ -4,26 +4,30 @@ import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassBuilder.anAccessP
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassCodeDtoBuilder.anAccessPassCodeDto;
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassDtoBuilder.anAccessPassDto;
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassTypeBuilder.anAccessPassType;
+import static ca.ulaval.glo4003.accesspasses.helpers.BicycleAccessPassDtoBuilder.aBicycleAccessPassDto;
 import static ca.ulaval.glo4003.accounts.helpers.AccountBuilder.anAccount;
 import static ca.ulaval.glo4003.cars.helpers.CarBuilder.aCar;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
-import static ca.ulaval.glo4003.funds.helpers.BillMother.createBillId;
+import static ca.ulaval.glo4003.funds.helpers.BillBuilder.aBill;
 import static ca.ulaval.glo4003.times.helpers.TimePeriodBuilder.aTimePeriod;
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import ca.ulaval.glo4003.accesspasses.domain.*;
 import ca.ulaval.glo4003.accesspasses.services.assemblers.AccessPassCodeAssembler;
 import ca.ulaval.glo4003.accesspasses.services.converters.AccessPassConverter;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassCodeDto;
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
+import ca.ulaval.glo4003.accesspasses.services.dto.BicycleAccessPassDto;
 import ca.ulaval.glo4003.accounts.domain.Account;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.ConsumptionType;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.CarService;
-import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.communications.domain.ReceptionMethod;
+import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.times.domain.TimePeriod;
@@ -47,6 +51,7 @@ public class AccessPassServiceTest {
   @Mock private AccountService accountService;
   @Mock private AccessPassCodeAssembler accessPassCodeAssembler;
   @Mock private SemesterService semesterService;
+  @Mock private AccessPassCreationObserver accessPassCreationObserver;
 
   private AccessPassService accessPassService;
 
@@ -55,11 +60,12 @@ public class AccessPassServiceTest {
   private final Car car = aCar().build();
   private final AccessPassType zeroPollutionAccessPassType = anAccessPassType().build();
   private final AccessPassType notZeroPollutionAccessPassType = anAccessPassType().build();
-  private final BillId zeroPollutionBillId = createBillId();
-  private final BillId notZeroPollutionBillId = createBillId();
+  private final Bill zeroPollutionBill = aBill().build();
+  private final Bill notZeroPollutionBill = aBill().build();
   private final AccessPassCodeDto accessPassCodeDto = anAccessPassCodeDto().build();
   private AccessPassDto accessPassDto = anAccessPassDto().build();
-  private AccessPass accessPass = anAccessPass().build();
+  private BicycleAccessPassDto bicycleAccessPassDto = aBicycleAccessPassDto().build();
+  private AccessPass accessPass = anAccessPass().withReceptionMethod(ReceptionMethod.EMAIL).build();
   private TimePeriod timePeriod = aTimePeriod().build();
 
   @Before
@@ -73,8 +79,7 @@ public class AccessPassServiceTest {
             accessPassTypeRepository,
             accountService,
             billService,
-            accessPassCodeAssembler,
-            semesterService);
+            accessPassCodeAssembler);
 
     when(semesterService.getSemester(accessPassDto.semesters))
         .thenReturn(Collections.singletonList(timePeriod));
@@ -92,7 +97,7 @@ public class AccessPassServiceTest {
     accessPassService.addAccessPass(accessPassDto, account.getId().toString());
 
     verify(accountService)
-        .addAccessPassToAccount(account.getId(), accessPass, notZeroPollutionBillId);
+        .addAccessPassToAccount(account.getId(), accessPass, notZeroPollutionBill);
   }
 
   @Test
@@ -109,7 +114,7 @@ public class AccessPassServiceTest {
 
     accessPassService.addAccessPass(accessPassDto, account.getId().toString());
 
-    verify(accountService).addAccessPassToAccount(account.getId(), accessPass, zeroPollutionBillId);
+    verify(accountService).addAccessPassToAccount(account.getId(), accessPass, zeroPollutionBill);
   }
 
   @Test
@@ -120,6 +125,28 @@ public class AccessPassServiceTest {
         accessPassService.addAccessPass(accessPassDto, account.getId().toString());
 
     assertThat(receivedAccessPassCodeDto).isSameInstanceAs(accessPassCodeDto);
+  }
+
+  @Test
+  public void whenAddingBicycleAccessPass_thenReturnAccessPassCode() {
+    givenAccessPassDtoWithLicensePlate(LICENSE_PLATE);
+
+    AccessPassCodeDto receivedAccessPassCodeDto =
+        accessPassService.addAccessPass(bicycleAccessPassDto, account.getId().toString());
+
+    assertThat(receivedAccessPassCodeDto).isSameInstanceAs(accessPassCodeDto);
+  }
+
+  @Test
+  public void
+      givenReceptionMethod_whenAddingBicycleAccessPass_thenAccessPassCreationObserversAreNotified() {
+    givenAccessPassDtoWithLicensePlate(LICENSE_PLATE);
+
+    accessPassService.register(accessPassCreationObserver);
+
+    accessPassService.addAccessPass(bicycleAccessPassDto, account.getId().toString());
+
+    verify(accessPassCreationObserver).listenAccessPassCreated(accessPass);
   }
 
   @Test
@@ -184,8 +211,8 @@ public class AccessPassServiceTest {
   }
 
   private void setUpMocks() {
-    when(accessPassConverter.convert(accessPassDto, Collections.singletonList(timePeriod)))
-        .thenReturn(accessPass);
+    when(accessPassConverter.convert(accessPassDto)).thenReturn(accessPass);
+    when(accessPassConverter.convert(bicycleAccessPassDto)).thenReturn(accessPass);
     when(accountService.getAccount(account.getId().toString())).thenReturn(account);
     when(carService.getCar(accessPass.getLicensePlate())).thenReturn(car);
     when(accessPassFactory.create(accessPass)).thenReturn(accessPass);
@@ -193,16 +220,19 @@ public class AccessPassServiceTest {
         .thenReturn(zeroPollutionAccessPassType);
     when(accessPassTypeRepository.findByConsumptionType(car.getConsumptionType()))
         .thenReturn(notZeroPollutionAccessPassType);
-    when(billService.addBillForAccessCode(
-            zeroPollutionAccessPassType.getFeeForPeriod(AccessPeriod.ONE_SEMESTER),
-            accessPass.getCode(),
+    when(billService.addBillForAccessPass(
+            account.getId(),
+            zeroPollutionAccessPassType.getFeeForPeriod(accessPass.getAccessPeriod()),
+            accessPass,
             car.getConsumptionType()))
-        .thenReturn(zeroPollutionBillId);
-    when(billService.addBillForAccessCode(
-            notZeroPollutionAccessPassType.getFeeForPeriod(AccessPeriod.ONE_SEMESTER),
-            accessPass.getCode(),
+        .thenReturn(zeroPollutionBill);
+    when(billService.addBillForAccessPass(
+            account.getId(),
+            notZeroPollutionAccessPassType.getFeeForPeriod(accessPass.getAccessPeriod()),
+            accessPass,
             car.getConsumptionType()))
-        .thenReturn(notZeroPollutionBillId);
+        .thenReturn(notZeroPollutionBill);
+
     when(accessPassCodeAssembler.assemble(accessPass.getCode())).thenReturn(accessPassCodeDto);
   }
 }

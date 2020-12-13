@@ -7,7 +7,6 @@ import ca.ulaval.glo4003.accounts.infrastructure.AccountRepositoryInMemory;
 import ca.ulaval.glo4003.accounts.services.AccountService;
 import ca.ulaval.glo4003.accounts.services.assemblers.AccountIdAssembler;
 import ca.ulaval.glo4003.accounts.services.converters.AccountIdConverter;
-import ca.ulaval.glo4003.funds.services.BillService;
 
 public class AccountInjector {
 
@@ -32,7 +31,7 @@ public class AccountInjector {
     return new AccountIdAssembler();
   }
 
-  public AccountService createAccountService(BillService billService) {
-    return new AccountService(accountRepository, billService);
+  public AccountService createAccountService() {
+    return new AccountService(accountRepository);
   }
 }

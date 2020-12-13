@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.parkings.services;
 
 import ca.ulaval.glo4003.accounts.services.AccountService;
-import ca.ulaval.glo4003.funds.domain.BillId;
+import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.services.BillService;
 import ca.ulaval.glo4003.parkings.domain.*;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingStickerCodeAssembler;
@@ -58,9 +58,8 @@ public class ParkingStickerService extends ParkingStickerCreationObservable {
 
     ParkingArea parkingArea = parkingAreaRepository.get(parkingSticker.getParkingAreaCode());
 
-    BillId billId = billService.addBillForParkingSticker(parkingSticker, parkingArea);
-    accountService.addParkingStickerToAccount(
-        parkingSticker.getAccountId(), parkingSticker, billId);
+    Bill bill = billService.addBillForParkingSticker(parkingSticker, parkingArea);
+    accountService.addParkingStickerToAccount(parkingSticker.getAccountId(), parkingSticker, bill);
 
     notifyParkingStickerCreated(parkingSticker);
 

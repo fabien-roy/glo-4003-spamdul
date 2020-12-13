@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.accesspasses.services.converters;
 
 import static ca.ulaval.glo4003.accesspasses.helpers.AccessPassDtoBuilder.anAccessPassDto;
 import static ca.ulaval.glo4003.cars.helpers.LicensePlateMother.createLicensePlate;
-import static ca.ulaval.glo4003.times.helpers.TimePeriodBuilder.aTimePeriod;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -13,12 +12,13 @@ import ca.ulaval.glo4003.accesspasses.domain.exceptions.WrongAmountOfSemestersFo
 import ca.ulaval.glo4003.accesspasses.services.dto.AccessPassDto;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.cars.services.converters.LicensePlateConverter;
+import ca.ulaval.glo4003.communications.services.converters.EmailAddressConverter;
+import ca.ulaval.glo4003.communications.services.converters.PostalCodeConverter;
 import ca.ulaval.glo4003.parkings.domain.ParkingAreaCode;
 import ca.ulaval.glo4003.parkings.services.assemblers.ParkingAreaCodeAssembler;
-import ca.ulaval.glo4003.times.domain.TimePeriod;
 import ca.ulaval.glo4003.times.domain.exceptions.InvalidDayOfWeekException;
-import java.util.Collections;
-import java.util.List;
+import ca.ulaval.glo4003.times.services.SemesterService;
+import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,11 +30,14 @@ public class AccessPassConverterTest {
 
   @Mock private LicensePlateConverter licensePlateConverter;
   @Mock private ParkingAreaCodeAssembler parkingAreaCodeAssembler;
+  @Mock private SemesterService semesterService;
+  @Mock private EmailAddressConverter emailAddressConverter;
+  @Mock private PostalCodeConverter postalCodeConverter;
+  @Mock private SemesterCodeConverter semesterCodeConverter;
 
   private AccessPassConverter accessPassConverter;
 
   private final LicensePlate licensePlate = createLicensePlate();
-  private final List<TimePeriod> timePeriods = Collections.singletonList(aTimePeriod().build());
   private AccessPassDto accessPassDto =
       anAccessPassDto()
           .withLicensePlate(licensePlate.toString())
@@ -43,7 +46,14 @@ public class AccessPassConverterTest {
 
   @Before
   public void setUp() {
-    accessPassConverter = new AccessPassConverter(licensePlateConverter, parkingAreaCodeAssembler);
+    accessPassConverter =
+        new AccessPassConverter(
+            licensePlateConverter,
+            parkingAreaCodeAssembler,
+            semesterService,
+            emailAddressConverter,
+            postalCodeConverter,
+            semesterCodeConverter);
 
     when(licensePlateConverter.convert(licensePlate.toString())).thenReturn(licensePlate);
     when(parkingAreaCodeAssembler.assemble(accessPassDto.parkingArea))
@@ -59,7 +69,7 @@ public class AccessPassConverterTest {
             .withSemesters(new String[] {"A20"})
             .build();
 
-    AccessPass accessPass = accessPassConverter.convert(accessPassDto, timePeriods);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.getAccessDay().toString()).isEqualTo(accessPassDto.accessDay);
   }
@@ -74,7 +84,7 @@ public class AccessPassConverterTest {
             .withAccessDay(invalidAccessDay)
             .build();
 
-    accessPassConverter.convert(accessPassDto, timePeriods);
+    accessPassConverter.convert(accessPassDto);
   }
 
   @Test(expected = InvalidDayOfWeekException.class)
@@ -86,19 +96,19 @@ public class AccessPassConverterTest {
             .withAccessDay(null)
             .build();
 
-    accessPassConverter.convert(accessPassDto, timePeriods);
+    accessPassConverter.convert(accessPassDto);
   }
 
   @Test
   public void whenConverting_thenReturnAccessPassWithLicensePlate() {
-    AccessPass accessPass = accessPassConverter.convert(accessPassDto, timePeriods);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.getLicensePlate()).isSameInstanceAs(licensePlate);
   }
 
   @Test
   public void whenConverting_thenReturnIsAdmittedOnCampusAtFalse() {
-    AccessPass accessPass = accessPassConverter.convert(accessPassDto, timePeriods);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.isAdmittedOnCampus()).isSameInstanceAs(false);
   }
@@ -108,7 +118,7 @@ public class AccessPassConverterTest {
     accessPassDto =
         anAccessPassDto().withLicensePlate(null).withSemesters(new String[] {"A20"}).build();
 
-    AccessPass accessPass = accessPassConverter.convert(accessPassDto, timePeriods);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.getLicensePlate()).isNull();
   }
@@ -117,14 +127,14 @@ public class AccessPassConverterTest {
   public void givenOneHourPeriod_whenConverting_thenThrowUnsupportedPeriodException() {
     accessPassDto = anAccessPassDto().withAccessPeriod(AccessPeriod.ONE_HOUR.toString()).build();
 
-    accessPassConverter.convert(accessPassDto, timePeriods);
+    accessPassConverter.convert(accessPassDto);
   }
 
   @Test(expected = UnsupportedAccessPeriodException.class)
   public void givenOneDayPeriod_whenConverting_thenThrowUnsupportedPeriodException() {
     accessPassDto = anAccessPassDto().withAccessPeriod(AccessPeriod.ONE_DAY.toString()).build();
 
-    accessPassConverter.convert(accessPassDto, timePeriods);
+    accessPassConverter.convert(accessPassDto);
   }
 
   @Test(expected = WrongAmountOfSemestersForPeriodException.class)
@@ -135,7 +145,7 @@ public class AccessPassConverterTest {
             .withSemesters(new String[] {"A20"})
             .build();
 
-    accessPassConverter.convert(accessPassDto, timePeriods);
+    accessPassConverter.convert(accessPassDto);
   }
 
   @Test
@@ -147,21 +157,21 @@ public class AccessPassConverterTest {
             .withParkingAea(null)
             .build();
 
-    AccessPass accessPass = accessPassConverter.convert(accessPassDto, timePeriods);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.getParkingAreaCode()).isNull();
   }
 
   @Test
   public void givenParkingAreaCode_whenConverting_thenReturnAccessPassWithParkingAreaCode() {
-    AccessPass accessPass = accessPassConverter.convert(accessPassDto, timePeriods);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.getParkingAreaCode().toString()).isEqualTo(accessPassDto.parkingArea);
   }
 
   @Test
   public void givenAccessPeriodOtherThanOneDayAWeekPerSemester_whenConverting_thenSetNoAccessDay() {
-    AccessPass accessPass = accessPassConverter.convert(accessPassDto, timePeriods);
+    AccessPass accessPass = accessPassConverter.convert(accessPassDto);
 
     assertThat(accessPass.getAccessDay()).isNull();
   }

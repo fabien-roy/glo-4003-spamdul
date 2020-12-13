@@ -5,6 +5,7 @@ import static com.google.common.truth.Truth.assertThat;
 import ca.ulaval.glo4003.times.services.SemesterService;
 import ca.ulaval.glo4003.times.services.converters.CustomDateConverter;
 import ca.ulaval.glo4003.times.services.converters.CustomDateTimeConverter;
+import ca.ulaval.glo4003.times.services.converters.SemesterCodeConverter;
 import ca.ulaval.glo4003.times.services.converters.TimeOfDayConverter;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,5 +45,12 @@ public class TimeInjectorTest {
     SemesterService semesterService = timeInjector.createSemesterService();
 
     assertThat(semesterService).isNotNull();
+  }
+
+  @Test
+  public void whenCreatingSemesterCodeConverter_thenReturnIt() {
+    SemesterCodeConverter semesterCodeConverter = timeInjector.createSemesterCodeConverter();
+
+    assertThat(semesterCodeConverter).isNotNull();
   }
 }

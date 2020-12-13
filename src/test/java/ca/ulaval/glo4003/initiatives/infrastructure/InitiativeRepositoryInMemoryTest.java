@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.funds.domain.Money;
 import ca.ulaval.glo4003.funds.domain.exceptions.InsufficientAvailableMoneyException;
 import ca.ulaval.glo4003.initiatives.domain.Initiative;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
-import ca.ulaval.glo4003.initiatives.domain.exceptions.InitiativeNotFoundException;
+import ca.ulaval.glo4003.initiatives.domain.exceptions.NotFoundInitiativeException;
 import com.google.common.truth.Truth;
 import java.util.List;
 import org.junit.Before;
@@ -49,7 +49,7 @@ public class InitiativeRepositoryInMemoryTest {
     Truth.assertThat(initiatives).contains(otherInitiative);
   }
 
-  @Test(expected = InitiativeNotFoundException.class)
+  @Test(expected = NotFoundInitiativeException.class)
   public void whenGettingNonExistingInitiative_thenThrowInitiativeNotFoundException() {
     initiativeRepository.get(initiative.getCode());
   }
@@ -63,7 +63,7 @@ public class InitiativeRepositoryInMemoryTest {
     Truth.assertThat(InitiativeFromRepo).isEqualTo(initiative);
   }
 
-  @Test(expected = InitiativeNotFoundException.class)
+  @Test(expected = NotFoundInitiativeException.class)
   public void givenNoInitiative_whenUpdating_thenThrowInitiativeNotFoundException() {
     initiativeRepository.update(initiative);
   }

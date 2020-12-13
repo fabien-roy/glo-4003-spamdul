@@ -10,49 +10,29 @@ import ca.ulaval.glo4003.cars.domain.Car;
 import ca.ulaval.glo4003.cars.domain.LicensePlate;
 import ca.ulaval.glo4003.funds.domain.Bill;
 import ca.ulaval.glo4003.funds.domain.BillId;
-import ca.ulaval.glo4003.funds.domain.Money;
-import ca.ulaval.glo4003.funds.services.BillService;
+import ca.ulaval.glo4003.funds.domain.exceptions.NotFoundBillException;
 import ca.ulaval.glo4003.funds.services.assemblers.BillAssembler;
-import ca.ulaval.glo4003.funds.services.converters.BillIdConverter;
-import ca.ulaval.glo4003.funds.services.converters.BillPaymentConverter;
 import ca.ulaval.glo4003.funds.services.dto.BillDto;
-import ca.ulaval.glo4003.funds.services.dto.BillPaymentDto;
 import ca.ulaval.glo4003.parkings.domain.ParkingSticker;
 import ca.ulaval.glo4003.parkings.domain.ParkingStickerCode;
 import java.util.List;
 
 public class AccountService {
-
   private final AccountRepository accountRepository;
   private final AccountIdConverter accountIdConverter;
-  private final BillService billService;
   private final BillAssembler billAssembler;
-  private final BillIdConverter billIdConverter;
-  private final BillPaymentConverter billPaymentConverter;
 
-  public AccountService(AccountRepository accountRepository, BillService billService) {
-    this(
-        accountRepository,
-        new AccountIdConverter(),
-        billService,
-        new BillAssembler(),
-        new BillIdConverter(),
-        new BillPaymentConverter());
+  public AccountService(AccountRepository accountRepository) {
+    this(accountRepository, new AccountIdConverter(), new BillAssembler());
   }
 
   public AccountService(
       AccountRepository accountRepository,
       AccountIdConverter accountIdConverter,
-      BillService billService,
-      BillAssembler billAssembler,
-      BillIdConverter billIdConverter,
-      BillPaymentConverter billPaymentConverter) {
+      BillAssembler billAssembler) {
     this.accountRepository = accountRepository;
     this.accountIdConverter = accountIdConverter;
-    this.billService = billService;
     this.billAssembler = billAssembler;
-    this.billIdConverter = billIdConverter;
-    this.billPaymentConverter = billPaymentConverter;
   }
 
   public void addCarToAccount(AccountId id, Car car) {
@@ -62,46 +42,52 @@ public class AccountService {
     accountRepository.update(account);
   }
 
-  public void addParkingStickerToAccount(
-      AccountId id, ParkingSticker parkingSticker, BillId billId) {
+  public void addBillToAccount(AccountId id, Bill bill) {
+    Account account = getAccount(id);
+
+    account.addBill(bill);
+    accountRepository.update(account);
+  }
+
+  public void addParkingStickerToAccount(AccountId id, ParkingSticker parkingSticker, Bill bill) {
     Account account = getAccount(id);
 
     account.addParkingSticker(parkingSticker);
-    account.addBillId(billId);
+    account.addBill(bill);
     accountRepository.update(account);
   }
 
-  public void addAccessPassToAccount(AccountId id, AccessPass accessPass, BillId billId) {
+  public void addAccessPassToAccount(AccountId id, AccessPass accessPass, Bill bill) {
     Account account = getAccount(id);
 
     account.addAccessPass(accessPass);
-    account.addBillId(billId);
+    account.addBill(bill);
     accountRepository.update(account);
   }
 
-  public void addOffenseToAccount(AccountId id, BillId billId) {
+  public void addOffenseToAccount(AccountId id, Bill bill) {
     Account account = getAccount(id);
 
-    account.addBillId(billId);
+    account.addBill(bill);
     accountRepository.update(account);
   }
 
   public List<BillDto> getBills(String accountId) {
     Account account = getAccount(accountId);
-    List<BillId> billIds = account.getBillIds();
-    List<Bill> bills = billService.getBillsByIds(billIds);
+    List<Bill> bills = account.getBills();
 
     return billAssembler.assemble(bills);
   }
 
-  public BillDto payBill(BillPaymentDto billPaymentDto, String accountId, String billId) {
-    Money amountToPay = billPaymentConverter.convert(billPaymentDto);
-    BillId billNumber = billIdConverter.convert(billId);
+  public Bill getBill(String accountId, BillId billId) {
+    Account account = accountRepository.get(accountIdConverter.convert(accountId));
+    Bill bill = account.getBill(billId);
 
-    Account account = getAccount(accountId);
-    account.verifyAccountHasBillId(billNumber);
+    if (bill == null) {
+      throw new NotFoundBillException(billId);
+    }
 
-    return billService.payBill(billNumber, amountToPay);
+    return bill;
   }
 
   public Account getAccount(String accountId) {
@@ -131,5 +117,9 @@ public class AccountService {
 
   public void update(AccessPass accessPass) {
     accountRepository.update(accessPass);
+  }
+
+  public void update(Bill bill) {
+    accountRepository.update(bill);
   }
 }

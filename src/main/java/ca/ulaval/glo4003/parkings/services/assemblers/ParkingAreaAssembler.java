@@ -9,6 +9,10 @@ import java.util.stream.Collectors;
 public class ParkingAreaAssembler {
   private final ParkingPeriodPriceAssembler parkingPeriodPriceAssembler;
 
+  public ParkingAreaAssembler() {
+    this(new ParkingPeriodPriceAssembler());
+  }
+
   public ParkingAreaAssembler(ParkingPeriodPriceAssembler parkingPeriodPriceAssembler) {
     this.parkingPeriodPriceAssembler = parkingPeriodPriceAssembler;
   }

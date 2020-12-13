@@ -6,7 +6,7 @@ import ca.ulaval.glo4003.initiatives.domain.Initiative;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeCode;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeFundCollector;
 import ca.ulaval.glo4003.initiatives.domain.InitiativeRepository;
-import ca.ulaval.glo4003.initiatives.domain.exceptions.InitiativeNotFoundException;
+import ca.ulaval.glo4003.initiatives.domain.exceptions.NotFoundInitiativeException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +32,7 @@ public class InitiativeRepositoryInMemory implements InitiativeRepository, Initi
     Initiative initiative = initiatives.get(initiativeCode);
 
     if (initiative == null) {
-      throw new InitiativeNotFoundException();
+      throw new NotFoundInitiativeException(initiativeCode);
     }
 
     return initiative;

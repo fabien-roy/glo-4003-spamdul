@@ -4,8 +4,6 @@ import ca.ulaval.glo4003.parkings.services.ParkingAreaService;
 import ca.ulaval.glo4003.reports.api.ReportParkingAreaResource;
 import ca.ulaval.glo4003.reports.api.ReportProfitResource;
 import ca.ulaval.glo4003.reports.domain.*;
-import ca.ulaval.glo4003.reports.domain.scopes.ReportScopeFactory;
-import ca.ulaval.glo4003.reports.infrastructure.ReportQueryFactoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportRepositoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.ReportSummaryFactoryInMemory;
 import ca.ulaval.glo4003.reports.infrastructure.aggregatefunctions.ReportAggregateFunctionFactoryInMemory;
@@ -41,17 +39,5 @@ public class ReportInjector {
         new ReportSummaryFactoryInMemory(new ReportAggregateFunctionFactoryInMemory());
 
     return new ReportParkingAreaService(parkingAreaService, reportRepository, reportSummaryFactory);
-  }
-
-  private ReportPeriodAssembler createReportPeriodAssembler() {
-    ReportDimensionDataAssembler reportDimensionDataAssembler = new ReportDimensionDataAssembler();
-    ReportMetricDataAssembler reportMetricDataAssembler = new ReportMetricDataAssembler();
-    ReportPeriodDataAssembler reportPeriodDataAssembler =
-        new ReportPeriodDataAssembler(reportDimensionDataAssembler, reportMetricDataAssembler);
-    return new ReportPeriodAssembler(reportPeriodDataAssembler);
-  }
-
-  private ReportQueryFactory createReportQueryFactory() {
-    return new ReportQueryFactoryInMemory(new ReportScopeFactory());
   }
 }
