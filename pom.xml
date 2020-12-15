@@ -20,7 +20,7 @@
 		<main-class>ca.ulaval.glo4003.Main</main-class>
 		<quartz.version>2.3.2</quartz.version>
 		<!-- REST -->
-		<jetty.version>9.4.33.v20201020</jetty.version>
+		<jetty.version>11.0.0</jetty.version>
 		<jersey.version>2.32</jersey.version>
 		<javax.ws.rs.version>2.1.1</javax.ws.rs.version>
 		<javax.mail.version>1.5.0-b01</javax.mail.version>
